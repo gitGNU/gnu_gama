@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.3 2003/05/10 13:00:03 cepek Exp $
+ *  $Id: version.cpp,v 1.4 2003/05/11 12:32:25 cepek Exp $
  */
 
 
@@ -59,13 +59,13 @@ const char* GNU_gama_compiler =
 
 =============================================================================
 
-1.7.04 2002-05-??
+1.7.04 2003-05-11
 
    - classes BaseParser and Dataparser moved from namespace GaMaLib to
-     namespace GNU_gama
+     namespace GNU_gama.
 
 
-1.7.03 2002-03-29
+1.7.03 2003-03-29
 
    - first draft of implementation of (g3) classes for computing
      derivatives of Observations by Parameters
