@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.15 2004/01/05 19:07:12 cepek Exp $
+ *  $Id: dataparser.h,v 1.16 2004/02/16 17:54:23 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -71,6 +71,8 @@ namespace GNU_gama {
           s_gama_data,
           s_g3_model,
 
+          // ..................................................
+
           s_g3_point_1,
           s_g3_point_id,
           s_g3_point_2,
@@ -91,29 +93,7 @@ namespace GNU_gama {
           s_g3_point_constr_p,
           s_g3_point_constr_h,
 
-          s_g3_vector,
-          s_g3_vector_from,
-          s_g3_vector_after_from,
-          s_g3_vector_to,
-          s_g3_vector_after_to,
-          s_g3_vector_dx,
-          s_g3_vector_after_dx,
-          s_g3_vector_dy,
-          s_g3_vector_after_dy,
-          s_g3_vector_dz,
-          s_g3_vector_after_dz,
-          s_g3_vector_cxx,
-          s_g3_vector_after_cxx,
-          s_g3_vector_cxy,
-          s_g3_vector_after_cxy,
-          s_g3_vector_cxz,
-          s_g3_vector_after_cxz,
-          s_g3_vector_cyy,
-          s_g3_vector_after_cyy,
-          s_g3_vector_cyz,
-          s_g3_vector_after_cyz,
-          s_g3_vector_czz,
-          s_g3_vector_after_czz,
+          // ..................................................
 
           s_g3_obs,
           s_g3_obs_covmat,
@@ -122,19 +102,34 @@ namespace GNU_gama {
           s_g3_obs_covmat_band,
           s_g3_obs_covmat_after_band,
           s_g3_obs_covmat_flt,
-          s_g3_obs_after_covmat,
+          s_g3_obs_stdev,
+          s_g3_obs_variance,
+
           s_g3_obs_dist,
           s_g3_obs_dist_from,
           s_g3_obs_dist_after_from,
           s_g3_obs_dist_to,
           s_g3_obs_dist_after_to,
           s_g3_obs_dist_val,
-          s_g3_obs_dist_has_val,
-          s_g3_obs_dist_stdev,
-          s_g3_obs_dist_variance,
-          s_g3_obs_dist_has_variance,
+          s_g3_obs_dist_after_val,
+
+          s_g3_obs_vector,
+          s_g3_obs_vector_from,
+          s_g3_obs_vector_after_from,
+          s_g3_obs_vector_to,
+          s_g3_obs_vector_after_to,
+          s_g3_obs_vector_dx,
+          s_g3_obs_vector_after_dx,
+          s_g3_obs_vector_dy,
+          s_g3_obs_vector_after_dy,
+          s_g3_obs_vector_dz,
+          s_g3_obs_vector_after_dz,
+
+          // ..................................................
 
           s_text,
+
+          // ..................................................
 
           s_adj_input_data_1,
           s_adj_input_data_2,
@@ -189,12 +184,6 @@ namespace GNU_gama {
           t_constr_p,
           t_constr_h,
           t_covmat,
-          t_cxx,
-          t_cxy,
-          t_cxz,
-          t_cyy,
-          t_cyz,
-          t_czz,
           t_dim,
           t_dist,
           t_dx,
@@ -262,12 +251,13 @@ namespace GNU_gama {
       int g3_point_constr       (const char *name);
       int g3_point_constr_p     (const char *name);
       int g3_point_constr_h     (const char *name);
-      int g3_vector             (const char *name, const char **atts);
-      int g3_vector             (const char *name);
       int g3_obs                (const char *name, const char **atts);
       int g3_obs                (const char *name);
       int g3_obs_cov            (const char *name);
+      int g3_obs_stdev          (const char *name);
+      int g3_obs_variance       (const char *name);
       int g3_obs_dist           (const char *name);
+      int g3_obs_vector         (const char *name);
       int text                  (const char *name);
       int adj_input_data        (const char *name, const char **atts);
       int adj_input_data        (const char *name);
@@ -295,12 +285,6 @@ namespace GNU_gama {
       int parser_error (const char *name, const char **atts);
       int start_tag    (const char *name, const char **atts);
       int white_spaces (const char *name, int len);
-      int append_sp    (const char *name);
-      int g3_from      (const char *name);
-      int g3_to        (const char *name);
-      int g3_val       (const char *name);
-      int g3_stdev     (const char *name);
-      int g3_variance  (const char *name);
 
       void init(int state, int tag, 
                 int next_state, int end_state, int after_state,
@@ -317,12 +301,17 @@ namespace GNU_gama {
       g3::Point::Name    g3to;
       g3::ObsCluster*    g3obs_cluster;
       double             g3val;
-      double             g3variance;
-      std::list<double>  g3var_list;
+
+      typedef g3::Model::ObservationType::CovarianceMatrix g3Cov;
+      std::list<g3Cov>   g3cov_list;
+
+      std::string g3_get_id(std::string err);
+
 
       // DataObject::Text
 
       std::string      text_buffer;
+
 
       // DataObject::AdjInput
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.18 2004/01/26 19:03:09 cepek Exp $
+ *  $Id: g3_model.h,v 1.19 2004/02/16 17:52:34 cepek Exp $
  */
 
 #include <gnu_gama/model.h>
@@ -80,8 +80,10 @@ namespace GNU_gama {  namespace g3 {
     void update_linearization();
     void update_adjustment();
         
-    bool revision_visit     (Distance* d);
-    void linearization_visit(Distance* d);
+    bool revision_visit     (Distance*);
+    void linearization_visit(Distance*);
+    bool revision_visit     (Vector*  );
+    void linearization_visit(Vector*  );
 
     void write_xml_adjustment_input_data(std::ostream&);
 

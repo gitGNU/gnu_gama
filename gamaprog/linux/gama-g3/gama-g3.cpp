@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: gama-g3.cpp,v 1.7 2004/01/26 19:03:09 cepek Exp $
+ * $Id: gama-g3.cpp,v 1.8 2004/02/16 17:54:23 cepek Exp $
  */
 
 #include <fstream>
@@ -174,6 +174,19 @@ int main(int argc, char* argv[])
                    << "  val = "
                    << d->obs();
               
+            }
+          if (Vector* v = dynamic_cast<Vector*>(*i))
+            {
+              cerr << " vector   : from = "
+                   << v->from
+                   << "  to = " 
+                   << v->to
+                   << "  dx = "
+                   << v->dx()
+                   << "  dy = "
+                   << v->dy()
+                   << "  dz = "
+                   << v->dz();
             }
           cerr << "\n";
           ++i;

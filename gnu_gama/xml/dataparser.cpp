@@ -20,123 +20,12 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.16 2004/01/25 11:07:13 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.17 2004/02/16 17:54:23 cepek Exp $
  */
 
-// #########################################################################
-#ifdef GNU_Gama_DataParser_demo
-
-#include <gnu_gama/xml/dataparser.h>
-#include <gnu_gama/list.h>
-#include <gamalib/language.h>
-#include <cstring>
-#include <cctype>
-#include <iostream>
-
-
-int main()
-{
-  using namespace std;
-  using namespace GNU_gama;
-  
-  const char* xml_input_data = 
-
-    "<?xml version=\"1.0\" ?>\n"
-    "<!DOCTYPE gnu-gama-data SYSTEM \"gnu-gama-data.dtd\">\n\n"
-
-    "<gnu-gama-data>\n\n"
-    "<text>\n"
-    "qwerty ...\n"
-    "asdfgh ...\n"
-    "zxcvbn ...\n"
-    "</text>\n\n"
-
-    "<adj-input-data>\n"
-    "  <sparse-mat>\n"
-    "    <rows>3</rows> <cols>2</cols> <nonz>999</nonz>\n"
-    "      <row> <nonz>1</nonz> <int>1</int> <flt>1.1</flt></row>\n"
-    "      <row> <nonz>1</nonz> <int>2</int> <flt>2.2</flt></row>\n"
-    "      <row> <nonz>2</nonz> <int>1</int> <flt>3.3</flt>      \n"
-    "                           <int>2</int> <flt>4.4</flt></row>\n"
-    "  </sparse-mat>\n\n"
-
-    "  <block-diagonal>\n"
-    "    <blocks>1</blocks> <nonz>678</nonz>\n"
-    "      <block> <dim>3</dim> <width>0</width>\n"
-    "      <flt>1.01</flt>"
-    "      <flt>2.01</flt>"
-    "      <flt>3.01</flt>"
-    "      </block>\n"
-    "  </block-diagonal>\n\n"
-
-    "     <vector>\n"
-    "       <dim>3</dim>\n"
-    "         <flt>10.1</flt>\n"
-    "         <flt>10.2</flt>\n"
-    "         <flt>10.3</flt>\n"
-    "     </vector>\n\n"
-
-    "     <array>\n"
-    "       <dim>2</dim>\n"
-    "         <int>1</int>\n"
-    "         <int>2</int>\n"
-    "     </array>\n"
-
-    "</adj-input-data>\n"
-
-    "<text>\n"
-    "This is a DataParser demo ...\n"
-    "</text>\n\n"
-    
-    "\n</gnu-gama-data>\n\n"
-    ;
-
-  try 
-    {
-      GaMaLib::set_gama_language(GaMaLib::en);
-
-      List<DataObject::Base*> objects;
-      DataParser dp(objects);
-      dp.xml_parse(xml_input_data, strlen(xml_input_data), 1);
-      
-      cout << DataObject::Base::xml_begin();
-
-      for (List<DataObject::Base*>::const_iterator i=objects.begin(); 
-           i!=objects.end(); ++i)
-        {
-          cout << (*i)->xml();
-          delete *i;
-        }
-
-      cout << DataObject::Base::xml_end();
-    }
-  catch(Exception::parser e)
-    {
-      cout << "\nOn line " << e.line 
-           << " --- exception : <"   << e.str 
-           << ">  --- error code : " << e.error_code << endl;
-      return 1;
-    }
-  catch(Exception::string g)
-    {
-      cout << "\nGaMaLib Exception : " << g.str << endl;
-      return 2;
-    }
-  catch(...)
-    {
-      cout << "\nUnknown exception\n";
-      return 3;
-    }
-
-  return 0;
-}
-
-#else
-// #########################################################################
 
 
 #include <gnu_gama/xml/dataparser.h>
-#include <gnu_gama/g3/g3_observation/g3_cluster_vec.h>
 #include <cstring>
 
 using namespace std;
@@ -165,7 +54,6 @@ DataParser::~DataParser()
 DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
 {
   g3model = 0;
-  g3variance = 0;
 
   adj_sparse_mat = 0;
   adj_block_diagonal = 0;
@@ -220,12 +108,12 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
   init(  s_g3_point_2, t_x,
          //----------------
          s_g3_point_x, 0, s_g3_point_after_x,
-         0, &DataParser::add_text, &DataParser::append_sp);
+         0, &DataParser::add_text, 0);
 
   init(  s_g3_point_after_x, t_y,
          //----------------------
          s_g3_point_y, 0, s_g3_point_after_y,
-         0, &DataParser::add_text, &DataParser::append_sp);
+         0, &DataParser::add_text, 0);
 
   init(  s_g3_point_after_y, t_z,
          //----------------------
@@ -287,125 +175,86 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
          s_g3_point_constr_h, 0, s_g3_point_2,
          0, 0, &DataParser::g3_point_constr_h);
 
-  // .....  <g3-model> <vector>  ....................................
-
-  init(  s_g3_model, t_vector,
-         //-------------------
-         s_g3_vector, s_g3_vector_after_czz, 0,
-         &DataParser::g3_vector, 0, &DataParser::g3_vector);
-
-  init(  s_g3_vector, t_from,
-         //------------------
-         s_g3_vector_from, 0, s_g3_vector_after_from,
-         0, &DataParser::add_text, &DataParser::g3_from);
-
-  init(  s_g3_vector_after_from, t_to,
-         //---------------------------
-         s_g3_vector_to, 0, s_g3_vector_after_to,
-         0, &DataParser::add_text, &DataParser::g3_to);
-
-  init(  s_g3_vector_after_from, t_to,
-         //---------------------------
-         s_g3_vector_to, 0, s_g3_vector_after_to,
-         0, &DataParser::add_text, &DataParser::g3_to);
-
-  init(  s_g3_vector_after_to, t_dx,
-         //-------------------------
-         s_g3_vector_dx, 0, s_g3_vector_after_dx,
-         0, &DataParser::add_text, &DataParser::append_sp);
-
-  init(  s_g3_vector_after_dx, t_dy,
-         //-------------------------
-         s_g3_vector_dy, 0, s_g3_vector_after_dy,
-         0, &DataParser::add_text, &DataParser::append_sp);
-
-  init(  s_g3_vector_after_dy, t_dz,
-         //-------------------------
-         s_g3_vector_dz, 0, s_g3_vector_after_dz,
-         0, &DataParser::add_text, &DataParser::append_sp);
-
-  init(  s_g3_vector_after_dz, t_cxx,
-         //--------------------------
-         s_g3_vector_cxx, 0, s_g3_vector_after_cxx,
-         0, &DataParser::add_text, &DataParser::append_sp);
-
-  init(  s_g3_vector_after_cxx, t_cxy,
-         //---------------------------
-         s_g3_vector_cxy, 0, s_g3_vector_after_cxy,
-         0, &DataParser::add_text, &DataParser::append_sp);
-
-  init(  s_g3_vector_after_cxy, t_cxz,
-         //---------------------------
-         s_g3_vector_cxz, 0, s_g3_vector_after_cxz,
-         0, &DataParser::add_text, &DataParser::append_sp);
-
-  init(  s_g3_vector_after_cxz, t_cyy,
-         //---------------------------
-         s_g3_vector_cyy, 0, s_g3_vector_after_cyy,
-         0, &DataParser::add_text, &DataParser::append_sp);
-
-  init(  s_g3_vector_after_cyy, t_cyz,
-         //---------------------------
-         s_g3_vector_cyz, 0, s_g3_vector_after_cyz,
-         0, &DataParser::add_text, &DataParser::append_sp);
-
-  init(  s_g3_vector_after_cyz, t_czz,
-         //---------------------------
-         s_g3_vector_czz, 0, s_g3_vector_after_czz,
-         0, &DataParser::add_text, &DataParser::append_sp);
-
   // .....  <g3-model> <obs>  ........................................
-
+  
   init(  s_g3_model, t_obs,
          //------------------
          s_g3_obs, 0, 0,
-         &DataParser::g3_obs, 0, &DataParser::g3_obs,
-         s_g3_obs_after_covmat);
+         &DataParser::g3_obs, 0, &DataParser::g3_obs);
          
   // .....  <g3-model> <obs> <cov-mat>  ..............................
 
   init(s_g3_obs, t_covmat,
-       s_g3_obs_covmat, s_g3_obs_covmat_after_band, s_g3_obs_after_covmat,
+       s_g3_obs_covmat, s_g3_obs_covmat_after_band, 0,
        0, 0, &DataParser::g3_obs_cov);
 
   init(s_g3_obs_covmat, t_dim,
        s_g3_obs_covmat_dim, 0, s_g3_obs_covmat_after_dim,
-       0, &DataParser::add_text, &DataParser::append_sp);
+       0, &DataParser::add_text, 0);
 
   init(s_g3_obs_covmat_after_dim, t_band,
        s_g3_obs_covmat_band, 0, s_g3_obs_covmat_after_band,
-       0, &DataParser::add_text, &DataParser::append_sp);
+       0, &DataParser::add_text, 0);
 
   init(s_g3_obs_covmat_after_band, t_flt,
        s_g3_obs_covmat_flt, 0, s_g3_obs_covmat_after_band,
-       0, &DataParser::add_text, &DataParser::append_sp);
+       0, &DataParser::add_text, 0);
+
+  // .....  <g3-model> <obs> <stdev>  ................................
+
+  init(s_g3_obs, t_stdev,
+       s_g3_obs_stdev, 0, s_g3_obs,
+       0, &DataParser::add_text, &DataParser::g3_obs_stdev);
+
+  // .....  <g3-model> <obs> <variance>  .............................
+
+  init(s_g3_obs, t_variance,
+       s_g3_obs_variance, 0, s_g3_obs,
+       0, &DataParser::add_text, &DataParser::g3_obs_variance);
 
   // .....  <g3-model> <obs> <distance>  .............................
 
   init(s_g3_obs, t_dist,
-       s_g3_obs_dist, s_g3_obs_dist_has_val, 0,
-       0, 0, &DataParser::g3_obs_dist,
-       s_g3_obs_dist_has_variance);
+       s_g3_obs_dist, s_g3_obs_dist_after_val, 0,
+       0, 0, &DataParser::g3_obs_dist);
 
   init(s_g3_obs_dist, t_from,
        s_g3_obs_dist_from, 0, s_g3_obs_dist_after_from,
-       0, &DataParser::add_text, &DataParser::g3_from);
+       0, &DataParser::add_text, 0);
 
   init(s_g3_obs_dist_after_from, t_to,
        s_g3_obs_dist_to, 0, s_g3_obs_dist_after_to,
-       0, &DataParser::add_text, &DataParser::g3_to);
+       0, &DataParser::add_text, 0);
 
   init(s_g3_obs_dist_after_to, t_val,
-       s_g3_obs_dist_val, 0, s_g3_obs_dist_has_val,
-       0, &DataParser::add_text, &DataParser::g3_val);
+       s_g3_obs_dist_val, 0, s_g3_obs_dist_after_val,
+       0, &DataParser::add_text, 0);
 
-  init(s_g3_obs_dist_has_val, t_stdev,
-       s_g3_obs_dist_stdev, 0, s_g3_obs_dist_has_variance,
-       0, &DataParser::add_text, &DataParser::g3_stdev);
+  // .....  <g3-model> <obs> <vector>  ...............................
 
-  init(s_g3_obs_dist_has_val, t_variance,
-       s_g3_obs_dist_variance, 0, s_g3_obs_dist_has_variance,
-       0, &DataParser::add_text, &DataParser::g3_variance);
+  init(s_g3_obs, t_vector,
+       s_g3_obs_vector, s_g3_obs_vector_after_dz, 0,
+       0, 0, &DataParser::g3_obs_vector);
+  
+  init(s_g3_obs_vector, t_from,
+       s_g3_obs_vector_from, 0, s_g3_obs_vector_after_from,
+       0, &DataParser::add_text, 0);
+
+  init(s_g3_obs_vector_after_from, t_to,
+       s_g3_obs_vector_to, 0, s_g3_obs_vector_after_to,
+       0, &DataParser::add_text, 0);
+
+  init(s_g3_obs_vector_after_to, t_dx,
+       s_g3_obs_vector_dx, 0, s_g3_obs_vector_after_dx,
+       0, &DataParser::add_text, 0);
+
+  init(s_g3_obs_vector_after_dx, t_dy,
+       s_g3_obs_vector_dy, 0, s_g3_obs_vector_after_dy,
+       0, &DataParser::add_text, 0);
+
+  init(s_g3_obs_vector_after_dy, t_dz,
+       s_g3_obs_vector_dz, 0, s_g3_obs_vector_after_dz,
+       0, &DataParser::add_text, 0);
 
   // .....  <text>  ..................................................
  
@@ -432,12 +281,12 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
   init(  s_sparse_mat_1, t_rows, 
        //-----------------------
        s_sparse_mat_rows, 0, s_sparse_mat_2,
-       0, &DataParser::add_text, &DataParser::append_sp);
+       0, &DataParser::add_text, 0);
 
   init(  s_sparse_mat_2, t_cols,
        //-----------------------
        s_sparse_mat_cols, 0, s_sparse_mat_3,
-       0, &DataParser::add_text, &DataParser::append_sp);
+       0, &DataParser::add_text, 0);
 
   init(  s_sparse_mat_3, t_nonz,
        //-----------------------
@@ -457,7 +306,7 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
   init(  s_sparse_mat_row_2, t_int, 
        //--------------------------
        s_sparse_mat_row_int, 0, s_sparse_mat_row_3,
-       0, &DataParser::add_text, &DataParser::append_sp);
+       0, &DataParser::add_text, 0);
 
   init(  s_sparse_mat_row_3, t_flt,
        //--------------------------
@@ -474,7 +323,7 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
   init(  s_block_diagonal_1, t_blocks,
        //-----------------------------
        s_block_diagonal_blocks, 0, s_block_diagonal_2,
-       0, &DataParser::add_text, &DataParser::append_sp);
+       0, &DataParser::add_text, 0);
 
   init(  s_block_diagonal_2, t_nonz,
        //---------------------------
@@ -489,7 +338,7 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
   init(  s_block_diagonal_block_1, t_dim,
        //--------------------------------
        s_block_diagonal_block_d, 0, s_block_diagonal_block_2,
-       0, &DataParser::add_text, &DataParser::append_sp);
+       0, &DataParser::add_text, 0);
 
   init(  s_block_diagonal_block_2, t_width,
        //----------------------------------
@@ -595,12 +444,6 @@ DataParser::data_tag DataParser::tag(const char* c)
       if (!strcmp(c, "constr-position")) return t_constr_p;
       if (!strcmp(c, "constr-height"  )) return t_constr_h;
       if (!strcmp(c, "cov-mat"        )) return t_covmat;
-      if (!strcmp(c, "cxx"            )) return t_cxx;
-      if (!strcmp(c, "cxy"            )) return t_cxy;
-      if (!strcmp(c, "cxz"            )) return t_cxz;
-      if (!strcmp(c, "cyy"            )) return t_cyy;
-      if (!strcmp(c, "cyz"            )) return t_cyz;
-      if (!strcmp(c, "czz"            )) return t_czz;
       break;
     case 'd' :
       if (!strcmp(c, "dim"            )) return t_dim;
@@ -722,30 +565,9 @@ int DataParser::white_spaces(const char* s, int len)
 
 int DataParser::add_text(const char* s, int len)
 {
+  text_buffer += ' ';
   text_buffer += string(s, len);
   return 0;
-}
-
-int DataParser::append_sp(const char *name)
-{
-  text_buffer += ' ';
-  return end_tag(name);
-}
-
-int DataParser::g3_from(const char *name)
-{
-  g3from = text_buffer;
-  text_buffer.erase();
-
-  return  end_tag(name);
-}
-
-int DataParser::g3_to(const char *name)
-{
-  g3to = text_buffer;
-  text_buffer.erase();
-
-  return  end_tag(name);
 }
 
 int DataParser::g3_get_float(const char *name, double& d)
@@ -760,24 +582,6 @@ int DataParser::g3_get_float(const char *name, double& d)
 
   return error(string("### bad data in tag <") + 
                string(name) + string(">"));
-}
-
-int DataParser::g3_val(const char *name) 
-{ 
-  return g3_get_float(name, g3val); 
-}
-
-int DataParser::g3_stdev(const char *name) 
-{ 
-  double tmp;
-  int result = g3_get_float(name, tmp); 
-  g3variance = tmp*tmp;
-  return result;
-}
-
-int DataParser::g3_variance(const char *name) 
-{ 
-  return g3_get_float(name, g3variance);
 }
 
 bool DataParser::pure_data(std::istream& istr)
@@ -1085,53 +889,7 @@ int DataParser::g3_model(const char *name)
   return  end_tag(name);
 }
 
-int DataParser::g3_vector(const char *name, const char **atts)
-{
-  no_attributes( name, atts );
-  state = next[state][tag(name)];
-
-  g3from = "";
-  g3to   = "";
-
-  return 0;
-}
-
-int DataParser::g3_vector(const char *name)
-{
-  stringstream istr(text_buffer);
-  double dx, dy, dz, cxx, cxy, cxz, cyy, cyz, czz;
-
-  if (!(istr >> dx >> dy >> dz >> cxx >> cxy >> cxz >> cyy >> cyz >> czz))
-    {
-      return error("### bad format of numerical data in <vector>");
-    }
-
-  text_buffer.erase();
-
-  using namespace g3;
-  
-  Vector* v = new Vector(dx, dy, dz);
-  v->from = g3from;
-  v->to   = g3to;
-
-  // g3::Model::ObservationData *obs = g3model->obs;
-  // Vectors* vectors = new Vectors(obs);
-  // 
-  // vectors->add(v);
-  // vectors->covariance_matrix.reset(3,2);
-  // vectors->covariance_matrix(1,1) = cxx;
-  // vectors->covariance_matrix(1,2) = cxy;
-  // vectors->covariance_matrix(1,3) = cxz;
-  // vectors->covariance_matrix(2,2) = cyy;
-  // vectors->covariance_matrix(2,3) = cyz;
-  // vectors->covariance_matrix(3,3) = czz;
-  // 
-  // obs->CL.push_back(vectors);
-
-  return  end_tag(name);
-}
-
-int DataParser::g3_point_id(const char *name)
+std::string DataParser::g3_get_id(std::string err)
 {
   char    c;
   string id;
@@ -1142,10 +900,16 @@ int DataParser::g3_point_id(const char *name)
   while (i!=e && !isspace((c = *i))) { ++i; id += c; }
   while (i!=e &&  isspace((c = *i))) { ++i;          }
 
-  if (i!=e || id.empty())
-    return error("### bad point name in <id> tag");
+  if (i!=e || id.empty()) error(err);
 
   text_buffer.erase();
+  return id;
+}
+
+
+int DataParser::g3_point_id(const char *name)
+{
+  string id = g3_get_id("### bad point name in <id> tag");
 
   point = g3model->get_point(id);
 
@@ -1269,31 +1033,51 @@ int DataParser::g3_obs(const char *name, const char **atts)
 int DataParser::g3_obs(const char *name)
 {
   using namespace g3;
-  int cov_dim  = g3obs_cluster->covariance_matrix.dim();
-  int obs_dim  = g3var_list.size();
 
-  if (cov_dim == 0)
+  int obs_dim = 0; 
+  for (int i=0, N=g3obs_cluster->observation_list.size(); i<N; i++)
     {
-      // implicit diagonal covariance matrix
-      
-      g3obs_cluster->covariance_matrix.reset(obs_dim, 0);
-      std::list<double>::const_iterator ivar = g3var_list.begin();
-      double var;
-      for (int i=1; i<=obs_dim; i++)
-        {
-          var = *ivar;
-          g3obs_cluster->covariance_matrix(i,i) = var;
-          ++ivar;
-        }
+      g3::Observation* obs = g3obs_cluster->observation_list[i];
+      obs_dim += obs->dimension();
     }
 
+  int cov_dim  = 0;
+  int cov_band = 0; 
+  typedef std::list<g3Cov>::const_iterator Iterator;
+  for (Iterator i=g3cov_list.begin(), e=g3cov_list.end(); i!=e; ++i)
+    {
+      const g3Cov& cov = *i;
+
+      cov_dim += cov.dim();
+      if (int(cov.bandWidth()) > cov_band) cov_band = cov.bandWidth();
+    }
+
+  if (obs_dim == 0)       return error("### no observations in <obs>");
+  if (obs_dim != cov_dim) return error("### bad covariance matrix dimension");
+
+  g3obs_cluster->covariance_matrix.reset(cov_dim, cov_band);
+  g3obs_cluster->covariance_matrix.set_zero();
+
+  int offset = 0;
+  for (Iterator i=g3cov_list.begin(), e=g3cov_list.end(); i!=e; ++i)
+    {
+      const g3Cov& cov = *i;
+
+      for (int i=1; i<=cov.dim(); i++)
+        for (int j=0; j<=cov.bandWidth() && i+j<=cov.dim(); j++)
+          g3obs_cluster->covariance_matrix(offset+i, offset+i+j) = cov(i, i+j);
+
+      offset += cov.dim();
+    }
+
+  /* TODO: !!! here we should better test Cholesky decomposition !!! */
   for (int N=g3obs_cluster->covariance_matrix.dim(), i=1; i<=N; i++)
     if(g3obs_cluster->covariance_matrix(i,i) <= 0)
       return error("### zero or negative variance");
 
   g3obs_cluster->update();
   g3model->obsdata.CL.push_back(g3obs_cluster);
-  g3var_list.clear();
+  g3cov_list.clear();
 
   return  end_tag(name);
 }
@@ -1307,34 +1091,97 @@ int DataParser::g3_obs_cov(const char *name)
 
   if (!(istr >> d >> b))  return error("### bad cov-mat");
 
-  g3obs_cluster->covariance_matrix.reset(d, b);
+  g3Cov cov(d, b);
+  cov.set_zero();
   for (int i=1; i<=d; i++)          // upper triangular matrix by rows
     for (int j=i; j<=i+b && j<=d; j++)
       if (istr >> f)
-        g3obs_cluster->covariance_matrix(i,j) = f;
+        cov(i,j) = f;
       else
         return error("### bad cov-mat / some data missing");
 
   if (!pure_data(istr)) return error("### bad cov-mat / redundant data");
 
   text_buffer.clear();
+  g3cov_list.push_back(cov);
+
   return  end_tag(name);
+}
+
+int DataParser::g3_obs_stdev(const char *name)
+{
+  using namespace g3;
+  stringstream istr(text_buffer);
+  g3Cov   cov(1,0);
+  double  f;
+  
+  if (!pure_data(istr >> f)) return error("### bad stdev");
+  text_buffer.clear();
+
+  cov(1,1) = f*f;
+  g3cov_list.push_back(cov);
+
+  return end_tag(name);
+}
+
+int DataParser::g3_obs_variance(const char *name)
+{
+  using namespace g3;
+  stringstream istr(text_buffer);
+  g3Cov   cov(1,0);
+  double  f;
+  
+  if (!pure_data(istr >> f)) return error("### bad variance");
+  text_buffer.clear();
+
+  cov(1,1) = f;
+  g3cov_list.push_back(cov);
+
+  return end_tag(name);
 }
 
 int DataParser::g3_obs_dist(const char *name)
 {
   using namespace g3;  
-  g3var_list.push_back(g3variance);
-  g3variance = 0;
+  stringstream istr(text_buffer);
+  string       from, to;
+  double       val;
 
-  Distance* distance = new Distance;
-  distance->from = g3from;
-  distance->to   = g3to;
-  distance->set(g3val);
-  g3obs_cluster->observation_list.push_back(distance);  
+  if (pure_data(istr >> from >> to >> val))
+    {
+      text_buffer.clear();
 
-  return  end_tag(name);
+      Distance* distance = new Distance;
+      distance->from = from;
+      distance->to   = to;
+      distance->set(val);
+      g3obs_cluster->observation_list.push_back(distance);  
+
+      return  end_tag(name);
+    }
+
+  return error("### bad <distance>");
 }
 
+int DataParser::g3_obs_vector(const char *name)
+{
+  using namespace g3;  
+  stringstream istr(text_buffer);
+  string from, to;
+  double dx, dy, dz;
 
-#endif
+  if (pure_data(istr >> from >> to >> dx >> dy >> dz))
+    {
+      text_buffer.clear();
+
+      Vector* vector = new Vector;
+      vector->from = from;
+      vector->to   = to;
+      vector->set_dxyz(dx, dy, dz);
+      g3obs_cluster->observation_list.push_back(vector);
+
+      return end_tag(name);
+    }
+  
+  return error("### bad <vector>");
+}

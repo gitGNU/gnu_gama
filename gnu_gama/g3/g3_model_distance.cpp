@@ -20,60 +20,12 @@
 */
 
 /*
- *  $Id: g3_model_distance.cpp,v 1.2 2004/01/26 19:03:09 cepek Exp $
+ *  $Id: g3_model_distance.cpp,v 1.3 2004/02/16 17:52:34 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
 
 using namespace GNU_gama::g3;
-
-//---  namespace {
-//---  
-//---    struct distance
-//---    {
-//---      Point   *A, *B;
-//---      double   Na, Ea, Ua,  Nb, Eb, Ub;
-//---  
-//---      distance(Point* a, Point* b, double ua, double ub)
-//---        : A(a), B(b), Na(0.), Ea(0.), Ua(ua), Nb(0.), Eb(0.), Ub(ub)
-//---      {
-//---      }
-//---  
-//---      double value()
-//---      {
-//---        double dx 
-//---          = B->X() + B->x_transform(Nb, Eb, Ub)
-//---          - A->X() - A->x_transform(Na, Ea, Ua);
-//---  
-//---        double dy 
-//---          = B->Y() + B->y_transform(Nb, Eb, Ub)
-//---          - A->Y() - A->y_transform(Na, Ea, Ua);
-//---  
-//---        double dz 
-//---          = B->Z() + B->z_transform(Nb, Eb, Ub)
-//---          - A->Z() - A->z_transform(Na, Ea, Ua);
-//---  
-//---        return std::sqrt(dx*dx + dy*dy + dz*dz);
-//---      }
-//---  
-//---      double d(double& p)
-//---      {
-//---        const double diff = 0.5;
-//---        double dd, tmp = p;
-//---  
-//---        p  += diff;
-//---        dd  = value();
-//---        p  -= 2*diff;
-//---        dd -= value();
-//---        dd /= (2*diff);
-//---  
-//---        p = tmp;
-//---        return dd;
-//---      }
-//---  
-//---    };
-//---  }
-
 
 bool Model::revision_visit(Distance* d)
 {
