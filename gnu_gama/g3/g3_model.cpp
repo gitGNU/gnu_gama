@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.16 2003/11/25 22:17:14 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.17 2003/12/23 19:52:49 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -33,7 +33,7 @@ using namespace std;
 using namespace GNU_gama::g3;
 
 
-g3_Model::g3_Model() 
+Model::Model() 
 { 
   using namespace GNU_gama;
 
@@ -47,7 +47,7 @@ g3_Model::g3_Model()
 }
 
 
-g3_Model::~g3_Model()
+Model::~Model()
 {
   delete points;
   delete obs;
@@ -55,7 +55,7 @@ g3_Model::~g3_Model()
 }
 
 
-Point* g3_Model::get_point(const Point::Name& name)
+Point* Model::get_point(const Point::Name& name)
 {
   Point* p = points->find(name);
   if (p == 0)
@@ -69,7 +69,7 @@ Point* g3_Model::get_point(const Point::Name& name)
 }
 
 
-void g3_Model::write_xml(std::ostream& out) const
+void Model::write_xml(std::ostream& out) const
 {
   using namespace std;
  
@@ -83,7 +83,7 @@ void g3_Model::write_xml(std::ostream& out) const
 
   {
     out << "\n";
-    for (g3_Model::PointBase::const_iterator  // "g3_Model::" needed by bcc32 5.6 ???
+    for (Model::PointBase::const_iterator  // "Model::" needed by bcc32 5.6 ???
            b = points->begin(), e = points->end(); b != e; ++b)
       {
         const Point *p = *b;
@@ -127,7 +127,7 @@ void g3_Model::write_xml(std::ostream& out) const
   }
   
   {
-    for (g3_Model::ObservationData::ClusterList::const_iterator
+    for (Model::ObservationData::ClusterList::const_iterator
            b = obs->CL.begin(), e=obs->CL.end();  b != e;  ++b)
       if (const g3Cluster* c = dynamic_cast<const g3Cluster*>(*b))
       {
@@ -144,9 +144,9 @@ void g3_Model::write_xml(std::ostream& out) const
 }
 
 
-void g3_Model::pre_linearization()
+void Model::pre_linearization()
 {
-  for (g3_Model::ObservationData::ClusterList::iterator
+  for (Model::ObservationData::ClusterList::iterator
          i=obs->CL.begin(), e=obs->CL.end();  i != e;  ++i)
     if (g3Cluster* cluster = dynamic_cast<g3Cluster*>(*i))
     {
@@ -162,17 +162,17 @@ void g3_Model::pre_linearization()
 }
 
 
-void g3_Model::update_init()
+void Model::update_init()
 {
   return next_state_(init_);
 }
 
 
-void g3_Model::update_points()
+void Model::update_points()
 {
   if (!check_init()) update_init();
 
-  for (g3_Model::PointBase::iterator 
+  for (Model::PointBase::iterator 
          i=points->begin(), e=points->end(); i!=e; ++i)
     {
       Point* point = (*i);
@@ -184,7 +184,7 @@ void g3_Model::update_points()
 }
 
 
-void g3_Model::update_observations()
+void Model::update_observations()
 {
   if (!check_points()) update_points();
 
@@ -192,7 +192,7 @@ void g3_Model::update_observations()
 }
 
 
-void g3_Model::update_linearization()
+void Model::update_linearization()
 {
   if (!check_observations()) update_observations();
 
@@ -200,7 +200,7 @@ void g3_Model::update_linearization()
 }
 
 
-void g3_Model::update_adjustment()
+void Model::update_adjustment()
 {
   if (!check_linearization()) update_linearization();
 
@@ -208,7 +208,7 @@ void g3_Model::update_adjustment()
 }
 
 
-bool g3_Model::revision(Distance* d)
+bool Model::revision_visit(Distance* d)
 {
   if (!d->active()) return false;
 

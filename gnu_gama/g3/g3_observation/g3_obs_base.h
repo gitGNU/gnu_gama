@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_base.h,v 1.14 2003/11/25 22:17:14 cepek Exp $
+ *  $Id: g3_obs_base.h,v 1.15 2003/12/23 19:52:49 uid66336 Exp $
  */
 
 #include <gnu_gama/model.h>
@@ -31,6 +31,7 @@
 #ifndef GNU_gama__g3_obs_base_h_gnugamag3obs_baseh___gnu_gama_g3obs
 #define GNU_gama__g3_obs_base_h_gnugamag3obs_baseh___gnu_gama_g3obs
 
+#include <gnu_gama/model.h>
 #include <gnu_gama/g3/g3_point.h>
 #include <gnu_gama/matvec.h>
 
@@ -38,34 +39,23 @@
 namespace GNU_gama {  namespace g3 {
 
 
-  class Observation {
+  class Observation : public GNU_gama::Observation 
+  {
   public:
 
     typedef GNU_gama::Cov Cov;
 
-    Observation(int n) : parlist(n), model(0), time(0), active_(true) {}
-    virtual ~Observation() {}
+    Observation(int n) : time(0), active_(true) {}
 
     virtual double obs() const { return 0; }
-
-    virtual double parlist_value() const     = 0;      
-    virtual void   parlist_init (g3_Model*)     = 0;
-    virtual double derivative   (Parameter*) = 0;
-    virtual void   linearization(GNU_gama::SparseVector<>&);
 
     bool    active() const     { return  active_;      }
     bool    set_active(bool b) { return (active_ = b); }
 
-    double  numerical_derivative (Parameter*);
-
-    ParameterList  parlist;
 
   protected:  
-
-    g3_Model*  model;
+    
     double  time;
-
-    virtual void prepare_to_linearization() {}
 
   private:
 

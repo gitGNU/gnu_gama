@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: list.h,v 1.5 2003/11/24 17:15:40 cepek Exp $
+ *  $Id: list.h,v 1.6 2003/12/23 19:52:49 uid66336 Exp $
  */
 
 #include <vector>
@@ -67,8 +67,10 @@ namespace GNU_gama {
       void pop_back()                             { vec.pop_back();       }
       void clear()                                { vec.clear();          }
       void erase (typename List<T*>::iterator i)  { vec.erase(i.vit);     }
-      void insert(typename List<T*>::iterator i, 
-                  T* value)                       { vec.insert(i, value); }
+      void insert(typename List<T*>::iterator i,  T* value)  
+        { 
+          vec.insert(i.vit, value); 
+        }
 
 
       T* operator[](std::size_t n)
@@ -169,7 +171,8 @@ namespace GNU_gama {
           #ifdef __BORLANDC__
           friend class List<T*>;
           #else
-          friend void  List<T*>::erase(typename List<T*>::iterator i);
+          friend void List<T*>::erase (typename List<T*>::iterator i);
+          friend void List<T*>::insert(typename List<T*>::iterator i, T* val);
           #endif
 
         };

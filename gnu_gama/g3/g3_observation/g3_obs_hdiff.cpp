@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_hdiff.cpp,v 1.11 2003/11/25 22:17:14 cepek Exp $
+ *  $Id: g3_obs_hdiff.cpp,v 1.12 2003/12/23 19:52:49 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -28,58 +28,3 @@
 
 using namespace GNU_gama::g3;
 
-
-double HeightDiff::parlist_value() const
-{
-  Parameter** p = parlist.begin();
-  double s = (*p++)->value(time);
-  double t = (*p++)->value(time);
-
-  return t - s;
-}
-
-
-void HeightDiff::parlist_init(g3_Model* m)
-{
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // !!! this is not a real solution; used here just for testing !!! 
-  // !!! and will be rewritten later                             !!!
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-  model = m;
-  
-  if (!active())  return;
-  
-  Point* from = model->points->find(name[0]);
-  Point* to   = model->points->find(name[1]);
-  
-  if (from == 0 || to == 0)
-    {
-      set_active(false);
-      return;
-    }
-  
-  
-  if (from->U->active() && to->U->active())
-    {
-      Parameter** b = parlist.begin();
-      *b++ = from->U;
-      *b++ = to->U;
-    }
-  else
-    {
-      set_active(false);
-      return;
-    }
-}
-
-
-double HeightDiff::derivative(Parameter* p)
-{
-  Derivative<HeightDiff>* ad = dynamic_cast<Derivative<HeightDiff>*>(p);
-  
-  if (ad)
-    return ad->derivative(this);
-  else
-    return numerical_derivative(p);
-}

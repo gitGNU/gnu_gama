@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.16 2003/05/29 16:04:14 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.17 2003/12/23 19:52:49 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -31,44 +31,35 @@
 using namespace GNU_gama::g3;
 
 
-Point::~Point()
+Point::Point()
 {
-  delete N;
-  delete E;
-  delete U;
-}
-
-
-Point::Point() : parlist(3)
-{
-  N = new Parameter_N(this);
-  E = new Parameter_E(this);
-  U = new Parameter_U(this);
+  N.set_point(this);
+  E.set_point(this);
+  U.set_point(this);
 
   set_unused();
 
-  Parameter** p = parlist.begin();
-  *p++ = N;
-  *p++ = E;
-  *p++ = U;
+  //---  Parameter** p = parlist.begin();
+  //---  *p++ = N;
+  //---  *p++ = E;
+  //---  *p++ = U;
 
   has_xyz_ = has_blh_ = has_height_ = false;
 }
 
 
-Point::Point(const Point& point) : parlist(3)
+Point::Point(const Point& point)
 {
   name   = point.name;
   common = point.common;
 
-  N = new Parameter_N(*point.N);
-  E = new Parameter_E(*point.E);
-  U = new Parameter_U(*point.U);
-
-  Parameter** p = parlist.begin();
-  *p++ = N;
-  *p++ = E;
-  *p++ = U;
+  N = point.N;
+  E = point.E;
+  U = point.U;
+  
+  N.set_point(this);
+  E.set_point(this);
+  U.set_point(this);
 
   has_xyz_    = point.has_xyz_;
   has_blh_    = point.has_blh_;
@@ -80,25 +71,21 @@ Point& Point::operator=(const Point& point)
 {
   if (this != &point)
     {
-      delete N;
-      delete E;
-      delete U;
-
       name   = point.name;
       common = point.common;
       
-      N = new Parameter_N(*point.N);
-      E = new Parameter_E(*point.E);
-      U = new Parameter_U(*point.U);
+      N = point.N;
+      E = point.E;
+      U = point.U;
       
-      N->set_point(this);
-      E->set_point(this);
-      U->set_point(this);
+      N.set_point(this);
+      E.set_point(this);
+      U.set_point(this);
 
-      Parameter** p = parlist.begin();
-      *p++ = N;
-      *p++ = E;
-      *p++ = U;
+      //---  Parameter** p = parlist.begin();
+      //---  *p++ = N;
+      //---  *p++ = E;
+      //---  *p++ = U;
 
       has_xyz_    = point.has_xyz_;
       has_blh_    = point.has_blh_;
@@ -111,113 +98,113 @@ Point& Point::operator=(const Point& point)
 
 void Point::set_unused()
 {
-  N->set_unused();
-  E->set_unused();
-  U->set_unused();
+  N.set_unused();
+  E.set_unused();
+  U.set_unused();
 }
 
 void Point::set_fixed_horizontal_position()
 {
-  N->set_fixed();
-  E->set_fixed();
+  N.set_fixed();
+  E.set_fixed();
 }
 
 void Point::set_fixed_height()
 {
-  U->set_fixed();
+  U.set_fixed();
 }
 
 void Point::set_fixed_position()
 {
-  N->set_fixed();
-  E->set_fixed();
-  U->set_fixed();
+  N.set_fixed();
+  E.set_fixed();
+  U.set_fixed();
 }
 
 void Point::set_free_horizontal_position()
 {
-  N->set_free();
-  E->set_free();
+  N.set_free();
+  E.set_free();
 }
 
 void Point::set_free_height()
 {
-  U->set_free();
+  U.set_free();
 }
 
 void Point::set_free_position()
 {
-  N->set_free();
-  E->set_free();
-  U->set_free();
+  N.set_free();
+  E.set_free();
+  U.set_free();
 }
 
 void Point::set_constr_horizontal_position()
 {
-  N->set_constr();
-  E->set_constr();
+  N.set_constr();
+  E.set_constr();
 }
 
 void Point::set_constr_height()
 {
-  U->set_constr();
+  U.set_constr();
 }
 
 void Point::set_constr_position()
 {
-  N->set_constr();
-  E->set_constr();
-  U->set_constr();
+  N.set_constr();
+  E.set_constr();
+  U.set_constr();
 }
 
 bool Point::unused() const
 {
-  return N->unused() && E->unused() && U->unused();
+  return N.unused() && E.unused() && U.unused();
 }
 
 bool Point::fixed_horizontal_position() const
 {
-  return N->fixed() && E->fixed();
+  return N.fixed() && E.fixed();
 }
 
 bool Point::fixed_height() const
 {
-  return U->fixed();
+  return U.fixed();
 }
 
 bool Point::fixed_position() const
 {
-  return N->fixed() && E->fixed() && U->fixed();
+  return N.fixed() && E.fixed() && U.fixed();
 }
 
 bool Point::free_horizontal_position() const
 {
-  return N->free() && E->free();
+  return N.free() && E.free();
 }
 
 bool Point::free_height() const
 {
-  return U->free();
+  return U.free();
 }
 
 bool Point::free_position() const
 {
-  return N->free() && E->free() && U->free();
+  return N.free() && E.free() && U.free();
 }
 
 bool Point::constr_horizontal_position() const
 {
-  return N->constr() && E->constr();
+  return N.constr() && E.constr();
 }
 
 bool Point::constr_height() const
 {
-  return U->constr();
+  return U.constr();
 }
 
 bool Point::constr_position() const
 {
-  return N->constr() && E->constr() && U->constr();
+  return N.constr() && E.constr() && U.constr();
 }
 
 void Point::set_blh(double b, double l, double h)
@@ -317,28 +304,29 @@ double Point::diff_U() const
 
 // ----------------------------------------------------------------------
 
-double Parameter_N::derivative(Distance*)
+double Parameter_N::derivative_visit(Distance*)
 {
   return point()->diff_N();
 }
 
-double Parameter_E::derivative(Distance*)
+double Parameter_E::derivative_visit(Distance*)
 {
   return point()->diff_E();
 }
 
-double Parameter_U::derivative(Distance*)
+double Parameter_U::derivative_visit(Distance*)
 {
   return point()->diff_U();
 }
 
-double Parameter_U::derivative(HeightDiff* hd)
+double Parameter_U::derivative_visit(HeightDiff* hd)
 {
-  if (!free()) return 0;
-
-  Parameter**  p    = hd->parlist.begin();  
-  Parameter_U* from = static_cast<Parameter_U*>(*p);
-
-  return this == from ? -1 : +1;
+  //---  if (!free()) return 0;
+  //---  
+  //---  Parameter**  p    = hd->parlist.begin();  
+  //---  Parameter_U* from = static_cast<Parameter_U*>(*p);
+  //---  
+  //---  return this == from ? -1 : +1;
+  return 1;
 }
 

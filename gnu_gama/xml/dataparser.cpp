@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.9 2003/11/25 22:17:15 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.10 2003/12/23 19:52:49 uid66336 Exp $
  */
 
 // #########################################################################
@@ -950,7 +950,7 @@ int DataParser::g3_model(const char *name, const char **atts)
   no_attributes( name, atts );
   state = next[state][tag(name)];
 
-  mg3 = new g3::g3_Model;
+  mg3 = new g3::Model;
   
   return 0;
 }
@@ -992,7 +992,7 @@ int DataParser::g3_vector(const char *name)
   v->name[0] = g3vec_from;
   v->name[1] = g3vec_to;
 
-  g3_Model::ObservationData *obs = mg3->obs;
+  g3::Model::ObservationData *obs = mg3->obs;
   Vectors* vectors = new Vectors(obs);
 
   vectors->add(v);

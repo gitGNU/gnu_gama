@@ -20,24 +20,25 @@
 */
 
 /*
- *  $Id: parameter.h,v 1.1 2003/11/25 22:17:14 cepek Exp $
+ *  $Id: parameter.h,v 1.2 2003/12/23 19:52:49 uid66336 Exp $
  */
 
 
+#error this file (gnu_gama/parameter.h) is going to be removed from CVS
 #ifndef GNU_gama_parameter_h_gnugamaparametertraits___gnu_gama_gparameter___h
 #define GNU_gama_parameter_h_gnugamaparametertraits___gnu_gama_gparameter___h
 
 
-namespace GNU_gama {
-
-
-  class Parameter 
-    {
-    public:
-
-      virtual ~Parameter() {}
-    };
-    
-}
+//--- namespace GNU_gama {
+//--- 
+//--- 
+//---   class Parameter 
+//---     {
+//---     public:
+//--- 
+//---       virtual ~Parameter() {}
+//---     };
+//---     
+//--- }
 
 #endif

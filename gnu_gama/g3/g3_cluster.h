@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_cluster.h,v 1.4 2003/11/25 22:17:14 cepek Exp $
+ *  $Id: g3_cluster.h,v 1.5 2003/12/23 19:52:49 uid66336 Exp $
  */
 
 
@@ -40,11 +40,11 @@ namespace GNU_gama { namespace g3 {
   class g3Cluster :  public GNU_gama::Cluster<Observation> {
   public:
   
-      g3Cluster(const g3_Model::ObservationData* obs) : Cluster<Observation>(obs) 
+      g3Cluster(const Model::ObservationData* obs) : Cluster<Observation>(obs) 
       {
       }
 
-      g3Cluster* clone(const g3_Model::ObservationData*) const 
+      g3Cluster* clone(const Model::ObservationData*) const 
         { 
           throw 
             GNU_gama::Exception::string("g3Cluster::clone() not implemented");
@@ -52,7 +52,7 @@ namespace GNU_gama { namespace g3 {
         }
 
       virtual void write_xml(std::ostream&) const = 0;
-      virtual void parlist_init(g3_Model*) {}
+      virtual void parlist_init(Model*) {}
  };
 
 }}

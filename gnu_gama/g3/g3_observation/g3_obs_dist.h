@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_dist.h,v 1.4 2003/11/25 22:17:14 cepek Exp $
+ *  $Id: g3_obs_dist.h,v 1.5 2003/12/23 19:52:49 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_obs_base.h>
@@ -39,14 +39,29 @@ namespace GNU_gama {  namespace g3 {
     Point::Name name[2];
 
     Distance() : Observation(6) {}
+    Distance(double d) : Observation(6), distance(d) {}
 
-    double parlist_value() const;
-    void   parlist_init (g3_Model*);
-    double derivative   (Parameter*);
+    double obs() const { return distance; }
+
+    bool Distance::revision_accept(ObservationVisitor* visitor)
+    {
+      if (Revision<Distance>* rv = dynamic_cast<Revision<Distance>*>(visitor))
+        {          
+          return rv->revision_visit(this);
+        }
+      else
+        return false;
+    }
+
+
 
   protected:
 
     void prepare_to_linearization();
+
+  private:
+
+    double distance;
   };
 
 

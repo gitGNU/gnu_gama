@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.13 2003/11/25 22:17:14 cepek Exp $
+ *  $Id: g3_model.h,v 1.14 2003/12/23 19:52:49 uid66336 Exp $
  */
 
 #include <gnu_gama/model.h>
@@ -39,8 +39,8 @@
 namespace GNU_gama {  namespace g3 {
 
   
-  class g3_Model : 
-    public GNU_gama::Model,
+  class Model : 
+    public GNU_gama::Model<g3::Observation>,
     public Revision<Distance>
     {
     public:
@@ -54,8 +54,8 @@ namespace GNU_gama {  namespace g3 {
       GNU_gama::Ellipsoid  ellipsoid;
       
       
-      g3_Model();
-      ~g3_Model();
+      Model();
+      virtual ~Model();
       
 
       Point* get_point(const Point::Name&);
@@ -80,13 +80,13 @@ namespace GNU_gama {  namespace g3 {
       
       
       // virtual functions derived from template class Revision<>
-      bool revision(Distance*);
+      bool revision_visit(Distance*);
 
 
     private:   /*-----------------------------------------------------------*/
       
-      g3_Model(const g3_Model&);
-      g3_Model& operator=(const g3_Model&);
+      Model(const Model&);
+      Model& operator=(const Model&);
       
       // active observations' list (observations used in the adjustment)
       GNU_gama::List<Observation*>  active_obs;

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.18 2003/11/25 22:17:14 cepek Exp $
+ *  $Id: g3_point.h,v 1.19 2003/12/23 19:52:49 uid66336 Exp $
  */
 
 #include <gamalib/pointid.h>
@@ -32,7 +32,7 @@
 
 namespace GNU_gama {  namespace g3 {
 
-  class g3_Model;
+  class Model;
   class Point;
   class Distance;
   class HeightDiff;
@@ -43,7 +43,7 @@ namespace GNU_gama {  namespace g3 {
 
     public:
 
-      Parameter_LocalPosition(Point* p) : pt(p) {}
+      Parameter_LocalPosition() : pt(0) {}
 
       Point* point() const { return pt; }
       void   set_point(Point* p) { pt = p; }
@@ -54,9 +54,9 @@ namespace GNU_gama {  namespace g3 {
     public Derivative<Distance>
     {
     public:
-      Parameter_N(Point* p) : Parameter_LocalPosition(p) {}
+      Parameter_N() {}
 
-      double derivative(Distance*);
+      double derivative_visit(Distance*);
     };
   
   class Parameter_E : 
@@ -64,9 +64,9 @@ namespace GNU_gama {  namespace g3 {
     public Derivative<Distance>
     {
     public:
-      Parameter_E(Point* p) : Parameter_LocalPosition(p) {}
+      Parameter_E() {}
 
-      double derivative(Distance*);
+      double derivative_visit(Distance*);
     };
   
   class Parameter_U : 
@@ -75,10 +75,10 @@ namespace GNU_gama {  namespace g3 {
     public Derivative<HeightDiff>
     {
     public:
-      Parameter_U(Point* p) : Parameter_LocalPosition(p) {}
+      Parameter_U() {}
 
-      double derivative(Distance*);
-      double derivative(HeightDiff*);
+      double derivative_visit(Distance*);
+      double derivative_visit(HeightDiff*);
     };
 
 
@@ -87,7 +87,7 @@ namespace GNU_gama {  namespace g3 {
   public:
   
     typedef GaMaLib::PointID Name;
-    typedef g3_Model         Common;
+    typedef Model         Common;
 
     Name    name;
     Common* common; 
@@ -95,17 +95,16 @@ namespace GNU_gama {  namespace g3 {
     Point();
     Point(const Point&);
     Point& operator=(const Point&);
-    ~Point();
 
     // -----------------------------
 
     Parameter  B, L, H, X, Y, Z, height;
 
-    Parameter_N*  N;
-    Parameter_E*  E;
-    Parameter_U*  U; 
+    Parameter_N  N;
+    Parameter_E  E;
+    Parameter_U  U; 
 
-    ParameterList        parlist;
+    //---  ParameterList<Parameter>  parlist;
 
 
     void set_unused();

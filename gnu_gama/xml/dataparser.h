@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.10 2003/11/25 22:17:15 cepek Exp $
+ *  $Id: dataparser.h,v 1.11 2003/12/23 19:52:49 uid66336 Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -272,7 +272,7 @@ namespace GNU_gama {
 
       // DataObject::g3_model
 
-      g3::g3_Model*    mg3;
+      g3::Model*       mg3;
       g3::Point::Name  g3vec_from;
       g3::Point::Name  g3vec_to;
       

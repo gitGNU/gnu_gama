@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_vec.h,v 1.6 2003/11/25 22:17:15 cepek Exp $
+ *  $Id: g3_obs_vec.h,v 1.7 2003/12/23 19:52:49 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_obs_base.h>
@@ -62,7 +62,7 @@ namespace GNU_gama {  namespace g3 {
     double dy() const { return dxyz_[1]; }
     double dz() const { return dxyz_[2]; }
 
-    void   parlist_init (g3_Model*);
+    void   parlist_init (Model*);
 
   private:
 
@@ -70,9 +70,15 @@ namespace GNU_gama {  namespace g3 {
 
     double dxyz_[3];
 
-    double parlist_value() const;    
-    double derivative   (Parameter*);
-    void   prepare_to_linearization();
+    bool revision_accept(ObservationVisitor* visitor)
+    {
+      if (Revision<Vector>* rv = dynamic_cast<Revision<Vector>*>(visitor))
+        {
+          return rv->revision_visit(this);
+        }
+      else
+        return false;
+    }
 
     friend class Diff;
   };
@@ -94,18 +100,9 @@ namespace GNU_gama {  namespace g3 {
     { 
       return vec->dxyz_[sel]; 
     }
-    void   parlist_init (g3_Model*);
-    double parlist_value() const 
+    bool   revision_accept(ObservationVisitor* visitor) 
     { 
-      vec->select = sel;   return vec->parlist_value();
-    }
-    double derivative(Parameter* p)
-    {
-      vec->select = sel;   return vec->derivative(p);
-    }
-    void linearization(GNU_gama::SparseVector<>& row)
-    {
-      vec->select = sel;   vec->linearization(row);
+      return vec->revision_accept(visitor); 
     }
 
     Vector* vector() const { return vec; }
