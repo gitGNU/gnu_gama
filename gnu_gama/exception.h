@@ -20,14 +20,14 @@
 */
 
 /*
- *  $Id: exception.h,v 1.3 2005/03/27 17:43:26 cepek Exp $
+ *  $Id: exception.h,v 1.4 2005/04/01 14:34:45 cepek Exp $
  */
 
 
 #ifndef GNU_gama__exception__exception_class_hierarchy_____exception_h
 #define GNU_gama__exception__exception_class_hierarchy_____exception_h
 
-#include <gmatvec/inderr.h>
+#include <matvec/inderr.h>
 #include <string>
 
 namespace GNU_gama { namespace Exception {

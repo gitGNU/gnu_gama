@@ -20,7 +20,7 @@ dubbed a GNU packaqe and today contains the following main components:
     variance-covariance matrices of observations and are designed to
     enable implementation of sparse matrices in future versions.
 
-    [gmatvec] C++ matrix/vector template classes used in adjustment
+    [matvec] C++ matrix/vector template classes used in adjustment
     computations in gamalib.
 
     [rocinante] is a GUI for GNU Gama based on Qt graphical library

@@ -20,13 +20,13 @@
 */
 
 /*
- *  $Id: readsabw.h,v 1.2 2004/06/20 20:54:41 cepek Exp $
+ *  $Id: readsabw.h,v 1.3 2005/04/01 14:34:45 cepek Exp $
  */
 
 #ifndef GaMaLib_read_sparse_Ab_h
 #define GaMaLib_read_sparse_Ab_h
 
-#include <gmatvec/gmatvec.h>
+#include <matvec/matvec.h>
 #include <iostream>
 
 namespace GaMaLib {

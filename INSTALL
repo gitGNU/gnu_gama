@@ -28,7 +28,7 @@ distributed together with Gama to enable building of Gama executables
 on systems where expat shared library is not available.
 
 Place the parser source into subdirectory `expat' located in the same
-directory in which are located subdirectories `gnu_gama', `gmatvec',
+directory in which are located subdirectories `gnu_gama', `matvec',
 etc. and run
                    make dep-expat-1.1
                    make 

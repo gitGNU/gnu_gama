@@ -20,13 +20,13 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.12 2005/03/27 17:43:26 cepek Exp $
+ *  $Id: g3_observation.h,v 1.13 2005/04/01 14:34:45 cepek Exp $
  */
 
 
+#include <matvec/covmat.h>
 #include <gnu_gama/model.h>
 #include <gnu_gama/g3/g3_point.h>
-#include <gnu_gama/matvec.h>
 
 
 #ifndef GNU_gama__g3_observation_h_gnugamag3obs_baseh___gnu_gama_g3obs
@@ -37,7 +37,7 @@ namespace GNU_gama {  namespace g3 {
 
 
   class Observation :
-    public GNU_gama::Observation<Cluster<Observation>, GNU_gama::Cov<> >
+    public GNU_gama::Observation<Cluster<Observation>, GNU_gama::CovMat<> >
   {
   };
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_cluster.h,v 1.6 2003/12/29 19:43:51 uid66336 Exp $
+ *  $Id: g3_cluster.h,v 1.7 2005/04/01 14:34:45 cepek Exp $
  */
 
 
@@ -30,6 +30,7 @@
 #define GNU_gama__g3_cluster___g3clustergnugamag3cluster__gnu_gama_g3_cluster
 
 #include <gnu_gama/model.h>
+#include <gnu_gama/exception.h>
 #include <gnu_gama/g3/g3_model.h>
 #include <iostream>
 

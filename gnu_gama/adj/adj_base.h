@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj_base.h,v 1.2 2005/03/28 19:19:39 cepek Exp $
+ *  $Id: adj_base.h,v 1.3 2005/04/01 14:34:45 cepek Exp $
  */
 
 #ifndef GNU_Gama_gnu_gama_gnugama_GaMa_AdjBase_h
@@ -28,8 +28,8 @@
 
 #include <gamalib/exception.h>
 #include <gamalib/float.h>
-#include <gmatvec/svd.h>
-#include <gmatvec/bandmat2.h>
+#include <matvec/svd.h>
+#include <matvec/covmat.h>
 
 
 namespace GNU_gama {

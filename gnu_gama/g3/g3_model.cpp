@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.31 2005/03/27 17:43:26 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.32 2005/04/01 14:34:45 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -311,7 +311,7 @@ void Model::update_linearization()
     for (ClusterList::const_iterator ci = obsdata.clusters.begin(),
            ce = obsdata.clusters.end(); ci!=ce; ++ci)
       {
-        Cov<> C = (*ci)->activeCov();
+        CovMat<> C = (*ci)->activeCov();
         if (C.dim())
           {
             bd->add_block(C.dim(), C.bandWidth(), C.begin());

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.59 2005/03/28 19:19:39 cepek Exp $
+ *  $Id: version.cpp,v 1.60 2005/04/01 14:34:45 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.13-a";
+const char* GNU_gama_version  = "1.7.13-b";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -74,6 +74,8 @@ const char* GNU_gama_compiler =
       Rather obsolete namespace GaMaLib is kept for the backward
       compatibility and is mainly dedicated to the command line
       program gama-local. 
+
+    - matrix/vector template library moved to the directory 'matvec'
      
 
 
@@ -94,9 +96,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.59 2005/03/28 19:19:39 cepek Exp $
+        <  *  $Id: version.cpp,v 1.60 2005/04/01 14:34:45 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.59 2005/03/28 19:19:39 cepek Exp $
+        >  *  $Id: version.cpp,v 1.60 2005/04/01 14:34:45 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),

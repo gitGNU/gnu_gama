@@ -20,10 +20,10 @@
 */
 
 /*
- *  $Id: adj.h,v 1.5 2005/04/01 09:55:08 cepek Exp $
+ *  $Id: adj.h,v 1.6 2005/04/01 14:34:45 cepek Exp $
  */
 
-#include <gnu_gama/matvec.h>
+#include <matvec/covmat.h>
 #include <gnu_gama/sparse/smatrix.h>
 #include <gnu_gama/sparse/sbdiagonal.h>
 #include <gnu_gama/sparse/intlist.h>
@@ -72,8 +72,8 @@ namespace GNU_gama {
   
     void init(const AdjInputData*);
     void init_least_squares();
-    void cholesky(Cov<>& chol);                            // move it away!   
-    void forwardSubstitution(const Cov<>& chol, Vec<>& v); // move it away!
+    void cholesky(CovMat<>& chol);                            // move it away!
+    void forwardSubstitution(const CovMat<>& chol, Vec<>& v); // move it away!
 
   };
   

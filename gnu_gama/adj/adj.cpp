@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.6 2005/03/28 19:19:39 cepek Exp $
+ *  $Id: adj.cpp,v 1.7 2005/04/01 14:34:45 cepek Exp $
  */
 
 #include <gnu_gama/adj/adj.h>
@@ -303,10 +303,10 @@ void Adj::init_least_squares()
     {
       dim   = data->pcov->dim(b);
       width = data->pcov->width(b);
-      Cov<> C(dim, width);
+      CovMat<> C(dim, width);
 
       const double *p = data->pcov->begin(b), *e = data->pcov->end(b);
-      Cov<>::iterator c = C.begin();
+      CovMat<>::iterator c = C.begin();
       while (p != e) *c++ = *p++;
       cholesky(C);
 
@@ -363,7 +363,7 @@ Vec<> Adj::x()
  * in LocalNetwork and shall be moved to a single class
  * ###################################################################### */
 
-void Adj::cholesky(Cov<>& chol)
+void Adj::cholesky(CovMat<>& chol)
 {
   chol.cholDec();
 
@@ -382,7 +382,7 @@ void Adj::cholesky(Cov<>& chol)
     }
 }
 
-void Adj::forwardSubstitution(const Cov<>& chol, Vec<>& v)
+void Adj::forwardSubstitution(const CovMat<>& chol, Vec<>& v)
 {
   using namespace std;
   const std::size_t N = chol.rows();
