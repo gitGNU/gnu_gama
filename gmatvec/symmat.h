@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (gMatVec 0.9.14)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.15)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,8 @@
 */
 
 /*
- *  $Id: symmat.h,v 1.1 2001/12/07 11:59:46 cepek Exp $
+ *  $Id: symmat.h,v 1.2 2001/12/20 19:49:43 cepek Exp $
+ *  http://www.gnu.org/software/gama/
  */
 
 #ifndef gMatVec_SymMat__h_
@@ -416,6 +417,7 @@ void SymMat<Float, Exc>::invert()
         if (a[1] < 0)
           throw Exc(BadRank, "SymMat<Float, Exc>::invert()");
         a[1] = 1/a[1];
+        return;
       }
 
     for (k=n; k>=1; k--)

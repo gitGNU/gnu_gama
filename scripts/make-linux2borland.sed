@@ -1,11 +1,11 @@
 # basic sed commands for linux to borland makefiles conversion
 #
-# $Id: make-linux2borland.sed,v 1.1 2001/12/07 11:45:44 cepek Exp $
+# $Id: make-linux2borland.sed,v 1.2 2001/12/20 19:49:43 cepek Exp $
 
 s/\.o/.obj/g
 s/^CPP=.*/CPP=bcc32/
 s/^CC=.*/CC=bcc32/
-s/-Wall.*-pedantic/-w-8026 -w-8027 -w-8004/  
+s/-Wall.*-pedantic/-w-8026 -w-8027 -w-8004 -tWR #-tWM/  
 s/gamalib\.a/gamalib.lib/
 s/.*touch.*//
 s/.*ranlib.*//

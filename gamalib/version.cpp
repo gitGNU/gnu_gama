@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.2 2001/12/07 14:33:05 cepek Exp $
+ *  $Id: version.cpp,v 1.3 2001/12/20 19:49:43 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.3.30";
+const char* GaMaLib_version  = "1.3.31";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
@@ -57,7 +57,17 @@ const char* GaMaLib_compiler =
 
 =============================================================================
 
-1.3.20  2001-12-07
+1.3.31 2001-12-20
+
+   - in scripts/make-linux2borland.sed added parameters needed by
+     Rosinante and a minor change in scripts/Build_GaMa (Jan Pytel)
+
+   - gmatvec 0.9.15: a bug in SymMat::invert() reported by Leos Mervart;
+     in the case of dimension==1 inversion was computed twice
+     and thus nothing happened (missing return statement)
+
+
+1.3.30  2001-12-07
 
    - a bug in ObservationData::deepCopy found by Jan Pytel (covariance
      matrices were not copied)

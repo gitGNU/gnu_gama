@@ -2,7 +2,7 @@
 #
 # parametr prekladu pro GSO je -DGaMaOLSgso
 # 
-# $Id: Build_GaMa,v 1.1 2001/12/07 11:45:44 cepek Exp $
+# $Id: Build_GaMa,v 1.2 2001/12/20 19:49:43 cepek Exp $
 
 # pokud jsem v podadresari ./scripts, prejdu o jednu uroven vys
 #
@@ -60,7 +60,8 @@ echo    "gama : gama.o \$(GAMALIB)"                  >> Makefile
 echo -e "\t\$(CPP) -o gama gama.o \$(GAMALIB)\n"     >> Makefile
 
 GAMADEP="\$(OBJ)"gama$( echo gama.cpp | ../../../scripts/gamalib_dep ../../.. )
-GAMADEP="$GAMADEP $(find review -name *.h)"
+GAMADEP="$GAMADEP gama_main.h"
+GAMADEP="$GAMADEP $(find ../../../gamalib/local/results/text -name \*.h)"
 
 echo    $GAMADEP                                     >> Makefile
 echo -e "\t\$(CPP) \$(FCC) -I. -c gama.cpp\n"        >> Makefile

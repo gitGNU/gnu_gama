@@ -1,6 +1,6 @@
 # basic sed commands for Borland format to Visual C++  makefiles conversion
 #
-# $Id: make-borland2msc.sed,v 1.1 2001/12/07 11:45:44 cepek Exp $
+# $Id: make-borland2msc.sed,v 1.2 2001/12/20 19:49:43 cepek Exp $
 
 s;^CPP=.*;OUTDIR=.\
 INTDIR=.\
@@ -19,7 +19,7 @@ init:\
         @if not exist gamalib.lib link -lib /out:gamalib.lib version.obj\
         @if exist version.obj     del version.obj;
 s/^CC=.*/CC=cl.exe/
-s;^FCC=-I../../.. .*-w-[0-9]*;FCC=-I../../.. \$(CPP_PROJ);
+s;^FCC=-I../../.. .*;FCC=-I../../.. \$(CPP_PROJ);
 s;^FCC=-O2 -I../../../expat.*;FCC=-I../../../expat/xmltok -I../../../expat/xmlparse /nologo /ML /W1 /GX /O2 /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /YX;
 s/make/nmake/
 s/^LIBR=.*/LIBR=\$(LIB32) \$(LIB32_FLAGS)/

@@ -1,9 +1,7 @@
-MISSING FUNCTIONALITY WITH LOWER PRIORITY:
+MISSING FUNCTIONALITY:
 
 * replace error ellipses for points with XYZ coordinates with 3D
   characteristics
-
-* GUI based on Qt library
 
 * better documentation and web pages
 
