@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj_gso.h,v 1.1 2005/03/28 11:44:24 cepek Exp $
+ *  $Id: adj_gso.h,v 1.2 2005/03/28 19:19:39 cepek Exp $
  */
 
 #ifndef GNU_Gama_gnu_gama_gnugama_GaMa_OLS_gso_h
@@ -38,42 +38,42 @@ class AdjGSO : public virtual AdjBase<Float, Exc> {
 public:
 
   AdjGSO() {}
-  AdjGSO(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b)
+  AdjGSO(const Mat<Float, Exc>& A, const Vec<Float, Exc>& b)
     : AdjBase<Float, Exc>(A, b) {}
-  AdjGSO(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b,
-         const GNU_gama::Vec<Float, Exc>& w) : AdjBase<Float, Exc>(A, b, w) {}
+  AdjGSO(const Mat<Float, Exc>& A, const Vec<Float, Exc>& b,
+         const Vec<Float, Exc>& w) : AdjBase<Float, Exc>(A, b, w) {}
   
-  void reset(const GNU_gama::Mat<Float, Exc>& A, 
-             const GNU_gama::Vec<Float, Exc>& b)
+  void reset(const Mat<Float, Exc>& A, 
+             const Vec<Float, Exc>& b)
     {
       AdjBase<Float, Exc>::reset(A, b);
     }
-  void reset(const GNU_gama::Mat<Float, Exc>& A, 
-             const GNU_gama::Vec<Float, Exc>& b,
-             const GNU_gama::Vec<Float, Exc>& w)
+  void reset(const Mat<Float, Exc>& A, 
+             const Vec<Float, Exc>& b,
+             const Vec<Float, Exc>& w)
     {
       AdjBase<Float, Exc>::reset(A, b, w);
     }
   
-  const GNU_gama::Vec<Float, Exc>& solve(GNU_gama::Vec<Float, Exc>& x)
+  const Vec<Float, Exc>& solve(Vec<Float, Exc>& x)
     {
       return x = AdjBase<Float, Exc>::solve();
     }
-  const GNU_gama::Vec<Float, Exc>& solve() 
+  const Vec<Float, Exc>& solve() 
     { 
       return AdjBase<Float, Exc>::solve(); 
     }
   
-  GNU_gama::Index defect() { return gso.defect(); }
-  bool  lindep(GNU_gama::Index i) { return gso.lindep(i); }
+  Index defect() { return gso.defect(); }
+  bool  lindep(Index i) { return gso.lindep(i); }
   
-  void  q_xx(GNU_gama::Mat<Float, Exc>& C) { AdjBase<Float, Exc>::q_xx(C); }
-  Float q_xx(GNU_gama::Index i, GNU_gama::Index j);
-  Float q_bb(GNU_gama::Index i, GNU_gama::Index j);
-  Float q_bx(GNU_gama::Index i, GNU_gama::Index j);
+  void  q_xx(Mat<Float, Exc>& C) { AdjBase<Float, Exc>::q_xx(C); }
+  Float q_xx(Index i, Index j);
+  Float q_bb(Index i, Index j);
+  Float q_bx(Index i, Index j);
   
   void min_x() { gso.min_x(); }
-  void min_x(GNU_gama::Index n, GNU_gama::Index x[]) { gso.min_x(n, x); }
+  void min_x(Index n, Index x[]) { gso.min_x(n, x); }
   
   
 protected:
@@ -82,8 +82,8 @@ protected:
    
 private:
 
-   GNU_gama::Mat<Float, Exc> A_;
-   GNU_gama::GSO<Float, Exc> gso;
+   Mat<Float, Exc> A_;
+   GSO<Float, Exc> gso;
 
    void init_gso_();
 };
@@ -96,8 +96,8 @@ void AdjGSO<Float, Exc>::solve_me()
 {
   if (this->is_solved) return;
 
-  const GNU_gama::Index M = this->pA->rows();
-  const GNU_gama::Index N = this->pA->cols();
+  const Index M = this->pA->rows();
+  const Index N = this->pA->cols();
   
   A_.reset(M+N, N+1);
   this->sqrt_w.reset(M);
@@ -105,27 +105,27 @@ void AdjGSO<Float, Exc>::solve_me()
   if (this->pw)
     {
       using namespace std;
-      const GNU_gama::Vec<Float, Exc>& w_ = *this->pw;
-      for (GNU_gama::Index i=1; i<=M; i++) this->sqrt_w(i) = sqrt(w_(i));
+      const Vec<Float, Exc>& w_ = *this->pw;
+      for (Index i=1; i<=M; i++) this->sqrt_w(i) = sqrt(w_(i));
     }
   else
     {
-      for (GNU_gama::Index i=1; i<=M; i++) this->sqrt_w(i) = 1;
+      for (Index i=1; i<=M; i++) this->sqrt_w(i) = 1;
     }
 
-  const GNU_gama::Mat<Float, Exc>& A1 = *this->pA;
-  const GNU_gama::Vec<Float, Exc>& b1 = *this->pb;
+  const Mat<Float, Exc>& A1 = *this->pA;
+  const Vec<Float, Exc>& b1 = *this->pb;
 
   {  // redundant curly braces needed by MS VC++ 
-  for (GNU_gama::Index i=1; i<=M; i++)
+  for (Index i=1; i<=M; i++)
     {
       A_(i, N+1) = -b1(i)*this->sqrt_w(i);
-      for (GNU_gama::Index j=1; j<=N; j++) A_(i, j) = A1(i, j)*this->sqrt_w(i);
+      for (Index j=1; j<=N; j++) A_(i, j) = A1(i, j)*this->sqrt_w(i);
     }
   }
   {
-  for (GNU_gama::Index i=1; i<=N; i++) 
-    for (GNU_gama::Index j=1; j<=N+1; j++)
+  for (Index i=1; i<=N; i++) 
+    for (Index j=1; j<=N+1; j++)
       A_(M+i, j) = (i==j) ? 1 : 0;
   }
 
@@ -134,11 +134,11 @@ void AdjGSO<Float, Exc>::solve_me()
   gso.gso2(); 
 
   this->x.reset(N);
-  for (GNU_gama::Index i=1; i<=N; i++)
+  for (Index i=1; i<=N; i++)
     this->x(i) = A_(M+i, N+1);
 
   this->r.reset(M);
-  for (GNU_gama::Index j=1; j<=M; j++)
+  for (Index j=1; j<=M; j++)
     this->r(j) = A_(j, N+1)/this->sqrt_w(j);
   
   this->is_solved = true; 
@@ -146,43 +146,43 @@ void AdjGSO<Float, Exc>::solve_me()
 
 
 template <typename Float, typename Exc>
-Float AdjGSO<Float, Exc>::q_xx(GNU_gama::Index i, GNU_gama::Index j)
+Float AdjGSO<Float, Exc>::q_xx(Index i, Index j)
   {
     if(!this->is_solved) solve_me();
-    const GNU_gama::Index M = this->pA->rows();
-    const GNU_gama::Index N = this->pA->cols();
+    const Index M = this->pA->rows();
+    const Index N = this->pA->cols();
     i += M;
     j += M;
     Float s = 0;                        
-    for (GNU_gama::Index k=1; k<=N; k++) 
+    for (Index k=1; k<=N; k++) 
       s += A_(i,k)*A_(j,k);              // cov x_i x_j
     return s;
   }
 
 
 template <typename Float, typename Exc>
-Float AdjGSO<Float, Exc>::q_bb(GNU_gama::Index i, GNU_gama::Index j)
+Float AdjGSO<Float, Exc>::q_bb(Index i, Index j)
   {
     if(!this->is_solved) solve_me();
 
-    const GNU_gama::Index N = this->pA->cols();
+    const Index N = this->pA->cols();
     Float s = 0;                        
-    for (GNU_gama::Index k=1; k<=N; k++) 
+    for (Index k=1; k<=N; k++) 
       s += A_(i,k)*A_(j,k);              // cov b_i b_j
     return s/this->sqrt_w(i)/this->sqrt_w(j);
   }
 
 
 template <typename Float, typename Exc>
-Float AdjGSO<Float, Exc>::q_bx(GNU_gama::Index i, GNU_gama::Index j)
+Float AdjGSO<Float, Exc>::q_bx(Index i, Index j)
   {
     if(!this->is_solved) solve_me();
 
-    const GNU_gama::Index M = this->pA->rows();
-    const GNU_gama::Index N = this->pA->cols();
+    const Index M = this->pA->rows();
+    const Index N = this->pA->cols();
     j += M;
     Float s = 0;                        
-    for (GNU_gama::Index k=1; k<=N; k++) 
+    for (Index k=1; k<=N; k++) 
       s += A_(i,k)*A_(j,k);              // cov b_i x_j
     return s/this->sqrt_w(i);
   }

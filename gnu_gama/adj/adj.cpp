@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.5 2005/03/28 11:44:24 cepek Exp $
+ *  $Id: adj.cpp,v 1.6 2005/03/28 19:19:39 cepek Exp $
  */
 
 #include <gnu_gama/adj/adj.h>
@@ -200,8 +200,8 @@ void AdjInputData::read_gama_local_old_format(std::istream& inp)
 
   Vec<> c(rows);
 
-  GNU_gama::IntegerList<> tmplist(rows);        
-  GNU_gama::IntegerList<>::iterator m = tmplist.begin();
+  IntegerList<> tmplist(rows);        
+  IntegerList<>::iterator m = tmplist.begin();
 
   long floats=0;
   for (long nonz, n, k, i=1; i<=rows; i++)
@@ -228,7 +228,7 @@ void AdjInputData::read_gama_local_old_format(std::istream& inp)
     }
 
   delete A;
-  A = new GNU_gama::SparseMatrix<>(floats, rows, cols);
+  A = new SparseMatrix<>(floats, rows, cols);
 
   m = tmplist.begin();
   for (long k=0, r=1; r<=rows; r++)
@@ -239,7 +239,7 @@ void AdjInputData::read_gama_local_old_format(std::istream& inp)
     }
 
   delete pcov;
-  pcov = new GNU_gama::BlockDiagonal<>(1, rows);
+  pcov = new BlockDiagonal<>(1, rows);
   pcov->add_block(rows, 0, c.begin());
 }
 
@@ -278,10 +278,10 @@ void Adj::init_least_squares()
   switch (algorithm_) 
     {
     case svd: 
-      least_squares = new GNU_gama::AdjSVD<double, Exception::matvec>;
+      least_squares = new AdjSVD<double, Exception::matvec>;
       break;
     case gso: 
-      least_squares = new GNU_gama::AdjGSO<double, Exception::matvec>;
+      least_squares = new AdjGSO<double, Exception::matvec>;
       break;
     default:
       throw Exception::adjustment("### unknown algorithm");

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.h,v 1.3 2005/03/28 11:44:24 cepek Exp $
+ *  $Id: adj.h,v 1.4 2005/03/28 19:19:39 cepek Exp $
  */
 
 #include <gnu_gama/matvec.h>
@@ -61,7 +61,7 @@ namespace GNU_gama {
   private:
     
     const AdjInputData *data;
-    GNU_gama::AdjBase<double, Exception::matvec> *least_squares;
+    AdjBase<double, Exception::matvec> *least_squares;
 
     bool      solved;
     algorithm algorithm_;
@@ -87,10 +87,10 @@ namespace GNU_gama {
     void write_xml(std::ostream&) const;
     void read_xml(std::istream&);
 
-    const GNU_gama::SparseMatrix <> * mat () const { return A;     }
-    const GNU_gama::BlockDiagonal<> * cov () const { return pcov;  }
-    const           Vec          <>   rhs () const { return prhs;  }
-    const GNU_gama::IntegerList  <> * minx() const { return pminx; } 
+    const SparseMatrix <> * mat () const { return A;     }
+    const BlockDiagonal<> * cov () const { return pcov;  }
+    const Vec          <>   rhs () const { return prhs;  }
+    const IntegerList  <> * minx() const { return pminx; } 
 
     void set_mat (SparseMatrix <> * p) { delete A;     A     = p; }
     void set_cov (BlockDiagonal<> * p) { delete pcov;  pcov  = p; }

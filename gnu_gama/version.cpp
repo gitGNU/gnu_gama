@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.58 2005/03/28 11:55:26 cepek Exp $
+ *  $Id: version.cpp,v 1.59 2005/03/28 19:19:39 cepek Exp $
  */
 
 
@@ -71,7 +71,7 @@ const char* GNU_gama_compiler =
       From now there is no function, nor class, defined in the old
       namespace GaMaLib referenced from the namespace GNU_gama.
 
-      Rather obsolate namespace GaMaLib is kept for the backward
+      Rather obsolete namespace GaMaLib is kept for the backward
       compatibility and is mainly dedicated to the command line
       program gama-local. 
      
@@ -94,9 +94,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.58 2005/03/28 11:55:26 cepek Exp $
+        <  *  $Id: version.cpp,v 1.59 2005/03/28 19:19:39 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.58 2005/03/28 11:55:26 cepek Exp $
+        >  *  $Id: version.cpp,v 1.59 2005/03/28 19:19:39 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj_svd.h,v 1.1 2005/03/28 11:44:24 cepek Exp $
+ *  $Id: adj_svd.h,v 1.2 2005/03/28 19:19:39 cepek Exp $
  */
 
 #ifndef GNU_Gama__gnu_gama__gnu_gama_GaMa_OLS_svd_h
@@ -34,57 +34,57 @@ namespace GNU_gama {
 template <typename Float, typename Exc>
 class AdjSVD : virtual public AdjBase<Float, Exc> {
 
-  GNU_gama::SVD<Float, Exc> svd;
+  SVD<Float, Exc> svd;
 
 public:
   AdjSVD() {}
-  AdjSVD(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b)
+  AdjSVD(const Mat<Float, Exc>& A, const Vec<Float, Exc>& b)
     : AdjBase<Float, Exc>(A, b) {}
-  AdjSVD(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b,
-         const GNU_gama::Vec<Float, Exc>& w) : AdjBase<Float, Exc>(A, b, w) {}
+  AdjSVD(const Mat<Float, Exc>& A, const Vec<Float, Exc>& b,
+         const Vec<Float, Exc>& w) : AdjBase<Float, Exc>(A, b, w) {}
   
-  void reset(const GNU_gama::Mat<Float, Exc>& A, 
-             const GNU_gama::Vec<Float, Exc>& b)
+  void reset(const Mat<Float, Exc>& A, 
+             const Vec<Float, Exc>& b)
     {
       AdjBase<Float, Exc>::reset(A, b);
       svd.reset(A);
     }
-  void reset(const GNU_gama::Mat<Float, Exc>& A, 
-             const GNU_gama::Vec<Float, Exc>& b,
-             const GNU_gama::Vec<Float, Exc>& w)
+  void reset(const Mat<Float, Exc>& A, 
+             const Vec<Float, Exc>& b,
+             const Vec<Float, Exc>& w)
     {
       AdjBase<Float, Exc>::reset(A, b, w);
       svd.reset(A);
     }
   
-  const GNU_gama::Vec<Float, Exc>& solve(GNU_gama::Vec<Float, Exc>& x)
+  const Vec<Float, Exc>& solve(Vec<Float, Exc>& x)
     {
       return x = AdjBase<Float, Exc>::solve();
     }
-  const GNU_gama::Vec<Float, Exc>& solve() { return AdjBase<Float, Exc>::solve(); }
+  const Vec<Float, Exc>& solve() { return AdjBase<Float, Exc>::solve(); }
   
-  GNU_gama::Index defect() { return svd.nullity(); }
-  bool  lindep(GNU_gama::Index i) { return svd.lindep(i); }
+  Index defect() { return svd.nullity(); }
+  bool  lindep(Index i) { return svd.lindep(i); }
   
-  void  q_xx(GNU_gama::Mat<Float, Exc>& C) { AdjBase<Float, Exc>::q_xx(C); }
-  Float q_xx(GNU_gama::Index i, GNU_gama::Index j)
+  void  q_xx(Mat<Float, Exc>& C) { AdjBase<Float, Exc>::q_xx(C); }
+  Float q_xx(Index i, Index j)
     {
       if(!this->is_solved) solve_me();
       return svd.q_xx(i, j);
     }
-  Float q_bb(GNU_gama::Index i, GNU_gama::Index j)
+  Float q_bb(Index i, Index j)
     {
       if (!this->is_solved) solve_me();
       return svd.q_bb(i, j) / (this->sqrt_w(i) * this->sqrt_w(j));
     }
-  Float q_bx(GNU_gama::Index i, GNU_gama::Index j)
+  Float q_bx(Index i, Index j)
     {
       if (!this->is_solved) solve_me();
       return svd.q_bx(i, j) / this->sqrt_w(i);
     }
   
   void min_x()   {  svd.min_x(); }
-  void min_x(GNU_gama::Index n, GNU_gama::Index x[]) { svd.min_x(n, x); }
+  void min_x(Index n, Index x[]) { svd.min_x(n, x); }
 
   Float cond();
   
@@ -107,18 +107,18 @@ void AdjSVD<Float, Exc>::solve_me()
    this->sqrt_w.reset(this->pb->dim());
    if (this->pw)
    { 
-      for (GNU_gama::Index n = 1; n <= this->sqrt_w.dim(); n++)
+      for (Index n = 1; n <= this->sqrt_w.dim(); n++)
          this->sqrt_w(n) = sqrt((*this->pw)(n));
       svd.reset(*this->pA, this->sqrt_w);                 // protected ==> public
-      GNU_gama::Vec<Float, Exc> pbw = *this->pb;
-      for (GNU_gama::Index i = 1; i <= this->pb->dim(); i++)
+      Vec<Float, Exc> pbw = *this->pb;
+      for (Index i = 1; i <= this->pb->dim(); i++)
          pbw(i) *= this->sqrt_w(i);
       svd.solve(pbw, this->x);
    }
    else
    {
       svd.reset(*this->pA);
-      for (GNU_gama::Index n = 1; n <= this->sqrt_w.dim(); n++)
+      for (Index n = 1; n <= this->sqrt_w.dim(); n++)
          this->sqrt_w(n) = 1;
       svd.solve(*this->pb, this->x);
    }
@@ -131,7 +131,7 @@ void AdjSVD<Float, Exc>::solve_me()
 template <typename Float, typename Exc>
 Float AdjSVD<Float, Exc>::cond()
 {
-  const GNU_gama::Vec<Float, Exc>& W = svd.SVD_W();
+  const Vec<Float, Exc>& W = svd.SVD_W();
 
   Float  f, sv_min=W(1), sv_max=W(1);
 

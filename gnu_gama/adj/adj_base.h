@@ -20,13 +20,17 @@
 */
 
 /*
- *  $Id: adj_base.h,v 1.1 2005/03/28 11:44:24 cepek Exp $
+ *  $Id: adj_base.h,v 1.2 2005/03/28 19:19:39 cepek Exp $
  */
 
 #ifndef GNU_Gama_gnu_gama_gnugama_GaMa_AdjBase_h
 #define GNU_Gama_gnu_gama_gnugama_GaMa_AdjBase_h
 
-#include <gamalib/matvec.h>
+#include <gamalib/exception.h>
+#include <gamalib/float.h>
+#include <gmatvec/svd.h>
+#include <gmatvec/bandmat2.h>
+
 
 namespace GNU_gama {
 
@@ -36,23 +40,23 @@ class AdjBase {
 
 public:
   AdjBase() {}
-  AdjBase(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b)
+  AdjBase(const Mat<Float, Exc>& A, const Vec<Float, Exc>& b)
     : pA(&A), pb(&b), pw(0), is_solved(false) {}
-  AdjBase(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b,
-          const GNU_gama::Vec<Float, Exc>& w)
+  AdjBase(const Mat<Float, Exc>& A, const Vec<Float, Exc>& b,
+          const Vec<Float, Exc>& w)
     : pA(&A), pb(&b), pw(&w), is_solved(false) {}
   virtual ~AdjBase() {}
 
-  virtual void reset(const GNU_gama::Mat<Float, Exc>& A, 
-             const GNU_gama::Vec<Float, Exc>& b) {
+  virtual void reset(const Mat<Float, Exc>& A, 
+             const Vec<Float, Exc>& b) {
     pA = &A;
     pb = &b;
     pw = 0;
     is_solved = false;
   }
-  virtual void reset(const GNU_gama::Mat<Float, Exc>& A, 
-             const GNU_gama::Vec<Float, Exc>& b,
-             const GNU_gama::Vec<Float, Exc>& w)
+  virtual void reset(const Mat<Float, Exc>& A, 
+             const Vec<Float, Exc>& b,
+             const Vec<Float, Exc>& w)
   {
     pA = &A;
     pb = &b;
@@ -60,29 +64,29 @@ public:
     is_solved = false;
   }
 
-  const GNU_gama::Vec<Float, Exc>& solve(GNU_gama::Vec<Float, Exc>& x) 
+  const Vec<Float, Exc>& solve(Vec<Float, Exc>& x) 
     { 
       solve_me(); return x = AdjBase::x; 
     }
-  const GNU_gama::Vec<Float, Exc>& solve() { solve_me(); return x; }
-  const GNU_gama::Vec<Float, Exc>& residuals(GNU_gama::Vec<Float, Exc>& res) 
+  const Vec<Float, Exc>& solve() { solve_me(); return x; }
+  const Vec<Float, Exc>& residuals(Vec<Float, Exc>& res) 
     { 
       solve_me(); return res = r; 
     }
-  const GNU_gama::Vec<Float, Exc>& residuals() { solve_me(); return r; }
+  const Vec<Float, Exc>& residuals() { solve_me(); return r; }
 
   Float trwr();   // trans(r)*w*r
-  virtual GNU_gama::Index defect() = 0;
+  virtual Index defect() = 0;
 
 
-  virtual void  q_xx(GNU_gama::Mat<Float, Exc>&);        // weight coefficients 
-  virtual Float q_xx(GNU_gama::Index, GNU_gama::Index) = 0; // w. coeff. (xi,xj)
-  virtual Float q_bb(GNU_gama::Index, GNU_gama::Index) = 0; //           (bi,bj)
-  virtual Float q_bx(GNU_gama::Index, GNU_gama::Index) = 0; //           (bi,xj)
+  virtual void  q_xx(Mat<Float, Exc>&);        // weight coefficients 
+  virtual Float q_xx(Index, Index) = 0; // w. coeff. (xi,xj)
+  virtual Float q_bb(Index, Index) = 0; //           (bi,bj)
+  virtual Float q_bx(Index, Index) = 0; //           (bi,xj)
 
-  virtual bool lindep(GNU_gama::Index) = 0; // linearly dependent column/unknown
+  virtual bool lindep(Index) = 0; // linearly dependent column/unknown
   virtual void min_x() = 0;
-  virtual void min_x(GNU_gama::Index, GNU_gama::Index[]) = 0;
+  virtual void min_x(Index, Index[]) = 0;
 
   virtual Float cond() { return 0; }  // condition number (0 if not available)
 
@@ -91,12 +95,12 @@ protected:
   // solve_me() must compute vectors x, r, sqrt_w and set is_solved=true
   virtual void solve_me() = 0;
 
-  const GNU_gama::Mat<Float, Exc>* pA;
-  const GNU_gama::Vec<Float, Exc>* pb;
-  const GNU_gama::Vec<Float, Exc>* pw;
-  GNU_gama::Vec<Float, Exc> x;
-  GNU_gama::Vec<Float, Exc> r;
-  GNU_gama::Vec<Float, Exc> sqrt_w;
+  const Mat<Float, Exc>* pA;
+  const Vec<Float, Exc>* pb;
+  const Vec<Float, Exc>* pw;
+  Vec<Float, Exc> x;
+  Vec<Float, Exc> r;
+  Vec<Float, Exc> sqrt_w;
   bool is_solved;
 
 };
@@ -109,7 +113,7 @@ Float AdjBase<Float, Exc>::trwr()
   if (!is_solved) solve_me();
 
   Float s = 0, p;
-  for (GNU_gama::Index i = 1; i <= r.dim(); i++) {
+  for (Index i = 1; i <= r.dim(); i++) {
       p = sqrt_w(i) * r(i);
       s += p*p;
   }
@@ -118,17 +122,17 @@ Float AdjBase<Float, Exc>::trwr()
 }
 
 template <typename Float, typename Exc>
-void AdjBase<Float, Exc>::q_xx(GNU_gama::Mat<Float, Exc>& cxx)
+void AdjBase<Float, Exc>::q_xx(Mat<Float, Exc>& cxx)
 {
   if (!is_solved) solve_me();
 
-  const GNU_gama::Index x_dim = x.dim();
+  const Index x_dim = x.dim();
   if (cxx.rows() != x_dim || cxx.cols() != x_dim)
     cxx.reset(x_dim, x_dim);
 
-  for (GNU_gama::Index i = 1; i <= x_dim; i++) {
+  for (Index i = 1; i <= x_dim; i++) {
     cxx(i,i) = q_xx(i, i);
-    for (GNU_gama::Index j = i+1; j <= x_dim; j++)
+    for (Index j = i+1; j <= x_dim; j++)
       cxx(i,j) = cxx(j,i) = q_xx(i, j);
   }
 }
