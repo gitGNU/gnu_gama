@@ -20,11 +20,11 @@
 */
 
 /*
- *  $Id: encoding.cpp,v 1.1 2003/05/10 13:13:36 cepek Exp $
+ *  $Id: encoding.cpp,v 1.2 2003/05/10 13:43:03 cepek Exp $
  */
 
 #include <string.h>
-#include <gamalib/xml/encoding.h>
+#include <gnu_gama/xml/encoding.h>
 
 #ifdef __cplusplus
 namespace GNU_gama {

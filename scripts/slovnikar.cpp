@@ -20,16 +20,20 @@
  * available.  Attribute EN is ignored on input and serves as a kind
  * of comment.
  * 
- * $Id: slovnikar.cpp,v 1.5 2003/03/16 17:56:47 cepek Exp $
+ * $Id: slovnikar.cpp,v 1.6 2003/05/10 13:43:03 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
          const int    N = 4;
          const char* language[N] = { "en", "cz", "fi", "du" };
 
-         const char* version = "1.02";
+         const char* version = "1.03";
 
 /* ---------------------------------------------------------------------------
+ *
+ * 1.03  2003-05-09
+ *
+ *       - encoding.[h|cpp] moved to gnu_gama/xml (from gamalib)
  *
  * 1.02  2003-03-16
  *
@@ -109,7 +113,7 @@ Dictionary dict;
 // ---------------------------------------------------------------------------
 
 #include <expat/xmlparse/xmlparse.h>
-#include <gamalib/xml/encoding.h>
+#include <gnu_gama/xml/encoding.h>
 
 using namespace GaMaLib;
 

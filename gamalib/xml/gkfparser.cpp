@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.8 2003/03/29 13:33:57 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.9 2003/05/10 13:43:03 cepek Exp $
  */
 
 
@@ -30,7 +30,7 @@
 #include <cmath>
 
 #include <gamalib/xml/gkfparser.h>
-#include <gamalib/xml/encoding.h>
+#include <gnu_gama/xml/encoding.h>
 #include <gamalib/observation.h>
 #include <gamalib/cluster.h>
 #include <gamalib/intfloat.h>

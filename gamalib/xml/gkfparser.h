@@ -20,13 +20,13 @@
 */
 
 /*
- *  $Id: gkfparser.h,v 1.7 2003/05/10 13:00:03 cepek Exp $
+ *  $Id: gkfparser.h,v 1.8 2003/05/10 13:43:03 cepek Exp $
  */
 
 #ifndef GaMaLib_GKF__XML__parser__h_
 #define GaMaLib_GKF__XML__parser__h_
 
-#include <gamalib/xml/baseparser.h>
+#include <gnu_gama/xml/baseparser.h>
 #include <gamalib/local/gamadata.h>
 
 

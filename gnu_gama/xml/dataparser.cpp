@@ -20,13 +20,13 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.1 2003/05/10 13:13:36 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.2 2003/05/10 13:43:03 cepek Exp $
  */
 
 // #########################################################################
 #ifdef GaMaLib_DataParser_demo
 
-#include <gamalib/xml/dataparser.h>
+#include <gnu_gama/xml/dataparser.h>
 #include <cstring>
 #include <iostream>
 
@@ -132,7 +132,7 @@ int main()
 // #########################################################################
 
 
-#include <gamalib/xml/dataparser.h>
+#include <gnu_gama/xml/dataparser.h>
 #include <cstring>
 
 using namespace std;

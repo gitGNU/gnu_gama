@@ -20,12 +20,12 @@
 */
 
 /*
- *  $Id: underline.cpp,v 1.3 2003/05/10 13:00:03 cepek Exp $
+ *  $Id: underline.cpp,v 1.4 2003/05/10 13:43:03 cepek Exp $
  */
 
 #include <string>
 #include <gamalib/local/results/text/underline.h>
-#include <gamalib/xml/encoding.h>
+#include <gnu_gama/xml/encoding.h>
 
 
 namespace GaMaLib {

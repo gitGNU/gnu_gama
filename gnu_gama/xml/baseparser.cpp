@@ -20,11 +20,11 @@
 */
 
 /*
- *  $Id: baseparser.cpp,v 1.1 2003/05/10 13:13:36 cepek Exp $
+ *  $Id: baseparser.cpp,v 1.2 2003/05/10 13:43:03 cepek Exp $
  */
 
-#include <gamalib/xml/baseparser.h>
-#include <gamalib/xml/encoding.h>
+#include <gnu_gama/xml/baseparser.h>
+#include <gnu_gama/xml/encoding.h>
 
 using namespace std;
 using namespace GNU_gama;

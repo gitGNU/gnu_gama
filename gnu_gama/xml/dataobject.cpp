@@ -20,10 +20,10 @@
 */
 
 /*
- *  $Id: dataobject.cpp,v 1.1 2003/05/10 13:13:36 cepek Exp $
+ *  $Id: dataobject.cpp,v 1.2 2003/05/10 13:43:03 cepek Exp $
  */
 
-#include <gamalib/xml/dataobject.h>
+#include <gnu_gama/xml/dataobject.h>
 
 using namespace std;
 using namespace GNU_gama;

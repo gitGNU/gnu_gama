@@ -1,10 +1,10 @@
 #include <iostream>
 #include <string>
 #include <expat/xmlparse/xmlparse.h>
-#include <gamalib/xml/encoding.h>
+#include <gnu_gama/xml/encoding.h>
 
 /*
- * $Id: utf8-ascii.cpp,v 1.1 2001/12/07 11:45:44 cepek Exp $
+ * $Id: utf8-ascii.cpp,v 1.2 2003/05/10 13:43:03 cepek Exp $
  */
 
 namespace GaMaLib {

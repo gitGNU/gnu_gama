@@ -20,14 +20,14 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.1 2003/05/10 13:13:36 cepek Exp $
+ *  $Id: dataparser.h,v 1.2 2003/05/10 13:43:03 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_DataParser__data_parser__dataparser___h_
 #define GaMaLib_GaMa_XML_DataParser__data_parser__dataparser___h_
 
-#include <gamalib/xml/baseparser.h>
-#include <gamalib/xml/dataobject.h>
+#include <gnu_gama/xml/baseparser.h>
+#include <gnu_gama/xml/dataobject.h>
 #include <gamalib/local/gamadata.h>
 #include <cstddef>
 #include <string>
