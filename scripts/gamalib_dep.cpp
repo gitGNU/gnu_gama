@@ -1,12 +1,14 @@
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <set>
 
 /*
- * $Id: gamalib_dep.cpp,v 1.2 2002/04/02 21:39:00 cepek Exp $
+ * $Id: gamalib_dep.cpp,v 1.3 2002/06/04 14:15:19 cepek Exp $
  */
 
 /*************************************************************************
+ * 0.5  added include <iostream> for g++ 3.0.4 
  * 0.4  .o changed to .$(OBJ) for
  * 0.3  `name' not written to output
  * 0.2  added SRC make macro (2000-11-11)

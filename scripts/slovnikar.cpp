@@ -16,16 +16,20 @@
  *
  * Program compiles dictionarise and write files language.h and language.cpp
  *
- * $Id: slovnikar.cpp,v 1.1 2001/12/07 11:45:44 cepek Exp $
+ * $Id: slovnikar.cpp,v 1.2 2002/06/04 14:15:19 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
          const int    N = 2;
          const char* language[N] = { "en", "cz" };
 
-         const char* version = "0.04";
+         const char* version = "0.05";
 
 /* ---------------------------------------------------------------------------
+ *
+ * 0.05  2002-06-04
+ *
+ *       - added include <iostrem> (g++ 3.0.4)
  *
  * 0.04  2001-11-28
  *
@@ -70,6 +74,7 @@
  * ---------------------------------------------------------------------------
  */
 
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <map>
