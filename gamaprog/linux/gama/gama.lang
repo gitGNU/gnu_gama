@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-2" standalone="yes" ?> 
+<entries>
+
+<e id="T_GaMa_Adjustment_of_geodetic_network"   
+   en="Adjustment of local geodetic network"
+   cz="Vyrovnání místní geodetické sítě"  /> 
+
+<e id="T_GaMa_version"
+   en="version: "
+   cz="verze: " />
+
+<e id="T_GaMa_exception_1"
+   en="Error during creation of InfoSit object"
+   cz="Chyba při vytváření objektu InfoSit"  />
+
+<e id="T_GaMa_exception_2a"
+   en="GaMa - error on reading XML input configuration file!"
+   cz="GaMa - chyba při čtení XML konfiguračního souboru!" />
+
+<e id="T_GaMa_exception_2b"
+   en="On line number "
+   cz="Na řádku číslo " />
+
+<e id="T_GaMa_No_points_available"
+   en="No points available"
+   cz="Nebyly zadány žádné body" />
+
+<e id="T_GaMa_No_observations_available"
+   en="No observations available"
+   cz="Nebyla zadána žádná měření" />
+
+<e id="T_GaMa_No_network_points_defined"
+   en="No network points defined"
+   cz="Nebyly zadány žádné body sítě" />
+
+<e id="T_GaMa_No_unknowns_defined"
+   en="No unknowns have been defined"
+   cz="Nejsou definovány žádné neznámé" />
+
+<e id="T_GaMa_Observatios_with_outlying_absolute_terms_removed"
+   en="Observations with outlying absolute terms removed"
+   cz="Měření s vybočujícími absolutními členy vyloučena" />
+
+<e id="T_GaMa_adjustment_iteration"
+   en=" - adjustment iteration"
+   cz=". opakované vyrovnání" />
+
+<e id="T_GaMa_Approximate_coordinates_replaced"
+   en="Approximate coordinates of computed points replaced by adjusted"
+   cz="Přibližné souřadnice určovaných bodů nahrazeny vyrovnanými" />
+
+<e id="T_GaMa_solution_ended_with_error"
+   en="GaMa - solution ended with error!"
+   cz="GaMa - výpočet skončil chybou!" />
+
+<e id="T_GaMa_internal_program_error"
+   en="GaMa - internal program error!"
+   cz="GaMa - interní chyba programu!" />
+  
+</entries>   
+
+
+
+
+
