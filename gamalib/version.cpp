@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.31 2002/09/23 16:14:38 cepek Exp $
+ *  $Id: version.cpp,v 1.32 2002/09/29 15:22:38 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.5.01";
+const char* GaMaLib_version  = "1.5.02";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
@@ -59,7 +59,9 @@ const char* GaMaLib_compiler =
 
 =============================================================================
 
-1.5.02 2002...
+1.5.02 2002-09-29
+
+   - support for the Finish language
 
    - added scripts/kylix.sh for compilation GaMa with bc++ compilere
      from Kylix3 Open Edition under Linux
