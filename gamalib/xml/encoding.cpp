@@ -20,14 +20,14 @@
 */
 
 /*
- *  $Id: encoding.cpp,v 1.3 2003/02/16 13:09:14 cepek Exp $
+ *  $Id: encoding.cpp,v 1.4 2003/05/10 13:00:03 cepek Exp $
  */
 
 #include <string.h>
 #include <gamalib/xml/encoding.h>
 
 #ifdef __cplusplus
-namespace GaMaLib {
+namespace GNU_gama {
 #endif
 
 int cp1250_unicode(int* tab){
@@ -374,7 +374,7 @@ int UnknownEncodingHandler(void *userData, const char *name,XML_Encoding *info)
 }
 
 #ifdef __cplusplus
-}   //  namespace GaMaLib
+}   //  namespace GNU_gama
 #endif
 
 

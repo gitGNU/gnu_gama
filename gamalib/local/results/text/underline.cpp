@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: underline.cpp,v 1.2 2003/02/16 13:09:14 cepek Exp $
+ *  $Id: underline.cpp,v 1.3 2003/05/10 13:00:03 cepek Exp $
  */
 
 #include <string>
@@ -37,7 +37,7 @@ std::string underline(std::string text, char c)
   unsigned char* p = (unsigned char*)text.c_str();
   while (*p)
     {
-      p += Utf8Decode(i, p);
+      p += GNU_gama::Utf8Decode(i, p);
       s += c;
     }
   return s;
@@ -49,7 +49,7 @@ std::string set_width(std::string s, int n)
   unsigned char* p = (unsigned char*)s.c_str();
   while (*p)
     {
-      p += Utf8Decode(i, p);
+      p += GNU_gama::Utf8Decode(i, p);
       N++;
     }
   std::string t(s);

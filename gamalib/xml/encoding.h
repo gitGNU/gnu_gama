@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: encoding.h,v 1.2 2003/02/16 13:09:14 cepek Exp $
+ *  $Id: encoding.h,v 1.3 2003/05/10 13:00:03 cepek Exp $
  */
 
 #include <expat/xmlparse/xmlparse.h>
@@ -30,7 +30,7 @@
 
 
 #ifdef __cplusplus
-namespace GaMaLib {
+namespace GNU_gama {
 #endif
 
 int   cp1250_unicode(int* tab);
@@ -44,7 +44,7 @@ int   UnknownEncodingHandler(void *userData, const char *name,
                            XML_Encoding *info);
 
 #ifdef __cplusplus
-}  // namespace GaMaLib                
+}  // namespace GNU_gama                
 #endif
 
 

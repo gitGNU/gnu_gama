@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: outstream.cpp,v 1.2 2003/03/25 12:38:33 cepek Exp $
+ *  $Id: outstream.cpp,v 1.3 2003/05/10 13:00:03 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace {
 
-  unsigned char ascii[256] = {0}; 
+  unsigned char ascii_table[256] = {0}; 
 
   void init_ascii(unsigned char t[])
   {
@@ -151,7 +151,7 @@ using namespace GNU_gama;
 
 OutStream::OutStream(std::ostream& str) : ostr(str), encoding(utf_8)
 {
-  if (ascii[1] == 0) init_ascii(ascii);
+  if (ascii_table[1] == 0) init_ascii(ascii_table);
 }
 
 const char* OutStream::recode(const char* s)
@@ -165,15 +165,15 @@ const char* OutStream::recode(const char* s)
   switch (encoding)
     {
     case iso_8859_2:
-      GaMaLib::utf8_iso_8859_2((char*)text.c_str());
+      utf8_iso_8859_2((char*)text.c_str());
       break;
     case iso_8859_2_flat: 
-      GaMaLib::utf8_iso_8859_2((char*)text.c_str());
+      utf8_iso_8859_2((char*)text.c_str());
       p = (unsigned char*)text.c_str();
-      while(*p) *p = ascii[*p++];
+      while(*p) *p = ascii_table[*p++];
       break;
     case cp_1250: 
-      GaMaLib::utf8_cp1250((char*)text.c_str());
+      utf8_cp1250((char*)text.c_str());
       break;
     default:
       break;

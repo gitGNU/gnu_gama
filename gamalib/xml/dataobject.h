@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataobject.h,v 1.5 2003/01/04 15:51:51 cepek Exp $
+ *  $Id: dataobject.h,v 1.6 2003/05/10 13:00:03 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_Data_Object__object___h_
@@ -30,7 +30,7 @@
 #include <sstream>
 #include <gamalib/adj/adj.h>
 
-namespace GaMaLib {
+namespace GNU_gama {
 
   class DataObject {
   public:
@@ -69,12 +69,12 @@ namespace GaMaLib {
   class AdjInputDataObject : public DataObject {
   public:
   
-    AdjInputData *data;
+    GNU_gama::AdjInputData *data;
   
     AdjInputDataObject() : data(0)
       {
       }    
-    AdjInputDataObject(AdjInputData *d) : data(d)
+    AdjInputDataObject(GNU_gama::AdjInputData *d) : data(d)
       {
       }    
     std::string xml() const 

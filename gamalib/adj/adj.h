@@ -20,10 +20,10 @@
 */
 
 /*
- *  $Id: adj.h,v 1.8 2003/02/22 19:40:54 cepek Exp $
+ *  $Id: adj.h,v 1.9 2003/05/10 13:00:03 cepek Exp $
  */
 
-#include <gamalib/exception.h>
+#include <gnu_gama/matvec.h>
 #include <gnu_gama/sparse/smatrix.h>
 #include <gnu_gama/sparse/sbdiagonal.h>
 #include <gnu_gama/sparse/intlist.h>
@@ -36,13 +36,8 @@
 #define GaMaLib_Adj__adjustment_class__h
 
 
-namespace GaMaLib {
+namespace GNU_gama {
 
-  class AdjException : public Exception {
-  public:
-
-    AdjException(std::string s) : Exception(s) {} 
-  };
 
   class AdjInputData;
 
@@ -66,7 +61,7 @@ namespace GaMaLib {
   private:
     
     const AdjInputData *data;
-    BaseOLS<Double, GaMaLib::MatVecException> *least_squares;
+    GaMaLib::BaseOLS<double, Exception::matvec> *least_squares;
 
     bool      solved;
     algorithm algorithm_;
@@ -113,10 +108,10 @@ namespace GaMaLib {
 
     friend class Adj;
 
-    GNU_gama::SparseMatrix <> * A;
-    GNU_gama::BlockDiagonal<> * pcov;
-    Vec                         prhs;
-    GNU_gama::IntegerList  <> * pminx;
+    SparseMatrix <> * A;
+    BlockDiagonal<> * pcov;
+    Vec               prhs;
+    IntegerList  <> * pminx;
 
   };
   

@@ -20,14 +20,14 @@
 */
 
 /*
- *  $Id: baseparser.cpp,v 1.3 2002/10/24 17:04:13 cepek Exp $
+ *  $Id: baseparser.cpp,v 1.4 2003/05/10 13:00:03 cepek Exp $
  */
 
 #include <gamalib/xml/baseparser.h>
 #include <gamalib/xml/encoding.h>
 
 using namespace std;
-using namespace GaMaLib;
+using namespace GNU_gama;
 
 
 // ===========================================================================
@@ -110,7 +110,7 @@ bool BaseParser::toDouble(const std::string& s, double& d) const
 {
   using namespace std;        // Visual C++ doesn't know std::atof ???
   
-  if (IsFloat(s))
+  if (GaMaLib::IsFloat(s))
     {
       d = atof(s.c_str());
       return true;
@@ -121,7 +121,7 @@ bool BaseParser::toDouble(const std::string& s, double& d) const
 
 
 
-bool BaseParser::toIndex(const std::string& s, Index& index) const
+bool BaseParser::toIndex(const std::string& s, std::size_t& index) const
 {
   for (std::string::const_iterator i=s.begin(); i!=s.end(); ++i)
     if (!isspace(*i) && !isdigit(*i))
@@ -130,7 +130,7 @@ bool BaseParser::toIndex(const std::string& s, Index& index) const
   double d;
   if (toDouble(s, d))
     {
-      index = static_cast<Index>(d);
+      index = static_cast<std::size_t>(d);
       return true;
     }
   else

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.16 2003/03/15 21:22:51 cepek Exp $
+ *  $Id: adj.cpp,v 1.17 2003/05/10 13:00:03 cepek Exp $
  */
 
 #include <gamalib/adj/adj.h>
@@ -29,7 +29,7 @@
 #include <cstddef>
 #include <algorithm>
 
-using namespace GaMaLib;
+using namespace GNU_gama;
 using namespace std;
 
 AdjInputData::AdjInputData()
@@ -72,14 +72,14 @@ void AdjInputData::write_xml(std::ostream& out) const
           << "<cols>" << A->columns() << "</cols> "
           << "<nonz>" << A->nonzeroes() << "</nonz>\n";
       
-      for (Index m, k=1; k<=A->rows(); k++)
+      for (std::size_t m, k=1; k<=A->rows(); k++)
         {
           double* n = A->begin(k);
           double* e = A->end  (k);
 
           out << "      <row>";
           out << " <nonz>" << (e - n) << "</nonz>";
-          for(Index* i=A->ibegin(k) ; n!=e; n++, i++, m++)
+          for(std::size_t* i=A->ibegin(k) ; n!=e; n++, i++, m++)
             {
               out << "\n        "
                   << "<int>" << *i << "</int>"
@@ -159,7 +159,7 @@ void AdjInputData::read_xml(std::istream& inp)
 {
   string            line;
   list<DataObject*> objects;
-  DataParser dp(objects);
+  DataParser        dp(objects);
 
   while (getline(inp, line))
     {
@@ -278,34 +278,34 @@ void Adj::init_least_squares()
   switch (algorithm_) 
     {
     case svd: 
-      least_squares = new OLSsvd<Double, GaMaLib::MatVecException>;
+      least_squares = new GaMaLib::OLSsvd<double, Exception::matvec>;
       break;
     case gso: 
-      least_squares = new OLSgso<Double, GaMaLib::MatVecException>;
+      least_squares = new GaMaLib::OLSgso<double, Exception::matvec>;
       break;
     default:
-      throw AdjException("### unknown algorithm");
+      throw Exception::adjustment("### unknown algorithm");
     }
 
   A_dot.reset(data->A->rows(), data->A->columns());
   A_dot.set_zero();
   b_dot.reset(data->A->rows());
 
-  for (Index k=1; k<=data->A->rows(); k++)
+  for (std::size_t k=1; k<=data->A->rows(); k++)
     {
       double* n = data->A->begin(k);
       double* e = data->A->end  (k);
       for(size_t* i=data->A->ibegin(k) ; n!=e; n++, i++)  A_dot(k,*i) = *n; 
      }
 
-  for (Index i, j, dim, width, r=0, b=1; 
+  for (std::size_t i, j, dim, width, r=0, b=1; 
        b<=data->pcov->blocks(); b++, r += dim)
     {
       dim   = data->pcov->dim(b);
       width = data->pcov->width(b);
       Cov C(dim, width);
 
-      const Double *p = data->pcov->begin(b), *e = data->pcov->end(b);
+      const double *p = data->pcov->begin(b), *e = data->pcov->end(b);
       Cov::iterator c = C.begin();
       while (p != e) *c++ = *p++;
       cholesky(C);
@@ -340,7 +340,7 @@ void Adj::preferred_algorithm(Adj::algorithm alg)
       break;
 
     default:
-      throw AdjException("### unknown algorithm");
+      throw Exception::adjustment("### unknown algorithm");
     }
 }
 
@@ -368,10 +368,10 @@ void Adj::cholesky(Cov& chol)
   chol.cholDec();
 
   using namespace std;
-  const Index N = chol.rows();
-  const Index b = chol.bandWidth();
+  const std::size_t N = chol.rows();
+  const std::size_t b = chol.bandWidth();
 
-  for (Index m, j, i=1; i<=N; i++)
+  for (std::size_t m, j, i=1; i<=N; i++)
     {
       double d = sqrt(chol(i,i));
       chol(i,i) = d;
@@ -385,14 +385,14 @@ void Adj::cholesky(Cov& chol)
 void Adj::forwardSubstitution(const Cov& chol, Vec& v)
 {
   using namespace std;
-  const Index N = chol.rows();
-  const Index b = chol.bandWidth();
+  const std::size_t N = chol.rows();
+  const std::size_t b = chol.bandWidth();
 
-  for (Index m, i=1; i<=N; i++)
+  for (std::size_t m, i=1; i<=N; i++)
     {
       if (i > b+1) m = i - b;
       else         m = 1;
-      for (Index j=m; j<i; j++) v(i) -= chol(i,j)*v(j);
+      for (std::size_t j=m; j<i; j++) v(i) -= chol(i,j)*v(j);
 
       v(i) /= chol(i,i);
     }

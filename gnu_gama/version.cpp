@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.2 2003/05/06 12:01:23 cepek Exp $
+ *  $Id: version.cpp,v 1.3 2003/05/10 13:00:03 cepek Exp $
  */
 
 
@@ -61,7 +61,8 @@ const char* GNU_gama_compiler =
 
 1.7.04 2002-05-??
 
-   -
+   - classes BaseParser and Dataparser moved from namespace GaMaLib to
+     namespace GNU_gama
 
 
 1.7.03 2002-03-29

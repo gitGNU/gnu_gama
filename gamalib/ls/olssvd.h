@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: olssvd.h,v 1.2 2002/12/15 20:19:33 cepek Exp $
+ *  $Id: olssvd.h,v 1.3 2003/05/10 13:00:03 cepek Exp $
  */
 
 #ifndef GaMa_OLS_svd_h
@@ -131,7 +131,7 @@ void OLSsvd<Float, Exc>::solve_me()
 template <class Float, class Exc>
 Float OLSsvd<Float, Exc>::cond()
 {
-  const Vec& W = svd.SVD_W();
+  const gMatVec::Vec<Float, Exc>& W = svd.SVD_W();
 
   Float  f, sv_min=W(1), sv_max=W(1);
 

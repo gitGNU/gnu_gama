@@ -1,8 +1,8 @@
 /*  
-    Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
-    Copyright (C) 2002  Ales Cepek <cepek@fsv.cvut.cz>
+    GNU Gama -- adjustment of geodetic networks
+    Copyright (C) 2003  Ales Cepek <cepek@fsv.cvut.cz>
 
-    This file is part of the GNU GaMa / GaMaLib C++ Library.
+    This file is part of the GNU Gama C++ library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,25 +20,23 @@
 */
 
 /*
- *  $Id: dataobject.cpp,v 1.4 2003/05/10 13:00:03 cepek Exp $
+ *  $Id: matvec.h,v 1.1 2003/05/10 13:00:03 cepek Exp $
  */
 
-#include <gamalib/xml/dataobject.h>
 
-using namespace std;
-using namespace GNU_gama;
+#include <gnu_gama/exception.h>
+#include <gmatvec/bandmat2.h>
 
-string DataObject::xml_begin()
-{
-  return
-    "<?xml version=\"1.0\" ?>\n"
-    "<!DOCTYPE gnu-gama-data SYSTEM \"gnu-gama-data.dtd\">\n\n"
+#ifndef GNU_gama__Matrix_Vector__MatVec___matvec__h___matvec
+#define GNU_gama__Matrix_Vector__MatVec___matvec__h___matvec
 
-    "<gnu-gama-data>\n";
+
+namespace GNU_gama { 
+
+  typedef gMatVec::Vec     <double, Exception::matvec>   Vec;
+  typedef gMatVec::Mat     <double, Exception::matvec>   Mat;
+  typedef gMatVec::BandMat2<double, Exception::matvec>   Cov;
+
 }
 
-
-string DataObject::xml_end()
-{
-  return "\n</gnu-gama-data>\n";
-}
+#endif

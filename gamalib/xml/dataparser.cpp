@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.14 2003/03/05 17:15:07 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.15 2003/05/10 13:00:03 cepek Exp $
  */
 
 // #########################################################################
@@ -34,7 +34,7 @@
 int main()
 {
   using namespace std;
-  using namespace GaMaLib;
+  using namespace GNU_gama;
   
   const char* xml_input_data = 
 
@@ -136,7 +136,7 @@ int main()
 #include <cstring>
 
 using namespace std;
-using namespace GaMaLib;
+using namespace GNU_gama;
 
 DataParser::DataParser(std::list<DataObject*>& obs) : objects(obs)
 {
@@ -422,7 +422,7 @@ int DataParser::white_spaces(const char* s, int len)
 {
   while (len--)
     {
-      if (!isspace(s[len])) return error(T_GKF_illegal_text);
+      if (!isspace(s[len])) return error(GaMaLib::T_GKF_illegal_text);
     }
 
   return 0;
@@ -475,13 +475,13 @@ int DataParser::adj_input_data(const char *name, const char **atts)
 
 int DataParser::adj_input_data(const char *name)
 {
-  AdjInputData *data = new AdjInputData;
+  GNU_gama::AdjInputData *data = new GNU_gama::AdjInputData;
 
   if (adj_sparse_mat    ) data->set_mat(adj_sparse_mat);
   if (adj_block_diagonal) data->set_cov(adj_block_diagonal);
   if (adj_vector.dim()  ) data->set_rhs(adj_vector);  
   if (adj_array         ) data->set_minx(adj_array);
-  objects.push_back( new AdjInputDataObject(data) );
+  objects.push_back( new GNU_gama::AdjInputDataObject(data) );
 
   return end_tag(name);;
 }
@@ -577,7 +577,7 @@ int DataParser::block_diagonal_nonz(const char *name)
 int DataParser::block_diagonal_block_w(const char *name)
 {
   istringstream inp(text_buffer.c_str());
-  Index dim, width;
+  std::size_t dim, width;
   if ((inp >> dim >> width) && dim>0 && width>=0 && width<dim)
     {   
       block_diagonal_dim   = dim;

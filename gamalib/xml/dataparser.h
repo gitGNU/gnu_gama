@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.12 2003/02/22 19:40:54 cepek Exp $
+ *  $Id: dataparser.h,v 1.13 2003/05/10 13:00:03 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -33,7 +33,7 @@
 #include <string>
 #include <list>
 
-namespace GaMaLib {
+namespace GNU_gama {
   
   class DataParser : public BaseParser
     {
@@ -181,19 +181,19 @@ namespace GaMaLib {
       GNU_gama::BlockDiagonal<> *adj_block_diagonal;
       Vec              adj_vector;  
       Vec::iterator    adj_vector_iterator;  
-      Index            adj_vector_dim;
+      std::size_t      adj_vector_dim;
       GNU_gama::IntegerList<>   *adj_array;
       GNU_gama::IntegerList<>::iterator adj_array_iterator;
-      Index            adj_array_dim;
+      std::size_t      adj_array_dim;
       std::size_t      adj_sparse_mat_nonz;
       std::size_t      adj_sparse_mat_row_nonz;
-      Index            block_diagonal_blocks_;
-      Index            block_diagonal_nonz_;  
-      Index            block_diagonal_dim;
-      Index            block_diagonal_width;
+      std::size_t      block_diagonal_blocks_;
+      std::size_t      block_diagonal_nonz_;  
+      std::size_t      block_diagonal_dim;
+      std::size_t      block_diagonal_width;
       Vec              bd_vector;
       Vec::iterator    bd_vector_iterator;  
-      Index            bd_vector_dim;
+      std::size_t      bd_vector_dim;
 
     };
 }

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: baseparser.h,v 1.2 2002/10/18 20:52:29 cepek Exp $
+ *  $Id: baseparser.h,v 1.3 2003/05/10 13:00:03 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa__XML__BASE_Base_base__PARSER_Parser_parser__h_
@@ -36,7 +36,7 @@
 #include <string>
 #include <list>
 
-namespace GaMaLib {
+namespace GNU_gama {
 
   class ParserException : public GaMaLib::Exception 
   {
@@ -77,8 +77,8 @@ namespace GaMaLib {
     int error(const char* text);
     int error(const std::string& s)   { return error(s.c_str()); }
 
-    bool toDouble(const std::string&, double&) const;
-    bool toIndex (const std::string&, Index& ) const;
+    bool toDouble(const std::string&, double&     ) const;
+    bool toIndex (const std::string&, std::size_t&) const;
       
   private:
 
