@@ -20,16 +20,20 @@
  * available.  Attribute EN is ignored on input and serves as a kind
  * of comment.
  * 
- * $Id: slovnikar.cpp,v 1.8 2003/08/14 16:20:26 cepek Exp $
+ * $Id: slovnikar.cpp,v 1.9 2004/04/12 11:29:50 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
-         const int    N = 4;
-         const char* language[N] = { "en", "cz", "fi", "du" };
+         const int    N = 5;
+         const char* language[N] = { "en", "cz", "fi", "du", "hu" };
 
-         const char* version = "1.03";
+         const char* version = "1.04";
 
 /* ---------------------------------------------------------------------------
+ *
+ * 1.04  2004-04-12
+ *
+ *       - added Hungarian translation by Zoltan Faludi
  *
  * 1.03  2003-05-09
  *

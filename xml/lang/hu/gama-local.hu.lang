@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-2" standalone="yes" ?> 
+<entries>
+
+<e id="T_GaMa_Adjustment_of_geodetic_network"   
+   EN="Adjustment of local geodetic network"
+   hu="Helyi geodéziai hálózat kiegyenlítés"  /> 
+
+<e id="T_GaMa_version"
+   EN="version: "
+   hu="verzió: " />
+
+<e id="T_GaMa_exception_1"
+   EN="Error during creation of InfoSit object"
+   hu="Hiba az InfoSit objektum létrehozása közben"  />
+
+<e id="T_GaMa_exception_2a"
+   EN="GaMa - error on reading XML input configuration file!"
+   hu="GaMa - hiba az XML input fájl olvasása közben" />
+
+<e id="T_GaMa_exception_2b"
+   EN="On line number "
+   hu="A következő sornál " />
+
+<e id="T_GaMa_No_points_available"
+   EN="No points available"
+   hu="Nincsenek pontok" />
+
+<e id="T_GaMa_No_observations_available"
+   EN="No observations available"
+   hu="Nincsenek észlelések" />
+
+<e id="T_GaMa_No_network_points_defined"
+   EN="No network points defined"
+   hu="Nincsenek meghatározva hálózati pontok meghatározva" />
+
+<e id="T_GaMa_No_unknowns_defined"
+   EN="No unknowns have been defined"
+   hu="Nincsenek ismeretlenek meghatározva" />
+
+<e id="T_GaMa_Observatios_with_outlying_absolute_terms_removed"
+   EN="Observations with outlying absolute terms removed"
+   hu="Hibahatáron kívül eső észlelések eltávolítva" />
+
+<e id="T_GaMa_adjustment_iteration"
+   EN=" - adjustment iteration"
+   hu=". - kiegyenlítési iteráció" />
+
+<e id="T_GaMa_Approximate_coordinates_replaced"
+   EN="Approximate coordinates of computed points replaced by adjusted"
+   hu="A számított pontok előzetes koordinátái cserélve a kiegyenlítettre" />
+
+<e id="T_GaMa_solution_ended_with_error"
+   EN="GaMa - solution ended with error!"
+   hu="GaMa - hibás megoldás!" />
+
+<e id="T_GaMa_internal_program_error"
+   EN="GaMa - internal program error!"
+   hu="GaMa - belső programhiba!" />
+  
+</entries>   
+
+
+
+
+

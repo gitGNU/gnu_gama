@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-2" standalone="yes" ?> 
+<entries>
+
+<e id="T_IE_internal_error"
+   EN="internal error"
+   hu="belső hiba" />
+
+<e id="T_GaMa_from_equals_to"
+   EN="station and target are identical"
+   hu="az állás és az irányzott pont megegyezik" />
+
+</entries>   
+
+
+
+
+
+

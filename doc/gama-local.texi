@@ -30,7 +30,7 @@ Usage: gama-local [options] xml_input_file.gkf  [ output. ]
 Options:
 
 --algorithm  svd | gso
---language   en | cz | fi | du
+--language   en | cz | du | fi | hu
 --encoding   utf-8 | iso-8859-2 | iso-8859-2-flat | cp-1250
 --angles     400 | 360
 --version

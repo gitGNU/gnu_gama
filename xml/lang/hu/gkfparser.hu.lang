@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="iso-8859-2" standalone="yes" ?> 
+<entries>
+
+<e id="T_GKF_illegal_text"
+   EN="illegal text"
+   hu="érvénytelen szöveg" />
+
+<e id="T_GKF_must_start_with_gama_xml"
+   EN="document must start with tag &lt;gama-xml&gt;"
+   hu="a dokumentumnak a &lt;gama-xml&gt; címkével kell kezdődni" />
+
+<e id="T_GKF_undefined_value_of_attribute"
+   EN="illegal value of the attribute: "
+   hu="érvénytelen attribútum érték: " />
+
+<e id="T_GKF_illegal_value_of_gama_xml_version"
+   EN="illegal value of attribue 'version' of tag &lt;gama-xml&gt;: "
+   hu="érvénytelen értékű &lt;version&lt; attribútum a &lt;gama-xml&gt; címkében: " />
+
+<e id="T_GKF_undefined_attribute_of_gama_xml"
+   EN="undefined attribute of tag &lt;gama-xml&gt;: "
+   hu="nem definiált &lt;gama-xml&lt; attribútum: " />
+
+<e id="T_GKF_undefined_attribute_of_vectors"
+   EN="undefined attribute of tag &lt;vectors&gt;: "
+   hu="nem definiált &lt;vectors&gt; attribútum: " />
+
+<e id ="T_GKF_missing_tag_network"
+   EN="missing tag &lt;network&gt;"
+   hu="nem definiált &lt;vectors&gt; attribútum: " />
+
+<e id="T_GKF_e01a_illegal_tag"
+   EN="illegal_tag &lt;"
+   hu="érvénytelen címke &lt;" />
+
+<e id="T_GKF_e01b_after_tag"
+   EN="&gt; after tag"
+   hu="&gt; címke után" />
+
+<e id="T_GKF_error_on_reading_of_standard_deviation"
+   EN="error on reading of standard deviation"
+   hu="hiba a középhiba olvasásakor" />
+
+<e id="T_GKF_error_on_reading_of_confidence_probability"
+   EN="error on reading of confidence probability"
+   hu="hiba a konfidencia próba olvasása közben" />
+
+<e id="T_GKF_error_on_reading_of_absolute_terms_tolerance"
+   EN="error on reading of tolerance for identification of outlying absolute terms"
+   hu="hiba az abszolut hibahatár olvasása közben" />
+
+<e id="T_GKF_wrong_type_of_standard_deviation"
+   EN="wrong type of standard deviation" 
+   hu="hibás középhiba típus" />
+
+<e id="T_GKF_bad_network_configuration_unknown_parameter"
+   EN="bad network configuration - unknown parameter: "
+   hu="hibás hálózat összeállítás - ismeretlen paraméter: " />
+
+<e id="T_GKF_bad_attribute_distance_dev"
+   EN="bad attribute distance-stdev: "
+   hu="hibás távolság középhiba érték: " />
+
+<e id="T_GKF_bad_attribute_direction_dev"
+   EN="bad attribute direction-stdev: "
+   hu="hibás irány középhiba érték: " />
+
+<e id="T_GKF_bad_attribute_angle_dev"
+   EN="bad attribute angle-stdev: "
+   hu="hibás szög középhiba érték: " />
+
+<e id="T_GKF_undefined_attribute_of_points_observations"
+   EN="undefined attribute of &lt;points-observations&gt;: " 
+   hu="nem definiált &lt;point-observations&gt; érték: " />
+
+<e id="T_GKF_undefined_attribute_of_points"
+   EN="undefined attribute of &lt;point&gt;: " 
+   hu="nem definiált &lt;point&gt; érték: " />
+
+<e id="T_GKF_missing_point_ID"
+   EN="missing point ID"
+   hu="hiányzó pontszám" />
+
+<e id="T_GKF_missing_from_ID"
+   EN="missing point ID (attribute from=\&quot;...\&quot;)"
+   hu="hiányzó pontszám (értéktől=\&quot;...\&quot;)" />
+
+<e id="T_GKF_missing_to_ID"
+   EN="missing point ID (attribute to=\&quot;...\&quot;)"
+   hu="hiányzó pontszám (értékig=\&quot;...\&quot;)" />
+
+<e id="T_GKF_multiple_definition_of_xy_in_tag_point"
+   EN="multiple dexinition of coordinates xy in tag &lt;point&gt;"
+   hu="többszörös vízszintes koordináta definíciók a &lt;point&gt; címkében" />
+
+<e id="T_GKF_multiple_definition_of_z_in_tag_point"
+   EN="multiple definition of coordinate z in tag &lt;point&gt;"
+   hu="töbsszörös magassági koordináta a efiníciók a &lt;point&gt; címkében" /> 
+
+<e id="T_GKF_point_must_define_xy_andor_z_inside_tag_coordinates"
+   EN="tag &lt;point /&gt; must define coordinates xy and/or z inside tag &lt;coordinates&gt;"
+   hu="a &lt;point /&gt; címke vízszintes és/vagy magassági koordinátákat kell hogy tartalmazzon a &lt;coordinates&gt; címkében" />
+
+<e id="T_GKF_coordinate_x_is_not_defined"
+   EN="coordinate x is not defined"
+   hu="X koordináta nem definiált" />
+
+<e id="T_GKF_coordinate_y_is_not_defined"
+   EN="coordinate y is not defined"
+   hu="Y koordináta nem definiált" />
+
+<e id="T_GKF_bad_coordinate_x"
+   EN="bad coordinate x: "
+   hu="hibás X koordináta: " />
+
+<e id="T_GKF_bad_coordinate_y"
+   EN="bad coordinate y: "
+   hu="hibás Y koordináta: " />
+
+<e id="T_GKF_bad_height"
+   EN="bad height: "
+   hu="hibás magasság " />
+
+<e id="T_GKF_undefined_point_type"
+   EN="undefined point type: "
+   hu="nem definiált pont típus: " />
+
+<e id="T_GKF_undefined_height_type"
+   EN="undefined height type: "
+   hu="nem definiált magasság típus: " />
+
+<e id="T_GKF_undefined_attribute_of_distance"
+   EN="undefined attribute of &lt;distance&gt;: " 
+   hu="nem definiált &lt;distance&gt; érték: " />
+
+<e id="T_GKF_undefined_attribute_of_slopedist"
+   EN="undefined attribute of &lt;s-distance&gt;: " 
+   hu="nem definiált &lt;s-distance&gt; érték: " />
+
+<e id="T_GKF_undefined_attribute_of_zangle"
+   EN="undefined attribute of &lt;z-angle&gt;: " 
+   hu="nem definiált &lt;z-angle&gt; érték: " />
+
+<e id="T_GKF_missing_standpoint_id"
+   EN="missing standpoint ID"
+   hu="hiányzó álláspont pontszám" />
+
+<e id="T_GKF_missing_forepoint_id"
+   EN="missing forepoint ID"
+   hu="hiányzó előre pontszám" />
+
+<e id="T_GKF_missing_observed_value"
+   EN="missing observed value"
+   hu="hányzó észlelés" />
+
+<e id="T_GKF_bad_distance"
+   EN="bad distance: "
+   hu="hibás távolság: " />
+
+<e id="T_GKF_bad_zangle"
+   EN="bad zenith angle: "
+   hu="bad zenith angle: " />
+
+<e id="T_GKF_illegal_standard_deviation"
+   EN="illegal standard deviation"
+   hu="érvénytelen középhiba" />
+
+<e id="T_GKF_undefined_attribute_of_angle"
+   EN="undefined attribute of &lt;angle&gt;: " 
+   hu="nem definiált &lt;angle&gt; érték: " />
+
+<e id="T_GKF_missing_left_forepoint_id"
+   EN="missing left forepoint ID"
+   hu="hiányzó balra előre pontszám" />
+
+<e id="T_GKF_missing_right_forepoint_id"
+   EN="missing right forepoint ID"
+   hu="hiányzó jobbra előre pontszám" />
+
+<e id="T_GKF_bad_angle"
+   EN="bad angle: "
+   hu="hibás szög: " />
+
+<e id="T_GKF_undefined_attribute_of_obs"
+   EN="undefined attribute of &lt;obs&gt;: " 
+   hu="nem definiált &lt;obs&gt; érték: " />
+
+<e id="T_GKF_bad_instrument_reflector_height"
+   EN="bad instrument/reflector height: "
+   hu="hibás műszer vagy jelmagasság:" />
+
+<e id="T_GKF_bad_orientation_angle"
+   EN="bad orientation angle: "
+   hu="hibás szög irány: " />
+
+<e id="T_GKF_undefined_attribute_of_direction"
+   EN="undefined attribute of &lt;direction&gt;: " 
+   hu="nem definiált &lt;direction&gt; érték: " />
+
+<e id="T_GKF_bad_direction"
+   EN="bad direction: "
+   hu="hibás irány: " />
+
+<e id="T_GKF_bad_height_diff"
+   EN="bad height difference: "
+   hu="hibás magasságkülönbség: " />
+
+<e id="T_GKF_undefined_attribute_of_cov_mat"
+   EN="undefined attribute of &lt;cov-mat&gt;: " 
+   hu="nem definált &lt;cov-mat&gt; érték: " />
+
+<e id="T_GKF_undefined_attribute_of_coordinates"
+   EN="undefined attribute of &lt;coordinates&gt;: " 
+   hu="nem definiált &lt;coordinates&gt; érték: " />
+
+<e id="T_GKF_undefined_attribute_of_height_differences"
+   EN="undefined attribute of &lt;height-differences&gt;: " 
+   hu="nem definiált &lt;height-differences&gt; érték: " />
+
+<e id="T_GKF_cov_mat_missing_dim"
+   EN="missing dimension of covariance matrix"
+   hu="kovariancia mátrix mérete hiányzik" />
+
+<e id="T_GKF_cov_mat_missing_band_width"
+   EN="missing band-width of covariance matrix"
+   hu="kovariancia mátrix szélessége hiányzik" />
+
+<e id="T_GKF_covariance_matrix_is_not_positive_definite"
+   EN="variance-covariance matrix is not positive definite"
+   hu="variancia-kovariancia mátrix ne pozitívan határozott" />
+
+<e id="T_GKF_cov_mat_bad_dim"
+   EN="bad dimension of covariance matrix: "
+   hu="hibás kovariancia mátrix dimenzió: " />
+
+<e id="T_GKF_cov_mat_bad_band_width"
+   EN="missing band-width of covariance matrix: "
+   hu="hiányzó kovariancia mátrix szélesség: " />
+
+<e id="T_GKF_cov_mat_bad_dim_too_many_elements"
+   EN="bad dimension of covariance matrix - too many elements"
+   hu="hibás kovariancia mátrix dimenzió - túl sok elem" />
+
+<e id="T_GKF_cov_mat_bad_dim_not_enough_elements"
+   EN="bad dimension of covariance matrix - not enough elements"
+   hu="hibás kovariancia mátrix dimenzió - túl kevés elem" />
+
+<e id="T_GKF_cov_mat_bad_element"
+   EN="bad covariance matrix element: "
+   hu="hibás kovariancia mátrix elem: " />
+
+<e id="T_GKF_no_observations_after_cov_mat"
+   EN="observations can not come after covariance matrix"
+   hu="a kovariancia mátrix után nem lehetnek észlelések" />
+
+<e id="T_GKF_coordinates_without_covariance_matrix"
+   EN="coordinates without covariance matrix"
+   hu="kovariancia mátrix nélküli koordináták" />
+
+<e id="T_GKF_cov_dim_differs_from_number_of_coordinates"
+   EN="covariance matrix dimension differs from the number of coordinates"
+   hu="kovariancia mátrix dimenziója eltér a koordináták számától" />
+
+<e id="T_GKF_vectors_without_covariance_matrix"
+   EN="vectors without covariance matrix"
+   hu="kovariancia mátrix nélküli vektorok" />
+
+<e id="T_GKF_cov_dim_differs_from_number_of_vectors"
+   EN="covariance matrix dimension differs from the number of vectors"
+   hu="kovariancia mátrix dimenziója eltér a vektorok számától" />
+
+<e id="T_GKF_bad_vector_data"
+   EN="bad vector data"
+   hu="hibás vektor adat" />
+
+</entries>   
+
+
+
+
+
+
