@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adjusted_observations.h,v 1.8 2004/06/20 20:54:41 cepek Exp $
+ *  $Id: adjusted_observations.h,v 1.9 2004/08/29 18:01:52 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vyrovnana_Pozorovani_h_
@@ -28,6 +28,7 @@
 
 #include <gamalib/local/network.h>
 #include <gnu_gama/gon2deg.h>
+#include <gamalib/local/results/text/underline.h>
 
 namespace GaMaLib {
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.46 2004/06/21 16:58:58 cepek Exp $
+ *  $Id: version.cpp,v 1.47 2004/08/29 18:01:52 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.11-g";
+const char* GNU_gama_version  = "1.7.11-h";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -63,6 +63,8 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.11 2004-05-xx
+
+    - a lot of changes due to errors reported by g++-3.4
 
     - a bug in gkfparser.cpp reported by Jan Pytel
 

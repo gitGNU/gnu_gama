@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: transmat.h,v 1.11 2004/06/21 16:10:17 cepek Exp $
+ *  $Id: transmat.h,v 1.12 2004/08/29 18:01:52 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -50,36 +50,36 @@ public:
     :  MatBase<Float, Exc>(M.cols(), M.rows(), M)  {}
 
   Float& operator()(Index r, Index c) {
-    Float *m = begin();
-    return m[--c*rows() + --r];
+    Float *m = this->begin();
+    return m[--c*this->rows() + --r];
   }
   Float  operator()(Index r, Index c) const {
-    const Float *m = begin();
-    return m[--c*rows() + --r];
+    const Float *m = this->begin();
+    return m[--c*this->rows() + --r];
   }
 
   void reset(Index r, Index c) {
-    if (r != row_ || c != col_) {
-      row_ = r; col_ = c; resize(r*c);
+    if (r != this->row_ || c != this->col_) {
+      this->row_ = r; this->col_ = c; this->resize(r*c);
     }
   }
 
   TransMat operator*(Float f) const { 
-    TransMat t(rows(), cols()); mul(f, t); return t; 
+    TransMat t(this->rows(), this->cols()); mul(f, t); return t; 
   }
   TransMat operator+(const TransMat& M) const { 
-    if (rows() != M.rows() || cols() != M.cols())
+    if (this->rows() != M.rows() || this->cols() != M.cols())
       throw Exc(BadRank, "TransMat operator+(const TransMat& M) const");
     
-    TransMat T(rows(), cols()); 
+    TransMat T(this->rows(), this->cols()); 
     add(M, T); 
     return T; 
   }
   TransMat operator-(const TransMat& M) const { 
-    if (rows() != M.rows() || cols() != M.cols())
+    if (this->rows() != M.rows() || this->cols() != M.cols())
       throw Exc(BadRank, "TransMat operator-(const TransMat& M) const");
     
-    TransMat T(rows(), cols()); 
+    TransMat T(this->rows(), this->cols()); 
     sub(M, T); 
     return T; 
   }
@@ -97,7 +97,7 @@ template <typename Float, typename Exc>
 Mat<Float, Exc>::Mat(const TransMat<Float, Exc>& M)
   : MatBase<Float, Exc>(M.rows(), M.cols(), M.rows()*M.cols()) 
 {
-  iterator p=begin();
+  iterator p=this->begin();
   const Index R = M.rows();
   const Index C = M.cols();
   Index i, j;

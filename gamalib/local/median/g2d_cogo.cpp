@@ -21,23 +21,23 @@
 */
 
 /*
- *  $Id: g2d_cogo.cpp,v 1.4 2002/12/18 13:33:24 cepek Exp $
+ *  $Id: g2d_cogo.cpp,v 1.5 2004/08/29 18:01:52 cepek Exp $
  */
 
-/**************************************************************
- * 2d coordinate geometry                                     *
- **************************************************************/
- 
-/*
- * In Median in all methods "Calculation" was added try / catch
- * block. Exceptions g2d_exc are sent by command throw for next
- * processing, for all other exceptions is returned state =
- * no_solution or number_of_solutions = -1. This change was motivated
- * by a bug, when in Median computaion of bearing for two identical
- * points failed.
- *
- * AC 2000.04.26 change median-0.7.5 / gamalib-0.9.57 
- * AC 2001.04.20 gamalib-1.1.61 */
+ /**************************************************************
+  * 2d coordinate geometry                                     *
+  **************************************************************/
+  
+ /*
+  * In Median in all methods "Calculation" was added try / catch
+  * block. Exceptions g2d_exc are sent by command throw for next
+  * processing, for all other exceptions is returned state =
+  * no_solution or number_of_solutions = -1. This change was motivated
+  * by a bug, when in Median computaion of bearing for two identical
+  * points failed.
+  *
+  * AC 2000.04.26 change median-0.7.5 / gamalib-0.9.57 
+  * AC 2001.04.20 gamalib-1.1.61 */
  
 #include <gamalib/local/median/g2d_cogo.h>
 #include <gamalib/local/median/g2d_exception.h>
@@ -57,7 +57,7 @@ namespace GaMaLib {
     h2 = dynamic_cast<Distance*>(m2);
     if(!(h1 && h2))
       throw g2d_exc("Distance_distance: wrong observation type");
-  };  
+  }  
 
   // ** computation: CHARAMZA, pp.127-130 **
 
@@ -111,7 +111,7 @@ namespace GaMaLib {
         return;
       }
   
-  };  // void Distance_distance::Calculation
+  }  // void Distance_distance::Calculation
 
 
   //----------------------------------------------------------------
@@ -123,7 +123,7 @@ namespace GaMaLib {
     h2 = dynamic_cast<Direction*>(m2);
     if(!(h1 && h2))
       throw g2d_exc("Direction_direction: wrong observation type");
-  };
+  }
 
 
   // ** computation: CHARAMZA, pp.131-133 **
@@ -181,7 +181,7 @@ namespace GaMaLib {
         return;
       }
   
-  };  // void Direction_direction::Calculation
+  }  // void Direction_direction::Calculation
 
 
   // -----------------------------------------------------------------
@@ -198,7 +198,7 @@ namespace GaMaLib {
       };
     if(!(h1 && h2))
       throw g2d_exc("Direction_distance: wrong observation type");
-  }; 
+  } 
 
 
   // ** computation: CHARAMZA, pp.115-118 **
@@ -256,7 +256,7 @@ namespace GaMaLib {
         return;
       }
   
-  };  // void Direction_distance::Calculation()
+  }  // void Direction_distance::Calculation()
 
 
   //----------------------------------------------------------------
@@ -273,7 +273,7 @@ namespace GaMaLib {
       };
     if(!(h1 && h2))
       throw g2d_exc("Direction_angle: wrong observation type");
-  };
+  }
 
 
   // ** computation: CHARAMZA, p.142 **
@@ -334,7 +334,7 @@ namespace GaMaLib {
         return;
       }
   
-  };  // void Direction_angle::Calculation()
+  }  // void Direction_angle::Calculation()
 
 
   //----------------------------------------------------------------
@@ -351,7 +351,7 @@ namespace GaMaLib {
       };
     if(!(h1 && h2))
       throw g2d_exc("Distance_angle: wrong observation type");
-  };
+  }
 
 
   // ** computiong: CHARAMZA, p.143 **
@@ -416,7 +416,7 @@ namespace GaMaLib {
         return;
       }
   
-  };  // void Distance_angle::Calculation()
+  }  // void Distance_angle::Calculation()
 
 
   //-----------------------------------------------------------
@@ -428,7 +428,7 @@ namespace GaMaLib {
     h2 = dynamic_cast<Angle*>(m2);
     if(!(h1 && h2))
       throw g2d_exc("Angle_angle: wrong observation type");
-  };
+  }
 
 
   // ** computation: CHARAMZA, p.143 **
@@ -516,7 +516,7 @@ namespace GaMaLib {
         return;
       }
   
-  };  // void Angle_angle::Calculation()
+  }  // void Angle_angle::Calculation()
 
 
   //------------------------------------------------------------
@@ -558,7 +558,7 @@ namespace GaMaLib {
         return;
       }
   
-  };  // void Circle::Calculation()
+  }  // void Circle::Calculation()
 
 } // namespace GaMaLib
 

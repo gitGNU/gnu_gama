@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: mat.h,v 1.11 2004/06/21 16:10:16 cepek Exp $
+ *  $Id: mat.h,v 1.12 2004/08/29 18:01:52 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -50,8 +50,8 @@ public:
   Mat(Index r, Index c, Float m11 ...) : MatBase<Float, Exc>(r, c, r*c)
     {
       using namespace std;
-      iterator p=begin();
-      iterator e=end();
+      iterator p=this->begin();
+      iterator e=this->end();
       if (p == e)
         throw Exc(BadRank, "Mat::Mat(Index, Float ...)");
       *p = m11;  
@@ -68,30 +68,30 @@ public:
     }
 
   Float& operator()(Index r, Index c) {
-    Float *m = begin();
-    return m[--r*cols() + --c];
+    Float *m = this->begin();
+    return m[--r*this->cols() + --c];
   }
   Float  operator()(Index r, Index c) const {
-    const Float *m = begin();
-    return m[--r*cols() + --c];
+    const Float *m = this->begin();
+    return m[--r*this->cols() + --c];
   }
 
   Mat operator*(Float f) const { 
-    Mat t(rows(), cols()); mul(f, t); return t; 
+    Mat t(this->rows(), this->cols()); mul(f, t); return t; 
   }
   Mat operator+(const Mat& M) const { 
-    if (rows() != M.rows() || cols() != M.cols())
+    if (this->rows() != M.rows() || this->cols() != M.cols())
       throw Exc(BadRank, "Mat::operator+(const Mat& M) const");
     
-    Mat T(rows(), cols()); 
+    Mat T(this->rows(), this->cols()); 
     add(M, T); 
     return T; 
   }
   Mat operator-(const Mat& M) const { 
-    if (rows() != M.rows() || cols() != M.cols())
+    if (this->rows() != M.rows() || this->cols() != M.cols())
       throw Exc(BadRank, "Mat::operator-(const Mat& M) const");
     
-    Mat T(rows(), cols()); 
+    Mat T(this->rows(), this->cols()); 
     sub(M, T); 
     return T; 
   }
@@ -107,7 +107,7 @@ public:
 private:
 
 Float* pentry;  // not initialized in constructor !!!
-Float& entry(Index i, Index j) { return *(pentry + i*col_ + j); }
+Float& entry(Index i, Index j) { return *(pentry + i*this->col_ + j); }
 
 };
 
@@ -209,12 +209,12 @@ void Mat<Float, Exc>::invert()
 {
   /* Gauss-Jordan elimination */
 
-  if (row_ != col_)
+  if (this->rows() != this->cols())
     throw Exc(BadRank, "Mat<>::invert()");
 
-  pentry = begin();
+  pentry = this->begin();
 
-  const Index N = rows();
+  const Index N = this->rows();
   Index step, row, p_row, p_col, i, ii, j, jj, r, c, l;
 
   Array<Index> indr(N),indc(N);    // row/column permutation

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: bandmat2.h,v 1.6 2004/06/21 16:10:15 cepek Exp $
+ *  $Id: bandmat2.h,v 1.7 2004/08/29 18:01:52 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -60,9 +60,13 @@ public:
   {
   }
   
-  void   reset() { row_=col_=band_=band_1=dim_b= 0; resize(0); }
+  void   reset() 
+  { 
+    this->row_ = this->col_ = band_ = band_1 = dim_b = 0; 
+    this->resize(0); 
+  }
   void   reset(Index d, Index b);
-  Index  dim() const { return row_; }
+  Index  dim() const { return this->row_; }
   Index  bandWidth() const { return band_; }
   Float  operator()(Index, Index) const; 
   Float& operator()(Index, Index);
@@ -72,7 +76,7 @@ public:
   
   const Float* operator[](Index row) const
   {
-    const Float* a_ = begin() + --row*band_1;
+    const Float* a_ = this->begin() + --row*band_1;
     if (row > dim_b) {
 	const Index i_  = row - dim_b;
 	a_ -= i_*(i_+1)/2;
@@ -81,7 +85,7 @@ public:
   }
   Float* operator[](Index row)
   {
-    Float* a_ = begin() + --row*band_1;
+    Float* a_ = this->begin() + --row*band_1;
     if (row > dim_b) {
       const Index i_  = row - dim_b;
       a_ -= i_*(i_+1)/2;
@@ -104,11 +108,11 @@ void BandMat2<Float, Exc>::reset(Index d, Index b)
 {
   if (dim() != d || band_ != b) 
     {
-      row_   = col_ = d;
+      this->row_ = this->col_ = d;
       band_  = b; 
       band_1 = b+1;
       dim_b  = d-b;	
-      resize(d*(b+1) - b*(b+1)/2);
+      this->resize(d*(b+1) - b*(b+1)/2);
     }
 }
 
@@ -156,11 +160,11 @@ void BandMat2<Float, Exc>::cholDec()
    */
    using namespace std;
 
-   Float *B = begin();
+   Float *B = this->begin();
    Index  N = dim();
    Index  W = bandWidth();
 
-   const  Float  Tol = Abs(*B*cholTol());
+   const  Float  Tol = Abs(*B*this->cholTol());
    Float *p;
    Index  row, k, l, n;
    Float  pivot, q;
@@ -251,7 +255,7 @@ std::istream& BandMat2<Float, Exc>::read(std::istream& inp)
    inp >> inpd >> inpb;
    reset(inpd, inpb);
  
-   Float  *b = begin();
+   Float  *b = this->begin();
    for (Index i=1; i<=dim(); i++)
       for (Index j=i; j<=i+band_; j++)
          if (j <= dim())
@@ -270,7 +274,7 @@ std::ostream& BandMat2<Float, Exc>::write(std::ostream& out) const
    out.width(w);
    out << band_ << "\n\n";
 
-   const Float  *b = begin();
+   const Float  *b = this->begin();
    for (Index i=1; i<=dim(); i++, out << '\n')
      for (Index j=i; j<=i+band_; j++)
        if (j <= dim()) 

@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_helper.cpp,v 1.5 2003/03/13 20:22:52 cepek Exp $
+ *  $Id: g2d_helper.cpp,v 1.6 2004/08/29 18:01:52 cepek Exp $
  */
 
 /*************************************************************
@@ -108,7 +108,7 @@ void Select_solution_g2d::Calculation()
               delta2 = fabs(u->value()-uu2);
             }
             break;
-          };
+          }
         
         // in geodesy observed distances are usually longer then 10 cm
         // ... thus I consider this to be zero
@@ -131,8 +131,8 @@ void Select_solution_g2d::Calculation()
           {
             state = unique_solution;    // first solution selected
             break;
-          };
-      };
+          }
+      }
     return;
     
   } 
@@ -146,7 +146,7 @@ void Select_solution_g2d::Calculation()
       return;
     }
   
-};  // void Select_solution_g2d::Calculation()
+}  // void Select_solution_g2d::Calculation()
 
 
 // ----------------------------------------------------------
@@ -162,7 +162,7 @@ void Statistics_g2d::Calculation()
       {
         median = *(PS->begin());
         return;
-      };
+      }
     std::vector<Double> Y, X;
     for(Helper_list::const_iterator i = PS->begin(); i != PS->end(); i++)
       {
@@ -189,7 +189,7 @@ void Statistics_g2d::Calculation()
       return;
     }
   
-};	// void Statistics_g2d::Calculation()
+}	// void Statistics_g2d::Calculation()
 
 
 // ----------------------------------------------------------
@@ -209,7 +209,7 @@ void SimilarityTr2D::Reset()
   // nothing to transform
   if(computed.empty())
     state = no_solution;
-};  //  void SimilarityTr2D::Reset()
+}  //  void SimilarityTr2D::Reset()
 
 // the best pair - transformed points are close to circle around the
 // set of identical points
@@ -235,18 +235,18 @@ void SimilarityTr2D::Identical_points(PointData::iterator& b1,
             pomocna_d1 = g2d_distance(stred, local[*cb]);
             if(pomocna_d1 > delka_max)
               delka_max = pomocna_d1;
-          };
+          }
           pomocna_d1 = fabs(g2d_distance(stred, (*i).second) - delka_max);
           if(pomocna_d1 < rozdil_min)
           {
             rozdil_min = pomocna_d1;
             pom1 = i;
             pom2 = j;
-          };
-        };
+          }
+        }
   b1 = pom1;
   b2 = pom2;
-};
+}
 
 
 void SimilarityTr2D::Transformation_key(PointData::iterator& b1, 
@@ -277,7 +277,7 @@ void SimilarityTr2D::Transformation_key(PointData::iterator& b1,
                         transf_key[0]*odkud1.x());
   transf_key.push_back(kam1.x()-transf_key[1]*odkud1.x()+
                         transf_key[0]*odkud1.y());
-};
+}
 
 void SimilarityTr2D::Calculation()
 {
@@ -309,7 +309,7 @@ void SimilarityTr2D::Calculation()
                         );
             
           }
-      };
+      }
     state = calculation_done;
     return;
 
@@ -324,7 +324,7 @@ void SimilarityTr2D::Calculation()
       return;
     }
   
-};  // void SimilarityTr2D::Calculation()
+}  // void SimilarityTr2D::Calculation()
 
 } // namespace GaMaLib
 

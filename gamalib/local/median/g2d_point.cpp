@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_point.cpp,v 1.5 2003/03/13 20:22:52 cepek Exp $
+ *  $Id: g2d_point.cpp,v 1.6 2004/08/29 18:01:52 cepek Exp $
  */
 
 /*************************************************************
@@ -75,7 +75,7 @@ namespace GaMaLib {
                   }
                 else
                   j++;
-              };
+              }
             std::sort(pom_sez.begin(),pom_sez.end());
             std::vector<Double>::size_type size = pom_sez.size();
             med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
@@ -88,7 +88,7 @@ namespace GaMaLib {
           }
         else
           i++;
-      };
+      }
     
     // outer bearings
     i = SM_S.begin();
@@ -109,7 +109,7 @@ namespace GaMaLib {
               }
             else
               j++;
-          };
+          }
         std::sort(pom_sez.begin(),pom_sez.end());
         std::vector<Double>::size_type size = pom_sez.size();
         med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
@@ -119,7 +119,7 @@ namespace GaMaLib {
         SM_S.erase(i);
         delete(s1);
         pom_sez.erase(pom_sez.begin(), pom_sez.end());
-      };
+      }
 
     // inner angles
     // in sm_pom are only inner angels now; dists. have been already removed 
@@ -144,7 +144,7 @@ namespace GaMaLib {
               }
             else
               j++;
-          };
+          }
         std::sort(pom_sez.begin(),pom_sez.end());
         std::vector<Double>::size_type size = pom_sez.size();
         med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
@@ -158,7 +158,7 @@ namespace GaMaLib {
         SM.push_back(UU);
         sm_pom.erase(i);
         pom_sez.erase(pom_sez.begin(), pom_sez.end());
-      };
+      }
     i = SM_U.begin();
     // finishing remaining angles
     while(i != SM_U.end())
@@ -180,7 +180,7 @@ namespace GaMaLib {
               }
             else
               j++;
-          };
+          }
         std::sort(pom_sez.begin(),pom_sez.end());
         std::vector<Double>::size_type size = pom_sez.size();
         med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
@@ -195,8 +195,8 @@ namespace GaMaLib {
         SM_U.erase(i);
         delete(u1);
         pom_sez.erase(pom_sez.begin(), pom_sez.end());
-      };
-  };  // void ApproxPoint::ArangeObservations()
+      }
+  }  // void ApproxPoint::ArangeObservations()
 
 
   void ApproxPoint::Reset(PointData* sb, ObservationList* sm, 
@@ -235,7 +235,7 @@ namespace GaMaLib {
                   SM_S.push_back(MakeBearing(s,CB));
                 else
                   sm_pom.push_back(*i);
-      };
+      }
 
     // transforming directions on the computed standpoint to inner angels
     { // VC++ {} ...... here and elsewhere curly braces are added to
@@ -259,7 +259,7 @@ namespace GaMaLib {
     std::cout << "***** other observations *****\n" << sm_pom << '\n';
     std::cout << "+++++ observations with a point +++++\n" << SM << '\n';
 #endif
-  };  /* ApproxPoint::reset(PointData& sb, const ObservationList& sm, 
+  }  /* ApproxPoint::reset(PointData& sb, const ObservationList& sm, 
          const PointID& cb) */
 
 
@@ -318,7 +318,7 @@ namespace GaMaLib {
                 GU = V;
               }
               break;
-            };
+            }
           switch (GU->Number_of_solutions())
             {
             case 2 :
@@ -332,7 +332,7 @@ namespace GaMaLib {
                     std::cout << "-> " << VR->Solution().y() << ' ' 
                               << VR->Solution().x() << '\n';
 #endif
-                  };
+                  }
                 if(Solved_points.empty() && 
                    (VR -> State() == 0)  &&  (!two_solutions))
                   {
@@ -353,9 +353,9 @@ namespace GaMaLib {
               break;
             default : // void solution remains - nothing else could be done
               break;
-            };
+            }
           delete GU;
-        };
+        }
     // making final coordinates
     if(Solved_points.size() > 0)
       {
@@ -383,7 +383,7 @@ namespace GaMaLib {
         i != Solved_points.end(); i++)
       std::cout << "-> " << i->y() << ' ' << i->x() << '\n';
 #endif
-  };      // void ApproxPoint::Calculation()
+  }      // void ApproxPoint::Calculation()
 
 }       // namespace GaMaLib
 

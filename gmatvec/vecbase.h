@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: vecbase.h,v 1.13 2004/06/21 16:10:18 cepek Exp $
+ *  $Id: vecbase.h,v 1.14 2004/08/29 18:01:52 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -48,16 +48,16 @@ public:
   typedef typename MatVecBase<Float, Exc>::iterator       iterator;
   typedef typename MatVecBase<Float, Exc>::const_iterator const_iterator;
 
-  Index dim() const { return size(); }
+  Index dim() const { return this->size(); }
 
   Float& operator()(Index n) { 
-    Float* m = begin(); return m[--n]; 
+    Float* m = this->begin(); return m[--n]; 
   }
   Float  operator()(Index n) const { 
-    const Float* m = begin(); return m[--n]; 
+    const Float* m = this->begin(); return m[--n]; 
   } 
 
-  void reset(Index n=0) { resize(n); }
+  void reset(Index n=0) { this->resize(n); }
 
   Float dot(const VecBase<Float, Exc> &B) const;
 
@@ -74,8 +74,8 @@ Float VecBase<Float, Exc>::dot(const VecBase<Float, Exc> &B) const
     if (dim() != B.dim())
       throw Exc(BadRank, "Float VecBase::dot(const VecBase&) const");
     
-    const_iterator a = begin();
-    const_iterator e = end();
+    const_iterator a = this->begin();
+    const_iterator e = this->end();
     const_iterator b = B.begin();
     
     Float sum = 0;
@@ -88,8 +88,8 @@ Float VecBase<Float, Exc>::dot(const VecBase<Float, Exc> &B) const
 template <typename Float, typename Exc>
 Float VecBase<Float, Exc>::norm_L1() const
   {
-    const_iterator a = begin();
-    const_iterator e = end();
+    const_iterator a = this->begin();
+    const_iterator e = this->end();
     
     Float sum = 0;
     while (a != e) { sum += *a >= 0 ? *a : -(*a); ++a; }
@@ -101,8 +101,8 @@ Float VecBase<Float, Exc>::norm_L1() const
 template <typename Float, typename Exc>
 Float VecBase<Float, Exc>::norm_Linf() const
   {
-    const_iterator a = begin();
-    const_iterator e = end();
+    const_iterator a = this->begin();
+    const_iterator e = this->end();
     
     Float norm = 0, x;
     while (a != e) 

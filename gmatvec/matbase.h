@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: matbase.h,v 1.11 2004/06/21 16:10:17 cepek Exp $
+ *  $Id: matbase.h,v 1.12 2004/08/29 18:01:52 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -64,16 +64,16 @@ public:
   virtual Float& operator()(Index r, Index c) = 0;
   virtual Float  operator()(Index r, Index c) const = 0;
 
-  void reset() { row_ = col_ = 0; resize(0); }
+  void reset() { row_ = col_ = 0; this->resize(0); }
   virtual void reset(Index r, Index c) {
     if (r != row_ || c != col_) {
-      row_ = r; col_ = c; resize(r*c);
+      row_ = r; col_ = c; this->resize(r*c);
     }
   }
 
   void set_diagonal(Float d)
     {
-      set_zero();
+      this->set_zero();
       for (Index i=1; i<=min_rc(); i++)
         this->operator()(i,i) = d;
     }

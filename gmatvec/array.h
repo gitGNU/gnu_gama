@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: array.h,v 1.11 2004/06/21 16:10:14 cepek Exp $
+ *  $Id: array.h,v 1.12 2004/08/29 18:01:52 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -37,11 +37,11 @@ class Array : public MemRep<Type, Exc> {
 public:
 
   Array(Index dim) : MemRep<Type, Exc>(dim) {}
-  Type  operator[](Index i) const { return begin()[i]; }
-  Type& entry(Index i) { return begin()[i]; }
+  Type  operator[](Index i) const { return this->begin()[i]; }
+  Type& entry(Index i) { return this->begin()[i]; }
   void swap(Index i, Index j) 
     {
-      Type *ind = begin();
+      Type *ind = this->begin();
       Type t = ind[i]; ind[i] = ind[j]; ind[j] = t; 
     }
 

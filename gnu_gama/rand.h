@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: rand.h,v 1.1 2004/04/21 16:49:39 cepek Exp $
+ *  $Id: rand.h,v 1.2 2004/08/29 18:01:52 cepek Exp $
  */
 
 #ifndef GNU_gama_RanGen_h
@@ -74,7 +74,7 @@ public:
    void operator++()    { next(); }
 };
 
-};      /* namespace GNU_gama */
+}      /* namespace GNU_gama */
 
 #endif
 //----------------------------------------------------------------------

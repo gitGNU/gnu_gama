@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: capi_exception.cpp,v 1.4 2003/05/11 12:32:25 cepek Exp $
+ *  $Id: capi_exception.cpp,v 1.5 2004/08/29 18:01:52 cepek Exp $
  */
 
 #include <gamalib/c/api/capi_exception.h>
@@ -62,7 +62,7 @@ namespace {
   };
   
   GaMa_C_API_exception_handling_data  c_api_data;
-};
+}
 
 // ------  C API  ----------------------------------------------------------
 

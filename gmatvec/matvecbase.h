@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: matvecbase.h,v 1.11 2004/06/21 16:10:17 cepek Exp $
+ *  $Id: matvecbase.h,v 1.12 2004/08/29 18:01:52 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -42,8 +42,8 @@ public:
 
   void operator*=(Float f)
   {
-    iterator b = begin();
-    iterator e = end();
+    iterator b = this->begin();
+    iterator e = this->end();
     while (b != e)
     *b++ *= f;
   }
@@ -51,8 +51,8 @@ public:
 
   void set_all(Float f)
   {
-    iterator b = begin();
-    iterator e = end();
+    iterator b = this->begin();
+    iterator e = this->end();
     while (b != e)
       *b++ = f;
   }
@@ -67,10 +67,10 @@ protected:
 
   void mul(Float f, MatVecBase& X) const
     {
-      if (size() != X.size())
+      if (this->size() != X.size())
         throw Exc(BadRank, "MatVecBase::mul(Float f, MatVecBase& X)");
 
-      const_iterator a = begin();
+      const_iterator a = this->begin();
       iterator x = X.begin();
       iterator e = X.end();
       while (x != e)
@@ -79,10 +79,10 @@ protected:
  
   void add(const MatVecBase& B, MatVecBase& X) const
     {
-      if (size() != B.size() || size() != X.size())
+      if (this->size() != B.size() || this->size() != X.size())
         throw Exc(BadRank, "MatVecBase::add(const MatVecBase&, MatVecBase&)");
 
-      const_iterator a = begin();
+      const_iterator a = this->begin();
       const_iterator b = B.begin();
       iterator x = X.begin();
       iterator e = X.end();
@@ -92,10 +92,10 @@ protected:
  
   void sub(const MatVecBase& B, MatVecBase& X) const
     {
-      if (size() != B.size() || size() != X.size())
+      if (this->size() != B.size() || this->size() != X.size())
         throw Exc(BadRank, "MatVecBase::sub(const MatVecBase&, MatVecBase&)");
 
-      const_iterator a = begin();
+      const_iterator a = this->begin();
       const_iterator b = B.begin();
       iterator x = X.begin();
       iterator e = X.end();
@@ -153,7 +153,7 @@ protected:
 
   ListInitialiser list_init(Float p)
     {
-      ListInitialiser linit( begin(), end() );
+      ListInitialiser linit( this->begin(), this->end() );
       linit.add(p);
       return linit;
     }

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: olssvd.h,v 1.4 2004/06/20 20:54:51 cepek Exp $
+ *  $Id: olssvd.h,v 1.5 2004/08/29 18:01:52 cepek Exp $
  */
 
 #ifndef GaMa_OLS_svd_h
@@ -69,18 +69,18 @@ public:
   void  q_xx(gMatVec::Mat<Float, Exc>& C) { BaseOLS<Float, Exc>::q_xx(C); }
   Float q_xx(gMatVec::Index i, gMatVec::Index j)
     {
-      if(!is_solved) solve_me();
+      if(!this->is_solved) solve_me();
       return svd.q_xx(i, j);
     }
   Float q_bb(gMatVec::Index i, gMatVec::Index j)
     {
-      if (!is_solved) solve_me();
-      return svd.q_bb(i, j) / (sqrt_w(i) * sqrt_w(j));
+      if (!this->is_solved) solve_me();
+      return svd.q_bb(i, j) / (this->sqrt_w(i) * this->sqrt_w(j));
     }
   Float q_bx(gMatVec::Index i, gMatVec::Index j)
     {
-      if (!is_solved) solve_me();
-      return svd.q_bx(i, j) / sqrt_w(i);
+      if (!this->is_solved) solve_me();
+      return svd.q_bx(i, j) / this->sqrt_w(i);
     }
   
   void min_x()   {  svd.min_x(); }
@@ -102,30 +102,30 @@ void OLSsvd<Float, Exc>::solve_me()
    using namespace gMatVec; 
    using namespace std;
 
-   if (is_solved) return;
+   if (this->is_solved) return;
 
-   sqrt_w.reset(pb->dim());
-   if (pw)
+   this->sqrt_w.reset(this->pb->dim());
+   if (this->pw)
    { 
-      for (gMatVec::Index n = 1; n <= sqrt_w.dim(); n++)
-         sqrt_w(n) = sqrt((*pw)(n));
-      svd.reset(*pA, sqrt_w);                 // protected ==> public
-      gMatVec::Vec<Float, Exc> pbw = *pb;
-      for (gMatVec::Index i = 1; i <= pb->dim(); i++)
-         pbw(i) *= sqrt_w(i);
-      svd.solve(pbw, x);
+      for (gMatVec::Index n = 1; n <= this->sqrt_w.dim(); n++)
+         this->sqrt_w(n) = sqrt((*this->pw)(n));
+      svd.reset(*this->pA, this->sqrt_w);                 // protected ==> public
+      gMatVec::Vec<Float, Exc> pbw = *this->pb;
+      for (gMatVec::Index i = 1; i <= this->pb->dim(); i++)
+         pbw(i) *= this->sqrt_w(i);
+      svd.solve(pbw, this->x);
    }
    else
    {
-      svd.reset(*pA);
-      for (gMatVec::Index n = 1; n <= sqrt_w.dim(); n++)
-         sqrt_w(n) = 1;
-      svd.solve(*pb, x);
+      svd.reset(*this->pA);
+      for (gMatVec::Index n = 1; n <= this->sqrt_w.dim(); n++)
+         this->sqrt_w(n) = 1;
+      svd.solve(*this->pb, this->x);
    }
-   r = *pA * x;
-   r -= *pb;
+   this->r  = *this->pA * this->x;
+   this->r -= *this->pb;
 
-   is_solved = true;
+   this->is_solved = true;
 }
 
 template <typename Float, typename Exc>

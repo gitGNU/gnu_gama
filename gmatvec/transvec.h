@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: transvec.h,v 1.11 2004/06/21 16:10:18 cepek Exp $
+ *  $Id: transvec.h,v 1.12 2004/08/29 18:01:52 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -48,13 +48,13 @@ public:
   TransVec(const VecBase<Float, Exc>& v) : VecBase<Float, Exc>(v) {}
   
   TransVec operator*(Float f) const { 
-      TransVec t(dim()); mul(f, t); return t; 
+      TransVec t(this->dim()); mul(f, t); return t; 
     }
   TransVec operator+(const TransVec &x) const {
-    TransVec t(dim()); add(x, t); return t; 
+    TransVec t(this->dim()); add(x, t); return t; 
   }
   TransVec operator-(const TransVec &x) const {
-    TransVec t(dim()); sub(x, t); return t; 
+    TransVec t(this->dim()); sub(x, t); return t; 
   }
 
 };
