@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.h,v 1.4 2005/03/28 19:19:39 cepek Exp $
+ *  $Id: adj.h,v 1.5 2005/04/01 09:55:08 cepek Exp $
  */
 
 #include <gnu_gama/matvec.h>
@@ -115,7 +115,7 @@ namespace GNU_gama {
 
   };
   
-}  // namespace GaMaLib
+}  // namespace GNU_gama
 
 #endif
 
