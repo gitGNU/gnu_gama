@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: baseparser.h,v 1.2 2003/05/10 13:43:03 cepek Exp $
+ *  $Id: baseparser.h,v 1.3 2003/05/11 10:04:02 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa__XML__BASE_Base_base__PARSER_Parser_parser__h_
@@ -51,16 +51,16 @@ namespace GNU_gama {
 
   };
   
-  class BaseParser 
+  class CoreParser 
   {
   public:
     
-    BaseParser();
-    virtual ~BaseParser();
+    CoreParser();
+    virtual ~CoreParser();
     
     // expat parser interface
     
-    void xml_parse(const char *s, int len, int  isFinal); 
+    virtual void xml_parse(const char *s, int len, int  isFinal) = 0;
     void xml_parse(const std::string& s, bool isFinal) 
     {
       xml_parse(s.c_str(), s.length(), isFinal ? 1 : 0);
@@ -80,14 +80,53 @@ namespace GNU_gama {
     bool toDouble(const std::string&, double&     ) const;
     bool toIndex (const std::string&, std::size_t&) const;
       
-  private:
+    // private:
 
     std::string errString;
     int         errLineNumber;  
     int         errCode;              // -1 bad data in gkf; 0 OK; >0 expat
 
-  };  // class DataParser
-}     // namespace GaMaLib
+  };  // class CoreParser
+
+
+
+
+  template<class ParserException> class BaseParser : public CoreParser 
+  {
+  public:
+    
+    void BaseParser::xml_parse(const char *s, int len, int  isFinal) 
+    { 
+      int err = XML_Parse(parser, s, len, isFinal);
+      if (err == 0)
+        {
+          // fatal error
+          
+          errString=std::string(XML_ErrorString(XML_GetErrorCode(parser)));
+          errCode  =XML_GetErrorCode(parser);
+          errLineNumber = XML_GetCurrentLineNumber(parser);
+          
+          throw ParserException(errString, errLineNumber, errCode);
+        }
+      
+      if (state == 0)     /*  state_error must be 0  */
+        {
+          // errLineNumber is set by function  error("...");    
+          errCode = -1;
+          throw ParserException(errString, errLineNumber, errCode);
+        }
+    }
+    
+  };
+
+
+
+
+
+
+
+
+}     // namespace GNU_gama
 
 
 #endif

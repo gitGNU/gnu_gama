@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.h,v 1.8 2003/05/10 13:43:03 cepek Exp $
+ *  $Id: gkfparser.h,v 1.9 2003/05/11 10:04:02 cepek Exp $
  */
 
 #ifndef GaMaLib_GKF__XML__parser__h_
@@ -32,7 +32,7 @@
 
 namespace GaMaLib {
 
-  class GKFparser : public GNU_gama::BaseParser 
+  class GKFparser : public GNU_gama::BaseParser<GNU_gama::ParserException>
     {
     public:
    

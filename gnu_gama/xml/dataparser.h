@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.3 2003/05/10 19:35:17 cepek Exp $
+ *  $Id: dataparser.h,v 1.4 2003/05/11 10:04:02 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -34,7 +34,7 @@
 
 namespace GNU_gama {
   
-  class DataParser : public BaseParser
+  class DataParser : public BaseParser<ParserException>
     {
     public:
       

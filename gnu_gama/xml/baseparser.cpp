@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: baseparser.cpp,v 1.3 2003/05/10 19:35:17 cepek Exp $
+ *  $Id: baseparser.cpp,v 1.4 2003/05/11 10:04:02 cepek Exp $
  */
 
 #include <gnu_gama/xml/baseparser.h>
@@ -38,7 +38,7 @@ namespace {
     void characterDataHandler(void *userData, const char* s, int len)
     {
       using namespace GNU_gama;
-      BaseParser* gexp = static_cast<BaseParser*>(userData);
+      CoreParser* gexp = static_cast<CoreParser*>(userData);
       
       gexp->characterDataHandler(s, len);
     }      
@@ -46,7 +46,7 @@ namespace {
     void startElement(void *userData, const char *cname, const char **atts)
     {
       using namespace GNU_gama;
-      BaseParser* gexp = static_cast<BaseParser*>(userData);
+      CoreParser* gexp = static_cast<CoreParser*>(userData);
 
       gexp->startElement(cname, atts);
     }
@@ -54,7 +54,7 @@ namespace {
     void endElement(void *userData, const char *cname)
     {
       using namespace GNU_gama;
-      BaseParser* gexp = static_cast<BaseParser*>(userData);
+      CoreParser* gexp = static_cast<CoreParser*>(userData);
 
       gexp->endElement(cname);
     }
@@ -66,7 +66,7 @@ namespace {
 
 
 
-BaseParser::BaseParser()
+CoreParser::CoreParser()
 {
   errCode = errLineNumber = 0;
 
@@ -78,35 +78,13 @@ BaseParser::BaseParser()
   XML_SetUnknownEncodingHandler(parser, UnknownEncodingHandler, 0);
 }
 
-BaseParser::~BaseParser()
+CoreParser::~CoreParser()
 {
   XML_ParserFree(parser); 
 }
 
-void BaseParser::xml_parse(const char *s, int len, int  isFinal) 
-{ 
-  int err = XML_Parse(parser, s, len, isFinal);
-  if (err == 0)
-    {
-      // fatal error
-      
-      errString=std::string(XML_ErrorString(XML_GetErrorCode(parser)));
-      errCode  =XML_GetErrorCode(parser);
-      errLineNumber = XML_GetCurrentLineNumber(parser);
-      
-      throw ParserException(errString, errLineNumber, errCode);
-    }
-  
-  if (state == 0)     /*  state_error must be 0  */
-    {
-      // errLineNumber is set by function  error("...");    
-      errCode = -1;
-      throw ParserException(errString, errLineNumber, errCode);
-    }
-}
 
-
-bool BaseParser::toDouble(const std::string& s, double& d) const
+bool CoreParser::toDouble(const std::string& s, double& d) const
 {
   using namespace std;        // Visual C++ doesn't know std::atof ???
   
@@ -120,8 +98,7 @@ bool BaseParser::toDouble(const std::string& s, double& d) const
 }
 
 
-
-bool BaseParser::toIndex(const std::string& s, std::size_t& index) const
+bool CoreParser::toIndex(const std::string& s, std::size_t& index) const
 {
   for (std::string::const_iterator i=s.begin(); i!=s.end(); ++i)
     if (!isspace(*i) && !isdigit(*i))
@@ -137,7 +114,8 @@ bool BaseParser::toIndex(const std::string& s, std::size_t& index) const
     return false;
 }
 
-int BaseParser::error(const char* text)
+
+int CoreParser::error(const char* text)
 {
   // store only the first detected error
   if(errCode) return 1;
