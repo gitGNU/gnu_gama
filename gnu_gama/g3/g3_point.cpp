@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.22 2004/03/26 22:34:26 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.23 2004/03/28 11:03:59 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -232,9 +232,8 @@ void Point::set_height(double h)
   height_.set_init_value(h);
 }
 
-//  R is the transformation matrix NEU --> XYZ      dx        dn
-//  R is orthogonal => inv(R) == trans(R)           dy =  R * de     
-//                                                  dz        du
+//  R is the transformation matrix  NEU --> XYZ  (XYZ = R * NEU)
+//  R is orthogonal ==> inv(R) == trans(R)
 
 void Point::transformation_matrix(double b, double l)
 {
