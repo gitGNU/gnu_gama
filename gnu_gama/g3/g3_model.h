@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.25 2004/05/17 16:20:25 cepek Exp $
+ *  $Id: g3_model.h,v 1.26 2004/05/20 16:16:45 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -49,7 +49,9 @@ namespace GNU_gama {  namespace g3 {
     public Revision     <XYZ>,
     public Linearization<XYZ>,
     public Revision     <ZenithAngle>,
-    public Linearization<ZenithAngle>
+    public Linearization<ZenithAngle>,
+    public Revision     <Azimuth>,
+    public Linearization<Azimuth>
   {
   public:
     
@@ -94,6 +96,8 @@ namespace GNU_gama {  namespace g3 {
     void linearization_visit(XYZ*        );
     bool revision_visit     (ZenithAngle*);
     void linearization_visit(ZenithAngle*);
+    bool revision_visit     (Azimuth*    );
+    void linearization_visit(Azimuth*    );
 
     void write_xml_adjustment_input_data(std::ostream&);
     void write_xml_adjustment_results   (std::ostream&);

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.10 2004/05/12 18:29:22 cepek Exp $
+ *  $Id: g3_observation.h,v 1.11 2004/05/20 16:16:45 cepek Exp $
  */
 
 
@@ -118,6 +118,36 @@ namespace GNU_gama {  namespace g3 {
     {
       if (Linearization<ZenithAngle>* 
           lv = dynamic_cast<Linearization<ZenithAngle>*>(visitor))
+        {
+          lv->linearization_visit(this);
+        }
+    }
+  };
+
+
+  class Azimuth : public Observation, public FromTo, public Value {
+  public:  
+
+    Azimuth() {}
+    Azimuth(double d) : Value(d) {}
+
+    int dimension() const { return 1; }
+
+    bool revision_accept(ObservationVisitor* visitor)
+    {
+      if (Revision<Azimuth>* 
+          rv = dynamic_cast<Revision<Azimuth>*>(visitor))
+        {          
+          return rv->revision_visit(this);
+        }
+      else
+        return  set_active(false);
+    }
+  
+    void linearization_accept(ObservationVisitor* visitor)
+    {
+      if (Linearization<Azimuth>* 
+          lv = dynamic_cast<Linearization<Azimuth>*>(visitor))
         {
           lv->linearization_visit(this);
         }

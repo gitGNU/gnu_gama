@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.41 2004/05/20 11:33:01 cepek Exp $
+ *  $Id: version.cpp,v 1.42 2004/05/20 16:16:45 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.6.02";
+const char* GNU_gama_version  = "1.7.11-d";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -62,6 +62,15 @@ const char* GNU_gama_compiler =
 
 =============================================================================
 
+1.7.11 2004-05-xx
+
+    - first draft of zenith and azimuth angles in gama-g3 (NOT DEBUGGED YET!)
+
+    - gnu_gama/xml/dataparser.cpp split to three files dataparser.cpp,
+      dataparser_adj.cpp and dataparser_g3.cpp (corresponding to the
+      three functional modules)
+
+
 1.6.02 2004-05-20      ******  stable version 1.6  ******
 
     - CVS tag gama-1-6 moved to point to the current development branch
@@ -70,8 +79,6 @@ const char* GNU_gama_compiler =
 
                             **********************  
 
-
-    - first draft of zenith angles in gama-g3
 
 1.7.10 2004-05-01
 

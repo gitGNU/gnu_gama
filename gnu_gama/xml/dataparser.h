@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.20 2004/05/12 18:29:23 cepek Exp $
+ *  $Id: dataparser.h,v 1.21 2004/05/20 16:16:45 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -37,6 +37,9 @@
 #include <list>
 
 namespace GNU_gama {
+
+  struct DataParser_adj;
+  struct DataParser_g3;
   
   class DataParser : public BaseParser<Exception::parser>
     {
@@ -133,6 +136,18 @@ namespace GNU_gama {
           s_g3_obs_zenith_opt_from_dh,
           s_g3_obs_zenith_opt_to_dh,
 
+          s_g3_obs_azimuth,
+          s_g3_obs_azimuth_from,
+          s_g3_obs_azimuth_after_from,
+          s_g3_obs_azimuth_to,
+          s_g3_obs_azimuth_after_to,
+          s_g3_obs_azimuth_val,
+          s_g3_obs_azimuth_opt,
+          s_g3_obs_azimuth_opt_stdev,
+          s_g3_obs_azimuth_opt_variance,
+          s_g3_obs_azimuth_opt_from_dh,
+          s_g3_obs_azimuth_opt_to_dh,
+
           s_g3_obs_vector,
           s_g3_obs_vector_from,
           s_g3_obs_vector_after_from,
@@ -211,6 +226,7 @@ namespace GNU_gama {
         {
           t_adj_input_data,
           t_array,
+          t_azimuth,
           t_b,
           t_band,
           t_block,
@@ -304,6 +320,7 @@ namespace GNU_gama {
       int g3_obs_cov            (const char *name);
       int g3_obs_dist           (const char *name);
       int g3_obs_zenith         (const char *name);
+      int g3_obs_azimuth        (const char *name);
       int g3_obs_vector         (const char *name);
       int g3_obs_xyz            (const char *name);
 
@@ -351,22 +368,15 @@ namespace GNU_gama {
 
       // ***  DataObject::g3_model ***
 
-      g3::Model*         g3model;
-      g3::Point::Name    g3from;
-      g3::Point::Name    g3to;
-      g3::ObsCluster*    g3obs_cluster;
-      double             g3val;
+      DataParser_g3* g3;
 
-      double from_dh, to_dh;
-      double optional(double& attr)
+      void        init_g3();
+      void        close_g3();
+      std::string g3_get_id(std::string err);
+      double      optional(double& attr)
       {
         double tmp = attr;  attr=0; return tmp;
       }
-
-      typedef g3::Model::ObservationType::CovarianceMatrix g3Cov;
-      std::list<g3Cov>   g3cov_list;
-
-      std::string g3_get_id(std::string err);
 
 
       // ***  DataObject::Text  ***
@@ -375,6 +385,11 @@ namespace GNU_gama {
 
 
       // ***  DataObject::AdjInput  ***
+
+      DataParser_adj* adj;
+
+      void         init_adj();
+      void         close_adj(); 
 
       GNU_gama::SparseMatrix <> *adj_sparse_mat;
       GNU_gama::BlockDiagonal<> *adj_block_diagonal;

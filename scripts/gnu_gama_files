@@ -6,6 +6,7 @@ gnu_gama/e3.cpp
 gnu_gama/ellipsoid.cpp
 gnu_gama/ellipsoids.cpp
 gnu_gama/g3/g3_model.cpp
+gnu_gama/g3/g3_model_azimuth.cpp
 gnu_gama/g3/g3_model_distance.cpp
 gnu_gama/g3/g3_model_vector.cpp
 gnu_gama/g3/g3_model_xyz.cpp
@@ -20,6 +21,8 @@ gnu_gama/version.cpp
 gnu_gama/xml/baseparser.cpp
 gnu_gama/xml/dataobject.cpp
 gnu_gama/xml/dataparser.cpp
+gnu_gama/xml/dataparser_adj.cpp
+gnu_gama/xml/dataparser_g3.cpp
 gnu_gama/xml/encoding.cpp
 
 gamalib/c/api/capi_exception.cpp
