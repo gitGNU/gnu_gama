@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.7 2003/05/28 16:06:04 cepek Exp $
+ *  $Id: obsdata.h,v 1.8 2003/06/08 08:11:13 cepek Exp $
  */
 
 
@@ -105,17 +105,17 @@ namespace GNU_gama {
             }
         }
 
-      template <class P> void transform(P& p)
-        {
-          for (typename List<Cluster<Observation>*>::iterator 
-                 c=CL.begin(); c!=CL.end(); ++c)
-            {
-              Cluster<Observation>* cluster = (*c);
-              std::transform(cluster->observation_list.begin(),
-                             cluster->observation_list.end(), 
-                             cluster->observation_list.begin(),  p);
-            }
-        }
+      // template <class P> void transform(P& p)
+      //   {
+      //     for (typename List<Cluster<Observation>*>::iterator 
+      //            c=CL.begin(); c!=CL.end(); ++c)
+      //       {
+      //         Cluster<Observation>* cluster = (*c);
+      //         std::transform(cluster->observation_list.begin(),
+      //                        cluster->observation_list.end(), 
+      //                        cluster->observation_list.begin(),  p);
+      //       }
+      //   }
       
     private:
       void deepCopy(const ObservationData& at);

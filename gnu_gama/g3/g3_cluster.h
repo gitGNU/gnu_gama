@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_cluster.h,v 1.2 2003/05/28 16:06:04 cepek Exp $
+ *  $Id: g3_cluster.h,v 1.3 2003/06/08 08:11:13 cepek Exp $
  */
 
 
@@ -34,6 +34,8 @@
 #include <iostream>
 
 namespace GNU_gama { namespace g3 {
+
+  class Model;
 
   class g3Cluster :  public GNU_gama::Cluster<Observation> {
   public:
@@ -50,6 +52,7 @@ namespace GNU_gama { namespace g3 {
         }
 
       virtual void write_xml(std::ostream&) const = 0;
+      virtual void parlist_init(Model*) {}
  };
 
 }}

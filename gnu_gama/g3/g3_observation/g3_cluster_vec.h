@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_cluster_vec.h,v 1.3 2003/06/01 17:03:21 cepek Exp $
+ *  $Id: g3_cluster_vec.h,v 1.4 2003/06/08 08:11:13 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_cluster.h>
@@ -43,6 +43,7 @@ namespace GNU_gama {  namespace g3 {
 
     void add(Vector*);
     void write_xml(std::ostream&) const;
+    void parlist_init(Model*);
   };
 
 }}

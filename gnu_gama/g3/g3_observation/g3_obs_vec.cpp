@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_vec.cpp,v 1.3 2003/05/17 17:07:08 cepek Exp $
+ *  $Id: g3_obs_vec.cpp,v 1.4 2003/06/08 08:11:13 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -32,7 +32,6 @@ using namespace std;
 
 void Diff::parlist_init (Model* m)
 {
-  vec->parlist_init(m);
   set_active(vec->active());
   
   if (!active()) return;

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.10 2003/06/04 08:00:04 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.11 2003/06/08 08:11:13 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -141,42 +141,19 @@ void Model::write_xml(std::ostream& out)
 }
 
 
-// void Model::pre_linearization()
-
-namespace {
-
-  class CopyActiveObservation {
-  public:
-
-    typedef GNU_gama::List<GNU_gama::g3::Observation*> Active;
-
-    CopyActiveObservation(Active& act) : active(act) 
-    {
-    }
-    void operator()(const GNU_gama::g3::Observation* const_obs) const
-    {
-      using namespace GNU_gama::g3;
-      Observation* obs = const_cast<Observation*>(const_obs);
-
-
-      if (!obs->active()) return;
-
-      active.push_back(obs);
-      cerr << "?";
-    }
-
-  private:
-
-    mutable Active&  active;
-
-  };
-
-};
-
 void Model::pre_linearization()
 {
-  active_obs.clear();
+  for (ObservationData::ClusterList::iterator
+         i=obs->CL.begin(), e=obs->CL.end();  i != e;  ++i)
+    if (g3Cluster* cluster = dynamic_cast<g3Cluster*>(*i))
+    {
+      cluster->parlist_init(this);
 
-  obs->for_each(CopyActiveObservation(active_obs));
-
+      for (GNU_gama::List<Observation*>::iterator
+             obs = cluster->observation_list.begin(),
+             end = cluster->observation_list.end();  obs != end;  ++obs)
+        {
+          (*obs)->parlist_init(this);
+        }
+    }
 }
