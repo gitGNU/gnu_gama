@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.3 2002/10/19 13:05:29 cepek Exp $
+ *  $Id: dataparser.h,v 1.4 2003/01/04 15:51:51 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_Data_Object___parser__h_
@@ -65,6 +65,14 @@ namespace GaMaLib {
         state_start,
         state_gama_data,
         state_text,
+        state_adj_input_data,
+        state_adj_input_data_sm1,
+        state_adj_input_data_sm1_rows,
+        state_adj_input_data_sm2,
+        state_adj_input_data_sm2_cols,
+        state_adj_input_data_sm3,
+        state_adj_input_data_sm3_nonz,
+        state_adj_input_data_sm,
         state_stop       
       } next[state_stop]; 
 
@@ -81,9 +89,10 @@ namespace GaMaLib {
     typedef int (DataParser::*FUN)(const char *cname, const char **atts);
     FUN fun[state_stop+1][tag_unknown+1];
 
-    int t_error    (const char *cname, const char **atts);
-    int t_gama_data(const char *cname, const char **atts);
-    int t_text     (const char *cname, const char **atts);
+    int t_error         (const char *cname, const char **atts);
+    int t_gama_data     (const char *cname, const char **atts);
+    int t_text          (const char *cname, const char **atts);
+    int t_adj_input_data(const char *cname, const char **atts);
 
 
     typedef int (DataParser::*DATA)(const char* s, int len);

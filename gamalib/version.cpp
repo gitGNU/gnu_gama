@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.46 2002/12/18 14:23:27 cepek Exp $
+ *  $Id: version.cpp,v 1.47 2003/01/04 15:51:51 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.5.07";
+const char* GaMaLib_version  = "1.5.08-pre";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
@@ -58,6 +58,13 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.5.08 2002-01-04
+
+    - Jan Pytel: bug in zangle.h  (missing test for coordinates xy)
+
+    - added data object "AdjInputDataObject" into DataParser
+
 
 1.5.07 2002-12-18
 

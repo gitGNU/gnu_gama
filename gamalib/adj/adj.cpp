@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.9 2003/01/03 21:15:41 cepek Exp $
+ *  $Id: adj.cpp,v 1.10 2003/01/04 15:51:51 cepek Exp $
  */
 
 #include <gamalib/adj/adj.h>
@@ -30,12 +30,13 @@
 #include <algorithm>
 
 using namespace GaMaLib;
+using namespace std;
 
 AdjInputData::AdjInputData()
 {
-  A     = new SparseMatrix<>;
-  pcov  = new BlockDiagonal<>;
-  pminx = new IntegerList<>;
+  A     = 0;    // SparseMatrix<>  *
+  pcov  = 0;    // BlockDiagonal<> *
+  pminx = 0;    // IntegerList<>   * 
 }
 
 
@@ -128,7 +129,7 @@ void AdjInputData::write_xml(std::ostream& out) const
 
   // =================================================================
  
-  if (pminx->dim())
+  if (pminx)
     {
       out << "\n" <<  indent << "  <array>\n"
           << indent 
@@ -163,14 +164,15 @@ void AdjInputData::read_xml(std::istream& inp)
 
   for (list<DataObject*>::const_iterator i=objects.begin(); 
        i!=objects.end(); ++i)
-    if (AdjInputData *data = dynamic_cast<AdjInputData*>(*i))
-      {
-        // take over the data from DataObject
-        swap(data);
-        delete data;
+    {
+      if (AdjInputDataObject *adj = dynamic_cast<AdjInputDataObject*>(*i))
+        {
+          // take over the data from DataObject
+          swap(adj->data);
+        }
 
-        return;
-      }
+      delete *i;
+    }
 }
 
 
@@ -186,11 +188,14 @@ void AdjInputData::read_gama_local_old_format(std::istream& inp)
   long cols, rows;
   inp >> cols >> rows;                    // dimensions 
 
-  pminx->reset(rows);
-  prhs . reset(rows);
+  delete pminx; 
+  pminx = 0;        // no regularization is defined for singular systems
+  prhs.reset(rows);
+
   gMatVec::Vec<> c(rows);
 
-  IntegerList<>::iterator m = pminx->begin();
+  IntegerList<> tmplist(rows);        
+  IntegerList<>::iterator m = tmplist.begin();
 
   long floats=0;
   for (long nonz, n, k, i=1; i<=rows; i++)
@@ -216,8 +221,10 @@ void AdjInputData::read_gama_local_old_format(std::istream& inp)
         }
     }
 
-  A->reset(floats, rows, cols);
-  m = pminx->begin();
+  delete A;
+  A = new SparseMatrix<>(floats, rows, cols);
+
+  m = tmplist.begin();
   for (long k=0, r=1; r<=rows; r++)
     {
       A->new_row();
@@ -225,9 +232,8 @@ void AdjInputData::read_gama_local_old_format(std::istream& inp)
       for (long i=1; i<=nonz; i++, k++)  A->add_element(flt[k], ind[k]);       
     }
 
-  pminx->reset();  // no regularization is defined for singular systems
-
-  pcov->reset(1, rows);
+  delete pcov;
+  pcov = new BlockDiagonal<>(1, rows);
   pcov->add_block(rows, 0, c.begin());
 }
 

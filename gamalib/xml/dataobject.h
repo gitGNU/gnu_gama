@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataobject.h,v 1.4 2003/01/03 17:54:06 cepek Exp $
+ *  $Id: dataobject.h,v 1.5 2003/01/04 15:51:51 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_Data_Object__object___h_
@@ -58,7 +58,10 @@ namespace GaMaLib {
       }    
     std::string xml() const 
       {
-        return "\n<text>" + text + "</text>\n";
+        if (!text.empty())
+          return "\n<text>" + text + "</text>\n";
+
+        return "";
       }
   };
 
