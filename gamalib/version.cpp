@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.17 2002/06/04 18:51:26 cepek Exp $
+ *  $Id: version.cpp,v 1.18 2002/06/04 20:47:25 cepek Exp $
  */
 
 
@@ -63,6 +63,9 @@ const char* GaMaLib_compiler =
      files observation.h, g2d_coordinates.cpp, statan.cpp, write.cpp.
 
      All the changes are backward compatible with g++ 2.95.2
+
+   - some minor changes in makefiles; makefiles and language.[h|cpp] 
+     added to CVS repository
 
 
 1.3.38 2002-05-29
