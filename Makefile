@@ -1,15 +1,26 @@
-# $Id: Makefile,v 1.17 2003/06/14 15:00:22 cepek Exp $
+# $Id: Makefile,v 1.18 2003/07/28 19:11:12 cepek Exp $
 #
 # this Makefile and all files in ./scripts were tested on Debian GNU/Linux 2.2
 #
 
-export CC=gcc-3.0
-export CXX=g++-3.0
 
 .PHONY : archive
 
 
 all:
+	@if [ "$(CXX)" = "g++" ]; then					\
+	   if awk 'BEGIN {if ($(shell g++ --version) < 3.0)		\
+	      exit 0; else exit 1}' ;					\
+	   then								\
+	      echo ;							\
+	      echo your CXX variable is set to g++ compiler version	\
+	           $(shell g++ --version);				\
+	      echo but g++ 3.0 or later is needed for building		\
+                   GNU Gama;						\
+	      echo ;							\
+	      exit 1;							\
+	   fi;								\
+	fi
 	( cd gamaprog/linux/lib; make -f Makefile-expat; make )
 	( cd gamaprog/linux/gama-local ; make )
 
