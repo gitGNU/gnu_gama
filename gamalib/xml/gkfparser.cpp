@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.10 2003/05/11 12:32:25 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.11 2004/03/15 18:58:33 cepek Exp $
  */
 
 
@@ -33,8 +33,9 @@
 #include <gnu_gama/xml/encoding.h>
 #include <gamalib/observation.h>
 #include <gamalib/cluster.h>
-#include <gnu_gama/intfloat.h>
 #include <gamalib/language.h>
+#include <gnu_gama/intfloat.h>
+#include <gnu_gama/gon2deg.h>
 
 
 using namespace std;
@@ -745,6 +746,7 @@ namespace GaMaLib {
 
   int GKFparser::process_angle(const char** atts)
   {
+    bool degrees = false;
     string nam, val, ss=standpoint_id, sl, sp, sm, sv, hf, ht, h2;
     state = state_obs_angle;
 
@@ -773,7 +775,11 @@ namespace GaMaLib {
     if (sm == "") return error(T_GKF_missing_observed_value);
 
     double dm;
-    if (!toDouble(sm, dm)) return error(T_GKF_bad_angle + sm);
+    if (GNU_gama::deg2gon(sm, dm))
+      degrees = true;
+    else
+      if (!toDouble(sm, dm)) return error(T_GKF_bad_angle + sm);
+
     double dv = implicit_stdev_angle();
     if (sv != "")
       if (!toDouble(sv, dv)) return error(T_GKF_illegal_standard_deviation);
@@ -801,6 +807,7 @@ namespace GaMaLib {
         d->set_from_dh(df);
         d->set_to_dh(dt);
         standpoint->observation_list.push_back( d );
+        if (degrees) dv /= 0.324;   // sec --> cc
         sigma.push_back(dv);
       } 
     catch (const /*GaMaLib::*/Exception &e) 
@@ -875,6 +882,7 @@ namespace GaMaLib {
 
   int GKFparser::process_zangle(const char** atts)
   {
+    bool degrees = false;
     string nam, val, ss=standpoint_id, sc, sm, sv, hf, ht;
     state = state_obs_zangle;
 
@@ -896,7 +904,11 @@ namespace GaMaLib {
     if (sm == "") return error(T_GKF_missing_observed_value);
 
     double dm;
-    if (!toDouble(sm, dm)) return error(T_GKF_bad_distance + sm);
+    if (GNU_gama::deg2gon(sm, dm))
+      degrees = true;
+    else
+      if (!toDouble(sm, dm)) return error(T_GKF_bad_distance + sm);
+
     double dv = implicit_stdev_distance(dm);
     if (sv != "")
       if (!toDouble(sv, dv)) return error(T_GKF_illegal_standard_deviation);
@@ -920,6 +932,7 @@ namespace GaMaLib {
         d->set_from_dh(df);
         d->set_to_dh(dt);
         standpoint->observation_list.push_back( d );
+        if (degrees) dv /= 0.324;   // sec --> cc
         sigma.push_back(dv);
       } 
     catch (const /*GaMaLib::*/Exception &e) 
@@ -1010,6 +1023,7 @@ namespace GaMaLib {
 
   int GKFparser::process_direction(const char** atts)
   {
+    bool degrees = false;
     string nam, val, sc, sm, ss, hf, ht;
     state = state_obs_direction;
 
@@ -1032,7 +1046,11 @@ namespace GaMaLib {
     if (sm   == "") return error(T_GKF_missing_observed_value);
 
     double dm;
-    if (!toDouble(sm, dm)) return error(T_GKF_bad_direction + sm);
+    if (GNU_gama::deg2gon(sm, dm))
+      degrees = true;
+    else
+      if (!toDouble(sm, dm)) return error(T_GKF_bad_direction + sm);
+
     double ds = implicit_stdev_direction();
     if (ss != "")
       if (!toDouble(ss, ds)) return error(T_GKF_illegal_standard_deviation);
@@ -1051,6 +1069,7 @@ namespace GaMaLib {
         d->set_from_dh(df);
         d->set_to_dh(dt);
         standpoint->observation_list.push_back( d );
+        if (degrees) ds /= 0.324;   // sec --> cc
         sigma.push_back(ds);
       } 
     catch (const /*GaMaLib::*/Exception &e) 

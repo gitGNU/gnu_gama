@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: residuals_observations.h,v 1.5 2003/06/14 15:00:22 cepek Exp $
+ *  $Id: residuals_observations.h,v 1.6 2004/03/15 18:58:33 cepek Exp $
  */
 
 
@@ -73,8 +73,10 @@ void ResidualsObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
   using namespace GaMaLib;
   using GaMaLib::Double;
 
-  const Vec& v = IS->residuals();
-  const int pocmer = IS->sum_observations();
+  const Vec&    v      = IS->residuals();
+  const int     pocmer = IS->sum_observations();
+  const double  scale  = IS->gons() ? 1.0 : 0.324;
+
   vector<int> odlehla;
   
   Double kki = IS->conf_int_coef();
@@ -215,9 +217,17 @@ void ResidualsObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
           else            out << "  ";
           out << ' ';
           
+          double sc = 1.0;
+          if (dynamic_cast<Direction*>(pm))
+            sc = scale;
+          else if (dynamic_cast<Angle*>(pm))
+            sc = scale;
+          else if (dynamic_cast<Z_Angle*>(pm))
+            sc = scale;         
+    
           out.precision(3);
           out.width(9);
-          out << v(i) << ' ';
+          out << v(i)*sc << ' ';
           out.precision(1);
           out.width(4);
 
@@ -241,11 +251,11 @@ void ResidualsObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
                 {
                   Double em = v(i) / (IS->wcoef_res(i)*IS->weight_obs(i));
                   out.width(7);
-                  out << em;
+                  out << em*sc;
                   
                   Double ev = em - v(i);
                   out.width(7);
-                  out << ev;
+                  out << ev*sc;
                 }
             }
           

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.12 2003/08/07 20:38:20 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.13 2004/03/15 18:58:34 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -80,6 +80,7 @@ int help()
   cerr << "--algorithm  svd | gso\n" 
        << "--language   en | cz | fi | du\n"
        << "--encoding   utf-8 | iso-8859-2 | iso-8859-2-flat | cp-1250\n"
+       << "--output     400 | 360\n"  
        << "--version\n"
        << "--help\n";
   cerr << endl;
@@ -110,6 +111,7 @@ int GaMa_Main(int argc, char **argv)
   const char* argv_algo = 0;
   const char* argv_lang = 0;
   const char* argv_enc  = 0;
+  const char* argv_out  = 0;
 
   for (int i=1; i<argc; i++)
     {
@@ -140,6 +142,7 @@ int GaMa_Main(int argc, char **argv)
       else if (name == "algorithm") argv_algo = c; 
       else if (name == "language" ) argv_lang = c;
       else if (name == "encoding" ) argv_enc  = c;
+      else if (name == "output"   ) argv_out  = c;
       else
         return help();
     }
@@ -190,6 +193,16 @@ int GaMa_Main(int argc, char **argv)
         else if (!strcmp("gso", argv_algo)) IS = new LocalNetwork_gso;
         else return help();
       }
+
+      if (argv_out)
+        {
+          if (!strcmp("400", argv_out))
+            IS->set_gons();
+          else if (!strcmp("360", argv_out))
+            IS->set_degrees();
+          else
+            return help();
+        }
 
     }
     catch (...) {

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.h,v 1.6 2003/11/06 17:58:57 cepek Exp $
+ *  $Id: network.h,v 1.7 2004/03/15 18:58:33 cepek Exp $
  */
 
 // LocalNetwork - Network Informations class (Informace o siti)
@@ -242,7 +242,11 @@ namespace GaMaLib
       int maxw_id () const { return 12; } // max width of point id.
       int maxw_unk() const { return  3; } // max width of index of unknown
       int maxw_obs() const { return  4; } // max width of index of observation
-            
+
+      bool gons()    const { return  gons_; }
+      bool degrees() const { return !gons_; }     
+      void set_gons()      { gons_ = true;  }
+      void set_degrees()   { gons_ = false; }
 
       // #####################################################################
 
@@ -261,7 +265,7 @@ namespace GaMaLib
       
       // parameters of statistical analysis
       
-      Double m_0_apr_;         // a prioti reference standard deviation
+      Double m_0_apr_;         // a priori reference standard deviation
       Double konf_pr_;         // (confidence) probability
       Double tol_abs_;         // tollerance for testing absolute terms
       enum ApEm_ { apriorni_, empiricka_ };
@@ -299,6 +303,8 @@ namespace GaMaLib
       
       Index  min_n_;           // regularization of free network
       Index* min_x_;
+
+      bool   gons_;
       
       // preparation for design matrix
       

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: error_ellipses.h,v 1.4 2003/06/14 15:00:22 cepek Exp $
+ *  $Id: error_ellipses.h,v 1.5 2004/03/15 18:58:33 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Elipsy_Chyb_h_
@@ -146,7 +146,9 @@ void ErrorEllipses(GaMaLib::LocalNetwork* IS, OutStream& out)
                out << b << ' ';
                out.width(7);
                out.setf(ios_base::fixed, ios_base::floatfield);
-               out << alfa*R2G << ' ';
+               double ea = alfa*R2G;
+               if (IS->degrees()) ea *= 360.0/400;
+               out << ea << ' ';
                
                if (mp < 1000 && mp > 1e-3)
                  {           // ********* testing noise (coordinates are OK)

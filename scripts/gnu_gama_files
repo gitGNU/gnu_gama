@@ -4,6 +4,7 @@
 gnu_gama/ellipsoid.cpp
 gnu_gama/ellipsoids.cpp
 gnu_gama/outstream.cpp
+gnu_gama/gon2deg.cpp
 gnu_gama/version.cpp
 gnu_gama/g3/g3_model.cpp
 gnu_gama/g3/g3_model_distance.cpp

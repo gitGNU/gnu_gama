@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adjusted_unknowns.h,v 1.6 2003/06/14 15:00:22 cepek Exp $
+ *  $Id: adjusted_unknowns.h,v 1.7 2004/03/15 18:58:33 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vyrovnane_Nezname_h_
@@ -205,6 +205,8 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
       }
   if (orp)
     {
+      const double scale  = IS->gons() ? 1.0 : 0.324;
+
       out << T_GaMa_adjunk_Review_of_unknowns_bearings << "\n"
           << underline(T_GaMa_adjunk_Review_of_unknowns_bearings, '*') 
           << "\n\n";
@@ -233,17 +235,30 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
               out.setf(ios_base::fixed, ios_base::floatfield);
               out.precision(6);
               out.width(12);
-              out << z << " ";
+              if (IS->gons())
+                out << z << " ";
+              else
+                out << GNU_gama::gon2deg(z, 2) << " ";
               out.width(10);
-              out << y_sign*x(i)/10000 << " ";
-              z += y_sign*x(i)/10000;
+              double cor = y_sign*x(i)/10000;
+              if (IS->gons())
+                out << cor << " ";
+              else
+                {
+                  if (cor < 0) cor += 400;
+                  out << GNU_gama::gon2deg(cor, 2) << " ";
+                }
+              z += cor;
               if (z <  0 ) z += 400;
               if (z > 400) z -= 400;
               out.width(11);
-              out << z << " ";
+              if (IS->gons())
+                out << z << " ";
+              else
+                out << GNU_gama::gon2deg(z, 2) << " ";
               out.precision(1);
               out.width(8);
-              Double mz = IS->unknown_stdev(i);
+              Double mz = IS->unknown_stdev(i)*scale;
               out << mz << " ";
               out.width(7);
               out << mz*kki;

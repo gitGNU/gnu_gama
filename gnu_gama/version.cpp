@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.23 2004/03/05 22:27:32 cepek Exp $
+ *  $Id: version.cpp,v 1.24 2004/03/15 18:58:34 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.09-pre";
+const char* GNU_gama_version  = "1.7.09-pre-b";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -63,6 +63,12 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.09-pre 2004-.....
+
+    - gama-local: support for input of angular observables in 360
+      degrees (implicitly 400 grades)
+
+    - gama-local: optional output of adjustment results in degrees
+      (grades are used implicitly)
 
     - scripts/gama_dep.cpp (1.01): added conditional usage of option
       '-pipe' in makefiles generated for GNU Linux platform

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.11 2004/02/02 17:07:49 cepek Exp $
+ *  $Id: network.cpp,v 1.12 2004/03/15 18:58:33 cepek Exp $
  */
 
 #include <fstream>
@@ -48,7 +48,8 @@ typedef GNU_gama::Cluster<Observation>                  Cluster;
 LocalNetwork::LocalNetwork()        
   : pocbod_(0), tst_redbod_(false), pocmer_(0), tst_redmer_(false),
     m_0_apr_(10), konf_pr_(0.95), tol_abs_(1000), typ_m_0_(empiricka_),
-    tst_rov_opr_(false), tst_vyrovnani_(false), min_n_(0), min_x_(0)
+    tst_rov_opr_(false), tst_vyrovnani_(false), min_n_(0), min_x_(0),
+    gons_(true)
 {
   Asp = 0;
 }
