@@ -2,12 +2,12 @@
 #
 # script se pousti z adresare o jednu uroven vys, nez je gmatvec
 #
-# $Id: gMatVec,v 1.1 2001/12/07 11:45:44 cepek Exp $
+# $Id: gMatVec,v 1.2 2001/12/20 19:55:51 cepek Exp $
 
 HOME=.
 cd $HOME
 
-LIBVER=$(awk '/gMatVec/ {print $5 ; exit }' gmatvec/memrep.h | tr --delete /\)/ )
+LIBVER=$(awk '/gMatVec/ {print $8 ; exit }' gmatvec/memrep.h | tr --delete /\)/ )
 NAMEVER=gmatvec-$LIBVER
 TAR=$NAMEVER.tgz
 
