@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: gama-g3.cpp,v 1.10 2004/02/20 18:07:29 cepek Exp $
+ * $Id: gama-g3.cpp,v 1.11 2004/02/22 11:59:45 cepek Exp $
  */
 
 #include <fstream>
@@ -196,6 +196,17 @@ int main_g3()
               cerr << v->to_dh << " ";
               cerr << ")";
             }              
+        }
+      if (XYZ* x = dynamic_cast<XYZ*>(*i))
+        {
+          cerr << " xyz      : id  = "
+               << x->id
+               << "  x = "
+               << x->x()
+               << "  y = "
+               << x->y()
+               << "  z = "
+               << x->z();
         }
       cerr << "\n";
       ++i;

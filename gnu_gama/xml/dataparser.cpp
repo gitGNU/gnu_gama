@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.18 2004/02/19 17:21:23 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.19 2004/02/22 11:59:46 cepek Exp $
  */
 
 
@@ -252,6 +252,28 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
         s_g3_obs_vector_opt_to_dh, 0, 0,
         0, &DataParser::optional_to_dh, 0);
 
+  // .....  <g3-model> <obs> <xyz>  ..................................
+
+   init(s_g3_obs, t_xyz,
+        s_g3_obs_xyz, s_g3_obs_xyz_after_z, 0,
+        0, 0, &DataParser::g3_obs_xyz);
+
+   init(s_g3_obs_xyz, t_id,
+        s_g3_obs_xyz_id, 0, s_g3_obs_xyz_after_id,
+        0, &DataParser::add_text, 0);
+
+   init(s_g3_obs_xyz_after_id, t_x,
+        s_g3_obs_xyz_x, 0, s_g3_obs_xyz_after_x,
+        0, &DataParser::add_text, 0);
+
+   init(s_g3_obs_xyz_after_x, t_y,
+        s_g3_obs_xyz_y, 0, s_g3_obs_xyz_after_y,
+        0, &DataParser::add_text, 0);
+
+   init(s_g3_obs_xyz_after_y, t_z,
+        s_g3_obs_xyz_z, 0, s_g3_obs_xyz_after_z,
+        0, &DataParser::add_text, 0);
+
   // .....  <text>  ..................................................
  
   init(s_gama_data, t_text,
@@ -481,6 +503,7 @@ DataParser::data_tag DataParser::tag(const char* c)
       break;
     case 'x' :
       if (!strcmp(c, "x"              )) return t_x;
+      if (!strcmp(c, "xyz"            )) return t_xyz;
       break;
     case 'y' :
       if (!strcmp(c, "y"              )) return t_y;
@@ -1181,4 +1204,27 @@ int DataParser::g3_obs_vector(const char *name)
     }
   
   return error("### bad <vector>");
+}
+
+int DataParser::g3_obs_xyz(const char *name)
+{
+  using namespace g3;  
+  stringstream istr(text_buffer);
+  string id;
+  double x, y, z;
+
+  if (pure_data(istr >> id >> x >> y >> z))
+    {
+      text_buffer.clear();
+
+      XYZ* xyz = new XYZ;
+      xyz->id  = id;
+      xyz->set_xyz(x, y, z);
+
+      g3obs_cluster->observation_list.push_back(xyz);
+
+      return end_tag(name);
+    }
+  
+  return error("### bad <xyz>");
 }

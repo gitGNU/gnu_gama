@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.17 2004/02/19 17:21:23 cepek Exp $
+ *  $Id: dataparser.h,v 1.18 2004/02/22 11:59:46 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -129,6 +129,16 @@ namespace GNU_gama {
           s_g3_obs_vector_opt_from_dh,
           s_g3_obs_vector_opt_to_dh,
 
+          s_g3_obs_xyz,
+          s_g3_obs_xyz_id,
+          s_g3_obs_xyz_after_id,
+          s_g3_obs_xyz_x,
+          s_g3_obs_xyz_after_x,
+          s_g3_obs_xyz_y,
+          s_g3_obs_xyz_after_y,
+          s_g3_obs_xyz_z,
+          s_g3_obs_xyz_after_z,
+
           // ..................................................
 
           s_text,
@@ -227,6 +237,7 @@ namespace GNU_gama {
           t_vector,
           t_width,
           t_x,
+          t_xyz,
           t_y,
           t_z,
           t_unused
@@ -266,6 +277,7 @@ namespace GNU_gama {
       int g3_obs_cov            (const char *name);
       int g3_obs_dist           (const char *name);
       int g3_obs_vector         (const char *name);
+      int g3_obs_xyz            (const char *name);
       int text                  (const char *name);
       int adj_input_data        (const char *name, const char **atts);
       int adj_input_data        (const char *name);

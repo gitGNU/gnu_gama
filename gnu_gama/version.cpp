@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.19 2004/02/02 17:07:49 cepek Exp $
+ *  $Id: version.cpp,v 1.20 2004/02/22 11:59:46 cepek Exp $
  */
 
 
@@ -63,7 +63,9 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.09 2004-??-??
-    
+
+    - added observation types Dimension and XYZ ("observed" coordinates)
+
     - added observation dimensions into Cluster::activeCov (activeCount 
       renamed to activeObs)
 

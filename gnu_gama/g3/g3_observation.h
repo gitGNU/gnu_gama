@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.8 2004/01/17 17:19:33 cepek Exp $
+ *  $Id: g3_observation.h,v 1.9 2004/02/22 11:59:46 cepek Exp $
  */
 
 
@@ -81,7 +81,7 @@ namespace GNU_gama {  namespace g3 {
           return rv->revision_visit(this);
         }
       else
-        return false;
+        return  set_active(false);
     }
   
     void linearization_accept(ObservationVisitor* visitor)
@@ -123,7 +123,7 @@ namespace GNU_gama {  namespace g3 {
           return rv->revision_visit(this);
         }
       else
-        return false;
+        return  set_active(false);
     }
   
     void linearization_accept(ObservationVisitor* visitor)
@@ -137,6 +137,53 @@ namespace GNU_gama {  namespace g3 {
     
   private:    
     double dx_, dy_, dz_;
+  };
+
+
+  class XYZ : public Observation {
+  public:  
+
+    Point::Name id;
+        
+    XYZ()
+    {
+    }
+    XYZ(double xp, double yp, double zp)
+    {
+      x_ = xp; y_ = yp; z_ = zp;
+    }
+      
+    int  dimension() const { return 3; }
+    void set_xyz(double xp, double yp, double zp)
+    {
+      x_ = xp; y_ = yp; z_ = zp;
+    }
+    
+    double x() const { return x_; }
+    double y() const { return y_; }
+    double z() const { return z_; }
+    
+    bool revision_accept(ObservationVisitor* visitor)
+    {
+      if (Revision<XYZ>* rv = dynamic_cast<Revision<XYZ>*>(visitor))
+        {
+          return rv->revision_visit(this);
+        }
+      else
+        return set_active(false);
+    }
+  
+    void linearization_accept(ObservationVisitor* visitor)
+    {
+      if (Linearization<XYZ>* 
+          lv = dynamic_cast<Linearization<XYZ>*>(visitor))
+        {
+          lv->linearization_visit(this);
+        }
+    }
+    
+  private:    
+    double x_, y_, z_;
   };
 
 }}
