@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.16 2003/12/28 16:42:34 uid66336 Exp $  */
+/* $Id: g3_parameter.h,v 1.17 2004/01/26 19:03:09 cepek Exp $  */
 
 #include <cstddef>
 #include <gnu_gama/model.h>
@@ -39,7 +39,7 @@ namespace GNU_gama { namespace g3 {
     Parameter() : val(0), cor(0), dif(0.05) {}
     // ~Parameter() {}
     
-    double value() const { return val + cor; }
+    double operator()() const { return val + cor; }
 
     double init_value() const { return val; }
     double correction() const { return cor; }

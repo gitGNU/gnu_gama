@@ -20,12 +20,13 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.23 2004/01/25 11:07:13 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.24 2004/01/26 19:03:09 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
 #include <gnu_gama/g3/g3_cluster.h>
 #include <gnu_gama/outstream.h>
+#include <gnu_gama/adj/adj.h>
 
 
 using namespace std;
@@ -40,9 +41,6 @@ Model::Model()
   active_obs = new ObservationList;
   par_list    = new ParameterList;
 
-  A = 0;
-  B = 0;
-
   points->set_common_data(this); 
   set(&ellipsoid, ellipsoid_wgs84);
 
@@ -55,8 +53,6 @@ Model::~Model()
   delete points;
   delete active_obs;
   delete par_list;
-  delete A;
-  delete B;
 }
 
 
@@ -94,13 +90,13 @@ void Model::write_xml(std::ostream& out) const
         
         if (p->has_xyz())
           out << "\n\t"
-              << "<x>" << p->X.value() << "</x> "
-              << "<y>" << p->Y.value() << "</y> "
-              << "<z>" << p->Z.value() << "</z>";
+              << "<x>" << p->X() << "</x> "
+              << "<y>" << p->Y() << "</y> "
+              << "<z>" << p->Z() << "</z>";
         
         if (p->has_height())
           out << "\n\t"
-              << "<height>" << p->height.value() << "</height>";
+              << "<height>" << p->height() << "</height>";
         
         if (p->unused())
           out << "\n\t"; // <unused/>";
@@ -146,6 +142,16 @@ void Model::write_xml(std::ostream& out) const
 }
 
 
+void Model::update_index(Parameter& p)
+{
+  if (!p.index()) 
+    {
+      p.set_index(++dm_cols);
+      par_list->push_back(&p);
+    }
+}
+
+
 void Model::update_init()
 {
   return next_state_(init_);
@@ -160,9 +166,50 @@ void Model::update_parameters()
          i=points->begin(), e=points->end(); i!=e; ++i)
     {
       Point* point = (*i);
+ 
       point->N_.set_index(0);
       point->E_.set_index(0);
       point->U_.set_index(0);
+
+
+      if (point->fixed_horizontal_position())
+        {
+          point->N_.set_fixed();
+          point->E_.set_fixed();
+        }
+      else if (point->constr_horizontal_position())
+        {
+          point->N_.set_constr();
+          point->E_.set_constr();
+        }
+      else if (point->free_horizontal_position())
+        {
+          point->N_.set_free();
+          point->E_.set_free();
+        }
+      else
+        {
+          point->N_.set_unused();
+          point->E_.set_unused();
+        }
+      
+
+      if (point->fixed_height())
+        {
+          point->U_.set_fixed();
+        }
+      else if (point->constr_height())
+        {
+          point->U_.set_constr();
+        }
+      else if (point->free_height())
+        {
+          point->U_.set_free();
+        }
+      else
+        {
+          point->U_.set_unused();
+        }
     }
 
   return next_state_(params_);
@@ -183,6 +230,12 @@ void Model::update_observations()
       (*i)->revision_accept(this);
     }
 
+  for (Model::ClusterList::iterator
+         ci = obsdata.CL.begin(), ce = obsdata.CL.end(); ci!=ce; ++ci)
+    {
+      (*ci)->update();
+    }
+  
   return next_state_(obsrvs_);
 }
 
@@ -191,10 +244,10 @@ void Model::update_linearization()
 {
   if (!check_observations()) update_observations();
 
-  cerr << "\n###  update_linearization() : dm_floats, dm_rows, dm_cols " 
-       << dm_floats << " " << dm_rows << " " << dm_cols<< "\n";
+  A = new SparseMatrix<>(dm_floats, dm_rows, dm_cols);
+  rhs.reset(dm_rows);
+  rhs_ind = 0;
 
-  // delete A;   A = new SparseMatrix<>(dm_floats, dm_rows, dm_cols);
   // delete B;   B = new BlockDiagonal<>;
 
   for (ObservationList::iterator 
@@ -202,6 +255,64 @@ void Model::update_linearization()
     {
       (*i)->linearization_accept(this);
     }
+
+  adj_input_data.set_mat(A);
+  adj_input_data.set_rhs(rhs);
+
+  {
+    int minx=0;
+    for (ParameterList::const_iterator 
+           i=par_list->begin(), e=par_list->end(); i!=e; ++i)
+      {
+        if ((*i)->constr()) minx++;
+      }
+    
+    if (minx)
+      {
+        GNU_gama::IntegerList<>* minlist = new GNU_gama::IntegerList<>(minx);
+        GNU_gama::IntegerList<>::iterator m = minlist->begin();
+        for (ParameterList::const_iterator 
+               i=par_list->begin(), e=par_list->end(); i!=e; ++i)
+          {
+            const Parameter* p = *i;
+            if (p->constr())
+              {
+                *m = p->index();
+                ++m;
+              }
+          }
+        
+        adj_input_data.set_minx(minlist);
+      }
+  }
+  
+  {
+    int nonzeroes=0, blocks=0;
+    for (ClusterList::iterator
+           ci = obsdata.CL.begin(), ce = obsdata.CL.end(); ci!=ce; ++ci)
+      {
+        if (int n = (*ci)->activeNonz())
+          {
+            nonzeroes += n;
+            blocks++;
+          }
+      }
+
+    GNU_gama::BlockDiagonal<>* 
+      bd = new GNU_gama::BlockDiagonal<>(blocks, nonzeroes);
+
+    for (ClusterList::const_iterator
+           ci = obsdata.CL.begin(), ce = obsdata.CL.end(); ci!=ce; ++ci)
+      {
+        Cov C = (*ci)->activeCov();
+        if (C.dim())
+          {
+            bd->add_block(C.dim(), C.bandWidth(), C.begin());
+          }
+      }
+
+    adj_input_data.set_cov(bd);
+  }
 
   return next_state_(linear_);
 }
@@ -212,4 +323,10 @@ void Model::update_adjustment()
   if (!check_linearization()) update_linearization();
 
   return next_state_(adjust_);
+}
+
+
+void Model::write_xml_adjustment_input_data(std::ostream& out)
+{
+  adj_input_data.write_xml(out);
 }

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.17 2004/01/25 11:07:13 cepek Exp $
+ *  $Id: version.cpp,v 1.18 2004/01/26 19:03:09 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.08-pre";
+const char* GNU_gama_version  = "1.7.08";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -62,9 +62,13 @@ const char* GNU_gama_compiler =
 
 =============================================================================
 
-1.7.08-pre ???????
+1.7.08 2004-01-26
 
    - visitor pattern used in description of mathematical model (model.h)
+
+   - into the template class Cluster added function activeNonz()
+     returning the size of an active covariance matrix (number of
+     nonzero elements)
 
    - removed conditional compile for _MSC_VER in gnu_gama/list.h
 

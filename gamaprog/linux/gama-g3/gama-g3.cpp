@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: gama-g3.cpp,v 1.6 2004/01/25 11:07:13 cepek Exp $
+ * $Id: gama-g3.cpp,v 1.7 2004/01/26 19:03:09 cepek Exp $
  */
 
 #include <fstream>
@@ -33,6 +33,7 @@ namespace
 {
   const char* input  = 0;
   const char* output = 0;
+  const char* projeq = 0;
 
   int error(const char* s) { std::cerr << s << "\n"; return 1; } 
 
@@ -47,6 +48,16 @@ namespace
         if (a == "-h" || a == "-help" || a == "--help")  
           { 
             ok = false;
+            continue;
+          }
+        if (a == "-project-equations" || a == "--project-equations")
+          {
+            ++i;
+            if (i < argc) 
+              projeq = argv[i];
+            else
+              ok = false;
+
             continue;
           }
         
@@ -68,6 +79,10 @@ namespace
       " input      xml data file name\n"
       " output     optional output data file name\n\n"
 
+      " -project-equations file"
+      "     optional output of project equations in XML\n"
+
+      "\n"
       " -h         help (this text)\n"
 
       "\n";
@@ -165,6 +180,15 @@ int main(int argc, char* argv[])
         }
 
       model->update_linearization();
+
+      if (projeq) 
+        {
+          std::ofstream out(projeq);
+          out.precision(16);
+          out << GNU_gama::DataParser::xml_start;
+          model->write_xml_adjustment_input_data(out);
+          out << GNU_gama::DataParser::xml_end;
+        }
     }
   
   delete model;

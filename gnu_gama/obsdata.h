@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.12 2004/01/17 21:36:14 cepek Exp $
+ *  $Id: obsdata.h,v 1.13 2004/01/26 19:03:09 cepek Exp $
  */
 
 
@@ -49,7 +49,7 @@ namespace GNU_gama {
       
       
       Cluster(const ObservationData<Observation>* od) 
-        : observation_data(od), act_count(0) 
+        : observation_data(od), act_count(0), act_nonz(0) 
         {
         }
       virtual ~Cluster();
@@ -68,6 +68,7 @@ namespace GNU_gama {
       void update();
       
       int  activeCount() const { return act_count; }
+      int  activeNonz () const { return act_nonz; }
       typename Observation::CovarianceMatrix  
            activeCov() const; 
       
@@ -76,7 +77,7 @@ namespace GNU_gama {
       Cluster(const Cluster&); 
       void operator=(const Cluster&);
       
-      int act_count;
+      int act_count, act_nonz;
     };
 
 
@@ -306,6 +307,7 @@ namespace GNU_gama {
     void Cluster<Observation>::update()
     {
       act_count = 0;
+      act_nonz  = 0;
       int index = 0;
       Observation* p;
       for (typename List<Observation*>::iterator 
@@ -315,6 +317,13 @@ namespace GNU_gama {
           p->cluster = this;
           p->cluster_index = index++;
           if (p->active()) act_count++;
+        }
+
+      if (act_count)
+        {
+          int b = covariance_matrix.bandWidth();
+          if (act_count - 1 < b) b = act_count - 1;
+          act_nonz = act_count*(b+1) - b*(b+1)/2;
         }
     }
 

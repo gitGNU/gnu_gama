@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.17 2004/01/25 11:07:13 cepek Exp $
+ *  $Id: g3_model.h,v 1.18 2004/01/26 19:03:09 cepek Exp $
  */
 
 #include <gnu_gama/model.h>
@@ -32,6 +32,7 @@
 #include <gnu_gama/g3/g3_observation.h>
 #include <gnu_gama/sparse/smatrix.h>
 #include <gnu_gama/sparse/sbdiagonal.h>
+#include <gnu_gama/adj/adj.h>
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
 #define GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -78,11 +79,11 @@ namespace GNU_gama {  namespace g3 {
     void update_observations();
     void update_linearization();
     void update_adjustment();
-    
-    
+        
     bool revision_visit     (Distance* d);
     void linearization_visit(Distance* d);
 
+    void write_xml_adjustment_input_data(std::ostream&);
 
   private:   /*-----------------------------------------------------------*/
       
@@ -94,6 +95,7 @@ namespace GNU_gama {  namespace g3 {
 
     // parameter list
     ParameterList*  par_list;
+    void update_index(Parameter&);
     
     // basic revision steps 
     enum State_{init_, params_, obsrvs_, linear_, adjust_, ready_} state_;
@@ -106,7 +108,10 @@ namespace GNU_gama {  namespace g3 {
     // design matrix
     int dm_rows, dm_cols, dm_floats;
     SparseMatrix <>*  A;
+    Vec               rhs;
+    int               rhs_ind;
     BlockDiagonal<>*  B;
+    GNU_gama::AdjInputData  adj_input_data;
 
   };
   
