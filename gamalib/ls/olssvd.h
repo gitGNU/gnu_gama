@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: olssvd.h,v 1.1 2001/12/07 12:56:38 cepek Exp $
+ *  $Id: olssvd.h,v 1.2 2002/12/15 20:19:33 cepek Exp $
  */
 
 #ifndef GaMa_OLS_svd_h
@@ -99,8 +99,10 @@ protected:
 template <class Float, class Exc>
 void OLSsvd<Float, Exc>::solve_me()
 {
-   if (is_solved) return;
    using namespace gMatVec; 
+   using namespace std;
+
+   if (is_solved) return;
 
    sqrt_w.reset(pb->dim());
    if (pw)

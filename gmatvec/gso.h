@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gso.h,v 1.8 2002/11/14 14:58:52 cepek Exp $
+ *  $Id: gso.h,v 1.9 2002/12/15 20:19:34 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -198,6 +198,8 @@ template <class Float, class Exc>
 void GSO<Float, Exc>::modified_gso(Index r_first, Index r_last, 
                                Index c_last,  Index r_dim, bool first)
 {
+  using namespace std;
+
   if (tol_ <= 0)
     {
       Float  eps, eps_1, eps_min, eps_max, sum;

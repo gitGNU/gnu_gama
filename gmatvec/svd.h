@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: svd.h,v 1.11 2002/11/14 14:58:52 cepek Exp $
+ *  $Id: svd.h,v 1.12 2002/12/15 20:19:34 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -210,6 +210,7 @@ namespace gMatVec {
 
   template <class Float> inline Float PYTHAG( Float a, Float b )
     {
+      using namespace std;
       Float at, bt, ct;
 
       return
@@ -222,6 +223,8 @@ namespace gMatVec {
   template <class Float, class Exc>
     void SVD<Float, Exc>::svd()
     {
+      using namespace std;
+
       if (decomposed)
         return;
 
