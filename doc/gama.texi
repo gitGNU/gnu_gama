@@ -1,5 +1,5 @@
 \input texinfo   @c -*-texinfo-*-
-@comment $Id: gama.texi,v 1.4 2003/01/20 17:52:32 cepek Exp $
+@comment $Id: gama.texi,v 1.5 2003/02/01 16:12:04 cepek Exp $
 
 @comment Part 1 : Header
 
@@ -119,6 +119,13 @@ Jan Pytel @code{<pytel@@gama.fsv.cvut.cz>} (CTU Prague)
 
 @item
 Chuck Ghilani (Surveying Program Chair, Penn State Wilkes-Barre)
+
+@item 
+Dan Haggman and Mauri Vaisanen (Helsinki University of Technology)
+
+@item 
+John Dedrum (Dutch translation for @code{gama-local})
+
 @end itemize
 
 

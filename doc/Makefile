@@ -32,4 +32,8 @@ archive:
 
 clean:
 	rm -f  *.aux *.toc *.cp *.fn *.ky *.log *.vr *.pg *.tp
+	rm -fr gama
+	rm -f  gama.cps gama.dvi gama.fns gama.info* gama.kys
+	rm -f  gama.pdf gama.pgs gama.ps  gama.tmp   gama.tps 
+	rm -f  gama.vrs
 	rm -f  *~

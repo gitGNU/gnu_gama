@@ -3,12 +3,13 @@
 # gama tar: script is run in the parent directory of scripts
 # #########
 #
-# $Id: GaMaLib_archive,v 1.14 2002/10/26 12:20:15 cepek Exp $
+# $Id: GaMaLib_archive,v 1.15 2003/02/01 16:12:04 cepek Exp $
 
 if pwd | grep scripts$; then cd ..; fi
 
 HOME=.
 cd $HOME
+(cd doc; make clean; cd ..)
 
 LIBVER=$(scripts/get-gamalib-version)
 DIRVER=$(echo $LIBVER | awk -F. '// { print $1"."$2 }')
