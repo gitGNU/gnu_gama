@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.23 2004/09/01 11:59:45 cepek Exp $
+ *  $Id: obsdata.h,v 1.24 2005/04/01 17:38:01 cepek Exp $
  */
 
 
@@ -344,7 +344,7 @@ namespace GNU_gama {
       typedef std::size_t Index;
       // const Index M      = covariance_matrix.rows();
       const Index N      = activeDim();
-      const Index i_size = observation_list.size();
+      // const Index i_size = observation_list.size();
       Index active_band  = covariance_matrix.bandWidth();
 
       if (N)
