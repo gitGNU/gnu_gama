@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if pwd | grep /script$; then cd ..; fi
+
+( cd gamaprog/linux/lib;   make -f Makefile-expat ; make )
+( cd gamaprog/linux/gama ; make )
+

@@ -1,0 +1,2 @@
+gamalib_dep: gamalib_dep.cpp
+	g++ -O2 -o gamalib_dep gamalib_dep.cpp

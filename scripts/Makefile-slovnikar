@@ -1,0 +1,10 @@
+
+
+slovnikar: slovnikar.o
+	( pwd; cd ../gamaprog/linux/lib; make -f Makefile-expat ) 
+	g++ -o slovnikar slovnikar.o encoding.o ../gamaprog/linux/lib/gamalib.a
+
+slovnikar.o: slovnikar.cpp 
+	g++ -I.. -c slovnikar.cpp ../gamalib/xml/encoding.cpp	
+
+

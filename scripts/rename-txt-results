@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# rename windows' *.txt gama results
+# ----------------------------------
+#
+
+for i in *.gkf-*.txt
+do
+   dos2unix $i 
+   mv $i `echo $i | sed s/\.txt$//`
+done
+
+# ----------------------------------

@@ -1,0 +1,38 @@
+#
+# builds dictionaris for GaMaLib
+# 
+# $Id: build-dictionaries,v 1.1 2001/12/07 11:45:44 cepek Exp $
+
+
+if pwd | grep /script$; then cd ..; fi
+
+echo
+echo "Building dictionaries"
+echo
+
+(cd scripts ; make -f Makefile-slovnikar ; make -f Makefile-utf8-ascii )
+cd gamalib
+
+FILES1=$(find ../gamalib  | grep \.lang$ | grep -v \# | grep -v \~ ) 
+FILES2=$(find ../gamaprog | grep \.lang$ | grep -v \# | grep -v \~ ) 
+
+echo input files: $FILES1 $FILES2
+echo $FILES1 $FILES2 | ../scripts/slovnikar
+
+# pro kompatibility se starymi testovacimi vypocty prozatim odstranim 
+# diakritiku:
+
+# nahradil jsem program recode trivialnim programem utf8-ascii aby bylo
+# mozne provozovat tento skript i ve verzi slink
+# recode UTF-8..iso8859-2 < language.cz | cstocs il2 ascii > language.cpp
+cp language.cpp language.cz
+../scripts/utf8-ascii     < language.cz > language.cpp
+
+# ------------------------------------------------------------------------
+
+
+
+
+
+
+

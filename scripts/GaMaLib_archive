@@ -1,0 +1,101 @@
+#!/bin/bash
+#
+# Skript se spousti z adresare ve kterem jsou podadresare gamalib,
+# gamaprog a scripts.  Pokud jsem v podadresari ./scripts, prejdu o
+# jednu uroven vys.
+#
+# $Id: GaMaLib_archive,v 1.1 2001/12/07 11:45:44 cepek Exp $
+
+if pwd | grep scripts$; then cd ..; fi
+
+HOME=.
+cd $HOME
+
+LIBVER=$(scripts/get-gamalib-version)
+DIRVER=$(echo $LIBVER | awk -F. '// { print $1"."$2 }')
+
+VERSION=gamalib-$LIBVER
+
+rm -f   $VERSION 2>/dev/null
+if [ -d $VERSION ]; then
+   echo
+   echo $VERSION directory exists - building of tar archive failed!
+   echo
+   echo
+   exit 1
+fi
+ln -s . $VERSION
+
+TAR=$VERSION.tgz
+ADD="$VERSION/gamalib $VERSION/gamaprog $VERSION/gamaxml"
+ADD="$ADD $VERSION/Makefile $VERSION/AUTHORS"
+ADD="$ADD $VERSION/ChangeLog* $VERSION/TODO"
+ADD="$ADD $VERSION/INSTALL $VERSION/README"
+ADD="$ADD $VERSION/gmatvec $VERSION/scripts $VERSION/doc"
+
+
+MD5=$VERSION/gamalib-$LIBVER.md5sum
+rm -f $MD5
+for s in $(find $ADD | egrep \.'(h|cpp|c|gkf|dtd)'$ | egrep -v \# | grep -v \~ )
+do
+    if [ -f $s ] ; then    
+       md5sum $s >> $MD5
+    fi 
+done
+
+rm -f /tmp/gamalib-$VERSION-exclude
+for i in `find $ADD | grep -v [.]o$ | grep -v [.]cpp$ | grep -v [.]h$ \
+          | grep -v CVS | grep -v [.]html$ | grep -v [.]c$`
+do
+  if [ ! -d $i ] ; then
+    echo -n \.
+    TTT=`file $i`
+    echo $TTT | grep executable | sed s/:.*// >> /tmp/gamalib-$VERSION-exclude
+    echo $TTT | grep "ar archi" | sed s/:.*// >> /tmp/gamalib-$VERSION-exclude
+    echo $TTT | grep "core fil" | sed s/:.*// >> /tmp/gamalib-$VERSION-exclude
+  fi
+done
+echo
+
+rm -f $TAR
+echo
+echo tar czvf $TAR
+echo 
+tar czvf $TAR $MD5 $ADD --exclude=*.o --exclude=*.a --exclude=*~ \
+              --exclude=$VERSION/doc/gamalib \
+              --exclude=$VERSION/$VERSION \
+              --exclude=CVS \
+              --exclude-from=/tmp/gamalib-$VERSION-exclude
+
+rm -f /tmp/gamalib-$VERSION-exclude
+
+if ! test -d archive;
+then
+   mkdir archive
+fi
+if ! test -d archive/gamalib;
+then
+   mkdir archive/gamalib
+fi
+if ! test -d archive/gamalib/$DIRVER;
+then
+   mkdir archive/gamalib/$DIRVER
+fi
+
+cp $TAR archive/gamalib/$DIRVER
+echo
+ls -l   archive/gamalib/$DIRVER/$TAR | awk '//{ print $5 " " $9 }'   
+echo
+rm -f   $TAR $MD5 $VERSION
+
+#
+#------------------------------------------------------------------
+
+
+
+
+
+
+
+
+

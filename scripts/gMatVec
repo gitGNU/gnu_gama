@@ -1,0 +1,57 @@
+#!/bin/bash
+#
+# script se pousti z adresare o jednu uroven vys, nez je gmatvec
+#
+# $Id: gMatVec,v 1.1 2001/12/07 11:45:44 cepek Exp $
+
+HOME=.
+cd $HOME
+
+LIBVER=$(awk '/gMatVec/ {print $5 ; exit }' gmatvec/memrep.h | tr --delete /\)/ )
+NAMEVER=gmatvec-$LIBVER
+TAR=$NAMEVER.tgz
+
+
+rm -f   $NAMEVER 2>/dev/null
+if [ -d $NAMEVER ]; then
+   echo
+   echo $NAMEVER directory exists - building of tar archive failed!
+   echo
+   echo
+   exit 1
+fi
+ln -s gmatvec $NAMEVER
+
+rm -f *.md5sum
+MD5=gmatvec-$LIBVER.md5sum
+for s in $(find $NAMEVER/* | egrep \.'(h|cpp|gkf)'$)
+do
+    md5sum $s >> $MD5
+done
+
+
+rm -f $TAR
+echo
+echo tar czvf $TAR
+echo 
+tar czvf $TAR $NAMEVER/* $MD5 --exclude=CVS --exclude=*.o --exclude=*~
+echo
+
+
+if ! test -d archive;
+then
+   mkdir archive
+fi
+if ! test -d archive/gmatvec;
+then
+   mkdir archive/gmatvec
+fi
+
+cp $TAR archive/gmatvec
+rm $TAR $MD5 $NAMEVER
+
+
+
+
+
+
