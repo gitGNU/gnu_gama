@@ -20,13 +20,15 @@
 */
 
 /*
- *  $Id: dataobject.h,v 1.3 2002/10/24 17:04:13 cepek Exp $
+ *  $Id: dataobject.h,v 1.4 2003/01/03 17:54:06 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_Data_Object__object___h_
 #define GaMaLib_GaMa_XML_Data_Object__object___h_
 
 #include <string>
+#include <sstream>
+#include <gamalib/adj/adj.h>
 
 namespace GaMaLib {
 
@@ -38,6 +40,8 @@ namespace GaMaLib {
       }
     virtual std::string xml() const = 0;
 
+    static  std::string xml_begin();
+    static  std::string xml_end();
   };
 
 
@@ -55,6 +59,32 @@ namespace GaMaLib {
     std::string xml() const 
       {
         return "\n<text>" + text + "</text>\n";
+      }
+  };
+
+
+  class AdjInputDataObject : public DataObject {
+  public:
+  
+    AdjInputData *data;
+  
+    AdjInputDataObject() : data(0)
+      {
+      }    
+    AdjInputDataObject(AdjInputData *d) : data(d)
+      {
+      }    
+    std::string xml() const 
+      {
+        if (data) 
+          {
+            std::stringstream out;
+            data->write_xml(out);
+            
+            return out.str();
+          }
+
+        return "";
       }
   };
 

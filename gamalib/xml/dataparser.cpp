@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.4 2002/10/24 17:04:13 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.5 2003/01/03 17:54:06 cepek Exp $
  */
 
 #include <gamalib/xml/dataparser.h>
@@ -75,10 +75,10 @@ DataParser::data_tag DataParser::tag(const char* c)
   switch (*c)
     {
     case 'g' :
-      if (!strcmp(c, "gama-data" )) return tag_gama_data;
+      if (!strcmp(c, "gnu-gama-data" )) return tag_gama_data;
       break;
     case 't' :
-      if (!strcmp(c, "text"      )) return tag_text;
+      if (!strcmp(c, "text"          )) return tag_text;
       break;
     default:
       break;
@@ -150,9 +150,9 @@ int main()
   const char* xml_input_data = 
 
     "<?xml version=\"1.0\" ?>\n"
-    "<!DOCTYPE gama-data SYSTEM \"gama-data.dtd\">\n\n"
+    "<!DOCTYPE gnu-gama-data SYSTEM \"gnu-gama-data.dtd\">\n\n"
 
-    "<gama-data>\n\n"
+    "<gnu-gama-data>\n\n"
     "<text>\n"
     "This is a DataParser demo ...\n"
     "</text>\n\n"
@@ -162,7 +162,7 @@ int main()
     "asdfgh ...\n"
     "zxcvbn ...\n"
     "</text>\n"
-    "</gama-data>\n"
+    "\n</gnu-gama-data>\n"
     ;
 
   try 
@@ -173,11 +173,15 @@ int main()
       DataParser dp(objects);
       dp.xml_parse(xml_input_data, strlen(xml_input_data), 1);
       
+      cout << DataObject::xml_begin();
+
       for (list<DataObject*>::const_iterator i=objects.begin(); 
            i!=objects.end(); ++i)
         {
           cout << (*i)->xml();
         }
+
+      cout << DataObject::xml_end();
     }
   catch(ParserException e)
     {

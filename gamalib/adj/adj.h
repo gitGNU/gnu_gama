@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.h,v 1.4 2002/11/26 22:22:06 cepek Exp $
+ *  $Id: adj.h,v 1.5 2003/01/03 17:54:06 cepek Exp $
  */
 
 #include <gamalib/exception.h>
@@ -49,8 +49,8 @@ namespace GaMaLib {
     
     SparseMatrix <>  A;
     BlockDiagonal<>  cov;
-    IntegerList  <>  minx;
     Vec              rhs;
+    IntegerList  <>  minx;
 
     void write_xml(std::ostream&) const;
     void read_xml(std::istream&);

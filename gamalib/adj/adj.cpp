@@ -20,11 +20,13 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.7 2002/12/15 16:12:44 cepek Exp $
+ *  $Id: adj.cpp,v 1.8 2003/01/03 17:54:06 cepek Exp $
  */
 
 #include <gamalib/adj/adj.h>
+#include <gamalib/xml/dataparser.h>
 #include <vector>
+#include <cstddef>
 
 using namespace GaMaLib;
 
@@ -59,6 +61,60 @@ void AdjInputData::write_xml(std::ostream& out) const
 
   out << indent << "  </sparse-mat>\n";
 
+  // =================================================================
+
+  const long blocks = cov.blocks();
+
+  out << "\n" << indent << " <block-diagonal>\n"
+      << indent << "    <blocks>" << blocks << "</blocks>\n";
+
+  for (long b=1; b<=blocks; b++)
+    {
+      long dim   = cov.dim(b);
+      long width = cov.width(b);
+
+      out << indent << "      <block> <dim>" 
+          << dim    << "</dim> <width>" 
+          << width  << "</width>\n";
+
+      const double *m = cov.begin(b);
+      const double *e = cov.end(b);
+      while (m != e)
+        cout << indent << "      <flt>" << *m++ << "</flt>\n";
+
+      out << indent << "      </block>\n";
+    }
+
+  out << indent << "  </block-diagonal>\n";
+
+  // =================================================================
+
+  out << "\n" <<  indent << "  <vector>\n"
+      << indent 
+      << "    <dim>" << rhs.dim() << "</dim>\n";
+
+  for (long i=1; i<=rhs.dim(); i++)
+        cout << indent << "      <flt>" << rhs(i) << "</flt>\n";
+
+  out << indent << "  </vector>\n";
+
+  // =================================================================
+ 
+  if (minx.dim())
+    {
+      out << "\n" <<  indent << "  <array>\n"
+          << indent 
+          << "    <dim>" << minx.dim() << "</dim>\n";
+      
+      const std::size_t *indx = minx.begin();
+      for (long i=1; i<=minx.dim(); i++)
+        cout << indent << "      <int>" << *indx++ << "</int>\n";
+       
+      out << indent << "  </array>\n";
+    }
+
+  // =================================================================
+
   out << "\n" << indent << "</adj-input-data>\n";
 }
 
@@ -66,6 +122,32 @@ void AdjInputData::write_xml(std::ostream& out) const
 
 void AdjInputData::read_xml(std::istream& inp)
 {
+  string            line;
+  list<DataObject*> objects;
+  DataParser dp(objects);
+
+  while (getline(inp, line))
+    {
+      line += '\n';
+      dp.xml_parse(line.c_str(), line.length(), 0);
+    }
+  dp.xml_parse("", 0, 1);
+
+  for (list<DataObject*>::const_iterator i=objects.begin(); 
+       i!=objects.end(); ++i)
+    if (AdjInputData *data = dynamic_cast<AdjInputData*>(*i))
+      {
+        // SparseMatrix <>  A;
+        // BlockDiagonal<>  cov;
+        // Vec              rhs;
+        // IntegerList  <>  minx;
+        data->A;
+        data->cov;
+        data->rhs;
+        data->minx;
+        
+        return;
+      }
 }
 
 
