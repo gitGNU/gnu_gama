@@ -1,5 +1,5 @@
 \input texinfo   @c -*-texinfo-*-
-@comment $Id: gama.texi,v 1.9 2003/10/31 18:23:17 cepek Exp $
+@comment $Id: gama.texi,v 1.10 2004/03/03 17:06:15 cepek Exp $
 
 @comment Part 1 : Header
 
@@ -90,6 +90,7 @@ Free Documentation License''.
 * Download::
 * Install::
 * Program @code{gama-local}::   
+* Program @code{gama-g3}::   
 * Contributors::                
 * Reporting bugs::              
 @end menu
@@ -110,6 +111,11 @@ Free Documentation License''.
 @node    Program @code{gama-local}
 @section Program @code{gama-local}
 @include gama-local.texi
+
+
+@node    Program @code{gama-g3}
+@section Program @code{gama-g3}
+@include gama-g3.texi
 
 
 @node     Contributors

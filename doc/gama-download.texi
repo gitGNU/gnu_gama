@@ -33,11 +33,27 @@ To download from CVS only the matrix/vector C++ template library
 @code{gmatvec} run
 @example
 @c cvs -d:pserver:anoncvs@@subversions.gnu.org:/cvsroot/gama login 
-cvs -z3 -d:pserver:anoncvs@@subversions.gnu.org:/cvsroot/gama co
-gama/gmatvec
+cvs -z3 -d:pserver:anoncvs@@subversions.gnu.org:/cvsroot/gama 
+         co gama/gmatvec
 @end example
 
 
 
+@menu
+* Examples::
+@end menu
+
+@node       Examples
+@subsection Examples
+@cindex     examples
+
+The collection of sample networks is available as a separete CVS
+module. To checkout the @code{gama-local} examples from CVS use the
+command
+
+@example
+cvs -z3 -d:pserver:anoncvs@@subversions.gnu.org:/cvsroot/gama 
+         co examples
+@end example
 
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.20 2004/02/22 11:59:46 cepek Exp $
+ *  $Id: version.cpp,v 1.21 2004/03/03 17:06:28 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.09-pre";
+const char* GNU_gama_version  = "1.6.01";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -62,7 +62,11 @@ const char* GNU_gama_compiler =
 
 =============================================================================
 
-1.7.09 2004-??-??
+1.6.01 2004-03-03      ******  stable version 1.6  ******
+
+    - CVS tag gama-1-6 moved to point to the current development branch
+
+                        cvs tag -F gama-1-6
 
     - added observation types Dimension and XYZ ("observed" coordinates)
 
