@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.20 2002/06/07 18:59:10 cepek Exp $
+ *  $Id: version.cpp,v 1.21 2002/06/09 10:59:14 cepek Exp $
  */
 
 
@@ -66,6 +66,8 @@ const char* GaMaLib_compiler =
 
    - some minor changes in makefiles; makefiles and language.[h|cpp] 
      added to CVS repository
+
+   - directory gamalib/gamaxml renamed to gamalib/xml
 
 
 1.3.38 2002-05-29

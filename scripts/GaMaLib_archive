@@ -3,7 +3,7 @@
 # gamalib tarball: script is run in the parent directory of scripts
 # ###############
 #
-# $Id: GaMaLib_archive,v 1.4 2002/06/02 15:18:59 cepek Exp $
+# $Id: GaMaLib_archive,v 1.5 2002/06/09 11:03:09 cepek Exp $
 
 if pwd | grep scripts$; then cd ..; fi
 
@@ -26,7 +26,7 @@ fi
 ln -s . $VERSION
 
 TAR=$VERSION.tgz
-ADD="$VERSION/gamalib $VERSION/gamaprog $VERSION/gamaxml"
+ADD="$VERSION/gamalib $VERSION/gamaprog $VERSION/xml"
 ADD="$ADD $VERSION/Makefile $VERSION/AUTHORS"
 ADD="$ADD $VERSION/ChangeLog* $VERSION/TODO"
 ADD="$ADD $VERSION/INSTALL $VERSION/README"
