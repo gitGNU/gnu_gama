@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.19 2002/06/06 19:39:26 cepek Exp $
+ *  $Id: version.cpp,v 1.20 2002/06/07 18:59:10 cepek Exp $
  */
 
 
@@ -28,11 +28,11 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.3.39pre1";
+const char* GaMaLib_version  = "1.3.39pre";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
-              "GNU g++"             // g++ 2.95.2, g++ 3.0.4
+              "GNU g++"             // g++ 2.95.2
               #elif defined __BORLANDC__
               "win32-borland"       // 5.5
               #elif defined _MSC_VER
@@ -59,10 +59,10 @@ const char* GaMaLib_compiler =
 
 1.3.39 ?????????? not yet released (available from CVS only)
 
-   - various bugs reported by g++ 3.0.4 (pointed out by Jan Pytel);
-     files observation.h, g2d_coordinates.cpp, statan.cpp, write.cpp.
-
-     All the changes are backward compatible with g++ 2.95.2
+   - various bugs reported by g++ 3.0.4 (Jan Pytel); files
+     observation.h, g2d_coordinates.cpp, statan.cpp, write.cpp.
+     
+   - a bug in helper program gamalib_dep.cpp (Jan Pytel)
 
    - some minor changes in makefiles; makefiles and language.[h|cpp] 
      added to CVS repository
