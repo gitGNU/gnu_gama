@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: xyz.h,v 1.2 2002/10/24 17:04:12 cepek Exp $
+ *  $Id: xyz.h,v 1.3 2003/07/24 16:25:46 cepek Exp $
  */
 
 #include <gamalib/local/linearization.h>
@@ -78,7 +78,7 @@ void LocalLinearization::z(const Z* obs) const
    rhs = (obs->value() - point.z())*1e3;       // abs. term in millimetres  
 
    size = 0;
-   if (point.free_xy())
+   if (point.free_z())
    {
       if (!point.index_z()) point.index_z() = ++maxn;
       index[ size ] = point.index_z();

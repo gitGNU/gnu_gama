@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.8 2003/06/08 08:11:13 cepek Exp $
+ *  $Id: obsdata.h,v 1.9 2003/07/24 16:25:46 cepek Exp $
  */
 
 
@@ -85,8 +85,9 @@ namespace GNU_gama {
     {
     public:    
 
-      typedef List<Cluster<Observation>*> ClusterList;
-      List<Cluster<Observation>*>  CL;
+      typedef Cluster<Observation>  ClusterType;
+      typedef List<ClusterType*>    ClusterList;
+      ClusterList                   CL;
       
       ObservationData() {}
       ObservationData(const ObservationData& cod) { deepCopy(cod); }

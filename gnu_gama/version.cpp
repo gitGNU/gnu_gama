@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.7 2003/06/14 15:00:22 cepek Exp $
+ *  $Id: version.cpp,v 1.8 2003/07/24 16:25:46 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.05-pre-2";
+const char* GNU_gama_version  = "1.7.05";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -59,7 +59,33 @@ const char* GNU_gama_compiler =
 
 =============================================================================
 
-1.7.05
+1.7.05 2003-07-24
+
+   - removed two bugs in gama-local found by Jan Pytel: a)
+
+        *** gama/gamalib/local/linearization/xyz.h.bug
+        --- gama/gamalib/local/linearization/xyz.h
+        ***************
+        *** 78,84 ****
+             rhs = (obs->value() - point.z())*1e3;
+          
+             size = 0;
+        !    if (point.free_xy())
+             {
+                if (!point.index_z()) point.index_z() = ++maxn;
+                index[ size ] = point.index_z();
+        --- 78,84 ----
+             rhs = (obs->value() - point.z())*1e3;
+          
+             size = 0;
+        !    if (point.free_z())
+             {
+                if (!point.index_z()) point.index_z() = ++maxn;
+                index[ size ] = point.index_z();
+
+     b) in the case inconsistent coordinates sign of Y coordinates was
+     internally changed but not for "observed coordinates" and/or vectors.
+
 
    - from this version g++-3.0 (or higher) is necessary (g++ version 2.95.4
      would not compile Gama). 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adjusted_observations.h,v 1.4 2003/06/14 15:00:22 cepek Exp $
+ *  $Id: adjusted_observations.h,v 1.5 2003/07/24 16:25:46 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vyrovnana_Pozorovani_h_
@@ -37,6 +37,7 @@ void AdjustedObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
    using namespace GaMaLib;
    // using GaMaLib::Double;
 
+   const int y_sign = Consistent(IS->PD) ? +1 : -1;
    const Vec& v = IS->residuals();
    const int pocmer = IS->sum_observations();
 
@@ -186,10 +187,10 @@ void AdjustedObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
             out.precision(5);
             out.width(maxval);
             Double m = y->value();
-            out << m << " ";
+            out << y_sign*m << " ";
             out.width(maxval);
             m += v(i)/1000;
-            out << m << " ";
+            out << y_sign*m << " ";
           }
         else if (Z* z = dynamic_cast<Z*>(pm))
           {
@@ -230,10 +231,10 @@ void AdjustedObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
             out.precision(5);
             out.width(maxval);
             Double m = dy->value();
-            out << m << " ";
+            out << y_sign*m << " ";
             out.width(maxval);
             m += v(i)/1000;
-            out << m << " ";            
+            out << y_sign*m << " ";            
           }
         else if (Zdiff* dz = dynamic_cast<Zdiff*>(pm))
           {
