@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.19 2004/11/02 18:09:32 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.20 2004/11/02 18:15:54 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -148,7 +148,6 @@ int GaMa_Main(int argc, char **argv)
 
       if      (name == "help"      ) return help();
       else if (name == "version"   ) return version();
-      else if (name == "corr_to_el") { correction_to_ellipsoid = true; --i; }
       else if ( i   ==  argc       ) return help();
       else if (name == "algorithm" ) argv_algo = c; 
       else if (name == "language"  ) argv_lang = c;
