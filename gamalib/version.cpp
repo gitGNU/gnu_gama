@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.56 2003/03/01 18:16:18 cepek Exp $
+ *  $Id: version.cpp,v 1.57 2003/03/03 19:50:30 cepek Exp $
  */
 
 
@@ -60,6 +60,10 @@ const char* GaMaLib_compiler =
 =============================================================================
 
 1.7.02-pre .....
+
+   - removed bug in SparserMatrix (gnu_gama/sparse/smatrix.h) reported
+     by Jan Bilek; not enough memory was allocated for rptr array in
+     SparseMatrix(const SparseMatrix* sm)
 
    - added missing 'typenames' into gnu_gama/obsdata.h
 

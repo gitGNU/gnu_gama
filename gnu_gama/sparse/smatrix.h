@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: smatrix.h,v 1.1 2003/02/22 19:40:55 cepek Exp $
+ *  $Id: smatrix.h,v 1.2 2003/03/03 19:53:31 cepek Exp $
  */
 
 #ifndef GNU_gama___GaMaLib_Sparse_General_Matrix_______General___Matrix__
@@ -54,7 +54,7 @@ template <class Float=double, class Index=std::size_t>
     {
       nonz = new Float[sm->ncnt_];
       cind = new Index[sm->ncnt_];
-      rptr = new Index[sm->cols_ + 2]; 
+      rptr = new Index[sm->cols_ + 4]; 
       
       rptr1  = rptr + 1;
       rows_  = sm->cols_;
