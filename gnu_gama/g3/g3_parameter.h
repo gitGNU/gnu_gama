@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.15 2003/12/25 17:51:59 uid66336 Exp $  */
+/* $Id: g3_parameter.h,v 1.16 2003/12/28 16:42:34 uid66336 Exp $  */
 
 #include <cstddef>
 #include <gnu_gama/model.h>
@@ -36,18 +36,19 @@ namespace GNU_gama { namespace g3 {
   class Parameter {
   public:
     
-    Parameter() : val(0), cor(0) {}
-    virtual ~Parameter() {}
+    Parameter() : val(0), cor(0), dif(0.05) {}
+    // ~Parameter() {}
     
-    virtual double value(double /*time*/) const { return val + cor; }
-    virtual double step_size() const { return 0.05; } 
+    double value() const { return val + cor; }
 
     double init_value() const { return val; }
     double correction() const { return cor; }
+    double step_size () const { return dif; } 
     std::size_t index() const { return ind; }
 
     void set_init_value(double p) { val = p; cor = 0; }
     void set_correction(double p) { cor = p; }
+    void set_step_size (double p) { dif = p; }
     void set_index(std::size_t t) { ind = t; }
 
     void set_unused() { state_ = unused_; }
@@ -65,6 +66,7 @@ namespace GNU_gama { namespace g3 {
     
     double val;
     double cor;
+    double dif;
     std::size_t ind;
 
     enum 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.20 2003/12/27 21:00:58 uid66336 Exp $
+ *  $Id: g3_model.cpp,v 1.21 2003/12/28 16:42:34 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -95,13 +95,13 @@ void Model::write_xml(std::ostream& out) const
         
         if (p->has_xyz())
           out << "\n\t"
-              << "<x>" << p->X.value(0) << "</x> "
-              << "<y>" << p->Y.value(0) << "</y> "
-              << "<z>" << p->Z.value(0) << "</z>";
+              << "<x>" << p->X.value() << "</x> "
+              << "<y>" << p->Y.value() << "</y> "
+              << "<z>" << p->Z.value() << "</z>";
         
         if (p->has_height())
           out << "\n\t"
-              << "<height>" << p->height.value(0) << "</height>";
+              << "<height>" << p->height.value() << "</height>";
         
         if (p->unused())
           out << "\n\t"; // <unused/>";
@@ -209,6 +209,12 @@ void Model::update_adjustment()
   return next_state_(adjust_);
 }
 
+
+
+
+// ----------------------------------------------------------------------
+// ############   visitors   ############################################
+// ----------------------------------------------------------------------
 
 bool Model::revision_visit(Distance* d)
 {

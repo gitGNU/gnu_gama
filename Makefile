@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.20 2003/08/14 16:20:25 cepek Exp $
+# $Id: Makefile,v 1.21 2003/12/28 16:42:34 uid66336 Exp $
 #
 # this Makefile and all files in ./scripts were tested on Debian GNU/Linux 3.0
 #
@@ -10,6 +10,7 @@
 all:
 	( cd gamaprog/linux/lib; make -f Makefile-expat; make )
 	( cd gamaprog/linux/gama-local ; make )
+	( cd gamaprog/linux/gama-g3 ; make )
 
 help:
 	@echo
@@ -60,6 +61,7 @@ clean:
 	rm -f `find gnu_gama gamalib -name demo*`
 	rm -f `find . -name "*[\~\#]*"`
 	rm -f `find gamaprog/linux/gama-local/examples -name test*`
+	rm -f `find gamaprog/linux/gama-g3/examples -name test*`
 
 clean-scripts:
 	make clean

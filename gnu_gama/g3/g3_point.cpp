@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.19 2003/12/25 17:51:59 uid66336 Exp $
+ *  $Id: g3_point.cpp,v 1.20 2003/12/28 16:42:34 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -31,185 +31,174 @@
 using namespace GNU_gama::g3;
 
 
-Point::Point()
+Point::Point() 
+  : N(N_), E(E_), U(U_), height(height_), 
+    B(B_), L(L_), H(H_), X(X_), Y(Y_), Z(Z_)
 {
-  N.set_point(this);
-  E.set_point(this);
-  U.set_point(this);
-
   set_unused();
 
   has_xyz_ = has_blh_ = has_height_ = false;
 }
 
-
 Point::Point(const Point& point)
+  : N(N_), E(E_), U(U_), height(height_), 
+    B(B_), L(L_), H(H_), X(X_), Y(Y_), Z(Z_)
 {
-  name   = point.name;
-  common = point.common;
-
-  N = point.N;
-  E = point.E;
-  U = point.U;
-  
-  N.set_point(this);
-  E.set_point(this);
-  U.set_point(this);
-
-  has_xyz_    = point.has_xyz_;
-  has_blh_    = point.has_blh_;
-  has_height_ = point.has_height_;
+  point_copy(point);
 }
-
 
 Point& Point::operator=(const Point& point)
 {
   if (this != &point)
     {
-      name   = point.name;
-      common = point.common;
-      
-      N = point.N;
-      E = point.E;
-      U = point.U;
-      
-      N.set_point(this);
-      E.set_point(this);
-      U.set_point(this);
-
-      has_xyz_    = point.has_xyz_;
-      has_blh_    = point.has_blh_;
-      has_height_ = point.has_height_;
+      point_copy(point);
     }
 
   return *this;
 }
 
+void Point::point_copy(const Point& point)
+{
+  name   = point.name;
+  common = point.common;
+
+  N_ = point.N_;
+  E_ = point.E_;
+  U_ = point.U_;
+
+  X_ = point.X_;
+  Y_ = point.Y_;
+  Z_ = point.Z_;
+  
+  has_xyz_    = point.has_xyz_;
+  has_blh_    = point.has_blh_;
+  has_height_ = point.has_height_;
+}
 
 void Point::set_unused()
 {
-  N.set_unused();
-  E.set_unused();
-  U.set_unused();
+  N_.set_unused();
+  E_.set_unused();
+  U_.set_unused();
 }
 
 void Point::set_fixed_horizontal_position()
 {
-  N.set_fixed();
-  E.set_fixed();
+  N_.set_fixed();
+  E_.set_fixed();
 }
 
 void Point::set_fixed_height()
 {
-  U.set_fixed();
+  U_.set_fixed();
 }
 
 void Point::set_fixed_position()
 {
-  N.set_fixed();
-  E.set_fixed();
-  U.set_fixed();
+  N_.set_fixed();
+  E_.set_fixed();
+  U_.set_fixed();
 }
 
 void Point::set_free_horizontal_position()
 {
-  N.set_free();
-  E.set_free();
+  N_.set_free();
+  E_.set_free();
 }
 
 void Point::set_free_height()
 {
-  U.set_free();
+  U_.set_free();
 }
 
 void Point::set_free_position()
 {
-  N.set_free();
-  E.set_free();
-  U.set_free();
+  N_.set_free();
+  E_.set_free();
+  U_.set_free();
 }
 
 void Point::set_constr_horizontal_position()
 {
-  N.set_constr();
-  E.set_constr();
+  N_.set_constr();
+  E_.set_constr();
 }
 
 void Point::set_constr_height()
 {
-  U.set_constr();
+  U_.set_constr();
 }
 
 void Point::set_constr_position()
 {
-  N.set_constr();
-  E.set_constr();
-  U.set_constr();
+  N_.set_constr();
+  E_.set_constr();
+  U_.set_constr();
 }
 
 bool Point::unused() const
 {
-  return N.unused() && E.unused() && U.unused();
+  return N_.unused() && E_.unused() && U_.unused();
 }
 
 bool Point::fixed_horizontal_position() const
 {
-  return N.fixed() && E.fixed();
+  return N_.fixed() && E_.fixed();
 }
 
 bool Point::fixed_height() const
 {
-  return U.fixed();
+  return U_.fixed();
 }
 
 bool Point::fixed_position() const
 {
-  return N.fixed() && E.fixed() && U.fixed();
+  return N_.fixed() && E_.fixed() && U_.fixed();
 }
 
 bool Point::free_horizontal_position() const
 {
-  return N.free() && E.free();
+  return N_.free() && E_.free();
 }
 
 bool Point::free_height() const
 {
-  return U.free();
+  return U_.free();
 }
 
 bool Point::free_position() const
 {
-  return N.free() && E.free() && U.free();
+  return N_.free() && E_.free() && U_.free();
 }
 
 bool Point::constr_horizontal_position() const
 {
-  return N.constr() && E.constr();
+  return N_.constr() && E_.constr();
 }
 
 bool Point::constr_height() const
 {
-  return U.constr();
+  return U_.constr();
 }
 
 bool Point::constr_position() const
 {
-  return N.constr() && E.constr() && U.constr();
+  return N_.constr() && E_.constr() && U_.constr();
 }
 
 void Point::set_blh(double b, double l, double h)
 {
   has_blh_ = true;
 
-  B.set_init_value(b);
-  L.set_init_value(l);
-  H.set_init_value(h);
+  B_.set_init_value(b);
+  L_.set_init_value(l);
+  H_.set_init_value(h);
   
   double x, y, z;
   common->ellipsoid.blh2xyz(b, l, h, x, y, z);
-  X.set_init_value(x);
-  Y.set_init_value(y);
-  Z.set_init_value(z);
+  X_.set_init_value(x);
+  Y_.set_init_value(y);
+  Z_.set_init_value(z);
 
   transformation_matrix(b, l);
 }
@@ -218,15 +207,15 @@ void Point::set_xyz(double x, double y, double z)
 {
   has_xyz_ = true;
 
-  X.set_init_value(x);
-  Y.set_init_value(y);
-  Z.set_init_value(z);
+  X_.set_init_value(x);
+  Y_.set_init_value(y);
+  Z_.set_init_value(z);
   
   double b, l, h;;
   common->ellipsoid.xyz2blh(x, y, z, b, l, h);
-  B.set_init_value(b);
-  L.set_init_value(l);
-  H.set_init_value(h);
+  B_.set_init_value(b);
+  L_.set_init_value(l);
+  H_.set_init_value(h);
 
   transformation_matrix(b, l);
 }
@@ -234,7 +223,7 @@ void Point::set_xyz(double x, double y, double z)
 void Point::set_height(double h)
 {
   has_height_ = true;
-  height.set_init_value(h);
+  height_.set_init_value(h);
 }
 
 void Point::transformation_matrix(double b, double l)
@@ -254,7 +243,6 @@ void Point::transformation_matrix(double b, double l)
   r33 = sin(b);
 }
 
-
 double Point::x_transform(double n, double e, double u)
 {
   return r11*n + r12*e + r13*u;
@@ -269,7 +257,6 @@ double Point::z_transform(double n, double e, double u)
 {
   return r31*n + r32*e + r33*u;
 }
-
 
 void Point::set_diff_XYZ(double dx, double dy, double dz)
 {

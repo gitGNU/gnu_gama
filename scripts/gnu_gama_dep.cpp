@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gnu_gama_dep.cpp,v 1.4 2003/12/24 11:34:11 uid66336 Exp $
+ *  $Id: gnu_gama_dep.cpp,v 1.5 2003/12/28 16:42:34 uid66336 Exp $
  */
 
 #include <iostream>
@@ -33,7 +33,9 @@ const char* version = "1.0";
 
 /*************************************************************************
  * 
- * 1.0  - added comments into the 'gnu_gama_files' (lines starting with #)
+ * 1.0  - added project gama-g3
+ *      - added support for comments (lines starting with #)
+ *        and empty lines
  * 0.9  - various changes needed for GNU Gama to be compiled with
  *        expat version 1.95.2 (or any later). Old version 1.1 of expat 
  *        parser is still available as an alternative
@@ -52,7 +54,8 @@ const char* version = "1.0";
 
 enum Projects  { t_lib, 
                  t_expat,         
-                 t_gama_local 
+                 t_gama_local, 
+                 t_gama_g3
 };  
 enum Platforms { t_gnu, 
                  t_gnu_expat_1_1,
@@ -63,69 +66,73 @@ enum Platforms { t_gnu,
 
 const char* platform_pars[] = {
 
-  "#CC       = gcc\n"
-  "CFLAGS   += -pipe\n"
-  "#CXX      = g++\n"
-  "CXXFLAGS += -pipe -I../../..\n"
-  "OBJ       = o\n"
-  "LIBR      = @ar -r libgama.a\n"
-  "RANLIB    = ranlib libgama.a\n"
-  "LINK      = $(CXX) #g++\n"
-  "LFLAGS   += -o\n"
-  "LIBS     += -lexpat\n"
-  "MAKE      = make\n"
-  "LIBGAMA   = libgama.a\n"
-  "P_GAMA_L  = gama-local\n"
+  "#CC        = gcc\n"
+  "CFLAGS    += -pipe\n"
+  "#CXX       = g++\n"
+  "CXXFLAGS  += -pipe -I../../..\n"
+  "OBJ        = o\n"
+  "LIBR       = @ar -r libgama.a\n"
+  "RANLIB     = ranlib libgama.a\n"
+  "LINK       = $(CXX) #g++\n"
+  "LFLAGS    += -o\n"
+  "LIBS      += -lexpat\n"
+  "MAKE       = make\n"
+  "LIBGAMA    = libgama.a\n"
+  "P_GAMA_L   = gama-local\n"
+  "P_GAMA_G3  = gama-g3\n"
   ,
 
-  "#CC       = gcc\n"
-  "CFLAGS   += -pipe\n"
-  "#CXX      = g++\n"
-  "CXXFLAGS += -pipe -DGNU_gama_expat_1_1 -I../../..\n"
-  "OBJ       = o\n"
-  "LIBR      = @ar -r libgama.a\n"
-  "RANLIB    = ranlib libgama.a\n"
-  "LINK      = $(CXX) #g++\n"
-  "LFLAGS   += -o\n"
-  "LIBS     += \n"
-  "MAKE      = make\n"
-  "LIBGAMA   = libgama.a\n"
-  "P_GAMA_L  = gama-local\n"
+  "#CC        = gcc\n"
+  "CFLAGS    += -pipe\n"
+  "#CXX       = g++\n"
+  "CXXFLAGS  += -pipe -DGNU_gama_expat_1_1 -I../../..\n"
+  "OBJ        = o\n"
+  "LIBR       = @ar -r libgama.a\n"
+  "RANLIB     = ranlib libgama.a\n"
+  "LINK       = $(CXX) #g++\n"
+  "LFLAGS    += -o\n"
+  "LIBS      += \n"
+  "MAKE       = make\n"
+  "LIBGAMA    = libgama.a\n"
+  "P_GAMA_L   = gama-local\n"
+  "P_GAMA_G3  = gama-g3\n"
   ,
 
-  "CC        = bcc32\n"
-  "CFLAGS    = -A -Od -w-8008 -w-8065 -w-8066 -w-8057\n"
-  "CXX       = bcc32\n"
-  "CXXFLAGS  = -DGNU_gama_expat_1_1 -I../../.. -w-8026 -w-8027 -w-8004 -tWR\n"
-  "OBJ       = obj\n"
-  "LIBR      = tlib /P4096 libgama.lib +\n"
-  "RANLIB    = rem\n"
-  "LINK      = bcc32\n"
-  "LFLAGS    = -E\n"
-  "LIBS      = ../lib/libgama.lib\n"
-  "MAKE      = make\n"
-  "LIBGAMA   = libgama.lib\n"
-  "P_GAMA_L  = gama-local.exe\n"
+  "CC         = bcc32\n"
+  "CFLAGS     = -A -Od -w-8008 -w-8065 -w-8066 -w-8057\n"
+  "CXX        = bcc32\n"
+  "CXXFLAGS   = -DGNU_gama_expat_1_1 -I../../.. -w-8026 -w-8027 -w-8004 -tWR\n"
+  "OBJ        = obj\n"
+  "LIBR       = tlib /P4096 libgama.lib +\n"
+  "RANLIB     = rem\n"
+  "LINK       = bcc32\n"
+  "LFLAGS     = -E\n"
+  "LIBS       = ../lib/libgama.lib\n"
+  "MAKE       = make\n"
+  "LIBGAMA    = libgama.lib\n"
+  "P_GAMA_L   = gama-local.exe\n"
+  "P_GAMA_G3  = gama-g3.exe\n"
   ,
 
-  "CC        = cl\n"
-  "CFLAGS    =\n"
-  "CXX       = cl\n"
-  "CXXFLAGS  = -DGNU_gama_expat_1_1 -I../../.. /nologo /W1 /GX /O2 /D \"WIN32\" \\\n"
-  "            /D \"NDEBUG\" /D \"_MBCS\" /D \"_LIB\" /Zp1 /MT /GR\n"
-  "OBJ       = obj\n"
-  "LIBR      = rem link -lib libgama.lib\n"
-  "RANLIB    = link -lib /out:libgama.lib *.obj\n"
-  "LINK      = link\n"
-  "LFLAGS    = /out:\n"
-  "LIBS      = kernel32.lib user32.lib gdi32.lib winspool.lib  \\\n"
-  "            comdlg32.lib advapi32.lib shell32.lib ole32.lib \\\n"
-  "            oleaut32.lib uuid.lib odbc32.lib odbccp32.lib   \\\n"
-  "            /nodefaultlib:libc /nologo /subsystem:console   \\\n"
-  "            /incremental:no /machine:I386\n"
-  "MAKE      = nmake\n"
-  "LIBGAMA   = libgama.lib\n"
-  "P_GAMA_L  = gama-local.exe\n"
+  "CC         = cl\n"
+  "CFLAGS     =\n"
+  "CXX        = cl\n"
+  "CXXFLAGS   = -DGNU_gama_expat_1_1 -I../../.. /nologo /W1 /GX /O2 /D \"WIN32\" \\\n"
+  "             /D \"NDEBUG\" /D \"_MBCS\" /D \"_LIB\" /Zp1 /MT /GR\n"
+  "OBJ        = obj\n"
+  "LIBR       = rem link -lib libgama.lib\n"
+  "RANLIB     = link -lib /out:libgama.lib *.obj\n"
+  "LINK       = link\n"
+  "LFLAGS     = /out:\n"
+  "LIBS       = kernel32.lib user32.lib gdi32.lib winspool.lib  \\\n"
+  "             comdlg32.lib advapi32.lib shell32.lib ole32.lib \\\n"
+  "             oleaut32.lib uuid.lib odbc32.lib odbccp32.lib   \\\n"
+  "             /nodefaultlib:libc /nologo /subsystem:console   \\\n"
+  "             /incremental:no /machine:I386\n"
+  "MAKE       = nmake\n"
+  "LIBGAMA    = libgama.lib\n"
+  "P_GAMA_L   = gama-local.exe\n"
+  "P_GAMA_G3  = gama-g3.exe\n"
 
 };
 
@@ -217,6 +224,7 @@ int main(int argc, char* argv[])
       if      (arg1 == "lib"       ) project = t_lib;
       else if (arg1 == "expat"     ) project = t_expat;
       else if (arg1 == "gama-local") project = t_gama_local;
+      else if (arg1 == "gama-g3"   ) project = t_gama_g3;
       else
         HELP = true;
     }
@@ -266,6 +274,43 @@ int main(int argc, char* argv[])
     <<  "#\n\n"
     << "SRC=../../../\n"
     << "OBJDIR=\n\n";
+
+
+  // ----------------------------------------------------------------------
+
+
+  if (project == t_gama_g3)
+    {
+      cout <<
+        "$(P_GAMA_G3) : gama-g3.$(OBJ) ../lib/$(LIBGAMA)\n"
+        "\t$(LINK) $(LFLAGS)$(P_GAMA_G3) gama-g3.$(OBJ) "
+        "$(LIBS) ../lib/$(LIBGAMA)\n\n"
+        ;
+
+      path = "gamaprog/linux/gama-g3/";
+      string file = "gama-g3.cpp";
+
+      set<string> dep;
+      string name;
+      for (string::const_iterator i=file.begin(); i!=file.end(); ++i)
+        if     (*i == '/') 
+          name.erase();
+        else
+          name += *i;
+
+      add_dep(file, dep);
+
+      cout << "gama-g3.$(OBJ) : ../../linux/gama-g3/" << name;
+      for (set<string>::const_iterator i=dep.begin(); i!=dep.end(); ++i)
+        cout << " $(SRC)" << *i;  
+      cout << endl;
+      
+      cout << 
+        "\t$(CXX) $(CXXFLAGS) -I. "
+        "-c ../../linux/gama-g3/gama-g3.cpp\n\n";
+
+      return 0;
+    }
 
 
   // ----------------------------------------------------------------------
@@ -363,8 +408,20 @@ int main(int argc, char* argv[])
   path = "./";
 
   string file, line;
-  while(getline(cin, file))
+  while(getline(cin, line))
     {
+      file.clear();
+      for (string::const_iterator i=line.begin(), e=line.end(); i!=e; ++i)
+        if (!isspace(*i))
+          {
+            while (i != e)
+            {
+              file += *i;
+              ++i;
+            }
+            break;
+          }
+      if (file.empty())   continue;
       if (file[0] == '#') continue;
 
       set<string> dep;

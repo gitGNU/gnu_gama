@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.20 2003/12/24 11:34:11 uid66336 Exp $
+ *  $Id: g3_point.h,v 1.21 2003/12/28 16:42:34 uid66336 Exp $
  */
 
 #include <gamalib/pointid.h>
@@ -33,69 +33,31 @@
 namespace GNU_gama {  namespace g3 {
 
   class Model;
-  class Point;
-  class Distance;
-  class HeightDiff;
-
-  class Parameter_LocalPosition : public Parameter
-    {
-      Point* pt;
-
-    public:
-
-      Parameter_LocalPosition() : pt(0) {}
-
-      Point* point() const { return pt; }
-      void   set_point(Point* p) { pt = p; }
-    };
-
-  class Parameter_N : 
-    public Parameter_LocalPosition
-    {
-    public:
-      Parameter_N() {}
-
-      double derivative_visit(Distance*);
-    };
-  
-  class Parameter_E : 
-    public Parameter_LocalPosition
-    {
-    public:
-      Parameter_E() {}
-
-    };
-  
-  class Parameter_U : 
-    public Parameter_LocalPosition
-    {
-    public:
-      Parameter_U() {}
-
-    };
-
-
 
   class Point {
   public:
   
     typedef GaMaLib::PointID Name;
-    typedef Model         Common;
+    typedef Model            Common;
 
     Name    name;
     Common* common; 
 
+    const Parameter& N;
+    const Parameter& E;
+    const Parameter& U;
+    const Parameter& height;
+
+    const Parameter& B;
+    const Parameter& L;
+    const Parameter& H;
+    const Parameter& X;
+    const Parameter& Y;
+    const Parameter& Z;
+
     Point();
     Point(const Point&);
     Point& operator=(const Point&);
-
-    // -----------------------------
-
-    Parameter  B, L, H, X, Y, Z, height;
-
-    Parameter_N  N;
-    Parameter_E  E;
-    Parameter_U  U; 
 
     void set_unused();
     void set_fixed_horizontal_position();
@@ -108,6 +70,7 @@ namespace GNU_gama {  namespace g3 {
     void set_constr_height();
     void set_constr_position();
 
+    bool active() const { return !unused(); }
     bool unused() const;
     bool fixed_horizontal_position() const;
     bool fixed_height() const;
@@ -127,6 +90,7 @@ namespace GNU_gama {  namespace g3 {
     bool has_blh()    const { return has_blh_;    } 
     bool has_height() const { return has_height_; }
 
+  private:
 
     double x_transform(double n, double e, double u);
     double y_transform(double n, double e, double u);
@@ -136,8 +100,6 @@ namespace GNU_gama {  namespace g3 {
     double diff_N() const;
     double diff_E() const;
     double diff_U() const;
-
-  private:
 
     enum {
       unused_          = 0,
@@ -151,19 +113,20 @@ namespace GNU_gama {  namespace g3 {
       constr_height_   = 32 + free_height_,
       constr_position_ = constr_h_pos_ + constr_height_,
       h_pos_           = fixed_h_pos_  + free_h_pos_, 
-      height_          = fixed_height_ + free_height_,
-      position_        = h_pos_ + height_  
+      hheight_         = fixed_height_ + free_height_,
+      position_        = h_pos_ + hheight_  
     };
 
+    Parameter  N_, E_, U_, height_;
+    Parameter  B_, L_, H_, X_, Y_, Z_;
 
-    void     transformation_matrix(double b, double l);
+    void point_copy(const Point&);
+    void transformation_matrix(double b, double l);
 
     // rotation matrix of transformation from local to global
     // Cartesian coordinates (NEU --> XYZ)
 
     double   r11, r12, r13,   r21, r22, r23,   r31, r32, r33;
-
-  private:
     double   dX, dY, dZ ; 
     bool     has_xyz_, has_blh_, has_height_;
 
