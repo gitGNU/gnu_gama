@@ -1,11 +1,7 @@
 <!-- ****************************************************************
 
-gama-xml.dtd                       version 2.0.09  2002-01-03
+gama-xml.dtd                       version 2.0.08  2001-08-20
 ============  
-
-2.0.09  2002-01-03
-
-      - corrected definition of point attributes fix and adj
 
 2.0.08  2001-08-20
 
@@ -98,15 +94,15 @@ gama-xml.dtd                       version 2.0.09  2002-01-03
 
 ***********************************************************************
 
-Definition of XML input stream for GNU GaMa for adjustment of local
+Definition of input stream for program GaMa for adjustment of local
 geodetic network. Latest version is available from
 
-            http://www.gnu.org/software/gama/gama-xml.dtd
+            http://gama.fsv.cvut.cz/gama-xml.dtd
 
-GNU GaMa is subject to GNU General Public Licence, for more
-information visit
+Program GaMa (GaMaLib) is subject to GNU Library General Public
+Licence, for more details visit
 
-            http://www.gnu.org/software/gama/
+            http://gama.fsv.cvut.cz/gama/
 
 *********************************************************************** -->
 
@@ -166,8 +162,8 @@ information visit
    x   NMTOKEN  #IMPLIED
    y   NMTOKEN  #IMPLIED
    z   NMTOKEN  #IMPLIED
-   fix (xy | XY | z | Z | xyz | XYZ | XYz | xyZ ) #IMPLIED
-   adj (xy | XY | z | Z | xyz | XYZ | XYz | xyZ ) #IMPLIED >
+   fix (xy | XY | z | Z | xyz | XYZ | XYz | xyZ )
+   adj (xy | XY | z | Z | xyz | XYZ | XYz | xyZ ) >
 
 <!ATTLIST obs    
    from         CDATA   #IMPLIED
