@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.14 2003/12/23 19:52:49 uid66336 Exp $
+ *  $Id: g3_model.h,v 1.15 2003/12/25 17:51:59 uid66336 Exp $
  */
 
 #include <gnu_gama/model.h>
@@ -42,63 +42,62 @@ namespace GNU_gama {  namespace g3 {
   class Model : 
     public GNU_gama::Model<g3::Observation>,
     public Revision<Distance>
-    {
-    public:
+  {
+  public:
     
-      typedef GNU_gama::PointBase<g3::Point>              PointBase;
-      typedef GNU_gama::ObservationData<g3::Observation>  ObservationData;
-      
-      PointBase           *points;
-      ObservationData     *obs;
-      
-      GNU_gama::Ellipsoid  ellipsoid;
-      
-      
-      Model();
-      virtual ~Model();
-      
+    typedef GNU_gama::PointBase<g3::Point>              PointBase;
+    typedef GNU_gama::ObservationData<g3::Observation>  ObservationData;
+    
+    PointBase           *points;
+    ObservationData     *obs;
+    
+    GNU_gama::Ellipsoid  ellipsoid;
+    
+    
+    Model();
+    virtual ~Model();
+    
+    
+    Point* get_point(const Point::Name&);
+    void   write_xml(std::ostream& out) const;
+    
+    void reset()               { state_ = init_; }
+    void reset_points()        { if (points_ < state_) state_ = points_; }
+    void reset_observations()  { if (obsrvs_ < state_) state_ = obsrvs_; }
+    void reset_linearization() { if (linear_ < state_) state_ = linear_; }
+    void reset_adjustment()    { if (adjust_ < state_) state_ = adjust_; }
+    
+    bool check_points()        const { return state_ > points_; }
+    bool check_observations()  const { return state_ > obsrvs_; }
+    bool check_linearization() const { return state_ > linear_; }
+    bool check_adjustment()    const { return state_ > adjust_; }
+    
+    void update_points();
+    void update_observations();
+    void update_linearization();
+    void update_adjustment();
+    
+    
+    // virtual functions derived from template class Revision<>
+    bool revision_visit(Distance* d);
 
-      Point* get_point(const Point::Name&);
-      void   write_xml(std::ostream& out) const;
-      void   pre_linearization();
-      
-      void reset()               { state_ = init_; }
-      void reset_points()        { if (points_ < state_) state_ = points_; }
-      void reset_observations()  { if (obsrvs_ < state_) state_ = obsrvs_; }
-      void reset_linearization() { if (linear_ < state_) state_ = linear_; }
-      void reset_adjustment()    { if (adjust_ < state_) state_ = adjust_; }
-      
-      bool check_points()        const { return state_ > points_; }
-      bool check_observations()  const { return state_ > obsrvs_; }
-      bool check_linearization() const { return state_ > linear_; }
-      bool check_adjustment()    const { return state_ > adjust_; }
-      
-      void update_points();
-      void update_observations();
-      void update_linearization();
-      void update_adjustment();
-      
-      
-      // virtual functions derived from template class Revision<>
-      bool revision_visit(Distance*);
 
-
-    private:   /*-----------------------------------------------------------*/
+  private:   /*-----------------------------------------------------------*/
       
-      Model(const Model&);
-      Model& operator=(const Model&);
-      
-      // active observations' list (observations used in the adjustment)
-      GNU_gama::List<Observation*>  active_obs;
-      
-      // basic revision steps 
-      enum State_{init_, points_, obsrvs_, linear_, adjust_, ready_} state_;
-      
-      void next_state_(int s) { state_ = State_(++s); }
-      bool check_init() const { return state_ > init_; }
-      void update_init();
-      
-    };
+    Model(const Model&);
+    Model& operator=(const Model&);
+    
+    // active observations' list (observations used in the adjustment)
+    GNU_gama::List<Observation*>  active_obs;
+    
+    // basic revision steps 
+    enum State_{init_, points_, obsrvs_, linear_, adjust_, ready_} state_;
+    
+    void next_state_(int s) { state_ = State_(++s); }
+    bool check_init() const { return state_ > init_; }
+    void update_init();
+    
+  };
   
 }}
 

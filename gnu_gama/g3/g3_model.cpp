@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.18 2003/12/24 17:25:12 uid66336 Exp $
+ *  $Id: g3_model.cpp,v 1.19 2003/12/25 17:51:59 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -144,24 +144,6 @@ void Model::write_xml(std::ostream& out) const
 }
 
 
-void Model::pre_linearization()
-{
-  for (Model::ObservationData::ClusterList::iterator
-         i=obs->CL.begin(), e=obs->CL.end();  i != e;  ++i)
-    if (g3Cluster* cluster = dynamic_cast<g3Cluster*>(*i))
-    {
-      cluster->parlist_init(this);
-
-      for (GNU_gama::List<Observation*>::iterator
-             obs = cluster->observation_list.begin(),
-             end = cluster->observation_list.end();  obs != end;  ++obs)
-        {
-          //????(*obs)->parlist_init(this);
-        }
-    }
-}
-
-
 void Model::update_init()
 {
   return next_state_(init_);
@@ -188,6 +170,12 @@ void Model::update_observations()
 {
   if (!check_points()) update_points();
 
+  active_obs.clear();
+  for (ObservationData::iterator i=obs->begin(), e=obs->end(); i!=e; ++i)
+    {
+      (*i)->revision_accept(this);
+    }
+
   return next_state_(obsrvs_);
 }
 
@@ -212,10 +200,14 @@ bool Model::revision_visit(Distance* d)
 {
   if (!d->active()) return false;
 
-  const Point* from = get_point(d->from);
-  const Point* to   = get_point(d->to  );
+  const Point* from = points->find(d->from);
+  const Point* to   = points->find(d->to  );
 
-  if (from->unused() || to->unused()) return d->set_active(false);
+  if ( from == 0       ||  to == 0        ) return d->set_active(false);
+  if ( from->unused()  ||  to->unused()   ) return d->set_active(false);
+  if (!from->has_blh() || !from->has_blh()) return d->set_active(false);
+
+  active_obs.push_back(d);
 
   return d->active();
 }

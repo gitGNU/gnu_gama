@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.18 2003/12/24 11:34:11 uid66336 Exp $
+ *  $Id: g3_point.cpp,v 1.19 2003/12/25 17:51:59 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -38,11 +38,6 @@ Point::Point()
   U.set_point(this);
 
   set_unused();
-
-  //---  Parameter** p = parlist.begin();
-  //---  *p++ = N;
-  //---  *p++ = E;
-  //---  *p++ = U;
 
   has_xyz_ = has_blh_ = has_height_ = false;
 }
@@ -81,11 +76,6 @@ Point& Point::operator=(const Point& point)
       N.set_point(this);
       E.set_point(this);
       U.set_point(this);
-
-      //---  Parameter** p = parlist.begin();
-      //---  *p++ = N;
-      //---  *p++ = E;
-      //---  *p++ = U;
 
       has_xyz_    = point.has_xyz_;
       has_blh_    = point.has_blh_;

@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.14 2003/12/23 19:52:49 uid66336 Exp $  */
+/* $Id: g3_parameter.h,v 1.15 2003/12/25 17:51:59 uid66336 Exp $  */
 
 #include <cstddef>
 #include <gnu_gama/model.h>
@@ -50,10 +50,6 @@ namespace GNU_gama { namespace g3 {
     void set_correction(double p) { cor = p; }
     void set_index(std::size_t t) { ind = t; }
 
-
-    //--- ParameterList  parlist;
-
-    
     void set_unused() { state_ = unused_; }
     void set_fixed () { state_ = fixed_;  }
     void set_free  () { state_ = free_;   }
@@ -80,133 +76,6 @@ namespace GNU_gama { namespace g3 {
       } state_;
 
   };
-
-
-  //---  inline ParameterList::ParameterList(int n) 
-  //---    : begin_(new Parameter*[n]), end_(begin_+n) 
-  //---    {
-  //---    }
-  //---  
-  //---  inline Parameter::Parameter(const Parameter& par)
-  //---    {
-  //---      val = par.val;
-  //---      cor = par.cor;
-  //---      ind = par.ind;
-  //---      state_ = par.state_;
-  //---    }
-  //---  
-  //---  inline ParameterList::~ParameterList() 
-  //---    { 
-  //---      delete[] begin_; 
-  //---    }
-
-
-
-  //---  class ParameterTree {
-  //---  private:
-  //---  
-  //---    typedef GNU_gama::List<Parameter*> Tree;
-  //---    Tree tree;
-  //---  
-  //---    void add_parlist(const ParameterList<Parameter>& parlist);
-  //---  
-  //---  public:
-  //---  
-  //---    ParameterTree(const ParameterList<Parameter>& parlist) { add_parlist(parlist); }
-  //---  
-  //---    class const_iterator
-  //---      // : public std::iterator <std::forward_iterator_tag, Parameter*> 
-  //---      {
-  //---      public:
-  //---        
-  //---        const_iterator()
-  //---          {
-  //---          }
-  //---        const_iterator(const Tree::const_iterator& p) : tree(p) 
-  //---          {
-  //---          }
-  //---        bool operator==(const const_iterator& x) const 
-  //---          { 
-  //---            return tree==x.tree; 
-  //---          }
-  //---        bool operator!=(const const_iterator& x) const 
-  //---          { 
-  //---            return tree!=x.tree; 
-  //---          }
-  //---        const_iterator& operator++()
-  //---          {
-  //---            ++tree;
-  //---            return *this;
-  //---          }
-  //---        const_iterator operator++(int)
-  //---          {
-  //---            const_iterator tmp(tree);
-  //---            ++tree;
-  //---            return tmp;
-  //---          }
-  //---        const Parameter* operator*() const
-  //---          {
-  //---            return *tree;
-  //---          }
-  //---        
-  //---      private:
-  //---        Tree::const_iterator tree;
-  //---        
-  //---      };
-  //---    
-  //---    const_iterator  begin() const { return tree.begin(); }
-  //---    const_iterator  end  () const { return tree.end  (); }
-  //---  
-  //---  
-  //---    class iterator 
-  //---      // : public std::iterator <std::forward_iterator_tag, Parameter*> 
-  //---      {
-  //---      public:
-  //---        
-  //---        iterator()
-  //---          {
-  //---          }
-  //---        iterator(const Tree::iterator& p) : tree(p)
-  //---          {
-  //---          }
-  //---        operator const_iterator() const
-  //---          {
-  //---            return const_iterator(tree);
-  //---          }
-  //---        bool operator==(const iterator& x) const 
-  //---          { 
-  //---            return tree==x.tree; 
-  //---          }
-  //---        bool operator!=(const iterator& x) const 
-  //---          { 
-  //---            return tree!=x.tree; 
-  //---          }
-  //---        iterator& operator++()
-  //---          {
-  //---            ++tree;
-  //---            return *this;
-  //---          }
-  //---        iterator operator++(int)
-  //---          {
-  //---            iterator tmp(tree);
-  //---            ++tree;
-  //---            return tmp;
-  //---          }
-  //---        Parameter* operator*() const
-  //---          {
-  //---            return *tree;
-  //---          }
-  //---        
-  //---      private:
-  //---        Tree::iterator tree;
-  //---        
-  //---      };
-  //---    
-  //---    iterator  begin() { return tree.begin(); }
-  //---    iterator  end  () { return tree.end  (); }
-  //---  
-  //---  
-  //---  };
   
 }}
   
