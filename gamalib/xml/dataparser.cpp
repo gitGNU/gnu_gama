@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.2 2002/10/18 20:52:29 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.3 2002/10/19 13:05:29 cepek Exp $
  */
 
 #include <gamalib/xml/dataparser.h>
@@ -31,49 +31,42 @@ using namespace GaMaLib;
 
 DataParser::DataParser(std::list<DataObject*>& obs) : objects(obs)
 {
+  // startElement
+
   for (int s=state_error; s<=state_stop; s++)
     for (int t=tag_gama_data; t<=tag_unknown; t++)
       {
         fun[s][t] = &DataParser::t_error;
       }
 
-  fun[state_start][tag_gama_data] = &DataParser::t_gama_data;
+  fun[state_start    ][tag_gama_data] = &DataParser::t_gama_data;
+  fun[state_gama_data][tag_text     ] = &DataParser::t_text;
+
+
+  // endElement
 
   next[state_error    ] = state_error; 
   next[state_start    ] = state_error;
   next[state_gama_data] = state_stop;
+  next[state_text     ] = state_gama_data;
   next[state_stop     ] = state_error;  
+
+
+  // characterDataHandler
+
+  for (int n=state_error; n<=state_stop; n++)
+    {
+      dat[n] = &DataParser::d_ws;
+    }
+
+  dat[state_text] = &DataParser::d_text;
+
+
+  // initial parser state
   
   state = state_start;
 }
 
-
-
-DataParser::~DataParser()
-{
-}
-
-
-
-int DataParser::characterDataHandler(const char* s, int len)
-{
-  return 0;
-}
-
-
-
-int DataParser::startElement(const char *name, const char **atts)
-{
-  return (this->*fun[state][tag(name)])(name, atts);
-}
-
-
-
-int DataParser::endElement(const char *name)
-{
-  state = next[state];
-  return 0;
-}
 
 
 
@@ -97,6 +90,8 @@ DataParser::data_tag DataParser::tag(const char* c)
 }
 
 
+// *****************************************************************
+
 int DataParser::t_error(const char *cname, const char **atts)
 {
   return error(string("### tag <") + string(cname) 
@@ -108,3 +103,32 @@ int DataParser:: t_gama_data(const char *cname, const char **atts)
   state = state_gama_data;
   return 0;
 }
+
+int DataParser:: t_text(const char *cname, const char **atts)
+{
+  state = state_text;
+  objects.push_back( new TextDataObject );
+  return 0;
+}
+
+
+// *****************************************************************
+
+int DataParser::d_ws(const char* s, int len)
+{
+  while (len--)
+    {
+      if (!isspace(s[len])) return error(T_GKF_illegal_text);
+    }
+
+  return 0;
+}
+
+int DataParser::d_text(const char* s, int len)
+{
+  if (TextDataObject* tdo = dynamic_cast<TextDataObject*>(objects.back()) )
+    tdo->text += string(s, len);
+
+  return 0;
+}
+

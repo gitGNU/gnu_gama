@@ -20,17 +20,42 @@
 */
 
 /*
- *  $Id: dataobject.h,v 1.1 2002/10/17 17:24:55 cepek Exp $
+ *  $Id: dataobject.h,v 1.2 2002/10/19 13:05:29 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_Data_Object__object___h_
 #define GaMaLib_GaMa_XML_Data_Object__object___h_
 
+#include <string>
 
 namespace GaMaLib {
 
   class DataObject {
   public:
+
+    ~DataObject() 
+      {
+      }
+    virtual std::string xml() const = 0;
+
+  };
+
+
+  class TextDataObject : public DataObject {
+  public:
+  
+    std::string text;
+  
+    TextDataObject() 
+      {
+      }    
+    TextDataObject(std::string s) : text(s) 
+      {
+      }    
+    std::string xml() const 
+      {
+        return "\n<text>" + text + "</text>\n";
+      }
   };
 
 }       // namespace GaMaLib

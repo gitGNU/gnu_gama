@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.2 2002/10/18 20:52:29 cepek Exp $
+ *  $Id: dataparser.h,v 1.3 2002/10/19 13:05:29 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_Data_Object___parser__h_
@@ -39,12 +39,22 @@ namespace GaMaLib {
   public:
     
     DataParser(std::list<DataObject*>&);
-    ~DataParser();
-     
-    int characterDataHandler(const char* s, int len);
-    int startElement(const char *cname, const char **atts);
-    int endElement(const char * name);
-    
+    ~DataParser()
+      {
+      } 
+    int characterDataHandler(const char* s, int len)
+      {
+        return (this->*dat[state])(s, len);
+      }
+    int startElement(const char *name, const char **atts)
+      {
+        return (this->*fun[state][tag(name)])(name, atts);
+      }
+    int endElement(const char * /*name*/)
+      {
+        return (state = next[state]);
+      }
+
   private: 
 
     std::list<DataObject*>& objects;
@@ -54,6 +64,7 @@ namespace GaMaLib {
         state_error,
         state_start,
         state_gama_data,
+        state_text,
         state_stop       
       } next[state_stop]; 
 
@@ -64,17 +75,24 @@ namespace GaMaLib {
         tag_unknown
       };
 
+    data_tag tag(const char* cname);
+
+
     typedef int (DataParser::*FUN)(const char *cname, const char **atts);
     FUN fun[state_stop+1][tag_unknown+1];
 
-    data_tag tag(const char* cname);
-
     int t_error    (const char *cname, const char **atts);
     int t_gama_data(const char *cname, const char **atts);
+    int t_text     (const char *cname, const char **atts);
 
-  };  // class DataParser
-}     // namespace GaMaLib
 
+    typedef int (DataParser::*DATA)(const char* s, int len);
+    DATA dat[state_stop+1];
+
+    int d_ws  (const char* s, int len);
+    int d_text(const char* s, int len);
+  };
+}
 
 #endif
 
