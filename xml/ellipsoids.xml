@@ -1,19 +1,30 @@
 <?xml version="1.0" ?> 
 
-<!--  Revision 0.07  http://www.gnu.org/software/gama/xml/ellipsoids.xml -->
+<!--  http://www.gnu.org/software/gama/xml/ellipsoids.xml  -->
 
 <!DOCTYPE ellipsoids [
-  <!ELEMENT ellipsoids (ellipsoid)* >
-  <!ELEMENT ellipsoid  EMPTY >
-  <!ATTLIST ellipsoid
-    id      CDATA      #REQUIRED
-    caption CDATA      #REQUIRED
-    a       NMTOKEN    #IMPLIED
-    b       NMTOKEN    #IMPLIED
-    f       NMTOKEN    #IMPLIED
-    f1      NMTOKEN    #IMPLIED
+  <!ELEMENT  ellipsoids ((references), (ellipsoid)*) >
+  <!ELEMENT  references (item)* >
+  <!ELEMENT  item       (#PCDATA) >
+  <!ELEMENT  ellipsoid  EMPTY >
+  <!ATTLIST  item
+    label    CDATA      #REQUIRED
+  >
+  <!ATTLIST  ellipsoids
+    revision CDATA      #REQUIRED
+  >
+  <!ATTLIST  ellipsoid
+    id       CDATA      #REQUIRED
+    caption  CDATA      #REQUIRED
+    a        NMTOKEN    #IMPLIED
+    b        NMTOKEN    #IMPLIED
+    f        NMTOKEN    #IMPLIED
+    f1       NMTOKEN    #IMPLIED
+    ref      CDATA      #IMPLIED
   >
 ]>
+
+<ellipsoids revision="0.08">
 
 <!--
 
@@ -36,27 +47,36 @@ W = sqrt(1 - e2*sin(B)^2)
 V = sqrt(1 + e22*cos(B)^2)
 F = sqrt(1 + n*cos(2*B) + n^2)
 
+-->
 
+<references>
 
-References:
-===========
+<item label="[1]">
+Milos Cimbalnik - Leos Mervart: Vyssi geodezie 1, 1997, Vydavatelstvi
+CVUT, Praha
+</item>
 
-[1] Milos Cimbalnik - Leos Mervart: Vyssi geodezie 1, 1997,
-      Vydavatelstvi CVUT, Praha
+<item label="[2]">
+Milos Cimbalnik: Derived Geometrical Constants of the Geodetic
+Reference System 1980, Studia geoph. et geod. 35 (1991), pp. 133-144,
+NCSAV, Praha
+</item>
 
-[2] Milos Cimbalnik: Derived Geometrical Constants of the Geodetic
-      Reference System 1980, Studia geoph. et geod. 35 (1991),
-      pp. 133-144, NCSAV, Praha
+<item label="[3]">
+Glossary of the Mapping Sciences, Prepared by a Joint Committe of the
+American Society of Civil Engineers, American Congress on Surveying
+and Mapping and American Society for Photogrammetry and Remote Sensing
+(1994), USA, ISBN 1-57083-011-8, ISBN 0-7844-0050-4
+</item>
 
-[3] Glossary of the Mapping Sciences, Prepared by a Joint Committe of
-      the American Society of Civil Engineers, American Congress on
-      Surveying and Mapping and American Society for Photogrammetry
-      and Remote Sensing (1994), USA, ISBN 1-57083-011-8, ISBN
-      0-7844-0050-4
+<item label="[4]">
+Gerald Evenden: proj - forward cartographic projection filter (rel. 4.3.3),
+http://www.remotesensing.org/proj
+</item>
 
-[4] Gerald Evenden: proj - forward cartographic projection filter,
-      http://www.remotesensing.org/proj
+</references>
 
+<!--
 
 Bug reports: 
 ===========
@@ -69,10 +89,8 @@ write to
 
 
 
-<ellipsoids>
-
 <ellipsoid id="airy"  a="6377563.396" b="6356256.910"
-                      caption="Airy ellipsoid 1830" />
+                      caption="Airy ellipsoid 1830" ref="[4]" />
 <!--
    Different parameters are given in [3]:
 
@@ -82,34 +100,32 @@ write to
     
        The factor for converting from feet to meters is 0.304 800 756
 
-   Entry written by Ales Cepek (2002-06-05), based on the data of [4]   
+   Entry written by Ales Cepek (2002-06-05)
 -->
 
 
 <ellipsoid id="airy_mod" a="6377340.189" b="6356034.446" 
-                         caption="Modified Airy" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+                         caption="Modified Airy" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="apl1965" a="6378137" f1="298.25" 
-                        caption="Appl. Physics. 1965" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+                        caption="Appl. Physics. 1965" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
-<ellipsoid id="andrae1876" a="6377104.43" f1="300.0" 
-                           caption="Andrae 1876 (Denmark, Iceland)" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+<ellipsoid id="andrae1876" a="6377104.43" f1="300.0"
+                       caption="Andrae 1876 (Denmark, Iceland)" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="australian"  a="6378160"  f1="298.25"
-                            caption="Australian National 1965" />
-<!--
-   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
--->
+                            caption="Australian National 1965" ref="[3]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="bessel"  a="6377397.15508"  b="6356078.96290"
-                        caption="Bessel ellipsoid 1841" />
+                        caption="Bessel ellipsoid 1841" ref="[1]" />
 <!--
    Defined by Helmert (1886) as: log a = 6.804 6434 637
                                  log b = 6.803 1892 839
@@ -119,17 +135,17 @@ write to
    c = 6 398 786.84815  1/f = 299.152 812 853      n   = 0.00167 41848 00818
                         q = 10 000 855.76456
    
-   Entry written by Ales Cepek (2002-06-05), based on the data of [1]
+   Entry written by Ales Cepek (2002-06-05)
 -->
 
 
 <ellipsoid id="bessel_nam" a="6377483.865" f1="299.1528128" 
-                           caption="Bessel 1841 (Namibia)" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+                           caption="Bessel 1841 (Namibia)" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="clarke1858a"  a="6378361"  b="6356685"
-                             caption="Clarke ellipsoid 1858 1st" />
+                             caption="Clarke ellipsoid 1858 1st" ref="[3]" />
 <!--
    semi-major axis  20 926 348 feet (6 378 361 m)
    semi-minor axis  20 855 233 feet (6 356 685 m)
@@ -137,12 +153,12 @@ write to
 
    The factor for converting from feet to meters is 0.30480047
 
-   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+   Entry written by Ales Cepek (2002-06-05)
 -->
 
 
 <ellipsoid id="clarke1858b"  a="6378558"  b="6355810"
-                             caption="Clarke ellipsoid 1858 2nd" />
+                             caption="Clarke ellipsoid 1858 2nd" ref="[3]" />
 <!--
    semi-major axis  20 927 005 feet (6 378 558 m)
    semi-minor axis  20 852 372 feet (6 355 810 m)
@@ -150,12 +166,12 @@ write to
 
    The factor for converting from feet to meters is 0.30480047
 
-   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+   Entry written by Ales Cepek (2002-06-05)
 -->
 
 
 <ellipsoid id="clarke1866"  a="6378206.4"  b="6356583.8"
-                            caption="Clarke ellipsoid 1866" />
+                            caption="Clarke ellipsoid 1866" ref="[3]" />
 <!--
    semi-major axis  20 926 062 feet (6 378 206.4 m)
    semi-minor axis  20 855 121 feet (6 356 583.8 m)
@@ -163,12 +179,12 @@ write to
 
    The factor for converting from feet to meters is 0.30480047
 
-   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+   Entry written by Ales Cepek (2002-06-05)   
 -->
 
 
 <ellipsoid id="clarke1880"  a="6378316"  b="6356582"
-                            caption="Clarke ellipsoid 1880" />
+                            caption="Clarke ellipsoid 1880" ref="[3]" />
 <!--
    semi-major axis  20 926 202 feet (6 378 316 m)
    semi-minor axis  20 854 895 feet (6 356 582 m)
@@ -176,12 +192,12 @@ write to
 
    The factor for converting from feet to meters is 0.30480047
 
-   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+   Entry written by Ales Cepek (2002-06-05)
 -->
 
 
 <ellipsoid id="clarke1880m"  a="6378249.145"  f1="293.4663"
-                             caption="Clarke ellipsoid 1880 (modified)" />
+               caption="Clarke ellipsoid 1880 (modified)" ref="[4]" />
 <!--
    
    [3]: 20 926 202 feet * (1/3.28086933) = 6 378 249.145 meters
@@ -191,26 +207,27 @@ write to
         converting the length to meters (6 378 249.145 m) using the
         factor 1/3.28086933.
 
-   Entry written by Ales Cepek (2002-06-05), based on the data of [4]   
+   Entry written by Ales Cepek (2002-06-05)
 -->
 
 
 <ellipsoid id="cpm1799" a="6375738.7" f1="334.29" 
-                        caption="Comm. des Poids et Mesures 1799" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+               caption="Comm. des Poids et Mesures 1799" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="delambre" a="6376428" f1="311.5" 
-                         caption="Delambre 1810 (Belgium)" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+                         caption="Delambre 1810 (Belgium)" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
-<ellipsoid id="engelis" a="6378136.05" f1="298.2566" caption="Engelis 1985" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+<ellipsoid id="engelis" a="6378136.05" f1="298.2566" 
+                                       caption="Engelis 1985" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="everest1830" a="6377276.345" f1="300.8017" 
-                            caption="Everest 1830" />
+                            caption="Everest 1830" ref="[4]" />
 <!--
    Different parameters are given in [3]:
 
@@ -220,63 +237,64 @@ write to
 
        The factor for converting from feet to meters is 0.30479841
 
-   Entry written by Ales Cepek (2002-06-05), based on the data of [4]   
+   Entry written by Ales Cepek (2002-06-05)  
 -->
 
 
 <ellipsoid id="everest1848" a="6377304.063" f1="300.8017" 
-                            caption="Everest 1948" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+                            caption="Everest 1948" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="everest1856" a="6377301.243" f1="300.8017" 
-                            caption="Everest 1956" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+                            caption="Everest 1956" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="everest1869" a="6377295.664" f1="300.8017" 
-                            caption="Everest 1969" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+                            caption="Everest 1969" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="everest_ss" a="6377298.556" f1="300.8017" 
-                           caption="Everest (Sabah &amp; Sarawak)" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+               caption="Everest (Sabah &amp; Sarawak)" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="fisher1960"  a="6378166"  f1="298.3"
-                            caption="Fisher 1960 (Mercury Datum)" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [3, 4] -->
+               caption="Fisher 1960 (Mercury Datum)" ref="[3] [4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="fisher1960m"  a="6278155"  f1="298.3"
-                             caption="Modified Fisher 1960" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [3, 4] -->
+                     caption="Modified Fisher 1960" ref="[3] [4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
-<ellipsoid id="fischer1968" a="6378150" f1="298.3" caption="Fischer 1968" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+<ellipsoid id="fischer1968" a="6378150" f1="298.3" 
+                            caption="Fischer 1968" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="grs67" a="6378160" f1="298.2471674270" 
-                      caption="GRS 67 (IUGG 1967)" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+                      caption="GRS 67 (IUGG 1967)" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="grs80"  a="6378137"  f1="298.257222101"
-                       caption="Geodetic Reference System 1980" /> 
+                       caption="Geodetic Reference System 1980" ref="[1]" /> 
 <!--
    a = 6 378 137        (a+b)/2 = 6 367 444.65707  e2  = 0.00669 43800 22901
    b = 6 356 752.31414  f = 0.00335 28106 81182    e22 = 0.00673 94967 75479
    c = 6 399 593.62586  1/f = 298.257 222 101      n   = 0.00167 92203 94629
                         q = 10 001 965.72923
    
-   Entry written by Ales Cepek (2002-06-05), based on the data of [1]
+   Entry written by Ales Cepek (2002-06-05)
 -->
 
 
 <ellipsoid id="hayford"  a="6378388"  f1="297"
-                         caption="Hayford 1909 (International)" />
+           caption="Hayford 1909 (International)" ref="[1] [3]" />
 <!--
    [3]: A rotational ellipsoid adopted by the International
         Association of Geodesy (IAG) in 1924 for international use.
@@ -286,25 +304,26 @@ write to
    c = 6 399 936.60811  1/f = 297                  n   = 0.00168 63406 40809
                         q = 10 002 288.29899
    
-   Entry written by Ales Cepek (2002-06-05), based on the data of [1,3]
+   Entry written by Ales Cepek (2002-06-05)
 -->
 
 
 <ellipsoid id="helmert"  a="6378200"  f1="298.3"
-                         caption="Helmert ellipsoid 1906" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [3] -->
+                         caption="Helmert ellipsoid 1906" ref="[3]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
-<ellipsoid id="hough" a="6378270" f1="297" caption="Hough" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+<ellipsoid id="hough" a="6378270" f1="297" caption="Hough" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
-<ellipsoid id="iau76" a="6378140" f1="298.257" caption="IAU 1976" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+<ellipsoid id="iau76" a="6378140" f1="298.257" 
+                      caption="IAU 1976" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05)-->
 
 
 <ellipsoid id="international"  a="6378388"  f1="297"
-                               caption="International 1924 (Hayford 1909)" />
+           caption="International 1924 (Hayford 1909)" ref="[1] [3]" />
 <!--
    [3]: A rotational ellipsoid adopted by the International
         Association of Geodesy (IAG) in 1924 for international use.
@@ -314,16 +333,17 @@ write to
    c = 6 399 936.60811  1/f = 297                  n   = 0.00168 63406 40809
                         q = 10 002 288.29899
    
-   Entry written by Ales Cepek (2002-06-05), based on the data of [1,3]
+   Entry written by Ales Cepek (2002-06-05)
 -->
 
 
-<ellipsoid id="kaula" a="6378163" f1="298.24" caption="Kaula 1961" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+<ellipsoid id="kaula" a="6378163" f1="298.24" 
+                      caption="Kaula 1961" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="krassovski"  a="6378245"  f1="298.3"
-                            caption="Krassovski ellipsoid 1940" />
+                            caption="Krassovski ellipsoid 1940" ref="[1]" />
 <!--
    
    a = 6 378 245        (a+b)/2 = 6 367 554.00939  e2  = 0.00669 34216 22966
@@ -335,87 +355,94 @@ write to
 -->
 
 
-<ellipsoid id="lerch" a="6378139" f1="298.257" caption="Lerch 1979" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+<ellipsoid id="lerch" a="6378139" f1="298.257" 
+                      caption="Lerch 1979" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
-<ellipsoid id="mprts" a="6397300" f1="191.0" caption="Maupertius 1738" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+<ellipsoid id="mprts" a="6397300" f1="191.0" 
+                      caption="Maupertius 1738" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="mercury"  a="6378166"  f1="298.3"
-                         caption="Mercury spheroid 1960" />
+                         caption="Mercury spheroid 1960" ref="[3]" />
 <!--
    [3]: Also called the Fisher 1960 spheroid.
 
-   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+   Entry written by Ales Cepek (2002-06-05)   
 -->
 
 
-<ellipsoid id="merit" a="6378137" f1="298.257" caption="MERIT 1983" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+<ellipsoid id="merit" a="6378137" f1="298.257" 
+                      caption="MERIT 1983" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="new_intl" a="6378157.5" b="6356772.2" 
-                         caption="New International 1967" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+                         caption="New International 1967" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="nwl1965" a="6378145" f1="298.25" 
-                        caption="Naval Weapons Lab., 1965" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+                        caption="Naval Weapons Lab., 1965" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="plessis" a="6376523" b="6355863" 
-                        caption="Plessis 1817 (France)" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+                        caption="Plessis 1817 (France)" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="se_asia" a="6378155" b="6356773.3205" 
-                        caption="Southeast Asia" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+                        caption="Southeast Asia" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="sgs85" a="6378136" f1="298.257" 
-                      caption="Soviet Geodetic System 85" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+                      caption="Soviet Geodetic System 85" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="schott"  a="6378157"  f1="304.5"
-                        caption="Schott 1900 spheroid" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [3] -->
+                        caption="Schott 1900 spheroid" ref="[3]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="sa1969"  a="6378160"  f1="298.25"
-                        caption="South American Spheroid 1969" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [3] -->
+           caption="South American Spheroid 1969" ref="[3]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
-<ellipsoid id="walbeck" a="6376896" b="6355834.8467" caption="Walbeck" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+<ellipsoid id="walbeck" a="6376896" b="6355834.8467" 
+                        caption="Walbeck" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
-<ellipsoid id="wgs60" a="6378165" f1="298.3"  caption="WGS 60" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+<ellipsoid id="wgs60" a="6378165" f1="298.3"  
+                      caption="WGS 60" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
-<ellipsoid id="wgs66" a="6378145" f1="298.25" caption="WGS 66" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+<ellipsoid id="wgs66" a="6378145" f1="298.25" 
+                                  caption="WGS 66" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
-<ellipsoid id="wgs72" a="6378135" f1="298.26" caption="WGS 72" />
-<!-- Entry written by Ales Cepek (2002-06-05), based on the data of [4] -->
+<ellipsoid id="wgs72" a="6378135" f1="298.26" 
+                                  caption="WGS 72" ref="[4]" />
+<!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
 <ellipsoid id="wgs84"  a="6378137"  f1="298.257223563"
-                       caption="World Geodetic System 1984" /> 
+                       caption="World Geodetic System 1984" ref="[1]" /> 
 <!--
    a = 6 378 137        (a+b)/2 = 6 367 444.65712  e2  = 0.00669 43799 90141
    b = 6 356 752.31425  f = 0.00335 28106 64747    e22 = 0.00673 94967 42276
    c = 6 399 593.62576  1/f = 298.257 223 563      n   = 0.00167 92203 86384
                         q = 10 001 965.72931
    
-   Entry written by Ales Cepek (2002-06-05), based on the data of [1]
+   Entry written by Ales Cepek (2002-06-05)
 -->
 
 
