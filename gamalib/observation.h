@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.h,v 1.3 2002/05/24 19:30:51 cepek Exp $
+ *  $Id: observation.h,v 1.4 2002/05/31 10:10:28 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_Mereni_H
@@ -57,7 +57,7 @@ namespace GaMaLib {
     
       Cluster* cluster;
       int      cluster_index;
-      friend   Cluster;
+      friend   class Cluster;
     
     public:
     
