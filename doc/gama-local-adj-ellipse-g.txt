@@ -1,0 +1,2 @@
+[image: Approximate position of adjusted point with
+        regard to confidence ellipse]

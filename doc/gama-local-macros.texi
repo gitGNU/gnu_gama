@@ -1,0 +1,173 @@
+@comment  helper macros used for easier conversion from latex to texinfo
+@comment  (most likely TeX macros are not the best, I not a TeX-expert. AC)
+
+@comment  $Id: gama-local-macros.texi,v 1.1 2003/01/19 18:25:37 cepek Exp $
+
+@comment LaTex equation ==> Texinfo 
+ 
+@c @c % ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+@c @tex
+@c $$
+@c          ...............               \eqno ( )
+@c $$
+@c @end tex
+@c @c % ......................................................................
+@c @ifnottex
+@c 
+@c @example
+@c ( )      ............
+@c @end example
+@c 
+@c @end ifnottex
+@c @c % ----------------------------------------------------------------------
+@c @noindent
+
+
+
+@comment  ****** simple math expresion like $x_1$
+
+@ifnottex
+@macro gmat{gamath}
+@math{\gamath\}
+@end macro
+@end ifnottex
+
+@iftex
+@macro gmat{gamath}
+@tex$\gamath\$
+@end tex
+@end macro
+@end iftex
+
+
+
+@comment  ****** matrix
+
+@ifnottex
+@macro m{matrix}
+@code{\matrix\}
+@end macro
+@end ifnottex
+
+@iftex
+@macro m{matrix}
+@tex\\hbox{$\\bf \matrix\$}
+@end tex
+@end macro
+@end iftex
+
+
+
+@comment  ****** program gama (a command line tool)
+
+@ifnottex
+@macro pgama{}
+@code{gama}
+@end macro
+@end ifnottex
+
+
+
+@iftex
+@macro pgama{}
+@code{gama}
+@end macro
+@end iftex
+
+
+
+@comment  ****** a priori reference std. deviation
+
+@ifnottex
+@macro mnapr{}
+m0
+@end macro
+@end ifnottex
+
+@iftex
+@macro mnapr{}
+@tex\\hbox{$m_0$}
+@end tex
+@end macro
+@end iftex
+
+
+
+@comment  ****** a posterioti estimate for reference std. deviation
+
+@ifnottex
+@macro mnemp{}
+m0'
+@end macro
+@end ifnottex
+
+@iftex
+@macro mnemp{}
+@tex\\hbox{$m_0^{'}$}
+@end tex
+@end macro
+@end iftex
+
+
+@comment  ****** reduced a posterioti estimate for reference std. deviation
+
+@ifnottex
+@macro mnred{}
+m0''
+@end macro
+@end ifnottex
+
+@iftex
+@macro mnred{}
+@tex\\hbox{$m_0^{''}$}
+@end tex
+@end macro
+@end iftex
+
+
+
+@comment  ****** actual reference std. deviation being used
+
+@ifnottex
+@macro mnakt{}
+m0_a
+@end macro
+@end ifnottex
+
+@iftex
+@macro mnakt{}
+@tex\\hbox{$m_{0a}$}
+@end tex
+@end macro
+@end iftex
+
+
+
+@comment  ****** redundancy / degrees of freedom
+
+@ifnottex
+@macro nadb{}
+@math{r}
+@end macro
+@end ifnottex
+
+@iftex
+@macro nadb{}
+@tex\\hbox{$\\tau$}
+@end tex
+@end macro
+@end iftex
+
+
+
+
+
+
+
+
+
+
+
+
+
+

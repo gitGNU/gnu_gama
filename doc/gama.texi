@@ -1,5 +1,5 @@
 \input texinfo   @c -*-texinfo-*-
-@comment $Id: gama.texi,v 1.2 2002/10/25 16:32:11 cepek Exp $
+@comment $Id: gama.texi,v 1.3 2003/01/19 18:25:37 cepek Exp $
 
 @comment Part 1 : Header
 
@@ -13,7 +13,7 @@
 @syncodeindex ky cp
 @c %**end of header
 
-
+@include gama-local-macros.texi
 
 
 @comment Part 2: Summary Description and Copyright
@@ -39,8 +39,10 @@ Free Documentation License''.
 @titlepage
 @sp 10
 @title GNU GaMa @value{VERSION}
-@subtitle Adjustment of geodetic networks (unstable development branch)
+@subtitle Adjustment of geodetic networks
+@sp 1
 @subtitle Edition @value{EDITION}, @value{UPDATED}
+@author   Ale@v{s} @v{C}epek
 
 @c The following two commands start the copyright page.
 @page
@@ -67,9 +69,9 @@ Free Documentation License''.
 
 @menu
 * Stable and unstable development branches ::  
+* XML input data format for @code{gama-local}::  
+* Network adjustment with @code{gama-local}::  
 * Data structures and algorithms::  
-* XML input data format for @code{gama-local}::
-
 * Copying This Manual::         The GNU Free Documentation License.
 * Concept Index::               
 @end menu
@@ -85,6 +87,10 @@ Free Documentation License''.
 @node    XML input data format for @code{gama-local}
 @chapter XML input data format for @code{gama-local}
 @include gama-xml-input.texi
+
+@node    Network adjustment with @code{gama-local}
+@chapter Network adjustment with @code{gama-local}
+@include gama-local-adj.texi
 
 @node    Data structures and algorithms
 @chapter Data structures and algorithms
