@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.23 2004/03/28 11:03:59 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.24 2004/03/28 16:37:07 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -217,7 +217,7 @@ void Point::set_xyz(double x, double y, double z)
   Y_.set_init_value(y);
   Z_.set_init_value(z);
   
-  double b, l, h;;
+  double b, l, h;
   common->ellipsoid.xyz2blh(x, y, z, b, l, h);
   B_.set_init_value(b);
   L_.set_init_value(l);
