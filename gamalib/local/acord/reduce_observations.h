@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: reduce_observations.h,v 1.1 2002/12/04 14:43:59 cepek Exp $
+ *  $Id: reduce_observations.h,v 1.2 2002/12/18 12:36:43 cepek Exp $
  */
 
  
@@ -37,7 +37,7 @@ namespace GaMaLib {
     
   class ReducedObservations
     {
-    private:
+    public:
 
 	enum TypeOfReduction {
 	    none_     = 1,
@@ -45,6 +45,8 @@ namespace GaMaLib {
 	    precise_  = 4,
 	    nonexist_ = 8
 	};
+
+    private:
 	
 	class ReducedObs
 	{
