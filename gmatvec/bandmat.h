@@ -1,6 +1,6 @@
 /*  
     C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.20)
-    Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 1999, 2002  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: bandmat.h,v 1.7 2002/09/15 16:05:17 cepek Exp $
+ *  $Id: bandmat.h,v 1.8 2002/09/15 21:32:29 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -229,34 +229,30 @@ void BandMat<Float, Exc>::cholDec()
 template <class Float, class Exc>
 void BandMat<Float, Exc>::solve(Vec<Float, Exc>& rhs) const
 {
-   const Index bw1 = band_ + 1;
-   Index i, j, k, l;
-   Float s;
-   const Float *b, *m;
-
-   // forward substitution
-   m = b = begin();
-   for (i=2; i<=dim(); i++, b += bw1)
-   {
-     l = i > band_ ? i-band_ : 1;   // l is unsigned
-     for (s=0, j=l; j<=i-1; j++)
-       s += *( m + (j-1)*bw1+ i - j)*rhs(j);
-     rhs(i) -= s;
-   }
-
-   // inverse of diagonal
-   b = begin();
-   for (i=1; i<=dim(); i++, b += bw1)
-      rhs(i) /= *b;
-
-   // backward substituiton
-   b = m + (dim()-2)*bw1;
-   for (i=dim()-1; i>0; i--, b -= bw1)
-   {
-      for (s=0, k=i+1, j=1; j<=band_ && k<=dim(); k++, j++)
-         s += rhs(k) * b[j];
+  using namespace std;
+  Index i, j, k;
+  Float s;
+  const Float *m;
+  
+  // forward substitution
+  for (i=2; i<=dim(); i++)
+    {
+      s = 0;
+      for (j = i>band_ ? i-band_ : 1; j<i; j++) s += operator()(i,j)*rhs(j);
       rhs(i) -= s;
-   }
+    }
+  
+  // inverse of diagonal
+  for (i=1; i<=dim(); i++) rhs(i) /= *operator[](i);
+  
+  // backward substituiton
+  for (i=dim()-1; i>0; i--)
+    {
+      s = 0;
+      m = operator[](i) + 1;
+      for (k=i+1; k<=min(i+band_,dim()); k++) s += *m++ * rhs(k);
+      rhs(i) -= s;
+    }
 }
 
 
