@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama_main.h,v 1.1 2001/12/07 12:17:11 cepek Exp $
+ *  $Id: gama_main.h,v 1.2 2002/09/29 14:00:19 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -86,9 +86,9 @@ int help()
        << " [ output. ]\n\n";
   cerr << "Options:\n"
        << "\n";
-  cerr << "--algorithm svd|gso \n" 
-       << "--language  en|cz   \n"
-       << "--version           \n"
+  cerr << "--algorithm svd|gso  \n" 
+       << "--language  en|cz|fi \n"
+       << "--version            \n"
        << "--help              this text\n";
   cerr << endl;
   return 1;
@@ -158,6 +158,7 @@ int GaMa_Main(int argc, char **argv)
       if (!strcmp("en", argv_lang)) set_gama_language(en);
       else if (!strcmp("cs", argv_lang)) set_gama_language(cz);
       else if (!strcmp("cz", argv_lang)) set_gama_language(cz);
+      else if (!strcmp("fi", argv_lang)) set_gama_language(fi);
       else return help();
     }
 

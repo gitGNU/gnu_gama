@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?> 
+<entries>
+
+<e id="T_GKF_illegal_text"
+   EN="illegal text"
+   fi="virheellinen teksti" />
+
+<e id="T_GKF_must_start_with_gama_xml"
+   EN="document must start with tag &lt;gama-xml&gt;"
+   fi="dokumentin pitää alkaa tagilla &lt;gama-xml&gt;" />
+
+<e id="T_GKF_undefined_value_of_attribute"
+   EN="illegal value of the attribute: "
+   fi="virheellinen atribuutin arvo: " />
+
+<e id="T_GKF_illegal_value_of_gama_xml_version"
+   EN="illegal value of attribue 'version' of tag &lt;gama-xml&gt;: "
+   fi="virheellinen arvo atribuutissa 'versio' tagissa &lt;gama-xml&gt;: " />
+
+<e id="T_GKF_undefined_attribute_of_gama_xml"
+   EN="undefined attribute of tag &lt;gama-xml&gt;: "
+   fi="määrittelemätön atribuutti tagissa &lt;gama-xml&gt;: " />
+
+<e id="T_GKF_undefined_attribute_of_vectors"
+   EN="undefined attribute of tag &lt;vectors&gt;: "
+   fi="määrittelemätön atribuutti tagissa &lt;vectors&gt;: " />
+
+<e id ="T_GKF_missing_tag_network"
+   EN="missing tag &lt;network&gt;"
+   fi="tag &lt;network&gt; puuttuu;" />
+
+<e id="T_GKF_e01a_illegal_tag"
+   EN="illegal_tag &lt;"
+   fi="sääntöjen vastainen tag &lt;" />
+
+<e id="T_GKF_e01b_after_tag"
+   EN="&gt; after tag"
+   fi="&gt; tagin jälkeen" />
+
+<e id="T_GKF_error_on_reading_of_standard_deviation"
+   EN="error on reading of standard deviation"
+   fi="virhe keskivirhettä luettaessa" />
+
+<e id="T_GKF_error_on_reading_of_confidence_probability"
+   EN="error on reading of confidence probability"
+   fi="virhe luottamustodennäköisyyttä luettaessa" />
+
+<e id="T_GKF_error_on_reading_of_absolute_terms_tolerance"
+   EN="error on reading of tolerance for identification of outlying absolute terms"
+   fi="virhe absoluuttisten termien karkeiden virheiden identtifioimistoleranssia luettaessa"  />
+
+<e id="T_GKF_wrong_type_of_standard_deviation"
+   EN="wrong type of standard deviation" 
+   fi="vääräntyyppinen keskivirhe" />
+
+<e id="T_GKF_bad_network_configuration_unknown_parameter"
+   EN="bad network configuration - unknown parameter: "
+   fi="virheellinen verkkokonfiguraatio - tuntematon parametri; " />
+
+<e id="T_GKF_bad_attribute_distance_dev"
+   EN="bad attribute distance-stdev: "
+   fi="virheellinen atribuutti distance-sdev: " />
+
+<e id="T_GKF_bad_attribute_direction_dev"
+   EN="bad attribute direction-stdev: "
+   fi="virheellinen atribuuttu direction-stdev: " />
+
+<e id="T_GKF_bad_attribute_angle_dev"
+   EN="bad attribute angle-stdev: "
+   fi="virheellinen atribuutti angle-stdev: " />
+
+<e id="T_GKF_undefined_attribute_of_points_observations"
+   EN="undefined attribute of &lt;points-observations&gt;: " 
+   fi="määrittelmätön atribuutti &lt;point-observations&gt;: " />
+
+<e id="T_GKF_undefined_attribute_of_points"
+   EN="undefined attribute of &lt;point&gt;: " 
+   fi="määrittelemätön atribuutti &lt;point&gt;: " />
+
+<e id="T_GKF_missing_point_ID"
+   EN="missing point ID"
+   fi="pisteen ID puuttuu" />
+
+<e id="T_GKF_missing_from_ID"
+   EN="missing point ID (attribute from=\&quot;...\&quot;)"
+   fi="pisteen ID puuttuu (atribuutti from=\&quot;...\&quot;)" />
+
+<e id="T_GKF_missing_to_ID"
+   EN="missing point ID (attribute to=\&quot;...\&quot;)"
+   fi="pisteen ID puuttuu (atribuutti to=\&quot;...\&quot;)"  />
+
+<e id="T_GKF_multiple_definition_of_xy_in_tag_point"
+   EN="multiple dexinition of coordinates xy in tag &lt;point&gt;"
+   fi="xy-koordinaatit on määritetty useampaan kertaan tagissa &lt;point&gt;" />
+
+<e id="T_GKF_multiple_definition_of_z_in_tag_point"
+   EN="multiple definition of coordinate z in tag &lt;point&gt;"
+   fi="z-koordinaatti on määritetty useampaan kertaan tagissa &lt;point&gt;" /> 
+
+<e id="T_GKF_point_must_define_xy_andor_z_inside_tag_coordinates"
+   EN="tag &lt;point /&gt; must define coordinates xy and/or z inside tag &lt;coordinates&gt;"
+   fi="tagin &lt;point /&gt; on määritettävä koordinaatit xy ja/tai z tagissa &lt;coordinates&gt;" />
+
+<e id="T_GKF_coordinate_x_is_not_defined"
+   EN="coordinate x is not defined"
+   fi="x-koordinaatti ei ole määritetty" />
+
+<e id="T_GKF_coordinate_y_is_not_defined"
+   EN="coordinate y is not defined"
+   fi="y-koordinaatti ei ole määritetty" />
+
+<e id="T_GKF_bad_coordinate_x"
+   EN="bad coordinate x: "
+   fi="epäkelpo x-koordinaatti: " />
+
+<e id="T_GKF_bad_coordinate_y"
+   EN="bad coordinate y: "
+   fi="epäkelpo y-koordinaatti: "/>
+
+<e id="T_GKF_bad_height"
+   EN="bad height: "
+   fi="epäkelpo korkeus: " />
+
+<e id="T_GKF_undefined_point_type"
+   EN="undefined point type: "
+   fi="määrittämätön pistetyyppi: " />
+
+<e id="T_GKF_undefined_height_type"
+   EN="undefined height type: "
+   fi="määrittämätön korkeustyyppi: " />
+
+<e id="T_GKF_undefined_attribute_of_distance"
+   EN="undefined attribute of &lt;distance&gt;: " 
+   fi="määrittämätön atribuutti &lt;distance&gt;: " />
+
+<e id="T_GKF_undefined_attribute_of_slopedist"
+   EN="undefined attribute of &lt;s-distance&gt;: " 
+   fi="määrittämätön atribuutti &lt;s-distance&gt;: " />
+
+<e id="T_GKF_undefined_attribute_of_zangle"
+   EN="undefined attribute of &lt;z-angle&gt;: " 
+   fi="määrittämätön atribuutti &lt;z-angle&gt;: " />
+
+<e id="T_GKF_missing_standpoint_id"
+   EN="missing standpoint ID"
+   fi="puuttuva asemapiste-ID" />
+
+<e id="T_GKF_missing_forepoint_id"
+   EN="missing forepoint ID"
+   fi="puuttuva kohdepiste-ID" />
+
+<e id="T_GKF_missing_observed_value"
+   EN="missing observed value"
+   fi="puuttuva havaittu arvo" />
+
+<e id="T_GKF_bad_distance"
+   EN="bad distance: "
+   fi="epäkelpo etäisyys: "/>
+
+<e id="T_GKF_illegal_standard_deviation"
+   EN="illegal standard deviation"
+   fi="epäkelpo keskivirhe" />
+
+<e id="T_GKF_undefined_attribute_of_angle"
+   EN="undefined attribute of &lt;angle&gt;: " 
+   fi="määrittämätön atribuutti &lt;angle&gt;: " />
+
+<e id="T_GKF_missing_left_forepoint_id"
+   EN="missing left forepoint ID"
+   fi="puuttuva vasemman kohdepisteen ID" />
+
+<e id="T_GKF_missing_right_forepoint_id"
+   EN="missing right forepoint ID"
+   fi="puuttuva oikean kohdepisteen ID" />
+
+<e id="T_GKF_bad_angle"
+   EN="bad angle: "
+   fi="epäkelpo kulma: " />
+
+<e id="T_GKF_undefined_attribute_of_obs"
+   EN="undefined attribute of &lt;obs&gt;: " 
+   fi="määrittämätön atribuutti &lt;obs&gt;: " />
+
+<e id="T_GKF_bad_instrument_reflector_height"
+   EN="bad instrument/reflector height: "
+   />
+
+<e id="T_GKF_bad_orientation_angle"
+   EN="bad orientation angle: "
+   fi="epäkelpo liitoskulma: " />
+
+<e id="T_GKF_undefined_attribute_of_direction"
+   EN="undefined attribute of &lt;direction&gt;: " 
+   fi="määrittämätön atribuutti &lt;direction&gt;: " />
+
+<e id="T_GKF_bad_direction"
+   EN="bad direction: "
+   fi="epäkelpo suunta: " />
+
+<e id="T_GKF_bad_height_diff"
+   EN="bad height difference: "
+   fi="epäkelpo korkeusero: " />
+
+<e id="T_GKF_undefined_attribute_of_cov_mat"
+   EN="undefined attribute of &lt;cov-mat&gt;: " 
+   fi="määrittämätön atribuutti &lt;cov-mat&gt;: "/>
+
+<e id="T_GKF_undefined_attribute_of_coordinates"
+   EN="undefined attribute of &lt;coordinates&gt;: " 
+   fi="määrittämätön atribuutti &lt;coordinates&gt;: " />
+
+<e id="T_GKF_undefined_attribute_of_height_differences"
+   EN="undefined attribute of &lt;height-differences&gt;: " 
+   fi="määrittämätön atribuutti &lt;height-differences&gt;: " />
+
+<e id="T_GKF_cov_mat_missing_dim"
+   EN="missing dimension of covariance matrix"
+   fi="puuttuva kovarianssimatriisin dimensio" />
+
+<e id="T_GKF_cov_mat_missing_band_width"
+   EN="missing band-width of covariance matrix"
+   fi="puuttuva kovarianssimatriisin leveys" />
+
+<e id="T_GKF_covariance_matrix_is_not_positive_definite"
+   EN="variance-covariance matrix is not positive definite"
+   fi="varianssi-kovarianssimatriii ei ole positiivi definiitti" />
+
+<e id="T_GKF_cov_mat_bad_dim"
+   EN="bad dimension of covariance matrix: "
+   fi="epäkelpo kovarianssimatriisin dimenssio: "/>
+
+<e id="T_GKF_cov_mat_bad_band_width"
+   EN="missing band-width of covariance matrix: "
+   fi="puuttuva kovarianssimatriisin leveys: "/>
+
+<e id="T_GKF_cov_mat_bad_dim_too_many_elements"
+   EN="bad dimension of covariance matrix - too many elements"
+   fi="epäkelpo kovarianssimatriisin dimensio - liian monta elementtiä" />
+
+<e id="T_GKF_cov_mat_bad_dim_not_enough_elements"
+   EN="bad dimension of covariance matrix - not enough elements"
+   fi="epäkelpo kovarianssimatriisin dimensio - ei tarpeeksi elementtejä" />
+
+<e id="T_GKF_cov_mat_bad_element"
+   EN="bad covariance matrix element: "
+   fi="epäkelpo kovarianssimatriisin elementti: "/>
+
+<e id="T_GKF_no_observations_after_cov_mat"
+   EN="observations can not come after covariance matrix"
+   fi="havaintoja ei saa olla kovarianssimatriisin jälkeen" />
+
+<e id="T_GKF_coordinates_without_covariance_matrix"
+   EN="coordinates without covariance matrix"
+   fi="koordinaatteja ilman kovarianssimatriisia" />
+
+<e id="T_GKF_cov_dim_differs_from_number_of_coordinates"
+   EN="covariance matrix dimension differs from the number of coordinates"
+   fi="kovarianssimatriisin dimensio on eri kuin koordinaattien lukumäärä" />
+
+<e id="T_GKF_vectors_without_covariance_matrix"
+   EN="vectors without covariance matrix"
+   fi="vektoreita ilman kovarianssimatriisia" />
+
+<e id="T_GKF_cov_dim_differs_from_number_of_vectors"
+   EN="covariance matrix dimension differs from the number of vectors"
+   fi="kovarianssimatriisin dimensio eroaa vektoreiden lukumäärästä" />
+
+<e id="T_GKF_bad_vector_data"
+   EN="bad vector data"
+   fi="epäkelpoa vektoridataa" />
+
+</entries>   
+
+
+
+
+
+

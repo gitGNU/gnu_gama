@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.h,v 1.6 2002/09/06 16:08:49 cepek Exp $
+ *  $Id: observation.h,v 1.7 2002/09/29 14:00:19 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_Mereni_H
@@ -99,6 +99,7 @@ namespace GaMaLib {
       Double  from_dh() const { return from_dh_; }
       Double  to_dh  () const { return to_dh_;   }
 
+      void    set_value  (Double v) { value_   = v; } 
       void    set_from_dh(Double h) { from_dh_ = h; }
       void    set_to_dh  (Double h) { to_dh_   = h; }
 

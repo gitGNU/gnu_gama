@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<entries>
+
+<!-- $Id: review.fi.lang,v 1.2 2002/09/29 14:00:19 cepek Exp $ -->
+
+<e id="T_GaMa_inconsistent_coordinates_and_angles"
+   EN="Inconsistent coordinates and angles: changing sign of all Y coordinates"
+   fi="Ristiriitaisia koordinaatteja ja kulmia: kaikkien Y-koordinaattien merkit vaihdetaan" />
+
+<e id="T_GaMa_point"
+   EN="point"
+   fi="piste" />
+
+<e id="T_GaMa_standpoint"
+   EN="standpoint"
+   fi="asemapiste" />
+
+<e id="T_GaMa_target"
+   EN="target"
+   fi="kohde" />
+
+<e id="T_GaMa_network_description"
+   EN="Network description"
+   fi="verkon kuvaus" />
+
+<e id="T_GaMa_General_solution_parameters"
+   EN="General parameters of the adjustment"
+   fi="Yleiset tasoitusparametrit" />
+
+<e id="T_GaMa_gpar1_coordinates"
+   EN="Coordinates"
+   fi="Koordinaatit" />
+
+<e id="T_GaMa_gpar1_adjusted_coordinates"
+   EN="Adjusted"
+   fi="Tasoitettu" />
+
+<e id="T_GaMa_gpar1_constrained_coordinates"
+   EN="Constrained  * "
+   fi="Rajoitettu * " />
+
+<e id="T_GaMa_gpar1_fixed_coordinates"
+   EN="Fixed"
+   fi="Kiinnitetty" />   
+
+<e id="T_GaMa_gpar1_total"
+   EN="Total"
+   fi="Kokonaismäärä" />
+
+<e id="T_GaMa_gpar1_computed_points"
+   EN="Total of adjusted points"
+   fi="Tasoitettujen pisteiden kokonaismäärä" />
+
+<e id="T_GaMa_gpar2_constrained_points"
+   EN="Constrained points"
+   fi="Rajoitetut pisteet" />
+
+<e id="T_GaMa_gpar1_fixed_points"
+   EN="Number of fixed points"
+   fi="Kiinnitettyjen pisteiden lukumäärä" />
+
+<e id="T_GaMa_gpar1_computed_heights"
+   EN="Number of computed heights"
+   fi="Laskettujen korkeuksien määrä" />
+
+<e id="T_GaMa_gpar2_constrained_heights"
+   EN="Constrained heights"
+   fi="Rajoitettuja korkeuksia" />
+
+<e id="T_GaMa_gpar1_fixed_heights"
+   EN="Number of fixed heights"
+   fi="Kiinnitettyjen korkeuksien lukumäärä" />
+
+<e id="T_GaMa_gpar1_points_total"
+   EN="Total of points"
+   fi="Pisteitä yhteensä" />
+
+<e id="T_GaMa_gpar1_directions"
+   EN="Number of directions"
+   fi="Suuntien lukumäärä" />
+
+<e id="T_GaMa_gpar2_bearings"
+   EN="Number of bearings"
+   fi="Viuhkojen lukumäärä" /> <!-- fi="Liitossuuntien lukumäärä" -->
+
+<e id="T_GaMa_gpar1_angles"
+   EN="Number of angles"
+   fi="Kulmien lukumäärä" />
+
+<e id="T_GaMa_gpar1_distances"
+   EN="Number of distances"
+   fi="Etäisyyksien lukumäärä" />
+
+<e id="T_GaMa_gpar1_observed_coords"
+   EN="Coordinates"
+   fi="Koordinaatit" />
+
+<e id="T_GaMa_gpar1_levelling_diffs"
+   EN="Levelling differences"
+   fi="Vaaitut korkeuserot" />
+
+<e id="T_GaMa_gpar1_z_angles"
+   EN="Zenith angles"
+   fi="Zeniittikulmat" />
+
+<e id="T_GaMa_gpar1_s_dists"
+   EN="Slope distances"
+   fi="Vinoetäisyydet" />
+
+<e id="T_GaMa_gpar1_obs_total"
+   EN="Total of observations"
+   fi="Havaintojen kokonaislukumäärä" />
+
+<e id="T_GaMa_gpar1_equations"
+   EN="Number of project equations"
+   fi="Virheyhtäloiden lukumäärä" /> <!-- fi="Projektiokaavojen lukumäärä" -->
+
+<e id="T_GaMa_gpar2_number_of_unknowns"
+   EN="Number of unknowns"
+   fi="Tuntemattomien lukumäärä" />
+
+<e id="T_GaMa_gpar1_redundancy"
+   EN="Degrees of freedom"
+   fi="Vapausasteet" />
+
+<e id="T_GaMa_gpar2_network_defect"
+   EN="Network defect"
+   fi="Verkko on puutteellinen" />
+
+<e id="T_GaMa_not_enough_constrained_points"
+   EN="Not enough constrained points defined"
+   fi="Rajoitettuja pisteitä ei ole määritetty tarpeeksi" />
+
+<e id="T_GaMa_Free_network"
+   EN="Free network"
+   fi="Vapaa verkko" />
+
+<e id="T_GaMa_Free_network_defect_is"
+   EN="Free network defect is "
+   fi="Vapaa verkko on puutteellinen" />
+
+<e id="T_GaMa_Given_network_configuration_can_not_be_adjusted"
+   EN="Given network configuration can not be adjusted"
+   fi="Annettua verkkokonfiguraatiota ei ole mahdollista tasoittaa" />
+
+<e id="T_GaMa_detected_singular_variables"
+   EN="The following unknowns have been detected as linearly dependent"
+   fi="Seuraavat tuntemattomat on havaittu lineaarisesti riippuvaisiksi" />
+
+<e id="T_GaMa_index_type_point"
+   EN="  index type point"
+   fi="  indexityyppinen piste" />
+
+<e id="T_GaMa_m0_apriori"
+   EN="m0  apriori    "
+   fi="m0  apriori    " />
+
+<e id="T_GaMa_m0_empirical"
+   EN="m0\' aposteriori"
+   fi="m0\' aposteriori" />
+
+<e id="T_GaMa_During_statistical_analysis_we_work"
+   EN="During statistical analysis we work"
+   fi="Tilastollisessa analyysissä käytetään" /> <!-- fi="Tilastollinen analyysi meneillään" -->
+
+<e id="T_GaMa_statan_with_empirical_standard_deviation"
+   EN="- with aposteriori standard deviation "
+   fi="- aposteriori keskihajontaa " /> <!-- fi="- aposteriori keskihajonnalla "  -->
+
+<e id="T_GaMa_statan_with_apriori_standard_deviation"
+   EN="- with apriori standard deviation "
+   fi="- apriori keskihajontaa " /> <!-- fi="- apriori keskihajonnalla " -->
+
+<e id="T_GaMa_statan_with_confidence_level"
+   EN="- with confidence level "
+   fi="- luottamustasolla " />
+
+<e id="T_GaMa_Ratio_empirical_to_apriori"
+   EN="Ratio m0\' aposteriori / m0 apriori: "
+   fi="Suhdeluku m0\' aposteriori / m0 apriori: " /> 
+
+<e id="T_GaMa_interval"
+   EN="interval"
+   fi="luottamusväli" /> <!-- fi="väli" -->
+
+<e id="T_GaMa_interval_contains"
+   EN="contains value m0\'/m0"
+   fi="sisältää arvon m0\'/m0" />
+
+<e id="T_GaMa_interval_doesnt_contain"
+   EN="does not contain value m0\'/m0" 
+   fi="ei sisällä arvoa m0\'/m0" />
+
+<e id="T_GaMa_m0_distances"
+   EN="m0\'/m0 (distances): "
+   fi="m0\'/m0 (etäisyydet): " />
+
+<e id="T_GaMa_m0_directions"
+   EN="m0\'/m0 (directions): "
+   fi="m0\'/m0 (suunnat): " />
+
+<e id="T_GaMa_m0_angles"
+   EN="m0\'/m0 (angles): "
+   fi="m0\'/m0 (kulmat): " />
+
+<e id="T_GaMa_m0_dirs_angs"
+   EN="m0\'/m0 (directions/angles): "
+   fi="m0\'/m0 (suunnat/kulmat): " />
+
+<e id="T_GaMa_Maximal_decrease_of_m0"
+   EN="Maximal decrease of m0\'\'/m0 on elimination of one observation: "
+   fi="m0\'\'/m0 maksimaalinen pieneneminen yhtä havaintoa eliminoitaessa: " />
+
+<e id="T_GaMa_Maximal_normalized_residual"
+   EN="Maximal normalized residual "
+   fi="Normaalijakauman mukainen maksimiresiduaali" />
+
+<e id="T_GaMa_genpar_Maximal_studentized_residual"
+   EN="Maximal studentized residual "
+   fi="Studentin t-jakauman mukainen maksimiresiduaali "  />
+
+<e id="T_GaMa_genpar_exceeds"
+   EN=" exceeds"
+   fi=" ylittää" />
+
+<e id="T_GaMa_genpar_doesnt_exceed"
+   EN=" does not exceed"
+   fi=" ei ylitä" />
+
+<e id="T_GaMa_genpar_critical_value"
+   EN=" critical value "
+   fi=" kriittisen arvon " /> <!-- fi=" kriittinen arvo " -->
+
+<e id="T_GaMa_genpar_on_significance_level"
+   EN="on significance level "
+   fi="merkitsevyystasolla " />
+
+<e id="T_GaMa_genpar_for_observation_ind"
+   EN=" % for observation #"
+   fi=" % havainnolla #" />
+
+<e id="T_GaMa_Review_of_fixed_points"
+   EN="Fixed points"
+   fi="Kiintopisteet" />
+
+<e id="T_GaMa_point"
+   EN="point"
+   fi="piste" />
+
+<e id="T_GaMa_adjunk_Review_of_unknowns_coordidantes"
+   EN="Adjusted coordinates"
+   fi="Tasoitetut koordinaatit" />
+
+<e id="T_GaMa_adjunk_mean_position_error_maximal"
+   EN="Maximal mean position error is "
+   fi="Sijainnin maksimikeskivirhe on " />
+
+<e id="T_GaMa_adjunk_mean_position_error_on_point"
+   EN=" mm on point "
+   fi=" mm pisteellä " />
+
+<e id="T_GaMa_adjunk_mean_position_error_average"
+   EN="Average mean position error is "
+   fi="Sijainnin keskimääräinen keskivirhe on "/> <!-- fi="Sijainnin kesimääräinen keskivirhe on " -->
+
+<e id="T_GaMa_adjunk_header1"
+   EN="    approximate  correction  adjusted    std.dev conf.i.\n"
+   fi="       liki       korjaus    tasoitettu kesk.haj. luott.väli.\n" /> <!-- fi="    likimääräinen korjaus    tasoitettu  kesk.haj. luott.väli.\n" -->
+
+<e id="T_GaMa_adjunk_header2"
+   EN="====== value ====== [m] ====== value ========== [mm] ===\n\n"
+   fi="====== arvo ======= [m] ====== arvo =========== [mm] ===\n\n" />
+
+<e id="T_GaMa_adjunk_constrained"
+   EN="constrained"
+   fi="rajoitettu" />
+
+<e id="T_GaMa_adjunk_Review_of_unknowns_bearings"
+   EN="Adjusted orientation unknowns"
+   fi="Tasoitetut orientaatiotuntemattomat" /> <!--    fi="Tasoitetun orientaation tuntemattomat" /> -->
+
+<e id="T_GaMa_adjunk_header3"
+   EN="   approximate  correction  adjusted   std.dev conf.i.\n"
+   fi="       liki     korjaus   tasoitettu   kesk.haj. luott.väli\n" /> <!-- fi="   likimääräinen korjaus    tasoitettu kesk.haj. luott.väli\n" -->
+
+<e id="T_GaMa_adjunk_header4"
+   EN="==== value [g] ==== [g] === value [g] ======= [cc] ===\n\n"
+   fi="==== arvo  [g] ==== [g] === arvo  [g] ======= [cc] ===\n\n" />
+
+<e id="T_GaMa_adjunk_Review_of_unknowns_heights"
+   EN="Adjusted heights"
+   fi="Tasoitetut korkeudet" />
+
+<e id="T_GaMa_adjunk_header5"
+   EN="     approximate  correction  adjusted    std.dev conf.i.\n"
+   fi="    likimääräinen  korjaus    tasoitettu  kesk.haj luott.väli\n" />
+
+<e id="T_GaMa_adjunk_header6"
+   EN="======= value ====== [m] ====== value ========== [mm] ===\n\n"
+   fi="======= arvo ======= [m] ====== arvo =========== [mm] ===\n\n" />
+
+<e id="T_GaMa_tstlin_header_value"
+   EN="======= value "
+   fi="======= arvo  " />
+
+<e id="T_GaMa_tstlin_Test_of_linearization_error"
+   EN="Test of linearization error"
+   fi="Linearisointivirheen testi" />
+
+<e id="T_GaMa_tstlin_Differences"
+   EN="Diffs in adj. observations from residuals and from adjusted coordinates"
+   fi="Eroja tasoitetuissa havainnoissa residuaaleista ja tasoitetuista koordinaateista" />
+
+<e id="T_GaMa_tstlin_obs_r_diff"
+   EN="      observed     r        difference"
+   fi="      havaittu     r        erotus" />
+
+<e id="T_GaMa_tstlin_header1"
+   EN="====== value == [mm|cc] == [cc] == [mm] =\n\n"
+   fi="====== arvo === [mm|cc] == [cc] == [mm] =\n\n" />
+
+<e id="T_GaMa_distance"
+   EN=" dist. "
+   fi=" vaak. " /> <!-- fi="vaakaet" --> <!-- fi="vaakaetäisyys" -->
+
+<e id="T_GaMa_direction"
+   EN=" dir.  "
+   fi=" suu.  " /> <!-- fi="suunta" -->
+
+<e id="T_GaMa_angle"
+   EN=" angle "
+   fi=" kulma " />
+
+<e id="T_GaMa_s_distance"
+   EN=" slope "
+   fi=" etäisyys " />
+
+<e id="T_GaMa_z_angle"
+   EN=" zenit "
+   fi=" zeniiti " />
+   
+<e id="T_GaMa_x"
+   EN=" x     "
+   fi=" x     " />
+
+<e id="T_GaMa_y"
+   EN=" y     "
+   fi=" y     " />
+
+<e id="T_GaMa_z"
+   EN=" z     "
+   fi=" z     " />
+
+<e id="T_GaMa_levell"
+   EN=" h dif "
+   fi=" h ero " />
+
+<e id="T_GaMa_xdiff"
+   EN=" x dif "
+   fi=" x ero " />
+
+<e id="T_GaMa_ydiff"
+   EN=" y dif "
+   fi=" y ero " />
+
+<e id="T_GaMa_zdiff"
+   EN=" z dif "
+   fi=" z ero " />
+
+<e id="T_GaMa_errell_review_of_mean_errors_and_error_ellipses"
+   EN="Mean errors and parameters of error ellipses"
+   fi="Keskivirheet ja virhe-ellipsien parametrit" />
+
+<e id="T_GaMa_errell_header1"
+   EN="    mp      mxy      mean error ellipse  conf.err. ellipse   g\n"
+   fi="    mp      mxy      virhe-ellipsi       luott. virhe-ell.   g\n"  /> <!-- fi="    mp      mxy      keskivirhe-ellipsi  luott. virhe-ell.   g\n" -->
+
+<e id="T_GaMa_errell_header2"
+   EN="== [mm] == [mm] ==== a [mm] b  alpha[g] ==== a' [mm] b' ========"
+   fi="== [mm] == [mm] ==== a [mm] b  alpha[g] ==== a' [mm] b' ========" />
+
+<e id="T_GaMa_adjobs_Adjusted_observations"
+   EN="Adjusted observations"
+   fi="Tasoitetut havainnot" />
+
+<e id="T_GaMa_adjobs_observed"
+   EN="observed"
+   fi="havaittu" />
+
+<e id="T_GaMa_adjobs_adjusted"
+   EN="adjusted"
+   fi="tasoitettu" />
+
+<e id="T_GaMa_adjobs_header1"
+   EN=" std.dev conf.i.\n"
+   fi=" keskiv. luott.väli\n" />
+
+<e id="T_GaMa_adjobs_value"
+   EN="== value "
+   fi="== arvo  " />
+
+<e id="T_GaMa_resobs_Review_of_residuals_analysis_obs"
+   EN="Residuals and analysis of observations"
+   fi="Residuaalit ja havaintojen analyysi" />
+
+<e id="T_GaMa_resobs_Outlying_observations"
+   EN="Outlying observations"
+   fi="Karkeat virheet" />
+
+<e id="T_GaMa_resobs_header1"
+   EN="        f[%]        v    |v'|     e-obs.  e-adj.\n"
+   fi="        f[%]        v    |v'|     e-hav.  e-tas.\n" />
+
+<e id="T_GaMa_resobs_header2"
+   EN="======== [mm|cc] =========== [mm|cc] ===\n\n"
+   fi="======== [mm|cc] =========== [mm|cc] ===\n\n" />
+
+<e id="T_GaMa_resobs_no_control"
+   EN=" u"
+   fi=" e" />
+
+<e id="T_GaMa_resobs_weak_control"
+   EN=" w"
+   fi=" h" />
+
+<e id="T_GaMa_resobs_mc_max_critical"
+   EN=" mc"
+   fi=" mk" />
+
+<e id="T_GaMa_resobs_mc_max"
+   EN=" m "
+   fi=" m " />
+
+<e id="T_GaMa_resobs_mc_critical"
+   EN=" c "
+   fi=" k " />
+
+<e id="T_GaMa_resobs_normality_test"
+   EN="Test of normality of homogenised residuals"
+   fi="Homogenisoitujen residuaalien normaalisuustesti" />
+
+<e id="T_GaMa_resobs_condition_number"
+   EN="Condition number        : "
+   fi="Tila numero             : " />
+
+<e id="T_GaMa_approx_Review_of_approximate_coordinates"
+   EN="Approximate coordinates"
+   fi="Likimääräiset koordinaatit" />
+
+<e id="T_GaMa_approx_observations"
+   EN="observations: "
+   fi="havainnot   : " />
+
+<e id="T_GaMa_approx_header1"
+   EN="coordinates   "
+   fi="koordinaatit  " />
+
+<e id="T_GaMa_approx_given_coordinates"
+   EN="given       : "
+   fi="annettu     : " />
+
+<e id="T_GaMa_approx_computed_coordinates"
+   EN="computed    : "
+   fi="laskettu    : " />
+
+<e id="T_GaMa_approx_total"
+   EN="total       : "
+   fi="yhteensä    : " />
+
+<e id="T_GaMa_approx_separator"
+   EN="---------------------------------------------"
+   fi="---------------------------------------------" />
+
+<e id="T_GaMa_missing_coordinates"
+   EN="Missing coordinates"
+   fi="Puuttuvia koordinaatteja" />
+
+<e id="T_GaMa_abstrm_Review_of_outlying_abs_terms"
+   EN="Outlying absolute terms in project equations"
+   fi="Karkeita virheitä projektiokaavoissa" />
+
+<e id="T_GaMa_abstrm_header1"
+   EN="           observed     absolute\n"
+   fi="           havaittu absoluuttinen\n" />
+
+<e id="T_GaMa_abstrm_header2"
+   EN="== value ===== term ==\n\n"
+   fi="=== arvo ==== termi ==\n\n" />
+
+</entries>
+
+
+
+
+
+
+
+

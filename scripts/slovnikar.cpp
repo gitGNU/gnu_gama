@@ -16,16 +16,21 @@
  *
  * Program compiles dictionarise and write files language.h and language.cpp
  *
- * $Id: slovnikar.cpp,v 1.2 2002/06/04 14:15:19 cepek Exp $
+ * $Id: slovnikar.cpp,v 1.3 2002/09/29 14:00:19 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
-         const int    N = 2;
-         const char* language[N] = { "en", "cz" };
+         const int    N = 3;
+         const char* language[N] = { "en", "cz", "fi" };
 
-         const char* version = "0.05";
+         const char* version = "1.00";
 
 /* ---------------------------------------------------------------------------
+ *
+ * 1.00  2002-09-29
+ *
+ *       - added Finish (switch :fi")
+ *       - removed a bug in processing multiple languages in element <e />
  *
  * 0.05  2002-06-04
  *
@@ -168,7 +173,9 @@ void startElement(void *userData, const char *cname, const char **atts)
         {
           for (int l=0; l<N; l++)
             {
-              if (dict_entry.lang[l] != "" &&
+              if (entry.lang[l] == "") continue;
+
+              if (dict_entry.lang[l] != ""  && 
                   dict_entry.lang[l] != entry.lang[l])
                 {
                   string txt = id + " / " 
