@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gso.h,v 1.15 2004/10/26 19:58:07 cepek Exp $
+ *  $Id: gso.h,v 1.16 2004/10/31 10:24:47 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -81,7 +81,7 @@ public:
     : pA(0), M(0), N(0), sc(true), tol_(0),
     minx_n(0), minx(0), clist(0), rlist(0) 
   { 
-    reset(a, m, n); 
+    reset(a, m, n);     // where m, n are dimensions of A1(m, n) 
   }
   void reset(Mat<Float, Exc>& a, Index m, Index n);
 
