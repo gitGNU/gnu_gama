@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dp-adj-input-data.cpp,v 1.1 2003/01/04 15:55:54 cepek Exp $
+ *  $Id: dp-adj-input-data.cpp,v 1.2 2003/01/04 22:11:48 cepek Exp $
  */
 
 #include <gamalib/xml/dataparser.h>
@@ -29,3 +29,11 @@
 using namespace std;
 using namespace GaMaLib;
 
+int DataParser::t_adj_input_data(const char *cname, const char **atts)
+{
+  t_no_attributes  ( cname, atts );
+
+  AdjInputData *data = new AdjInputData;
+  objects.push_back( (ptr_adj_input_data = new AdjInputDataObject(data)) );
+  return 0;
+}

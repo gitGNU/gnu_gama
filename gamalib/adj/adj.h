@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.h,v 1.6 2003/01/03 21:15:41 cepek Exp $
+ *  $Id: adj.h,v 1.7 2003/01/04 22:11:48 cepek Exp $
  */
 
 #include <gamalib/exception.h>
@@ -96,6 +96,11 @@ namespace GaMaLib {
     const BlockDiagonal<> * cov () const { return pcov;  }
     const Vec               rhs () const { return prhs;  }
     const IntegerList  <> * minx() const { return pminx; } 
+
+    void set_mat (SparseMatrix <> * p) { delete A;     A     = p; }
+    void set_cov (BlockDiagonal<> * p) { delete pcov;  pcov  = p; }
+    void set_rhs (Vec               p) {               prhs  = p; }
+    void set_minx(IntegerList  <> * p) { delete pminx; pminx = p; } 
 
     void swap(AdjInputData *);
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.4 2003/01/04 15:51:51 cepek Exp $
+ *  $Id: dataparser.h,v 1.5 2003/01/04 22:11:48 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_Data_Object___parser__h_
@@ -48,11 +48,16 @@ namespace GaMaLib {
       }
     int startElement(const char *name, const char **atts)
       {
-        return (this->*fun[state][tag(name)])(name, atts);
+        data_tag t = tag(name);
+        int s = state;
+        stack.push(state);
+        state = next[state][t];
+        return (this->*fun[s][t])(name, atts);
       }
     int endElement(const char * /*name*/)
       {
-        return (state = next[state]);
+        if (state) state = stack.pop();
+        return state;
       }
 
   private: 
@@ -74,26 +79,40 @@ namespace GaMaLib {
         state_adj_input_data_sm3_nonz,
         state_adj_input_data_sm,
         state_stop       
-      } next[state_stop]; 
+      }; 
 
     enum data_tag 
       {
+        tag_adj_input_data,
         tag_gama_data,
+        tag_sparse_mat,
         tag_text,
         tag_unknown
       };
 
     data_tag tag(const char* cname);
 
-
+    class Stack {
+      int N;
+      int buf[state_stop];
+    public:
+      Stack() : N(0) {}
+      void push(int s) { buf[N++] = s;    }
+      int  pop ()      { return buf[--N]; }
+    };
+    Stack stack;
+    
     typedef int (DataParser::*FUN)(const char *cname, const char **atts);
-    FUN fun[state_stop+1][tag_unknown+1];
+    FUN fun [state_stop+1][tag_unknown+1];
+    int next[state_stop+1][tag_unknown+1];
 
     int t_error         (const char *cname, const char **atts);
+    int t_no_attributes (const char *cname, const char **atts);
     int t_gama_data     (const char *cname, const char **atts);
     int t_text          (const char *cname, const char **atts);
     int t_adj_input_data(const char *cname, const char **atts);
 
+    AdjInputDataObject *ptr_adj_input_data;
 
     typedef int (DataParser::*DATA)(const char* s, int len);
     DATA dat[state_stop+1];

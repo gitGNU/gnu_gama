@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.5 2003/01/03 17:54:06 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.6 2003/01/04 22:11:48 cepek Exp $
  */
 
 #include <gamalib/xml/dataparser.h>
@@ -31,25 +31,42 @@ using namespace GaMaLib;
 
 DataParser::DataParser(std::list<DataObject*>& obs) : objects(obs)
 {
+
   // startElement
 
   for (int s=state_error; s<=state_stop; s++)
     for (int t=tag_gama_data; t<=tag_unknown; t++)
       {
-        fun[s][t] = &DataParser::t_error;
+        next[s][t] = state_error;
+        fun [s][t] = &DataParser::t_error;
       }
 
-  fun[state_start    ][tag_gama_data] = &DataParser::t_gama_data;
-  fun[state_gama_data][tag_text     ] = &DataParser::t_text;
-
-
-  // endElement
-
-  next[state_error    ] = state_error; 
-  next[state_start    ] = state_error;
-  next[state_gama_data] = state_stop;
-  next[state_text     ] = state_gama_data;
-  next[state_stop     ] = state_error;  
+  next
+    [ state_start          ]
+    [ tag_gama_data        ] = state_gama_data;
+  fun 
+    [ state_start          ]
+    [ tag_gama_data        ] = &DataParser::t_gama_data;
+  // ........................................................
+  next
+    [ state_gama_data      ]
+    [ tag_text             ] = state_text;
+  fun 
+    [ state_gama_data      ]
+    [ tag_text             ] = &DataParser::t_text;
+  // ........................................................
+  next
+    [ state_gama_data      ]
+    [ tag_adj_input_data   ] = state_adj_input_data;
+  fun 
+    [ state_gama_data      ]
+    [ tag_adj_input_data   ] = &DataParser::t_adj_input_data;
+  next
+    [ state_adj_input_data ]
+    [ tag_sparse_mat       ] = state_adj_input_data_sm1;
+  fun 
+    [ state_adj_input_data ]
+    [ tag_sparse_mat       ] = &DataParser::t_no_attributes;
 
 
   // characterDataHandler
@@ -74,8 +91,14 @@ DataParser::data_tag DataParser::tag(const char* c)
 {
   switch (*c)
     {
+    case 'a':
+      if (!strcmp(c, "adj-input-data")) return tag_adj_input_data;
+      break;
     case 'g' :
       if (!strcmp(c, "gnu-gama-data" )) return tag_gama_data;
+      break;
+    case 's':
+      if (!strcmp(c, "sparse-mat"    )) return tag_sparse_mat;
       break;
     case 't' :
       if (!strcmp(c, "text"          )) return tag_text;
@@ -98,15 +121,25 @@ int DataParser::t_error(const char *cname, const char **atts)
                + string("> cannot be used in this context"));
 }
 
+int DataParser::t_no_attributes(const char *cname, const char **atts)
+{
+  if (*atts)
+    {
+      return error(string("### tag <") + string(cname) 
+                 + string("> cannot have any attributes"));
+    }
+  return 0;
+}
+
 int DataParser:: t_gama_data(const char *cname, const char **atts)
 {
-  state = state_gama_data;
+  t_no_attributes  (cname, atts); // shall have attribute 'version' later
   return 0;
 }
 
 int DataParser:: t_text(const char *cname, const char **atts)
 {
-  state = state_text;
+  t_no_attributes  (cname, atts);
   objects.push_back( new TextDataObject );
   return 0;
 }
@@ -161,8 +194,14 @@ int main()
     "qwerty. ..\n"
     "asdfgh ...\n"
     "zxcvbn ...\n"
-    "</text>\n"
-    "\n</gnu-gama-data>\n"
+    "</text>\n\n"
+
+    "<adj-input-data>\n"
+//    "  <sparse-mat>\n"
+//    "  </sparse-mat>\n"
+    "</adj-input-data>\n"
+
+    "\n</gnu-gama-data>\n\n"
     ;
 
   try 
@@ -179,6 +218,7 @@ int main()
            i!=objects.end(); ++i)
         {
           cout << (*i)->xml();
+          delete *i;
         }
 
       cout << DataObject::xml_end();

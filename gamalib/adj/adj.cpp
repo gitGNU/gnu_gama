@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.10 2003/01/04 15:51:51 cepek Exp $
+ *  $Id: adj.cpp,v 1.11 2003/01/04 22:11:48 cepek Exp $
  */
 
 #include <gamalib/adj/adj.h>
@@ -62,89 +62,91 @@ void AdjInputData::swap(AdjInputData *data)
 
 void AdjInputData::write_xml(std::ostream& out) const
 {
-  const char* indent = "  ";
+  out << "\n<adj-input-data>\n";
 
-  out << "\n" << indent << "<adj-input-data>\n";
-
-  out << "\n" << indent << "  <sparse-mat>\n";
-  out << indent << "    "
-      << "<rows>" << A->rows() << "<rows> "
-      << "<cols>" << A->columns() << "</cols> "
-      << "<nonz>" << A->nonzeroes() << "</nonz>\n";
-
-  for (Index m, k=1; k<=A->rows(); k++)
+  if (A)
     {
-      out << indent << "      <row>";
-      out << " <nonz>" << (A->end(k)-A->begin(k)) << "</nonz>";
- 
-      double* n = A->begin(k);
-      double* e = A->end  (k);
-      for(Index* i=A->ibegin(k) ; n!=e; n++, i++, m++)
+      out << "\n  <sparse-mat>\n";
+      out << "    "
+          << "<rows>" << A->rows() << "<rows> "
+          << "<cols>" << A->columns() << "</cols> "
+          << "<nonz>" << A->nonzeroes() << "</nonz>\n";
+      
+      for (Index m, k=1; k<=A->rows(); k++)
         {
-          out << "\n        "
-              << "<int>" << *i << "</int>"
-              << "<flt>" << *n << "</flt>";
+          out << "      <row>";
+          out << " <nonz>" << (A->end(k)-A->begin(k)) << "</nonz>";
+          
+          double* n = A->begin(k);
+          double* e = A->end  (k);
+          for(Index* i=A->ibegin(k) ; n!=e; n++, i++, m++)
+            {
+              out << "\n        "
+                  << "<int>" << *i << "</int>"
+                  << "<flt>" << *n << "</flt>";
+            }
+          out << "\n        </row>\n";
         }
-      out << "\n        </row>\n";
-    }
-
-  out << indent << "  </sparse-mat>\n";
+      
+      out << "  </sparse-mat>\n";
+  }
 
   // =================================================================
 
-  const long blocks = pcov->blocks();
-
-  out << "\n" << indent << " <block-diagonal>\n"
-      << indent << "    <blocks>" << blocks << "</blocks>\n";
-
-  for (long b=1; b<=blocks; b++)
+  if (pcov)
     {
-      long dim   = pcov->dim(b);
-      long width = pcov->width(b);
-
-      out << indent << "      <block> <dim>" 
-          << dim    << "</dim> <width>" 
-          << width  << "</width>\n";
-
-      const double *m = pcov->begin(b);
-      const double *e = pcov->end(b);
-      while (m != e)
-        cout << indent << "      <flt>" << *m++ << "</flt>\n";
-
-      out << indent << "      </block>\n";
+      const long blocks = pcov->blocks();
+      
+      out << "\n  <block-diagonal>\n"
+          << "    <blocks>" << blocks << "</blocks>\n";
+      
+      for (long b=1; b<=blocks; b++)
+        {
+          long dim   = pcov->dim(b);
+          long width = pcov->width(b);
+          
+          out << "      <block> <dim>" 
+              << dim    << "</dim> <width>" 
+              << width  << "</width>\n";
+          
+          const double *m = pcov->begin(b);
+          const double *e = pcov->end(b);
+          while (m != e)
+            cout << "      <flt>" << *m++ << "</flt>\n";
+          
+          out << "      </block>\n";
+        }
+      
+      out << "  </block-diagonal>\n";
     }
-
-  out << indent << "  </block-diagonal>\n";
 
   // =================================================================
 
-  out << "\n" <<  indent << "  <vector>\n"
-      << indent 
+  out << "\n  <vector>\n"
       << "    <dim>" << prhs.dim() << "</dim>\n";
 
   for (long i=1; i<=prhs.dim(); i++)
-        cout << indent << "      <flt>" << prhs(i) << "</flt>\n";
+        cout << "      <flt>" << prhs(i) << "</flt>\n";
 
-  out << indent << "  </vector>\n";
+  out << "  </vector>\n";
 
   // =================================================================
  
   if (pminx)
     {
-      out << "\n" <<  indent << "  <array>\n"
-          << indent 
+      out << "\n  <array>\n"
           << "    <dim>" << pminx->dim() << "</dim>\n";
       
       const std::size_t *indx = pminx->begin();
       for (long i=1; i<=pminx->dim(); i++)
-        cout << indent << "      <int>" << *indx++ << "</int>\n";
+        cout << "      <int>" << *indx++ << "</int>\n";
        
-      out << indent << "  </array>\n";
+      out << "  </array>\n";
     }
 
   // =================================================================
 
-  out << "\n" << indent << "</adj-input-data>\n";
+  out << "\n</adj-input-data>\n";
 }
 
 
