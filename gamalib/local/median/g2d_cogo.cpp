@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_cogo.cpp,v 1.1 2001/12/07 12:50:06 cepek Exp $
+ *  $Id: g2d_cogo.cpp,v 1.2 2002/05/24 19:30:51 cepek Exp $
  */
 
 /**************************************************************
@@ -293,8 +293,8 @@ namespace GaMaLib {
       SD.Calculation();
       if(SD.Number_of_solutions() < 1)   // no intersection exist
         return;
-      Point B1 = (*(SB->find(h2->to()))).second;
-      Point B2 = (*(SB->find(h2->rs()))).second;
+      Point B1 = (*(SB->find(h2->bs()))).second;
+      Point B2 = (*(SB->find(h2->fs()))).second;
       Double uu = bearing(SD.Solution_1(),B2) - bearing(SD.Solution_1(),B1);
       uu += (uu < 0 ? 2*M_PI : 0);
       // uu should be equal to h2->value(), but ...  uu is either
@@ -375,8 +375,8 @@ namespace GaMaLib {
       DD.Calculation();
       if(DD.Number_of_solutions() < 1)   // intersection doesn't exist
         return;
-      Point B1 = (*(SB->find(h2->to()))).second;
-      Point B2 = (*(SB->find(h2->rs()))).second;
+      Point B1 = (*(SB->find(h2->bs()))).second;
+      Point B2 = (*(SB->find(h2->fs()))).second;
       Double uu = bearing(DD.Solution_1(),B2) - bearing(DD.Solution_1(),B1);
       uu += (uu < 0 ? 2*M_PI : 0);
       // uu should be equalto h2->value(), but ...  uu is either
@@ -453,10 +453,10 @@ namespace GaMaLib {
       DD.Calculation();
       if(DD.Number_of_solutions() < 1)   // intersection doesn't exist
         return;
-      Point B1 = (*(SB->find(h1->to()))).second;
-      Point B2 = (*(SB->find(h1->rs()))).second;
-      Point B3 = (*(SB->find(h2->to()))).second;
-      Point B4 = (*(SB->find(h2->rs()))).second;
+      Point B1 = (*(SB->find(h1->bs()))).second;
+      Point B2 = (*(SB->find(h1->fs()))).second;
+      Point B3 = (*(SB->find(h2->bs()))).second;
+      Point B4 = (*(SB->find(h2->fs()))).second;
       bool Vyhovuje1, Vyhovuje2;
       Double uu1, uu2;
       // in the case of common point at both angles is one of
@@ -534,8 +534,8 @@ namespace GaMaLib {
       Double u = h1->value();	     // just to spare typing h1->value()
       if(fabs(sin(u)) < 0.15)        // small angle
         return;
-      B1 = (*(SB->find(h1->to()))).second;
-      B2 = (*(SB->find(h1->rs()))).second;
+      B1 = (*(SB->find(h1->bs()))).second;
+      B2 = (*(SB->find(h1->fs()))).second;
       Double sm, d;
       bearing_distance(B1,B2,sm,d);
       if(d == 0)                     // identical points

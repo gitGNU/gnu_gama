@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: residuals_observations.h,v 1.1 2001/12/07 12:54:43 cepek Exp $
+ *  $Id: residuals_observations.h,v 1.2 2002/05/24 19:30:51 cepek Exp $
  */
 
 
@@ -159,7 +159,7 @@ void ResidualsObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
             {
               out << endl;
               out.width(IS->maxw_obs() + 2 + 2*(IS->maxw_id()));
-              out << (u->rs()).c_str();
+              out << (u->fs()).c_str();
               out << T_GaMa_angle;
             }
           else if (typeid(*pm) == typeid(S_Distance))

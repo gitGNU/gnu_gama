@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_coordinates.h,v 1.1 2001/12/07 12:50:06 cepek Exp $
+ *  $Id: g2d_coordinates.h,v 1.2 2002/05/24 19:30:51 cepek Exp $
  */
 
 /*************************************************************
@@ -77,7 +77,7 @@ namespace GaMaLib {
           if(dynamic_cast<Angle*>(*sm))
             {
               Angle* u = static_cast<Angle*>(*sm);
-              pom = pom && (std::find(sb.begin(), sb.end(), u->rs()) 
+              pom = pom && (std::find(sb.begin(), sb.end(), u->fs()) 
                             != sb.end());
             }
           return pom;
@@ -92,7 +92,7 @@ namespace GaMaLib {
           Angle *u = dynamic_cast<Angle*>(*m);
           if (u)
             {
-              pom = pom || (u->rs() == (*cb));
+              pom = pom || (u->fs() == (*cb));
             };
           return pom;
         }

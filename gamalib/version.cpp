@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.12 2002/05/21 16:45:55 cepek Exp $
+ *  $Id: version.cpp,v 1.13 2002/05/24 19:30:51 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.3.36";
+const char* GaMaLib_version  = "1.3.37";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
@@ -56,6 +56,21 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.3.37 2002-05-24
+
+   - new attributes bs="..." and fs="..." in the definition of <angle />
+
+     Chuck Ghilani pointed out that XML description of angles was not
+     natural; thus attribute `to' was renamed to `bs' (backsight) and
+     `rs' was renamed to `fs' (foresight)
+
+     Former attributes `to' and `rs' of the tag <angle /> was left as
+     an undocumented feature in the class  GKFparser
+
+   - function Angle::rs() was renamed to Angle::fs() and added new
+     function Angle::bs() which is a synonym for Angle::to()
+
 
 1.3.36 2002-05-15
 

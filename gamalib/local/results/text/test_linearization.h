@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: test_linearization.h,v 1.1 2001/12/07 12:54:43 cepek Exp $
+ *  $Id: test_linearization.h,v 1.2 2002/05/24 19:30:51 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Test_Chyby_z_Linearizace_h_
@@ -153,7 +153,7 @@ TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
           }
         else if (Angle* u = dynamic_cast<Angle*>(pm))
           {
-            const Point& cil2 = IS->PD[u->rs() ];
+            const Point& cil2 = IS->PD[u->fs() ];
             Double cy2 = cil2.y() + x(cil2.index_y())/1000;
             Double cx2 = cil2.x() + x(cil2.index_x())/1000;
             Double ds2, dd2;
@@ -253,7 +253,7 @@ TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
               {
                 out << '\n';
                 out.width(IS->maxw_obs() + 2 + 2*(IS->maxw_id()));
-                out << (u->rs()).c_str();
+                out << (u->fs()).c_str();
                 out << T_GaMa_angle;
                 mer = (u->value())*R2G;
                 out.precision(6);

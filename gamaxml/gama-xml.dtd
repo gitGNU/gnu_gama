@@ -1,7 +1,15 @@
 <!-- ****************************************************************
 
-gama-xml.dtd                       version 2.0.09  2002-01-03
+gama-xml.dtd                       version 2.0.10  2002-05-24
 ============  
+
+2.0.10  2002-05-24
+
+      - new attributes bs="..." and fs="..." in the definition of <angle />
+
+        Chuck Ghilani pointed out that XML description of angles was
+        not natural; thus attribute `to' was renamed to `bs' (backsight) 
+        and `rs' was renamed to `fs' (foresight)
 
 2.0.09  2002-01-03
 
@@ -193,8 +201,8 @@ information visit
 <!ATTLIST angle 
 
    from   CDATA    #IMPLIED
-   to     CDATA    #REQUIRED
-   rs     CDATA    #REQUIRED
+   bs     CDATA    #REQUIRED
+   fs     CDATA    #REQUIRED
    val    NMTOKEN  #REQUIRED
    stdev  NMTOKEN  #IMPLIED  >
 

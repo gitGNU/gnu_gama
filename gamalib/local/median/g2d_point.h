@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_point.h,v 1.1 2001/12/07 12:50:06 cepek Exp $
+ *  $Id: g2d_point.h,v 1.2 2002/05/24 19:30:51 cepek Exp $
  */
 
 /*************************************************************
@@ -69,7 +69,7 @@ namespace GaMaLib {
         }
       Direction* MakeBearing(const Angle* u, const PointID& cb)
         {
-          PointID point = (u->to() == cb ? u->rs() : u->to());
+          PointID point = (u->to() == cb ? u->fs() : u->to());
           Double sm = bearing(SB[u->from()],SB[point]);
           sm += (u->to() == cb ? -u->value() : u->value());
           sm += (sm < 0 ? 2*M_PI : 0);
@@ -95,7 +95,7 @@ namespace GaMaLib {
       bool KnownTarget2(const Angle* u)
         {
           // true: target coordinates of agle's right site are known
-          return SB[u->rs()].test_xy();
+          return SB[u->fs()].test_xy();
         }
       bool KnownStandpoint(ObservationList::const_iterator i)
         {

@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_coordinates.cpp,v 1.1 2001/12/07 12:50:06 cepek Exp $
+ *  $Id: g2d_coordinates.cpp,v 1.2 2002/05/24 19:30:51 cepek Exp $
  */
 
 /*************************************************************
@@ -93,7 +93,7 @@ bool ApproximateCoordinates::Necessary_observations(PointID id)
         first = tmp;
       u = dynamic_cast<Angle*>(*i);
       // is second target available?
-      if(u && (u->rs() == id))
+      if(u && (u->fs() == id))
         if(first)
           second = true;
         else
@@ -121,8 +121,8 @@ void ApproximateCoordinates::Find_missing_coordinates()
         selected.push_back((*i)->to());
       u = dynamic_cast<Angle*>(*i);
       // is second target available?
-      if(u && (SB.find(u->rs()) == SB.end()) && Absent(u->rs()))
-        selected.push_back(u->rs());
+      if(u && (SB.find(u->fs()) == SB.end()) && Absent(u->fs()))
+        selected.push_back(u->fs());
     };
 
   // from point list we fetch the points with test_xy() == false
@@ -224,7 +224,7 @@ bool ApproximateCoordinates::Solve_insertion()
               {
                 obs_points.push_back((*j)->from());
                 obs_points.push_back((*j)->to());
-                obs_points.push_back(u->rs());
+                obs_points.push_back(u->fs());
                 if(prv_observation)
                   {
                     first_observation = j;

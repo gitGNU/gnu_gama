@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: angle.h,v 1.1 2001/12/07 12:54:43 cepek Exp $
+ *  $Id: angle.h,v 1.2 2002/05/24 19:30:51 cepek Exp $
  */
 
 #include <gamalib/local/revision.h>
@@ -38,12 +38,12 @@ bool LocalRevision::angle(const Angle* obs) const
   if (!(*s).second.active_xy()) return false;
   if (!(*s).second.test_xy()) return false;
   
-  PointData::const_iterator c = PD.find(obs->to());
+  PointData::const_iterator c = PD.find(obs->bs());
   if (c == PD.end()) return false;
   if (!(*c).second.active_xy()) return false;
   if (!(*c).second.test_xy()) return false;
   
-  PointData::const_iterator d = PD.find(obs->rs());
+  PointData::const_iterator d = PD.find(obs->fs());
   if (d == PD.end()) return false;
   if (!(*d).second.active_xy()) return false;
   if (!(*d).second.test_xy()) return false;

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.2 2002/05/15 10:14:01 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.3 2002/05/24 19:30:51 cepek Exp $
  */
 
 
@@ -819,8 +819,10 @@ namespace GaMaLib {
         val = string(*atts++);
       
         if      (nam == "from" ) ss = val;
-        else if (nam == "to"   ) sl = val;
-        else if (nam == "rs"   ) sp = val;
+        else if (nam == "bs"   ) sl = val;  // backsight station
+        else if (nam == "fs"   ) sp = val;  // foresight station
+        else if (nam == "to"   ) sl = val;  // <== undocumented feature for
+        else if (nam == "rs"   ) sp = val;  // <== backward compatibility
         else if (nam == "val"  ) sm = val;
         else if (nam == "stdev") sv = val;
         else 

@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_point.cpp,v 1.1 2001/12/07 12:50:06 cepek Exp $
+ *  $Id: g2d_point.cpp,v 1.2 2002/05/24 19:30:51 cepek Exp $
  */
 
 /*************************************************************
@@ -130,8 +130,8 @@ namespace GaMaLib {
         while(j < SM_U.end())
           {
             Angle* u2 = static_cast<Angle*>(*j);
-            if(((u1->to()==u2->to())&&(u1->rs()==u2->rs()))||
-               ((u1->to()==u2->rs())&&(u1->rs()==u2->to())))
+            if(((u1->to()==u2->to())&&(u1->fs()==u2->fs()))||
+               ((u1->to()==u2->fs())&&(u1->fs()==u2->to())))
               {
                 u_mer = (u1->to() == u2->to() ? u2->value() : 2*M_PI-u2->value());
                 pom_sez.push_back(u_mer);
@@ -147,10 +147,10 @@ namespace GaMaLib {
                pom_sez[(size+1)/2-1]);
         Angle* UU;
         if(med >= M_PI)
-          UU = new Angle(u1->from(),u1->rs(),u1->to(),
+          UU = new Angle(u1->from(),u1->fs(),u1->to(),
                          M_PI*2-med);
         else
-          UU = new Angle(u1->from(),u1->to(),u1->rs(),med);
+          UU = new Angle(u1->from(),u1->to(),u1->fs(),med);
         SM.push_back(UU);
         sm_pom.erase(i);
         pom_sez.erase(pom_sez.begin(), pom_sez.end());
@@ -165,8 +165,8 @@ namespace GaMaLib {
         while(j < SM_U.end())
           {
             Angle* u2 = static_cast<Angle*>(*j);
-            if(((u1->to()==u2->to())&&(u1->rs()==u2->rs()))||
-               ((u1->to()==u2->rs())&&(u1->rs()==u2->to())))
+            if(((u1->to()==u2->to())&&(u1->fs()==u2->fs()))||
+               ((u1->to()==u2->fs())&&(u1->fs()==u2->to())))
               {
                 u_mer = (u1->to() == u2->to() ? u2->value() : 2*M_PI-u2->value());
                 pom_sez.push_back(u_mer);
@@ -182,10 +182,10 @@ namespace GaMaLib {
                pom_sez[(size+1)/2-1]);
         Angle* UU;
         if(med >= M_PI)
-          UU = new Angle(u1->from(),u1->rs(),u1->to(),
+          UU = new Angle(u1->from(),u1->fs(),u1->to(),
                          M_PI*2-med);
         else
-          UU = new Angle(u1->from(),u1->to(),u1->rs(),med);
+          UU = new Angle(u1->from(),u1->to(),u1->fs(),med);
         SM.push_back(UU);
         SM_U.erase(i);
         delete(u1);
@@ -204,7 +204,7 @@ namespace GaMaLib {
     ObservationList sm_s;
     ObservationList sm_pom;
 
-    // computing orientaion shift again - solved points are considered as well
+    // computing orientation shift again - solved points are considered as well
     Orientation ors(SB,*sm);
     ors.add_all();
 
@@ -221,7 +221,7 @@ namespace GaMaLib {
             if(Angle* u = dynamic_cast<Angle*>(*i))
               {
                 if((u->to() == CB && KnownTarget2(u)) ||
-                   (u->rs() == CB && KnownTarget1(i)))
+                   (u->fs() == CB && KnownTarget1(i)))
                   SM_S.push_back(MakeBearing(u,CB));
               }
             else

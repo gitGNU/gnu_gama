@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: angle.h,v 1.1 2001/12/07 12:44:55 cepek Exp $
+ *  $Id: angle.h,v 1.2 2002/05/24 19:30:51 cepek Exp $
  */
 
 #include <gamalib/local/linearization.h>
@@ -33,11 +33,11 @@ using namespace std;
 void LocalLinearization::angle(const Angle* obs) const
 {
    Point& sbod  = PD[obs->from()];
-   Point& cbod1 = PD[obs->to()];
-   Point& cbod2 = PD[obs->rs()];
+   Point& cbod1 = PD[obs->bs()];
+   Point& cbod2 = PD[obs->fs()];
    Double s1, d1, s2, d2;
-   bearing_distance(PD[obs->from()], PD[obs->to()], s1, d1);
-   bearing_distance(PD[obs->from()], PD[obs->rs()], s2, d2);
+   bearing_distance(PD[obs->from()], PD[obs->bs()], s1, d1);
+   bearing_distance(PD[obs->from()], PD[obs->fs()], s2, d2);
    // Double p = m0 / obs->stdDev();
    const Double K1 = 10*R2G/d1;
    const Double K2 = 10*R2G/d2;

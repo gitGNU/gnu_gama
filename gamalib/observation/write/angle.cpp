@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: angle.cpp,v 1.1 2001/12/07 12:58:31 cepek Exp $
+ *  $Id: angle.cpp,v 1.2 2002/05/24 19:30:51 cepek Exp $
  */
 
 #include <iostream>
@@ -39,8 +39,8 @@ void Angle::write(std::ostream& out, bool print_at) const
   out << "<angle";
   if (print_at)
     out << " from=\"" << from() << '"';
-  out << " to=\"" << to()  << '"'
-      << " rs=\"" << rs() << '"'
+  out << " bs=\"" << bs()  << '"'
+      << " fs=\"" << fs() << '"'
       << " val=\""   << setprecision(Format::gon_p()  ) << value()*R2G << '"'
       << " stdev=\"" << setprecision(Format::stdev_p()) << stdDev()    << '"'
       << " />";

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.h,v 1.2 2001/12/21 10:25:48 cepek Exp $
+ *  $Id: observation.h,v 1.3 2002/05/24 19:30:51 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_Mereni_H
@@ -180,16 +180,16 @@ namespace GaMaLib {
   class Angle : public Observation 
     {
     private:
-      PointID rs_;
+      PointID fs_;
     public:
-      Angle(const PointID& s, const PointID& c,  const PointID& c2,
-            Double d) : Observation(s, c, d), rs_(c2) 
+      Angle(const PointID& s, const PointID& b,  const PointID& f,
+            Double d) : Observation(s, b, d), fs_(f) 
         { 
           /* was: if (s == c2 || c == c2) ...; from 1.3.31 we allow
            * left and right targets to be identical, surely this is
            * not an realistic case but it's useful in g2d_point.h:67
            * and should not cause a trouble elsewhere */
-          if (s == c2) 
+          if (s == f) 
             throw GaMaLib::Exception(T_GaMa_from_equals_to);
           norm_rad_val(); 
         }
@@ -197,7 +197,8 @@ namespace GaMaLib {
 
       CLONE(Angle*) clone() const { return new Angle(*this); }
 
-      const PointID& rs() const { return rs_; }     // right sight station
+      const PointID& bs() const { return to(); }     // backsight station
+      const PointID& fs() const { return fs_;  }     // foresight station
       void write(std::ostream&, bool print_at) const;
     };
 
