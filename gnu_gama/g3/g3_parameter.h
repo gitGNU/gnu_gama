@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.5 2003/03/25 12:38:33 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.6 2003/03/26 17:33:47 cepek Exp $  */
 
 #include <cstddef>
 #include <gnu_gama/list.h>
@@ -79,15 +79,17 @@ namespace GNU_gama { namespace g3 {
 
     ParameterList  parlist;
 
-    enum {
-      unused      = 0,
-      fixed       = 1,
-      free        = 2,
-      constrained = 4+free
-    };
+    
+    void set_unused() { state_ = unused_; }
+    void set_fixed () { state_ = fixed_;  }
+    void set_free  () { state_ = free_;   }
+    void set_constr() { state_ = constr_; }
 
-    int  state(int s) const { return s & state_; }
-    void set_state(int s)   { state_ = s;        }
+    bool active() const { return state_ != unused_; }
+    bool unused() const { return state_ == unused_; }
+    bool fixed () const { return state_ == fixed_;  }
+    bool free  () const { return state_ &  free_;   }
+    bool constr() const { return state_ == constr_; }
 
   private:
     
@@ -96,7 +98,14 @@ namespace GNU_gama { namespace g3 {
     double val;
     double cor;
     size_t ind;
-    int    state_;
+
+    enum 
+      {
+        unused_ = 0,
+        fixed_  = 1,
+        free_   = 2,
+        constr_ = 4 + free_
+      } state_;
 
   };
 

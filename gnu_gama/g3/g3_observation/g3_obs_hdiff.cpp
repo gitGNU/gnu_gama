@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_hdiff.cpp,v 1.3 2003/03/25 12:38:33 cepek Exp $
+ *  $Id: g3_obs_hdiff.cpp,v 1.4 2003/03/26 17:33:47 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -42,7 +42,8 @@ void H_diff::init_parameters(Model* model)
       return;
     }
 
-  if (from->state(Point::height) && to->state(Point::height))
+
+  if (from->H->active() && to->H->active())
     {
       Parameter** b = parlist.begin();
       *b++ = from->H;

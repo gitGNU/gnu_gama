@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.9 2003/03/25 12:38:33 cepek Exp $
+ *  $Id: g3_point.h,v 1.10 2003/03/26 17:33:47 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_parameter.h>
@@ -74,28 +74,46 @@ namespace GNU_gama {  namespace g3 {
     ParameterList        parlist;
 
 
-    enum {
-      unused               = 0,
-      fixed_position       = 1,
-      fixed_height         = 2,
-      fixed_point          = fixed_position + fixed_height,
-      free_position        = 4,
-      free_height          = 8,
-      free_point           = free_position  + free_height,
-      constrained_position = 16 + free_position,
-      constrained_height   = 32 + free_height,
-      constrained_point    = constrained_position + constrained_height,
-      position             = fixed_position + free_position, 
-      height               = fixed_height   + free_height,
-      point                = position + height  
-    };
+    void set_unused();
+    void set_fixed_horizontal_position();
+    void set_fixed_height();
+    void set_fixed_position();
+    void set_free_horizontal_position();
+    void set_free_height();
+    void set_free_position();
+    void set_constr_horizontal_position();
+    void set_constr_height();
+    void set_constr_position();
 
-    int  state(int s) const { return s & state_; }
-    void set_state(int s)   { state_  = s;       }
+    bool unused() const;
+    bool fixed_horizontal_position() const;
+    bool fixed_height() const;
+    bool fixed_position() const;
+    bool free_horizontal_position() const;
+    bool free_height() const;
+    bool free_position() const;
+    bool constr_horizontal_position() const;
+    bool constr_height() const;
+    bool constr_position() const;
+
 
   private:
 
-    int state_;
+    enum {
+      unused_          = 0,
+      fixed_h_pos_     = 1,
+      fixed_height_    = 2,
+      fixed_position_  = fixed_h_pos_ + fixed_height_,
+      free_h_pos_      = 4,
+      free_height_     = 8,
+      free_position_   = free_h_pos_  + free_height_,
+      constr_h_pos_    = 16 + free_position_,
+      constr_height_   = 32 + free_height_,
+      constr_position_ = constr_h_pos_ + constr_height_,
+      h_pos_           = fixed_h_pos_  + free_h_pos_, 
+      height_          = fixed_height_ + free_height_,
+      position_        = h_pos_ + height_  
+    };
 
   };
 

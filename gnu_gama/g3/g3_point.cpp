@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.8 2003/03/25 12:38:33 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.9 2003/03/26 17:33:47 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -39,11 +39,11 @@ Point::~Point()
 
 Point::Point() : parlist(3)
 {
-  state_ = Point::unused;
-
   B = new Parameter_position;
   L = new Parameter_position;
   H = new Parameter_height;
+
+  set_unused();
 
   Parameter** p = parlist.begin();
   *p++ = B;
@@ -56,19 +56,16 @@ Point::Point(const Point& point) : parlist(3)
 {
   name   = point.name;
   common = point.common;
-  state_ = point.state_;
 
-  B = new Parameter_position;
-  L = new Parameter_position;
-  H = new Parameter_height;
+  B = new Parameter_position(*point.B);
+  L = new Parameter_position(*point.L);
+  H = new Parameter_height  (*point.H);
 
   Parameter** p = parlist.begin();
   *p++ = B;
   *p++ = L;
   *p++ = H;
 }
-
-
 
 
 Point& Point::operator=(const Point& point)
@@ -81,11 +78,10 @@ Point& Point::operator=(const Point& point)
 
       name   = point.name;
       common = point.common;
-      state_ = point.state_;
       
-      B = new Parameter_position;
-      L = new Parameter_position;
-      H = new Parameter_height;
+      B = new Parameter_position(*point.B);
+      L = new Parameter_position(*point.L);
+      H = new Parameter_height  (*point.H);
       
       Parameter** p = parlist.begin();
       *p++ = B;
@@ -94,6 +90,118 @@ Point& Point::operator=(const Point& point)
     }
 
   return *this;
+}
+
+
+void Point::set_unused()
+{
+  B->set_unused();
+  L->set_unused();
+  H->set_unused();
+}
+
+void Point::set_fixed_horizontal_position()
+{
+  B->set_fixed();
+  L->set_fixed();
+}
+
+void Point::set_fixed_height()
+{
+  H->set_fixed();
+}
+
+void Point::set_fixed_position()
+{
+  B->set_fixed();
+  L->set_fixed();
+  H->set_fixed();
+}
+
+void Point::set_free_horizontal_position()
+{
+  B->set_free();
+  L->set_free();
+}
+
+void Point::set_free_height()
+{
+  H->set_free();
+}
+
+void Point::set_free_position()
+{
+  B->set_free();
+  L->set_free();
+  H->set_free();
+}
+
+void Point::set_constr_horizontal_position()
+{
+  B->set_constr();
+  L->set_constr();
+}
+
+void Point::set_constr_height()
+{
+  H->set_constr();
+}
+
+void Point::set_constr_position()
+{
+  B->set_constr();
+  L->set_constr();
+  H->set_constr();
+}
+
+bool Point::unused() const
+{
+  return B->unused() && L->unused() && H->unused();
+}
+
+bool Point::fixed_horizontal_position() const
+{
+  return B->fixed() && L->fixed();
+}
+
+bool Point::fixed_height() const
+{
+  return H->fixed();
+}
+
+bool Point::fixed_position() const
+{
+  return B->fixed() && L->fixed() && H->fixed();
+}
+
+bool Point::free_horizontal_position() const
+{
+  return B->free() && L->free();
+}
+
+bool Point::free_height() const
+{
+  return H->free();
+}
+
+bool Point::free_position() const
+{
+  return B->free() && L->free() && H->free();
+}
+
+bool Point::constr_horizontal_position() const
+{
+  return B->constr() && L->constr();
+}
+
+bool Point::constr_height() const
+{
+  return H->constr();
+}
+
+bool Point::constr_position() const
+{
+  return B->constr() && L->constr() && H->constr();
 }
 
 

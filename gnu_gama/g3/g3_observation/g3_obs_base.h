@@ -20,11 +20,12 @@
 */
 
 /*
- *  $Id: g3_obs_base.h,v 1.3 2003/03/25 12:38:33 cepek Exp $
+ *  $Id: g3_obs_base.h,v 1.4 2003/03/26 17:33:47 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_parameter.h>
 #include <gnu_gama/g3/g3_point.h>
+#include <gnu_gama/sparse/svector.h>
 
 #ifndef GNU_gama__g3_obs_base_h_gnugamag3obs_baseh___gnu_gama_g3obs
 #define GNU_gama__g3_obs_base_h_gnugamag3obs_baseh___gnu_gama_g3obs
@@ -39,10 +40,12 @@ namespace GNU_gama {  namespace g3 {
     Observation(int n) : parlist(n) {}
     virtual ~Observation() {}
 
-    virtual void init_parameters(Model*) = 0;
+    virtual void   init_parameters     (Model*) = 0;
+    virtual void   linearization       (GNU_gama::SparseVector<>&);
 
-    bool active() const     { return active_; }
-    void set_active(bool b) { active_ = b;    }
+    bool   active() const     { return active_; }
+    void   set_active(bool b) { active_ = b;    }
+    double numerical_derivative(Parameter*);
 
   protected:  
 

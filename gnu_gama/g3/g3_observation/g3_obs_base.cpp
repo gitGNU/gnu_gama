@@ -20,12 +20,44 @@
 */
 
 /*
- *  $Id: g3_obs_base.cpp,v 1.2 2003/03/25 12:38:33 cepek Exp $
+ *  $Id: g3_obs_base.cpp,v 1.3 2003/03/26 17:33:47 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
 
 
 using namespace GNU_gama::g3;
+using std::size_t;
 
 
+void Observation::linearization(GNU_gama::SparseVector<>& row)
+{
+  row.reset();
+  ParameterTree tree(parlist);
+  ParameterTree::iterator b=tree.begin(), e=tree.end();
+  Parameter* p;
+  size_t     n;
+  double     d;
+ 
+  while (b != e)
+    {
+      p = *b;
+      if ((d = numerical_derivative(p)))
+      {
+        static int k=0;
+        k++;
+        row.add(k, d);
+      }
+      ++b;
+    }
+}
+
+
+double Observation::numerical_derivative(Parameter* p) 
+{
+  if (p->fixed()) return 0;
+ 
+  static double x = 1;
+  x += 0.01;
+  return x;
+}
