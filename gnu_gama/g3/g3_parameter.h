@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.17 2004/01/26 19:03:09 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.18 2004/03/24 19:27:07 cepek Exp $  */
 
 #include <cstddef>
 #include <gnu_gama/model.h>
@@ -33,7 +33,28 @@
 namespace GNU_gama { namespace g3 {
 
 
-  class Parameter {
+  class ParXML {
+  public:
+
+    ParXML() : owner(0), finished(false) {}
+
+    virtual void write_xml(std::ostream& ostr)
+    {
+      if (!finished && owner) owner->write_xml(ostr);
+    }
+    virtual void write_xml_done()  { finished = true;   }  
+    void         write_xml_init()  { finished = false;  }
+    void set_owner(ParXML* parxml) { owner    = parxml; }
+
+  private:
+    ParXML* owner;
+    bool    finished;
+
+  };
+
+
+
+  class Parameter : public ParXML {
   public:
     
     Parameter() : val(0), cor(0), dif(0.05) {}
@@ -44,7 +65,8 @@ namespace GNU_gama { namespace g3 {
     double init_value() const { return val; }
     double correction() const { return cor; }
     double step_size () const { return dif; } 
-    std::size_t index() const { return ind; }
+    bool   has_index () const { return ind; }
+    std::size_t index() const { return free() ? ind : 0; }
 
     void set_init_value(double p) { val = p; cor = 0; }
     void set_correction(double p) { cor = p; }

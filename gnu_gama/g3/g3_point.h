@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.23 2004/01/26 19:03:09 cepek Exp $
+ *  $Id: g3_point.h,v 1.24 2004/03/24 19:27:07 cepek Exp $
  */
 
 #include <gamalib/pointid.h>
@@ -34,7 +34,7 @@ namespace GNU_gama {  namespace g3 {
 
   class Model;
 
-  class Point {
+  class Point : public ParXML {
   public:
   
     typedef GaMaLib::PointID Name;
@@ -94,6 +94,8 @@ namespace GNU_gama {  namespace g3 {
     double X_dh(double dh) const { return X() + r13*dh; }
     double Y_dh(double dh) const { return Y() + r23*dh; }
     double Z_dh(double dh) const { return Z() + r33*dh; }
+
+    void write_xml(std::ostream&);
 
   private:
 

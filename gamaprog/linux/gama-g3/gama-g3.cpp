@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: gama-g3.cpp,v 1.11 2004/02/22 11:59:45 cepek Exp $
+ * $Id: gama-g3.cpp,v 1.12 2004/03/24 19:27:06 cepek Exp $
  */
 
 #include <fstream>
@@ -224,6 +224,19 @@ int main_g3()
     }
 
   model->update_adjustment();
+
+  if (output)
+    {
+      ofstream file(output);
+      if (file) 
+        model->write_xml_adjustment_results(file);
+      else
+        std::cerr << "\n****** error on opening file " << output << "\n\n";
+    }
+  else
+    {
+      model->write_xml_adjustment_results(std::cout);
+    }
   
   delete model;
   return 0;

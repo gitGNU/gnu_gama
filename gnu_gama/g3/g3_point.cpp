@@ -20,13 +20,15 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.20 2003/12/28 16:42:34 uid66336 Exp $
+ *  $Id: g3_point.cpp,v 1.21 2004/03/24 19:27:07 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
 #include <gnu_gama/g3/g3_observation.h>
 #include <gnu_gama/g3/g3_model.h>
 #include <cmath>
+#include <iomanip>
+
 
 using namespace GNU_gama::g3;
 
@@ -38,6 +40,10 @@ Point::Point()
   set_unused();
 
   has_xyz_ = has_blh_ = has_height_ = false;
+
+  N_.set_owner(this);
+  E_.set_owner(this);
+  U_.set_owner(this);
 }
 
 Point::Point(const Point& point)
@@ -278,6 +284,120 @@ double Point::diff_U() const
   return r13*dX + r23*dY + r33*dZ;
 }
 
+
+void Point::write_xml(std::ostream& ostr)
+{
+  const double n = N();
+  const double e = E();
+  const double u = U();
+
+  X_.set_correction(- x_transform(n, e, u)); /* !!!!! check the sign  !!!!! */
+  Y_.set_correction(- y_transform(n, e, u)); /* !!!!! check the sign  !!!!! */
+  Z_.set_correction(- z_transform(n, e, u)); /* !!!!! check the sign  !!!!! */ 
+
+  ostr << "\n<point> ";
+  ostr << "<id> " << name << " </id>\n\n";
+
+  ostr.setf(std::ios_base::fixed, std::ios_base::floatfield);
+  ostr.precision(3);
+
+  ostr << "        <n> ";
+  if (N.fixed())
+    ostr << "<fixed/>  ";
+  else if (N.free())
+    ostr << "<free/>   ";
+  else if (N.constr())
+    ostr << "<constr/> ";
+  else
+    ostr << "<unused/> ";
+  if (N.index())
+    {
+      ostr << "<dn>"  << std::setw(8) << N()*1000  << " </dn> "
+           << "<ind>" << N.index() << "</ind> ";
+    }
+  ostr << "</n>\n";
+
+  ostr << "        <e> ";
+  if (E.fixed())
+    ostr << "<fixed/>  ";
+  else if (E.free())
+    ostr << "<free/>   ";
+  else if (E.constr())
+    ostr << "<constr/> ";
+  else
+    ostr << "<unused/> ";
+  if (E.index())
+    {
+      ostr << "<de>"  << std::setw(8) << E()*1000  << " </de> "
+           << "<ind>" << E.index() << "</ind> ";
+    }
+  ostr << "</e>\n";
+
+  ostr << "        <u> ";
+  if (U.fixed())
+    ostr << "<fixed/>  ";
+  else if (U.free())
+    ostr << "<free/>   ";
+  else if (U.constr())
+    ostr << "<constr/> ";
+  else
+    ostr << "<unused/> ";
+  if (U.index())
+    {
+      ostr << "<du>"  << std::setw(8) << U()*1000  << " </du> "
+           << "<ind>" << U.index() << "</ind> ";
+    }
+  ostr << "</u>\n";
+
+  ostr.precision(5);
+  ostr << "\n";
+  ostr << "        <x-given     >";
+  ostr << std::setw(15) << X.init_value();
+  ostr << " </x-given>\n";
+  if (free_position())
+    {
+      ostr << "        <x-correction>";
+      ostr << std::setw(15) << X.correction();
+      ostr << " </x-correction>\n";
+      ostr << "        <x-adjusted  >";
+      ostr << std::setw(15) << X();
+      ostr << " </x-adjusted>\n";
+      ostr << "\n";
+    }
+  ostr << "        <y-given     >";
+  ostr << std::setw(15) << Y.init_value();
+  ostr << " </y-given>\n";
+  if (free_position())
+    {
+      ostr << "        <y-correction>";
+      ostr << std::setw(15) << Y.correction();
+      ostr << " </y-correction>\n";
+      ostr << "        <y-adjusted  >";
+      ostr << std::setw(15) << Y();
+      ostr << " </y-adjusted>\n";
+      ostr << "\n";
+    }
+  ostr << "        <z-given     >";
+  ostr << std::setw(15) << Z.init_value();
+  ostr << " </z-given>\n";
+  if (free_position())
+    {
+      ostr << "        <z-correction>";
+      ostr << std::setw(15) << Z.correction();
+      ostr << " </z-correction>\n";
+      ostr << "        <z-adjusted  >";
+      ostr << std::setw(15) << Z();
+      ostr << " </z-adjusted>\n";
+      //ostr << "\n";
+    }
+
+
+  ostr << "\n        </point>\n";
+
+  N_.write_xml_done();
+  E_.write_xml_done();
+  U_.write_xml_done();
+}
 
 // ----------------------------------------------------------------------
 

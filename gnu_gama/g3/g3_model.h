@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.22 2004/02/22 11:59:46 cepek Exp $
+ *  $Id: g3_model.h,v 1.23 2004/03/24 19:27:07 cepek Exp $
  */
 
 #include <gnu_gama/model.h>
@@ -93,6 +93,7 @@ namespace GNU_gama {  namespace g3 {
     void linearization_visit(XYZ*     );
 
     void write_xml_adjustment_input_data(std::ostream&);
+    void write_xml_adjustment_results   (std::ostream&);
 
   private:   /*-----------------------------------------------------------*/
       

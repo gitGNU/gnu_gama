@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.26 2004/02/20 20:34:25 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.27 2004/03/24 19:27:07 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -146,9 +146,13 @@ void Model::write_xml(std::ostream& out) const
 
 void Model::update_index(Parameter& p)
 {
-  if (!p.index()) 
+  if (!p.has_index()) 
     {
-      p.set_index(++dm_cols);
+      if (p.free())
+        p.set_index(++dm_cols);
+      else
+        p.set_index(1);
+
       par_list->push_back(&p);
     }
 }
@@ -323,6 +327,25 @@ void Model::update_linearization()
 }
 
 
+void Model::update_adjustment()
+{
+  cerr << "\n************ void Model::update_adjustment()\n\n";
+  if (!check_linearization()) update_linearization();
+
+  cerr << "x() = " << adj->x();
+  for (ParameterList::iterator 
+         i=par_list->begin(), e=par_list->end(); i!=e; ++i)
+    {
+      Parameter* p = *i;
+      if (int k = p->index()) p->set_correction(adj->x()(k));
+    }
+  
+
+  cerr << "\n------------ void Model::update_adjustment()\n\n";
+  return next_state_(adjust_);
+}
+
+
 void Model::write_xml_adjustment_input_data(std::ostream& out)
 {
   if (!check_linearization()) update_linearization();
@@ -333,13 +356,28 @@ void Model::write_xml_adjustment_input_data(std::ostream& out)
 }
 
 
-void Model::update_adjustment()
+void Model::write_xml_adjustment_results(std::ostream& out)
 {
-  cerr << "\n************ void Model::update_adjustment()\n\n";
-  if (!check_linearization()) update_linearization();
+  if (!check_adjustment()) update_adjustment();
 
-  cerr << "x() = " << adj->x();
+  out << 
+    "\n<!-- adjustment results  :"
+    " dn / de / du  are in millimeters -->\n\n";
+  
+  out << "<adjustment-results>\n";
 
-  cerr << "\n------------ void Model::update_adjustment()\n\n";
-  return next_state_(adjust_);
+  for (ParameterList::iterator 
+         i=par_list->begin(), e=par_list->end(); i!=e; ++i)
+    {
+      (*i)->write_xml_init();
+    }
+  for (ParameterList::iterator 
+         i=par_list->begin(), e=par_list->end(); i!=e; ++i)
+    {
+      (*i)->write_xml(out);
+    }
+  
+  out << "\n</adjustment-results>\n";
 }
+
+

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_distance.cpp,v 1.5 2004/02/20 18:07:29 cepek Exp $
+ *  $Id: g3_model_distance.cpp,v 1.6 2004/03/24 19:27:07 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -41,30 +41,19 @@ bool Model::revision_visit(Distance* d)
 
   active_obs->push_back(d);
 
+  update_index(from->N_);
+  update_index(from->E_);
+  update_index(from->U_);
+  update_index(to  ->N_);
+  update_index(to  ->E_);
+  update_index(to  ->U_);
+  
   dm_rows += d->dimension();            // design matrix
-  if (from->free_horizontal_position())
-    {
-      update_index(from->N_);
-      update_index(from->E_);
-      dm_floats += 2;
-    }
-  if (from->free_height())
-    {
-      update_index(from->U_);
-      dm_floats += 1;
-    }
 
-  if (to->free_horizontal_position())
-    {
-      update_index(to->N_);
-      update_index(to->E_);
-      dm_floats += 2;
-    }
-  if (to->free_height())
-    {
-      update_index(to->U_);
-      dm_floats += 1;
-    }
+  if (from->free_horizontal_position())  dm_floats += 2;
+  if (from->free_height())               dm_floats += 1;
+  if (to  ->free_horizontal_position())  dm_floats += 2;
+  if (to  ->free_height())               dm_floats += 1;
 
   return d->active();
 }
