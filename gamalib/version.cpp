@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.32 2002/09/29 15:22:38 cepek Exp $
+ *  $Id: version.cpp,v 1.33 2002/09/30 11:40:24 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.5.02";
+const char* GaMaLib_version  = "1.5.03-pre";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
