@@ -1,3 +1,16 @@
+0.9.20 2002-09-15
+
+       - new memory allocation model in the class BandMat<>.
+
+         Previously it was used so called `diagonal storage scheme',
+         ie rectangular array of dim*(band+1) elements. From 
+         version 0.9.20 only nonzero elements are stored (upper
+         triangular part by rows). This represents a possibly
+         slower access to individual matrix elements but on the other
+         hand there is no memory overhead (in GNU GaMa for large
+         full covariance matrices such an overhead is not acceptable).
+
+
 0.9.19 2002-07-11
 
        - Three tests for convergence in svd.h had to be rewritten to

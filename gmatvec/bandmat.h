@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.19)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.20)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: bandmat.h,v 1.6 2002/07/11 20:54:15 cepek Exp $
+ *  $Id: bandmat.h,v 1.7 2002/09/15 16:05:17 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -29,6 +29,7 @@
 
 #include <gmatvec/gmatvec.h>
 #include <gmatvec/choldec.h>
+#include <algorithm>
 
 /*
  * Symmetric Band Matrix
@@ -36,7 +37,11 @@
  *
  * Bandwidth is defined as max{ |i-j| | a_ij != 0 }
  * 
- * Upper triangular part of the matrix is stored in `diagonal storage scheme'
+ * Upper triangular part of the matrix is stored by rows, ie
+ *
+ *        d*(b+1) - b*(b+1)/2   of unzero elements, 
+ *
+ * where `d' is the matrix dimension and `b' the bandwidth
  *
  */
 
@@ -48,77 +53,100 @@ template <class Float=double, class Exc=Exception>
 class BandMat : public MatBase<Float, Exc>, public CholDec<Float, Exc> {
 public:
 
-   BandMat() : band_(0) {}
-   BandMat(Index d, Index b) 
-     : MatBase<Float, Exc>(d,d,d*(b+1)), band_(b) {}
-
-   void    reset() { row_ = col_ = band_ = 0; resize(0); }
-   void    reset(Index d, Index b);
-   Index   dim() const { return row_; }
-   Index   bandWidth() const { return band_; }
-   Float   operator()(Index, Index) const; 
-   Float&  operator()(Index, Index);
-   Float*  operator[](Index row) { return begin() + --row*(band_+1); }
-   void    cholDec();
-   void    solve(Vec<Float, Exc>&) const;
-   void    invBand(BandMat&, Index=0) const;
-   Vec<Float, Exc> 
-           operator*(const Vec<Float, Exc>&) const;
-   void    triDiag();
-   void    eigenVal(Vec<Float, Exc>&);
-
-   std::istream& read (std::istream&);
-   std::ostream& write(std::ostream&) const;
-
+  BandMat() : band_(0), band_1(0), dim_b(0) {}
+  BandMat(Index d, Index b) 
+    : MatBase<Float, Exc>(d,d,d*(b+1) - b*(b+1)/2), band_(b), 
+      band_1(b+1), dim_b(d-b)
+  {
+  }
+  
+  void   reset() { row_=col_=band_=band_1=dim_b= 0; resize(0); }
+  void   reset(Index d, Index b);
+  Index  dim() const { return row_; }
+  Index  bandWidth() const { return band_; }
+  Float  operator()(Index, Index) const; 
+  Float& operator()(Index, Index);
+  void   cholDec();
+  void   solve(Vec<Float, Exc>&) const;
+  void   invBand(BandMat&, Index=0) const;
+  Vec<Float, Exc> operator*(const Vec<Float, Exc>&) const;
+  void   triDiag();
+  void   eigenVal(Vec<Float, Exc>&);
+  
+  const Float* operator[](Index row) const
+  {
+    const Float* a_ = begin() + --row*band_1;
+    if (row > dim_b) {
+	const Index i_  = row - dim_b;
+	a_ -= i_*(i_+1)/2;
+    }  
+    return a_; 
+  }
+  Float* operator[](Index row)
+  {
+    Float* a_ = begin() + --row*band_1;
+    if (row > dim_b) {
+      const Index i_  = row - dim_b;
+      a_ -= i_*(i_+1)/2;
+    }  
+    return a_; 
+  }
+  
+  std::istream&  read (std::istream&);
+  std::ostream&  write(std::ostream&) const;
+  
 private:
-
-   Index   band_;
-
-   // lower part of symmetric band matrix - internal function for triDiag()
-   Float  out_of_band;
-   Float *addr_m_;
-   Float *addr(Index r, Index s) 
-     {
-       r -= s;
-
-       if (r > band_)
-         return &out_of_band;
-       
-       return addr_m_ + (--s*(band_+1) + r);
-     }
-
-   Float  absa, absb, absq;
-   Float  pythag(Float  a, Float  b) 
-     {
-       absa = fabs(a);
-       absb = fabs(b);
-       if (absa > absb)
-         {
-           absq = absb/absa;
-           return absa*sqrt(1.0 + absq*absq);
-         }
-       else if (absb)
-         {
-           absq = absa/absb;
-           return absb*sqrt(1.0 + absq*absq);
-         }
-       
-       return 0.0;
-     }
-
-   Float  Sign(Float  a, Float  b) { return b >= 0.0 ? fabs(a) : -fabs(a); }
-
+  
+  Index   band_, band_1, dim_b;
+  
+  // lower part of symmetric band matrix - internal function for triDiag()
+  Float  out_of_band;
+  // Float* addr_m_;
+  Float* addr(Index r, Index s) 
+  {
+    r -= s;
+    
+    if (r > band_)
+      return &out_of_band;
+    
+    // return addr_m_ + (--s*(band_1) + r);
+    return *(operator[](s) + r);
+  }
+  
+  Float  absa, absb, absq;
+  Float  pythag(Float  a, Float  b) 
+  {
+    absa = fabs(a);
+    absb = fabs(b);
+    if (absa > absb)
+      {
+	absq = absb/absa;
+	return absa*sqrt(1.0 + absq*absq);
+      }
+    else if (absb)
+      {
+	absq = absa/absb;
+	return absb*sqrt(1.0 + absq*absq);
+      }
+    
+    return 0.0;
+  }
+  
+  Float  Sign(Float  a, Float  b) { return b >= 0.0 ? fabs(a) : -fabs(a); }
+  
 };      /* class BandMat */
-
+  
 
 template <class Float, class Exc>
 void BandMat<Float, Exc>::reset(Index d, Index b)
 {
   if (dim() != d || band_ != b) 
     {
-      row_ = col_ = d;
-      band_ = b; 
-      resize(d*(b+1));
+      row_   = col_ = d;
+      band_  = b; 
+      band_1 = b+1;
+      dim_b  = d-b;	
+      resize(d*(b+1) - b*(b+1)/2);
     }
 }
 
@@ -135,9 +163,8 @@ Float  BandMat<Float, Exc>::operator()(Index r, Index s) const
    if (s > r+band_)
       return 0;
 
-   const Float *m = begin();
    s -= r;
-   return m[--r*(band_+1) + s];
+   return *(operator[](r) + s);
 }
 
 template <class Float, class Exc>
@@ -152,9 +179,8 @@ Float& BandMat<Float, Exc>::operator()(Index r, Index s)
    if (s > r+band_)
       throw Exc(BadIndex, "Float& BandMat::operator()(Index r, Index s)");
 
-   Float *m = begin();
    s -= r;
-   return m[--r*(band_+1) + s];
+   return *(operator[](r) + s);
 }
 
 template <class Float, class Exc>
@@ -166,41 +192,38 @@ void BandMat<Float, Exc>::cholDec()
    * L is lower triangular matrix with unity diagonal; D is diagonal matrix.
    * Matrices L and D replace factored band symmetric matrix `in situ'.
    */
-   if (dim() == 0)
+   using namespace std;
+
+   Float *B = begin();
+   Index  N = dim();
+   Index  W = bandWidth();
+
+   const  Float  Tol = fabs(*B*cholTol());
+   Float *p;
+   Index  row, k, l, n;
+   Float  pivot, q;
+
+   if (N == 0)
      throw Exc(BadRank, "BandMat::cholDec(Float  tol) - zero dim matrix");
 
-   Float *b = begin();
-   Float *p;
-   const Float  Tol = fabs(*b*cholTol());
-   const Index bw1 = band_ + 1;
-   Index i, k, l, m, n;
-   Float   q, b0;
-
-   for (i=1; i<dim(); i++)
+   for (row=1; row<=N; row++)
      {
-        b0 = b[0];
-        if(Tol >= b0)
+        if((pivot = *B) < Tol)
           throw Exc(NonPositiveDefinite, "BandMat::cholDec(Float  tol) - "
                                          "Matrix is not positive definite");
 
-        k = band_;
-        if(k+i > dim()) k = dim() - i;
-        p = b;
+        k = min(W, N-row);             // number of of-diagonal elements
+        p = B+k;                       // next row address - 1
         for (n=1; n<=k; n++)
 	{
-            p += bw1;
-            q = b[n]/b0;
-	    for (m=0, l=n; m<=band_-n; m++, l++) p[m] -= q*b[l];
+            q = B[n]/pivot;
+	    for (l=n; l<=k; l++) p[l] -= q*B[l];
+            p += min(W, N-row-n);
 	}  
  
-        for (m=1; m<=k; m++) b[m] /= b0;
-        b += bw1;
+        B++;                           // *B++ = pivot = sqrt(pivot); 
+        for (; k; k--) *B++ /= pivot;
      }
-
-     b0 = b[0];
-     if(Tol >= b0) 
-       throw Exc(NonPositiveDefinite, "BandMat::cholDec(Float  tol) - " 
-                                      "Matrix is not positive definite");
 }
 
 template <class Float, class Exc>
@@ -339,8 +362,6 @@ std::istream& BandMat<Float, Exc>::read(std::istream& inp)
       for (Index j=i; j<=i+band_; j++)
          if (j <= dim())
 	    inp >> *b++;
-         else
-            *b++ = 0;
 
    return inp;
 }
@@ -358,12 +379,11 @@ std::ostream& BandMat<Float, Exc>::write(std::ostream& out) const
    const Float  *b = begin();
    for (Index i=1; i<=dim(); i++, out << '\n')
      for (Index j=i; j<=i+band_; j++)
-       if (j <= dim()) {
-         out.width(w);
-         out << *b++ << ' ';
-       }
-       else
-         b++;
+       if (j <= dim()) 
+         {
+           out.width(w);
+           out << *b++ << ' ';
+         }
    
    return out;
 }
@@ -377,7 +397,7 @@ void BandMat<Float, Exc>::triDiag()
 
   // init internal inline function addr(Index, Index)
   out_of_band = 0;
-  addr_m_ = begin();
+  // addr_m_ = begin();
 
   for (band=band_; band>1; band--)
     for (diag=1; diag<=dim()-band; diag++)
@@ -592,6 +612,3 @@ void BandMat<Float, Exc>::eigenVal(Vec<Float, Exc>& eigvals)
 }      //  namespace gMatVec
 
 #endif
-
-
-
