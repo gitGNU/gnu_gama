@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.h,v 1.9 2003/03/13 20:22:30 cepek Exp $
+ *  $Id: observation.h,v 1.10 2003/05/10 16:33:13 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_Mereni_H
@@ -43,10 +43,10 @@
 #include <vector>
 
 #include <gnu_gama/obsdata.h>
+#include <gamalib/matvec.h>
 
 namespace GaMaLib {
 
-  //class Cluster;
   class PointData;
   class Observation;
 
@@ -62,6 +62,8 @@ namespace GaMaLib {
       friend   class GNU_gama::Cluster<Observation>;
     
     public:
+
+      typedef GaMaLib::Cov Cov;
     
       Observation(const PointID& s, const PointID& c, Double m) 
         :
