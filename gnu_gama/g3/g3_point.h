@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.13 2003/04/06 15:37:17 cepek Exp $
+ *  $Id: g3_point.h,v 1.14 2003/04/08 16:41:51 cepek Exp $
  */
 
 #include <gamalib/pointid.h>
@@ -35,32 +35,40 @@
 namespace GNU_gama {  namespace g3 {
 
   class Model;
+  class Point;
 
-  class Parameter_BL : public Parameter 
+  class Parameter_LocalPosition : public Parameter
     {
+      Point* pt;
+
     public:
 
-      Parameter_BL() : sc(1.0) {}
+      Parameter_LocalPosition(Point* p) : pt(p) {}
 
-      double step_size() const { return 7e-9; } 
-      double scale()     const { return sc;   }
-
-      double sc;
+      Point* point() const { return pt; }
+      void   set_point(Point* p) { pt = p; }
     };
 
-  class Parameter_B : public Parameter_BL
+  class Parameter_N : public Parameter_LocalPosition
     {
-    };
-  
-  class Parameter_L : public Parameter_BL
-    {
+    public:
+      Parameter_N(Point* p) : Parameter_LocalPosition(p) {}
     };
   
-  class Parameter_H : 
-    public Parameter,
-    public HeightDiffAnalyticalDerivative
+  class Parameter_E : public Parameter_LocalPosition
     {
-      double analytical_derivative(HeightDiff*);
+    public:
+      Parameter_E(Point* p) : Parameter_LocalPosition(p) {}
+    };
+  
+  class Parameter_U : 
+    public Parameter_LocalPosition
+    // public HeightDiffAnalyticalDerivative
+    {
+    public:
+      Parameter_U(Point* p) : Parameter_LocalPosition(p) {}
+
+      // double analytical_derivative(HeightDiff*);
     };
 
 
@@ -71,8 +79,8 @@ namespace GNU_gama {  namespace g3 {
     typedef GaMaLib::PointID Name;
     typedef Model            Common;
 
-    Name                 name;
-    Common*              common; 
+    Name    name;
+    Common* common; 
 
     Point();
     Point(const Point&);
@@ -81,9 +89,11 @@ namespace GNU_gama {  namespace g3 {
 
     // -----------------------------
 
-    Parameter_B*  B;
-    Parameter_L*  L;
-    Parameter_H*  H;   // orthometric heights will be added into Point later
+    Parameter  B, L, H, X, Y, Z;
+
+    Parameter_N*  N;
+    Parameter_E*  E;
+    Parameter_U*  U; 
 
     ParameterList        parlist;
 
@@ -110,6 +120,13 @@ namespace GNU_gama {  namespace g3 {
     bool constr_height() const;
     bool constr_position() const;
 
+    void set_blh(double, double, double);
+    void set_xyz(double, double, double);
+
+    // rotation matrix of transformation from local to global
+    // Cartesian coordinates (NEU --> XYZ)
+
+    double   r11, r12, r13,   r21, r22, r23,   r31, r32, r33;
 
   private:
 
@@ -129,6 +146,9 @@ namespace GNU_gama {  namespace g3 {
       position_        = h_pos_ + height_  
     };
 
+
+    void     transformation_matrix(double b, double l);
+      
   };
 
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.12 2003/04/06 15:37:17 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.13 2003/04/08 16:41:51 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -32,24 +32,24 @@ using namespace GNU_gama::g3;
 
 Point::~Point()
 {
-  delete B;
-  delete L;
-  delete H;
+  delete N;
+  delete E;
+  delete U;
 }
 
 
 Point::Point() : parlist(3)
 {
-  B = new Parameter_B;
-  L = new Parameter_L;
-  H = new Parameter_H;
+  N = new Parameter_N(this);
+  E = new Parameter_E(this);
+  U = new Parameter_U(this);
 
   set_unused();
 
   Parameter** p = parlist.begin();
-  *p++ = B;
-  *p++ = L;
-  *p++ = H;
+  *p++ = N;
+  *p++ = E;
+  *p++ = U;
 }
 
 
@@ -58,14 +58,14 @@ Point::Point(const Point& point) : parlist(3)
   name   = point.name;
   common = point.common;
 
-  B = new Parameter_B(*point.B);
-  L = new Parameter_L(*point.L);
-  H = new Parameter_H(*point.H);
+  N = new Parameter_N(*point.N);
+  E = new Parameter_E(*point.E);
+  U = new Parameter_U(*point.U);
 
   Parameter** p = parlist.begin();
-  *p++ = B;
-  *p++ = L;
-  *p++ = H;
+  *p++ = N;
+  *p++ = E;
+  *p++ = U;
 }
 
 
@@ -73,21 +73,25 @@ Point& Point::operator=(const Point& point)
 {
   if (this != &point)
     {
-      delete B;
-      delete L;
-      delete H;
+      delete N;
+      delete E;
+      delete U;
 
       name   = point.name;
       common = point.common;
       
-      B = new Parameter_B(*point.B);
-      L = new Parameter_L(*point.L);
-      H = new Parameter_H(*point.H);
+      N = new Parameter_N(*point.N);
+      E = new Parameter_E(*point.E);
+      U = new Parameter_U(*point.U);
       
+      N->set_point(this);
+      E->set_point(this);
+      U->set_point(this);
+
       Parameter** p = parlist.begin();
-      *p++ = B;
-      *p++ = L;
-      *p++ = H;
+      *p++ = N;
+      *p++ = E;
+      *p++ = U;
     }
 
   return *this;
@@ -96,124 +100,170 @@ Point& Point::operator=(const Point& point)
 
 void Point::set_unused()
 {
-  B->set_unused();
-  L->set_unused();
-  H->set_unused();
+  N->set_unused();
+  E->set_unused();
+  U->set_unused();
 }
 
 void Point::set_fixed_horizontal_position()
 {
-  B->set_fixed();
-  L->set_fixed();
+  N->set_fixed();
+  E->set_fixed();
 }
 
 void Point::set_fixed_height()
 {
-  H->set_fixed();
+  U->set_fixed();
 }
 
 void Point::set_fixed_position()
 {
-  B->set_fixed();
-  L->set_fixed();
-  H->set_fixed();
+  N->set_fixed();
+  E->set_fixed();
+  U->set_fixed();
 }
 
 void Point::set_free_horizontal_position()
 {
-  B->set_free();
-  L->set_free();
+  N->set_free();
+  E->set_free();
 }
 
 void Point::set_free_height()
 {
-  H->set_free();
+  U->set_free();
 }
 
 void Point::set_free_position()
 {
-  B->set_free();
-  L->set_free();
-  H->set_free();
+  N->set_free();
+  E->set_free();
+  U->set_free();
 }
 
 void Point::set_constr_horizontal_position()
 {
-  B->set_constr();
-  L->set_constr();
+  N->set_constr();
+  E->set_constr();
 }
 
 void Point::set_constr_height()
 {
-  H->set_constr();
+  U->set_constr();
 }
 
 void Point::set_constr_position()
 {
-  B->set_constr();
-  L->set_constr();
-  H->set_constr();
+  N->set_constr();
+  E->set_constr();
+  U->set_constr();
 }
 
 bool Point::unused() const
 {
-  return B->unused() && L->unused() && H->unused();
+  return N->unused() && E->unused() && U->unused();
 }
 
 bool Point::fixed_horizontal_position() const
 {
-  return B->fixed() && L->fixed();
+  return N->fixed() && E->fixed();
 }
 
 bool Point::fixed_height() const
 {
-  return H->fixed();
+  return U->fixed();
 }
 
 bool Point::fixed_position() const
 {
-  return B->fixed() && L->fixed() && H->fixed();
+  return N->fixed() && E->fixed() && U->fixed();
 }
 
 bool Point::free_horizontal_position() const
 {
-  return B->free() && L->free();
+  return N->free() && E->free();
 }
 
 bool Point::free_height() const
 {
-  return H->free();
+  return U->free();
 }
 
 bool Point::free_position() const
 {
-  return B->free() && L->free() && H->free();
+  return N->free() && E->free() && U->free();
 }
 
 bool Point::constr_horizontal_position() const
 {
-  return B->constr() && L->constr();
+  return N->constr() && E->constr();
 }
 
 bool Point::constr_height() const
 {
-  return H->constr();
+  return U->constr();
 }
 
 bool Point::constr_position() const
 {
-  return B->constr() && L->constr() && H->constr();
+  return N->constr() && E->constr() && U->constr();
 }
+
+void Point::set_blh(double b, double l, double h)
+{
+  B.set_init_value(b);
+  L.set_init_value(l);
+  H.set_init_value(h);
+  
+  double x, y, z;
+  common->ellipsoid.blh2xyz(b, l, h, x, y, z);
+  X.set_init_value(x);
+  Y.set_init_value(y);
+  Z.set_init_value(z);
+
+  transformation_matrix(b, l);
+}
+
+void Point::set_xyz(double x, double y, double z)
+{
+  X.set_init_value(x);
+  Y.set_init_value(y);
+  Z.set_init_value(z);
+  
+  double b, l, h;;
+  common->ellipsoid.xyz2blh(x, y, z, b, l, h);
+  B.set_init_value(b);
+  L.set_init_value(l);
+  H.set_init_value(h);
+
+  transformation_matrix(b, l);
+}
+
+void Point::transformation_matrix(double b, double l)
+{
+  r11 = -sin(l);
+  r12 = -sin(b)*cos(l);
+  r13 =  cos(b)*cos(l);
+  
+  r21 =  cos(l);
+  r22 = -sin(b)*sin(l);
+  r23 =  cos(b)*sin(l);
+
+  r31 = 0.0;
+  r32 = cos(b);
+  r33 = sin(b);
+}
+
 
 // ----------------------------------------------------------------------
 
-double Parameter_H::analytical_derivative(HeightDiff* hd)
-{
-  if (!free()) return 0;
-
-  Parameter**  p    = hd->parlist.begin();  
-  Parameter_H* from = static_cast<Parameter_H*>(*p);
-
-  return this == from ? -1 : +1;
-}
+// double Parameter_U::analytical_derivative(HeightDiff* hd)
+// {
+//   if (!free()) return 0;
+// 
+//   Parameter**  p    = hd->parlist.begin();  
+//   Parameter_U* from = static_cast<Parameter_U*>(*p);
+// 
+//   return this == from ? -1 : +1;
+// }
 

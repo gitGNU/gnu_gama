@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.8 2003/04/06 15:37:17 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.9 2003/04/08 16:41:51 cepek Exp $  */
 
 #include <cstddef>
 #include <gnu_gama/list.h>
@@ -67,7 +67,6 @@ namespace GNU_gama { namespace g3 {
     
     virtual double value(double /*time*/) const { return val + cor; }
     virtual double step_size() const { return 0.05; } 
-    virtual double scale()     const { return 1.00; }
 
     double init_value() const { return val; }
     double correction() const { return cor; }

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.4 2003/03/25 12:38:33 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.5 2003/04/08 16:41:51 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -40,4 +40,18 @@ Model::Model()
 
 Model::~Model()
 {
+}
+
+
+Point* Model::get_point(const Point::Name& name)
+{
+  Point* p = points.find(name);
+  if (p == 0)
+    {
+      p = new Point;
+      p->name = name;
+      points.put(p);
+    }
+
+  return p;
 }

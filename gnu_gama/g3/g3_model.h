@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.4 2003/03/25 12:38:33 cepek Exp $
+ *  $Id: g3_model.h,v 1.5 2003/04/08 16:41:51 cepek Exp $
  */
 
 #include <gnu_gama/pointbase.h>
@@ -53,6 +53,7 @@ namespace GNU_gama {  namespace g3 {
     Model();
     ~Model();
 
+    Point* get_point(const Point::Name&);
   };
 
 

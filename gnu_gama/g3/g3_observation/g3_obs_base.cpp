@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_base.cpp,v 1.6 2003/04/06 15:37:17 cepek Exp $
+ *  $Id: g3_obs_base.cpp,v 1.7 2003/04/08 16:41:51 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -66,7 +66,7 @@ double Observation::numerical_derivative(Parameter* p)
     p->set_correction(p_correction +  h );  d1  = parlist_value();
     p->set_correction(p_correction -  h );  d1 -= parlist_value();
 
-    d = (d2 + 8.0*d1) / (12.0*h*p->scale());
+    d = (d2 + 8.0*d1) / (12.0*h);
   }
   p->set_correction(p_correction);
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_hdiff.cpp,v 1.6 2003/03/29 13:33:57 cepek Exp $
+ *  $Id: g3_obs_hdiff.cpp,v 1.7 2003/04/08 16:41:51 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -42,25 +42,29 @@ double HeightDiff::parlist_value() const
 
 void HeightDiff::parlist_init(Model* model)
 {
-  ellipsoid = &model->ellipsoid;
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // !!! this is not a real solution. used here just for testing !!! 
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+  ellipsoid = &model->ellipsoid;
+  
   if (!active())  return;
- 
+  
   Point* from = model->points.find(name[0]);
   Point* to   = model->points.find(name[1]);
-
+  
   if (from == 0 || to == 0)
     {
       set_active(false);
       return;
     }
-
-
-  if (from->H->active() && to->H->active())
+  
+  
+  if (from->U->active() && to->U->active())
     {
       Parameter** b = parlist.begin();
-      *b++ = from->H;
-      *b++ = to->H;
+      *b++ = from->U;
+      *b++ = to->U;
     }
   else
     {

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_dist.cpp,v 1.1 2003/03/28 22:07:31 cepek Exp $
+ *  $Id: g3_obs_dist.cpp,v 1.2 2003/04/08 16:41:51 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -34,16 +34,37 @@ using namespace std;
 double Distance::parlist_value() const
 {
   Parameter** p = parlist.begin();
-  double b1 = (*p++)->value(time);
-  double l1 = (*p++)->value(time);
-  double h1 = (*p++)->value(time);
-  double b2 = (*p++)->value(time);
-  double l2 = (*p++)->value(time);
-  double h2 = (*p++)->value(time);
 
-  double x1, y1, z1, x2, y2, z2;
-  ellipsoid->blh2xyz(b1, l1, h1, x1, y1, z1);
-  ellipsoid->blh2xyz(b2, l2, h2, x2, y2, z2);
+  Parameter_N* N_from = static_cast<Parameter_N*>(*p);
+
+  double n1 = (*p++)->value(time);
+  double e1 = (*p++)->value(time);
+  double u1 = (*p++)->value(time);
+
+  Parameter_N* N_to   = static_cast<Parameter_N*>(*p);
+
+  double n2 = (*p++)->value(time);
+  double e2 = (*p++)->value(time);
+  double u2 = (*p++)->value(time);
+
+  Point* from = N_from->point();
+  Point* to   = N_to  ->point();
+
+  double x1 = from->X.value(0);
+  double y1 = from->Y.value(0);
+  double z1 = from->Z.value(0);
+  double x2 = to->X.value(0);
+  double y2 = to->Y.value(0);
+  double z2 = to->Z.value(0);
+
+  x1 += from->r11*n1 + from->r12*e1 + from->r13*u1;
+  y1 += from->r21*n1 + from->r22*e1 + from->r23*u1;
+  z1 += from->r31*n1 + from->r32*e1 + from->r33*u1;
+
+  x2 += to->r11*n2 + to->r12*e2 + to->r13*u2;
+  y2 += to->r21*n2 + to->r22*e2 + to->r23*u2;
+  z2 += to->r31*n2 + to->r32*e2 + to->r33*u2;
+
   x2 -= x1;
   y2 -= y2;
   z2 -= z1;
@@ -68,16 +89,18 @@ void Distance::parlist_init(Model* model)
     }
 
 
-  if (from->B->active() && from->L->active() && from->H->active() && 
-      to->  B->active() && to->  L->active() && to->  H->active()  )
+  if (from->N->active() && from->E->active() && from->U->active() && 
+      to->  N->active() && to->  E->active() && to->  U->active()  )
     {
       Parameter** b = parlist.begin();
-      *b++ = from->B;
-      *b++ = from->L;
-      *b++ = from->H;
-      *b++ = to->B;
-      *b++ = to->L;
-      *b++ = to->H;
+
+      *b++ = from->N;
+      *b++ = from->E;
+      *b++ = from->U;
+
+      *b++ = to->N;
+      *b++ = to->E;
+      *b++ = to->U;
     }
   else
     {
