@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_helper.cpp,v 1.2 2002/05/24 19:30:51 cepek Exp $
+ *  $Id: g2d_helper.cpp,v 1.3 2002/10/24 17:04:12 cepek Exp $
  */
 
 /*************************************************************
@@ -69,7 +69,7 @@ void Select_solution_g2d::Calculation()
     
     state = no_solution;
     Double delta1, delta2, tol1, tol2;
-    Point PB1, PB2;
+    LocalPoint PB1, PB2;
     for(ObservationList::const_iterator i = SM->begin(); i != SM->end(); i++)
       {
         switch (ObservationType(*i))
@@ -215,7 +215,7 @@ void SimilarityTr2D::Reset()
 void SimilarityTr2D::Identical_points(PointData::iterator& b1,
                                       PointData::iterator& b2)
 {
-  Point stred;
+  LocalPoint stred;
   Double pomocna_d1, delka_max;
   Double rozdil_min = 1e5;
   PointData::iterator pom1, pom2;
@@ -250,7 +250,7 @@ void SimilarityTr2D::Identical_points(PointData::iterator& b1,
 void SimilarityTr2D::Transformation_key(PointData::iterator& b1, 
                                         PointData::iterator& b2)
 {
-  Point odkud1, odkud2, kam1, kam2;
+  LocalPoint odkud1, odkud2, kam1, kam2;
   odkud1 = (*b1).second;
   odkud2 = (*b2).second;
   PointData::iterator pom;
@@ -287,7 +287,7 @@ void SimilarityTr2D::Calculation()
     PointData::iterator identicky1, identicky2;
     Identical_points(identicky1, identicky2);
     Transformation_key(identicky1, identicky2);
-    Point pom;
+    LocalPoint pom;
     PointData::iterator pom_i;
     for(PointIDList::iterator cb=computed.begin(); cb!=computed.end(); cb++)
       {
@@ -299,7 +299,7 @@ void SimilarityTr2D::Calculation()
         if(pom.test_xy())
           {
             transf_points[(*cb)] = 
-              Point::XY(
+              LocalPoint::XY(
                         transf_key[3] + transf_key[1]*pom.x() - 
                                         transf_key[0]*pom.y(),
                         transf_key[2] + transf_key[1]*pom.y() + 

@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_coordinates.cpp,v 1.3 2002/05/31 11:02:35 cepek Exp $
+ *  $Id: g2d_coordinates.cpp,v 1.4 2002/10/24 17:04:12 cepek Exp $
  */
 
 /*************************************************************
@@ -149,7 +149,7 @@ void ApproximateCoordinates::Move_point(PointData& from, PointData& to,
     if(j != to.end())
       (*j).second.set_xy((*i).second.x(), (*i).second.y());
     else
-      to[what] = Point::XY((*i).second.x(), (*i).second.y());
+      to[what] = LocalPoint::XY((*i).second.x(), (*i).second.y());
 
 };    // ApproximateCoordinates::Move_point(PointData&, PointData&, PointID&)
 
@@ -162,7 +162,7 @@ bool ApproximateCoordinates::Solve_intersection(PointData& points,
   ApproxPoint PB(&points,&SM);
   bool finished = false;
   bool success = false;
-  Point bb;
+  LocalPoint bb;
   PointIDList::iterator i,ii;
   PointData::iterator j;
   while (!finished)
@@ -181,7 +181,7 @@ bool ApproximateCoordinates::Solve_intersection(PointData& points,
               if(j != points.end())
                 (*j).second.set_xy(bb.x(), bb.y());
               else
-                points[*i] = Point::XY(bb.x(), bb.y());
+                points[*i] = LocalPoint::XY(bb.x(), bb.y());
               solved[*i] = bb;
               ii = i++;
               what.erase(ii);
@@ -280,7 +280,7 @@ bool ApproximateCoordinates::Solve_insertion()
   {  // VC++ {}
     for(PointIDList::iterator i = obs_points.begin(); 
         i != obs_points.end(); i++)
-      local_s[*i] = Point();
+      local_s[*i] = LocalPoint();
   }  // VC++ {}
 
   ObservationData OD_local = OD;                // ... deep copy

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: bearing.h,v 1.1 2001/12/07 12:54:43 cepek Exp $
+ *  $Id: bearing.h,v 1.2 2002/10/24 17:04:13 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_BMFCE_H
@@ -46,7 +46,7 @@ inline Double bearing(Double ya, Double xa, Double yb, Double xb)
 }
 
 
-inline Double bearing(const Point& a, const Point& b)
+inline Double bearing(const LocalPoint& a, const LocalPoint& b)
 {
    return bearing(a.y(), a.x(), b.y(), b.x());
 }
@@ -65,7 +65,7 @@ inline void bearing_distance(Double ya, Double xa, Double yb, Double xb,
    d  = sqrt(dy*dy + dx*dx);
 }
 
-inline void bearing_distance(const Point& a, const Point& b, 
+inline void bearing_distance(const LocalPoint& a, const LocalPoint& b, 
                              Double& br, Double& d)
 {
    bearing_distance(a.y(), a.x(), b.y(), b.x(), br, d);

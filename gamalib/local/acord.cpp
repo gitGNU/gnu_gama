@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.cpp,v 1.4 2002/04/06 13:57:57 cepek Exp $
+ *  $Id: acord.cpp,v 1.5 2002/10/24 17:04:12 cepek Exp $
  */
 
  
@@ -47,7 +47,7 @@ Acord::Acord(PointData& b, ObservationData& m)
   for (PointData::const_iterator i=PD.begin(); i!=PD.end(); ++i)
     {
       const PointID& c = (*i).first;
-      const Point&   p = (*i).second;
+      const LocalPoint&   p = (*i).second;
       bool cp = p.test_xy();
       bool hp = p.test_z();
 
@@ -62,7 +62,7 @@ Acord::Acord(PointData& b, ObservationData& m)
 
   for (PointData::iterator ii=PD.begin(); ii!=PD.end(); ++ii)
     {
-      Point& p = (*ii).second;
+      LocalPoint& p = (*ii).second;
 
       if (p.test_xy()) p.set_xy(p.x(), -p.y());
     }
@@ -108,8 +108,8 @@ void Acord::execute()
         
         for (PointData::const_iterator i=PD.begin(); i!=PD.end(); ++i)
           {
-            const PointID& c = (*i).first;
-            const Point&   p = (*i).second;
+            const PointID&    c = (*i).first;
+            const LocalPoint& p = (*i).second;
             bool cp = p.test_xy();
             bool hp = p.test_z();
             

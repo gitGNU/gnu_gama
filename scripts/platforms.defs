@@ -1,6 +1,6 @@
 # ------  GNU GaMa supported platforms  --------------------------------------
 #
-# $Id: platforms.defs,v 1.6 2002/10/01 17:23:25 cepek Exp $
+# $Id: platforms.defs,v 1.7 2002/10/24 17:04:13 cepek Exp $
 #
 #gnu           :#CC       = gcc
 #gnu           :CFLAGS   +=
@@ -14,7 +14,7 @@
 #gnu           :LIBS     += 
 #gnu           :MAKE      = make
 #gnu           :GAMALIB   = gamalib.a
-#gnu           :P_GAMA    = gama
+#gnu           :P_GAMA_L  = gama-local
 #              
 #win32-borland :CC        = bcc32
 #win32-borland :CFLAGS    = -A -Od -w-8008 -w-8065 -w-8066 -w-8057 
@@ -28,7 +28,7 @@
 #win32-borland :LIBS      = ../lib/gamalib.lib
 #win32-borland :MAKE      = make
 #win32-borland :GAMALIB   = gamalib.lib
-#win32-borland :P_GAMA    = gama.exe
+#win32-borland :P_GAMA_L  = gama-local.exe
 #
 #win32-msvc    :CC        = cl
 #win32-msvc    :CFLAGS    =
@@ -48,7 +48,7 @@
 #win32-msvc    :            /incremental:no /machine:I386
 #win32-msvc    :MAKE      = nmake
 #win32-msvc    :GAMALIB   = gamalib.lib
-#win32-msvc    :P_GAMA    = gama.exe
+#win32-msvc    :P_GAMA_L  = gama-local.exe
 #                            
 # ----------------------------------------------------------------------------
 

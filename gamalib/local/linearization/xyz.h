@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: xyz.h,v 1.1 2001/12/07 12:44:55 cepek Exp $
+ *  $Id: xyz.h,v 1.2 2002/10/24 17:04:12 cepek Exp $
  */
 
 #include <gamalib/local/linearization.h>
@@ -31,7 +31,7 @@ using namespace std;
 
 void LocalLinearization::x(const X* obs) const
 {
-   Point& point = PD[obs->from()];
+   LocalPoint& point = PD[obs->from()];
    // Double p = M_0 / stdDev();
 
    // Double w = p*p;                          // weight
@@ -51,7 +51,7 @@ void LocalLinearization::x(const X* obs) const
 
 void LocalLinearization::y(const Y* obs) const
 {
-   Point& point = PD[obs->from()];
+   LocalPoint& point = PD[obs->from()];
    // Double p = M_0 / stdDev();
 
    // Double w = p*p;                          // weight
@@ -71,7 +71,7 @@ void LocalLinearization::y(const Y* obs) const
 
 void LocalLinearization::z(const Z* obs) const
 {
-   Point& point = PD[obs->from()];
+   LocalPoint& point = PD[obs->from()];
    // Double p = M_0 / stdDev();
 
    // Double w = p*p;                          // weight

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: general_parameters.h,v 1.1 2001/12/07 12:54:43 cepek Exp $
+ *  $Id: general_parameters.h,v 1.2 2002/10/24 17:04:13 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Zakladni_Parametry_h_
@@ -94,7 +94,7 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
     
     for (PointData::const_iterator i=IS->PD.begin(); i!=IS->PD.end(); ++i)
       {
-        const Point& p = (*i).second;
+        const LocalPoint& p = (*i).second;
         if (p.active())
           {
             if (p.free_xy() && p.free_z()) a_xyz++;

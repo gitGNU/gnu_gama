@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: distance.h,v 1.1 2001/12/07 12:44:55 cepek Exp $
+ *  $Id: distance.h,v 1.2 2002/10/24 17:04:12 cepek Exp $
  */
 
 #include <gamalib/local/linearization.h>
@@ -32,8 +32,8 @@ using namespace std;
 
 void LocalLinearization::distance(const Distance* obs) const
 {
-   Point& sbod = PD[obs->from()];
-   Point& cbod = PD[obs->to()];
+   LocalPoint& sbod = PD[obs->from()];
+   LocalPoint& cbod = PD[obs->to()];
    Double s, d;
    bearing_distance(PD[obs->from()], PD[obs->to()], s, d);
    // Double p = M_0 / stdDev();

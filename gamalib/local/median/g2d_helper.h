@@ -21,25 +21,25 @@
 */
 
 /*
- *  $Id: g2d_helper.h,v 1.1 2001/12/07 12:50:06 cepek Exp $
+ *  $Id: g2d_helper.h,v 1.2 2002/10/24 17:04:12 cepek Exp $
  */
 
-/****************************************************************
- * helper functions and classes:                                *
- * ------------------------------------------------------------ *
- * - typedef std::vector<Point> Helper_list;                    *
- * - inline int signum(const Double& d1)                        *
- * - inline Double g2d_sqr(const Double& d)                     *
- * - enum Solution_state_tag                                    *
- * - enum Observation_types                                     *
- * - inline Observation_types ObservationType(Observation* m)   *
- * - inline Double g2d_distance(const Point& b1, const Bod& b2) *
- * - inline bool g2d_even(std::vector<Double>::size_type& x)    *
- * - class Select_solution_g2d                                  *
- * - class Statistics_g2d                                       *
- * - class Transformation_g2d                                   *
- * - class SimilarityTr2D : public Transformation_g2d           *
- ****************************************************************/
+/*********************************************************************
+ * helper functions and classes:                                     *
+ * ----------------------------------------------------------------- *
+ * - typedef std::vector<LocalPoint> Helper_list;                    *
+ * - inline int signum(const Double& d1)                             *
+ * - inline Double g2d_sqr(const Double& d)                          *
+ * - enum Solution_state_tag                                         *
+ * - enum Observation_types                                          *
+ * - inline Observation_types ObservationType(Observation* m)        *
+ * - inline Double g2d_distance(const LocalPoint& b1, const Bod& b2) *
+ * - inline bool g2d_even(std::vector<Double>::size_type& x)         *
+ * - class Select_solution_g2d                                       *
+ * - class Statistics_g2d                                            *
+ * - class Transformation_g2d                                        *
+ * - class SimilarityTr2D : public Transformation_g2d                *
+ *********************************************************************/
  
 #ifndef GaMaLib_g2d_helper_h__GaMaLib_Median_G_fce_H
 #define GaMaLib_g2d_helper_h__GaMaLib_Median_G_fce_H
@@ -52,7 +52,7 @@ namespace GaMaLib {
 
   // --------------------------------------------------------------
 
-  typedef std::vector<Point> Helper_list;
+  typedef std::vector<LocalPoint> Helper_list;
   
   // --------------------------------------------------------------
   // inline int signum(const Double& d1) wass added into
@@ -106,7 +106,7 @@ namespace GaMaLib {
     };
 
   // --------------------------------------------------------------
-  inline Double g2d_distance(const Point& b1, const Point& b2)
+  inline Double g2d_distance(const LocalPoint& b1, const LocalPoint& b2)
     {
       return sqrt(g2d_sqr(b1.x()-b2.x())+g2d_sqr(b1.y()-b2.y()));
     };
@@ -127,7 +127,7 @@ namespace GaMaLib {
     private:
       
       Solution_state_tag state;
-      Point   B1, B2;
+      LocalPoint   B1, B2;
       PointData* SB;
       ObservationList* SM;
       
@@ -136,19 +136,19 @@ namespace GaMaLib {
         : state(calculation_not_done), SB(sb), SM(sm) 
         {
         }
-      Select_solution_g2d(Point& b1, Point& b2, PointData* sb, 
+      Select_solution_g2d(LocalPoint& b1, LocalPoint& b2, PointData* sb, 
                           ObservationList* sm) :
         state(calculation_not_done), B1(b1), B2(b2), SB(sb), SM(sm) 
         {
         }
       void Calculation();
-      void Calculation(Point b1, Point b2)
+      void Calculation(LocalPoint b1, LocalPoint b2)
         {
           state = calculation_not_done;
           B1 = b1; B2 = b2;
           Calculation();
         }
-      Point Solution()
+      LocalPoint Solution()
         {
           if(state == calculation_not_done)
             throw g2d_exc("Select_solution_g2d: calculation not done");
@@ -172,7 +172,7 @@ namespace GaMaLib {
     private:
 
       Helper_list* PS;
-      Point median;
+      LocalPoint median;
       Solution_state_tag state;
       
     public:
@@ -194,7 +194,7 @@ namespace GaMaLib {
         { 
           return state; 
         }
-      Point Median()       // resulting coordinate
+      LocalPoint Median()       // resulting coordinate
         {
           if(state < no_solution)
             throw g2d_exc("Statistics_g2d: calculation not done");

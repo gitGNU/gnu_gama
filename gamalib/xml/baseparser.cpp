@@ -19,6 +19,10 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+/*
+ *  $Id: baseparser.cpp,v 1.3 2002/10/24 17:04:13 cepek Exp $
+ */
+
 #include <gamalib/xml/baseparser.h>
 #include <gamalib/xml/encoding.h>
 

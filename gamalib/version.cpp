@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.36 2002/10/17 17:26:15 cepek Exp $
+ *  $Id: version.cpp,v 1.37 2002/10/24 17:04:12 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.5.03-pre";
+const char* GaMaLib_version  = "1.5.03";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
@@ -59,7 +59,14 @@ const char* GaMaLib_compiler =
 
 =============================================================================
 
-1.5.03 2002...
+1.5.03 2002-10-24
+
+    - class Point renamed to LocalPoint (file local/point.h renamed to
+      local/lpoint.h)
+
+    - command line program 'gama' renamed to 'gama-local' (all previous
+      scripts needed for building 'gama' are left in 1.5.03 archive
+      tar and will be removed in a next version)
 
     - general parts of GKFparser moved into the new class BaseParser.
       Class BaseParser is public base class to GKFparser and a new

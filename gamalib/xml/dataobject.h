@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataobject.h,v 1.2 2002/10/19 13:05:29 cepek Exp $
+ *  $Id: dataobject.h,v 1.3 2002/10/24 17:04:13 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_Data_Object__object___h_
@@ -33,7 +33,7 @@ namespace GaMaLib {
   class DataObject {
   public:
 
-    ~DataObject() 
+    virtual ~DataObject() 
       {
       }
     virtual std::string xml() const = 0;

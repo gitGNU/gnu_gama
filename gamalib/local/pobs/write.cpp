@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: write.cpp,v 1.2 2002/06/04 15:05:50 cepek Exp $
+ *  $Id: write.cpp,v 1.3 2002/10/24 17:04:13 cepek Exp $
  */
 
 #include <iostream>
@@ -51,7 +51,7 @@ std::ostream& operator << (std::ostream& str, PointData& sez)
     for (PointData::iterator i=sez.begin(); i!=sez.end(); ++i)
       {
         const PointID& cb  = (*i).first;
-        Point&        bod = (*i).second;
+        LocalPoint&    bod = (*i).second;
         
         
         str << "<point id=";

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adjusted_unknowns.h,v 1.2 2002/05/29 16:06:54 cepek Exp $
+ *  $Id: adjusted_unknowns.h,v 1.3 2002/10/24 17:04:13 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vyrovnane_Nezname_h_
@@ -74,7 +74,7 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
       for (PointData::const_iterator ii=IS->PD.begin(); ii!=IS->PD.end(); ii++)
         {
           const PointID point_id = (*ii).first;
-          const Point&  b        = (*ii).second;
+          const LocalPoint&  b   = (*ii).second;
 
           if (b.free_xy() && b.index_x())
             {
@@ -282,8 +282,8 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
       for (int i=1; i<=pocnez; i++)
         if (IS->unknown_type(i) == 'Z')
           {
-            const PointID cb = IS->unknown_pointid(i);
-            const Point&  b = IS->PD[cb];
+            const PointID cb     = IS->unknown_pointid(i);
+            const LocalPoint&  b = IS->PD[cb];
 
             out.width(IS->maxw_unk());
             out << i << " ";

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: hdiff.h,v 1.1 2001/12/07 12:44:55 cepek Exp $
+ *  $Id: hdiff.h,v 1.2 2002/10/24 17:04:12 cepek Exp $
  */
 
 #include <gamalib/local/linearization.h>
@@ -31,8 +31,8 @@ using namespace std;
 
 void LocalLinearization::h_diff(const H_Diff* obs) const
 {
-   Point& sbod = PD[obs->from()];
-   Point& cbod = PD[obs->to()];
+   LocalPoint& sbod = PD[obs->from()];
+   LocalPoint& cbod = PD[obs->to()];
    Double h = cbod.z() - sbod.z();
    // Double p = M_0 / stdDev();
 

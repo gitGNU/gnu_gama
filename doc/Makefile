@@ -3,18 +3,18 @@ FILES   := $(shell ls Makefile ChangeLog *.texi *.txt *.eps *.png *.pdf)
 
 
 all:
-	makeinfo gama-unstable
-	makeinfo --html gama-unstable
-	cp *.png gama-unstable
+	makeinfo gama
+	makeinfo --html gama
+	cp *.png gama
 
 archive:
-	@tar czvf gama-unstable-$(EDITION).tar.gz $(FILES)
+	@tar czvf gama-doc-$(EDITION).tar.gz $(FILES)
 	@echo
-	@ls -sh   gama-unstable-$(EDITION).tar.gz
+	@ls -sh   gama-doc-$(EDITION).tar.gz
 	@echo
 
 clean:
-	rm -rf gama-unstable
+	rm -rf gama
 	rm -f  *.aux *.toc *.cp *.fn *.ky *.log *.vr *.pg *.tp
-	rm -f  *.dvi *.info gama-unstable.pdf
+	rm -f  *.dvi *.info gama.pdf
 	rm -f  *~

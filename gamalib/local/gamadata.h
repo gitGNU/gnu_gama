@@ -20,14 +20,14 @@
 */
 
 /*
- *  $Id: gamadata.h,v 1.1 2001/12/07 12:38:37 cepek Exp $
+ *  $Id: gamadata.h,v 1.2 2002/10/24 17:04:12 cepek Exp $
  */
 
 #ifndef GaMaLib____ObservationData____and_other_data_objects___h_____
 #define GaMaLib____ObservationData____and_other_data_objects___h_____
 
 #include <gamalib/pointid.h>
-#include <gamalib/local/point.h>
+#include <gamalib/local/lpoint.h>
 #include <gamalib/observation.h>
 #include <gamalib/cluster.h>
 #include <gamalib/angobs.h>
@@ -42,7 +42,7 @@ namespace GaMaLib {
   typedef std::list<PointID>    PointIDList;
   class ClusterList : public std::vector<Cluster*> {};
 
-  class PointData : public std::map <PointID, Point>,
+  class PointData : public std::map <PointID, LocalPoint>,
                     public LocalCoordinateSystem 
     {
     };
@@ -59,11 +59,11 @@ namespace GaMaLib {
       
       ObservationData& operator=(const ObservationData& cod);
       
-      template <class P> void for_each(const P& p)
+      template <class P> void for_each(const P& p) const
         {
-          for (ClusterList::iterator c=CL.begin(); c!=CL.end(); ++c)
+          for (ClusterList::const_iterator c=CL.begin(); c!=CL.end(); ++c)
             {
-              Cluster* cluster = (*c);
+              const Cluster* cluster = (*c);
               std::for_each(cluster->observation_list.begin(),
                             cluster->observation_list.end(), p);
             }

@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_cogo.cpp,v 1.2 2002/05/24 19:30:51 cepek Exp $
+ *  $Id: g2d_cogo.cpp,v 1.3 2002/10/24 17:04:12 cepek Exp $
  */
 
 /**************************************************************
@@ -142,8 +142,8 @@ namespace GaMaLib {
           h1 = h2;
           h2 = h;
         };
-      const Point B1 = (*(SB->find(h1->from()))).second;
-      const Point B2 = (*(SB->find(h2->from()))).second;
+      const LocalPoint B1 = (*(SB->find(h1->from()))).second;
+      const LocalPoint B2 = (*(SB->find(h2->from()))).second;
       Double jmen = cos(h1->value())*sin(h2->value())
         -sin(h1->value())*cos(h2->value());
       if(fabs(jmen) < 0.15)       // unreliable intersection
@@ -209,8 +209,8 @@ namespace GaMaLib {
 #endif
 
       number_of_solutions = 0;    // -1 when computation not done
-      const Point B1 = (*(SB->find(h1->from()))).second;
-      Point B2;
+      const LocalPoint B1 = (*(SB->find(h1->from()))).second;
+      LocalPoint B2;
       if(r == -1)                 // input Direction*, Distance*
         {
           if(SB->find(h1->to()) == SB->find(h2->to()))
@@ -219,7 +219,7 @@ namespace GaMaLib {
             B2 = (*(SB->find(h2->to()))).second;
           r = h2->value();
         }
-      else                        // input Direction*, Double, Point
+      else                        // input Direction*, Double, LocalPoint
         B2 = B;
       if(r <= 0)                  // radius <= 0
         return;
@@ -293,8 +293,8 @@ namespace GaMaLib {
       SD.Calculation();
       if(SD.Number_of_solutions() < 1)   // no intersection exist
         return;
-      Point B1 = (*(SB->find(h2->bs()))).second;
-      Point B2 = (*(SB->find(h2->fs()))).second;
+      LocalPoint B1 = (*(SB->find(h2->bs()))).second;
+      LocalPoint B2 = (*(SB->find(h2->fs()))).second;
       Double uu = bearing(SD.Solution_1(),B2) - bearing(SD.Solution_1(),B1);
       uu += (uu < 0 ? 2*M_PI : 0);
       // uu should be equal to h2->value(), but ...  uu is either
@@ -368,15 +368,15 @@ namespace GaMaLib {
       if(K.Number_of_solutions() < 1)    // computation of circle falied
         return;
       PointID CBB = (h1->from() == h2->from() ? h1->to() : h1->from());
-      Point  BB = (*(SB->find(CBB))).second;
+      LocalPoint BB = (*(SB->find(CBB))).second;
       Double dd1 = h1->value();
       Double dd2 = K.radius();
       Distance_distance DD(dd1,dd2,BB,K.Solution_1(),SB);
       DD.Calculation();
       if(DD.Number_of_solutions() < 1)   // intersection doesn't exist
         return;
-      Point B1 = (*(SB->find(h2->bs()))).second;
-      Point B2 = (*(SB->find(h2->fs()))).second;
+      LocalPoint B1 = (*(SB->find(h2->bs()))).second;
+      LocalPoint B2 = (*(SB->find(h2->fs()))).second;
       Double uu = bearing(DD.Solution_1(),B2) - bearing(DD.Solution_1(),B1);
       uu += (uu < 0 ? 2*M_PI : 0);
       // uu should be equalto h2->value(), but ...  uu is either
@@ -453,10 +453,10 @@ namespace GaMaLib {
       DD.Calculation();
       if(DD.Number_of_solutions() < 1)   // intersection doesn't exist
         return;
-      Point B1 = (*(SB->find(h1->bs()))).second;
-      Point B2 = (*(SB->find(h1->fs()))).second;
-      Point B3 = (*(SB->find(h2->bs()))).second;
-      Point B4 = (*(SB->find(h2->fs()))).second;
+      LocalPoint B1 = (*(SB->find(h1->bs()))).second;
+      LocalPoint B2 = (*(SB->find(h1->fs()))).second;
+      LocalPoint B3 = (*(SB->find(h2->bs()))).second;
+      LocalPoint B4 = (*(SB->find(h2->fs()))).second;
       bool Vyhovuje1, Vyhovuje2;
       Double uu1, uu2;
       // in the case of common point at both angles is one of

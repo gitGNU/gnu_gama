@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_point.cpp,v 1.2 2002/05/24 19:30:51 cepek Exp $
+ *  $Id: g2d_point.cpp,v 1.3 2002/10/24 17:04:12 cepek Exp $
  */
 
 /*************************************************************
@@ -265,7 +265,7 @@ namespace GaMaLib {
     CoordinateGeometry2D* GU;
     Select_solution_g2d* VR = new Select_solution_g2d(&SB,&SM);
     bool two_solutions = false;
-    Point prv, dru;
+    LocalPoint prv, dru;
     for(ObservationList::const_iterator i = SM.begin(); i != SM.end(); i++)
       for(ObservationList::const_iterator j = i+1; j != SM.end(); j++)
         {
@@ -374,7 +374,7 @@ namespace GaMaLib {
       }
 
 #ifdef PB_Debug
-    for(std::vector<Point>::const_iterator i = Solved_points.begin(); 
+    for(std::vector<LocalPoint>::const_iterator i = Solved_points.begin(); 
         i < Solved_points.end(); i++)
       std::cout << "-> " << i->y() << ' ' << i->x() << '\n';
 #endif

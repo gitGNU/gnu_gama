@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: test_linearization.h,v 1.2 2002/05/24 19:30:51 cepek Exp $
+ *  $Id: test_linearization.h,v 1.3 2002/10/24 17:04:13 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Test_Chyby_z_Linearizace_h_
@@ -66,7 +66,7 @@ TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
   *     if (IS->typ_neznama(i) == 'X')
   *       {
   *         const PointID cb = IS->bod_neznama(i);
-  *         const Point&  b = IS->PD[cb];
+  *         const LocalPoint&  b = IS->PD[cb];
   *         if (!b.constrained_xy())
   *           {
   *             Double dx = x(i++)/1000;
@@ -115,8 +115,8 @@ TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
             continue;
           }
 
-        const Point& stan = IS->PD[pm->from()];
-        const Point& cil  = IS->PD[pm->to() ];
+        const LocalPoint& stan = IS->PD[pm->from()];
+        const LocalPoint& cil  = IS->PD[pm->to() ];
         Double sy = stan.y();
         Double sx = stan.x();
         if (stan.free_xy())
@@ -153,7 +153,7 @@ TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
           }
         else if (Angle* u = dynamic_cast<Angle*>(pm))
           {
-            const Point& cil2 = IS->PD[u->fs() ];
+            const LocalPoint& cil2 = IS->PD[u->fs() ];
             Double cy2 = cil2.y() + x(cil2.index_y())/1000;
             Double cx2 = cil2.x() + x(cil2.index_x())/1000;
             Double ds2, dd2;
@@ -302,7 +302,7 @@ TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
       test = false;
       for (PointData::const_iterator i=IS->PD.begin(); i!=IS->PD.end(); ++i)
         {
-          const Point& b = (*i).second;
+          const LocalPoint& b = (*i).second;
           if (b.free_xy() && !b.constrained_xy())
             {
               test = true;

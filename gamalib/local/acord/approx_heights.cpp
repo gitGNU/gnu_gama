@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: approx_heights.cpp,v 1.1 2001/12/07 12:40:58 cepek Exp $
+ *  $Id: approx_heights.cpp,v 1.2 2002/10/24 17:04:12 cepek Exp $
  */
 
  
@@ -38,7 +38,7 @@ ApproximateHeights::ApproximateHeights(PointData& b, ObservationData& m)
 
   for (PointData::const_iterator i=PD.begin(); i!=PD.end(); ++i)
     {
-      const Point& p = (*i).second;
+      const LocalPoint& p = (*i).second;
       if (p.active_z() && !p.test_z()) missing_heights++;
     }
 
@@ -111,8 +111,8 @@ void ApproximateHeights::make_heights()
       // H_Diff from coordinates;
       if (!is_heights)
         {
-          const Point& from = PD[From];
-          const Point& to   = PD[To];
+          const LocalPoint& from = PD[From];
+          const LocalPoint& to   = PD[To];
           if (from.test_xy() && to.test_xy())
             {
               Double dist = sqrt( (from.x() - to.x())*(from.x() - to.x()) + 
@@ -151,8 +151,8 @@ void ApproximateHeights::execute()
     for (LHD::iterator i=A->begin(); i!=A->end(); ++i)
       {
         H_Diff* h = *i;
-        Point& f = PD[h->from()];
-        Point& t = PD[h->to()];
+        LocalPoint& f = PD[h->from()];
+        LocalPoint& t = PD[h->to()];
 
         if (!f.test_z() && !t.test_z()) 
           {

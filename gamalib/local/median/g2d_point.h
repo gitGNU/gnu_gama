@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_point.h,v 1.2 2002/05/24 19:30:51 cepek Exp $
+ *  $Id: g2d_point.h,v 1.3 2002/10/24 17:04:13 cepek Exp $
  */
 
 /*************************************************************
@@ -49,8 +49,8 @@ namespace GaMaLib {
       ObservationList SM;
       ObservationList SM_U;         // for inner angles
       ObservationList SM_S;  	    // for outer bearings
-      Point v_point;                // final point - output
-      Point v_point2;               //             - ambiguous solutions (two)
+      LocalPoint v_point;           // final point - output
+      LocalPoint v_point2;          //             - ambiguous solutions (two)
       PointData* SB_puv;            // repeating calc. with another Point ID 
       ObservationList* SM_puv;
       Solution_state_tag state;     // Solution_state_tag -> see g2d_helper.h
@@ -150,7 +150,7 @@ namespace GaMaLib {
         { 
           return state; 
         }
-      Point Solution()
+      LocalPoint Solution()
         {
           if(state == calculation_not_done)
             throw g2d_exc("ApproxPoint: computation not done");
@@ -158,7 +158,7 @@ namespace GaMaLib {
             throw g2d_exc("ApproxPoint: no solution");
           return v_point;
         }
-      Point Solution_2()
+      LocalPoint Solution_2()
         {
           if(state == calculation_not_done)
             throw g2d_exc("ApproxPoint: computation not done");

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: xyzdiff.h,v 1.1 2001/12/07 12:44:55 cepek Exp $
+ *  $Id: xyzdiff.h,v 1.2 2002/10/24 17:04:12 cepek Exp $
  */
 
 #include <gamalib/local/linearization.h>
@@ -31,8 +31,8 @@ using namespace std;
 
 void LocalLinearization::xdiff(const Xdiff* obs) const
 {
-  Point& spoint = PD[obs->from()];               // stand point
-  Point& tpoint = PD[obs-> to() ];               // target
+  LocalPoint& spoint = PD[obs->from()];               // stand point
+  LocalPoint& tpoint = PD[obs-> to() ];               // target
   Double df = tpoint.x() - spoint.x();
   // Double p  = M_0 / stdDev();
 
@@ -59,8 +59,8 @@ void LocalLinearization::xdiff(const Xdiff* obs) const
 
 void LocalLinearization::ydiff(const Ydiff* obs) const
 {
-  Point& spoint = PD[obs->from()];
-  Point& tpoint = PD[obs-> to() ];
+  LocalPoint& spoint = PD[obs->from()];
+  LocalPoint& tpoint = PD[obs-> to() ];
   Double df = tpoint.y() - spoint.y();
   // Double p = M_0 / stdDev();
 
@@ -87,8 +87,8 @@ void LocalLinearization::ydiff(const Ydiff* obs) const
 
 void LocalLinearization::zdiff(const Zdiff* obs) const
 {
-  Point& spoint = PD[obs->from()];
-  Point& tpoint = PD[obs-> to() ];
+  LocalPoint& spoint = PD[obs->from()];
+  LocalPoint& tpoint = PD[obs-> to() ];
   Double df = tpoint.z() - spoint.z();
   // Double p = M_0 / stdDev();
 

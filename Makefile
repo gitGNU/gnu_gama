@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.7 2002/09/23 16:14:38 cepek Exp $
+# $Id: Makefile,v 1.8 2002/10/24 17:04:12 cepek Exp $
 #
 # this Makefile and all files in ./scripts were tested on Debian GNU/Linux 2.2
 #
@@ -35,20 +35,21 @@ help:
 	@echo
 
 build:
-	make clean
+#	make clean
 	./scripts/Build_GaMa
 
 make-project:
-	@if [ ! -f gamaprog/linux/gama/Makefile      ]; then make build; fi
-	@if [ ! -f gamaprog/linux/lib/Makefile       ]; then make build; fi
-	@if [ ! -f gamaprog/linux/lib/Makefile-expat ]; then make build; fi
+	@if [ ! -f gamaprog/linux/gama-local/Makefile ]; then make build; fi
+	@if [ ! -f gamaprog/linux/lib/Makefile        ]; then make build; fi
+	@if [ ! -f gamaprog/linux/lib/Makefile-expat  ]; then make build; fi
 	( cd gamaprog/linux/lib;   make; make -f Makefile-expat )
-	( cd gamaprog/linux/gama ; make )
+	( cd gamaprog/linux/gama-local ; make )
 
 example:
-	@if [ ! -x  gamaprog/linux/gama/gama ]; then make make; fi
-	(cd gamaprog/linux/gama/examples; \
-	../gama gama-xml.gkf test. ; cat test.txt )
+	@if [ ! -x  gamaprog/linux/gama-local/gama-local ]; \
+		then make make-project; fi
+	(cd gamaprog/linux/gama-local/examples; \
+	../gama-local gama-xml.gkf test. ; cat test.txt )
 
 archive:
 	./scripts/GaMaLib_archive
@@ -59,7 +60,7 @@ clean:
 	rm -f `find gamalib gamaprog scripts -name *\.[a]`
 	rm -f `find gamalib gamaprog -name demo*`
 	rm -f `find . -name *[\~\#]*`
-	rm -f `find gamaprog/linux/gama/examples -name test*`
+	rm -f `find gamaprog/linux/gama-local/examples -name test*`
 
 # -----------------------------------------------------------------------
 

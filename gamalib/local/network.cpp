@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.2 2002/05/29 16:06:54 cepek Exp $
+ *  $Id: network.cpp,v 1.3 2002/10/24 17:04:12 cepek Exp $
  */
 
 #include <fstream>
@@ -67,7 +67,7 @@ void LocalNetwork::revision_points()
   for (PointData::iterator bod=PD.begin(); bod!=PD.end(); ++bod)
     {
       bool ok = true;
-      Point& b = (*bod).second;
+      LocalPoint& b = (*bod).second;
 
       b.set_xyz_0();       // store initial values even for unused points
 
@@ -167,7 +167,7 @@ void LocalNetwork::project_equations()
   
   for (PointData::iterator bod=PD.begin(); bod!=PD.end(); ++bod)
     {
-      Point& b = (*bod).second;
+      LocalPoint& b = (*bod).second;
       if (b.active_xy() || b.active_z())
         {
           // indexes of unknowns in project equations: 1, 2, ...
@@ -235,7 +235,7 @@ void LocalNetwork::project_equations()
        */
       if (standpoint->test_orientation() && standpoint->index_orientation())
         {
-          const Point& station = PD[standpoint->station];
+          const LocalPoint& station = PD[standpoint->station];
           if (station.active_xy())
             {
               nez.cb  = standpoint->station;
@@ -247,7 +247,7 @@ void LocalNetwork::project_equations()
 
   for (PointData::const_iterator i=PD.begin(); i!=PD.end(); ++i)
     {
-      const Point& b = (*i).second;
+      const LocalPoint& b = (*i).second;
 
       if (b.active_xy() && b.index_y())
         {
@@ -337,7 +337,7 @@ bool LocalNetwork::singular_coords(const Mat& A)
 
   for (PointData::iterator i=PD.begin(); i!=PD.end(); ++i)
     {
-      Point&  p  = (*i).second;
+      LocalPoint&  p  = (*i).second;
       if (!p.free_xy() || p.index_x()==0) continue;
 
       indx = p.index_x();
@@ -506,8 +506,8 @@ Double LocalNetwork::test_abs_term(Index indm)
   if (dynamic_cast<const Coordinates*>(m->ptr_cluster())) return 0;
   if (dynamic_cast<const Vectors*>(m->ptr_cluster())) return 0;
 
-  const Point& stan = PD[m->from()];
-  const Point& cil  = PD[m->to()];        // ignoring second angle target here
+  const LocalPoint& stan = PD[m->from()];
+  const LocalPoint& cil  = PD[m->to()];   // ignoring second angle target here
 
   if (const H_Diff* h = dynamic_cast<const H_Diff*>(m))
     {
@@ -602,7 +602,7 @@ void LocalNetwork::std_error_ellipse(const PointID& cb,
 {
   using namespace std;
 
-  const Point& bod = PD[cb];
+  const LocalPoint& bod = PD[cb];
   int iy = bod.index_y();
   int ix = bod.index_x();
   Double cyy = q_xx(iy,iy);
@@ -629,14 +629,14 @@ void LocalNetwork::refine_approx()
     if (unknown_type(i) == 'X')
       {
         const PointID& cb = unknown_pointid(i);
-        Point& b = PD[cb];
+        LocalPoint& b = PD[cb];
         if (!b.constrained_xy())
           b.set_xy(b.x() + x(i)/1000, b.y() + x(i+1)/1000);
       }
     else if (unknown_type(i) == 'Z')
       {
         const PointID& cb = unknown_pointid(i);
-        Point& b = PD[cb];
+        LocalPoint& b = PD[cb];
         if (!b.constrained_z())
           b.set_z(b.z() + x(i)/1000);
       }
@@ -763,7 +763,7 @@ void LocalNetwork::vyrovnani_()
 
     for (PointData::iterator i=PD.begin(); i!=PD.end(); ++i)
       {
-        Point&          P  = (*i).second;
+        LocalPoint&     P  = (*i).second;
         const PointID&  id = (*i).first;
 
         if (!P.free_xy() && !P.free_z()) continue;

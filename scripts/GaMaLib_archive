@@ -1,9 +1,9 @@
 #!/bin/sh
 #
-# gamalib tar ball: script is run in the parent directory of scripts
-# ################
+# gama tar: script is run in the parent directory of scripts
+# #########
 #
-# $Id: GaMaLib_archive,v 1.12 2002/10/17 17:30:16 cepek Exp $
+# $Id: GaMaLib_archive,v 1.13 2002/10/24 17:04:13 cepek Exp $
 
 if pwd | grep scripts$; then cd ..; fi
 
@@ -13,7 +13,7 @@ cd $HOME
 LIBVER=$(scripts/get-gamalib-version)
 DIRVER=$(echo $LIBVER | awk -F. '// { print $1"."$2 }')
 
-VERSION=gamalib-$LIBVER
+VERSION=gama-$LIBVER
 
 rm -f   $VERSION 2>/dev/null
 if [ -d $VERSION ]; then
@@ -63,9 +63,10 @@ rm -f $TAR
 echo
 echo tar czvf $TAR
 echo 
-tar czvf $TAR $MD5 $ADD --exclude=*.o --exclude=*.a --exclude=*.bak\
+tar czvf $TAR $MD5 $ADD --exclude=*.o --exclude=*.a --exclude=*.bak \
               --exclude=$VERSION/$VERSION \
               --exclude=CVS \
+              --exclude=doc/gama \
               --exclude-from=/tmp/gamalib-$VERSION-exclude
 
 rm -f /tmp/gamalib-$VERSION-exclude

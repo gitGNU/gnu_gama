@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: approximate_coordinates.h,v 1.1 2001/12/07 12:54:43 cepek Exp $
+ *  $Id: approximate_coordinates.h,v 1.2 2002/10/24 17:04:13 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Priblizne_Souradnice_h_
@@ -77,7 +77,7 @@ void ApproximateCoordinates(GaMaLib::Acord* acord, OutStream& out)
            << underline(T_GaMa_missing_coordinates, '-') << "\n";
        for (PointData::const_iterator i=PD.begin(); i!=PD.end(); ++i)
          {
-           const Point& p = (*i).second;
+           const LocalPoint& p = (*i).second;
            bool cp = p.active_xy() && !p.test_xy();
            bool hp = p.active_z()  && !p.test_z();
            if (cp && hp)

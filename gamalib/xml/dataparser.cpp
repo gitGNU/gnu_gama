@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.3 2002/10/19 13:05:29 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.4 2002/10/24 17:04:13 cepek Exp $
  */
 
 #include <gamalib/xml/dataparser.h>
@@ -131,4 +131,75 @@ int DataParser::d_text(const char* s, int len)
 
   return 0;
 }
+
+
+// #########################################################################
+
+#ifdef GaMaLib_DataParser_demo
+
+#include <gamalib/xml/dataparser.h>
+#include <cstring>
+#include <iostream>
+
+
+int main()
+{
+  using namespace std;
+  using namespace GaMaLib;
+  
+  const char* xml_input_data = 
+
+    "<?xml version=\"1.0\" ?>\n"
+    "<!DOCTYPE gama-data SYSTEM \"gama-data.dtd\">\n\n"
+
+    "<gama-data>\n\n"
+    "<text>\n"
+    "This is a DataParser demo ...\n"
+    "</text>\n\n"
+
+    "<text>\n"
+    "qwerty. ..\n"
+    "asdfgh ...\n"
+    "zxcvbn ...\n"
+    "</text>\n"
+    "</gama-data>\n"
+    ;
+
+  try 
+    {
+      set_gama_language(en);
+
+      list<DataObject*> objects;
+      DataParser dp(objects);
+      dp.xml_parse(xml_input_data, strlen(xml_input_data), 1);
+      
+      for (list<DataObject*>::const_iterator i=objects.begin(); 
+           i!=objects.end(); ++i)
+        {
+          cout << (*i)->xml();
+        }
+    }
+  catch(ParserException e)
+    {
+      cout << "\nOn line " << e.line 
+           << " --- exception : <"   << e.text 
+           << ">  --- error code : " << e.error_code << endl;
+      return 1;
+    }
+  catch(Exception g)
+    {
+      cout << "\nGaMaLib Exception : " << g.text << endl;
+      return 2;
+    }
+  catch(...)
+    {
+      cout << "\nUnknown exception\n";
+      return 3;
+    }
+
+  return 0;
+}
+
+
+#endif
 
