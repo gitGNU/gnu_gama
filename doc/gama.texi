@@ -1,5 +1,5 @@
 \input texinfo   @c -*-texinfo-*-
-@comment $Id: gama.texi,v 1.1 2002/10/24 17:09:11 cepek Exp $
+@comment $Id: gama.texi,v 1.2 2002/10/25 16:32:11 cepek Exp $
 
 @comment Part 1 : Header
 
@@ -66,9 +66,9 @@ Free Documentation License''.
 @end ifnottex
 
 @menu
-* Stable and unstable version ::  
+* Stable and unstable development branches ::  
 * Data structures and algorithms::  
-* XML input data format::
+* XML input data format for @code{gama-local}::
 
 * Copying This Manual::         The GNU Free Documentation License.
 * Concept Index::               
@@ -78,12 +78,12 @@ Free Documentation License''.
 
 @comment Part 5:  The Body of the Document
 
-@node    Stable and unstable version 
-@chapter Stable and unstable version
+@node    Stable and unstable development branches 
+@chapter Stable and unstable development branches
 @include gama-versions.texi
 
-@node    XML input data format
-@chapter XML input data format
+@node    XML input data format for @code{gama-local}
+@chapter XML input data format for @code{gama-local}
 @include gama-xml-input.texi
 
 @node    Data structures and algorithms

@@ -1,4 +1,4 @@
-@comment $Id: gama-xml-input.texi,v 1.1 2002/10/12 15:52:23 cepek Exp $
+@comment $Id: gama-xml-input.texi,v 1.2 2002/10/25 16:32:11 cepek Exp $
 
 @comment setfilename gama-xml-inp.info
 
@@ -10,7 +10,7 @@
 
 
 The input data format for a local geodetic network adjustment (program
-@emph{gama}) is defined in accordance with the definition of Extended
+@code{gama-local}) is defined in accordance with the definition of Extended
 Markup Language (XML) for description of structured data.
 The XML definition can be found at
 
@@ -25,10 +25,11 @@ defined in the Document Type Definition (DTD) at
 @center    @uref{http://www.gnu.org/software/gama/gama-xml.dtd}
 
 @noindent
-and can formally be validated independently on the program @emph{gama}.
+and can formally be validated independently on the program
+@code{gama-local}.
 
 
-For parsing the XML input data, @emph{gama} uses the XML parser
+For parsing the XML input data, @code{gama-local} uses the XML parser
 @code{Expat} copyrighted by James Clark which is described at
 
 @center     @uref{http://www.jclark.com/xml/expat.html}
@@ -39,10 +40,11 @@ alternatively be used under the GNU General Public License (GPL)
 instead.
 
 
-In the @emph{gama} XML input, distances are given in metres, angular
-values in centigrades and their standard deviations (rms errors) in
-millimetres or centigrade seconds, respectively.  At the end of this
-document an example of the @emph{gama} XML input data object is given.
+In the @code{gama-local} XML input, distances are given in metres,
+angular values in centigrades and their standard deviations (rms
+errors) in millimetres or centigrade seconds, respectively.  At the
+end of this document an example of the @code{gama-local} XML input
+data object is given.
 
 
 @menu
@@ -71,7 +73,7 @@ document an example of the @emph{gama} XML input data object is given.
 
 XML documents may, and should, begin with an XML declaration that
 specifies the version of XML being used (@emph{prolog}).  In the case of
-@emph{gama}, the XML input data are followed by the XML document type
+@code{gama-local}, the XML input data are followed by the XML document type
 declaration:
 
 @example
@@ -138,12 +140,12 @@ observations. Example of right-handed orthogonal system with different
 axes orientation is coordinate system @emph{Krovak} used in the Czech
 Republic where the axes @code{x} and @code{y} are oriented south and
 west respectively.  Apart from right handed systems the program
-@emph{gama} can adjust observations and coordinates in left-handed
-systems with counterclockwise angles and/or directions. The current
-version does not support mixed systems with different orientation of
-axes and angles. If such a situation is detected, @emph{gama} tries to
-recover from the unsupported system by simply changing the sign of all
-@code{y} coordinates.
+@code{gama-local} can adjust observations and coordinates in
+left-handed systems with counterclockwise angles and/or
+directions. The current version does not support mixed systems with
+different orientation of axes and angles. If such a situation is
+detected, @code{gama-local} tries to recover from the unsupported
+system by simply changing the sign of all @code{y} coordinates.
 
 
 
@@ -410,10 +412,11 @@ summation index $i$ goes over all \emph{constrained} points.
 @end iftex
 @c % ----------------------------------------------------------------------
 In other words, the set of the @emph{constrained} points defines the
-adjustment of the free network (its shape and size) with a simultaneous
-transformation to the approximate coordinates of selected points.
-Program @emph{gama} allows the definition of  constrained coordinates with
-1D leveling networks, 2D and 3D local networks.
+adjustment of the free network (its shape and size) with a
+simultaneous transformation to the approximate coordinates of selected
+points.  Program @code{gama-local} allows the definition of
+constrained coordinates with 1D leveling networks, 2D and 3D local
+networks.
 
 
 
