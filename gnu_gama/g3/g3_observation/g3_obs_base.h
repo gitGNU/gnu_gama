@@ -20,16 +20,18 @@
 */
 
 /*
- *  $Id: g3_obs_base.h,v 1.5 2003/03/28 22:07:31 cepek Exp $
+ *  $Id: g3_obs_base.h,v 1.6 2003/03/29 13:33:57 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_parameter.h>
-#include <gnu_gama/g3/g3_point.h>
+#include <gnu_gama/g3/g3_parameter.h>
 #include <gnu_gama/sparse/svector.h>
 #include <gnu_gama/ellipsoid.h>
 
 #ifndef GNU_gama__g3_obs_base_h_gnugamag3obs_baseh___gnu_gama_g3obs
 #define GNU_gama__g3_obs_base_h_gnugamag3obs_baseh___gnu_gama_g3obs
+
+#include <gnu_gama/g3/g3_point.h>
 
 
 namespace GNU_gama {  namespace g3 {

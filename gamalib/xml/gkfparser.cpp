@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.7 2003/02/28 17:36:56 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.8 2003/03/29 13:33:57 cepek Exp $
  */
 
 
@@ -1478,7 +1478,7 @@ namespace GaMaLib {
 #ifdef GaMaLib_GKFparser_demo
 
 #include <fstream>
-#include <gamalib/version.h>
+#include <gnu_gama/version.h>
 #include <gamalib/local/pobs/format.h>
 
 using namespace GaMaLib;

@@ -1,6 +1,6 @@
 /*  
-    GNU Gama -- adjustment of geodetic networks
-    Copyright (C) 2003  Ales Cepek <cepek@fsv.cvut.cz>
+    GNU Gama --- Geodesy and Mapping C++ library 
+    Copyright (C) 1999, 2003  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the GNU Gama C++ library.
     
@@ -20,33 +20,17 @@
 */
 
 /*
- *  $Id: g3_obs_dist.h,v 1.2 2003/03/29 13:33:57 cepek Exp $
+ *  $Id: version.h,v 1.1 2003/03/29 13:33:57 cepek Exp $
  */
 
-#include <gnu_gama/g3/g3_observation/g3_obs_base.h>
+#ifndef GNU_GAMA_VERSION_H___GNU_Gama_version_h___gnugamaversionh
+#define GNU_GAMA_VERSION_H___GNU_Gama_version_h___gnugamaversionh
 
+namespace GNU_gama {
 
-#ifndef GNU_gama__g3_obs_distance_h_gnugamag3obs_distanceh___gnu_gama_g3obs
-#define GNU_gama__g3_obs_distance_h_gnugamag3obs_distanceh___gnu_gama_g3obs
+   extern const char* GNU_gama_version; 
+   extern const char* GNU_gama_compiler;
 
-
-namespace GNU_gama {  namespace g3 {
-
-
-  class Distance : public Observation {
-  public:  
-
-    Point::Name name[2];
-
-    Distance() : Observation(6) {}
-
-    double parlist_value() const;
-    void   parlist_init (Model*);
-    double derivative   (Parameter*);
-  };
-
-
-}}
-
+}
 
 #endif

@@ -20,11 +20,11 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.10 2003/03/28 22:07:31 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.11 2003/03/29 13:33:57 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
-
+#include <gnu_gama/g3/g3_observation.h>
 
 using namespace GNU_gama::g3;
 
@@ -204,4 +204,15 @@ bool Point::constr_position() const
   return B->constr() && L->constr() && H->constr();
 }
 
+// ----------------------------------------------------------------------
+
+double Parameter_H::analytical_derivative(HeightDiff* hd)
+{
+  if (!free()) return 0;
+
+  Parameter**  p    = hd->parlist.begin();  
+  Parameter_H* from = static_cast<Parameter_H*>(*p);
+
+  return this == from ? -1 : +1;
+}
 

@@ -1,6 +1,7 @@
 gnu_gama/ellipsoid.cpp
 gnu_gama/ellipsoids.cpp
 gnu_gama/outstream.cpp
+gnu_gama/version.cpp
 gnu_gama/g3/g3_model.cpp
 gnu_gama/g3/g3_parameter.cpp
 gnu_gama/g3/g3_point.cpp
@@ -39,7 +40,6 @@ gamalib/pointid.cpp
 gamalib/rand.cpp
 gamalib/skipcomm.cpp
 gamalib/statan.cpp
-gamalib/version.cpp
 gamalib/xml/baseparser.cpp
 gamalib/xml/dataobject.cpp
 gamalib/xml/dataparser.cpp

@@ -1,8 +1,8 @@
 /*  
-    Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
-    Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
+    GNU Gama -- adjustment of geodetic networks
+    Copyright (C) 2003  Ales Cepek <cepek@fsv.cvut.cz>
 
-    This file is part of the GNU GaMa / GaMaLib C++ Library.
+    This file is part of the GNU Gama C++ library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,17 +20,24 @@
 */
 
 /*
- *  $Id: version.h,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: g3_der_dist.h,v 1.1 2003/03/29 13:33:57 cepek Exp $
  */
 
-#ifndef GaMaLib_Version_H
-#define GaMaLib_Version_H
+#ifndef GNU_gama__g3_der_dist_h_gnugamag3der_disth___gnu_gama_g3der
+#define GNU_gama__g3_der_dist_h_gnugamag3der_disth___gnu_gama_g3der
 
-namespace GaMaLib {
 
-   extern const char* GaMaLib_version; 
-   extern const char* GaMaLib_compiler;
+namespace GNU_gama {  namespace g3 {
 
-}
+  class Distance;
+
+  class DistanceAnalyticalDerivative {
+  public:
+    
+    virtual double analytical_derivative(Distance*) = 0;
+  };
+  
+}}
+
 
 #endif

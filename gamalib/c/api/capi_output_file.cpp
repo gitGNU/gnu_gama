@@ -20,14 +20,14 @@
 */
 
 /*
- *  $Id: capi_output_file.cpp,v 1.3 2003/02/16 13:09:14 cepek Exp $
+ *  $Id: capi_output_file.cpp,v 1.4 2003/03/29 13:33:57 cepek Exp $
  */
 
 #include <gnu_gama/outstream.h>
 
 #include <gamalib/c/api/capi_output_file.h>
 #include <gamalib/c/api/capi_private_exception.h>
-#include <gamalib/version.h>
+#include <gnu_gama/version.h>
 #include <gamalib/exception.h>
 
 #include <gamalib/local/results/text/adjusted_observations.h>
@@ -71,7 +71,7 @@ extern "C" {
 
   const char* Cgama_gamalib_version()
   {
-    return GaMaLib_version;
+    return GNU_gama::GNU_gama_version;
   }
 
   void Cgama_of_string(void* object, const char* string)

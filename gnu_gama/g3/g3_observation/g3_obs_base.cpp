@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_base.cpp,v 1.4 2003/03/28 22:07:31 cepek Exp $
+ *  $Id: g3_obs_base.cpp,v 1.5 2003/03/29 13:33:57 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -39,7 +39,7 @@ void Observation::linearization(GNU_gama::SparseVector<>& row)
   double     d; 
   while (b != e)
     {
-      d = numerical_derivative(*b);
+      d = derivative(*b);
       if (d)
       {
         row.add((*b)->index(), d);
@@ -51,7 +51,7 @@ void Observation::linearization(GNU_gama::SparseVector<>& row)
 
 double Observation::numerical_derivative(Parameter* p) 
 {
-  if (p->fixed()) return 0;
+  if (!p->free()) return 0;
  
   double p_correction = p->correction();
   double d1, d2, d = p->step_size() + p_correction;

@@ -1,8 +1,8 @@
 /*  
-    Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
-    Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
+    GNU Gama --- Geodesy and Mapping C++ library 
+    Copyright (C) 1999, 2003  Ales Cepek <cepek@fsv.cvut.cz>
 
-    This file is part of the GNU GaMa / GaMaLib C++ Library.
+    This file is part of the GNU Gama C++ library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,33 +20,33 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.63 2003/03/19 19:34:05 cepek Exp $
+ *  $Id: version.cpp,v 1.1 2003/03/29 13:33:57 cepek Exp $
  */
 
 
-#include <gamalib/version.h>
+#include <gnu_gama/version.h>
 
-namespace GaMaLib {
+namespace GNU_gama {
 
-const char* GaMaLib_version  = "1.7.03";
+const char* GNU_gama_version  = "1.7.03";
 
-const char* GaMaLib_compiler =
+const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
-              "GNU g++"             // g++ 3.0.4 and 2.95.2
+              "GNU g++"             // g++ 3.0.4 and 2.95.4
               #elif defined (__BORLANDC__) && (__linux__)
               "kylix-bc++"          // 5.7
               #elif defined (__BORLANDC__)
-              "win32-borland"       // 5.5
+              "win32-borland"       // 5.6
               #elif defined (_MSC_VER)
-              "win32-msvc"          // 6.0
+              "win32-msvc"          // 1300
               #else
-              #error GaMaLib - has not been tested with your compiler
+              #error GNU_gama - has not been tested with your compiler
               #endif
               ;
 }
 
 
-/* GaMaLib uses James Clark's parser Expat (v.1.1) for XML data processing
+/* GNU Gama uses James Clark's parser Expat (v.1.1) for XML data processing
  *
  *    Expat is subject to the Mozilla Public License Version 1.1. 
  *    Alternatively you may use expat under the GNU General Public
@@ -54,12 +54,17 @@ const char* GaMaLib_compiler =
  *
  *              ftp://ftp.jclark.com/pub/xml/expat.zip
  *
- * Scripts for compiling GaMaLib and linking the program GaMa expect
- * Expat library to be in the same directory as GaMaLib
+ * Scripts for compiling GNU Gama and linking the program gama-local expect
+ * Expat library to be in the same directory as GNU Gama
 
 =============================================================================
 
-1.7.03 2002.....
+1.7.03 2002-03-29
+
+   - first draft of implementation of (g3) classes for computing
+     derivatives of Observations by Parameters
+
+   - files gamalib/version.[h|cpp] (ChangeLog) moved to directory gnu_gama
 
    - bash scripts for generating makefiles replaced by C++ program
      scripts/gnu_gama_dep.cpp

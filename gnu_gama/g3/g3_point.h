@@ -20,11 +20,13 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.11 2003/03/28 22:07:31 cepek Exp $
+ *  $Id: g3_point.h,v 1.12 2003/03/29 13:33:57 cepek Exp $
  */
 
 #include <gamalib/pointid.h>
 #include <gnu_gama/g3/g3_parameter.h>
+#include <gnu_gama/g3/g3_observation/g3_der_dist.h>
+#include <gnu_gama/g3/g3_observation/g3_der_hdiff.h>
 
 #ifndef GNU_gama__g3_point_h_gnugamag3pointh___gnu_gama_g3point
 #define GNU_gama__g3_point_h_gnugamag3pointh___gnu_gama_g3point
@@ -45,8 +47,10 @@ namespace GNU_gama {  namespace g3 {
     };
   
   class Parameter_H : 
-    public Parameter
+    public Parameter,
+    public HeightDiffAnalyticalDerivative
     {
+      double analytical_derivative(HeightDiff*);
     };
 
 

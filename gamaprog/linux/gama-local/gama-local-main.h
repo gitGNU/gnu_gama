@@ -1,8 +1,8 @@
 /*  
-    GNU GaMa / C++ GaMaLib Library
-    Copyright (C) 1999, 2002  Ales Cepek <cepek@fsv.cvut.cz>
+    GNU Gama C++ library
+    Copyright (C) 1999, 2002, 2003  Ales Cepek <cepek@fsv.cvut.cz>
 
-    This file is part of the GNU GaMa / C++ GaMaLib library.
+    This file is part of the GNU Gama C++ library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.8 2003/02/28 17:36:56 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.9 2003/03/29 13:33:57 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -29,7 +29,7 @@
 #include <gnu_gama/outstream.h>
 
 #include <cstring>
-#include <gamalib/version.h>
+#include <gnu_gama/version.h>
 #include <gamalib/language.h>
 #include <gamalib/local/gamadata.h>
 #include <gamalib/xml/gkfparser.h>
@@ -67,8 +67,8 @@ int help()
   
   cerr << "\n" 
        << "Adjustment of local geodetic network"
-       << "        version: "<< GaMaLib_version
-       << " / " << GaMaLib_compiler << "\n"
+       << "        version: "<< GNU_gama::GNU_gama_version
+       << " / " << GNU_gama::GNU_gama_compiler << "\n"
        << "************************************\n"
        << "http://www.gnu.org/software/gama/\n\n"
        << "Usage: " << /*argv[0]*/"gama-local" 
@@ -92,7 +92,7 @@ int version()
   using namespace std;
   using namespace GaMaLib;
   
-  cout << GaMaLib_version << endl;
+  cout << GNU_gama::GNU_gama_version << endl;
 
   return 0;
 }
@@ -305,7 +305,7 @@ int GaMa_Main(int argc, char **argv)
       }
     
     if (file_txt == "")  file_txt = string(argv_1) 
-                          + "-" + string(GaMaLib_version)
+                          + "-" + string(GNU_gama::GNU_gama_version)
                           + "-" + string(IS->algorithm());
 
     fcout.open(file_txt.c_str());
@@ -333,8 +333,9 @@ int GaMa_Main(int argc, char **argv)
     
     {
       cout << T_GaMa_Adjustment_of_geodetic_network << "        "
-           << T_GaMa_version << GaMaLib_version << "-" << IS->algorithm()
-           << " / " << GaMaLib_compiler << "\n"
+           << T_GaMa_version << GNU_gama::GNU_gama_version 
+           << "-" << IS->algorithm()
+           << " / " << GNU_gama::GNU_gama_compiler << "\n"
            << underline(T_GaMa_Adjustment_of_geodetic_network, '*') << "\n"
            << "http://www.gnu.org/software/gama/\n\n\n";
     }

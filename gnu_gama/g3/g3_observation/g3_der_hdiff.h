@@ -20,32 +20,23 @@
 */
 
 /*
- *  $Id: g3_obs_dist.h,v 1.2 2003/03/29 13:33:57 cepek Exp $
+ *  $Id: g3_der_hdiff.h,v 1.1 2003/03/29 13:33:57 cepek Exp $
  */
 
-#include <gnu_gama/g3/g3_observation/g3_obs_base.h>
-
-
-#ifndef GNU_gama__g3_obs_distance_h_gnugamag3obs_distanceh___gnu_gama_g3obs
-#define GNU_gama__g3_obs_distance_h_gnugamag3obs_distanceh___gnu_gama_g3obs
+#ifndef GNU_gama__g3_der_hdiff_h_gnugamag3der_hdiffh___gnu_gama_g3der
+#define GNU_gama__g3_der_hdiff_h_gnugamag3der_hdiffh___gnu_gama_g3der
 
 
 namespace GNU_gama {  namespace g3 {
 
+  class HeightDiff;
 
-  class Distance : public Observation {
-  public:  
-
-    Point::Name name[2];
-
-    Distance() : Observation(6) {}
-
-    double parlist_value() const;
-    void   parlist_init (Model*);
-    double derivative   (Parameter*);
+  class HeightDiffAnalyticalDerivative {
+  public:
+    
+    virtual double analytical_derivative(HeightDiff*) = 0;
   };
-
-
+  
 }}
 
 
