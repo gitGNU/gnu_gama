@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.5 2003/05/11 12:37:10 cepek Exp $
+ *  $Id: version.cpp,v 1.6 2003/05/15 18:53:15 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.04";
+const char* GNU_gama_version  = "1.7.05-pre";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -58,6 +58,11 @@ const char* GNU_gama_compiler =
  * Expat library to be in the same directory as GNU Gama
 
 =============================================================================
+
+1.7.05
+
+   - first testing version of vectors in gama-g3
+
 
 1.7.04 2003-05-11
 

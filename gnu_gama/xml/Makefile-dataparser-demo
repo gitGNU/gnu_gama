@@ -6,11 +6,11 @@ gamalib:
 	(cd ../..; make gamalib)
 
 demo-dataparser : dataparser.o ../../gamaprog/linux/lib/gamalib.a
-	$(CXX) $(CXXFLAGS) -DGaMaLib_DataParser_demo -o demo-dataparser \
+	$(CXX) $(CXXFLAGS) -DGNU_Gama_DataParser_demo -o demo-dataparser \
 		dataparser.o ../../gamaprog/linux/lib/gamalib.a
 
 dataparser.o : dataparser.h dataparser.cpp Makefile-dataparser-demo
-	$(CXX) $(CXXFLAGS) -DGaMaLib_DataParser_demo -c dataparser.cpp
+	$(CXX) $(CXXFLAGS) -DGNU_Gama_DataParser_demo -c dataparser.cpp
 
 
 clean:

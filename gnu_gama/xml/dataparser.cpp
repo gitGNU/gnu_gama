@@ -20,11 +20,11 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.3 2003/05/11 12:32:25 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.4 2003/05/15 18:53:15 cepek Exp $
  */
 
 // #########################################################################
-#ifdef GaMaLib_DataParser_demo
+#ifdef GNU_Gama_DataParser_demo
 
 #include <gnu_gama/xml/dataparser.h>
 #include <cstring>
@@ -92,13 +92,13 @@ int main()
     {
       set_gama_language(en);
 
-      list<DataObject*> objects;
+      list<DataObject::Base*> objects;
       DataParser dp(objects);
       dp.xml_parse(xml_input_data, strlen(xml_input_data), 1);
       
       cout << DataObject::xml_begin();
 
-      for (list<DataObject*>::const_iterator i=objects.begin(); 
+      for (list<DataObject::Base*>::const_iterator i=objects.begin(); 
            i!=objects.end(); ++i)
         {
           cout << (*i)->xml();
@@ -138,8 +138,24 @@ int main()
 using namespace std;
 using namespace GNU_gama;
 
-DataParser::DataParser(std::list<DataObject*>& obs) : objects(obs)
+DataParser::~DataParser()
 {
+  delete mg3;
+
+  delete adj_sparse_mat;
+  delete adj_block_diagonal;
+  delete adj_array;
+}
+
+
+DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
+{
+  mg3 = 0;
+
+  adj_sparse_mat = 0;
+  adj_block_diagonal = 0;
+  adj_array = 0;
+
   // initial parser state and implicit handlers
   
   state = s_start;
@@ -163,6 +179,15 @@ DataParser::DataParser(std::list<DataObject*>& obs) : objects(obs)
        //---------------------
        s_gama_data, 0, s_stop,
        &DataParser::gama_data, 0, 0);
+
+
+  // .....  <g3-model>  ..............................................
+
+
+  init(  s_gama_data, t_g3_model,
+         //----------------------
+         s_g3_model, 0, 0,
+         &DataParser::g3_model, 0, &DataParser::g3_model);
 
   // .....  <text>  ..................................................
  
@@ -306,8 +331,8 @@ DataParser::DataParser(std::list<DataObject*>& obs) : objects(obs)
 // #                                                     #
 // #######################################################
 
-void DataParser::init(int s,   int t, 
-                      int n,   int z,   int a,
+void DataParser::init(int s,   int t,           // current state, tag
+                      int n,   int z,   int a,  // states: next , end, after
                       Stag s_, Data d_, Etag e_,
                       int z2)
 {
@@ -355,6 +380,7 @@ DataParser::data_tag DataParser::tag(const char* c)
       if (!strcmp(c, "flt"           )) return t_flt;
       break;
     case 'g' :
+      if (!strcmp(c, "g3-model"      )) return t_g3_model;
       if (!strcmp(c, "gnu-gama-data" )) return t_gama_data;
       break;
     case 'i':
@@ -453,7 +479,7 @@ int DataParser::gama_data(const char *name, const char **atts)
 
 int DataParser::text(const char* name)
 {
-  objects.push_back( new TextDataObject(text_buffer) );
+  objects.push_back( new DataObject::Text(text_buffer) );
   text_buffer.erase();
   return end_tag(name);
 }
@@ -475,15 +501,19 @@ int DataParser::adj_input_data(const char *name, const char **atts)
 
 int DataParser::adj_input_data(const char *name)
 {
-  GNU_gama::AdjInputData *data = new GNU_gama::AdjInputData;
+  AdjInputData *data = new AdjInputData;
 
   if (adj_sparse_mat    ) data->set_mat(adj_sparse_mat);
   if (adj_block_diagonal) data->set_cov(adj_block_diagonal);
   if (adj_vector.dim()  ) data->set_rhs(adj_vector);  
   if (adj_array         ) data->set_minx(adj_array);
-  objects.push_back( new GNU_gama::AdjInputDataObject(data) );
+  objects.push_back( new DataObject::AdjInput(data) );
 
-  return end_tag(name);;
+  adj_sparse_mat = 0;
+  adj_block_diagonal = 0;
+  adj_array = 0;
+
+  return end_tag(name);
 }
 
 // ......  <sparse-mat>  ...................................................
@@ -504,7 +534,7 @@ int DataParser::sparse_mat_nonz(const char *name)
     {
       text_buffer.erase();
       adj_sparse_mat = 
-        new GNU_gama::SparseMatrix<>(adj_sparse_mat_nonz, rows, cols);
+        new SparseMatrix<>(adj_sparse_mat_nonz, rows, cols);
       return end_tag(name);
     }
   return error("### bad data in tags <rows> / <cols> / <nonz>");
@@ -567,7 +597,7 @@ int DataParser::block_diagonal_nonz(const char *name)
   if (inp >> block_diagonal_blocks_ >> block_diagonal_nonz_)
     {
       text_buffer.erase();
-      adj_block_diagonal = new GNU_gama::BlockDiagonal<> 
+      adj_block_diagonal = new BlockDiagonal<> 
         (block_diagonal_blocks_, block_diagonal_nonz_);
       return end_tag(name);
     }
@@ -685,7 +715,7 @@ int DataParser::array_dim(const char *name)
   if (inp >> adj_array_dim)
     {
       text_buffer.erase();
-      adj_array = new GNU_gama::IntegerList<>(adj_array_dim);
+      adj_array = new IntegerList<>(adj_array_dim);
       adj_array_iterator = adj_array->begin();
       return end_tag(name);
     }
@@ -710,6 +740,24 @@ int DataParser::array_int(const char *name)
     }
 
   return error("### bad array data in tag <int>");
+}
+
+int DataParser::g3_model(const char *name, const char **atts)
+{
+  no_attributes( name, atts );
+  state = next[state][tag(name)];
+
+  mg3 = new g3::Model;
+  
+  return 0;
+}
+
+int DataParser::g3_model(const char *name)
+{
+  objects.push_back( new DataObject::g3_model(mg3) );
+  mg3 = 0;
+
+  return  end_tag(name);
 }
 
 #endif

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.5 2003/04/08 16:41:51 cepek Exp $
+ *  $Id: g3_model.h,v 1.6 2003/05/15 18:53:15 cepek Exp $
  */
 
 #include <gnu_gama/pointbase.h>
@@ -54,6 +54,8 @@ namespace GNU_gama {  namespace g3 {
     ~Model();
 
     Point* get_point(const Point::Name&);
+
+    void write_xml(std::ostream& out) { out << "<g3 XML not implemented>\n";}
   };
 
 

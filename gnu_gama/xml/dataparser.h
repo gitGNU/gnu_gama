@@ -20,14 +20,16 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.5 2003/05/11 12:32:25 cepek Exp $
+ *  $Id: dataparser.h,v 1.6 2003/05/15 18:53:15 cepek Exp $
  */
 
-#ifndef GaMaLib_GaMa_XML_DataParser__data_parser__dataparser___h_
-#define GaMaLib_GaMa_XML_DataParser__data_parser__dataparser___h_
+#ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
+#define GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
 
 #include <gnu_gama/xml/baseparser.h>
 #include <gnu_gama/xml/dataobject.h>
+#include <gnu_gama/g3/g3_model.h>
+#include <gnu_gama/list.h>
 #include <gnu_gama/exception.h>
 #include <cstddef>
 #include <string>
@@ -39,10 +41,8 @@ namespace GNU_gama {
     {
     public:
       
-      DataParser(std::list<DataObject*>&);
-      ~DataParser()
-        {
-        } 
+      DataParser(List<DataObject::Base*>&);
+      ~DataParser();
       int startElement(const char *name, const char **atts)
         {
           return (this->*stag[state][tag(name)])(name, atts);
@@ -58,13 +58,14 @@ namespace GNU_gama {
       
     private: 
       
-      std::list<DataObject*>& objects;
+      List<DataObject::Base*>& objects;
       
       enum parser_state 
         {
           s_error,
           s_start,
           s_gama_data,
+          s_g3_model,
           s_text,
           s_adj_input_data_1,
           s_adj_input_data_2,
@@ -116,6 +117,7 @@ namespace GNU_gama {
           t_cols,
           t_dim,
           t_flt,
+          t_g3_model,
           t_gama_data,
           t_int,
           t_nonz,
@@ -142,6 +144,8 @@ namespace GNU_gama {
       int after[s_stop+1]; 
 
       int gama_data             (const char *name, const char **atts);
+      int g3_model              (const char *name, const char **atts);
+      int g3_model              (const char *name);
       int text                  (const char *name);
       int adj_input_data        (const char *name, const char **atts);
       int adj_input_data        (const char *name);
@@ -176,7 +180,17 @@ namespace GNU_gama {
                 Stag, Data, Etag,
                 int end_state2=0);
 
+
+      // DataObject::g3_model
+
+      g3::Model*       mg3;
+
+      // DataObject::Text
+
       std::string      text_buffer;
+
+      // DataObject::AdjInput
+
       GNU_gama::SparseMatrix <> *adj_sparse_mat;
       GNU_gama::BlockDiagonal<> *adj_block_diagonal;
       Vec              adj_vector;  

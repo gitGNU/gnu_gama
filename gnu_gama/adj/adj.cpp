@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.2 2003/05/10 13:43:03 cepek Exp $
+ *  $Id: adj.cpp,v 1.3 2003/05/15 18:53:15 cepek Exp $
  */
 
 #include <gnu_gama/adj/adj.h>
@@ -157,9 +157,9 @@ void AdjInputData::write_xml(std::ostream& out) const
 
 void AdjInputData::read_xml(std::istream& inp)
 {
-  string            line;
-  list<DataObject*> objects;
-  DataParser        dp(objects);
+  string                  line;
+  List<DataObject::Base*> objects;
+  DataParser              dp(objects);
 
   while (getline(inp, line))
     {
@@ -168,10 +168,10 @@ void AdjInputData::read_xml(std::istream& inp)
     }
   dp.xml_parse("", 0, 1);
 
-  for (list<DataObject*>::const_iterator i=objects.begin(); 
+  for (List<DataObject::Base*>::iterator i=objects.begin(); 
        i!=objects.end(); ++i)
     {
-      if (AdjInputDataObject *adj = dynamic_cast<AdjInputDataObject*>(*i))
+      if (DataObject::AdjInput *adj = dynamic_cast<DataObject::AdjInput*>(*i))
         {
           // take over the data from DataObject
           swap(adj->data);

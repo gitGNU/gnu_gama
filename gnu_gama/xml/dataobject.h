@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataobject.h,v 1.2 2003/05/10 13:43:03 cepek Exp $
+ *  $Id: dataobject.h,v 1.3 2003/05/15 18:53:15 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_Data_Object__object___h_
@@ -29,13 +29,14 @@
 #include <string>
 #include <sstream>
 #include <gnu_gama/adj/adj.h>
+#include <gnu_gama/g3/g3_model.h>
 
-namespace GNU_gama {
+namespace GNU_gama { namespace DataObject {
 
-  class DataObject {
+  class Base {
   public:
 
-    virtual ~DataObject() 
+    virtual ~Base() 
       {
       }
     virtual std::string xml() const = 0;
@@ -45,15 +46,15 @@ namespace GNU_gama {
   };
 
 
-  class TextDataObject : public DataObject {
+  class Text : public Base {
   public:
   
     std::string text;
   
-    TextDataObject() 
+    Text() 
       {
       }    
-    TextDataObject(std::string s) : text(s) 
+    Text(std::string s) : text(s) 
       {
       }    
     std::string xml() const 
@@ -66,15 +67,15 @@ namespace GNU_gama {
   };
 
 
-  class AdjInputDataObject : public DataObject {
+  class AdjInput : public Base {
   public:
   
     GNU_gama::AdjInputData *data;
   
-    AdjInputDataObject() : data(0)
+    AdjInput() : data(0)
       {
       }    
-    AdjInputDataObject(GNU_gama::AdjInputData *d) : data(d)
+    AdjInput(GNU_gama::AdjInputData *d) : data(d)
       {
       }    
     std::string xml() const 
@@ -91,7 +92,33 @@ namespace GNU_gama {
       }
   };
 
-}       // namespace GaMaLib
+
+  class g3_model : public Base {
+  public:
+  
+    GNU_gama::g3::Model *model;
+  
+    g3_model() : model(0)
+      {
+      }    
+    g3_model(GNU_gama::g3::Model *m) : model(m)
+      {
+      }    
+    std::string xml() const 
+      {
+        if (model) 
+          {
+            std::stringstream out;
+            model->write_xml(out);
+            
+            return out.str();
+          }
+
+        return "";
+      }
+  };
+
+}}       // namespace GNU_gama::DataObject
 
 
 #endif

@@ -20,15 +20,15 @@
 */
 
 /*
- *  $Id: dataobject.cpp,v 1.2 2003/05/10 13:43:03 cepek Exp $
+ *  $Id: dataobject.cpp,v 1.3 2003/05/15 18:53:15 cepek Exp $
  */
 
 #include <gnu_gama/xml/dataobject.h>
 
 using namespace std;
-using namespace GNU_gama;
+using namespace GNU_gama::DataObject;
 
-string DataObject::xml_begin()
+string Base::xml_begin()
 {
   return
     "<?xml version=\"1.0\" ?>\n"
@@ -38,7 +38,7 @@ string DataObject::xml_begin()
 }
 
 
-string DataObject::xml_end()
+string Base::xml_end()
 {
   return "\n</gnu-gama-data>\n";
 }
