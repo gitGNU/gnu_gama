@@ -22,6 +22,7 @@ gamalib/c/api/capi_output_file.cpp
 gamalib/language.cpp
 gamalib/local/acord.cpp
 gamalib/local/acord/approx_heights.cpp
+gamalib/local/acord/approx_vectors.cpp
 gamalib/local/acord/reduce_observations.cpp
 gamalib/local/median/g2d_cogo.cpp
 gamalib/local/median/g2d_coordinates.cpp

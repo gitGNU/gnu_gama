@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.12 2003/08/14 16:20:26 cepek Exp $
+ *  $Id: version.cpp,v 1.13 2003/08/16 16:30:35 cepek Exp $
  */
 
 
@@ -63,6 +63,9 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.07 xxxxxxxxxx
+
+   - added support for computation of approximate coordinates from
+     vector data by Jan Pytel
 
    - Makefiles changed to enable Gama to use expat 1.95.2 (or later)
      XML parsing library as shipped with Debian GNU/Linux.  

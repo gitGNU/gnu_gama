@@ -7,24 +7,30 @@ or CVS
 
 Archive of old versions is 
 
-           http://gama.fsv.cvut.cz/gama/archive/gamalib/
+           http://gama.fsv.cvut.cz/~cepek/gama/archive
 
 
-For parsing XML input, gamalib uses parser expat v. 1.1 copyrighted by
-James Clark, which can downloaded directly from
+--------------------------
 
-                   ftp://ftp.jclark.com/pub/xml/expat.zip
+For building Gama project shared library of expat XML parser must be
+installed.  To build all Gama run
 
-or a copy from
+                  make dep
+                  make
 
-           http://gama.fsv.cvut.cz/gama/archive/expat/expat.zip
+
+--------------------------
+
+For parsing XML input, Gama can use old version of parser expat v. 1.1
+copyrighted by James Clark. The source code of this version is
+distributed together with Gama to enable building of Gama executables
+on systems where expat shared library is not available.
 
 Place the parser source into subdirectory `expat' located in the same
 directory in which are located subdirectories `gnu_gama', `gmatvec',
 etc. and run
-                   make dep
+                   make dep-expat-1.1
                    make 
-
 
 ---------------------------
 

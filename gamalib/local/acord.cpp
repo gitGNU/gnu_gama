@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.cpp,v 1.11 2003/07/27 14:45:11 cepek Exp $
+ *  $Id: acord.cpp,v 1.12 2003/08/16 16:30:35 cepek Exp $
  */
 
  
@@ -28,6 +28,7 @@
 #include <gamalib/local/orientation.h>
 #include <gamalib/local/median/g2d_coordinates.h>
 #include <gamalib/local/acord/approx_heights.h>
+#include <gamalib/local/acord/approx_vectors.h>
 #include <gamalib/local/acord/reduce_observations.h>
 
 #include <iomanip>
@@ -105,6 +106,9 @@ void Acord::execute()
 
         ApproximateHeights ah(PD, OD);
         ah.execute();
+	
+        ApproximateVectors av(PD, OD);
+        av.execute();
 	
         {
           // all transformed slope distances go to a single standpoint
