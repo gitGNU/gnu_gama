@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: model.h,v 1.11 2004/01/06 21:31:39 cepek Exp $
+ *  $Id: model.h,v 1.12 2004/01/17 17:19:33 cepek Exp $
  */
 
 
@@ -29,7 +29,7 @@
 #ifndef GNU_gama__mathematical_model_h_gnugamamodel___gnu_gama_gmodel___h
 #define GNU_gama__mathematical_model_h_gnugamamodel___gnu_gama_gmodel___h
 
-#include <gmatvec/bandmat2.h>
+#include <gnu_gama/matvec.h>
 
 namespace GNU_gama {
 
@@ -52,17 +52,21 @@ namespace GNU_gama {
     virtual ~ObservationVisitor() {}
   };
   
+  template <class T> class Cluster;
+
+  template <class Cluster, class Matrix, class Index=std::size_t>
   class Observation
   {
   public:
 
-    Observation() : active_(true) {}
+    Cluster*        cluster;
+    Index           cluster_index;
+    typedef Matrix  Cov;
+
+    Observation() : cluster(0), cluster_index(0), active_(true) {}
     virtual ~Observation() {}
 
-    void* cluster;
-    int   cluster_index;
-
-    virtual int  dimension() const { return 1; }
+    virtual int  dimension() const = 0;
     virtual bool revision_accept(ObservationVisitor* visitor) = 0;
     virtual void linearization_accept(ObservationVisitor* visitor) = 0;
 

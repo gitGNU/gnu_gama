@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.7 2004/01/05 19:07:12 cepek Exp $
+ *  $Id: g3_observation.h,v 1.8 2004/01/17 17:19:33 cepek Exp $
  */
 
 
@@ -36,11 +36,9 @@
 namespace GNU_gama {  namespace g3 {
 
 
-  class Observation : public GNU_gama::Observation 
+  class Observation :
+    public GNU_gama::Observation<Cluster<Observation>, GNU_gama::Cov>
   {
-  public:
-
-    typedef GNU_gama::Cov Cov;
   };
 
 
@@ -73,6 +71,8 @@ namespace GNU_gama {  namespace g3 {
 
     Distance() {}
     Distance(double d) : Value(d) {}
+
+    int dimension() const { return 1; }
 
     bool revision_accept(ObservationVisitor* visitor)
     {
