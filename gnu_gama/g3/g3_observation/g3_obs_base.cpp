@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_base.cpp,v 1.3 2003/03/26 17:33:47 cepek Exp $
+ *  $Id: g3_obs_base.cpp,v 1.4 2003/03/28 22:07:31 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -35,18 +35,14 @@ void Observation::linearization(GNU_gama::SparseVector<>& row)
   row.reset();
   ParameterTree tree(parlist);
   ParameterTree::iterator b=tree.begin(), e=tree.end();
-  Parameter* p;
-  size_t     n;
-  double     d;
- 
+
+  double     d; 
   while (b != e)
     {
-      p = *b;
-      if ((d = numerical_derivative(p)))
+      d = numerical_derivative(*b);
+      if (d)
       {
-        static int k=0;
-        k++;
-        row.add(k, d);
+        row.add((*b)->index(), d);
       }
       ++b;
     }
@@ -57,7 +53,21 @@ double Observation::numerical_derivative(Parameter* p)
 {
   if (p->fixed()) return 0;
  
-  static double x = 1;
-  x += 0.01;
-  return x;
+  double p_correction = p->correction();
+  double d1, d2, d = p->step_size() + p_correction;
+  { 
+    // L'4(x) = +2/24*y(x-2h)  -4/6*y(x-h)  +4/6*y(x+h) -2/24*y(x+2h)
+
+    double h = d - p_correction;        // temp = x+h; h = temp-x 
+
+    p->set_correction(p_correction - 2*h);  d2  = parlist_value();
+    p->set_correction(p_correction + 2*h);  d2 -= parlist_value();  
+    p->set_correction(p_correction +  h );  d1  = parlist_value();
+    p->set_correction(p_correction -  h );  d1 -= parlist_value();
+
+    d = (d2 + 8.0*d1) / (12.0*h);
+  }
+  p->set_correction(p_correction);
+
+  return d;
 }

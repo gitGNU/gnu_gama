@@ -20,11 +20,12 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.3 2003/03/25 12:38:33 cepek Exp $
+ *  $Id: g3_observation.h,v 1.4 2003/03/28 22:07:31 cepek Exp $
  */
 
 
 #include <gnu_gama/g3/g3_observation/g3_obs_base.h>
+#include <gnu_gama/g3/g3_observation/g3_obs_dist.h>
 #include <gnu_gama/g3/g3_observation/g3_obs_hdiff.h>
 
 

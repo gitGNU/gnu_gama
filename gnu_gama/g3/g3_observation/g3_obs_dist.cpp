@@ -20,26 +20,39 @@
 */
 
 /*
- *  $Id: g3_obs_hdiff.cpp,v 1.5 2003/03/28 22:07:31 cepek Exp $
+ *  $Id: g3_obs_dist.cpp,v 1.1 2003/03/28 22:07:31 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
 #include <gnu_gama/g3/g3_model.h>
+#include <cmath>
 
 using namespace GNU_gama::g3;
+using namespace std;
 
 
-double HeightDiff::parlist_value() const
+double Distance::parlist_value() const
 {
   Parameter** p = parlist.begin();
-  double s = (*p++)->value(time);
-  double t = (*p++)->value(time);
+  double b1 = (*p++)->value(time);
+  double l1 = (*p++)->value(time);
+  double h1 = (*p++)->value(time);
+  double b2 = (*p++)->value(time);
+  double l2 = (*p++)->value(time);
+  double h2 = (*p++)->value(time);
 
-  return t - s;
+  double x1, y1, z1, x2, y2, z2;
+  ellipsoid->blh2xyz(b1, l1, h1, x1, y1, z1);
+  ellipsoid->blh2xyz(b2, l2, h2, x2, y2, z2);
+  x2 -= x1;
+  y2 -= y2;
+  z2 -= z1;
+
+  return sqrt(x2*x2 + y2*y2 + z2*z2);
 }
 
 
-void HeightDiff::parlist_init(Model* model)
+void Distance::parlist_init(Model* model)
 {
   ellipsoid = &model->ellipsoid;
 
@@ -55,10 +68,15 @@ void HeightDiff::parlist_init(Model* model)
     }
 
 
-  if (from->H->active() && to->H->active())
+  if (from->B->active() && from->L->active() && from->H->active() && 
+      to->  B->active() && to->  L->active() && to->  H->active()  )
     {
       Parameter** b = parlist.begin();
+      *b++ = from->B;
+      *b++ = from->L;
       *b++ = from->H;
+      *b++ = to->B;
+      *b++ = to->L;
       *b++ = to->H;
     }
   else
@@ -69,11 +87,11 @@ void HeightDiff::parlist_init(Model* model)
 }
 
 
-double HeightDiff::derivative(Parameter* p)
+double Distance::derivative(Parameter* p)
 {
-  HeightDiffAnalyticalDerivative* ad = 
-    dynamic_cast<HeightDiffAnalyticalDerivative*>(p);
-  
+  DistanceAnalyticalDerivative* ad = 
+    dynamic_cast<DistanceAnalyticalDerivative*>(p);
+
   if (ad)
     return ad->analytical_derivative(this);
   else

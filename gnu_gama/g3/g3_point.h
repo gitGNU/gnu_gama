@@ -20,12 +20,11 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.10 2003/03/26 17:33:47 cepek Exp $
+ *  $Id: g3_point.h,v 1.11 2003/03/28 22:07:31 cepek Exp $
  */
 
-#include <gnu_gama/g3/g3_parameter.h>
 #include <gamalib/pointid.h>
-
+#include <gnu_gama/g3/g3_parameter.h>
 
 #ifndef GNU_gama__g3_point_h_gnugamag3pointh___gnu_gama_g3point
 #define GNU_gama__g3_point_h_gnugamag3pointh___gnu_gama_g3point
@@ -35,19 +34,20 @@ namespace GNU_gama {  namespace g3 {
 
   class Model;
 
-
-  class Parameter_position : public Parameter {
-  public:
-
-    Parameter_position* clone() { return new Parameter_position(*this); }
-  };
-
-
-  class Parameter_height : public Parameter {
-  public:
-
-    Parameter_height* clone() { return new Parameter_height(*this); }
-  };
+  class Parameter_B : 
+    public Parameter
+    {
+    };
+  
+  class Parameter_L : 
+    public Parameter
+    {
+    };
+  
+  class Parameter_H : 
+    public Parameter
+    {
+    };
 
 
 
@@ -67,9 +67,9 @@ namespace GNU_gama {  namespace g3 {
 
     // -----------------------------
 
-    Parameter_position*  B;
-    Parameter_position*  L;
-    Parameter_height*    H;
+    Parameter_B*  B;
+    Parameter_L*  L;
+    Parameter_H*  H;
 
     ParameterList        parlist;
 

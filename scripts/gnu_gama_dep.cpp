@@ -20,18 +20,21 @@
 */
 
 /*
- *  $Id: gnu_gama_dep.cpp,v 1.1 2003/03/19 19:25:03 cepek Exp $
+ *  $Id: gnu_gama_dep.cpp,v 1.2 2003/03/28 22:07:31 cepek Exp $
  */
 
 #include <iostream>
 #include <fstream>
+#include <cctype>
 #include <string>
 #include <set>
 
-const char* version = "0.7";
+const char* version = "0.8";
 
 /*************************************************************************
  * 
+ * 0.8  - accepts include directives with spaces between '#' and `include'
+ *      - avoids possible recursive dependences
  * 0.7  gamalib_dep renamed to gnu_gama_dep; all bash  scripts used
  *      for generating makefiles are removed
  * 0.6  added directory <gnu_gama/ ... > for processing
@@ -122,20 +125,57 @@ void add_dep(string file, set<string>& dep)
   string line;
   while (getline(inp, line))
     {
-      size_t  n, n1, n2; 
-      if (string::npos == (n=line.find("#include" ))) continue;
-      n1 = line.find("<gamalib/" );
-      n2 = line.find("<gnu_gama/");
-      if (string::npos == n1 && string::npos == n2) continue;
-      if (string::npos != n1) n = n1;
-      if (string::npos != n2) n = n2;
-          
+      string::const_iterator b=line.begin(), e=line.end();
+      
+      while(b != e && isspace(*b)) ++b;
+      
+      if (b == e || *b != '#') continue;   ++b;
+      
+      while(b != e && isspace(*b)) ++b;
+      
+      if (b == e || *b != 'i') continue;   ++b;
+      if (b == e || *b != 'n') continue;   ++b;
+      if (b == e || *b != 'c') continue;   ++b;
+      if (b == e || *b != 'l') continue;   ++b;
+      if (b == e || *b != 'u') continue;   ++b;
+      if (b == e || *b != 'd') continue;   ++b;
+      if (b == e || *b != 'e') continue;   ++b;
+      
+      while(b != e && isspace(*b)) ++b;
+      
+      if (b == e || *b != '<') continue;   ++b;
+      
       string name;
-      n++;
-      while(line[n] != '>') name += line[n++];
+      while(b != e && *b != '>')
+        {
+          name.push_back(*b);
+          ++b;
+        }
+      
+      if (name.size() < 9) continue;
+      if ((name[0] != 'g'  ||
+           name[1] != 'a'  ||
+           name[2] != 'm'  ||
+           name[3] != 'a'  ||
+           name[4] != 'l'  ||
+           name[5] != 'i'  ||
+           name[6] != 'b'  ||
+           name[7] != '/') && 
+          (name[0] != 'g'  ||
+           name[1] != 'n'  ||
+           name[2] != 'u'  ||
+           name[3] != '_'  ||
+           name[4] != 'g'  ||
+           name[5] != 'a'  ||
+           name[6] != 'm'  ||
+           name[7] != 'a'  ||
+           name[8] != '/') ) continue;
 
-      dep.insert(name);
-      add_dep(name, dep);
+      if (dep.find(name) == dep.end())
+        {
+          dep.insert(name);
+          add_dep(name, dep);
+        }
     } 
 }
 

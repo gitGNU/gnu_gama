@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.9 2003/03/26 17:33:47 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.10 2003/03/28 22:07:31 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -39,9 +39,9 @@ Point::~Point()
 
 Point::Point() : parlist(3)
 {
-  B = new Parameter_position;
-  L = new Parameter_position;
-  H = new Parameter_height;
+  B = new Parameter_B;
+  L = new Parameter_L;
+  H = new Parameter_H;
 
   set_unused();
 
@@ -57,9 +57,9 @@ Point::Point(const Point& point) : parlist(3)
   name   = point.name;
   common = point.common;
 
-  B = new Parameter_position(*point.B);
-  L = new Parameter_position(*point.L);
-  H = new Parameter_height  (*point.H);
+  B = new Parameter_B(*point.B);
+  L = new Parameter_L(*point.L);
+  H = new Parameter_H(*point.H);
 
   Parameter** p = parlist.begin();
   *p++ = B;
@@ -79,9 +79,9 @@ Point& Point::operator=(const Point& point)
       name   = point.name;
       common = point.common;
       
-      B = new Parameter_position(*point.B);
-      L = new Parameter_position(*point.L);
-      H = new Parameter_height  (*point.H);
+      B = new Parameter_B(*point.B);
+      L = new Parameter_L(*point.L);
+      H = new Parameter_H(*point.H);
       
       Parameter** p = parlist.begin();
       *p++ = B;

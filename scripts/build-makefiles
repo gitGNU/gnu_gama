@@ -1,7 +1,7 @@
 #
 # builds dictionaris for GaMaLib
 # 
-# $Id: build-makefiles,v 1.1 2003/03/19 19:25:03 cepek Exp $
+# $Id: build-makefiles,v 1.2 2003/03/28 22:07:31 cepek Exp $
 
 
 if pwd | grep /scripts$; then cd ..; fi
@@ -10,7 +10,7 @@ if pwd | grep /scripts$; then cd ..; fi
 (cd scripts ; make -f Makefile-gnu_gama_dep)
 
 echo
-echo "Building makefiles     ... it may take a minute"
+echo "Building makefiles     ... please wait"
 echo
 
 

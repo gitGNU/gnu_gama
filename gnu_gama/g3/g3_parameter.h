@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.6 2003/03/26 17:33:47 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.7 2003/03/28 22:07:31 cepek Exp $  */
 
 #include <cstddef>
 #include <gnu_gama/list.h>
@@ -61,13 +61,13 @@ namespace GNU_gama { namespace g3 {
   class Parameter {
   public:
     
-    Parameter() : cor(0) {}
+    Parameter() {}
     Parameter(const Parameter&);
     virtual ~Parameter() {}
     
-    virtual Parameter* clone() = 0;
+    virtual double value(double /*time*/) const { return val + cor; }
+    virtual double step_size() const { return 0.00005; } 
 
-    double value     () const { return val + cor; }
     double init_value() const { return val; }
     double correction() const { return cor; }
     size_t index     () const { return ind; }
