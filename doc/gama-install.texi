@@ -1,0 +1,27 @@
+GNU Gama is developed and tested under Debian GNU/Linux
+(@uref{http://www.debian.org/}). You can compile Gama easily
+yourself if you download the sources.  If @code{expat} XML parser
+is installed on your system, change to the directory of Gama project
+and issue the following commands at the shell prompt:
+@c
+@example
+$ make dep
+$ make
+$ make example
+@end example
+@c
+If for any reason @code{expat} is not installed on your system, you
+can still compile and build Gama with old version @code{expat 1.1}
+that is shipped with Gama
+@c
+@example
+$ make dep-expat-1.1
+$ make
+@end example
+
+
+To compile GNU Gama under Windows (command-line tool
+@code{gama-local}) start a DOS window, change to the directory
+@code{gamaprog/win32-borland} and run @code{make} (for Borland free
+compiler @code{bcc32}) or alternatively to the directory
+@code{gamaprog/win32-msvc} and run Microsoft @code{nmake}.

@@ -1,5 +1,5 @@
 \input texinfo   @c -*-texinfo-*-
-@comment $Id: gama.texi,v 1.7 2003/02/20 18:32:45 cepek Exp $
+@comment $Id: gama.texi,v 1.8 2003/09/17 16:38:36 cepek Exp $
 
 @comment Part 1 : Header
 
@@ -42,8 +42,7 @@ Free Documentation License''.
 @titlepage
 @title GNU Gama @value{VERSION}
 @subtitle Adjustment of geodetic networks
-@sp 1
-@subtitle Edition @value{EDITION}, @value{UPDATED}
+@subtitle Edition @value{EDITION} (@value{UPDATED})
 @author   Ale@v{s} @v{C}epek
 
 @c The following two commands start the copyright page.
@@ -92,15 +91,27 @@ Free Documentation License''.
 * Reporting bugs::              
 @end menu
 
+
+@node    Download
+@section Download
+@cindex  download
+@include gama-download.texi
+
+
+@node    Install
+@section Install
+@cindex  install
+@include gama-install.texi
+
+
 @node    Program @code{gama-local}
 @section Program @code{gama-local}
 @include gama-local.texi
 
-@c ----------------------------------------------------------------------
 
 @node     Contributors
 @section  Contributors
-@cindex   Contributors
+@cindex   contributors
 
 
 The following persons (in chronological order) have made contributions
@@ -145,7 +156,8 @@ please send a bug report to
 
 @noindent
 We will try to be as quick as possible in fixing the bugs and
-redistributing the fixes.
+redistributing the fixes. If you prefere, you can always write
+directly to @uref{mailto:cepek@@fsv.cvut.cz, Ales Cepek}.
 
 @c ----------------------------------------------------------------------
 

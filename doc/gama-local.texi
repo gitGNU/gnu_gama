@@ -19,7 +19,7 @@ file name with extension@code{.txt} is used.  If run without arguments
 
 @example
 
-$ ../gama-local 
+$ ./gama-local 
 
 Adjustment of local geodetic network        version: 1.7.00 / GNU g++
 ************************************
