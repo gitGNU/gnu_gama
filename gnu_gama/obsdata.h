@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.21 2004/06/06 10:02:54 cepek Exp $
+ *  $Id: obsdata.h,v 1.22 2004/06/20 20:54:51 cepek Exp $
  */
 
 
@@ -33,11 +33,11 @@
 namespace GNU_gama {
 
 
-  template <class Observation> 
+  template <typename Observation> 
     class ObservationData;
 
 
-  template <class Observation>  
+  template <typename Observation>  
     class Cluster 
     {
     public:
@@ -84,7 +84,7 @@ namespace GNU_gama {
 
 
 
-  template <class Observation>
+  template <typename Observation>
     class ObservationData
     {
     public:    
@@ -294,7 +294,7 @@ namespace GNU_gama {
   // =====================================================================
 
 
-  template <class Observation>
+  template <typename Observation>
     Cluster<Observation>::~Cluster()
     {
       for (typename List<Observation*>::iterator 
@@ -306,7 +306,7 @@ namespace GNU_gama {
 
 
  
-  template <class Observation>
+  template <typename Observation>
     void Cluster<Observation>::update()
     {
       act_obs   = 0;
@@ -337,7 +337,7 @@ namespace GNU_gama {
 
 
 
-  template <class Observation>
+  template <typename Observation>
     typename Observation::CovarianceMatrix 
        Cluster<Observation>::activeCov() const
     {
@@ -380,7 +380,7 @@ namespace GNU_gama {
 
 
 
-  template <class Observation>
+  template <typename Observation>
     void Cluster<Observation>::scaleCov(int p, double sc)
     {
       const int N = covariance_matrix.dim();
@@ -400,7 +400,7 @@ namespace GNU_gama {
 
 
 
-  template <class Observation>
+  template <typename Observation>
     ObservationData<Observation>::~ObservationData()
     {
       for (typename List<Cluster<Observation>*>::iterator 
@@ -412,7 +412,7 @@ namespace GNU_gama {
 
 
   
-  template <class Observation>
+  template <typename Observation>
     ObservationData<Observation>& 
     ObservationData<Observation>::operator=(const ObservationData& cod)
     {
@@ -430,7 +430,7 @@ namespace GNU_gama {
   
 
   
-  template <class Observation>
+  template <typename Observation>
     void ObservationData<Observation>::deepCopy(const ObservationData& cod)
     {
       for (typename List<Cluster<Observation>*>::const_iterator 

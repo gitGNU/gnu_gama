@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adjusted_observations.h,v 1.7 2004/03/18 17:07:01 cepek Exp $
+ *  $Id: adjusted_observations.h,v 1.8 2004/06/20 20:54:41 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vyrovnana_Pozorovani_h_
@@ -31,7 +31,7 @@
 
 namespace GaMaLib {
 
-template <class OutStream>
+template <typename OutStream>
 void AdjustedObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
 {
    using namespace std;

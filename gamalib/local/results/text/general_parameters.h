@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: general_parameters.h,v 1.7 2004/04/19 18:41:08 cepek Exp $
+ *  $Id: general_parameters.h,v 1.8 2004/06/20 20:54:51 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Zakladni_Parametry_h_
@@ -36,7 +36,7 @@
 
 namespace GaMaLib {
 
-template <class OutStream>
+template <typename OutStream>
 bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
 {
   using namespace std;

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: itstream.h,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: itstream.h,v 1.2 2004/06/20 20:54:40 cepek Exp $
  */
 
 #ifndef GaMaLib_Input_Text_Stream_h
@@ -35,7 +35,7 @@
 
 namespace GaMaLib {
 
-template <class InputStream> class InputTextStream {
+template <typename InputStream> class InputTextStream {
 
   // template parameter InputStream must implement `bool get(char&)'
   // with the same meaning as std::istream::get(char&)
@@ -90,7 +90,7 @@ private:
 
 };
 
-template <class InputStream> 
+template <typename InputStream> 
 inline bool InputTextStream<InputStream>::get(char& c)
   {
     if (!stack_.empty())
@@ -138,7 +138,7 @@ inline bool InputTextStream<InputStream>::get(char& c)
         }
   }
 
-template <class InputStream> 
+template <typename InputStream> 
 bool InputTextStream<InputStream>::get(int& n)
   {
     using namespace std;
@@ -158,7 +158,7 @@ bool InputTextStream<InputStream>::get(int& n)
     return true;
   }
 
-template <class InputStream> 
+template <typename InputStream> 
 bool InputTextStream<InputStream>::get(double& n)
   {
     using namespace std;
@@ -178,7 +178,7 @@ bool InputTextStream<InputStream>::get(double& n)
     return true;
   }
 
-template <class InputStream> 
+template <typename InputStream> 
 bool InputTextStream<InputStream>::get_int(std::string& word)
   {
     word = "";
@@ -222,7 +222,7 @@ bool InputTextStream<InputStream>::get_int(std::string& word)
     return word!="";
   }
 
-template <class InputStream> 
+template <typename InputStream> 
 bool InputTextStream<InputStream>::get_float(std::string& word)
   {
     word = "";
@@ -342,7 +342,7 @@ bool InputTextStream<InputStream>::get_float(std::string& word)
     return true;
   }
 
-template <class InputStream> 
+template <typename InputStream> 
 bool InputTextStream<InputStream>::get(std::string& word)
   {
     word = "";
@@ -363,7 +363,7 @@ bool InputTextStream<InputStream>::get(std::string& word)
     return true;
   }
 
-template <class InputStream> 
+template <typename InputStream> 
 void InputTextStream<InputStream>::push_back(const std::string& word )
   {
     using namespace std;
@@ -372,7 +372,7 @@ void InputTextStream<InputStream>::push_back(const std::string& word )
       stack_.push(*r);
   }
 
-template <class InputStream> 
+template <typename InputStream> 
 bool InputTextStream<InputStream>::skip_ws()
   {
     char c;
@@ -385,7 +385,7 @@ bool InputTextStream<InputStream>::skip_ws()
     return !eot();
   }
  
-template <class InputStream> 
+template <typename InputStream> 
 void InputTextStream<InputStream>::read_buffer_()
   {
     if (eot_) return;

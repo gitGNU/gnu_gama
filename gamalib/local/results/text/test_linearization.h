@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: test_linearization.h,v 1.9 2004/04/19 18:00:18 cepek Exp $
+ *  $Id: test_linearization.h,v 1.10 2004/06/20 20:54:51 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Test_Chyby_z_Linearizace_h_
@@ -38,7 +38,7 @@
 
 namespace GaMaLib {
 
-template <class OutStream> 
+template <typename OutStream> 
 bool 
 TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
                   double max_pyx = 0.1500, // suspicious coorection in meters

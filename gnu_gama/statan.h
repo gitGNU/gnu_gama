@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: statan.h,v 1.2 2004/04/19 18:41:08 cepek Exp $
+ *  $Id: statan.h,v 1.3 2004/06/20 20:54:51 cepek Exp $
  */
 
 #ifndef GNU_gama___gnu_gama____StatAn_h
@@ -69,7 +69,7 @@ float KSprob(float);
    Kolmogorov-Smirnov probability function
 */
 
-template <class Float, class FloatF, class FloatD, class FloatP>
+template <typename Float, typename FloatF, typename FloatD, typename FloatP>
 void KStest(Float Data[], int n, FloatF (*Func)(FloatF), 
             FloatD& ks, FloatP& prob)
 /*

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: olsgso.h,v 1.1 2001/12/07 12:56:38 cepek Exp $
+ *  $Id: olsgso.h,v 1.2 2004/06/20 20:54:51 cepek Exp $
  */
 
 #ifndef GaMa_OLS_gso_h
@@ -32,7 +32,7 @@
 
 namespace GaMaLib {
   
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 class OLSgso : public virtual BaseOLS<Float, Exc> {
 
 public:
@@ -91,7 +91,7 @@ private:
 // ...................................................................
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void OLSgso<Float, Exc>::solve_me()
 {
   if (is_solved) return;
@@ -145,7 +145,7 @@ void OLSgso<Float, Exc>::solve_me()
 }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Float OLSgso<Float, Exc>::q_xx(gMatVec::Index i, gMatVec::Index j)
   {
     if(!is_solved) solve_me();
@@ -160,7 +160,7 @@ Float OLSgso<Float, Exc>::q_xx(gMatVec::Index i, gMatVec::Index j)
   }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Float OLSgso<Float, Exc>::q_bb(gMatVec::Index i, gMatVec::Index j)
   {
     if(!is_solved) solve_me();
@@ -173,7 +173,7 @@ Float OLSgso<Float, Exc>::q_bb(gMatVec::Index i, gMatVec::Index j)
   }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Float OLSgso<Float, Exc>::q_bx(gMatVec::Index i, gMatVec::Index j)
   {
     if(!is_solved) solve_me();

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: intfloat.h,v 1.1 2003/05/11 12:32:25 cepek Exp $
+ *  $Id: intfloat.h,v 1.2 2004/06/20 20:54:51 cepek Exp $
  */
 
 #ifndef GNU_gama_CheckNum_IntFloat__h_
@@ -31,13 +31,13 @@
 namespace GNU_gama {
 
 
-template <class Iterator> void SkipWhiteSpaces(Iterator& b, Iterator e)
+template <typename Iterator> void SkipWhiteSpaces(Iterator& b, Iterator e)
   {
     using namespace std;
     while ((b != e) && isspace(*b)) ++b; 
   }
   
-template <class Iterator> void TrimWhiteSpaces(Iterator& b, Iterator& e)
+template <typename Iterator> void TrimWhiteSpaces(Iterator& b, Iterator& e)
   {
     using namespace std;
     SkipWhiteSpaces(b, e);
@@ -48,7 +48,7 @@ template <class Iterator> void TrimWhiteSpaces(Iterator& b, Iterator& e)
     e = z;
   }
 
-template <class Iterator> bool IsInteger(Iterator& b, Iterator e)
+template <typename Iterator> bool IsInteger(Iterator& b, Iterator e)
   {
     using namespace std;
 
@@ -75,7 +75,7 @@ template <class Iterator> bool IsInteger(Iterator& b, Iterator e)
   }
 
 
-template <class Iterator> bool IsFloat(Iterator& b, Iterator e)
+template <typename Iterator> bool IsFloat(Iterator& b, Iterator e)
   {
     using namespace std;
 
@@ -117,7 +117,7 @@ template <class Iterator> bool IsFloat(Iterator& b, Iterator e)
   }
 
 
-template <class String> bool IsInteger(const String& s)
+template <typename String> bool IsInteger(const String& s)
   {
     typename String::const_iterator b = s.begin();
     typename String::const_iterator e = s.end();
@@ -125,7 +125,7 @@ template <class String> bool IsInteger(const String& s)
   }
 
 
-template <class String> bool IsFloat(const String& s)
+template <typename String> bool IsFloat(const String& s)
   {
     typename String::const_iterator b = s.begin();
     typename String::const_iterator e = s.end();

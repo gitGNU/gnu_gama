@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: svector.h,v 1.3 2003/10/30 18:11:05 cepek Exp $
+ *  $Id: svector.h,v 1.4 2004/06/20 20:54:52 cepek Exp $
  */
 
 
@@ -32,7 +32,7 @@
 
 namespace GNU_gama {
 
-template <class Float=double, class Index=std::size_t> 
+template <typename Float=double, typename Index=std::size_t> 
 
   class SparseVector {
   private:

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: coordinates.h,v 1.5 2003/06/14 15:00:22 cepek Exp $
+ *  $Id: coordinates.h,v 1.6 2004/06/20 20:54:51 cepek Exp $
  */
 
 #ifndef GaMaLib_XML_adjusted_coordinates____h
@@ -30,7 +30,7 @@
 #include <gamalib/local/network.h>
 #include <gamalib/cluster.h>
 
-template <class OutStream> void 
+template <typename OutStream> void 
 XML_adjusted_coordinates(GaMaLib::LocalNetwork* netinfo, 
                          OutStream& out, bool covm)
 {

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: outstream.h,v 1.9 2003/08/14 16:20:25 cepek Exp $
+ *  $Id: outstream.h,v 1.10 2004/06/20 20:54:51 cepek Exp $
  */
 
 #include <iostream>
@@ -51,7 +51,7 @@ namespace GNU_gama {
         return *this;
       }
     
-    template<class T> OutStream& operator << (const T& t)
+    template<typename T> OutStream& operator << (const T& t)
       {
         ostr << t;
         return *this;

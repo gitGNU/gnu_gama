@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: olssvd.h,v 1.3 2003/05/10 13:00:03 cepek Exp $
+ *  $Id: olssvd.h,v 1.4 2004/06/20 20:54:51 cepek Exp $
  */
 
 #ifndef GaMa_OLS_svd_h
@@ -31,7 +31,7 @@
 
 namespace GaMaLib {
   
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 class OLSsvd : virtual public BaseOLS<Float, Exc> {
 
   gMatVec::SVD<Float, Exc> svd;
@@ -96,7 +96,7 @@ protected:
 
 // ...................................................................
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void OLSsvd<Float, Exc>::solve_me()
 {
    using namespace gMatVec; 
@@ -128,7 +128,7 @@ void OLSsvd<Float, Exc>::solve_me()
    is_solved = true;
 }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Float OLSsvd<Float, Exc>::cond()
 {
   const gMatVec::Vec<Float, Exc>& W = svd.SVD_W();

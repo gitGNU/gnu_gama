@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: model.h,v 1.15 2004/05/17 16:20:25 cepek Exp $
+ *  $Id: model.h,v 1.16 2004/06/20 20:54:51 cepek Exp $
  */
 
 #ifndef GNU_gama__mathematical_model_h_gnugamamodel___gnu_gama_gmodel___h
@@ -51,7 +51,7 @@ namespace GNU_gama {
   };
   
 
-  template <class Cluster, class Matrix, class Index=std::size_t>
+  template <typename Cluster, typename Matrix, typename Index=std::size_t>
   class Observation
   {
   public:
@@ -79,19 +79,19 @@ namespace GNU_gama {
 
   // .....................................................................
     
-  template <class Observation> class Revision 
+  template <typename Observation> class Revision 
   {
   public:
     virtual bool revision_visit(Observation* observation) = 0;
   };
   
-  template <class Observation> class Linearization 
+  template <typename Observation> class Linearization 
   {
   public:
     virtual void linearization_visit(Observation* observation) = 0;
   };
     
-  template <class Observation> 
+  template <typename Observation> 
   class Model : public ObservationVisitor
   {
   public:

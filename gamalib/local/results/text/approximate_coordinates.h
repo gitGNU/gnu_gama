@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: approximate_coordinates.h,v 1.3 2004/04/04 11:19:29 cepek Exp $
+ *  $Id: approximate_coordinates.h,v 1.4 2004/06/20 20:54:51 cepek Exp $
  */ 
 
 #ifndef GaMa_GaMaProg_Priblizne_Souradnice_h_
@@ -33,7 +33,7 @@
 
 namespace GaMaLib {
 
-template <class OutStream>
+template <typename OutStream>
 void ApproximateCoordinates(GaMaLib::Acord* acord, OutStream& out)
 {
    using namespace std;

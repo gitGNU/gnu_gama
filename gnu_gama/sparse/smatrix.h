@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: smatrix.h,v 1.5 2003/10/30 18:11:04 cepek Exp $
+ *  $Id: smatrix.h,v 1.6 2004/06/20 20:54:52 cepek Exp $
  */
 
 #ifndef GNU_gama___GaMaLib_Sparse_General_Matrix_______General___Matrix__
@@ -32,7 +32,7 @@
 
 namespace GNU_gama {
 
-template <class Float=double, class Index=std::size_t> 
+template <typename Float=double, typename Index=std::size_t> 
 
   class SparseMatrix {
     

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: readsabw.h,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: readsabw.h,v 1.2 2004/06/20 20:54:41 cepek Exp $
  */
 
 #ifndef GaMaLib_read_sparse_Ab_h
@@ -38,7 +38,7 @@ namespace GaMaLib {
         Ax = b,   w=diag(w1, w2, ..., w_m),   x = inv(At*w*A)*(At*w*b)
 */
    
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void Read_Sparse_Abw(std::istream& inp, 
                      gMatVec::Mat<Float, Exc>& A,
                      gMatVec::Vec<Float, Exc>& b, 

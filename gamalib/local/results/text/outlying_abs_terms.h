@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: outlying_abs_terms.h,v 1.6 2004/04/19 18:00:17 cepek Exp $
+ *  $Id: outlying_abs_terms.h,v 1.7 2004/06/20 20:54:51 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vybocujici_Absolutni_Cleny_h_
@@ -34,7 +34,7 @@
 
 namespace GaMaLib {
 
-template <class OutStream>
+template <typename OutStream>
 void OutlyingAbsoluteTerms(GaMaLib::LocalNetwork* IS, OutStream& out)
 {
   using namespace std;
@@ -148,7 +148,7 @@ void OutlyingAbsoluteTerms(GaMaLib::LocalNetwork* IS, OutStream& out)
 
                 throw GaMaLib::Exception(
                    "GaMa internal error - unknown observation\n"
-                   "$Id: outlying_abs_terms.h,v 1.6 2004/04/19 18:00:17 cepek Exp $");
+                   "$Id: outlying_abs_terms.h,v 1.7 2004/06/20 20:54:51 cepek Exp $");
               }
           }   // ************************************************
           

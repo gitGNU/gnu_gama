@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: medianf.h,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: medianf.h,v 1.2 2004/06/20 20:54:41 cepek Exp $
  */
 
 #ifndef GaMaLib_Median_Func_h
@@ -30,14 +30,14 @@
 
 namespace GaMaLib {
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Float median(GenVec<Float, Exc>& a)
 {
    sort(a);
    return (a((a.dim()+1)/2) + a((a.dim()+2)/2))/2;
 }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 double MAD(GenVec<Float, Exc>& a)
 {
    const Float c = median(a);

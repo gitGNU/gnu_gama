@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: baseols.h,v 1.1 2001/12/07 12:56:38 cepek Exp $
+ *  $Id: baseols.h,v 1.2 2004/06/20 20:54:51 cepek Exp $
  */
 
 #ifndef GaMa_BaseOLS_h
@@ -31,7 +31,7 @@
 namespace GaMaLib {
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 class BaseOLS {
 
 public:
@@ -103,7 +103,7 @@ protected:
 
 // ................................................................
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Float BaseOLS<Float, Exc>::trwr()
 {
   if (!is_solved) solve_me();
@@ -117,7 +117,7 @@ Float BaseOLS<Float, Exc>::trwr()
   return s;
 }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void BaseOLS<Float, Exc>::q_xx(gMatVec::Mat<Float, Exc>& cxx)
 {
   if (!is_solved) solve_me();

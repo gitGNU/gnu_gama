@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: reduced_observations.h,v 1.4 2004/03/28 16:52:11 cepek Exp $
+ *  $Id: reduced_observations.h,v 1.5 2004/06/20 20:54:51 cepek Exp $
  */
 
 #ifndef GaMaLib_local_results_text_reduced_observations_h
@@ -36,7 +36,7 @@
 
 namespace GaMaLib {
 
-template <class OutStream>
+template <typename OutStream>
 void ReducedObservationsText(GaMaLib::LocalNetwork* IS,
     	                GaMaLib::ReducedObservations* reduced, OutStream& out)    
 {

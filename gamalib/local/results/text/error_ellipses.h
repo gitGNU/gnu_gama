@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: error_ellipses.h,v 1.9 2004/04/19 18:41:08 cepek Exp $
+ *  $Id: error_ellipses.h,v 1.10 2004/06/20 20:54:51 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Elipsy_Chyb_h_
@@ -32,7 +32,7 @@
 
 namespace GaMaLib {
 
-template <class OutStream>
+template <typename OutStream>
 void ErrorEllipses(GaMaLib::LocalNetwork* IS, OutStream& out)
 {
    using namespace std;

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network_description.h,v 1.1 2001/12/07 12:54:43 cepek Exp $
+ *  $Id: network_description.h,v 1.2 2004/06/20 20:54:51 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Popis_Site_h_
@@ -32,7 +32,7 @@
 
 namespace GaMaLib {
 
-template <class OutStream>
+template <typename OutStream>
 void NetworkDescription(const std::string& description, OutStream& out)
 {
    using namespace std;

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: list.h,v 1.7 2004/01/25 11:07:13 cepek Exp $
+ *  $Id: list.h,v 1.8 2004/06/20 20:54:51 cepek Exp $
  */
 
 #include <vector>
@@ -34,9 +34,9 @@
 namespace GNU_gama {
 
 
-  template <class T> class List;
+  template <typename T> class List;
 
-  template <class T> class List<T*>
+  template <typename T> class List<T*>
     {
       typedef std::vector<void*> Vector;
       Vector  vec;

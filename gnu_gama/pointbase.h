@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: pointbase.h,v 1.8 2004/04/04 11:19:29 cepek Exp $
+ *  $Id: pointbase.h,v 1.9 2004/06/20 20:54:51 cepek Exp $
  */ 
 
 #include <map>
@@ -34,7 +34,7 @@
 namespace GNU_gama {
 
 
-  template <class Point>
+  template <typename Point>
     class PointBase
     {
     private:
@@ -150,14 +150,14 @@ namespace GNU_gama {
     };
   
 
-  template <class Point>
+  template <typename Point>
     PointBase<Point>::~PointBase()
     {
       erase();
     }
 
   
-  template <class Point>
+  template <typename Point>
     PointBase<Point>::PointBase(const PointBase& cpd)
     {
       common = cpd.common;
@@ -168,7 +168,7 @@ namespace GNU_gama {
     }
 
 
-  template <class Point>
+  template <typename Point>
     PointBase<Point>& PointBase<Point>::operator=(const PointBase& cpd)
     {
       if (this != &cpd)
@@ -185,7 +185,7 @@ namespace GNU_gama {
     }
 
 
-  template <class Point>
+  template <typename Point>
     void PointBase<Point>::put(const Point& point)
     {
       Point* ptr = find(point.name);
@@ -204,7 +204,7 @@ namespace GNU_gama {
     }
 
 
-  template <class Point>
+  template <typename Point>
     void PointBase<Point>::put(Point*& point_ptr)
     {
       typename Points::iterator t = points.find(point_ptr->name);
@@ -229,7 +229,7 @@ namespace GNU_gama {
     }
 
 
-  template <class Point>
+  template <typename Point>
     Point* PointBase<Point>::find(const typename Point::Name& name)
     {
       typename Points::iterator t = points.find(name);
@@ -242,7 +242,7 @@ namespace GNU_gama {
     }
 
 
-  template <class Point>
+  template <typename Point>
     const Point* PointBase<Point>::find(const typename Point::Name& name) const
     {
       typename Points::const_iterator t = points.find(name);
@@ -255,7 +255,7 @@ namespace GNU_gama {
     }
   
 
-  template <class Point>
+  template <typename Point>
     void PointBase<Point>::erase(const typename Point::Name& name)
     {
       typename Points::iterator t = points.find(name);
@@ -267,7 +267,7 @@ namespace GNU_gama {
     }
   
   
-  template <class Point>
+  template <typename Point>
     void PointBase<Point>::erase()
     {
       typename Points::iterator t = points.begin();
@@ -282,7 +282,7 @@ namespace GNU_gama {
     }  
 
 
-  template <class Point>
+  template <typename Point>
     void PointBase<Point>::set_common_data(typename Point::Common* com)
     {
       common = com;

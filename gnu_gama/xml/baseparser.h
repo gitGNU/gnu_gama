@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: baseparser.h,v 1.6 2003/08/14 16:20:26 cepek Exp $
+ *  $Id: baseparser.h,v 1.7 2004/06/20 20:54:52 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa__XML__BASE_Base_base__PARSER_Parser_parser__h_
@@ -77,7 +77,7 @@ namespace GNU_gama {
 
 
 
-  template<class ParserException> class BaseParser : public CoreParser 
+  template<typename ParserException> class BaseParser : public CoreParser 
   {
   public:
     

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: residuals_observations.h,v 1.9 2004/04/19 18:41:08 cepek Exp $
+ *  $Id: residuals_observations.h,v 1.10 2004/06/20 20:54:51 cepek Exp $
  */
 
 
@@ -64,7 +64,7 @@ public:
 
 namespace GaMaLib {
 
-template <class OutStream>
+template <typename OutStream>
 void ResidualsObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
 {
   if(IS->degrees_of_freedom() <= 1) return; 
