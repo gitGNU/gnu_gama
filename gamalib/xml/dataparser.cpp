@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.11 2003/01/10 23:57:53 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.12 2003/01/18 14:14:59 cepek Exp $
  */
 
 // #########################################################################
@@ -72,6 +72,12 @@ int main()
     "         <flt>10.2</flt>\n"
     "         <flt>10.3</flt>\n"
     "     </vector>\n\n"
+
+    "     <array>\n"
+    "       <dim>2</dim>\n"
+    "         <int>1</int>\n"
+    "         <int>2</int>\n"
+    "     </array>\n"
 
     "</adj-input-data>\n"
 
@@ -169,14 +175,15 @@ DataParser::DataParser(std::list<DataObject*>& obs) : objects(obs)
 
   init(  s_gama_data, t_adj_input_data, 
        //------------------------------
-       s_adj_input_data, 0, 0,
-       &DataParser::adj_input_data, 0, &DataParser::adj_input_data);
+       s_adj_input_data_1, s_adj_input_data_5, 0,
+       &DataParser::adj_input_data, 0, &DataParser::adj_input_data,
+       s_adj_input_data_4);
 
   // .....  <sparse-mat>  ............................................
 
-  init(  s_adj_input_data, t_sparse_mat,
+  init(  s_adj_input_data_1, t_sparse_mat,
        //-------------------------------
-       s_sparse_mat_1, s_sparse_mat_4, 0,
+       s_sparse_mat_1, s_sparse_mat_4, s_adj_input_data_2,
        0, 0, &DataParser::sparse_mat);
 
   init(  s_sparse_mat_1, t_rows, 
@@ -201,24 +208,24 @@ DataParser::DataParser(std::list<DataObject*>& obs) : objects(obs)
 
   init(  s_sparse_mat_row_1, t_nonz,
        //--------------------------- 
-       s_sparse_mat_row_n, 0, s_sparse_mat_row_2,
+       s_sparse_mat_row_nonz, 0, s_sparse_mat_row_2,
        0, &DataParser::add_text, &DataParser::sparse_mat_row_n);
 
   init(  s_sparse_mat_row_2, t_int, 
        //--------------------------
-       s_sparse_mat_row_i, 0, s_sparse_mat_row_3,
+       s_sparse_mat_row_int, 0, s_sparse_mat_row_3,
        0, &DataParser::add_text, &DataParser::append_sp);
 
   init(  s_sparse_mat_row_3, t_flt,
        //--------------------------
-       s_sparse_mat_row_f, 0, s_sparse_mat_row_2,
+       s_sparse_mat_row_flt, 0, s_sparse_mat_row_2,
        0, &DataParser::add_text, &DataParser::sparse_mat_row_f);
 
   // ......  <block-diagonal>  .......................................
 
-  init(  s_adj_input_data, t_block_diagonal, 
+  init(  s_adj_input_data_2, t_block_diagonal, 
        //-----------------------------------
-       s_block_diagonal_1, s_block_diagonal_3, 0,
+       s_block_diagonal_1, s_block_diagonal_3, s_adj_input_data_3,
        0, 0, &DataParser::block_diagonal);
 
   init(  s_block_diagonal_1, t_blocks,
@@ -253,9 +260,9 @@ DataParser::DataParser(std::list<DataObject*>& obs) : objects(obs)
 
   // ......  <vector>  ...............................................
 
-  init(  s_adj_input_data, t_vector, 
+  init(  s_adj_input_data_3, t_vector, 
        //--------------------------
-       s_vector_1, s_vector_2, 0,
+       s_vector_1, s_vector_2, s_adj_input_data_4,
        0, 0, &DataParser::vector);
 
   init(  s_vector_1, t_dim, 
@@ -267,6 +274,24 @@ DataParser::DataParser(std::list<DataObject*>& obs) : objects(obs)
        //------------------
        s_vector_flt, 0, 0,
        0, &DataParser::add_text, &DataParser::vector_flt);
+
+  // ......  <array>  ................................................
+
+  init(  s_adj_input_data_4, t_array,
+       //--------------------------
+       s_array_1, s_array_2, s_adj_input_data_5,
+       0, 0, &DataParser::array);
+
+  init(  s_array_1, t_dim,
+       //-----------------
+       s_array_dim, 0, s_array_2,
+       0, &DataParser::add_text, &DataParser::array_dim);
+
+  init(  s_array_2, t_int,
+       //-----------------
+       s_array_int, 0, 0,
+       0, &DataParser::add_text, &DataParser::array_int);
+         
 
   // .................................................................
 }
@@ -283,20 +308,28 @@ DataParser::DataParser(std::list<DataObject*>& obs) : objects(obs)
 
 void DataParser::init(int s,   int t, 
                       int n,   int z,   int a,
-                      Stag s_, Data d_, Etag e_)
+                      Stag s_, Data d_, Etag e_,
+                      int z2)
 {
   if (z == 0)  z = n;
   if (a == 0)  a = s;
 
   next [s][t] = n;
   after[z]    = a;
-
+  
   if (s_) stag[s][t] = s_;
   else    stag[s][t] = &DataParser::start_tag;
 
   if (d_) data[n] = d_;
 
   if (e_) etag[z] = e_;
+
+  if (z2)         // alternative end-state 
+    { 
+      after[z2] = a;
+      etag [z2] = e_;
+    }
+
 }
 
 DataParser::data_tag DataParser::tag(const char* c)
@@ -305,6 +338,7 @@ DataParser::data_tag DataParser::tag(const char* c)
     {
     case 'a':
       if (!strcmp(c, "adj-input-data")) return t_adj_input_data;
+      if (!strcmp(c, "array"         )) return t_array;
       break;
     case 'b':
       if (!strcmp(c, "block-diagonal")) return t_block_diagonal;
@@ -634,5 +668,45 @@ int DataParser::vector_flt(const char *name)
   return error("### bad vector data in tag <flt>");
 }
 
+int DataParser::array(const char *name)
+{
+  if (adj_array_dim)
+    return error("### not enough <int> elements in <array>");
+
+  return end_tag(name);
+}
+
+int DataParser::array_dim(const char *name)
+{
+  istringstream inp(text_buffer.c_str());
+  if (inp >> adj_array_dim)
+    {
+      text_buffer.erase();
+      adj_array = new IntegerList<>(adj_array_dim);
+      adj_array_iterator = adj_array->begin();
+      return end_tag(name);
+    }
+
+  return error("### bad array dimension in tag <dim>");
+}
+
+int DataParser::array_int(const char *name)
+{
+  if (adj_array_dim == 0)
+    return error("### too many <int> elements in <array>");
+
+  int index;
+  istringstream inp(text_buffer.c_str());
+  if (inp >> index)
+    {
+      adj_array_dim--;
+      text_buffer.erase();
+      *adj_array_iterator++ = index;
+      
+      return end_tag(name);
+    }
+
+  return error("### bad array data in tag <int>");
+}
 
 #endif

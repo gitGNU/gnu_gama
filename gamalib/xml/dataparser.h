@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.10 2003/01/10 23:57:53 cepek Exp $
+ *  $Id: dataparser.h,v 1.11 2003/01/18 14:14:59 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -66,7 +66,11 @@ namespace GaMaLib {
           s_start,
           s_gama_data,
           s_text,
-          s_adj_input_data,
+          s_adj_input_data_1,
+          s_adj_input_data_2,
+          s_adj_input_data_3,
+          s_adj_input_data_4,
+          s_adj_input_data_5,
           s_sparse_mat_1,
           s_sparse_mat_rows,
           s_sparse_mat_2,
@@ -75,11 +79,11 @@ namespace GaMaLib {
           s_sparse_mat_nonz,
           s_sparse_mat_4,
           s_sparse_mat_row_1,
-          s_sparse_mat_row_n,
+          s_sparse_mat_row_nonz,
           s_sparse_mat_row_2,
-          s_sparse_mat_row_i,
+          s_sparse_mat_row_int,
           s_sparse_mat_row_3,
-          s_sparse_mat_row_f,
+          s_sparse_mat_row_flt,
           s_block_diagonal_1,
           s_block_diagonal_blocks,
           s_block_diagonal_2,
@@ -95,12 +99,17 @@ namespace GaMaLib {
           s_vector_dim,
           s_vector_2,
           s_vector_flt,
+          s_array_1,
+          s_array_dim,
+          s_array_2,
+          s_array_int,
           s_stop       
         }; 
       
       enum data_tag 
         {
           t_adj_input_data,
+          t_array,
           t_block,
           t_block_diagonal,
           t_blocks,
@@ -150,6 +159,9 @@ namespace GaMaLib {
       int vector                (const char *name);
       int vector_dim            (const char *name);
       int vector_flt            (const char *name);
+      int array                 (const char *name);
+      int array_dim             (const char *name);
+      int array_int             (const char *name);
       
       int add_text     (const char *name, int len);
       int end_tag      (const char *name);
@@ -159,8 +171,10 @@ namespace GaMaLib {
       int white_spaces (const char *name, int len);
       int append_sp    (const char *name);
 
-      void init(int state, int tag, int next_state, int state_after, int a,
-                Stag, Data, Etag);
+      void init(int state, int tag, 
+                int next_state, int end_state, int after_state,
+                Stag, Data, Etag,
+                int end_state2=0);
 
       std::string      text_buffer;
       SparseMatrix <> *adj_sparse_mat;
@@ -169,6 +183,8 @@ namespace GaMaLib {
       Vec::iterator    adj_vector_iterator;  
       Index            adj_vector_dim;
       IntegerList<>   *adj_array;
+      IntegerList<>::iterator adj_array_iterator;
+      Index            adj_array_dim;
       std::size_t      adj_sparse_mat_nonz;
       std::size_t      adj_sparse_mat_row_nonz;
       Index            block_diagonal_blocks_;
