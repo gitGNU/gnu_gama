@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_vec.h,v 1.1 2003/05/06 12:01:23 cepek Exp $
+ *  $Id: g3_obs_vec.h,v 1.2 2003/05/06 18:16:34 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_obs_base.h>
@@ -30,32 +30,71 @@
 #define GNU_gama__g3_obs_vector_h_gnugamag3obs_vectorh___gnu_gama_g3obs__vec
 
 
+
+
 namespace GNU_gama {  namespace g3 {
 
-//--  class Vector : public Observation {
-//--  public:  
-//--    
-//--    Point::Name name[2];
-//--    
-//--    Vector() : Observation(6) {}
-//--    
-//--
-//--    double parlist_value(int) const;    
-//--    void   parlist_init (Model*);
-//--    double derivative   (Parameter*, int);
-//--
-//--  protected:
-//--
-//--    void prepare_to_linearization();
-//--  };
-//--
-//--
-//--  class Vectors {
-//--  public:
-//--
-//--    List<Vector*> vec;
-//--
-//--  };
+
+  class Vector : private Observation {
+  public:  
+    
+    Point::Name name[2];
+    
+    Vector() : Observation(6), select(0) {}
+
+  private:
+
+    int select;
+
+    double parlist_value() const;    
+    void   parlist_init (Model*);
+    double derivative   (Parameter*);
+    void   prepare_to_linearization();
+
+    friend class Diff;
+  };
+
+
+
+  class Diff : public Observation {
+  public: 
+
+    Point::Name name[2];
+    
+    Diff(Vector* v, int r) : Observation(6), vec(v), sel(r)
+    {
+      name[0] = vec->name[0];
+      name[1] = vec->name[1];
+    }
+
+    void   parlist_init (Model*);
+    double parlist_value() const 
+    { 
+      vec->select = sel;   return vec->parlist_value();
+    }
+    double derivative(Parameter* p)
+    {
+      vec->select = sel;   return vec->derivative(p);
+    }
+    void linearization(GNU_gama::SparseVector<>& row)
+    {
+      vec->select = sel;   vec->linearization(row);
+    }
+
+    Vector* vector() const { return vec; }
+
+  private:
+    
+    Vector*   vec;
+    const int sel;
+
+  };
+
+
+
+  class DiffX : public Diff { public: DiffX(Vector* v) : Diff(v, 0) {} };
+  class DiffY : public Diff { public: DiffY(Vector* v) : Diff(v, 1) {} };
+  class DiffZ : public Diff { public: DiffZ(Vector* v) : Diff(v, 2) {} };
   
 }}
 

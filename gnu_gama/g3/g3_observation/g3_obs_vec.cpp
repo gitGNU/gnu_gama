@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_vec.cpp,v 1.1 2003/05/06 12:01:23 cepek Exp $
+ *  $Id: g3_obs_vec.cpp,v 1.2 2003/05/06 18:16:34 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -31,8 +31,25 @@ using namespace GNU_gama::g3;
 using namespace std;
 
 
+void Diff::parlist_init (Model* m)
+{
+  vec->parlist_init(m);
+  set_active(vec->active());
+  
+  if (!active()) return;
+  
+  Parameter** v = vec->parlist.begin();
+  Parameter** b = parlist.begin();
+  *b++ = *v++;
+  *b++ = *v++;
+  *b++ = *v++;
+  *b++ = *v++;
+  *b++ = *v++;
+  *b++ = *v++;
+}
 
-//-- double Vector::parlist_value(int) const
+
+//-- double Vector::parlist_value() const
 //-- {
 //--   Parameter** p = parlist.begin();
 //-- 
@@ -112,7 +129,7 @@ using namespace std;
 //-- }
 //-- 
 //-- 
-//-- double Vector::derivative(Parameter* p, int r)
+//-- double Vector::derivative(Parameter* p)
 //-- {
 //--   //--  Derivative<Vector>* ad = dynamic_cast<Derivative<Vector>*>(p);
 //--   //--  
