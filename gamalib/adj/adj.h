@@ -20,14 +20,15 @@
 */
 
 /*
- *  $Id: adj.h,v 1.2 2002/11/22 17:46:22 cepek Exp $
+ *  $Id: adj.h,v 1.3 2002/11/24 20:24:10 cepek Exp $
  */
 
 #include <gamalib/exception.h>
 #include <gamalib/sparse/smatrix.h>
 #include <gamalib/sparse/sbdiagonal.h>
 #include <gamalib/sparse/intlist.h>
-#include <gmatvec/gmatvec.h>
+#include <gamalib/ls/olssvd.h>
+#include <gamalib/ls/olsgso.h>
 
 #include <iostream>
 
@@ -37,13 +38,19 @@
 
 namespace GaMaLib {
 
+  class AdjException : public Exception {
+  public:
+
+    AdjException(std::string s) : Exception(s) {} 
+  };
+
   class AdjInputData {
   public:
     
     SparseMatrix <>  A;
     BlockDiagonal<>  cov;
     IntegerList  <>  minx;
-    gMatVec::Vec <>  rhs;
+    Vec              rhs;
 
     /* Sparse project equations for uncorrelated observations. *
      * Defined here only for backward data compatibility       */
@@ -53,26 +60,39 @@ namespace GaMaLib {
   
 
 
-  class Adj {
-    
-    const AdjInputData* data;
-    bool  solved;
-    int   n_obs_, n_par_;
-    
-    void init(const AdjInputData*);
-
+  class Adj 
+  {
   public:
     
     enum algorithm {gso, svd};
-
-    Adj () : data(0) { init(0); }
-    ~Adj() { delete data; }
-
+    
+    Adj () : data(0), algorithm_(gso) { init(0); }
+    virtual ~Adj();
+    
     int n_obs() const { return n_obs_; }
     int n_par() const { return n_par_; }
-
-    void set(const AdjInputData* inp) { }
+    
+    void set(const AdjInputData* inp) { init(inp); }
     void preferred_algorithm(Adj::algorithm);
+  
+    Vec x();
+  
+  private:
+    
+    const AdjInputData *data;
+    BaseOLS<Double, GaMaLib::MatVecException> *least_squares;
+
+    bool      solved;
+    algorithm algorithm_;
+    int       n_obs_, n_par_;
+    Mat       A_dot;
+    Vec       b_dot;
+    Vec       x_;
+  
+    void init(const AdjInputData*);
+    void init_least_squares();
+    void cholesky(Cov& chol);                          // move it away!   
+    void forwardSubstitution(const Cov& chol, Vec& v); // move it away!
 
   };
   
