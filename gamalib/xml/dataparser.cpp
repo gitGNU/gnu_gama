@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.7 2003/01/05 12:18:31 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.8 2003/01/05 18:02:33 cepek Exp $
  */
 
 #include <gamalib/xml/dataparser.h>
@@ -34,53 +34,82 @@ DataParser::DataParser(std::list<DataObject*>& obs) : objects(obs)
 
   // initial parser state
   
-  state = state_start;
+  state = s_start;
 
   // implicit startElement
 
-  for (int s=state_error; s<=state_stop; s++)
-    for (int t=tag_gama_data; t<=tag_unknown; t++)
+  for (int s=s_error; s<=s_stop; s++)
+    for (int t=t_gama_data; t<=t_unknown; t++)
       {
-        next[s][t] = state_error;
-        func[s][t] = &DataParser::t_error;
+        next[s][t] = s_error;
+        func[s][t] = &DataParser::parser_error;
       }
 
   // implicit characterDataHandler
 
-  for (int n=state_error; n<=state_stop; n++)
+  for (int n=s_error; n<=s_stop; n++)
     {
-      data[n] = &DataParser::d_ws;
+      data[n] = &DataParser::white_spaces;
     }
 
-  // endElement
+  // implicit endElement
 
-  for (int e=state_error; e<=state_stop; e++)
+  for (int e=s_error; e<=s_stop; e++)
     {
       ende[e] = 0;
     }
 
-  // ......  gnu-gama-data  .................................
-  next[ state_start ][ tag_gama_data ] = state_gama_data;
-  func[ state_start ][ tag_gama_data ] = &DataParser::t_gama_data;
-  // ......  text  ..........................................
-  next[ state_gama_data ][ tag_text ] = state_text;
-  func[ state_gama_data ][ tag_text ] = &DataParser::t_text;
-  data[ state_text ] = &DataParser::d_text;
-  ende[ state_text ] = &DataParser::e_text;
-  // ......  adj-input-data  ................................
-  next[ state_gama_data ][ tag_adj_input_data ] = state_adj_input_data;
-  func[ state_gama_data ][ tag_adj_input_data ] 
-    = &DataParser::t_adj_input_data;
-  ende[ state_adj_input_data ] = &DataParser::e_adj_input_data;
-  // ......  adj-input-data sparse-mat  .....................
-  next[ state_adj_input_data ][ tag_sparse_mat ] = state_sparse_mat;
-  func[ state_adj_input_data ][ tag_sparse_mat ] 
-    = &DataParser::t_sparse_mat;
-  ende[ state_sparse_mat ] = &DataParser::e_sparse_mat;
-  //
-  next[ state_sparse_mat ][ tag_sparse_mat_rows ] = state_sparse_mat_rows;
-  func[ state_sparse_mat ][ tag_sparse_mat_rows ] = 
-    &DataParser::t_no_attributes;
+  // .......................................................................
+  next[ s_start ][ t_gama_data ]           = s_gama_data;
+  func[ s_start ][ t_gama_data ]           = &DataParser::gama_data;
+  // .......................................................................
+  next[ s_gama_data ][ t_text ]            = s_text;
+  func[ s_gama_data ][ t_text ]            = &DataParser::text;
+  data[ s_text      ]                      = &DataParser::text;
+  ende[ s_text      ]                      = &DataParser::text;
+  // .......................................................................
+  next[ s_gama_data ][ t_adj_input_data ]  = s_adj_input_data;
+  func[ s_gama_data ][ t_adj_input_data ]  = &DataParser::adj_input_data;
+  ende[ s_adj_input_data ]                 = &DataParser::adj_input_data;
+  // .......................................................................
+  next[ s_adj_input_data ][ t_sparse_mat ] = s_sparse_mat;
+  func[ s_adj_input_data ][ t_sparse_mat ] = &DataParser::no_attributes;
+  ende[ s_sparse_mat                     ] = &DataParser::sparse_mat;
+  // .......................................................................
+  next[ s_sparse_mat       ][ t_rows ]     = s_sparse_mat_rows;
+  func[ s_sparse_mat       ][ t_rows ]     = &DataParser::no_attributes;
+  data[ s_sparse_mat_rows  ]               = &DataParser::add_text;
+  ende[ s_sparse_mat_rows  ]               = &DataParser::add_space;
+  
+  next[ s_sparse_mat       ][ t_cols ]     = s_sparse_mat_cols;
+  func[ s_sparse_mat       ][ t_cols ]     = &DataParser::no_attributes;
+  data[ s_sparse_mat_cols  ]               = &DataParser::add_text;
+  ende[ s_sparse_mat_cols  ]               = &DataParser::add_space;
+
+  next[ s_sparse_mat       ][ t_nonz ]     = s_sparse_mat_nonz;
+  func[ s_sparse_mat       ][ t_nonz ]     = &DataParser::no_attributes;
+  data[ s_sparse_mat_nonz  ]               = &DataParser::add_text;  
+  ende[ s_sparse_mat_nonz  ]               = &DataParser::sparse_mat_nonz;
+
+  next[ s_sparse_mat       ][ t_row  ]     = s_sparse_mat_row;
+  func[ s_sparse_mat       ][ t_row  ]     = &DataParser::sparse_mat_row;
+  data[ s_sparse_mat_row   ]               = &DataParser::white_spaces;
+
+  next[ s_sparse_mat_row   ][ t_nonz ]     = s_sparse_mat_row_n;
+  func[ s_sparse_mat_row   ][ t_nonz ]     = &DataParser::no_attributes;
+  data[ s_sparse_mat_row_n ]               = &DataParser::add_text; 
+  ende[ s_sparse_mat_row_n ]               = &DataParser::sparse_mat_row_n; 
+
+  next[ s_sparse_mat_row   ][ t_int  ]     = s_sparse_mat_row_i;
+  func[ s_sparse_mat_row   ][ t_int  ]     = &DataParser::no_attributes;
+  data[ s_sparse_mat_row_i ]               = &DataParser::add_text; 
+  ende[ s_sparse_mat_row_i ]               = &DataParser::add_space; 
+
+  next[ s_sparse_mat_row   ][ t_flt  ]     = s_sparse_mat_row_f;
+  func[ s_sparse_mat_row   ][ t_flt  ]     = &DataParser::no_attributes;
+  data[ s_sparse_mat_row_f ]               = &DataParser::add_text; 
+  ende[ s_sparse_mat_row_f ]               = &DataParser::sparse_mat_row_f; 
+  // .......................................................................
 }
 
 
@@ -89,16 +118,32 @@ DataParser::data_tag DataParser::tag(const char* c)
   switch (*c)
     {
     case 'a':
-      if (!strcmp(c, "adj-input-data")) return tag_adj_input_data;
+      if (!strcmp(c, "adj-input-data")) return t_adj_input_data;
+      break;
+    case 'c' :
+      if (!strcmp(c, "cols"          )) return t_cols;
+      break;
+    case 'f' :
+      if (!strcmp(c, "flt"           )) return t_flt;
       break;
     case 'g' :
-      if (!strcmp(c, "gnu-gama-data" )) return tag_gama_data;
+      if (!strcmp(c, "gnu-gama-data" )) return t_gama_data;
+      break;
+    case 'i':
+      if (!strcmp(c, "int"           )) return t_int;
+      break;
+    case 'n':
+      if (!strcmp(c, "nonz"          )) return t_nonz;
+      break;
+    case 'r':
+      if (!strcmp(c, "row"           )) return t_row;  // more frequent
+      if (!strcmp(c, "rows"          )) return t_rows;
       break;
     case 's':
-      if (!strcmp(c, "sparse-mat"    )) return tag_sparse_mat;
+      if (!strcmp(c, "sparse-mat"    )) return t_sparse_mat;
       break;
     case 't' :
-      if (!strcmp(c, "text"          )) return tag_text;
+      if (!strcmp(c, "text"          )) return t_text;
       break;
     default:
       break;
@@ -106,19 +151,19 @@ DataParser::data_tag DataParser::tag(const char* c)
 
   error(string("### unknown tag <") + string(c) + ">");
 
-  return tag_unknown;
+  return t_unknown;
 }
 
 
 // *****************************************************************
 
-int DataParser::t_error(const char *cname, const char **atts)
+int DataParser::parser_error(const char *cname, const char **atts)
 {
   return error(string("### tag <") + string(cname) 
                + string("> cannot be used in this context"));
 }
 
-int DataParser::t_no_attributes(const char *cname, const char **atts)
+int DataParser::no_attributes(const char *cname, const char **atts)
 {
   if (*atts)
     {
@@ -128,7 +173,7 @@ int DataParser::t_no_attributes(const char *cname, const char **atts)
   return 0;
 }
 
-int DataParser::d_ws(const char* s, int len)
+int DataParser::white_spaces(const char* s, int len)
 {
   while (len--)
     {
@@ -138,40 +183,53 @@ int DataParser::d_ws(const char* s, int len)
   return 0;
 }
 
-// ......  gnu-gama-data  ..................................................
-
-int DataParser:: t_gama_data(const char *cname, const char **atts)
-{
-  t_no_attributes  (cname, atts); // will have attribute 'version' later
-  return 0;
-}
-
-// ......  Text  ...........................................................
-
-int DataParser:: t_text(const char *cname, const char **atts)
-{
-  t_no_attributes  (cname, atts);
-  text_buffer.erase();
-  return 0;
-}
-
-int DataParser::d_text(const char* s, int len)
+int DataParser::add_text(const char* s, int len)
 {
   text_buffer += string(s, len);
   return 0;
 }
 
-int DataParser::e_text()
+int DataParser::add_space()
 {
-  objects.push_back( new TextDataObject(text_buffer) );
+  text_buffer += ' ';
   return 0;
 }
 
-// ......  AdjInputData  ...................................................
+// ......  <gnu-gama-data>  ................................................
 
-int DataParser::t_adj_input_data(const char *cname, const char **atts)
+int DataParser::gama_data(const char *cname, const char **atts)
 {
-  t_no_attributes  ( cname, atts );
+  no_attributes  (cname, atts); // will have attribute 'version' later
+  return 0;
+}
+
+// ......  <text>  .........................................................
+
+int DataParser::text(const char *cname, const char **atts)
+{
+  no_attributes(cname, atts);
+  text_buffer.erase();
+  return 0;
+}
+
+int DataParser::text(const char* s, int len)
+{
+  text_buffer += string(s, len);
+  return 0;
+}
+
+int DataParser::text()
+{
+  objects.push_back( new TextDataObject(text_buffer) );
+  text_buffer.erase();
+  return 0;
+}
+
+// ......  <adj-input-data>  ...............................................
+
+int DataParser::adj_input_data(const char *cname, const char **atts)
+{
+  no_attributes  ( cname, atts );
 
   tmp_sparse_mat = 0;
   tmp_block_diagonal = 0;
@@ -181,7 +239,7 @@ int DataParser::t_adj_input_data(const char *cname, const char **atts)
   return 0;
 }
 
-int DataParser::e_adj_input_data()
+int DataParser::adj_input_data()
 {
   AdjInputData *data = new AdjInputData;
 
@@ -194,18 +252,58 @@ int DataParser::e_adj_input_data()
   return 0;
 }
 
-int DataParser::t_sparse_mat(const char *cname, const char **atts)
-{
-  t_no_attributes  ( cname, atts );
+// ......  <sparse-mat>  ...................................................
 
-  text_buffer.erase();
+int DataParser::sparse_mat()
+{
   return 0;
 }
 
-int DataParser::e_sparse_mat()
+int DataParser::sparse_mat_nonz()
 {
-  tmp_sparse_mat = new SparseMatrix<>;
+  std::size_t  rows, cols;
+  istringstream inp(text_buffer.c_str());
+  if (inp >> rows >> cols >> tmp_sparse_mat_nonz)
+    {
+      tmp_sparse_mat = new SparseMatrix<>(tmp_sparse_mat_nonz, rows, cols);
+      text_buffer.erase();
+      return 0;
+    }
+  return error("### bad data in tags <rows> / <cols> / <nonz>");
+}
+
+int DataParser::sparse_mat_row(const char *cname, const char **atts)
+{
+  no_attributes(cname, atts);
+  tmp_sparse_mat->new_row();
+  tmp_sparse_mat_row_nonz = 0;
   return 0;
+}
+
+int DataParser::sparse_mat_row_n()
+{
+  istringstream inp(text_buffer.c_str());
+  if (inp >> tmp_sparse_mat_row_nonz)
+    {
+      text_buffer.erase();
+      return 0;
+    }
+  return error("### bad data in tag <nonz>");
+}
+
+int DataParser::sparse_mat_row_f()
+{
+  istringstream inp(text_buffer.c_str());
+  std::size_t  indx;
+  double       flt;
+  if (tmp_sparse_mat_nonz-- && tmp_sparse_mat_row_nonz--)
+    if (inp >> indx >> flt)
+      {
+        tmp_sparse_mat->add_element(flt, indx);
+        text_buffer.erase();
+        return 0;
+      }
+  return error("### bad data in tags <nonz> / <int> / <flt>");
 }
 
 // #########################################################################
@@ -229,19 +327,24 @@ int main()
 
     "<gnu-gama-data>\n\n"
     "<text>\n"
-    "This is a DataParser demo ...\n"
-    "</text>\n\n"
-
-    "<text>\n"
-    "qwerty. ..\n"
+    "qwerty ...\n"
     "asdfgh ...\n"
     "zxcvbn ...\n"
     "</text>\n\n"
 
     "<adj-input-data>\n"
     "  <sparse-mat>\n"
+    "    <rows>3</rows> <cols>2</cols> <nonz>4</nonz>\n"
+    "      <row> <nonz>1</nonz> <int>1</int> <flt>1.1</flt></row>\n"
+    "      <row> <nonz>1</nonz> <int>2</int> <flt>2.2</flt></row>\n"
+    "      <row> <nonz>2</nonz> <int>1</int> <flt>3.3</flt>      \n"
+    "                           <int>2</int> <flt>4.4</flt></row>\n"
     "  </sparse-mat>\n"
     "</adj-input-data>\n"
+
+    "<text>\n"
+    "This is a DataParser demo ...\n"
+    "</text>\n\n"
 
     "\n</gnu-gama-data>\n\n"
     ;

@@ -1,14 +1,14 @@
 CPAR=-Wall -pedantic -I../.. -g
 
 
-demo : gkfparser.o ../../gamaprog/linux/lib/gamalib.a
+demo-gkfparser : gkfparser.o ../../gamaprog/linux/lib/gamalib.a
 	g++ -o demo-gkfparser gkfparser.o ../../gamaprog/linux/lib/gamalib.a
 
 gkfparser.o : gkfparser.cpp gkfparser.h
 	g++ $(CPAR) -DGaMaLib_GKFparser_demo -c gkfparser.cpp
 
 clean:
-	rm -f *.o *~ demo
+	rm -f *.o *~ demo*
 
 archiv:
 	( cd .. ; \
