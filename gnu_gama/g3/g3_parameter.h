@@ -2,7 +2,7 @@
    GNU Gama -- adjustment of geodetic networks
    Copyright (C) 2003  Ales Cepek <cepek@fsv.cvut.cz>
 
-   This file is part of the GNU Gama library.
+   This file is part of the GNU Gama C++ library.
    
    This library is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -19,9 +19,11 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.4 2003/03/23 18:39:53 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.5 2003/03/25 12:38:33 cepek Exp $  */
 
 #include <cstddef>
+#include <gnu_gama/list.h>
+
 
 #ifndef GNU_gama_____g3______parameter______h__________GNUgamag3parameterh
 #define GNU_gama_____g3______parameter______h__________GNUgamag3parameterh
@@ -53,6 +55,7 @@ namespace GNU_gama { namespace g3 {
     ParameterList& operator=(const ParameterList&);
 
   };
+
 
 
   class Parameter {
@@ -115,6 +118,114 @@ namespace GNU_gama { namespace g3 {
     { 
       delete[] begin_; 
     }
+
+
+
+  class ParameterTree {
+  private:
+
+    typedef GNU_gama::List<Parameter*> Tree;
+    Tree tree;
+
+    void add_parlist(const ParameterList& parlist);
+
+  public:
+
+    ParameterTree(const ParameterList& parlist) { add_parlist(parlist); }
+
+    class const_iterator
+      // : public std::iterator <std::forward_iterator_tag, Parameter*> 
+      {
+      public:
+        
+        const_iterator()
+          {
+          }
+        const_iterator(const Tree::const_iterator& p) : tree(p) 
+          {
+          }
+        bool operator==(const const_iterator& x) const 
+          { 
+            return tree==x.tree; 
+          }
+        bool operator!=(const const_iterator& x) const 
+          { 
+            return tree!=x.tree; 
+          }
+        const_iterator& operator++()
+          {
+            ++tree;
+            return *this;
+          }
+        const_iterator operator++(int)
+          {
+            const_iterator tmp(tree);
+            ++tree;
+            return tmp;
+          }
+        const Parameter* operator*() const
+          {
+            return *tree;
+          }
+        
+      private:
+        Tree::const_iterator tree;
+        
+      };
+    
+    const_iterator  begin() const { return tree.begin(); }
+    const_iterator  end  () const { return tree.end  (); }
+    
+    
+    class iterator 
+      // : public std::iterator <std::forward_iterator_tag, Parameter*> 
+      {
+      public:
+        
+        iterator()
+          {
+          }
+        iterator(const Tree::iterator& p) : tree(p)
+          {
+          }
+        operator const_iterator() const
+          {
+            return const_iterator(tree);
+          }
+        bool operator==(const iterator& x) const 
+          { 
+            return tree==x.tree; 
+          }
+        bool operator!=(const iterator& x) const 
+          { 
+            return tree!=x.tree; 
+          }
+        iterator& operator++()
+          {
+            ++tree;
+            return *this;
+          }
+        iterator operator++(int)
+          {
+            iterator tmp(tree);
+            ++tree;
+            return tmp;
+          }
+        Parameter* operator*() const
+          {
+            return *tree;
+          }
+        
+      private:
+        Tree::iterator tree;
+        
+      };
+    
+    iterator  begin() { return tree.begin(); }
+    iterator  end  () { return tree.end  (); }
+
+
+  };
 
 
 }}

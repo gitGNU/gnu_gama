@@ -2,7 +2,7 @@
     GNU Gama -- adjustment of geodetic networks
     Copyright (C) 2002, 2003  Ales Cepek <cepek@fsv.cvut.cz>
 
-    This file is part of the GNU Gama library.
+    This file is part of the GNU Gama C++ library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: sbdiagonal.h,v 1.4 2003/03/09 19:42:09 cepek Exp $
+ *  $Id: sbdiagonal.h,v 1.5 2003/03/25 12:38:33 cepek Exp $
  */
 
 #ifndef GNU_gama____Symmetric_Block_Diagonal___Symmetric_Block_Diagonal

@@ -2,7 +2,7 @@
     GNU Gama -- adjustment of geodetic networks
     Copyright (C) 2003  Ales Cepek <cepek@fsv.cvut.cz>
 
-    This file is part of the GNU Gama library.
+    This file is part of the GNU Gama C++ library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: outstream.cpp,v 1.1 2003/02/16 13:09:14 cepek Exp $
+ *  $Id: outstream.cpp,v 1.2 2003/03/25 12:38:33 cepek Exp $
  */
 
 
