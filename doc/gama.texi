@@ -1,10 +1,10 @@
 \input texinfo   @c -*-texinfo-*-
-@comment $Id: gama-unstable.texi,v 1.1 2002/10/12 15:52:22 cepek Exp $
+@comment $Id: gama.texi,v 1.1 2002/10/24 17:09:11 cepek Exp $
 
 @comment Part 1 : Header
 
 @c %**start of header
-@setfilename gama-unstable.info
+@setfilename gama.info
 @include     version.texi
 @settitle    GNU GaMa @value{VERSION}
 @setchapternewpage odd
