@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: smatrix.h,v 1.3 2002/09/11 18:26:47 cepek Exp $
+ *  $Id: smatrix.h,v 1.4 2002/09/13 16:21:45 cepek Exp $
  */
 
 #ifndef GaMaLib_Sparse_General_Matrix____GaMaLib___Sparse___General___Matrix__
@@ -195,7 +195,7 @@ using namespace GaMaLib;
 void write(ostream& cout, SparseMatrix<>* sgm)
 {
   cout << endl;
-  for (int k=1; k<=sgm->rows(); k++)
+  for (unsigned long k=1; k<=sgm->rows(); k++)
     {
       cout << k << " : ";
       double* n = sgm->begin(k);
@@ -208,7 +208,7 @@ void write(ostream& cout, SparseMatrix<>* sgm)
     }
 }
 
-main()
+int main()
 {
   cout << "\n---  Sparse General Matrix demo  ---------------------------\n";
       

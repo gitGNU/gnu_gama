@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: sbdiagonal.h,v 1.1 2002/09/11 18:25:27 cepek Exp $
+ *  $Id: sbdiagonal.h,v 1.2 2002/09/13 16:21:45 cepek Exp $
  */
 
 #ifndef GaMaLib_Symmetric_Block_Diagonal____GaMaLib_Symmetric_Block_Diagonal__
@@ -29,6 +29,7 @@
 #include <cstddef>
 #include <cstring>
 #include <algorithm>
+#include <cmath>
 
 
 namespace GaMaLib {
@@ -113,42 +114,38 @@ template <class Float=double, class Index=std::size_t>
     }
 
 
-    void cholDec(Float /* tol */=1e-14)
+    int cholDec(Float tol = 1e-14)
     {
-      Float* b;
+      Float* B;
       Float* p;
-      Index  N, B, i, k, l, m, n;
-      Float  q, b0;
+      Index  N, W, row, k, l, n;
+      Float  q, pivot;
 
       for (Index block=1; block<=blocks_; block++)
       {
-        b = begin(block);
+        B = begin(block);
         N = dim  (block);
-        B = width(block);
+        W = width(block);
 
-        for (i=1; i<=N; i++)
+        for (row=1; row<=N; row++)
           {
-            b0 = b[0];
-            // if (tol >= b0) ... 
+            if ((pivot = *B) < tol) 
+              return block;                // not positive-definite
 
-            k = B;
-            if (k+i > N) k = N - i;
-            p = b;
+            k = min(W, N-row);             // number of of-diagonal elements
+            p = B+k+1;                     // first element of next submatrix
             for (n=1; n<=k; n++)
               {
-                p += B+1 - (n > N-B ? n+B-N: 0);
-                q = b[n]/b0;
-                for (m=0, l=n; m<=B-n; m++, l++) p[m] -= q*b[l];
+                q = B[n]/pivot;
+                for (l=n; l<=k; l++) *p++ -= q*B[l];
               }
-
-            b0 = b[0] = sqrt(b0);
-            for (m=1; m<=k; m++) b[m] /= b0;
-            b += B+1 - (i > N-B ? i+B-N: 0);
+            *B++ = pivot = sqrt(pivot);    // scaling pivot row 
+            for (; k; k--) *B++ /= pivot;
           }
-        
-        // b0 = b[0];
-        // if (tol > b0) ...
-      }
+
+      }   // block ...
+
+      return 0;
     }
 
   };
@@ -169,8 +166,9 @@ using namespace GaMaLib;
 
 void write(ostream& cout, BlockDiagonal<>* bd)
 {
+  // cout.precision(7); 
   cout << endl;
-  for (int i=1; i<=bd->blocks(); i++)
+  for (unsigned long i=1; i<=bd->blocks(); i++)
     {
       cout << i << " : [" << bd->dim(i) << " | " << bd->width(i) << "]\n";
       double* b = bd->begin(i);
@@ -181,18 +179,22 @@ void write(ostream& cout, BlockDiagonal<>* bd)
     }
 }
 
-main()
+int main()
 {
   cout << "\n---  Symmetric Block Diagonal Matrix demo  -----------------\n";
       
   double b1[] = {1.1, 1.2, 1.3};
   double b2[] = {44.2, 5.2, 66.2, 7.2, 88.2};
   double b3[] = {111.3, 12.3, 13.3, 114.3, 15.3, 116.3};
+  double b4[] = {19, 1, 2, 3, 18, 1, 2, 17, 1, 16};
+  double b5[] = {19, 1, 2, 18, 1, 2, 17, 1, 2, 16, 1, 5};
 
-  BlockDiagonal<>* m1 = new BlockDiagonal<>(7, 500);
+  BlockDiagonal<>* m1 = new BlockDiagonal<>(20, 5000);
   m1->add_block(3, 0, b1);
   m1->add_block(3, 1, b2);
   m1->add_block(3, 2, b3);
+  m1->add_block(4, 3, b4);
+  m1->add_block(5, 2, b5);
   write(cout, m1);
   
   BlockDiagonal<>* m2 = m1->replicate();
@@ -205,11 +207,3 @@ main()
 
 
 #endif
-
-
-
-
-
-
-
-
