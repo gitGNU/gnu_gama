@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.10 2003/07/27 17:55:38 cepek Exp $
+ *  $Id: version.cpp,v 1.11 2003/08/09 11:01:55 cepek Exp $
  */
 
 
@@ -28,11 +28,11 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.06-pre";
+const char* GNU_gama_version  = "1.7.06";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
-              "GNU g++"             // g++ 3.0.4
+              "GNU g++"             // g++ 3.0 / 3.3
               #elif defined (__BORLANDC__) && (__linux__)
               "kylix-bc++"          // 5.7
               #elif defined (__BORLANDC__)
@@ -59,7 +59,10 @@ const char* GNU_gama_compiler =
 
 =============================================================================
 
-1.7.06
+1.7.06 2003-08-09
+
+   - removed a bug in definition of regularization condition in
+     LocalNetwork::project_equations() in file network.cpp.
 
    - gmatvec 0.9.22 (tested with g++ 3.3)
 

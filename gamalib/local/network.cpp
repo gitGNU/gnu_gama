@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.8 2003/06/14 15:00:22 cepek Exp $
+ *  $Id: network.cpp,v 1.9 2003/08/09 11:01:55 cepek Exp $
  */
 
 #include <fstream>
@@ -296,34 +296,36 @@ void LocalNetwork::project_equations()
   //--ofstream opr("A_scaled.bin", ios_base::trunc); 
   //--int m=A.rows();
   //--int n=A.cols();
-  //--opr.write(&m, sizeof(int));
-  //--opr.write(&n, sizeof(int));
-  //--opr.write(A.begin(), sizeof(Double)*m*n);
-  
+  //--opr.write((char*)(&m), sizeof(int));
+  //--opr.write((char*)(&n), sizeof(int));
+  //--opr.write((char*)(A.begin()), sizeof(Double)*m*n);
+
   delete[] min_x_;
   min_x_ = 0;
   min_n_ = 0;
-  {   // for ...
-    for (PointData::iterator i=PD.begin(); i!=PD.end(); ++i)
-      {
-        if ((*i).second.constrained_xy())  min_n_ += 2;
-        if ((*i).second.constrained_z())   min_n_ += 1;
-      }
-  }   // for ...
+
+  for (PointData::iterator i=PD.begin(); i!=PD.end(); ++i)
+    {
+      const LocalPoint& p = (*i).second;
+      if (p.constrained_xy() && p.index_x())  min_n_ += 2;
+      if (p.constrained_z()  && p.index_z())  min_n_ += 1;
+    }
+
   if (min_n_)
     {
       min_x_ = new Index[min_n_];
       int n = 0;
       for (PointData::iterator i=PD.begin(); i!=PD.end(); ++i)
         {
-          if ((*i).second.constrained_xy())
+          const LocalPoint& p = (*i).second;
+          if (p.constrained_xy() && p.index_x())
             {
-              min_x_[n++] = (*i).second.index_y();
-              min_x_[n++] = (*i).second.index_x();
+              min_x_[n++] = p.index_y();
+              min_x_[n++] = p.index_x();
             }
-          if ((*i).second.constrained_z())
+          if (p.constrained_z() && p.index_z())
             {
-              min_x_[n++] = (*i).second.index_z();
+              min_x_[n++] = p.index_z();
             }
         }
       min_x(min_n_, min_x_);
