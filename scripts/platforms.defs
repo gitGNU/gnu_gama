@@ -2,9 +2,9 @@
 #
 # $Id:
 #
-#gnu           :CC        = gcc
+#gnu           :#CC       = gcc
 #gnu           :CFLAGS   +=
-#gnu           :CXX       = g++
+#gnu           :#CXX      = g++
 #gnu           :CXXFLAGS += -I../../.. -Wall -pedantic
 #gnu           :OBJ       = o
 #gnu           :LIBR      = @ar -r gamalib.a
