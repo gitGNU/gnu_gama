@@ -1,8 +1,6 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.19pre)
-    Copyright (C) 1999, 2001  Ales Cepek <cepek@fsv.cvut.cz>,
-    2002 Ales Cepek <cepek@fsv.cvut.cz>, 
-         Christopher T. Fallen <ctfallen@math.ukans.edu>
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.19pre.2)
+    Copyright (C) 1999, 2001, 2002  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
     
@@ -22,7 +20,7 @@
 */
 
 /*
- *  $Id: svd.h,v 1.6 2002/06/30 12:02:50 cepek Exp $
+ *  $Id: svd.h,v 1.7 2002/07/05 15:18:06 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -60,14 +58,43 @@ namespace gMatVec {
 
      --------------------------------------------------------------------------
 
-     2001.02.30  (AC) Occasional problems with SVD convergence:
+     2001-02-30  (AC) Occasional problems with SVD convergence:
 
      Revisions marked with  #_LH_#  are made after the fortran subroutine QRBD
      published in: Solving Least Squares Problems by Charles L. Lawson and
      Richard J. Hanson, 1974 Prentice-Hall, Inc., Englewood Cliffs., N.J.,
      ISBN 0-13-822585-0, pp. 341 (QRBD : App. C, 298--300).
 
-     --------------------------------------------------------------------------
+
+
+     2002-07-05  (AC) problems with SVD convergence (hopefully) solved:
+
+     Three tests for convergence had to be rewritten to explicitly
+     use a temporary variable s2:
+
+        <    if ((s1 + ABS(rv1[L])) == s1) goto test_for_convergence;
+        ---  
+        >    s2 = s1 + ABS(rv1[L]); 
+        >    if (s1 == s2) goto test_for_convergence;
+             
+        <    if (s1 + (ABS(W[L1])) == s1) break;
+        ---  
+        >    s2 = s1 + ABS(W[L1]); 
+        >    if (s1 == s2) break;
+             
+        <    if (s1 + (ABS(f)) == s1) goto test_for_convergence;
+        ---  
+        >    s2 = s1 + ABS(f); 
+        >    if (s1 == s2) goto test_for_convergence;
+
+     The problems occured sometimes with GNU g++ 2.95.2 and Borland
+     C++ 5.5 (bcc32) compilers (but not with the MS VC++ 6.0 compiler). 
+
+
+     This perverse bug was detected thanks to the thorough testing and
+     analysis by Christopher T. Fallen <ctfallen@math.ukans.edu>
+
+     -------------------------------------------------------------------------
   */
 
   template <class Float=double, class Exc=Exception>
@@ -213,8 +240,7 @@ namespace gMatVec {
 
       Index  i, i1, its, j, k, k1, L, L1;
       Float  c, f, h, s, x, y, z ;
-      // Float  s1=ZERO, g=ZERO, scale=ZERO, r ;
-      long double  s1=ZERO, g=ZERO, scale=ZERO, r, ff;
+      Float  s1=ZERO, g=ZERO, scale=ZERO, r, s2;
       Float  tmp1;
       Index  mn;
 
@@ -340,12 +366,14 @@ namespace gMatVec {
             {
               for (L=k; L>=1; L--) 
                 {     
-                  if ((s1 + ABS(rv1[L])) == s1) goto test_for_convergence;
+                  s2 = s1 + ABS(rv1[L]); 
+                  if (s1 == s2) goto test_for_convergence;
                   
                   /* rv[1] is always zero, so there is no exit 
                    * through the bottom of the loop */
                   L1 = L - 1;
-                  if (s1 + (ABS(W[L1])) == s1) break;
+                  s2 = s1 + ABS(W[L1]); 
+                  if (s1 == s2) break;
                 }
               
               /* cancellation of rv1[L], if L greater then 1 */
@@ -355,10 +383,10 @@ namespace gMatVec {
                 {
                   f = s * rv1[i];
                   rv1[i] = c * rv1[i];
-                  if (s1 + (ABS(f)) == s1) goto test_for_convergence;
-                  g  = W[i];
-                  ff = f;
-                  h  = PYTHAG(ff,g);
+                  s2 = s1 + ABS(f); 
+                  if (s1 == s2) goto test_for_convergence;
+                  g = W[i];
+                  h = PYTHAG(f,g);
                   W[i] = h;
                   c =  g / h;
                   s = -f / h;
