@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.7 2003/05/17 17:07:08 cepek Exp $
+ *  $Id: dataparser.h,v 1.8 2003/05/28 16:06:04 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -55,6 +55,9 @@ namespace GNU_gama {
         {
           return (this->*etag[state])(name);
         }
+
+      static const char* const xml_start;  
+      static const char* const xml_end;  
       
     private: 
       

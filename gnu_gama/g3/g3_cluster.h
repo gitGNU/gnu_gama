@@ -20,8 +20,38 @@
 */
 
 /*
- *  $Id: g3_cluster.h,v 1.1 2003/05/21 17:14:02 cepek Exp $
+ *  $Id: g3_cluster.h,v 1.2 2003/05/28 16:06:04 cepek Exp $
  */
 
 
-#include <gnu_gama/g3/g3_observation/g3_cluster_vec.h>
+// #include <gnu_gama/g3/g3_observation/g3_cluster_vec.h>
+
+#ifndef GNU_gama__g3_cluster___g3clustergnugamag3cluster__gnu_gama_g3_cluster
+#define GNU_gama__g3_cluster___g3clustergnugamag3cluster__gnu_gama_g3_cluster
+
+#include <gnu_gama/g3/g3_observation/g3_obs_vec.h>
+#include <gnu_gama/g3/g3_model.h>
+#include <iostream>
+
+namespace GNU_gama { namespace g3 {
+
+  class g3Cluster :  public GNU_gama::Cluster<Observation> {
+  public:
+  
+      g3Cluster(const Model::ObservationData* obs) : Cluster<Observation>(obs) 
+      {
+      }
+
+      g3Cluster* clone(const Model::ObservationData*) const 
+        { 
+          throw 
+            GNU_gama::Exception::string("g3Cluster::clone() not implemented");
+          return 0; 
+        }
+
+      virtual void write_xml(std::ostream&) const = 0;
+ };
+
+}}
+
+#endif

@@ -20,13 +20,14 @@
 */
 
 /*
- *  $Id: g3_cluster_vec.cpp,v 1.1 2003/05/21 17:14:02 cepek Exp $
+ *  $Id: g3_cluster_vec.cpp,v 1.2 2003/05/28 16:06:04 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_cluster_vec.h>
+#include <iomanip>
 
 using namespace GNU_gama::g3;
-
+using namespace std;
 
 void Vectors::add(Vector* v)
 {
@@ -35,4 +36,48 @@ void Vectors::add(Vector* v)
   observation_list.push_back( new DiffX(v) );
   observation_list.push_back( new DiffY(v) );
   observation_list.push_back( new DiffZ(v) );
+}
+
+
+void Vectors::write_xml(std::ostream& out) const
+{
+  const bool single = vectors.size() == 1;
+
+  if (!single)
+    {
+      out << "\n\t< multiple vectors cluster not implemented yet />\n\n";
+      return;
+    }
+    
+  const Vector* v = *vectors.begin();
+
+  for (GNU_gama::List<Vector*>::const_iterator
+       b = vectors.begin(), e=vectors.end();  b!=e;  ++b)
+    {
+      out.precision(5);
+      out.setf(ios::fixed, ios::floatfield);
+
+      out << "\n<vector>\n\t"
+          << "<from>" << v->name[0] << "</from> "
+          << "<to>"   << v->name[1] << "</to>\n\t"
+          << "<dx>"   << v->dx() << "</dx> "
+          << "<dy>"   << v->dy() << "</dy> "
+          << "<dz>"   << v->dz() << "</dz>\n";
+
+      if (single) 
+        {
+          out.precision(6);
+          out.setf(ios::scientific, ios::floatfield);
+     
+          out << "\t"
+              << "<cxx>" << covariance_matrix(1,1) << "</cxx> "
+              << "<cxy>" << covariance_matrix(1,2) << "</cxy> "
+              << "<cxz>" << covariance_matrix(1,3) << "</cxz>\n\t"
+              << "<cyy>" << covariance_matrix(2,2) << "</cyy> "
+              << "<cyz>" << covariance_matrix(2,3) << "</cyz>\n\t"
+              << "<czz>" << covariance_matrix(3,3) << "</czz>\n";
+        }
+
+      out << "</vector>\n";
+    }
 }

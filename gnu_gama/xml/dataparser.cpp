@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.5 2003/05/17 17:07:08 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.6 2003/05/28 16:06:04 cepek Exp $
  */
 
 // #########################################################################
@@ -133,11 +133,21 @@ int main()
 
 
 #include <gnu_gama/xml/dataparser.h>
-#include <gnu_gama/g3/g3_cluster.h>
+#include <gnu_gama/g3/g3_observation/g3_cluster_vec.h>
 #include <cstring>
 
 using namespace std;
 using namespace GNU_gama;
+
+
+const char* const DataParser::xml_start =
+    "<?xml version=\"1.0\" ?>\n"
+    "<!DOCTYPE gnu-gama-data SYSTEM \"gnu-gama-data.dtd\">\n\n"
+    "<gnu-gama-data>\n";  
+
+const char* const DataParser::xml_end =
+    "</gnu-gama-data>\n";  
+
 
 DataParser::~DataParser()
 {
@@ -859,12 +869,10 @@ int DataParser::g3_vector(const char *name)
       return error("### bad format of numerical data in <vector>");
     }
 
+  text_buffer.erase();
+
   using namespace g3;
   
-  cout << dx<< " " <<  dy<< " " <<  dz<< " " 
-       <<  cxx<< " " <<  cxy<< " " <<  cxz<< " " 
-       <<  cyy<< " " <<  cyz<< " " <<  czz << endl;
-
   Vector* v = new Vector(dx, dy, dz);
   v->name[0] = g3vec_from;
   v->name[1] = g3vec_to;
@@ -873,6 +881,14 @@ int DataParser::g3_vector(const char *name)
   Vectors* vectors = new Vectors(obs);
 
   vectors->add(v);
+  vectors->covariance_matrix.reset(3,2);
+  vectors->covariance_matrix(1,1) = cxx;
+  vectors->covariance_matrix(1,2) = cxy;
+  vectors->covariance_matrix(1,3) = cxz;
+  vectors->covariance_matrix(2,2) = cyy;
+  vectors->covariance_matrix(2,3) = cyz;
+  vectors->covariance_matrix(3,3) = czz;
+
   obs->CL.push_back(vectors);
 
   return  end_tag(name);

@@ -20,10 +20,12 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.6 2003/05/17 17:07:08 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.7 2003/05/28 16:06:04 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
+#include <gnu_gama/g3/g3_cluster.h>
+#include <gnu_gama/xml/dataparser.h>
 
 
 using namespace GNU_gama::g3;
@@ -60,4 +62,28 @@ Point* Model::get_point(const Point::Name& name)
     }
 
   return p;
+}
+
+
+void Model::write_xml(std::ostream& out) 
+{ 
+  out 
+    << DataParser::xml_start
+    << "<g3-model>\n";
+
+  {
+    for (ObservationData::ClusterList::const_iterator
+           b = obs->CL.begin(), e=obs->CL.end();  b != e;  ++b)
+      if (const g3Cluster* c = dynamic_cast<const g3Cluster*>(*b))
+      {
+        
+         c->write_xml(out);
+      }
+
+  }
+  
+  out 
+    << "\n</g3-model>\n"
+    << DataParser::xml_end;
+;
 }
