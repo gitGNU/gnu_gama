@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: zangle.h,v 1.2 2003/01/04 12:06:53 cepek Exp $
+ *  $Id: zangle.h,v 1.3 2003/01/04 16:00:38 cepek Exp $
  */
 
 #include <gamalib/local/revision.h>
@@ -35,17 +35,17 @@ bool LocalRevision::z_angle(const Z_Angle* obs) const
   
   PointData::const_iterator s = PD.find(obs->from());  // station point
   if (s == PD.end()) return false;
-  //if (!(*s).second.active_xy()) return false;
-  if (!(*s).second.test_xy()) return false;
-  if (!(*s).second.active_z()) return false;
-  if (!(*s).second.test_z()) return false;
+  // if (!(*s).second.active_xy()) return false; 
+  if (!(*s).second.test_xy())   return false;
+  if (!(*s).second.active_z())  return false;
+  if (!(*s).second.test_z())    return false;
 
   PointData::const_iterator t = PD.find(obs->to());    // target  point
   if (t == PD.end()) return false;
-  //if (!(*t).second.active_xy()) return false;
-  if (!(*t).second.test_xy()) return false;
-  if (!(*t).second.active_z()) return false;
-  if (!(*t).second.test_z()) return false;
+  // if (!(*t).second.active_xy()) return false;
+  if (!(*t).second.test_xy())   return false;
+  if (!(*t).second.active_z())  return false;
+  if (!(*t).second.test_z())    return false;
 
   return true;
 }
