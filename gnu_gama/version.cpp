@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.22 2004/03/03 18:10:12 cepek Exp $
+ *  $Id: version.cpp,v 1.23 2004/03/05 22:27:32 cepek Exp $
  */
 
 
@@ -64,6 +64,13 @@ const char* GNU_gama_compiler =
 
 1.7.09-pre 2004-.....
 
+    - scripts/gama_dep.cpp (1.01): added conditional usage of option
+      '-pipe' in makefiles generated for GNU Linux platform
+
+      bc++ compiler from Kylix3 can now use the makefiles generated in
+      the project for GNU compilers
+
+
 
 1.6.01 2004-03-03      ******  stable version 1.6  ******
 
@@ -75,6 +82,8 @@ const char* GNU_gama_compiler =
 
     - added observation dimensions into Cluster::activeCov (activeCount 
       renamed to activeObs)
+
+                            **********************  
 
 
 1.7.08 2004-01-26

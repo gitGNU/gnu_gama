@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# kulix3.sh for compiling GaMa with Kylix3 compiler bc++
+# script for compiling Gama with Kylix3 compiler bc++
 
 export PATH=/usr/local/kylix3/bin:$PATH
 export CC=bc++
@@ -9,5 +9,6 @@ export CXX=bc++
 export CXXFLAGS=-w
 
 
+make dep-expat-1.1
 make clean
 make 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gnu_gama_dep.cpp,v 1.6 2003/12/28 23:28:57 uid66336 Exp $
+ *  $Id: gnu_gama_dep.cpp,v 1.7 2004/03/05 22:27:32 cepek Exp $
  */
 
 #include <iostream>
@@ -29,27 +29,28 @@
 #include <string>
 #include <set>
 
-const char* version = "1.0";
+const char* version = "1.01";
 
-/*************************************************************************
+/**************************************************************************
  * 
- * 1.0  - added project gama-g3
- *      - added support for comments (lines starting with #)
- *        and empty lines
- * 0.9  - various changes needed for GNU Gama to be compiled with
- *        expat version 1.95.2 (or any later). Old version 1.1 of expat 
- *        parser is still available as an alternative
- * 0.8  - accepts include directives with spaces between '#' and `include'
- *      - avoids possible recursive dependences
- * 0.7  gamalib_dep renamed to gnu_gama_dep; all bash  scripts used
- *      for generating makefiles are removed
- * 0.6  added directory <gnu_gama/ ... > for processing
- * 0.5  added include <iostream> for g++ 3.0.4 
- * 0.4  .o changed to .$(OBJ) for
- * 0.3  `name' not written to output
- * 0.2  added SRC make macro (2000-11-11)
+ * 1.01  - conditional usage of compilere option '-pipe' for GNU compilers
+ * 1.00  - added project gama-g3
+ *       - added support for comments (lines starting with #)
+ *         and empty lines
+ * 0.9   - various changes needed for GNU Gama to be compiled with
+ *         expat version 1.95.2 (or any later). Old version 1.1 of expat 
+ *         parser is still available as an alternative
+ * 0.8   - accepts include directives with spaces between '#' and `include'
+ *       - avoids possible recursive dependences
+ * 0.7   gamalib_dep renamed to gnu_gama_dep; all bash  scripts used
+ *       for generating makefiles are removed
+ * 0.6   added directory <gnu_gama/ ... > for processing
+ * 0.5   added include <iostream> for g++ 3.0.4 
+ * 0.4   .o changed to .$(OBJ) for
+ * 0.3   `name' not written to output
+ * 0.2   added SRC make macro (2000-11-11)
  *  
- *************************************************************************/
+ **************************************************************************/
 
 
 enum Projects  { t_lib, 
@@ -67,9 +68,15 @@ enum Platforms { t_gnu,
 const char* platform_pars[] = {
 
   "#CC        = gcc\n"
+  "ifeq ($(findstring gcc,$(CC)),gcc)\n"
   "CFLAGS    += -pipe\n"
+  "endif\n"
+  "CFLAGS    += \n"
   "#CXX       = g++\n"
-  "CXXFLAGS  += -pipe -I../../..\n"
+  "ifeq ($(findstring g++,$(CXX)),g++)\n"
+  "CXXFLAGS  += -pipe\n"
+  "endif\n"
+  "CXXFLAGS  += -I../../..\n"
   "OBJ        = o\n"
   "LIBR       = @ar -r libgama.a\n"
   "RANLIB     = ranlib libgama.a\n"
@@ -83,9 +90,15 @@ const char* platform_pars[] = {
   ,
 
   "#CC        = gcc\n"
+  "ifeq ($(findstring gcc,$(CC)),gcc)\n"
   "CFLAGS    += -pipe\n"
+  "endif\n"
+  "CFLAGS    += \n"
   "#CXX       = g++\n"
-  "CXXFLAGS  += -pipe -DGNU_gama_expat_1_1 -I../../..\n"
+  "ifeq ($(findstring g++,$(CXX)),g++)\n"
+  "CXXFLAGS  += -pipe\n"
+  "endif\n"
+  "CXXFLAGS  += -DGNU_gama_expat_1_1 -I../../..\n"
   "OBJ        = o\n"
   "LIBR       = @ar -r libgama.a\n"
   "RANLIB     = ranlib libgama.a\n"
