@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: encoding.cpp,v 1.1 2001/12/07 13:02:30 cepek Exp $
+ *  $Id: encoding.cpp,v 1.2 2002/08/18 16:50:19 cepek Exp $
  */
 
 #include <string.h>
@@ -307,7 +307,7 @@ char* utf8_cp1250(char *buf){
   static bool init_tab = true;
   if (init_tab)  
     {       
-      iso_8859_2_unicode((int*)tab);
+      cp1250_unicode((int*)tab);
       init_tab = false;  
     }       
   unsigned int u;

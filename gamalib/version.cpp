@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.27 2002/06/27 17:11:57 cepek Exp $
+ *  $Id: version.cpp,v 1.28 2002/08/18 16:50:19 cepek Exp $
  */
 
 
@@ -59,12 +59,20 @@ const char* GaMaLib_compiler =
 
 1.5.01-pre
 
-     - initial draft of the Ellipsoid class and a helper program
-       ellipsoids_xml.cpp for generating files ellipsoids.[h|cpp] from
-       xml/ellipsoids.xml
+   - initial draft of the Ellipsoid class and a helper program
+     ellipsoids_xml.cpp for generating files ellipsoids.[h|cpp] from
+     xml/ellipsoids.xml
 
-     - joined changes from 1.4.01 concerning heights of instrument
-       and/or reflector
+   - joined changes from 1.4.01 concerning heights of instrument
+     and/or reflector
+
+   - removed bug reported by Jan Bilek in utf8_cp1250(char *buf); file
+     gamalib/xml/encoding.cpp:
+
+         310c310
+         <       iso_8859_2_unicode((int*)tab);
+         ---
+         >       cp1250_unicode((int*)tab);
 
 
 1.5.00 2002-06-11
