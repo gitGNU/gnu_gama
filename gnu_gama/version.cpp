@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.37 2004/04/21 16:49:39 cepek Exp $
+ *  $Id: version.cpp,v 1.38 2004/05/01 13:56:40 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.10-g";
+const char* GNU_gama_version  = "1.7.10";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -62,12 +62,16 @@ const char* GNU_gama_compiler =
 
 =============================================================================
 
-1.7.10 2004-xx-xx
+1.7.10 2004-05-01
+
+    - Catalan   translation of gama-local by Diego Berge
+ 
+    - Hungarian translation of gama-local by Zoltan Faludi
+
+
 
     - files statan.{h|cpp} and rand.{h|cpp} moved from gamalib to
       gnu_gama
-
-    - Hungarian translation of gama-local by Zoltan Faludi
 
     - bug in orientation of semimajor axes of error ellipses for
       inconsistent coordinate systems (internally changed all y

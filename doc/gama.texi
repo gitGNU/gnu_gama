@@ -1,5 +1,5 @@
 \input texinfo   @c -*-texinfo-*-
-@comment $Id: gama.texi,v 1.12 2004/04/11 18:21:59 cepek Exp $
+@comment $Id: gama.texi,v 1.13 2004/05/01 13:56:26 cepek Exp $
 
 @comment Part 1 : Header
 
@@ -129,7 +129,8 @@ The following persons (in chronological order) have made contributions
 to GNU Gama project: 
 @c
 Ales Cepek, Jiri Vesely, Petr Doubrava, Jan Pytel, Chuck Ghilani, Dan
-Haggman, Mauri Vaisanen, John Dedrum, Jim Sutherland and Zoltan Faludi.
+Haggman, Mauri Vaisanen, John Dedrum, Jim Sutherland, Zoltan Faludi
+and Diego Berge.
 
 
 @c @itemize @bullet
@@ -154,6 +155,12 @@ Haggman, Mauri Vaisanen, John Dedrum, Jim Sutherland and Zoltan Faludi.
 @c 
 @c @item 
 @c John Dedrum (Dutch translation for @code{gama-local})
+@c 
+@c @item 
+@c Zoltan Faludi (Hungarian translation for @code{gama-local})
+@c 
+@c @item 
+@c Diego Berge (Catalan translation for @code{gama-local})
 @c 
 @c @end itemize
 

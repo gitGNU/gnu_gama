@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?> 
+<entries>
+
+<e id="T_GaMa_Adjustment_of_geodetic_network"   
+   EN="Adjustment of local geodetic network"
+   ca="Ajustament de xarxa geodèsica local" />
+
+<e id="T_GaMa_version"
+   EN="version: "
+   ca="versió: " />
+
+<e id="T_GaMa_exception_1"
+   EN="Error during creation of InfoSit object"
+   ca="Error durant la creació d\'objecte InfoSit" />
+
+<e id="T_GaMa_exception_2a"
+   EN="GaMa - error on reading XML input configuration file!"
+   ca="GaMa - error en llegir arxiu XML de configuració!" />
+
+<e id="T_GaMa_exception_2b"
+   EN="On line number "
+   ca="A la línia " />
+
+<e id="T_GaMa_No_points_available"
+   EN="No points available"
+   ca="No s\'ha trobat cap punt" />
+
+<e id="T_GaMa_No_observations_available"
+   EN="No observations available"
+   ca="No s\'ha trobat cap observació" />
+
+<e id="T_GaMa_No_network_points_defined"
+   EN="No network points defined"
+   ca="No s\'ha trobat cap punt pertanyent a la xarxa" />
+
+<e id="T_GaMa_No_unknowns_defined"
+   EN="No unknowns have been defined"
+   ca="No s\'ha definit cap incògnita" />
+
+<e id="T_GaMa_Observatios_with_outlying_absolute_terms_removed"
+   EN="Observations with outlying absolute terms removed"
+   ca="S\'han exclós observacions amb termes absoluts fora de rang" />
+
+<e id="T_GaMa_adjustment_iteration"
+   EN=" - adjustment iteration"
+   ca=" - iteració de l\'ajust" />
+
+<e id="T_GaMa_Approximate_coordinates_replaced"
+   EN="Approximate coordinates of computed points replaced by adjusted"
+   ca="Les coordenades aproximades dels punts calculats han estat remplaçades per coordenades ajustades" />
+
+<e id="T_GaMa_solution_ended_with_error"
+   EN="GaMa - solution ended with error!"
+   ca="GaMa - la solució ha acabat amb errors" />
+
+<e id="T_GaMa_internal_program_error"
+   EN="GaMa - internal program error!"
+   ca="GaMa - error intern al programa!" />
+  
+</entries>   
+
