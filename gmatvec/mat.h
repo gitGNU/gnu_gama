@@ -1,6 +1,6 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.22)
-    Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
+    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.23)
+    Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: mat.h,v 1.10 2003/08/14 16:20:25 cepek Exp $
+ *  $Id: mat.h,v 1.11 2004/06/21 16:10:16 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -34,9 +34,9 @@
 
 namespace gMatVec {
 
-template <class Float, class Exc> class TransMat;
+template <typename Float, typename Exc> class TransMat;
 
-template <class Float=double, class Exc=Exception> 
+template <typename Float=double, typename Exc=Exception> 
 class Mat : public MatBase<Float, Exc> {
 
 public:
@@ -112,13 +112,13 @@ Float& entry(Index i, Index j) { return *(pentry + i*col_ + j); }
 };
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 inline Mat<Float, Exc> operator*(Float f, const Mat<Float, Exc> &M) {
   return M*f;
 }
 
 
-template <class Float, class Exc> 
+template <typename Float, typename Exc> 
 Mat<Float, Exc> 
 operator* (const MatBase<Float, Exc> &A, const MatBase<Float, Exc> &B)
   {
@@ -141,7 +141,7 @@ operator* (const MatBase<Float, Exc> &A, const MatBase<Float, Exc> &B)
   }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Mat<Float, Exc> 
 operator+(const MatBase<Float, Exc> &A,const MatBase<Float, Exc> &B)
   {
@@ -157,7 +157,7 @@ operator+(const MatBase<Float, Exc> &A,const MatBase<Float, Exc> &B)
   }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Mat<Float, Exc> 
 operator-(const MatBase<Float, Exc> &A, const MatBase<Float, Exc> &B)
   {
@@ -174,7 +174,7 @@ operator-(const MatBase<Float, Exc> &A, const MatBase<Float, Exc> &B)
 
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Mat<Float, Exc>
 operator*(const Mat<Float, Exc> &A, const Mat<Float, Exc> &B)
   {
@@ -204,7 +204,7 @@ operator*(const Mat<Float, Exc> &A, const Mat<Float, Exc> &B)
   }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void Mat<Float, Exc>::invert()
 {
   /* Gauss-Jordan elimination */
@@ -310,7 +310,7 @@ void Mat<Float, Exc>::invert()
 }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 inline Mat<Float, Exc> inv(const Mat<Float, Exc>& A)
 {
   Mat<Float, Exc> t = A;

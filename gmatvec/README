@@ -1,3 +1,9 @@
+0.9.23 2004-06-21
+
+       - all occurrences of keyword 'class' in template type definitions
+         replaced by keyword 'typename'
+
+
 0.9.22 2003-07-27
 
        - added missing `typename' keyword in template definitions

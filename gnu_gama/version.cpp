@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.44 2004/06/20 20:54:51 cepek Exp $
+ *  $Id: version.cpp,v 1.45 2004/06/21 16:10:18 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.11-f";
+const char* GNU_gama_version  = "1.7.11-g";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -63,6 +63,9 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.11 2004-05-xx
+
+    - all occurrences of keyword 'class' in template type definitions
+      replaced by 'typeneme' (new gmatvec version 0.9.23)
 
     - in the template class ObservationData (gnu_gama/obsdata.h) the
       data member CL was renamed to 'clusters'

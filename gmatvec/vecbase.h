@@ -1,6 +1,6 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.22)
-    Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
+    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.23)
+    Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: vecbase.h,v 1.12 2003/08/14 16:20:25 cepek Exp $
+ *  $Id: vecbase.h,v 1.13 2004/06/21 16:10:18 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -35,7 +35,7 @@
 namespace gMatVec {
 
   
-template <class Float=double, class Exc=Exception>
+template <typename Float=double, typename Exc=Exception>
 class VecBase : public MatVecBase<Float, Exc> {
 
 protected:
@@ -68,7 +68,7 @@ public:
 };
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Float VecBase<Float, Exc>::dot(const VecBase<Float, Exc> &B) const
   {
     if (dim() != B.dim())
@@ -85,7 +85,7 @@ Float VecBase<Float, Exc>::dot(const VecBase<Float, Exc> &B) const
   }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Float VecBase<Float, Exc>::norm_L1() const
   {
     const_iterator a = begin();
@@ -98,7 +98,7 @@ Float VecBase<Float, Exc>::norm_L1() const
   }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Float VecBase<Float, Exc>::norm_Linf() const
   {
     const_iterator a = begin();
@@ -116,7 +116,7 @@ Float VecBase<Float, Exc>::norm_Linf() const
   }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 std::istream& operator>>(std::istream& inp, VecBase<Float, Exc>& v)
   {
     Index size;

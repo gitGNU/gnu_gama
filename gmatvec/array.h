@@ -1,6 +1,6 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.22)
-    Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
+    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.23)
+    Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: array.h,v 1.10 2003/08/14 16:20:25 cepek Exp $
+ *  $Id: array.h,v 1.11 2004/06/21 16:10:14 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -31,7 +31,7 @@
 
 namespace gMatVec {
 
-template <class Type, class Exc=Exception>  
+template <typename Type, typename Exc=Exception>  
 class Array : public MemRep<Type, Exc> {
 
 public:

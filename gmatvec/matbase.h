@@ -1,6 +1,6 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.22)
-    Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
+    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.23)
+    Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: matbase.h,v 1.10 2003/08/14 16:20:25 cepek Exp $
+ *  $Id: matbase.h,v 1.11 2004/06/21 16:10:17 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -35,7 +35,7 @@
 namespace gMatVec {
 
 
-template <class Float=double, class Exc=Exception>
+template <typename Float=double, typename Exc=Exception>
 class MatBase : public MatVecBase<Float, Exc> {
 
 protected:
@@ -123,14 +123,14 @@ public:
 };
 
 
-template <class Float, class Exc> 
+template <typename Float, typename Exc> 
 std::istream& operator>>(std::istream& inp, MatBase<Float, Exc>& M) 
   {
     return M.read(inp);
   }
 
 
-template <class Float, class Exc> 
+template <typename Float, typename Exc> 
 std::ostream& operator<<(std::ostream& out, const MatBase<Float, Exc>& M) 
   {
     return M.write(out);

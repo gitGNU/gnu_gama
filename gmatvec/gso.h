@@ -1,6 +1,6 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.22)
-    Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
+    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.23)
+    Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gso.h,v 1.12 2003/08/14 16:20:25 cepek Exp $
+ *  $Id: gso.h,v 1.13 2004/06/21 16:10:16 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -69,7 +69,7 @@
 
 namespace gMatVec {
 
-template <class Float=double, class Exc=Exception>
+template <typename Float=double, typename Exc=Exception>
 class GSO {
 
 public:   
@@ -119,7 +119,7 @@ private:
 };
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void GSO<Float, Exc>::reset(Mat<Float, Exc>& a, Index m, Index n)
 { 
   pA = &a; 
@@ -134,7 +134,7 @@ void GSO<Float, Exc>::reset(Mat<Float, Exc>& a, Index m, Index n)
   sc = true;
 }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void GSO<Float, Exc>::min_x()
 {
   minx_n = N;
@@ -144,7 +144,7 @@ void GSO<Float, Exc>::min_x()
 }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void GSO<Float, Exc>::min_x(Index N, Index nx[])
 {
   minx_n = N;
@@ -154,7 +154,7 @@ void GSO<Float, Exc>::min_x(Index N, Index nx[])
 }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void GSO<Float, Exc>::gso1()
 {
   if (pA==0)  return; 
@@ -175,7 +175,7 @@ void GSO<Float, Exc>::gso1()
 }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void GSO<Float, Exc>::gso2()
 {
   if (pA==0)  return; 
@@ -194,7 +194,7 @@ void GSO<Float, Exc>::gso2()
     }
 }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void GSO<Float, Exc>::modified_gso(Index r_first, Index r_last, 
                                Index c_last,  Index r_dim, bool first)
 {

@@ -1,6 +1,6 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.22)
-    Copyright (C) 2002  Ales Cepek <cepek@fsv.cvut.cz>
+    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.23)
+    Copyright (C) 2002  Ales Cepek <cepek@gnu.org>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: jacobian.h,v 1.6 2003/08/14 16:20:25 cepek Exp $
+ *  $Id: jacobian.h,v 1.7 2004/06/21 16:10:16 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -47,7 +47,7 @@ namespace gMatVec {
    *  The derivative L'4(x) = 2/24*y1 - 4/6*y2 + 4/6*y4 - 2/24*y5.
    */
 
-  template <class Float=double, class Exc=Exception>
+  template <typename Float=double, typename Exc=Exception>
   class Jacobian {
     
   public:
@@ -82,7 +82,7 @@ namespace gMatVec {
   };
   
 
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
   Jacobian<Float, Exc>::Jacobian(Index out, Index inp, function pf, int d)  
     : matrix(out, inp)
   {
@@ -99,14 +99,14 @@ namespace gMatVec {
   }
     
   
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
   void Jacobian<Float, Exc>::set_f (function pf)
   {
     f = pf;
   }
   
   
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
   void Jacobian<Float, Exc>::set_h (Vec<Float, Exc> dh)
   {
     h     = dh;
@@ -114,7 +114,7 @@ namespace gMatVec {
   }
   
   
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
   void Jacobian<Float, Exc>::set_scale (Float sc)
   {
     scale = sc;
@@ -122,7 +122,7 @@ namespace gMatVec {
   }
   
   
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
   void Jacobian<Float, Exc>::set_degree(int n)
   {
     if (n < 2) n = 4;
@@ -133,7 +133,7 @@ namespace gMatVec {
   }
   
 
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
   void Jacobian<Float, Exc>::compute(Vec<Float, Exc> x)
   {
     Float tx, dh, c;
@@ -181,7 +181,7 @@ namespace gMatVec {
    * ------------------------------------------------------------------------
    */
 
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
   Float Jacobian<Float, Exc>::d_coef(int index)
     {
       int N=degree + 1;

@@ -1,6 +1,6 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.22)
-    Copyright (C) 1999, 2001  Ales Cepek <cepek@fsv.cvut.cz>
+    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.23)
+    Copyright (C) 1999, 2001  Ales Cepek <cepek@gnu.org>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: svd.h,v 1.16 2003/08/14 16:20:25 cepek Exp $
+ *  $Id: svd.h,v 1.17 2004/06/21 16:10:17 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -88,7 +88,7 @@ namespace gMatVec {
 
      ----------------------------------------------------------------------- */
 
-  template <class Float=double, class Exc=Exception>
+  template <typename Float=double, typename Exc=Exception>
     class SVD {
 
       public:
@@ -164,12 +164,12 @@ namespace gMatVec {
   // --------- Singular Value Decompiosition member functions -------------
 
 
-  template <class T> inline const T ABS(const T& x)
+  template <typename T> inline const T ABS(const T& x)
     {
       return (x >= T(0)) ? x : -x ;
     }
 
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
     void SVD<Float, Exc>::set_inv_W()
     {
       if (W_tol == 0)
@@ -208,7 +208,7 @@ namespace gMatVec {
     }      /* void SVD<Float, Exc>::set_inv_W() */
 
 
-  template <class Float> inline Float PYTHAG( Float a, Float b )
+  template <typename Float> inline Float PYTHAG( Float a, Float b )
     {
       Float at, bt, ct;
 
@@ -219,7 +219,7 @@ namespace gMatVec {
     }
 
 
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
     void SVD<Float, Exc>::svd()
     {
       if (decomposed)
@@ -476,7 +476,7 @@ namespace gMatVec {
     }      /* void SVD<Float, Exc>::svd() */
 
 
-  template <class Float, class Exc> SVD<Float, Exc>&
+  template <typename Float, typename Exc> SVD<Float, Exc>&
     SVD<Float, Exc>::reset(const Mat<Float, Exc>& A)
     {
       const Index R = A.rows();
@@ -497,7 +497,7 @@ namespace gMatVec {
     }      /* SVD& reset(const Mat<Float, Exc>& A) */
 
 
-  template <class Float, class Exc> SVD<Float, Exc>&
+  template <typename Float, typename Exc> SVD<Float, Exc>&
     SVD<Float, Exc>::reset(const Mat<Float, Exc>& A,
                            const Vec<Float, Exc>& w)
     {
@@ -512,7 +512,7 @@ namespace gMatVec {
     }
 
 
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
     void SVD<Float, Exc>::reset_UWV()
     {
       delete[] U;
@@ -534,7 +534,7 @@ namespace gMatVec {
     }      /* void SVD<Float, Exc>::reset_UWV() */
 
 
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
     SVD<Float, Exc>& SVD<Float, Exc>::clear()
     {
       m = 0;
@@ -555,7 +555,7 @@ namespace gMatVec {
     }      /* SVD& SVD<Float, Exc>::clear() */
 
 
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
     Float SVD<Float, Exc>::q_xx(Index i, Index j)
     {
       if (!(1 <= i && i <= n && 1 <= j && j <= n))
@@ -570,7 +570,7 @@ namespace gMatVec {
     }
 
 
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
     Float SVD<Float, Exc>::q_bb(Index i, Index j)
     {
       if (!(1 <= i && i <= m && 1 <= j && j <= m))
@@ -586,7 +586,7 @@ namespace gMatVec {
     }
 
 
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
     Float SVD<Float, Exc>::q_bx(Index i, Index j)
     {
       if (!(1 <= i && i <= m && 1 <= j && j <= n))
@@ -601,7 +601,7 @@ namespace gMatVec {
     }
 
 
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
     void SVD<Float, Exc>::min_x()
     {
       if (decomposed && minx != all)
@@ -617,7 +617,7 @@ namespace gMatVec {
     }
 
 
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
     void SVD<Float, Exc>::min_x(Index n, Index list[])
     {
       minx = subset;
@@ -639,7 +639,7 @@ namespace gMatVec {
     }      /* void SVD<Float, Exc>::min_x(Index n, Index list[]) */
 
 
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
     void SVD<Float, Exc>::min_subset_x()
     {
       using namespace std;
@@ -679,7 +679,7 @@ namespace gMatVec {
     }      /* void SVD<Float, Exc>::min_subset_x() */
 
 
-  template <class Float, class Exc>
+  template <typename Float, typename Exc>
     void SVD<Float, Exc>::solve(const Vec<Float, Exc>& rhs,
                                 Vec<Float, Exc>& x_)
     {

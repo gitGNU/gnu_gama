@@ -1,6 +1,6 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.22)
-    Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
+    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.23)
+    Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: symmat.h,v 1.11 2003/08/14 16:20:25 cepek Exp $
+ *  $Id: symmat.h,v 1.12 2004/06/21 16:10:17 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -33,7 +33,7 @@
 
 namespace gMatVec {
 
-template <class Float=double,  class Exc=Exception> 
+template <typename Float=double,  typename Exc=Exception> 
 class SymMat : public MatBase<Float, Exc>, public CholDec<Float, Exc> {
 
   Index dim_;
@@ -124,7 +124,7 @@ public:
 
 // ======================================================================
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 std::ostream& operator<<(std::ostream& out, const SymMat<Float, Exc>& S)
   {
     const Index fw = out.width();
@@ -141,7 +141,7 @@ std::ostream& operator<<(std::ostream& out, const SymMat<Float, Exc>& S)
     return out;
   }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 std::istream& operator>>(std::istream& inp, SymMat<Float, Exc>& S)
   {
     Index n;
@@ -157,7 +157,7 @@ std::istream& operator>>(std::istream& inp, SymMat<Float, Exc>& S)
 
 // ======================================================================
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 SymMat<Float, Exc> 
 operator+(const SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
   {
@@ -175,7 +175,7 @@ operator+(const SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
     return M;
   }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 SymMat<Float, Exc> 
 operator-(const SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
   {
@@ -193,7 +193,7 @@ operator-(const SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
     return M;
   }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 SymMat<Float, Exc>& 
 operator+=(SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
   {
@@ -209,7 +209,7 @@ operator+=(SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
     return A;
   }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 SymMat<Float, Exc>& 
 operator-=(SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
   {
@@ -225,7 +225,7 @@ operator-=(SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
     return A;
   }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 inline 
 SymMat<Float, Exc> operator*(Float d, const SymMat<Float, Exc>& A)
   {
@@ -234,7 +234,7 @@ SymMat<Float, Exc> operator*(Float d, const SymMat<Float, Exc>& A)
 
 // ======================================================================
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Mat<Float, Exc>
 Square(const SymMat<Float, Exc>& A)
   {
@@ -248,7 +248,7 @@ Square(const SymMat<Float, Exc>& A)
     return M;
   }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Mat<Float, Exc>
 Lower(const SymMat<Float, Exc>& A)
   {
@@ -265,7 +265,7 @@ Lower(const SymMat<Float, Exc>& A)
     return M;
   }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Mat<Float, Exc>
 Upper(const SymMat<Float, Exc>& A)
   {
@@ -282,7 +282,7 @@ Upper(const SymMat<Float, Exc>& A)
     return M;
   }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 SymMat<Float, Exc>
 Lower(const Mat<Float, Exc>& A)
   {
@@ -299,7 +299,7 @@ Lower(const Mat<Float, Exc>& A)
     return M;
   }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 SymMat<Float, Exc>
 Upper(const Mat<Float, Exc>& A)
   {
@@ -320,7 +320,7 @@ Upper(const Mat<Float, Exc>& A)
 
 // Cholesky decomposition of positive definite matrix A
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void SymMat<Float, Exc>::cholDec()
   {
     idf_ = 0;
@@ -368,7 +368,7 @@ void SymMat<Float, Exc>::cholDec()
     
   }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void SymMat<Float, Exc>::solve(Vec<Float, Exc>& rhs) const
   {
     const_iterator a = begin();
@@ -406,7 +406,7 @@ void SymMat<Float, Exc>::solve(Vec<Float, Exc>& rhs) const
 
 // Inverse of positive definite matrix A
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void SymMat<Float, Exc>::invert()
   {
     const Index n = dim();
@@ -449,7 +449,7 @@ void SymMat<Float, Exc>::invert()
       }
   }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 inline SymMat<Float, Exc> inv(const SymMat<Float, Exc>& A)
   {
     SymMat<Float, Exc> T(A);
@@ -460,12 +460,12 @@ inline SymMat<Float, Exc> inv(const SymMat<Float, Exc>& A)
 
 // ======================================================================
 
-template <class Float, class Exc> inline
+template <typename Float, typename Exc> inline
 const SymMat<Float, Exc>& trans(const SymMat<Float, Exc>& A) { return A; }
-template <class Float, class Exc> inline
+template <typename Float, typename Exc> inline
 SymMat<Float, Exc>& trans(SymMat<Float, Exc>& A) { return A; }
 
-template <class Float, class Exc> 
+template <typename Float, typename Exc> 
 SymMat<Float, Exc>
 operator*(const SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B) 
   { 
@@ -502,7 +502,7 @@ operator*(const SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
     return C; 
   }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Mat<Float, Exc>
 operator*(const Mat<Float, Exc>& A, const SymMat<Float, Exc>& B)
   {

@@ -1,6 +1,6 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.22)
-    Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
+    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.23)
+    Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: transvec.h,v 1.10 2003/08/14 16:20:25 cepek Exp $
+ *  $Id: transvec.h,v 1.11 2004/06/21 16:10:18 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -35,7 +35,7 @@
 namespace gMatVec {
   
 
-template <class Float=double, class Exc=Exception>
+template <typename Float=double, typename Exc=Exception>
 class TransVec : public VecBase<Float, Exc> {
 
 public:
@@ -60,21 +60,21 @@ public:
 };
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 inline TransVec<Float, Exc> operator*(Float f, const TransVec<Float, Exc>& V)
   {
     return V*f;
   }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 inline Float operator*(TransVec<Float, Exc> a, Vec<Float, Exc> b)
   {
     return a.dot(b);
   }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 std::ostream& operator<<(std::ostream& out, const Vec<Float, Exc>& v)
   {
     const int fw = out.width();
@@ -97,7 +97,7 @@ std::ostream& operator<<(std::ostream& out, const Vec<Float, Exc>& v)
   }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 std::ostream& operator<<(std::ostream& out, const TransVec<Float, Exc>& v)
   {
     const int fw = out.width();
@@ -120,21 +120,21 @@ std::ostream& operator<<(std::ostream& out, const TransVec<Float, Exc>& v)
   }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 inline TransVec<Float, Exc> trans(const Vec<Float, Exc>& v) 
 { 
   TransVec<Float, Exc> T(v); return T; 
 }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 inline Vec<Float, Exc> trans(const TransVec<Float, Exc>& v) 
 { 
   Vec<Float, Exc> T(v); return T; 
 }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 TransVec<Float, Exc> 
 operator*(const TransVec<Float, Exc> &b, const MatBase<Float, Exc> &A)
   {
@@ -155,7 +155,7 @@ operator*(const TransVec<Float, Exc> &b, const MatBase<Float, Exc> &A)
   }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 TransVec<Float, Exc> 
 operator*(const TransVec<Float, Exc> &b, const Mat<Float, Exc> &A)
   {

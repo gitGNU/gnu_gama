@@ -1,6 +1,6 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.22)
-    Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
+    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.23)
+    Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: bandmat.h,v 1.13 2003/08/14 16:20:25 cepek Exp $
+ *  $Id: bandmat.h,v 1.14 2004/06/21 16:10:14 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -44,7 +44,7 @@
 namespace gMatVec {
 
 
-template <class Float=double, class Exc=Exception>
+template <typename Float=double, typename Exc=Exception>
 class BandMat : public MatBase<Float, Exc>, public CholDec<Float, Exc> {
 public:
 
@@ -109,7 +109,7 @@ private:
 };      /* class BandMat */
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void BandMat<Float, Exc>::reset(Index d, Index b)
 {
   if (dim() != d || band_ != b) 
@@ -121,7 +121,7 @@ void BandMat<Float, Exc>::reset(Index d, Index b)
 }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Float  BandMat<Float, Exc>::operator()(Index r, Index s) const
 {
    if (r > s) {
@@ -138,7 +138,7 @@ Float  BandMat<Float, Exc>::operator()(Index r, Index s) const
    return m[--r*(band_+1) + s];
 }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Float& BandMat<Float, Exc>::operator()(Index r, Index s)
 {
    if (r > s) {
@@ -155,7 +155,7 @@ Float& BandMat<Float, Exc>::operator()(Index r, Index s)
    return m[--r*(band_+1) + s];
 }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void BandMat<Float, Exc>::cholDec()
 {
   /*
@@ -201,7 +201,7 @@ void BandMat<Float, Exc>::cholDec()
                                       "Matrix is not positive definite");
 }
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void BandMat<Float, Exc>::solve(Vec<Float, Exc>& rhs) const
 {
    const Index bw1 = band_ + 1;
@@ -235,7 +235,7 @@ void BandMat<Float, Exc>::solve(Vec<Float, Exc>& rhs) const
 }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void BandMat<Float, Exc>::invBand(BandMat& Z, Index pbw) const
 {
   /* 
@@ -297,7 +297,7 @@ void BandMat<Float, Exc>::invBand(BandMat& Z, Index pbw) const
 }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 Vec<Float, Exc> 
 BandMat<Float, Exc>::operator*(const Vec<Float, Exc>& v) const
 {
@@ -325,7 +325,7 @@ BandMat<Float, Exc>::operator*(const Vec<Float, Exc>& v) const
 }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 std::istream& BandMat<Float, Exc>::read(std::istream& inp) 
 {
    int inpd, inpb;
@@ -344,7 +344,7 @@ std::istream& BandMat<Float, Exc>::read(std::istream& inp)
 }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 std::ostream& BandMat<Float, Exc>::write(std::ostream& out) const
 {
    int w = out.width();
@@ -367,7 +367,7 @@ std::ostream& BandMat<Float, Exc>::write(std::ostream& out) const
 }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void BandMat<Float, Exc>::triDiag()
 {
   Float *a, *b, *z, d, s, c, u, v, w, s2, c2, sc;
@@ -441,7 +441,7 @@ void BandMat<Float, Exc>::triDiag()
 }
 
 
-template <class Float, class Exc>
+template <typename Float, typename Exc>
 void BandMat<Float, Exc>::eigenVal(Vec<Float, Exc>& eigvals)
 {
   triDiag();
