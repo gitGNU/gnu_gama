@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.22 2002/06/09 11:29:46 cepek Exp $
+ *  $Id: version.cpp,v 1.23 2002/06/11 11:53:31 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.3.39";
+const char* GaMaLib_version  = "1.4.00";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
@@ -56,6 +56,21 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.4.00 2002-06-11
+
+     #####################################################################
+     #                                                                   #
+     #  stable version 1.4 (branch gama-1-4) at CVS savannah.gnu.org)    #
+     #                                                                   #
+     #####################################################################
+
+   - at CVS savannah.gnu.org stable version 1.4 (adjustment in local
+     coordinate system) has been started as a separate branch with label
+     gama-1-4; development of unstable version 1.5 (aimed to adjustment
+     in geocentric coordinates) is going to continue in the CVS main
+     trunk.
+
 
 1.3.39 2002-06-09
 
