@@ -20,12 +20,13 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.7 2003/05/28 16:06:04 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.8 2003/05/29 16:04:14 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
 #include <gnu_gama/g3/g3_cluster.h>
 #include <gnu_gama/xml/dataparser.h>
+#include <gnu_gama/outstream.h>
 
 
 using namespace GNU_gama::g3;
@@ -67,10 +68,59 @@ Point* Model::get_point(const Point::Name& name)
 
 void Model::write_xml(std::ostream& out) 
 { 
+  GNU_gama::SaveFlags sf(out);
+  out.setf(ios::fixed, ios::floatfield);
+  out.precision(5);
+
   out 
     << DataParser::xml_start
     << "<g3-model>\n";
 
+  {
+    out << "\n";
+    for (PointBase::const_iterator 
+           b = points->begin(), e = points->end(); b != e; ++b)
+      {
+        const Point *p = *b;
+        out << "<point>\t<id>" << p->name << "</id>";
+
+        if (p->has_xyz())
+          out << "\n\t"
+              << "<x>" << p->X.value(0) << "</x> "
+              << "<y>" << p->Y.value(0) << "</y> "
+              << "<z>" << p->Z.value(0) << "</z>";
+
+        if (p->has_height())
+          out << "\n\t"
+              << "<height>" << p->height.value(0) << "</height>";
+
+        if (p->unused())
+          out << "\n\t"; // <unused/>";
+        else if (p->fixed_position())   
+          out << "\n\t<fixed/>";
+        else if (p->free_position() && !p->constr_position())    
+          out << "\n\t<free/>";
+        else if (p->constr_position())  
+          out << "\n\t<constr/>";
+        else {
+          if (p->fixed_horizontal_position())  
+            out << "\n\t<fixed-position/>";
+          if (p->free_horizontal_position()&&!p->constr_horizontal_position())
+            out << "\n\t<free-position/>";
+          if (p->constr_horizontal_position()) 
+            out << "\n\t<constr-position/>";
+          if (p->fixed_height())               
+            out << "\n\t<fixed-height/>";
+          if (p->free_height() && !p->constr_height())                
+            out << "\n\t<free-height/>";
+          if (p->constr_height())              
+            out << "\n\t<constr-height/>";
+        }
+
+        out << "</point>\n";
+      }
+  }
+  
   {
     for (ObservationData::ClusterList::const_iterator
            b = obs->CL.begin(), e=obs->CL.end();  b != e;  ++b)
@@ -81,7 +131,7 @@ void Model::write_xml(std::ostream& out)
       }
 
   }
-  
+
   out 
     << "\n</g3-model>\n"
     << DataParser::xml_end;

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.8 2003/05/28 16:06:04 cepek Exp $
+ *  $Id: dataparser.h,v 1.9 2003/05/29 16:04:14 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -69,6 +69,25 @@ namespace GNU_gama {
           s_start,
           s_gama_data,
           s_g3_model,
+          s_g3_point_1,
+          s_g3_point_id,
+          s_g3_point_2,
+          s_g3_point_x,
+          s_g3_point_after_x,
+          s_g3_point_y,
+          s_g3_point_after_y,
+          s_g3_point_z,
+          s_g3_point_height,
+          s_g3_point_unused,
+          s_g3_point_fixed,
+          s_g3_point_fixed_p,
+          s_g3_point_fixed_h,
+          s_g3_point_free,
+          s_g3_point_free_p,
+          s_g3_point_free_h,
+          s_g3_point_constr,
+          s_g3_point_constr_p,
+          s_g3_point_constr_h,
           s_g3_vector,
           s_g3_vector_from,
           s_g3_vector_after_from,
@@ -141,6 +160,9 @@ namespace GNU_gama {
           t_block_diagonal,
           t_blocks,
           t_cols,
+          t_constr,
+          t_constr_p,
+          t_constr_h,
           t_cxx,
           t_cxy,
           t_cxz,
@@ -152,19 +174,32 @@ namespace GNU_gama {
           t_dy,
           t_dz,
           t_flt,
+          t_fixed,
+          t_fixed_p,
+          t_fixed_h,
+          t_free,
+          t_free_p,
+          t_free_h,
           t_from,
           t_g3_model,
           t_gama_data,
+          t_height,
+          t_id,
           t_int,
           t_nonz,
+          t_point,
           t_rows,
           t_row,
           t_sparse_mat,
           t_text,
           t_to,
+          t_unknown,
           t_vector,
           t_width,
-          t_unknown
+          t_x,
+          t_y,
+          t_z,
+          t_unused
         };
       
       data_tag tag(const char *name);
@@ -183,6 +218,19 @@ namespace GNU_gama {
       int gama_data             (const char *name, const char **atts);
       int g3_model              (const char *name, const char **atts);
       int g3_model              (const char *name);
+      int g3_point_id           (const char *name);
+      int g3_point_z            (const char *name);
+      int g3_point_height       (const char *name);
+      int g3_point_unused       (const char *name);
+      int g3_point_fixed        (const char *name);
+      int g3_point_fixed_p      (const char *name);
+      int g3_point_fixed_h      (const char *name);
+      int g3_point_free         (const char *name);
+      int g3_point_free_p       (const char *name);
+      int g3_point_free_h       (const char *name);
+      int g3_point_constr       (const char *name);
+      int g3_point_constr_p     (const char *name);
+      int g3_point_constr_h     (const char *name);
       int g3_vector             (const char *name, const char **atts);
       int g3_vector             (const char *name);
       int g3_vector_from        (const char *name);
@@ -252,6 +300,7 @@ namespace GNU_gama {
       Vec              bd_vector;
       Vec::iterator    bd_vector_iterator;  
       std::size_t      bd_vector_dim;
+      g3::Point        *point;
 
     };
 }

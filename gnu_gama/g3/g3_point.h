@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.16 2003/04/11 09:38:26 cepek Exp $
+ *  $Id: g3_point.h,v 1.17 2003/05/29 16:04:14 cepek Exp $
  */
 
 #include <gamalib/pointid.h>
@@ -99,7 +99,7 @@ namespace GNU_gama {  namespace g3 {
 
     // -----------------------------
 
-    Parameter  B, L, H, X, Y, Z;
+    Parameter  B, L, H, X, Y, Z, height;
 
     Parameter_N*  N;
     Parameter_E*  E;
@@ -132,6 +132,11 @@ namespace GNU_gama {  namespace g3 {
 
     void set_blh(double, double, double);
     void set_xyz(double, double, double);
+    void set_height(double);
+
+    bool has_xyz()    const { return has_xyz_;    } 
+    bool has_blh()    const { return has_blh_;    } 
+    bool has_height() const { return has_height_; }
 
 
     double x_transform(double n, double e, double u);
@@ -171,6 +176,8 @@ namespace GNU_gama {  namespace g3 {
 
   private:
     double   dX, dY, dZ ; 
+    bool     has_xyz_, has_blh_, has_height_;
+
   };
 
 

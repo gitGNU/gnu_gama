@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.6 2003/05/28 16:06:04 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.7 2003/05/29 16:04:14 cepek Exp $
  */
 
 // #########################################################################
@@ -28,6 +28,7 @@
 
 #include <gnu_gama/xml/dataparser.h>
 #include <cstring>
+#include <cctype>
 #include <iostream>
 
 
@@ -167,6 +168,8 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
   adj_block_diagonal = 0;
   adj_array = 0;
 
+  point = 0;
+
   // initial parser state and implicit handlers
   
   state = s_start;
@@ -198,6 +201,88 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
          //----------------------
          s_g3_model, 0, 0,
          &DataParser::g3_model, 0, &DataParser::g3_model);
+
+  // .....  <g3-model> <point>  .....................................
+
+  init(  s_g3_model, t_point,
+         //------------------
+         s_g3_point_1, s_g3_point_2, s_g3_model,
+         0, 0, 0);
+
+  init(  s_g3_point_1, t_id,
+         //-----------------
+         s_g3_point_id, 0, s_g3_point_2,
+         0, &DataParser::add_text, &DataParser::g3_point_id);
+
+  init(  s_g3_point_2, t_x,
+         //----------------
+         s_g3_point_x, 0, s_g3_point_after_x,
+         0, &DataParser::add_text, &DataParser::append_sp);
+
+  init(  s_g3_point_after_x, t_y,
+         //----------------------
+         s_g3_point_y, 0, s_g3_point_after_y,
+         0, &DataParser::add_text, &DataParser::append_sp);
+
+  init(  s_g3_point_after_y, t_z,
+         //----------------------
+         s_g3_point_z, 0, s_g3_point_2,
+         0, &DataParser::add_text, &DataParser::g3_point_z);
+
+  init(  s_g3_point_2, t_height,
+         //---------------------
+         s_g3_point_height, 0, s_g3_point_2,
+         0, &DataParser::add_text, &DataParser::g3_point_height);
+
+  init(  s_g3_point_2, t_unused,
+         //---------------------
+         s_g3_point_unused, 0, s_g3_point_2,
+         0, 0, &DataParser::g3_point_unused);
+
+  init(  s_g3_point_2, t_fixed,
+         //--------------------
+         s_g3_point_fixed, 0, s_g3_point_2,
+         0, 0, &DataParser::g3_point_fixed);
+
+  init(  s_g3_point_2, t_fixed_p,
+         //----------------------
+         s_g3_point_fixed_p, 0, s_g3_point_2,
+         0, 0, &DataParser::g3_point_fixed_p);
+
+  init(  s_g3_point_2, t_fixed_h,
+         //----------------------
+         s_g3_point_fixed_h, 0, s_g3_point_2,
+         0, 0, &DataParser::g3_point_fixed_h);
+
+  init(  s_g3_point_2, t_free,
+         //--------------------
+         s_g3_point_free, 0, s_g3_point_2,
+         0, 0, &DataParser::g3_point_free);
+
+  init(  s_g3_point_2, t_free_p,
+         //----------------------
+         s_g3_point_free_p, 0, s_g3_point_2,
+         0, 0, &DataParser::g3_point_free_p);
+
+  init(  s_g3_point_2, t_free_h,
+         //----------------------
+         s_g3_point_free_h, 0, s_g3_point_2,
+         0, 0, &DataParser::g3_point_free_h);
+
+  init(  s_g3_point_2, t_constr,
+         //--------------------
+         s_g3_point_constr, 0, s_g3_point_2,
+         0, 0, &DataParser::g3_point_constr);
+
+  init(  s_g3_point_2, t_constr_p,
+         //----------------------
+         s_g3_point_constr_p, 0, s_g3_point_2,
+         0, 0, &DataParser::g3_point_constr_p);
+
+  init(  s_g3_point_2, t_constr_h,
+         //----------------------
+         s_g3_point_constr_h, 0, s_g3_point_2,
+         0, 0, &DataParser::g3_point_constr_h);
 
   // .....  <g3-model> <vector>  ....................................
 
@@ -439,59 +524,87 @@ DataParser::data_tag DataParser::tag(const char* c)
   switch (*c)
     {
     case 'a':
-      if (!strcmp(c, "adj-input-data")) return t_adj_input_data;
-      if (!strcmp(c, "array"         )) return t_array;
+      if (!strcmp(c, "adj-input-data" )) return t_adj_input_data;
+      if (!strcmp(c, "array"          )) return t_array;
       break;
     case 'b':
-      if (!strcmp(c, "block-diagonal")) return t_block_diagonal;
-      if (!strcmp(c, "blocks"        )) return t_blocks;
-      if (!strcmp(c, "block"         )) return t_block;
+      if (!strcmp(c, "block-diagonal" )) return t_block_diagonal;
+      if (!strcmp(c, "blocks"         )) return t_blocks;
+      if (!strcmp(c, "block"          )) return t_block;
       break;
     case 'c' :
-      if (!strcmp(c, "cols"          )) return t_cols;
-      if (!strcmp(c, "cxx"           )) return t_cxx;
-      if (!strcmp(c, "cxy"           )) return t_cxy;
-      if (!strcmp(c, "cxz"           )) return t_cxz;
-      if (!strcmp(c, "cyy"           )) return t_cyy;
-      if (!strcmp(c, "cyz"           )) return t_cyz;
-      if (!strcmp(c, "czz"           )) return t_czz;
+      if (!strcmp(c, "cols"           )) return t_cols;
+      if (!strcmp(c, "constr"         )) return t_constr;
+      if (!strcmp(c, "constr-position")) return t_constr_p;
+      if (!strcmp(c, "constr-height"  )) return t_constr_h;
+      if (!strcmp(c, "cxx"            )) return t_cxx;
+      if (!strcmp(c, "cxy"            )) return t_cxy;
+      if (!strcmp(c, "cxz"            )) return t_cxz;
+      if (!strcmp(c, "cyy"            )) return t_cyy;
+      if (!strcmp(c, "cyz"            )) return t_cyz;
+      if (!strcmp(c, "czz"            )) return t_czz;
       break;
     case 'd' :
-      if (!strcmp(c, "dim"           )) return t_dim;
-      if (!strcmp(c, "dx"            )) return t_dx;
-      if (!strcmp(c, "dy"            )) return t_dy;
-      if (!strcmp(c, "dz"            )) return t_dz;
+      if (!strcmp(c, "dim"            )) return t_dim;
+      if (!strcmp(c, "dx"             )) return t_dx;
+      if (!strcmp(c, "dy"             )) return t_dy;
+      if (!strcmp(c, "dz"             )) return t_dz;
       break;
     case 'f' :
-      if (!strcmp(c, "flt"           )) return t_flt;
-      if (!strcmp(c, "from"          )) return t_from;
+      if (!strcmp(c, "fixed"          )) return t_fixed;
+      if (!strcmp(c, "fixed-position" )) return t_fixed_p;
+      if (!strcmp(c, "fixed-height"   )) return t_fixed_h;
+      if (!strcmp(c, "flt"            )) return t_flt;
+      if (!strcmp(c, "from"           )) return t_from;
+      if (!strcmp(c, "free"           )) return t_free;
+      if (!strcmp(c, "free-position"  )) return t_free_p;
+      if (!strcmp(c, "free-height"    )) return t_free_h;
       break;
     case 'g' :
-      if (!strcmp(c, "g3-model"      )) return t_g3_model;
-      if (!strcmp(c, "gnu-gama-data" )) return t_gama_data;
+      if (!strcmp(c, "g3-model"       )) return t_g3_model;
+      if (!strcmp(c, "gnu-gama-data"  )) return t_gama_data;
+      break;
+    case 'h':
+      if (!strcmp(c, "height"         )) return t_height;
       break;
     case 'i':
-      if (!strcmp(c, "int"           )) return t_int;
+      if (!strcmp(c, "id"             )) return t_id;
+      if (!strcmp(c, "int"            )) return t_int;
       break;
     case 'n':
-      if (!strcmp(c, "nonz"          )) return t_nonz;
+      if (!strcmp(c, "nonz"           )) return t_nonz;
+      break;
+    case 'p':
+      if (!strcmp(c, "point"          )) return t_point;
       break;
     case 'r':
-      if (!strcmp(c, "row"           )) return t_row;  // more frequent
-      if (!strcmp(c, "rows"          )) return t_rows;
+      if (!strcmp(c, "row"            )) return t_row;  // more frequent
+      if (!strcmp(c, "rows"           )) return t_rows;
       break;
     case 's':
-      if (!strcmp(c, "sparse-mat"    )) return t_sparse_mat;
+      if (!strcmp(c, "sparse-mat"     )) return t_sparse_mat;
       break;
     case 't' :
-      if (!strcmp(c, "text"          )) return t_text;
-      if (!strcmp(c, "to"            )) return t_to;
+      if (!strcmp(c, "text"           )) return t_text;
+      if (!strcmp(c, "to"             )) return t_to;
+      break;
+    case 'u' :
+      if (!strcmp(c, "unused"         )) return t_unused;
       break;
     case 'v' :
-      if (!strcmp(c, "vector"        )) return t_vector;
+      if (!strcmp(c, "vector"         )) return t_vector;
       break;
     case 'w' :
-      if (!strcmp(c, "width"         )) return t_width;
+      if (!strcmp(c, "width"          )) return t_width;
+      break;
+    case 'x' :
+      if (!strcmp(c, "x"              )) return t_x;
+      break;
+    case 'y' :
+      if (!strcmp(c, "y"              )) return t_y;
+      break;
+    case 'z' :
+      if (!strcmp(c, "z"              )) return t_z;
       break;
     default:
       break;
@@ -906,6 +1019,131 @@ int DataParser::g3_vector_to(const char *name)
 {
   g3vec_to = text_buffer;
   text_buffer.erase();
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_point_id(const char *name)
+{
+  char    c;
+  string id;
+  string::const_iterator i=text_buffer.begin();
+  string::const_iterator e=text_buffer.end();
+
+  while (i!=e &&  isspace((c = *i))) { ++i;          }
+  while (i!=e && !isspace((c = *i))) { ++i; id += c; }
+  while (i!=e &&  isspace((c = *i))) { ++i;          }
+
+  if (i!=e || id.empty())
+    return error("### bad point name in <id> tag");
+
+  text_buffer.erase();
+
+  point = mg3->get_point(id);
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_point_unused(const char *name)
+{
+  point->set_unused();
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_point_fixed(const char *name)
+{
+  point->set_fixed_position();
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_point_fixed_p(const char *name)
+{
+  point->set_fixed_horizontal_position();
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_point_fixed_h(const char *name)
+{
+  point->set_fixed_height();
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_point_free(const char *name)
+{
+  point->set_free_position();
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_point_free_p(const char *name)
+{
+  point->set_free_horizontal_position();
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_point_free_h(const char *name)
+{
+  point->set_free_height();
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_point_constr(const char *name)
+{
+  point->set_constr_position();
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_point_constr_p(const char *name)
+{
+  point->set_constr_horizontal_position();
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_point_constr_h(const char *name)
+{
+  point->set_constr_height();
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_point_z(const char *name)
+{
+  stringstream istr(text_buffer);
+  double x, y, z;
+
+  if (!(istr >> x >> y >> z))
+    {
+      return error("### bad format of numerical data in <point> xyz ");
+    }
+
+  text_buffer.erase();
+
+  point->set_xyz(x, y, z);
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_point_height(const char *name)
+{
+  stringstream istr(text_buffer);
+  double h;
+
+  if (!(istr >> h))
+    {
+      return error("### bad format of numerical data in <point> height ");
+    }
+
+  text_buffer.erase();
+
+  point->set_height(h);
 
   return  end_tag(name);
 }

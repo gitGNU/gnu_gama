@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.15 2003/04/11 09:38:26 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.16 2003/05/29 16:04:14 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -51,6 +51,8 @@ Point::Point() : parlist(3)
   *p++ = N;
   *p++ = E;
   *p++ = U;
+
+  has_xyz_ = has_blh_ = has_height_ = false;
 }
 
 
@@ -67,6 +69,10 @@ Point::Point(const Point& point) : parlist(3)
   *p++ = N;
   *p++ = E;
   *p++ = U;
+
+  has_xyz_    = point.has_xyz_;
+  has_blh_    = point.has_blh_;
+  has_height_ = point.has_height_;
 }
 
 
@@ -93,6 +99,10 @@ Point& Point::operator=(const Point& point)
       *p++ = N;
       *p++ = E;
       *p++ = U;
+
+      has_xyz_    = point.has_xyz_;
+      has_blh_    = point.has_blh_;
+      has_height_ = point.has_height_;
     }
 
   return *this;
@@ -212,6 +222,8 @@ bool Point::constr_position() const
 
 void Point::set_blh(double b, double l, double h)
 {
+  has_blh_ = true;
+
   B.set_init_value(b);
   L.set_init_value(l);
   H.set_init_value(h);
@@ -227,6 +239,8 @@ void Point::set_blh(double b, double l, double h)
 
 void Point::set_xyz(double x, double y, double z)
 {
+  has_xyz_ = true;
+
   X.set_init_value(x);
   Y.set_init_value(y);
   Z.set_init_value(z);
@@ -238,6 +252,12 @@ void Point::set_xyz(double x, double y, double z)
   H.set_init_value(h);
 
   transformation_matrix(b, l);
+}
+
+void Point::set_height(double h)
+{
+  has_height_ = true;
+  height.set_init_value(h);
 }
 
 void Point::transformation_matrix(double b, double l)

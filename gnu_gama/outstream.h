@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: outstream.h,v 1.6 2003/05/10 13:43:03 cepek Exp $
+ *  $Id: outstream.h,v 1.7 2003/05/29 16:04:14 cepek Exp $
  */
 
 #include <iostream>
@@ -73,6 +73,28 @@ namespace GNU_gama {
     std::string   text;
     
     const char* recode(const char* s);  
+  };
+
+
+  class SaveFlags {
+  public:
+
+    SaveFlags(std::ostream& out) : std_stream(out)
+    {
+      flgs = std_stream.flags();
+      prec = std_stream.precision();
+    }
+    ~SaveFlags()
+    {
+      std_stream.precision(prec);
+      std_stream.flags(flgs);
+    }
+
+  private:
+
+    std::ostream&      std_stream;
+    std::ios::fmtflags flgs;
+    int                prec; 
   };
 
 }
