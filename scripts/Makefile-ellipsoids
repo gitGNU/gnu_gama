@@ -1,13 +1,13 @@
-FILES=../gamalib/ellipsoids.h ../gamalib/ellipsoids.cpp \
+FILES=../gnu_gama/ellipsoids.h ../gnu_gama/ellipsoids.cpp \
       ../xml/ellipsoids.html  ../doc/ellipsoids.texi 
 
 
 all : $(FILES)
 
 $(FILES) : ellipsoids_xml ../xml/ellipsoids.xml
-	./ellipsoids_xml ../xml/ellipsoids.xml ../gamalib/
-	@mv -v ../gamalib/ellipsoids.html ../xml
-	@mv -v ../gamalib/ellipsoids.texi ../doc
+	./ellipsoids_xml ../xml/ellipsoids.xml ../gnu_gama/
+	@mv -v ../gnu_gama/ellipsoids.html ../xml
+	@mv -v ../gnu_gama/ellipsoids.texi ../doc
 
 ellipsoids_xml :  ellipsoids_xml.cpp Makefile-ellipsoids
 	( pwd; cd ../gamaprog/linux/lib; make -f Makefile-expat ) 

@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.2 2003/03/19 10:58:57 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.3 2003/03/22 13:34:51 cepek Exp $  */
 
 #include <cstddef>
 
@@ -43,25 +43,27 @@ namespace GNU_gama { namespace g3 {
     Parameter** begin() const { return begin_; }
     Parameter** end  () const { return end_;   }
 
-  protected:
+
+  private:
 
     Parameter** begin_;
     Parameter** end_;
     
-  private:
-
     ParameterList(const ParameterList& pl);
     ParameterList& operator=(const ParameterList&);
 
   };
 
 
-  class Parameter : public ParameterList {
+  class Parameter {
   public:
     
     Parameter() : cor(0) {}
+    Parameter(const Parameter&);
     virtual ~Parameter() {}
     
+    virtual Parameter* clone() = 0;
+
     double value     () const { return val + cor; }
     double init_value() const { return val; }
     double correction() const { return cor; }
@@ -72,9 +74,14 @@ namespace GNU_gama { namespace g3 {
     void set_correction(double p) { cor = p; }
     void set_index     (size_t t) { ind = t; }
     void set_is_const  (bool   b) { isc = b; } 
-    
+
+
+    ParameterList  parlist;
+
   private:
     
+    Parameter& operator=(const Parameter&);
+
     double val;
     double cor;
     size_t ind;
@@ -86,6 +93,14 @@ namespace GNU_gama { namespace g3 {
   inline ParameterList::ParameterList(int n) 
     : begin_(new Parameter*[n]), end_(begin_+n) 
     {
+    }
+
+  inline Parameter::Parameter(const Parameter& par)
+    {
+      val = par.val;
+      cor = par.cor;
+      ind = par.ind;
+      isc = par.isc;
     }
 
   inline ParameterList::~ParameterList() 

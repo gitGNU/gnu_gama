@@ -20,13 +20,22 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.2 2003/03/16 17:56:47 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.3 2003/03/22 13:34:51 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
 
 
 using namespace GNU_gama::g3;
+
+
+Model::Model() 
+{ 
+  using namespace GNU_gama;
+
+  points.set_common_data(this); 
+  set(&ellipsoid, ellipsoid_wgs84);
+}
 
 
 Model::~Model()

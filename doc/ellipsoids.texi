@@ -1,4 +1,4 @@
-@comment GNU GaMa ellipsoids (revision 0.10)
+@comment GNU Gama ellipsoids (revision 0.10)
 @comment http://www.gnu.org/software/gama/xml/ellipsoids.xml
 @multitable @columnfractions .20 .20 .20 .30 .10
 @item id @tab a  @tab b, 1/f, f @tab description

@@ -1,4 +1,3 @@
-#include <iostream>
 /*  
     Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
     Copyright (C) 2002  Ales Cepek <cepek@fsv.cvut.cz>
@@ -21,10 +20,10 @@
 */
 
 /*
- *  $Id: ellipsoid.cpp,v 1.3 2002/12/18 14:23:27 cepek Exp $
+ *  $Id: ellipsoid.cpp,v 1.1 2003/03/22 13:34:51 cepek Exp $
  */
 
-#include "ellipsoid.h"
+#include <gnu_gama/ellipsoid.h>
 #include <cmath>
 #include <gamalib/float.h>
 
@@ -33,7 +32,7 @@ namespace std {}
 #endif
 
 using namespace std;
-using namespace GaMaLib;
+using namespace GNU_gama;
 
 double Ellipsoid::M(double b) const 
 { 

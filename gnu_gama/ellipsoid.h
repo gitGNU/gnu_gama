@@ -1,6 +1,6 @@
 /*  
     Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
-    Copyright (C) 2002  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 2002, 2003  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the GNU GaMa / GaMaLib C++ Library.
     
@@ -20,13 +20,13 @@
 */
 
 /*
- *  $Id: ellipsoid.h,v 1.2 2002/06/17 19:08:53 cepek Exp $
+ *  $Id: ellipsoid.h,v 1.1 2003/03/22 13:34:51 cepek Exp $
  */
 
-#ifndef GaMaLib__gamalib____ellipsoid_H___________ELLIPSOID_H________
-#define GaMaLib__gamalib____ellipsoid_H___________ELLIPSOID_H________
+#ifndef GNU_gama__gamalib____ellipsoid_H___________ELLIPSOID_H________
+#define GNU_gama__gamalib____ellipsoid_H___________ELLIPSOID_H________
 
-namespace GaMaLib {
+namespace GNU_gama {
 
   class Ellipsoid {
   public:
@@ -56,7 +56,7 @@ namespace GaMaLib {
     void set_abff1(double, double, double, double);
   };
 
-}   // namespace GaMaLib
+}   // namespace GNU_gama
 
 #endif
 

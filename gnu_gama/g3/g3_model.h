@@ -20,12 +20,13 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.2 2003/03/16 17:56:47 cepek Exp $
+ *  $Id: g3_model.h,v 1.3 2003/03/22 13:34:51 cepek Exp $
  */
 
 #include <gnu_gama/pointbase.h>
 #include <gnu_gama/obsdata.h>
 #include <gnu_gama/list.h>
+#include <gnu_gama/ellipsoids.h>
 #include <gnu_gama/g3/g3_point.h>
 #include <gnu_gama/g3/g3_observation.h>
 
@@ -39,15 +40,17 @@ namespace GNU_gama {  namespace g3 {
   
   class Model {
   public:
-
+    
     typedef GNU_gama::PointBase<g3::Point>              PointBase;
     typedef GNU_gama::ObservationData<g3::Observation>  ObservationData;
+    
+    PointBase           points;
+    ObservationData     obs;
+    
+    GNU_gama::Ellipsoid ellipsoid;
 
-    PointBase        points;
-    ObservationData  obs;
 
-
-    Model() { points.set_common_data(this); }
+    Model();
     ~Model();
 
   };
