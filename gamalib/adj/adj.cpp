@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.12 2003/01/09 23:34:16 cepek Exp $
+ *  $Id: adj.cpp,v 1.13 2003/01/18 20:27:08 cepek Exp $
  */
 
 #include <gamalib/adj/adj.h>
@@ -68,7 +68,7 @@ void AdjInputData::write_xml(std::ostream& out) const
     {
       out << "\n  <sparse-mat>\n";
       out << "    "
-          << "<rows>" << A->rows() << "<rows> "
+          << "<rows>" << A->rows() << "</rows> "
           << "<cols>" << A->columns() << "</cols> "
           << "<nonz>" << A->nonzeroes() << "</nonz>\n";
       
@@ -163,7 +163,7 @@ void AdjInputData::read_xml(std::istream& inp)
 
   while (getline(inp, line))
     {
-      line += '\n';
+      line += '\n';   cerr << line;
       dp.xml_parse(line.c_str(), line.length(), 0);
     }
   dp.xml_parse("", 0, 1);
