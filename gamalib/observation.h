@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.h,v 1.8 2003/02/28 17:36:56 cepek Exp $
+ *  $Id: observation.h,v 1.9 2003/03/13 20:22:30 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_Mereni_H
@@ -51,7 +51,7 @@ namespace GaMaLib {
   class Observation;
 
 
-  typedef std::vector<Observation*> ObservationList ;
+  typedef GNU_gama::List<Observation*> ObservationList ;
   
   class Observation 
     {
@@ -118,26 +118,30 @@ namespace GaMaLib {
       // function objects to be used with ObservationData::for_each()
 
       class CopyTo {
-        ObservationList& OL;
+        mutable ObservationList& OL;
       public:
         CopyTo(ObservationList& ol) : OL(ol) {}
-        void operator()(Observation* obs) { OL.push_back(obs); }
+        void operator()(const Observation* obs) const 
+          { 
+            OL.push_back(const_cast<Observation*>(obs)); 
+          }
       };
       
       class CopyActiveTo {
-        ObservationList& OL;
+        mutable ObservationList& OL;
       public:
         CopyActiveTo(ObservationList& ol) : OL(ol) {}
-        void operator()(Observation* obs) { 
-          if(obs->active()) OL.push_back(obs); 
-        }
+        void operator()(const Observation* obs) const 
+          { 
+            if(obs->active()) OL.push_back(const_cast<Observation*>(obs)); 
+          }
       }; 
 
       class CopyHorizontalTo {    // directions, angles, distances
-        ObservationList& OL;
+        mutable ObservationList& OL;
       public:
         CopyHorizontalTo(ObservationList& ol) : OL(ol) {}
-        void operator()(Observation* obs);
+        void operator()(const Observation* obs) const;
       }; 
 
     private:

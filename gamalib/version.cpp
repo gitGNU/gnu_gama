@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.59 2003/03/09 18:48:27 cepek Exp $
+ *  $Id: version.cpp,v 1.60 2003/03/13 20:22:35 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.7.02-pre";
+const char* GaMaLib_version  = "1.7.02";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
@@ -59,12 +59,15 @@ const char* GaMaLib_compiler =
 
 =============================================================================
 
-1.7.02-pre .....
+1.7.02 2003-03-13
+
+   - added template class PointBase (gnu_gama/pointbase.h)
+
+   - added template class template <class T> class List<T*> (file
+     gnu_gama/list.h); shall replace all pointer lists used in Gama
 
    - removed bug in template BlockDiagonal (sparse/sbdiagonal.h)
      repoted by Jan Bilek
-
-   - added template class PointBase (gnu_gama/pointbase.h)
 
    - removed bug in SparserMatrix (gnu_gama/sparse/smatrix.h) reported
      by Jan Bilek; not enough memory was allocated for rptr array in

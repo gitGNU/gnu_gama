@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.h,v 1.4 2003/02/22 19:40:54 cepek Exp $
+ *  $Id: network.h,v 1.5 2003/03/13 20:22:42 cepek Exp $
  */
 
 // LocalNetwork - Network Informations class (Informace o siti)
@@ -124,7 +124,7 @@ namespace GaMaLib
 
       // ...  observations  ..................................................
   
-      Observation* ptr_obs(int i) const 
+      Observation* ptr_obs(int i)
         { 
           return RSM[i-1]; 
         }
@@ -314,24 +314,28 @@ namespace GaMaLib
         const LocalRevision local_rev;
       public:
         FilterOutUnused(const PointData& pd) : local_rev(pd) {}
-        void operator()(Observation* m)
+        void operator()(const Observation* cm) const
           {
+            Observation* m = const_cast<Observation*>(cm);
+
             if (!m->revision(&local_rev)) m->set_passive();
           }
       };
       
       class FilterOutPassive {
         
-        ObservationList& active;
-        ObservationList& passive;
+        mutable ObservationList& active;
+        mutable ObservationList& passive;
         
       public:
         FilterOutPassive(ObservationList& act, ObservationList& pas) 
           : active(act), passive(pas) 
           {
           }
-        void operator()(Observation* m) 
+        void operator()(const Observation* cm) const
           {
+            Observation* m = const_cast<Observation*>(cm);
+
             if (m->active()) active.push_back(m);
             else             passive.push_back(m);
           }

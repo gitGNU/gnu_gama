@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: write.cpp,v 1.4 2003/02/28 17:36:56 cepek Exp $
+ *  $Id: write.cpp,v 1.5 2003/03/13 20:22:52 cepek Exp $
  */
 
 #include <iostream>
@@ -32,7 +32,7 @@
 
 namespace GaMaLib {
 
-typedef GNU_gama::ClusterList<Observation> ClusterList;
+typedef GNU_gama::List<GNU_gama::Cluster<Observation>*> ClusterList;
 
 
 std::ostream& operator << (std::ostream& str, PointData& sez)
@@ -110,7 +110,7 @@ std::ostream& operator << (std::ostream& str, ObservationData& od)
   std::ios::fmtflags flag_p = str.flags();
   str.setf(ios::fixed);
   
-  for (ClusterList::const_iterator c=od.CL.begin(); c!=od.CL.end(); ++c)
+  for (ClusterList::iterator c=od.CL.begin(); c!=od.CL.end(); ++c)
     {
       bool common_standpoint = true;
       string start_tag, end_tag;

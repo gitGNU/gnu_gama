@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_point.h,v 1.3 2002/10/24 17:04:13 cepek Exp $
+ *  $Id: g2d_point.h,v 1.4 2003/03/13 20:22:52 cepek Exp $
  */
 
 /*************************************************************
@@ -85,7 +85,7 @@ namespace GaMaLib {
       bool KnownTarget(ObservationList::const_iterator i)
         {
           // true: target coordinates are known
-          Angle* u = dynamic_cast<Angle*>(*i);
+          const Angle* u = dynamic_cast<const Angle*>(*i);
           return KnownTarget1(i) && (u ? KnownTarget2(u) : true);
         }
       bool KnownTarget1(ObservationList::const_iterator i)
@@ -107,7 +107,7 @@ namespace GaMaLib {
           bool test_xyz = SB[(*i)->from()].test_xy();
           if (test_xyz)
             {
-              Direction *s = dynamic_cast<Direction*>(*i);
+              const Direction *s = dynamic_cast<const Direction*>(*i);
               if (s)
                 {
                   if (!s->test_orientation()) return false;

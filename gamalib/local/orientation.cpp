@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: orientation.cpp,v 1.2 2003/02/28 17:36:56 cepek Exp $
+ *  $Id: orientation.cpp,v 1.3 2003/03/13 20:22:42 cepek Exp $
  */
 
 #include <gamalib/local/orientation.h>
@@ -41,7 +41,7 @@ void Orientation::add_all()
   int    dir_count;
 
   while (iterator != OL.end()) 
-    if (Direction* direction = dynamic_cast<Direction*>(*iterator))
+    if (const Direction* direction = dynamic_cast<const Direction*>(*iterator))
       {
         Cluster* cluster = const_cast<Cluster*>(direction->ptr_cluster());
         StandPoint* standpoint = static_cast<StandPoint*>(cluster);

@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_point.cpp,v 1.4 2002/12/18 13:33:24 cepek Exp $
+ *  $Id: g2d_point.cpp,v 1.5 2003/03/13 20:22:52 cepek Exp $
  */
 
 /*************************************************************
@@ -41,10 +41,10 @@ namespace GaMaLib {
 
   void ApproxPoint::ClearLists()
   {
-    for(ObservationList::iterator i = SM.begin(); i < SM.end(); i++)
+    for(ObservationList::iterator i = SM.begin(); i != SM.end(); i++)
       delete(*i);
-    SM.erase(SM.begin(),SM.end());
-    Solved_points.erase(Solved_points.begin(),Solved_points.end());
+    SM.clear();
+    Solved_points.clear();
   }
 
   
@@ -55,13 +55,14 @@ namespace GaMaLib {
     Double med;
     std::vector<Double> pom_sez; 
     i = sm_pom.begin();
-    while(i < sm_pom.end())
+    while(i != sm_pom.end())
       {
         if(Distance* d1 = dynamic_cast<Distance*>(*i))
           {
             pom_sez.push_back(d1->value());
-            j = i+1;
-            while(j < sm_pom.end())
+            // j = i+1;
+            j = i; ++j;
+            while(j != sm_pom.end())
               {
                 Distance* d2 = dynamic_cast<Distance*>(*j);
                 if(d2 && ((d1->from() == d2->from() && 
@@ -91,12 +92,13 @@ namespace GaMaLib {
     
     // outer bearings
     i = SM_S.begin();
-    while(i < SM_S.end())
+    while(i != SM_S.end())
       {
         Direction* s1 = static_cast<Direction*>(*i);
         pom_sez.push_back(s1->value());
-        j = i+1;
-        while(j < SM_S.end())
+        // j = i+1;
+        j = i; ++j;
+        while(j != SM_S.end())
           {
             Direction* s2 = static_cast<Direction*>(*j);
             if(s1->from() == s2->from())
@@ -124,12 +126,12 @@ namespace GaMaLib {
     // in SM_U are only angles
     i = sm_pom.begin();
     Double u_mer;
-    while(i < sm_pom.end())
+    while(i != sm_pom.end())
       {
         Angle* u1 = static_cast<Angle*>(*i);
         j = SM_U.begin();
         pom_sez.push_back(u1->value());
-        while(j < SM_U.end())
+        while(j != SM_U.end())
           {
             Angle* u2 = static_cast<Angle*>(*j);
             if(((u1->to()==u2->to())&&(u1->fs()==u2->fs()))||
@@ -159,12 +161,13 @@ namespace GaMaLib {
       };
     i = SM_U.begin();
     // finishing remaining angles
-    while(i < SM_U.end())
+    while(i != SM_U.end())
       {
         Angle* u1 = static_cast<Angle*>(*i);
-        j = i+1;
+        // j = i+1;
+        j = i; ++j;
         pom_sez.push_back(u1->value());
-        while(j < SM_U.end())
+        while(j != SM_U.end())
           {
             Angle* u2 = static_cast<Angle*>(*j);
             if(((u1->to()==u2->to())&&(u1->fs()==u2->fs()))||
@@ -211,7 +214,7 @@ namespace GaMaLib {
     ors.add_all();
 
     // selecting observations related to the computed point
-    for(ObservationList::const_iterator i = sm->begin(); i < sm->end(); i++)
+    for(ObservationList::iterator i = sm->begin(); i != sm->end(); i++)
       {
         if(((*i)->from() == CB) && KnownTarget(i))
           if(Direction* s = dynamic_cast<Direction*>(*i))
@@ -237,11 +240,11 @@ namespace GaMaLib {
     // transforming directions on the computed standpoint to inner angels
     { // VC++ {} ...... here and elsewhere curly braces are added to
       // enable processing of standard C++ code with MS compiler
-      for(ObservationList::iterator i = sm_s.begin(); i < sm_s.end(); i++)
-        for(ObservationList::iterator j = i+1; j < sm_s.end(); j++)
+      for(ObservationList::iterator j, i = sm_s.begin(); i != sm_s.end(); i++)
+        for(j=i, ++j; j != sm_s.end(); j++)
           if ((*i)->ptr_cluster() == (*j)->ptr_cluster())
             SM_U.push_back(MakeAngle(i,j));
-      sm_s.erase(sm_s.begin(), sm_s.end());
+      sm_s.clear();
     }  // VC++ {}
 
     // now putting selected observations in good order - both distances
@@ -268,8 +271,8 @@ namespace GaMaLib {
     Select_solution_g2d* VR = new Select_solution_g2d(&SB,&SM);
     bool two_solutions = false;
     LocalPoint prv, dru;
-    for(ObservationList::const_iterator i = SM.begin(); i != SM.end(); i++)
-      for(ObservationList::const_iterator j = i+1; j != SM.end(); j++)
+    for(ObservationList::iterator j, i = SM.begin(); i != SM.end(); i++)
+      for(j=i, ++j; j != SM.end(); j++)
         {
           switch (ObservationType(*i) + ObservationType(*j))
             {
@@ -377,7 +380,7 @@ namespace GaMaLib {
 
 #ifdef PB_Debug
     for(std::vector<LocalPoint>::const_iterator i = Solved_points.begin(); 
-        i < Solved_points.end(); i++)
+        i != Solved_points.end(); i++)
       std::cout << "-> " << i->y() << ' ' << i->x() << '\n';
 #endif
   };      // void ApproxPoint::Calculation()

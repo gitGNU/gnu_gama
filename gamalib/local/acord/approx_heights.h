@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: approx_heights.h,v 1.1 2001/12/07 12:40:58 cepek Exp $
+ *  $Id: approx_heights.h,v 1.2 2003/03/13 20:22:42 cepek Exp $
  */
 
  
@@ -50,10 +50,12 @@ namespace GaMaLib {
 
       struct CopyHeights 
       {
-        ObservedHData& OHD;
+        mutable ObservedHData& OHD;
         CopyHeights(ObservedHData& ohd) : OHD(ohd) {}
-        void operator()(Observation* obs) const
+        void operator()(const Observation* cobs) const
         {
+          Observation* obs = const_cast<Observation*>(cobs);
+
           if (H_Diff* h = dynamic_cast<H_Diff*>(obs))  
             OHD.HD.push_back(h);
           if (Distance* d = dynamic_cast<Distance*>(obs))  

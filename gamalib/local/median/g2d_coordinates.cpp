@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_coordinates.cpp,v 1.5 2002/12/18 13:33:24 cepek Exp $
+ *  $Id: g2d_coordinates.cpp,v 1.6 2003/03/13 20:22:51 cepek Exp $
  */
 
 /*************************************************************
@@ -83,8 +83,7 @@ bool ApproximateCoordinates::Necessary_observations(PointID id)
   bool first = false, second = false;
   bool tmp;
   Angle* u;
-  ObservationList::iterator i;
-  i = SM.begin();
+  ObservationList::iterator i = SM.begin();
   do
     {
       tmp = (((*i)->from() == id) || ((*i)->to() == id));
@@ -114,7 +113,7 @@ void ApproximateCoordinates::Find_missing_coordinates()
 
   // from observation list points we fetch points that are not in SB
   Angle* u;
-  for(ObservationList::iterator i = SM.begin(); i < SM.end(); i++)
+  for(ObservationList::iterator i = SM.begin(); i != SM.end(); i++)
     {
       if((SB.find((*i)->from()) == SB.end()) && Absent((*i)->from()))
         selected.push_back((*i)->from());

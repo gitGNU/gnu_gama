@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.5 2003/02/28 17:36:56 cepek Exp $
+ *  $Id: network.cpp,v 1.6 2003/03/13 20:22:42 cepek Exp $
  */
 
 #include <fstream>
@@ -40,8 +40,9 @@
 using namespace std;
 using namespace GaMaLib;
 
-typedef GNU_gama::ClusterList<Observation> ClusterList;
-typedef GNU_gama::Cluster<Observation>     Cluster;
+
+typedef GNU_gama::List<GNU_gama::Cluster<Observation>*> ClusterList;
+typedef GNU_gama::Cluster<Observation>                  Cluster;
 
 
 LocalNetwork::LocalNetwork()        
@@ -117,19 +118,19 @@ void LocalNetwork::revision_observations()
   OD.for_each(FilterOutUnused(PD));
 
   // test cycle for StandPoint clusters with single direction
-  const ClusterList& CL = OD.CL;
-  for (ClusterList::const_iterator cit=CL.begin(); cit!=CL.end(); ++cit)
+  ClusterList& CL = OD.CL;
+  for (ClusterList::iterator cit=CL.begin(); cit!=CL.end(); ++cit)
     {
-      if (const StandPoint* sp = dynamic_cast<const StandPoint*>(*cit))
+      if (StandPoint* sp = dynamic_cast<StandPoint*>(*cit))
         {
           // 1.3.08 *** check for directions pointing to the same targer
           set<PointID> targets;
 
           int active_directions = 0;
-          for (ObservationList::const_iterator i=sp->observation_list.begin();
+          for (ObservationList::iterator i=sp->observation_list.begin();
                i != sp->observation_list.end(); ++i)
             {
-              if (Direction* d = dynamic_cast<Direction*>(*i))
+              if (const Direction* d = dynamic_cast<const Direction*>(*i))
                 if (d->active())
                   {
                     set<PointID>::const_iterator s = targets.find( d->to() );
@@ -143,7 +144,7 @@ void LocalNetwork::revision_observations()
           
           if (active_directions < 2)
             {
-              for (ObservationList::const_iterator 
+              for (ObservationList::iterator 
                      i  = sp->observation_list.begin();
                    i != sp->observation_list.end(); ++i)
                 if (Direction* d = dynamic_cast<Direction*>(*i))
@@ -153,8 +154,10 @@ void LocalNetwork::revision_observations()
       (*cit)->update();
     }
   
-  RSM.erase(RSM.begin(), RSM.end());
-  vyloucena_mer_.erase(vyloucena_mer_.begin(), vyloucena_mer_.end());
+  // RSM.erase(RSM.begin(), RSM.end());
+  // vyloucena_mer_.erase(vyloucena_mer_.begin(), vyloucena_mer_.end());
+  RSM.clear();
+  vyloucena_mer_.clear();
   OD.for_each(FilterOutPassive(RSM, vyloucena_mer_));
   pocmer_ = RSM.size();
 
@@ -230,7 +233,7 @@ void LocalNetwork::project_equations()
   seznez_.resize(pocet_neznamych_);
   neznama_ nez;
   
-  for (ClusterList::const_iterator clptr=CL.begin(); clptr!=CL.end(); ++clptr)
+  for (ClusterList::iterator clptr=CL.begin(); clptr!=CL.end(); ++clptr)
     if (StandPoint* standpoint=dynamic_cast<StandPoint*>(*clptr))
       /*
        * in the following if (...) statement we test index of an orientation

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.cpp,v 1.8 2003/02/28 17:36:56 cepek Exp $
+ *  $Id: acord.cpp,v 1.9 2003/03/13 20:22:40 cepek Exp $
  */
 
  
@@ -161,8 +161,10 @@ void Acord::execute()
     }
 }
 
-void Acord::SlopeToHorizontal::operator()(Observation* obs)
+void Acord::SlopeToHorizontal::operator()(const Observation* cobs) const
 {
+  Observation* obs = const_cast<Observation*>(cobs);
+
   S_Distance* s = dynamic_cast<S_Distance*>(obs);
   if (s == 0) return;
 

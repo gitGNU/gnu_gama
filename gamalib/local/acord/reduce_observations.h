@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: reduce_observations.h,v 1.3 2003/01/20 17:57:17 cepek Exp $
+ *  $Id: reduce_observations.h,v 1.4 2003/03/13 20:22:47 cepek Exp $
  */
 
  
@@ -51,8 +51,8 @@ namespace GaMaLib {
 	{
 	public:
 	    
-	    ReducedObs(Observation* _obs, TypeOfReduction _type = none_)
-		:ptr_obs(_obs),type_of_reduction(_type)
+	    ReducedObs(Observation* obs_, TypeOfReduction type_ = none_)
+		: ptr_obs(obs_),type_of_reduction(type_)
 	    { 
 		orig_value_ = ptr_obs->value();
 	    }
@@ -101,11 +101,11 @@ namespace GaMaLib {
 	
     private:
 	
-	ReducedObs* giveReducedObs(const Observation* _obs)
+	ReducedObs* giveReducedObs(const Observation* obs_)
 	{
 	    for (ListReducedObs_iter i  = list_reduced_obs.begin();
 		                     i != list_reduced_obs.end(); ++i)
-		if (i->ptr_obs == _obs)
+		if (i->ptr_obs == obs_)
  		    return &(*i);
 	    return 0;
 	} 
@@ -113,27 +113,28 @@ namespace GaMaLib {
 	
 	struct CopyReducedObservation 
 	{
-	    ListReducedObs&  LRO;
-	    ObservationList& OL;
+	    mutable ListReducedObs&  LRO;
+	    mutable ObservationList& OL;
 	    
 	    CopyReducedObservation(ListReducedObs& lro,ObservationList& ol) :
 		LRO(lro),OL(ol) {}
 	    
-	    void operator()(Observation* obs) const
+	    void operator()(const Observation* cobs) const
 	    {
+              Observation* obs = const_cast<Observation*>(cobs);
 		
-		if ( !obs->active() )
-		    return;
-		
-		OL.push_back(obs);
-		
-		if ( (obs->from_dh() == 0) && (obs->to_dh() == 0 ) )
-		    return;
-		
-		if (	dynamic_cast<S_Distance*>(obs) || 
+              if ( !obs->active() )
+                return;
+              
+              OL.push_back(obs);
+              
+              if ( (obs->from_dh() == 0) && (obs->to_dh() == 0 ) )
+                return;
+              
+              if (	dynamic_cast<S_Distance*>(obs) || 
 			dynamic_cast<Z_Angle*   >(obs) ||
 			dynamic_cast<Ydiff*     >(obs)  )  
-		    LRO.push_back(obs);
+                LRO.push_back(obs);
 	    }
 	};
 	

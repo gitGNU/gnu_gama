@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.cpp,v 1.2 2002/09/06 16:08:49 cepek Exp $
+ *  $Id: observation.cpp,v 1.3 2003/03/13 20:22:22 cepek Exp $
  */
 
 #include <gamalib/observation.h>
@@ -71,8 +71,10 @@ int Direction::index_orientation() const
   return sp->index_orientation();
 }
 
-void Observation::CopyHorizontalTo::operator()(Observation* obs)
+void Observation::CopyHorizontalTo::operator()(const Observation* cobs) const
 {
+  Observation* obs = const_cast<Observation*>(cobs);
+
   if      (typeid(*obs) == typeid(Direction))  OL.push_back(obs); 
   else if (typeid(*obs) == typeid(Angle))      OL.push_back(obs); 
   else if (typeid(*obs) == typeid(Distance))   OL.push_back(obs); 

@@ -20,9 +20,11 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.2 2003/03/01 18:16:18 cepek Exp $
+ *  $Id: obsdata.h,v 1.3 2003/03/13 20:23:19 cepek Exp $
  */
 
+
+#include <gnu_gama/list.h>
 #include <vector>
 #include <gamalib/matvec.h>
 
@@ -37,21 +39,13 @@ namespace GNU_gama {
     class ObservationData;
 
 
-
-  template <class Observation> 
-    class ObservationList : public std::vector<Observation*>
-    {
-    };
-
-
-
   template <class Observation>  
     class Cluster 
     {
     public:
       
       const ObservationData<Observation>*  observation_data;
-      ObservationList<Observation>         observation_list;
+      List<Observation*>                   observation_list;
       GaMaLib::Cov                         covariance_matrix;  
       
       
@@ -88,18 +82,11 @@ namespace GNU_gama {
 
 
   template <class Observation>
-    class ClusterList : public std::vector<Cluster<Observation>*> 
-    {
-    };
-  
-
-
-  template <class Observation>
     class ObservationData
     {
     public:    
-      
-      ClusterList<Observation>  CL;
+
+      List<Cluster<Observation>*>  CL;
       
       ObservationData() {}
       ObservationData(const ObservationData& cod) { deepCopy(cod); }
@@ -109,7 +96,7 @@ namespace GNU_gama {
       
       template <class P> void for_each(const P& p) const
         {
-          for (typename ClusterList<Observation>::const_iterator 
+          for (typename List<Cluster<Observation>*>::const_iterator 
                  c=CL.begin(); c!=CL.end(); ++c)
             {
               const Cluster<Observation>* cluster = (*c);
@@ -128,7 +115,7 @@ namespace GNU_gama {
   template <class Observation>
     Cluster<Observation>::~Cluster()
     {
-      for (typename ObservationList<Observation>::iterator 
+      for (typename List<Observation*>::iterator 
              i=observation_list.begin(); i!=observation_list.end() ;  ++i)
         {
           delete *i;
@@ -143,7 +130,7 @@ namespace GNU_gama {
       act_count = 0;
       int index = 0;
       Observation* p;
-      for (typename ObservationList<Observation>::iterator 
+      for (typename List<Observation*>::iterator 
              i=observation_list.begin(); i!=observation_list.end(); ++i)
         {
           p = (*i);
@@ -189,7 +176,7 @@ namespace GNU_gama {
   template <class Observation>
     ObservationData<Observation>::~ObservationData()
     {
-      for (typename ClusterList<Observation>::iterator 
+      for (typename List<Cluster<Observation>*>::iterator 
              c=CL.begin(); c!=CL.end(); ++c) 
         {
           delete *c;
@@ -204,7 +191,7 @@ namespace GNU_gama {
     {
       if (this != &cod)
         {
-          for (typename ClusterList<Observation>::iterator 
+          for (typename List<Cluster<Observation>*>::iterator 
                  c=CL.begin(); c!=CL.end(); ++c) delete *c;
           {
             deepCopy(cod);
@@ -219,16 +206,16 @@ namespace GNU_gama {
   template <class Observation>
     void ObservationData<Observation>::deepCopy(const ObservationData& cod)
     {
-      for (typename ClusterList<Observation>::const_iterator 
+      for (typename List<Cluster<Observation>*>::const_iterator 
              ci=cod.CL.begin(); ci!=cod.CL.end(); ++ci)
         {
           Cluster<Observation>* current = (*ci)->clone(this);
           
-          typename ObservationList<Observation>::const_iterator 
+          typename List<Observation*>::const_iterator 
             begin = (*ci)->observation_list.begin();
-          typename ObservationList<Observation>::const_iterator 
+          typename List<Observation*>::const_iterator 
             end   = (*ci)->observation_list.end();
-          for (typename ObservationList<Observation>::const_iterator 
+          for (typename List<Observation*>::const_iterator 
                  m=begin; m!=end; ++m)
             {
               current->observation_list.push_back( (*m)->clone() );
