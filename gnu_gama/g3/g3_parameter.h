@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.11 2003/04/11 09:38:26 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.12 2003/10/30 18:11:04 cepek Exp $  */
 
 #include <cstddef>
 #include <gnu_gama/list.h>
@@ -31,7 +31,7 @@
 
 namespace GNU_gama { namespace g3 {
 
-  using std::size_t;
+
   class Parameter;
 
 
@@ -80,11 +80,11 @@ namespace GNU_gama { namespace g3 {
 
     double init_value() const { return val; }
     double correction() const { return cor; }
-    size_t index     () const { return ind; }
+    std::size_t index() const { return ind; }
 
     void set_init_value(double p) { val = p; cor = 0; }
     void set_correction(double p) { cor = p; }
-    void set_index     (size_t t) { ind = t; }
+    void set_index(std::size_t t) { ind = t; }
 
 
     ParameterList  parlist;
@@ -107,7 +107,7 @@ namespace GNU_gama { namespace g3 {
 
     double val;
     double cor;
-    size_t ind;
+    std::size_t ind;
 
     enum 
       {

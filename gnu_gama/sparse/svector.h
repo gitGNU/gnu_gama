@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: svector.h,v 1.2 2003/03/25 12:38:33 cepek Exp $
+ *  $Id: svector.h,v 1.3 2003/10/30 18:11:05 cepek Exp $
  */
 
 
@@ -131,8 +131,8 @@ int main()
       cout << i << " (nonz " << svec.nonzeroes() << ") : ";
       double* mm = svec.begin ();
       double* me = svec.end   ();
-      size_t* ii = svec.ibegin();
-      size_t* ie = svec.iend  ();
+      std::size_t* ii = svec.ibegin();
+      std::size_t* ie = svec.iend  ();
       while (mm != me && ii != ie)
         {
           cout << *ii++ << " " << *mm++ << "   ";

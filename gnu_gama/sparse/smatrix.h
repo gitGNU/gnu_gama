@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: smatrix.h,v 1.4 2003/03/25 12:38:33 cepek Exp $
+ *  $Id: smatrix.h,v 1.5 2003/10/30 18:11:04 cepek Exp $
  */
 
 #ifndef GNU_gama___GaMaLib_Sparse_General_Matrix_______General___Matrix__
@@ -237,7 +237,7 @@ void write(ostream& cout, SparseMatrix<>* sgm)
       cout << k << " : ";
       double* n = sgm->begin(k);
       double* e = sgm->end  (k);
-      for(size_t* i=sgm->ibegin(k) ; n!=e; n++, i++)
+      for(std::size_t* i=sgm->ibegin(k) ; n!=e; n++, i++)
         {
           cout << *n << " [" << *i << "]  ";
         }

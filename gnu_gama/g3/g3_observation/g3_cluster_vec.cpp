@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_cluster_vec.cpp,v 1.5 2003/06/14 15:00:22 cepek Exp $
+ *  $Id: g3_cluster_vec.cpp,v 1.6 2003/10/30 18:11:04 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_cluster_vec.h>
@@ -68,8 +68,8 @@ void Vectors::write_xml(std::ostream& out) const
       out.setf(ios_base::fixed, ios_base::floatfield);
 
       out << "\n<vector>\n\t"
-          << "<from>" << v->name[0] << "</from> "
-          << "<to>"   << v->name[1] << "</to>\n\t"
+          << "<from>" << v->name[0].c_str() << "</from> "
+          << "<to>"   << v->name[1].c_str() << "</to>\n\t"
           << "<dx>"   << v->dx() << "</dx> "
           << "<dy>"   << v->dy() << "</dy> "
           << "<dz>"   << v->dz() << "</dz>\n";
