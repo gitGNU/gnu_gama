@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.39 2002/10/26 12:20:15 cepek Exp $
+ *  $Id: version.cpp,v 1.40 2002/11/14 15:01:17 cepek Exp $
  */
 
 
@@ -60,6 +60,8 @@ const char* GaMaLib_compiler =
 =============================================================================
 
 1.5.05 2002--
+
+    - gmatvec-0.9.21 (removed forgottne calls to fabs() )
 
     - some minor changes in scripts/GaMaLib_archive to reflect new
       archive file names in format 'gama-xx.yy.zz.tar.gz'
