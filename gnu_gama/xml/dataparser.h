@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.12 2003/12/29 19:43:51 uid66336 Exp $
+ *  $Id: dataparser.h,v 1.13 2003/12/30 19:35:42 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -29,6 +29,7 @@
 #include <gnu_gama/xml/baseparser.h>
 #include <gnu_gama/xml/dataobject.h>
 #include <gnu_gama/g3/g3_model.h>
+#include <gnu_gama/g3/g3_cluster.h>
 #include <gnu_gama/list.h>
 #include <gnu_gama/exception.h>
 #include <cstddef>
@@ -69,6 +70,7 @@ namespace GNU_gama {
           s_start,
           s_gama_data,
           s_g3_model,
+
           s_g3_point_1,
           s_g3_point_id,
           s_g3_point_2,
@@ -88,6 +90,7 @@ namespace GNU_gama {
           s_g3_point_constr,
           s_g3_point_constr_p,
           s_g3_point_constr_h,
+
           s_g3_vector,
           s_g3_vector_from,
           s_g3_vector_after_from,
@@ -112,7 +115,20 @@ namespace GNU_gama {
           s_g3_vector_czz,
           s_g3_vector_after_czz,
           s_g3_obs,
+
+          s_g3_obs_dist,
+          s_g3_obs_dist_from,
+          s_g3_obs_dist_after_from,
+          s_g3_obs_dist_to,
+          s_g3_obs_dist_after_to,
+          s_g3_obs_dist_val,
+          s_g3_obs_dist_has_val,
+          s_g3_obs_dist_stdev,
+          s_g3_obs_dist_variance,
+          s_g3_obs_dist_has_variance,
+
           s_text,
+
           s_adj_input_data_1,
           s_adj_input_data_2,
           s_adj_input_data_3,
@@ -171,6 +187,7 @@ namespace GNU_gama {
           t_cyz,
           t_czz,
           t_dim,
+          t_dist,
           t_dx,
           t_dy,
           t_dz,
@@ -193,9 +210,12 @@ namespace GNU_gama {
           t_rows,
           t_row,
           t_sparse_mat,
+          t_stdev,
           t_text,
           t_to,
           t_unknown,
+          t_val,
+          t_variance,
           t_vector,
           t_width,
           t_x,
@@ -235,10 +255,9 @@ namespace GNU_gama {
       int g3_point_constr_h     (const char *name);
       int g3_vector             (const char *name, const char **atts);
       int g3_vector             (const char *name);
-      int g3_vector_from        (const char *name);
-      int g3_vector_to          (const char *name);
       int g3_obs                (const char *name, const char **atts);
       int g3_obs                (const char *name);
+      int g3_obs_dist           (const char *name);
       int text                  (const char *name);
       int adj_input_data        (const char *name, const char **atts);
       int adj_input_data        (const char *name);
@@ -267,19 +286,28 @@ namespace GNU_gama {
       int start_tag    (const char *name, const char **atts);
       int white_spaces (const char *name, int len);
       int append_sp    (const char *name);
+      int g3_from      (const char *name);
+      int g3_to        (const char *name);
+      int g3_val       (const char *name);
+      int g3_stdev     (const char *name);
+      int g3_variance  (const char *name);
 
       void init(int state, int tag, 
                 int next_state, int end_state, int after_state,
                 Stag, Data, Etag,
                 int end_state2=0);
+      int g3_get_float (const char *name, double&);
 
 
       // DataObject::g3_model
 
-      g3::Model*       mg3;
-      g3::Point::Name  g3vec_from;
-      g3::Point::Name  g3vec_to;
-      
+      g3::Model*         g3model;
+      g3::Point::Name    g3from;
+      g3::Point::Name    g3to;
+      g3::ObsCluster*    g3obs_cluster;
+      double             g3val;
+      double             g3variance;
+      std::list<double>  g3var_list;
 
       // DataObject::Text
 

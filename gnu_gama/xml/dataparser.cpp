@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.12 2003/12/29 19:43:51 uid66336 Exp $
+ *  $Id: dataparser.cpp,v 1.13 2003/12/30 19:35:42 cepek Exp $
  */
 
 // #########################################################################
@@ -154,7 +154,7 @@ const char* const DataParser::xml_end =
 
 DataParser::~DataParser()
 {
-  delete mg3;
+  delete g3model;
 
   delete adj_sparse_mat;
   delete adj_block_diagonal;
@@ -164,7 +164,8 @@ DataParser::~DataParser()
 
 DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
 {
-  mg3 = 0;
+  g3model = 0;
+  g3variance = 0;
 
   adj_sparse_mat = 0;
   adj_block_diagonal = 0;
@@ -296,17 +297,17 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
   init(  s_g3_vector, t_from,
          //------------------
          s_g3_vector_from, 0, s_g3_vector_after_from,
-         0, &DataParser::add_text, &DataParser::g3_vector_from);
+         0, &DataParser::add_text, &DataParser::g3_from);
 
   init(  s_g3_vector_after_from, t_to,
          //---------------------------
          s_g3_vector_to, 0, s_g3_vector_after_to,
-         0, &DataParser::add_text, &DataParser::g3_vector_to);
+         0, &DataParser::add_text, &DataParser::g3_to);
 
   init(  s_g3_vector_after_from, t_to,
          //---------------------------
          s_g3_vector_to, 0, s_g3_vector_after_to,
-         0, &DataParser::add_text, &DataParser::g3_vector_to);
+         0, &DataParser::add_text, &DataParser::g3_to);
 
   init(  s_g3_vector_after_to, t_dx,
          //-------------------------
@@ -360,6 +361,33 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
          s_g3_obs, 0, 0,
          &DataParser::g3_obs, 0, &DataParser::g3_obs);
          
+  // .....  <g3-model> <obs> <distance>  .............................
+
+  init(s_g3_obs, t_dist,
+       s_g3_obs_dist, s_g3_obs_dist_has_val, 0,
+       0, 0, &DataParser::g3_obs_dist,
+       s_g3_obs_dist_has_variance);
+
+  init(s_g3_obs_dist, t_from,
+       s_g3_obs_dist_from, 0, s_g3_obs_dist_after_from,
+       0, &DataParser::add_text, &DataParser::g3_from);
+
+  init(s_g3_obs_dist_after_from, t_to,
+       s_g3_obs_dist_to, 0, s_g3_obs_dist_after_to,
+       0, &DataParser::add_text, &DataParser::g3_to);
+
+  init(s_g3_obs_dist_after_to, t_val,
+       s_g3_obs_dist_val, 0, s_g3_obs_dist_has_val,
+       0, &DataParser::add_text, &DataParser::g3_val);
+
+  init(s_g3_obs_dist_has_val, t_stdev,
+       s_g3_obs_dist_stdev, 0, s_g3_obs_dist_has_variance,
+       0, &DataParser::add_text, &DataParser::g3_stdev);
+
+  init(s_g3_obs_dist_has_val, t_variance,
+       s_g3_obs_dist_variance, 0, s_g3_obs_dist_has_variance,
+       0, &DataParser::add_text, &DataParser::g3_variance);
+
   // .....  <text>  ..................................................
  
   init(  s_gama_data, t_text,
@@ -555,6 +583,7 @@ DataParser::data_tag DataParser::tag(const char* c)
       break;
     case 'd' :
       if (!strcmp(c, "dim"            )) return t_dim;
+      if (!strcmp(c, "distance"       )) return t_dist;
       if (!strcmp(c, "dx"             )) return t_dx;
       if (!strcmp(c, "dy"             )) return t_dy;
       if (!strcmp(c, "dz"             )) return t_dz;
@@ -594,6 +623,7 @@ DataParser::data_tag DataParser::tag(const char* c)
       if (!strcmp(c, "rows"           )) return t_rows;
       break;
     case 's':
+      if (!strcmp(c, "stdev"          )) return t_stdev;
       if (!strcmp(c, "sparse-mat"     )) return t_sparse_mat;
       break;
     case 't' :
@@ -604,6 +634,8 @@ DataParser::data_tag DataParser::tag(const char* c)
       if (!strcmp(c, "unused"         )) return t_unused;
       break;
     case 'v' :
+      if (!strcmp(c, "val"            )) return t_val;
+      if (!strcmp(c, "variance"       )) return t_variance;
       if (!strcmp(c, "vector"         )) return t_vector;
       break;
     case 'w' :
@@ -677,6 +709,54 @@ int DataParser::append_sp(const char *name)
 {
   text_buffer += ' ';
   return end_tag(name);
+}
+
+int DataParser::g3_from(const char *name)
+{
+  g3from = text_buffer;
+  text_buffer.erase();
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_to(const char *name)
+{
+  g3to = text_buffer;
+  text_buffer.erase();
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_get_float(const char *name, double& d)
+{
+  istringstream inp(text_buffer.c_str());
+  if (inp >> d)                // ### add test here on trailing junk !!! 
+    {
+      text_buffer.erase();
+
+      return  end_tag(name);
+    }
+
+  return error(string("### bad data in tag <") + 
+               string(name) + string(">"));
+}
+
+int DataParser::g3_val(const char *name) 
+{ 
+  return g3_get_float(name, g3val); 
+}
+
+int DataParser::g3_stdev(const char *name) 
+{ 
+  double tmp;
+  int result = g3_get_float(name, tmp); 
+  g3variance = tmp*tmp;
+  return result;
+}
+
+int DataParser::g3_variance(const char *name) 
+{ 
+  return g3_get_float(name, g3variance);
 }
 
 // ......  <gnu-gama-data>  ................................................
@@ -960,15 +1040,15 @@ int DataParser::g3_model(const char *name, const char **atts)
   no_attributes( name, atts );
   state = next[state][tag(name)];
 
-  mg3 = new g3::Model;
+  g3model = new g3::Model;
   
   return 0;
 }
 
 int DataParser::g3_model(const char *name)
 {
-  objects.push_back( new DataObject::g3_model(mg3) );
-  mg3 = 0;
+  objects.push_back( new DataObject::g3_model(g3model) );
+  g3model = 0;
 
   return  end_tag(name);
 }
@@ -978,8 +1058,8 @@ int DataParser::g3_vector(const char *name, const char **atts)
   no_attributes( name, atts );
   state = next[state][tag(name)];
 
-  g3vec_from = "";
-  g3vec_to   = "";
+  g3from = "";
+  g3to   = "";
 
   return 0;
 }
@@ -999,10 +1079,10 @@ int DataParser::g3_vector(const char *name)
   using namespace g3;
   
   Vector* v = new Vector(dx, dy, dz);
-  v->from = g3vec_from;
-  v->to   = g3vec_to;
+  v->from = g3from;
+  v->to   = g3to;
 
-  g3::Model::ObservationData *obs = mg3->obs;
+  g3::Model::ObservationData *obs = g3model->obs;
   Vectors* vectors = new Vectors(obs);
 
   vectors->add(v);
@@ -1015,22 +1095,6 @@ int DataParser::g3_vector(const char *name)
   vectors->covariance_matrix(3,3) = czz;
 
   obs->CL.push_back(vectors);
-
-  return  end_tag(name);
-}
-
-int DataParser::g3_vector_from(const char *name)
-{
-  g3vec_from = text_buffer;
-  text_buffer.erase();
-
-  return  end_tag(name);
-}
-
-int DataParser::g3_vector_to(const char *name)
-{
-  g3vec_to = text_buffer;
-  text_buffer.erase();
 
   return  end_tag(name);
 }
@@ -1051,7 +1115,7 @@ int DataParser::g3_point_id(const char *name)
 
   text_buffer.erase();
 
-  point = mg3->get_point(id);
+  point = g3model->get_point(id);
 
   return  end_tag(name);
 }
@@ -1165,6 +1229,7 @@ int DataParser::g3_obs(const char *name, const char **atts)
   no_attributes( name, atts );
   state = next[state][tag(name)];
 
+  g3obs_cluster = new g3::ObsCluster(&g3model->obsdata);
 
   return 0;
 }
@@ -1172,8 +1237,29 @@ int DataParser::g3_obs(const char *name, const char **atts)
 int DataParser::g3_obs(const char *name)
 {
   using namespace g3;
+  g3model->obsdata.CL.push_back(g3obs_cluster);
 
+  return  end_tag(name);
+}
+
+int DataParser::g3_obs_dist(const char *name)
+{
+  using namespace g3;
+
+  cerr.precision(12);
+  cerr << "FROM = " << g3from
+       << " TO  = " << g3to
+       << " VAL = " << g3val
+       << " variance = " << g3variance
+       << endl;
   
+  g3var_list.push_back(g3variance);
+  g3variance = 0;
+
+  Distance* distance = new Distance;
+  distance->from = g3from;
+  g3obs_cluster->observation_list.push_back(distance);  
+
   return  end_tag(name);
 }
 
