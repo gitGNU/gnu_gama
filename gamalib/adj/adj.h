@@ -20,13 +20,16 @@
 */
 
 /*
- *  $Id: adj.h,v 1.1 2002/10/12 11:14:08 cepek Exp $
+ *  $Id: adj.h,v 1.2 2002/11/22 17:46:22 cepek Exp $
  */
 
 #include <gamalib/exception.h>
 #include <gamalib/sparse/smatrix.h>
 #include <gamalib/sparse/sbdiagonal.h>
 #include <gamalib/sparse/intlist.h>
+#include <gmatvec/gmatvec.h>
+
+#include <iostream>
 
 #ifndef GaMaLib_Adj__adjustment_class__h
 #define GaMaLib_Adj__adjustment_class__h
@@ -40,6 +43,11 @@ namespace GaMaLib {
     SparseMatrix <>  A;
     BlockDiagonal<>  cov;
     IntegerList  <>  minx;
+    gMatVec::Vec <>  rhs;
+
+    /* Sparse project equations for uncorrelated observations. *
+     * Defined here only for backward data compatibility       */
+    void read_gama_local_old_format(std::istream&);
     
   };
   

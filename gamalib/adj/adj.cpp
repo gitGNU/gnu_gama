@@ -20,12 +20,31 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.1 2002/10/12 11:14:08 cepek Exp $
+ *  $Id: adj.cpp,v 1.2 2002/11/22 17:46:22 cepek Exp $
  */
 
 #include <gamalib/adj/adj.h>
+#include <vector>
 
 using namespace GaMaLib;
+
+void AdjInputData::read_gama_local_old_format(std::istream& inp)
+{
+  using namespace std;
+  vector<long>   ind;
+  vector<double> flt;
+
+  double cols, rows;
+  inp >> cols >> rows;
+
+  minx.reset(rows);
+  rhs .reset(rows);
+
+}
+
+
+// -----------------------------------------------------------------
+
 
 void Adj::init(const AdjInputData* inp)
 {

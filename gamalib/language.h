@@ -1,9 +1,9 @@
 #ifndef GaMaLib___language__header_file_h
 #define GaMaLib___language__header_file_h
 
-namespace GaMaLib {      /* slovnikar 1.00 */
+namespace GaMaLib {      /* slovnikar 1.01 */
 
-enum gama_language { en, cz, fi };
+enum gama_language { en, cz, fi, du };
 void set_gama_language(gama_language);
 
 extern const char* T_GKF_bad_angle;

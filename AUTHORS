@@ -1,10 +1,18 @@
 Developers:
 
-    Ales Cepek    <cepek@fsv.cvut.cz>
-    Jiri Vesely   <vesely@gama.fsv.cvut.cz>
+    Ales Cepek <cepek@fsv.cvut.cz>
+        - adjustment etc.
+
+    Jiri Vesely <vesely@gama.fsv.cvut.cz>
+        - classes for computaion of approximate coordinates 
+
     Petr Doubrava <petr@gepro.cz>
-    Jan Pytel     <pytel@gama.fsv.cvut.cz>
- 
+        - support for iso-885902 and windows-1250 encoding for Expat
+          parser
+
+    Jan Pytel <pytel@gama.fsv.cvut.cz>
+        - linearization of slope observation types and GUI Rocinante
+          (now distributed separately from sourceforge.net)
    
 Contributors:
 
@@ -12,8 +20,11 @@ Contributors:
          - revision of documentation of XML input data and many
            comments and suggestions
 
-    Dan Haggman    <dhaggman@cc.hut.fi> 
+    Dan Haggman <dhaggman@cc.hut.fi> 
 	- Finish translation
 
     Mauri Vaisanen <mauri.vaisanen@hut.fi>
 	- Finish translation    
+
+    John Dedrum <ddrum66@hotmail.com>
+        - Dutch translation

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.2 2002/11/21 17:31:59 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.3 2002/11/22 17:46:22 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -42,18 +42,6 @@
  * results in XML (functions in directory local/results/xml) and
  * current text functions shell be rewritten to process the XML data
  * as their input */
-
-// #include <review/underline.h>
-// #include <review/approximate_coordinates.h>
-// #include <review/network_description.h>
-// #include <review/general_parameters.h>
-// #include <review/fixed_points.h>
-// #include <review/adjusted_observations.h>
-// #include <review/adjusted_unknowns.h>
-// #include <review/outlying_abs_terms.h>
-// #include <review/residuals_observations.h>
-// #include <review/error_ellipses.h>
-// #include <review/test_linearization.h>
 
 #include <gamalib/local/results/text/approximate_coordinates.h>
 #include <gamalib/local/results/text/network_description.h>
@@ -86,9 +74,9 @@ int help()
        << " [ output. ]\n\n";
   cerr << "Options:\n"
        << "\n";
-  cerr << "--algorithm svd|gso  \n" 
-       << "--language  en|cz|fi \n"
-       << "--version            \n"
+  cerr << "--algorithm svd|gso     \n" 
+       << "--language  en|cz|fi|du \n"
+       << "--version               \n"
        << "--help              this text\n";
   cerr << endl;
   return 1;
@@ -159,6 +147,7 @@ int GaMa_Main(int argc, char **argv)
       else if (!strcmp("cs", argv_lang)) set_gama_language(cz);
       else if (!strcmp("cz", argv_lang)) set_gama_language(cz);
       else if (!strcmp("fi", argv_lang)) set_gama_language(fi);
+      else if (!strcmp("du", argv_lang)) set_gama_language(du);
       else return help();
     }
 
@@ -335,10 +324,10 @@ int GaMa_Main(int argc, char **argv)
     
     try
       {
-        // if (!Consistent(IS->PD, IS->OD))
-        //   {
-        //     cout << T_GaMa_inconsistent_coordinates_and_angles << "\n\n\n";
-        //   }
+        if (!Consistent(IS->PD, IS->OD))
+          {
+            cout << T_GaMa_inconsistent_coordinates_and_angles << "\n\n\n";
+          }
         Acord acord(IS->PD, IS->OD);
         acord.execute();
         ApproximateCoordinates(&acord, cout);

@@ -1,5 +1,5 @@
-/* Slovnikar (lexicographer) is a simple program which compiles `dictionaries'
- * used in GaMaLib project.
+/* Slovnikar (lexicographer) is a simple program to compile `dictionaries'
+ * used in the GNU GaMa project.
  * ==========================================================================
  * 
  * Program reads series of file names from standard input. Input files
@@ -16,20 +16,28 @@
  *
  * Program compiles dictionarise and write files language.h and language.cpp
  *
- * $Id: slovnikar.cpp,v 1.3 2002/09/29 14:00:19 cepek Exp $
+ * To ease creation of language files, special attribute EN is
+ * available.  Attribute EN is ignored on input and serves as a kind
+ * of comment.
+ * 
+ * $Id: slovnikar.cpp,v 1.4 2002/11/22 17:46:22 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
-         const int    N = 3;
-         const char* language[N] = { "en", "cz", "fi" };
+         const int    N = 4;
+         const char* language[N] = { "en", "cz", "fi", "du" };
 
-         const char* version = "1.00";
+         const char* version = "1.01";
 
 /* ---------------------------------------------------------------------------
  *
+ * 1.01  2002-11-22
+ *
+ *       - added Dutch (switch "du")
+ *
  * 1.00  2002-09-29
  *
- *       - added Finish (switch :fi")
+ *       - added Finish (switch "fi")
  *       - removed a bug in processing multiple languages in element <e />
  *
  * 0.05  2002-06-04

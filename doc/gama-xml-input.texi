@@ -1,4 +1,4 @@
-@comment $Id: gama-xml-input.texi,v 1.3 2002/11/21 17:31:59 cepek Exp $
+@comment $Id: gama-xml-input.texi,v 1.4 2002/11/22 17:46:22 cepek Exp $
 
 @comment setfilename gama-xml-inp.info
 
@@ -533,6 +533,10 @@ orientations needed for the adjustment. If directions are present, then
 the attribute @code{station} must be defined.
 
 
+Optional attribute @code{from_dh="@dots{}"} enables to enter implicit
+height of instrument for all observations within the @code{<obs>} pair
+tag.
+
 
 Observed distances are expressed in meters, their standard deviations in
 millimeters. Observed directions and angles are expressed in centigrades
@@ -584,13 +588,20 @@ empty-element tag @code{<direction />}
 
 @itemize @bullet
 @item 
-@code{to = "@dots{}"}     target point identification 
+@code{to = "@dots{}"}      target point identification 
 
 @item 
-@code{val = "@dots{}"}    observed direction
+@code{val = "@dots{}"}     observed direction
 
 @item 
-@code{stdev = "@dots{}"}  standard deviation (optional)
+@code{stdev = "@dots{}"}   standard deviation (optional)
+
+@item
+@code{from_dh = "@dots{}"} instrument height (optional)
+
+@item
+@code{to_dh = "@dots{}"}   reflector/target height (optional)
+
 @end itemize
 
 
@@ -628,17 +639,24 @@ with attributes
 
 @itemize @bullet
 @item 
-@code{from = "@dots{}"}   standpoint identification
+@code{from = "@dots{}"}    standpoint identification
 
 @item 
-@code{to = "@dots{}"}     target identification
+@code{to = "@dots{}"}      target identification
 
 @item 
-@code{val = "@dots{}"}    observed horizontal distance
+@code{val = "@dots{}"}     observed horizontal distance
 
 @item 
-@code{stdev = "@dots{}"}  standard deviation of observed horizontal
+@code{stdev = "@dots{}"}   standard deviation of observed horizontal
 distance (optional)
+
+@item
+@code{from_dh = "@dots{}"} instrument height (optional)
+
+@item
+@code{to_dh = "@dots{}"}   reflector/target height (optional)
+
 @end itemize
 
 
@@ -683,6 +701,15 @@ empty-element tag @code{<angle />}
 
 @item 
 @code{stdev = "@dots{}" }  standard deviation (optional)
+@item
+@code{from_dh = "@dots{}"} instrument height (optional)
+
+@item
+@code{bs_dh = "@dots{}"}   backsight reflector/target height (optional)
+
+@item
+@code{fs_dh = "@dots{}"}   foresight reflector/target height (optional)
+
 @end itemize
 
 @noindent
@@ -725,6 +752,13 @@ Slope distances (space distances) are written using an empty-element tag
 @item 
 @code{stdev = "@dots{}"}  standard deviation of observed slope distance
 (optional)
+
+@item
+@code{from_dh = "@dots{}"} instrument height (optional)
+
+@item
+@code{to_dh = "@dots{}"}   reflector/target height (optional)
+
 @end itemize
 
 
@@ -772,6 +806,13 @@ with the following attributes
 @item 
 @code{stdev = "@dots{}"}  standard deviation of observed zenith angle
 (optional)
+
+@item
+@code{from_dh = "@dots{}"} instrument height (optional)
+
+@item
+@code{to_dh = "@dots{}"}   reflector/target height (optional)
+
 @end itemize
 
 
@@ -926,9 +967,18 @@ of it.
 Observed coordinate differences describe relative positions of station
 pairs (vectors). Contrary to the observed coordinates, the
 variance-covariance matrix of the coordinate differences always
-describes all three elements of the 3D vectors  
-@c %% ??? ($\Delta{}x, \Delta{}y, \Delta{}z$). 
+describes all three elements of the 3D vectors. 
 
+Optional attributes of empty element tag @code{<vec>} for describing
+instrument and/or target height are
+
+@itemize
+@item
+@code{from_dh = "@dots{}"} instrument height
+
+@item
+@code{to_dh = "@dots{}"}   target height
+@end itemize
 
 
 @unnumberedsubsec Example

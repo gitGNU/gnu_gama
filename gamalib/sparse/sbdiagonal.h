@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: sbdiagonal.h,v 1.3 2002/09/14 17:36:06 cepek Exp $
+ *  $Id: sbdiagonal.h,v 1.4 2002/11/22 17:46:22 cepek Exp $
  */
 
 #ifndef GaMaLib_Symmetric_Block_Diagonal____GaMaLib_Symmetric_Block_Diagonal__
@@ -49,9 +49,15 @@ template <class Float=double, class Index=std::size_t>
     BlockDiagonal (const BlockDiagonal&); 
     void operator=(const BlockDiagonal&);
 
-    public:
-    
-    BlockDiagonal(Index blcks, Index floats) 
+    void clear()
+    {
+      delete[] dim_;
+      delete[] width_;
+      delete[] begin_;
+      delete[] nonz_;
+    }
+
+    void init(Index blcks, Index floats) 
     {
       dim_    = new Index [blcks+1];  // 1 based indexes
       width_  = new Index [blcks+1];
@@ -61,15 +67,30 @@ template <class Float=double, class Index=std::size_t>
       ncnt_ = size_ = blocks_ = 0;    // matrix is initially empty
       begin_[1] = nonz_;
     }
+
+    public:
+
+    BlockDiagonal()
+    {
+      dim_ = widtw_ = begin_ = nonz_ = 0;
+    }
+    
+    BlockDiagonal(Index blcks, Index floats) 
+    {
+      init(blkcs, floats);
+    }
     
     ~BlockDiagonal() 
     {
-      delete[] dim_;
-      delete[] width_;
-      delete[] begin_;
-      delete[] nonz_;
+      clear();
     }
     
+    void reset(Index blcks, Index floats) 
+    {
+      clear();
+      init (blcks, floats);
+    }
+
     Index  blocks()        const { return blocks_;   }
     Index  dim()           const { return size_;     }
     Index  nonzeroes()     const { return ncnt_;     }
