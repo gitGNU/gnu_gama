@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: model.h,v 1.4 2003/12/24 11:34:11 uid66336 Exp $
+ *  $Id: model.h,v 1.5 2003/12/24 17:25:12 uid66336 Exp $
  */
 
 
@@ -55,10 +55,20 @@ namespace GNU_gama {
   {
   public:
 
+    Observation() : active_(true) {}
+
     virtual ~Observation() {}
     virtual int  dimension() const { return 1; }
     virtual bool revision_accept(ObservationVisitor* visitor) = 0;
     // virtual void linearization_accept(ObservationVisitor* visitor) = 0;
+
+    bool active() const     { return  active_;      }
+    bool set_active(bool b) { return (active_ = b); }
+
+
+  private:
+
+    bool active_;
   };
 
 

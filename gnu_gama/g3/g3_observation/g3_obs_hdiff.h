@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_hdiff.h,v 1.7 2003/12/23 19:52:49 uid66336 Exp $
+ *  $Id: g3_obs_hdiff.h,v 1.8 2003/12/24 17:25:12 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_obs_base.h>
@@ -38,8 +38,7 @@ namespace GNU_gama {  namespace g3 {
 
     Point::Name name[2];
 
-    HeightDiff() : Observation(2) {}
-
+    HeightDiff() {}
 
 
   };

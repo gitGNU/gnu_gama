@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_vec.h,v 1.8 2003/12/24 11:34:11 uid66336 Exp $
+ *  $Id: g3_obs_vec.h,v 1.9 2003/12/24 17:25:12 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_obs_base.h>
@@ -38,14 +38,14 @@ namespace GNU_gama {  namespace g3 {
     
     Point::Name name[2];
     
-    Vector() : Observation(6), select(0) 
+    Vector() : select(0) 
     {
     }
-    Vector(double x, double y, double z) : Observation(6), select(0)
+    Vector(double x, double y, double z) : select(0)
     {
       dxyz_[0] = x; dxyz_[1] = y; dxyz_[2] = z;
     }
-    Vector(const Vector& v) : Observation(6), select(0)
+    Vector(const Vector& v) : select(0)
     {
       name[0] = v.name[0];
       name[1] = v.name[1];
@@ -91,7 +91,7 @@ namespace GNU_gama {  namespace g3 {
 
     Point::Name name[2];
     
-    Diff(Vector* v, int r) : Observation(6), vec(v), sel(r)
+    Diff(Vector* v, int r) : vec(v), sel(r)
     {
       name[0] = vec->name[0];
       name[1] = vec->name[1];

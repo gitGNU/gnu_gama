@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.17 2003/12/23 19:52:49 uid66336 Exp $
+ *  $Id: g3_model.cpp,v 1.18 2003/12/24 17:25:12 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -212,8 +212,8 @@ bool Model::revision_visit(Distance* d)
 {
   if (!d->active()) return false;
 
-  const Point* from = get_point(d->name[0]);
-  const Point* to   = get_point(d->name[1]);
+  const Point* from = get_point(d->from);
+  const Point* to   = get_point(d->to  );
 
   if (from->unused() || to->unused()) return d->set_active(false);
 

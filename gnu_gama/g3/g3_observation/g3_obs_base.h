@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_base.h,v 1.15 2003/12/23 19:52:49 uid66336 Exp $
+ *  $Id: g3_obs_base.h,v 1.16 2003/12/24 17:25:12 uid66336 Exp $
  */
 
 #include <gnu_gama/model.h>
@@ -44,22 +44,13 @@ namespace GNU_gama {  namespace g3 {
   public:
 
     typedef GNU_gama::Cov Cov;
-
-    Observation(int n) : time(0), active_(true) {}
-
     virtual double obs() const { return 0; }
-
-    bool    active() const     { return  active_;      }
-    bool    set_active(bool b) { return (active_ = b); }
 
 
   protected:  
     
     double  time;
 
-  private:
-
-    bool active_;
   };
 
 }}
