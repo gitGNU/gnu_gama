@@ -2,7 +2,7 @@
  * input file into ellipsoids.[h|cpp|html] output.
  * ==========================================================================
  * 
- * $Id: ellipsoids_xml.cpp,v 1.3 2002/06/12 19:51:58 cepek Exp $
+ * $Id: ellipsoids_xml.cpp,v 1.4 2002/06/12 20:05:59 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
@@ -387,8 +387,8 @@ void Parser::xml2html(ostream& out)
     list<string>::iterator li=label.begin(), ti=item.begin();
     while (li != label.end() && ti != item.end())
       {
-        out << "<dt><strong>" << *li << "</strong>";
-        out << "<dd>" << *ti << "</dd></dt>\n\n";
+        out << "<dt><strong>" << *li << "</strong></dt>";
+        out << "<dd>" << *ti << "</dd>\n\n";
         ++li, ++ti;
       }
     out << "</dl>\n\n";

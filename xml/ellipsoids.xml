@@ -24,7 +24,7 @@
   >
 ]>
 
-<ellipsoids revision="0.08">
+<ellipsoids revision="0.09">
 
 <!--
 
@@ -257,7 +257,7 @@ write to
 
 
 <ellipsoid id="everest_ss" a="6377298.556" f1="300.8017" 
-               caption="Everest (Sabah &amp; Sarawak)" ref="[4]" />
+               caption="Everest (Sabah and Sarawak)" ref="[4]" />
 <!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
