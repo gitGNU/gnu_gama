@@ -1,0 +1,19 @@
+@comment $Id: algorithms.texi,v 1.1 2002/10/12 15:52:22 cepek Exp $
+
+@menu
+* Observation data::            
+* Supported ellipsoids::        
+* Transformation from spatial to geographical coordinates::  
+@end menu
+
+@node    Observation data
+@section Observation data
+@include obsdata.texi
+
+@node    Supported ellipsoids
+@section Supported ellipsoids
+@include ellipsoids-1.texi
+
+@node    Transformation from spatial to geographical coordinates
+@section Transformation from spatial to geographical coordinates
+@include xyz2blh.texi

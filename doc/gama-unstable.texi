@@ -1,0 +1,108 @@
+\input texinfo   @c -*-texinfo-*-
+@comment $Id: gama-unstable.texi,v 1.1 2002/10/12 15:52:22 cepek Exp $
+
+@comment Part 1 : Header
+
+@c %**start of header
+@setfilename gama-unstable.info
+@include     version.texi
+@settitle    GNU GaMa @value{VERSION}
+@setchapternewpage odd
+@syncodeindex vr cp
+@syncodeindex fn cp
+@syncodeindex ky cp
+@c %**end of header
+
+
+
+
+@comment Part 2: Summary Description and Copyright
+
+@ifinfo
+This is a working documentation version of GNU GaMa @value{VERSION}
+unstable development branch.
+
+Copyright @copyright{} 2002 Ales Cepek.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts. A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end ifinfo
+
+
+
+@comment Part 3: Titlepage and Copyright
+
+@titlepage
+@sp 10
+@title GNU GaMa @value{VERSION}
+@subtitle Adjustment of geodetic networks (unstable development branch)
+@subtitle Edition @value{EDITION}, @value{UPDATED}
+
+@c The following two commands start the copyright page.
+@page
+@vskip 0pt plus 1filll
+Copyright @copyright{} 2002 Ales Cepek.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts. A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end titlepage
+@contents
+
+
+
+@comment Part 4: `Top' Node and Master Menu
+
+@ifnottex
+@node Top
+@top GNU GaMa @value{VERSION}
+@end ifnottex
+
+@menu
+* Stable and unstable version ::  
+* Data structures and algorithms::  
+* XML input data format::
+
+* Copying This Manual::         The GNU Free Documentation License.
+* Concept Index::               
+@end menu
+
+
+
+@comment Part 5:  The Body of the Document
+
+@node    Stable and unstable version 
+@chapter Stable and unstable version
+@include gama-versions.texi
+
+@node    XML input data format
+@chapter XML input data format
+@include gama-xml-input.texi
+
+@node    Data structures and algorithms
+@chapter Data structures and algorithms
+@include algorithms.texi
+
+
+@node     Copying This Manual
+@appendix Copying This Manual
+
+@menu
+* GNU Free Documentation License::  License for copying this manual.
+@end menu
+
+@include fdl.texi
+
+@node       Concept Index
+@unnumbered Concept Index
+
+@printindex cp
+     
+@bye

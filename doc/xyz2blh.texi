@@ -1,0 +1,137 @@
+@comment $Id: xyz2blh.texi,v 1.1 2002/10/12 15:52:23 cepek Exp $
+
+Spatial coordinates @math{(X, Y, Z)} can be easily computed from
+geographical ellipsoidal coordinates @math{(B, L, H)}, where @math{B}
+is geographical latitude, @math{L} geographical longitude and @math{H}
+is elliposidal height, as
+
+@tex
+$$\pmatrix{ X \cr Y \cr Z \cr} =
+\pmatrix{
+   (N + H) \cos B \cos L \cr
+   (N + H) \cos B \sin L \cr
+   (N(1-e^2) + H) \sin B \cr
+}$$
+@end tex
+@ifnottex
+@example
+X = (N + H) cos B cos L
+Y = (N + H) cos B sin L
+Z = (N(1-e^2) + H)sin B
+@end example
+@end ifnottex
+
+@noindent where 
+@tex
+@math{N = a/\sqrt{1 - e^2 sin^2 B}} 
+@end tex
+@ifnottex
+@math{N = a/sqrt(1 - e^2 sin^2 B)} 
+@end ifnottex
+is the radius of curvature in the prime vertical, @math{e^2 = (a^2 -
+b^2)/a^2} is the first eccentricity for the given rotational
+ellipsoid (spheroid) with semi-major axis @math{a} and semi-minor
+axis @math{b}.
+
+In the case of coordiante transformation from @math{(X, Y, Z)}
+to @math{(B, L, H)}, the longitude is given by the formula
+@c
+@tex
+$$\tan L = Y / X.$$
+@end tex
+@ifnottex
+
+@example
+tan L = Y / X.
+@end example
+
+@end ifnottex
+@noindent Now we can introduce 
+@tex
+$D = \sqrt{X^2 + Y^2},$
+@end tex
+@ifnottex
+
+@example
+D = sqrt(X^2 + Y^2),
+@end example
+
+@end ifnottex
+@noindent so that the cartesian system become @math{(D, Z)}. 
+Coordinates @math{B} and @math{H} are then usually computed by
+iteration with some starting value of @math{B_0}, for example
+@tex
+$\tan B_0 = Z/D/(1 - e^2),$
+@end tex
+@ifnottex
+
+@example
+tan B_0 = Z/D/(1 - e^2),
+@end example
+
+@end ifnottex
+
+@tex
+$$ \tan B_i = Z/D  + {N_{i-1}  \over (N_{i-1}+H_{i-1})} e^2 \tan B_{i-1}, 
+    \quad H_i  = D / \cos B_{i-1} = Z / \sin B_{i-1} - N(1-e^2)$$
+@end tex
+@ifnottex
+
+@example
+tan B = Z/D + N/(N+H) e^2 tan B,   H  = D / cos B = Z / sin B - N(1-e^2)
+@end example
+
+@end ifnottex
+
+
+B. R. Bowring described a closed formula@footnote{B. R. Bowring:
+Transformation from spatial to geographical coordinates, Survey Review
+XXIII, 181, July 1976} that is more effective and sufficiantly
+accurate and that is used in GNU GaMa.
+
+@image{xyz2blh-fig,10cm}
+
+@noindent The centre of curvature @math{C} of the spheroid corresponding to
+@math{P'} is the point
+@tex
+$$(e^2 a \cos^2 u,  -e'^2 b \sin^3 u),$$
+@end tex
+@ifnottex
+
+@center @math{(e^2 a cos^3 u,  -e'^2 b sin^3 u))},
+
+@end ifnottex
+
+@noindent where @math{e'^2 = (a^2 - b^2)/b^2} is second eccentricity and
+@math{u} is the parametric latitude of the point
+@tex
+$P'$, $(1-e^2)N \sin B = b \sin u.$
+@end tex
+@ifnottex
+@math{P',  (1-e^2)N sin B = b sin u.}
+@end ifnottex
+Therefore
+@tex
+$$ \tan B = {Z + e'^2 b \sin^3 u \over D - e^2 a \cos^3 u}. $$
+@end tex
+@ifnottex
+
+@center @math{tan B = (Z + e'^2 b sin^3 u) / (D - e^2 a cos^3 u)}.
+@end ifnottex
+
+
+This is clearly an iterative solution; but it has been found that this
+formula is extremely accurate using the single first approximation for
+@math{u} for the
+@tex
+$\tan u = (Z/D)(a/b).$
+@end tex
+@ifnottex
+@math{tan u = (Z/D)(a/b)}.
+@end ifnottex
+@c
+@noindent Maximum error in earth bound region is 3e-8 of 
+sexadecimal arc seconds (5e-7 millimetres); maximum is 0.0018'' (0.1
+millimetres) at height H = 2a.
+ 
+

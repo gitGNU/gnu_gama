@@ -1,0 +1,45 @@
+@comment $Id: obsdata.texi,v 1.1 2002/10/12 15:52:23 cepek Exp $
+
+@noindent The GaMa observation data structures are designed 
+to enable adjustment of any combination of possibly correlated
+observations. 
+
+@image{obsdata-fig,14cm} 
+
+At its very early stage GaMa was limited to adjustment of uncorrelated
+observations. Only directions and distances were available and
+observable's weight was stored together with the observed value in a
+single object. A single array of pointers to observation objects was
+sufficient for handling all observations. So called @emph{orientation
+shifts} corresponding to directions measured form a point were stored
+together with coordinations in @emph{point objects}.
+
+To enable adjustment of possibly correlated observation (like angles
+derived from observed directions or already adjusted coordinates from
+a previous adjustment) GaMa has come with the concept of
+@emph{clusters}. Cluster is an object with a common
+variance-covariance matrix and a list of pointers to observation
+objects (distances, directions, angles, etc.). Weights were removed
+from observation objects and replaced with a pointer to the cluster to
+which the observation belong. All clusters are joined in a common
+object @code{ObservationData}; similarly to observations, each cluster
+contains a pointer to its parent @code{Observation Data} object.
+@emph{Orientation shifts} were separated from coordinates and are
+stored in the cluster containing the bunch of directions and thus
+number of orientations is not limited to one for a point.
+
+This organisation of observational information has proved to be quite
+effective but still there were problems remaining. For example to
+enable correlated coordinates as input data into to the adjustment, it
+is necessary to define special observation objects for separate
+coordinates X, Y and/or Z. This is possible but clearly this is not
+natural way of handling point coordinates. 
+
+For backward compatibility GaMa retains the described data structures
+but from development version 1.5 more stress is going to be put on
+clusters than on observations. In other words clusters need not to
+present its informations as @emph{observations}. Linearization is not
+going to be done for elementary observations but for the whole
+clusters. This way, for example. we could derive from the
+@code{cluster} a new object for adjusting parameters of a
+photogrammetric camera.

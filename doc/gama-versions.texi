@@ -1,0 +1,77 @@
+@comment $Id: gama-versions.texi,v 1.1 2002/10/12 15:52:22 cepek Exp $
+
+The GNU GaMa is a project dedicated to adjustment of @emph{geodetic
+networks}. It was formerly inspired by software system Geodet/PC
+(1990) designed by Frantisek Charamza. The project has been started at
+the department of mapping and cartography, faculty of Civil
+Engineering, Czech Technical University in Prague (CTU) about 1998 and
+its name is an acronym for @emph{geodesy and mapping}.  It was
+presented to wider public for the first time at FIG Working Week 2000
+in Prague and then at FIG Workshop and Seminar at HUT Helsinki in
+2001.
+
+Stable version 1.4 of the project is limited to network adjustment in
+a local coordinate system. In the unstable development version 1.5
+adjustment model is going to be based on geocentric coordinate system.
+
+
+GNU GaMa stable version 1.4 adjusts geodetic (free) networks of
+observed distances, directions, angles, height differences, 3D vectors
+and observed coordinates (coordinates with given variance-covariance
+matrix).
+
+            @center   @uref{http://www.gnu.org/software/gama/}
+
+
+GNU GaMa is based on a free library of geodetic classes and functions
+@code{GaMaLib} written in C++ released under GNU General Public
+Licence.  Geodetic network adjustment is available in the stable
+version 1.4 as a command line program @code{gama}. 
+@c
+Rocinante is the GNU GaMa GUI based on the Qt graphical
+library. Rocinante is documented separatedly, for more information see
+
+         @center @uref{http://www.gnu.org/software/gama/rocinante/}
+
+
+GNU GaMa stable branch version 1.4 can be found on in the subdirectory
+@code{/gnu/gama/} on your favorite
+@uref{http://www.gnu.org/prep/ftp.html, GNU mirror} or from the CVS as
+the branch @code{gama-1-4}.  See our project page at
+@uref{http://savannah.gnu.org/projects/gama/, savannah} for more
+information.  
+
+Unstable branch version 1.5 of GNU GaMa is available from the CVS on
+the main trunk.  Archive of previous versions (both stable and
+unstable) is available at
+@uref{http://gama.fsv.cvut.cz/gama/archive/}.
+
+
+To get an anonymous read-only access to the CVS repository for the
+latest GNU GaMa unstable source, submit the following commands
+
+@example
+cvs -d:pserver:anoncvs@@subversions.gnu.org:/cvsroot/gama login
+cvs -z3 -d:pserver:anoncvs@@subversions.gnu.org:/cvsroot/gama co gama
+@end example
+
+@noindent or
+
+@example
+cvs -z3 -d:pserver:anoncvs@@subversions.gnu.org:/cvsroot/gama 
+         co -r gama-1-4 gama
+@end example
+
+@noindent for the stable branch @code{gama-1-4}.
+
+Working version of manual for the unstable version 1.5 in the Texinfo
+format is avalable from CVS as
+@example
+cvs -z3 -d:pserver:anoncvs@@subversions.gnu.org:/webcvs
+         co software/gama/unstable
+@end example
+
+@noindent If you do not have program @code{makeinfo} for processing 
+Texinfo documentation format we can send you unstable documentation as
+a plain ASCII file or in HTML, dvi, ps or pdf format.
+

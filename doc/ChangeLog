@@ -1,0 +1,21 @@
+0.03  2002-09-22  Ales Cepek  <cepek@fsv.cvut.cz>
+
+	* added figure of basic observation data structures and created
+	corresponding section (mostly empty at this moment)
+
+0.02  2002-09-21  Ales Cepek  <cepek@fsv.cvut.cz>
+
+	* added description of XML input data format (from version 1.4)
+
+	* added section Transformation from XYZ to BLH
+
+	
+
+0.01  2002-09-20  Ales Cepek  <cepek@fsv.cvut.cz>
+
+	* ChangeLog: file created
+
+
+
+	
+
