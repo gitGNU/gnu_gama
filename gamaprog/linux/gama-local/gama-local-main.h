@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.3 2002/11/22 17:46:22 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.4 2002/12/15 16:12:44 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -68,7 +68,7 @@ int help()
        << " / " << GaMaLib_compiler << "\n"
        << "************************************\n"
        << "http://www.gnu.org/software/gama/\n\n"
-       << "Usage: " << /*argv[0]*/"gama" 
+       << "Usage: " << /*argv[0]*/"gama-local" 
        << " [options]"
        << " xml_input_file.gkf "
        << " [ output. ]\n\n";

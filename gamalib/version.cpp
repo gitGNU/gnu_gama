@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.44 2002/12/14 13:28:46 cepek Exp $
+ *  $Id: version.cpp,v 1.45 2002/12/15 16:12:44 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.5.06";
+const char* GaMaLib_version  = "1.5.07-pre";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
@@ -58,6 +58,10 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.5.07 ????
+
+
 
 1.5.06 2002-12-14
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.6 2002/11/26 22:22:06 cepek Exp $
+ *  $Id: adj.cpp,v 1.7 2002/12/15 16:12:44 cepek Exp $
  */
 
 #include <gamalib/adj/adj.h>
@@ -33,33 +33,33 @@ void AdjInputData::write_xml(std::ostream& out) const
 {
   const char* indent = "  ";
 
-  cout << "\n" << indent << "<adj-input-data>\n";
+  out << "\n" << indent << "<adj-input-data>\n";
 
-  cout << "\n" << indent << "  <sparse-mat>\n";
-  cout << indent << "    "
-       << "<rows>" << A.rows() << "<rows> "
-       << "<cols>" << A.columns() << "</cols> "
-       << "<nonz>" << A.nonzeroes() << "</nonz>\n";
+  out << "\n" << indent << "  <sparse-mat>\n";
+  out << indent << "    "
+      << "<rows>" << A.rows() << "<rows> "
+      << "<cols>" << A.columns() << "</cols> "
+      << "<nonz>" << A.nonzeroes() << "</nonz>\n";
 
   for (Index m, k=1; k<=A.rows(); k++)
     {
-      cout << indent << "      <row>";
-      cout << " <nonz>" << (A.end(k)-A.begin(k)) << "</nonz>";
+      out << indent << "      <row>";
+      out << " <nonz>" << (A.end(k)-A.begin(k)) << "</nonz>";
  
       double* n = A.begin(k);
       double* e = A.end  (k);
       for(Index* i=A.ibegin(k) ; n!=e; n++, i++, m++)
         {
-          cout << "\n        "
-               << "<int>" << *i << "</int>"
-               << "<flt>" << *n << "</flt>";
+          out << "\n        "
+              << "<int>" << *i << "</int>"
+              << "<flt>" << *n << "</flt>";
         }
-      cout << "\n        </row>\n";
+      out << "\n        </row>\n";
     }
 
-  cout << indent << "  </sparse-mat>\n";
+  out << indent << "  </sparse-mat>\n";
 
-  cout << "\n" << indent << "</adj-input-data>\n";
+  out << "\n" << indent << "</adj-input-data>\n";
 }
 
 
@@ -175,7 +175,7 @@ void Adj::init_least_squares()
   A_dot.set_zero();
   b_dot.reset(data->A.rows());
 
-  for (Index long k=1; k<=data->A.rows(); k++)
+  for (Index k=1; k<=data->A.rows(); k++)
     {
       double* n = data->A.begin(k);
       double* e = data->A.end  (k);
