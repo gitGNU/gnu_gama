@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: gama-g3.cpp,v 1.9 2004/02/19 17:21:23 cepek Exp $
+ * $Id: gama-g3.cpp,v 1.10 2004/02/20 18:07:29 cepek Exp $
  */
 
 #include <fstream>
@@ -145,81 +145,95 @@ namespace
   }
 }
 
+int main_g3()
+{
+  using namespace std;
+  using namespace GNU_gama::g3;
+
+  Model* model = get_xml_input(input);
+  if (model == 0) return error("error on reading XML input data");
+  
+  cerr.precision(12);
+  Model::ObservationData::iterator i = model->obsdata.begin();
+  Model::ObservationData::iterator e = model->obsdata.end();
+  while (i != e)
+    {
+      cerr << "* ";
+      if (Distance *d = dynamic_cast<Distance*>(*i))
+        {
+          cerr << " distance : from = "
+               << d->from
+               << "  to = "
+               << d->to
+               << "  val = "
+               << d->obs();
+          
+          if (d->from_dh || d->to_dh)
+            {
+              cerr << " ( ";
+              cerr << d->from_dh << " ";
+              cerr << d->to_dh << " ";
+              cerr << ")";
+            }              
+        }
+      if (Vector* v = dynamic_cast<Vector*>(*i))
+        {
+          cerr << " vector   : from = "
+               << v->from
+               << "  to = " 
+               << v->to
+               << "  dx = "
+               << v->dx()
+               << "  dy = "
+               << v->dy()
+               << "  dz = "
+               << v->dz();
+          
+          if (v->from_dh || v->to_dh)
+            {
+              cerr << " ( ";
+              cerr << v->from_dh << " ";
+              cerr << v->to_dh << " ";
+              cerr << ")";
+            }              
+        }
+      cerr << "\n";
+      ++i;
+    }
+  
+  model->update_linearization();
+  
+  if (projeq) 
+    {
+      std::ofstream out(projeq);
+      out.precision(16);
+      out << GNU_gama::DataParser::xml_start;
+      model->write_xml_adjustment_input_data(out);
+      out << GNU_gama::DataParser::xml_end;
+    }
+
+  model->update_adjustment();
+  
+  delete model;
+  return 0;
+}
+
 // ----------------------------------------------------------------------
 
 int main(int argc, char* argv[])
 {
-  if (help(argc, argv)) return 1;
-
   using namespace GNU_gama::g3;
 
-  Model* model = get_xml_input(input);
-  if (model == 0) return 0; // ??? error("error on reading XML input data");
-  
-  if (model) 
+  if (help(argc, argv)) return 1;
+
+  try 
     {
-      using namespace std;
-      cerr.precision(12);
-      Model::ObservationData::iterator i = model->obsdata.begin();
-      Model::ObservationData::iterator e = model->obsdata.end();
-      while (i != e)
-        {
-          cerr << "* ";
-          if (Distance *d = dynamic_cast<Distance*>(*i))
-            {
-              cerr << " distance : from = "
-                   << d->from
-                   << "  to = "
-                   << d->to
-                   << "  val = "
-                   << d->obs();
-
-              if (d->from_dh || d->to_dh)
-                {
-                  cerr << " ( ";
-                  cerr << d->from_dh << " ";
-                  cerr << d->to_dh << " ";
-                  cerr << ")";
-                }              
-            }
-          if (Vector* v = dynamic_cast<Vector*>(*i))
-            {
-              cerr << " vector   : from = "
-                   << v->from
-                   << "  to = " 
-                   << v->to
-                   << "  dx = "
-                   << v->dx()
-                   << "  dy = "
-                   << v->dy()
-                   << "  dz = "
-                   << v->dz();
-
-              if (v->from_dh || v->to_dh)
-                {
-                  cerr << " ( ";
-                  cerr << v->from_dh << " ";
-                  cerr << v->to_dh << " ";
-                  cerr << ")";
-                }              
-            }
-          cerr << "\n";
-          ++i;
-        }
-
-      model->update_linearization();
-
-      if (projeq) 
-        {
-          std::ofstream out(projeq);
-          out.precision(16);
-          out << GNU_gama::DataParser::xml_start;
-          model->write_xml_adjustment_input_data(out);
-          out << GNU_gama::DataParser::xml_end;
-        }
+      return main_g3();
     }
-  
-  delete model;
+  catch(...)
+    {
+      std::cerr << "\n### gama-g3 : unknown exception\n";
+    }
 
-  return 0;
+  return 1;
 }

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.24 2004/01/26 19:03:09 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.25 2004/02/20 18:07:29 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -39,7 +39,8 @@ Model::Model()
 
   points     = new PointBase;
   active_obs = new ObservationList;
-  par_list    = new ParameterList;
+  par_list   = new ParameterList;
+  adj        = new Adj;
 
   points->set_common_data(this); 
   set(&ellipsoid, ellipsoid_wgs84);
@@ -50,9 +51,10 @@ Model::Model()
 
 Model::~Model()
 {
-  delete points;
-  delete active_obs;
-  delete par_list;
+  delete  points;
+  delete  active_obs;
+  delete  par_list;
+  delete  adj;
 }
 
 
@@ -244,11 +246,11 @@ void Model::update_linearization()
 {
   if (!check_observations()) update_observations();
 
+  adj_input_data = new AdjInputData;
+
   A = new SparseMatrix<>(dm_floats, dm_rows, dm_cols);
   rhs.reset(dm_rows);
   rhs_ind = 0;
-
-  // delete B;   B = new BlockDiagonal<>;
 
   for (ObservationList::iterator 
          i=active_obs->begin(), e=active_obs->end(); i!=e; ++i)
@@ -256,8 +258,8 @@ void Model::update_linearization()
       (*i)->linearization_accept(this);
     }
 
-  adj_input_data.set_mat(A);
-  adj_input_data.set_rhs(rhs);
+  adj_input_data->set_mat(A);
+  adj_input_data->set_rhs(rhs);
 
   {
     int minx=0;
@@ -282,7 +284,7 @@ void Model::update_linearization()
               }
           }
         
-        adj_input_data.set_minx(minlist);
+        adj_input_data->set_minx(minlist);
       }
   }
   
@@ -311,22 +313,32 @@ void Model::update_linearization()
           }
       }
 
-    adj_input_data.set_cov(bd);
+    adj_input_data->set_cov(bd);
   }
+
+  adj->set(adj_input_data);
 
   return next_state_(linear_);
 }
 
 
-void Model::update_adjustment()
+void Model::write_xml_adjustment_input_data(std::ostream& out)
 {
   if (!check_linearization()) update_linearization();
 
-  return next_state_(adjust_);
+  /* see also : GNU_gama::DataParser::xml_start  *
+   *            GNU_gama::DataParser::xml_end    */
+  adj_input_data->write_xml(out);
 }
 
 
-void Model::write_xml_adjustment_input_data(std::ostream& out)
+void Model::update_adjustment()
 {
-  adj_input_data.write_xml(out);
+  cerr << "\n************ void Model::update_adjustment()\n\n";
+  if (!check_linearization()) update_linearization();
+
+  cerr << "x() = " << adj->x();
+
+  cerr << "\n------------ void Model::update_adjustment()\n\n";
+  return next_state_(adjust_);
 }

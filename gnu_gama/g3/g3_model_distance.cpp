@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_distance.cpp,v 1.4 2004/02/19 17:21:23 cepek Exp $
+ *  $Id: g3_model_distance.cpp,v 1.5 2004/02/20 18:07:29 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -74,7 +74,6 @@ void Model::linearization_visit(Distance* d)
 {
   Point* from = points->find(d->from);
   Point* to   = points->find(d->to  );
-
 
   {
     double dx = to->X() - from->X();

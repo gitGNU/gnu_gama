@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_vector.cpp,v 1.2 2004/02/19 17:21:23 cepek Exp $
+ *  $Id: g3_model_vector.cpp,v 1.3 2004/02/20 18:07:29 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -46,24 +46,24 @@ bool Model::revision_visit(Vector* v)
     {
       update_index(from->N_);
       update_index(from->E_);
-      dm_floats += 2;
+      dm_floats += 6;
     }
   if (from->free_height())
     {
       update_index(from->U_);
-      dm_floats += 1;
+      dm_floats += 3;
     }
   
   if (to->free_horizontal_position())
     {
       update_index(to->N_);
       update_index(to->E_);
-      dm_floats += 2;
+      dm_floats += 6;
     }
   if (to->free_height())
     {
       update_index(to->U_);
-      dm_floats += 1;
+      dm_floats += 3;
     }
   
   return v->active();
@@ -72,7 +72,6 @@ bool Model::revision_visit(Vector* v)
 
 void Model::linearization_visit(Vector* v)
 {
-  std::cerr << "linearization visit ........\n";
   Point* from = points->find(v->from);
   Point* to   = points->find(v->to  );
  
@@ -90,6 +89,7 @@ void Model::linearization_visit(Vector* v)
   
      // nonzero derivatives in project equations
      A->new_row();
+
      if (from->free_horizontal_position())
        {
          A->add_element(from->diff_N(), from->N.index());
@@ -110,7 +110,7 @@ void Model::linearization_visit(Vector* v)
          A->add_element(to->diff_U(), to->U.index());
        }
    }
- 
+
    // right hand site
    {
      double dx = to->X_dh(v->to_dh) - from->X_dh(v->from_dh);

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.20 2004/02/19 17:21:23 cepek Exp $
+ *  $Id: g3_model.h,v 1.21 2004/02/20 18:07:29 cepek Exp $
  */
 
 #include <gnu_gama/model.h>
@@ -54,7 +54,8 @@ namespace GNU_gama {  namespace g3 {
     typedef GNU_gama::List<Observation*>                ObservationList; 
     typedef GNU_gama::PointBase<g3::Point>              PointBase;
     typedef GNU_gama::List<Parameter*>                  ParameterList;
-    
+    typedef GNU_gama::Adj                               Adj;
+
     PointBase           *points;    
     GNU_gama::Ellipsoid  ellipsoid;
     
@@ -115,8 +116,10 @@ namespace GNU_gama {  namespace g3 {
     Vec               rhs;
     int               rhs_ind;
     BlockDiagonal<>*  B;
-    GNU_gama::AdjInputData  adj_input_data;
+    GNU_gama::AdjInputData*  adj_input_data;
 
+    // adjustment
+    Adj*              adj;
   };
   
 }}
