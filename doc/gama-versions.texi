@@ -1,4 +1,4 @@
-@comment $Id: gama-versions.texi,v 1.7 2003/09/17 16:38:36 cepek Exp $
+@comment $Id: gama-versions.texi,v 1.8 2005/04/01 18:18:08 cepek Exp $
 
 GNU Gama is a project dedicated to adjustment of @emph{geodetic
 networks}. It was formerly inspired by Fortran system Geodet/PC (1990)
@@ -15,7 +15,7 @@ in Prague and then at FIG Workshop and Seminar at HUT Helsinki in
 
 GNU Gama is released under GNU General Public Licence and is based on
 a C++ library of geodetic classes and functions @code{GamaLib} and a
-small C++ template matrix library @code{gmatvec}. For parsing XML
+small C++ template matrix library @code{matvec}. For parsing XML
 documents GNU Gama calls @code{expat} parser version 1.1 written by
 James Clark. The @code{expat} parser is not part of the GNU Gama
 project, but is used with GNU Gama.

@@ -30,11 +30,11 @@ cvs -z3 -d:pserver:anoncvs@@subversions.gnu.org:/cvsroot/gama
 @noindent for the stable branch @code{@value{STABLEV}}.
 
 To download from CVS only the matrix/vector C++ template library
-@code{gmatvec} run
+@code{matvec} run
 @example
 @c cvs -d:pserver:anoncvs@@subversions.gnu.org:/cvsroot/gama login 
 cvs -z3 -d:pserver:anoncvs@@subversions.gnu.org:/cvsroot/gama 
-         co gama/gmatvec
+         co gama/matvec
 @end example
 
 
