@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.h,v 1.11 2003/11/06 17:58:57 cepek Exp $
+ *  $Id: observation.h,v 1.12 2004/01/17 21:36:14 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_Mereni_H
@@ -64,7 +64,7 @@ namespace GaMaLib {
     
     public:
 
-      typedef GaMaLib::Cov Cov;
+      typedef GaMaLib::Cov CovarianceMatrix;
     
       Observation(const PointID& s, const PointID& c, Double m) 
         :

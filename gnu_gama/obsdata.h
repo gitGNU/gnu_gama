@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.11 2004/01/05 19:07:12 cepek Exp $
+ *  $Id: obsdata.h,v 1.12 2004/01/17 21:36:14 cepek Exp $
  */
 
 
@@ -42,10 +42,10 @@ namespace GNU_gama {
     {
     public:
       
-      typedef Observation                  ObservationType;  
-      const ObservationData<Observation>*  observation_data;
-      List<Observation*>                   observation_list;
-      typename Observation::Cov            covariance_matrix;  
+      typedef Observation                     ObservationType;  
+      const ObservationData<Observation>*     observation_data;
+      List<Observation*>                      observation_list;
+      typename Observation::CovarianceMatrix  covariance_matrix;  
       
       
       Cluster(const ObservationData<Observation>* od) 
@@ -68,7 +68,8 @@ namespace GNU_gama {
       void update();
       
       int  activeCount() const { return act_count; }
-      typename Observation::Cov  activeCov() const; 
+      typename Observation::CovarianceMatrix  
+           activeCov() const; 
       
     private:    // no copy ctor and no assignment
       
@@ -320,7 +321,7 @@ namespace GNU_gama {
 
 
   template <class Observation>
-    typename Observation::Cov Cluster<Observation>::activeCov() const
+    typename Observation::CovarianceMatrix Cluster<Observation>::activeCov() const
     {
       typedef std::size_t Index;
       const Index M = covariance_matrix.rows();
@@ -328,7 +329,7 @@ namespace GNU_gama {
       const Index N = activeCount();
       Index temp = B;
       if (N-1 < B) temp = N-1;
-      typename Observation::Cov C(N, temp);
+      typename Observation::CovarianceMatrix C(N, temp);
       
       Index row = 1;
       Index col = row;

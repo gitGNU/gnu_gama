@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: model.h,v 1.13 2004/01/17 17:30:20 cepek Exp $
+ *  $Id: model.h,v 1.14 2004/01/17 21:36:14 cepek Exp $
  */
 
 
@@ -60,7 +60,7 @@ namespace GNU_gama {
 
     Cluster*        cluster;
     Index           cluster_index;
-    typedef Matrix  Cov;
+    typedef Matrix  CovarianceMatrix;
 
     Observation() : cluster(0), cluster_index(0), active_(true) {}
     virtual ~Observation() {}
