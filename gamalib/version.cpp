@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.40 2002/11/14 15:01:17 cepek Exp $
+ *  $Id: version.cpp,v 1.41 2002/11/21 17:31:59 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.5.05-pre";
+const char* GaMaLib_version  = "1.5.05";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
@@ -59,9 +59,14 @@ const char* GaMaLib_compiler =
 
 =============================================================================
 
-1.5.05 2002--
+1.5.05 2002-11-21
 
-    - gmatvec-0.9.21 (removed forgottne calls to fabs() )
+    - removed bug in text output of fixed coordinates in gama-local
+      reported by Carl Verheyen (in the case of "inconsistent
+      coordinate system" internally changed sign of y coordinates was
+      not transformed back in the output).  File: fixed_points.h
+
+    - gmatvec-0.9.21 (removed forgotten calls to fabs() )
 
     - some minor changes in scripts/GaMaLib_archive to reflect new
       archive file names in format 'gama-xx.yy.zz.tar.gz'

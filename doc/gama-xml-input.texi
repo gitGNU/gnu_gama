@@ -1,4 +1,4 @@
-@comment $Id: gama-xml-input.texi,v 1.2 2002/10/25 16:32:11 cepek Exp $
+@comment $Id: gama-xml-input.texi,v 1.3 2002/11/21 17:31:59 cepek Exp $
 
 @comment setfilename gama-xml-inp.info
 
@@ -142,10 +142,14 @@ Republic where the axes @code{x} and @code{y} are oriented south and
 west respectively.  Apart from right handed systems the program
 @code{gama-local} can adjust observations and coordinates in
 left-handed systems with counterclockwise angles and/or
-directions. The current version does not support mixed systems with
-different orientation of axes and angles. If such a situation is
-detected, @code{gama-local} tries to recover from the unsupported
-system by simply changing the sign of all @code{y} coordinates.
+directions. 
+
+The current version does not support mixed systems with different
+orientation of axes and angles. If such a situation is detected,
+@code{gama-local} tries to recover from the unsupported system by
+simply internally changing the sign of all @code{y} coordinates (in
+the text output of adjustment results the sign of @code{y} coordinates
+is reverted back by @code{gama-local}).
 
 
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.1 2002/10/24 17:12:37 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.2 2002/11/21 17:31:59 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -335,10 +335,10 @@ int GaMa_Main(int argc, char **argv)
     
     try
       {
-        if (!Consistent(IS->PD, IS->OD))
-          {
-            cout << T_GaMa_inconsistent_coordinates_and_angles << "\n\n\n";
-          }
+        // if (!Consistent(IS->PD, IS->OD))
+        //   {
+        //     cout << T_GaMa_inconsistent_coordinates_and_angles << "\n\n\n";
+        //   }
         Acord acord(IS->PD, IS->OD);
         acord.execute();
         ApproximateCoordinates(&acord, cout);

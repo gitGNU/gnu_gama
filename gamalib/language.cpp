@@ -385,7 +385,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_gpar2_constrained_points="Constrained points";
 	T_GaMa_gpar2_network_defect="Network defect";
 	T_GaMa_gpar2_number_of_unknowns="Number of unknowns";
-	T_GaMa_inconsistent_coordinates_and_angles="Inconsistent coordinates and angles: changing sign of all Y coordinates";
+	T_GaMa_inconsistent_coordinates_and_angles="Inconsistent coordinates and angles: internally changing sign of all Y coordinates";
 	T_GaMa_index_type_point="  index type point";
 	T_GaMa_internal_program_error="GaMa - internal program error!";
 	T_GaMa_interval="interval";
