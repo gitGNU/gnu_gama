@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: test_linearization.h,v 1.5 2003/08/03 14:12:37 cepek Exp $
+ *  $Id: test_linearization.h,v 1.6 2003/08/07 20:38:20 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Test_Chyby_z_Linearizace_h_
@@ -103,7 +103,7 @@ TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
       {
         dif_m(i) = 0;
         dif_p(i) = 0;
-        if (IS->obs_control(i) < 0.1) continue;  // uncontrolled observation
+        // if (IS->obs_control(i) < 0.1) continue;  // uncontrolled observation
         // if (IS->obs_control(i) < 5.0) continue;  // weakly controlled obs.
 
         Double  mer, pol;

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.11 2003/05/11 12:32:25 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.12 2003/08/07 20:38:20 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -379,12 +379,6 @@ int GaMa_Main(int argc, char **argv)
                  << "\n\n\n";
           }
 
-        if (file_opr != "")
-          {
-            ofstream opr(file_opr.c_str());
-            IS->project_equations(opr);
-          }
-        
         NetworkDescription(description, cout);
         if (GeneralParameters(IS, cout))
           {
@@ -412,6 +406,12 @@ int GaMa_Main(int argc, char **argv)
             AdjustedObservations (IS, cout);
             ResidualsObservations(IS, cout);
 
+          }
+        
+        if (file_opr != "")
+          {
+            ofstream opr(file_opr.c_str());
+            IS->project_equations(opr);
           }
         
         if (xml_output != "")
