@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.25 2004/02/20 18:07:29 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.26 2004/02/20 20:34:25 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -246,6 +246,7 @@ void Model::update_linearization()
 {
   if (!check_observations()) update_observations();
 
+  cerr << "- - - - - - - - - - - - - - - - - - - - - - - .\n";
   adj_input_data = new AdjInputData;
 
   A = new SparseMatrix<>(dm_floats, dm_rows, dm_cols);
@@ -315,7 +316,7 @@ void Model::update_linearization()
 
     adj_input_data->set_cov(bd);
   }
-
+    
   adj->set(adj_input_data);
 
   return next_state_(linear_);

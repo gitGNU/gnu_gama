@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.15 2004/02/16 17:54:23 cepek Exp $
+ *  $Id: obsdata.h,v 1.16 2004/02/20 20:34:25 cepek Exp $
  */
 
 
@@ -340,14 +340,17 @@ namespace GNU_gama {
        Cluster<Observation>::activeCov() const
     {
       typedef std::size_t Index;
-      const Index M = covariance_matrix.rows();
-      const Index B = covariance_matrix.bandWidth();
-      const Index N = activeDim();
+      const Index M      = covariance_matrix.rows();
+      const Index N      = activeDim();
       const Index i_size = observation_list.size();
+      Index active_band  = covariance_matrix.bandWidth();
 
-      Index band = B;
-      if (N-1 < B) band = N-1;
-      typename Observation::CovarianceMatrix C(N, band);
+      if (N && N-1 < active_band) 
+        active_band = N-1;
+      else
+        active_band = 0;
+
+      typename Observation::CovarianceMatrix C(N, active_band);
 
       Index* ind = new Index[act_dim + 1];
       for (Index k=1, n=1, i=0; i<i_size; i++)
@@ -364,7 +367,7 @@ namespace GNU_gama {
         }
 
       for (Index i=1; i<=N; i++)
-        for (Index j=0; j<=band && i+j<=N; j++)
+        for (Index j=0; j<=active_band && i+j<=N; j++)
           C(i, i+j) = covariance_matrix(ind[i], ind[i+j]);
 
       delete[] ind;

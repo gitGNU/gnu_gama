@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_vector.cpp,v 1.3 2004/02/20 18:07:29 cepek Exp $
+ *  $Id: g3_model_vector.cpp,v 1.4 2004/02/20 20:34:25 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -33,7 +33,7 @@ bool Model::revision_visit(Vector* v)
 
   Point* from = points->find(v->from);
   Point* to   = points->find(v->to  );
-  
+
   if ( from == 0      ||  to == 0      ) return v->set_active(false);
   if ( from->unused() ||  to->unused() ) return v->set_active(false);
   if (!from->has_position()            ) return v->set_active(false);
