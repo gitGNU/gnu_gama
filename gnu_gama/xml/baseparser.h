@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: baseparser.h,v 1.5 2003/06/14 15:00:22 cepek Exp $
+ *  $Id: baseparser.h,v 1.6 2003/08/14 16:20:26 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa__XML__BASE_Base_base__PARSER_Parser_parser__h_
@@ -29,8 +29,7 @@
 
 // BaseParser is just a simple C++ wrapper for XML parser expat
 
-#include <expat/xmlparse/xmlparse.h>
-
+#include <gnu_gama/xml_expat.h>
 #include <gnu_gama/xml/dataobject.h>
 #include <gnu_gama/intfloat.h>
 #include <string>

@@ -28,9 +28,9 @@ etc. and run
 
 ---------------------------
 
-Project GaMa was developed and tested under Debian GNU/Linux 2.2.
-Apart from GNU g++, the project was tested with bcc32 (Borland free
-command line tools) and with MS Visual C++ (not the latest versions).
+Project GaMa was developed and tested under Debian GNU/Linux.  Apart
+from GNU g++, the project was tested with bcc32 (Borland free command
+line tools) and with MS Visual C++ (not the latest versions).
 
       To build command line program gama for win32 platform 
       change to gamaprog/win32-borland and run `make' or go to

@@ -20,10 +20,10 @@
 */
 
 /*
- *  $Id: encoding.h,v 1.1 2003/05/10 13:13:36 cepek Exp $
+ *  $Id: encoding.h,v 1.2 2003/08/14 16:20:26 cepek Exp $
  */
 
-#include <expat/xmlparse/xmlparse.h>
+#include <gnu_gama/xml_expat.h>
 
 #ifndef GaMaLib_GKF__XML__encoding__h_
 #define GaMaLib_GKF__XML__encoding__h_

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.11 2003/08/09 11:01:55 cepek Exp $
+ *  $Id: version.cpp,v 1.12 2003/08/14 16:20:26 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.06";
+const char* GNU_gama_version  = "1.7.07-pre";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -46,7 +46,7 @@ const char* GNU_gama_compiler =
 }
 
 
-/* GNU Gama uses James Clark's parser Expat (v.1.1) for XML data processing
+/* GNU Gama uses James Clark's parser Expat for XML data processing
  *
  *    Expat is subject to the Mozilla Public License Version 1.1. 
  *    Alternatively you may use expat under the GNU General Public
@@ -54,10 +54,23 @@ const char* GNU_gama_compiler =
  *
  *              ftp://ftp.jclark.com/pub/xml/expat.zip
  *
- * Scripts for compiling GNU Gama and linking the program gama-local expect
- * Expat library to be in the same directory as GNU Gama
+ * Normally GNU Gama is linked with Expat version 1.95.2 (or later)
+ * shared library.  It is possible to compile and build Gama with old
+ * expat version 1.1.  In such a case scripts for compiling GNU Gama
+ * and linking the program gama-local expect Expat 1.1 library to be
+ * in the same directory as GNU Gama
 
 =============================================================================
+
+1.7.07 xxxxxxxxxx
+
+   - Makefiles changed to enable Gama to use expat 1.95.2 (or later)
+     XML parsing library as shipped with Debian GNU/Linux.  
+
+     Old version 1.1 of expat is still available if for any reason
+     shared library of expat was not available (currently expat
+     version 1.1 is used for Gama build under Windows)
+
 
 1.7.06 2003-08-09
 

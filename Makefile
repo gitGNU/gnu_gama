@@ -1,6 +1,6 @@
-# $Id: Makefile,v 1.19 2003/07/31 16:33:30 cepek Exp $
+# $Id: Makefile,v 1.20 2003/08/14 16:20:25 cepek Exp $
 #
-# this Makefile and all files in ./scripts were tested on Debian GNU/Linux 2.2
+# this Makefile and all files in ./scripts were tested on Debian GNU/Linux 3.0
 #
 
 
@@ -14,24 +14,31 @@ all:
 help:
 	@echo
 	@echo -e make "    " \
-	"\t#" runs make on makefiles created by \`make dep\'
+	"\t#" run make on makefiles created by \`make dep\'
 	@echo
 	@echo -e make dep \
-	"\t#" creates all Makefiles
+	"\t#" create all Makefiles
 	@echo
 	@echo "     aditional" \
 	options can be passed to g++ with export CXXFLAGS=\"...\"
 	@echo
+	@echo -e make dep-expat-1.1\
+	"\t#"  create alternative Makefiles 
+	@echo -e "           "\
+	"\t\t#    for old version 1.1 of expat XML parser"
 	@echo -e make example \
-	"\t#" runs program gama on an example input data
+	"\t\t#" runs program gama on an example input data
 	@echo -e make archive \
-	"\t#" creates tar archive from working directory
+	"\t\t#" creates tar archive from working directory
 	@echo -e make help    \
-	"\t#" this screen
+	"\t\t#" this screen
 	@echo
 
 dep:
 	./scripts/build-makefiles
+
+dep-expat-1.1:
+	./scripts/build-makefiles-expat-1.1
 
 build:
 	./scripts/build-dictionaries
@@ -53,6 +60,11 @@ clean:
 	rm -f `find gnu_gama gamalib -name demo*`
 	rm -f `find . -name "*[\~\#]*"`
 	rm -f `find gamaprog/linux/gama-local/examples -name test*`
+
+clean-scripts:
+	make clean
+	(cd scripts; rm -f gnu_gama_dep slovnikar ellipsoids_xml \
+		utf8-ascii )
 
 # -----------------------------------------------------------------------
 

@@ -1,8 +1,8 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.22)
-    Copyright (C) 2000  Ales Cepek <cepek@fsv.cvut.cz>
+    Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
+    Copyright (C) 2003  Ales Cepek <cepek@fsv.cvut.cz>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,16 +20,33 @@
 */
 
 /*
- *  $Id: gmatvec.h,v 1.10 2003/08/14 16:20:25 cepek Exp $
- *  http://www.gnu.org/software/gama/
+ *  $Id: xml_expat.h,v 1.1 2003/08/14 16:20:26 cepek Exp $
  */
 
-#ifndef gMatVec___gMatVec___h_
-#define gMatVec___gMatVec___h_
+#ifndef GNU_gama_xml_expat_h___GNU_Gama_interface_for_Expat_XML_parser
+#define GNU_gama_xml_expat_h___GNU_Gama_interface_for_Expat_XML_parser
 
-#include <gmatvec/mat.h>
-#include <gmatvec/transmat.h>
-#include <gmatvec/vec.h>
-#include <gmatvec/transvec.h>
+
+#ifdef  GNU_gama_expat_1_1
+
+/* If for any reason you don't have expat parser installed you can
+ * still build GNU Gama using old expat version 1.1 */
+#include <expat/xmlparse/xmlparse.h>
+
+#else
+
+/* For expat 1.95.2 or (hopefully) any later */
+#include <expat.h>
 
 #endif
+
+
+#endif
+
+
+
+
+
+
+
+

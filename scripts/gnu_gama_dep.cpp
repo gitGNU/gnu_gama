@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gnu_gama_dep.cpp,v 1.2 2003/03/28 22:07:31 cepek Exp $
+ *  $Id: gnu_gama_dep.cpp,v 1.3 2003/08/14 16:20:26 cepek Exp $
  */
 
 #include <iostream>
@@ -29,10 +29,13 @@
 #include <string>
 #include <set>
 
-const char* version = "0.8";
+const char* version = "0.9";
 
 /*************************************************************************
  * 
+ * 0.9  - various changes needed for GNU Gama to be compiled with
+ *        expat version 1.95.2 (or any later). Old version 1.1 of expat 
+ *        parser is still available as an alternative
  * 0.8  - accepts include directives with spaces between '#' and `include'
  *      - avoids possible recursive dependences
  * 0.7  gamalib_dep renamed to gnu_gama_dep; all bash  scripts used
@@ -46,8 +49,15 @@ const char* version = "0.8";
  *************************************************************************/
 
 
-enum Projects  { t_lib, t_expat,         t_gama_local };  
-enum Platforms { t_gnu, t_win32_borland, t_win32_msvc };  
+enum Projects  { t_lib, 
+                 t_expat,         
+                 t_gama_local 
+};  
+enum Platforms { t_gnu, 
+                 t_gnu_expat_1_1,
+                 t_win32_borland, 
+                 t_win32_msvc 
+};  
 
 
 const char* platform_pars[] = {
@@ -56,6 +66,21 @@ const char* platform_pars[] = {
   "CFLAGS   += -pipe\n"
   "#CXX      = g++\n"
   "CXXFLAGS += -pipe -I../../..\n"
+  "OBJ       = o\n"
+  "LIBR      = @ar -r libgama.a\n"
+  "RANLIB    = ranlib libgama.a\n"
+  "LINK      = $(CXX) #g++\n"
+  "LFLAGS   += -o\n"
+  "LIBS     += -lexpat\n"
+  "MAKE      = make\n"
+  "LIBGAMA   = libgama.a\n"
+  "P_GAMA_L  = gama-local\n"
+  ,
+
+  "#CC       = gcc\n"
+  "CFLAGS   += -pipe\n"
+  "#CXX      = g++\n"
+  "CXXFLAGS += -pipe -DGNU_gama_expat_1_1 -I../../..\n"
   "OBJ       = o\n"
   "LIBR      = @ar -r libgama.a\n"
   "RANLIB    = ranlib libgama.a\n"
@@ -70,7 +95,7 @@ const char* platform_pars[] = {
   "CC        = bcc32\n"
   "CFLAGS    = -A -Od -w-8008 -w-8065 -w-8066 -w-8057\n"
   "CXX       = bcc32\n"
-  "CXXFLAGS  = -I../../.. -w-8026 -w-8027 -w-8004 -tWR\n"
+  "CXXFLAGS  = -DGNU_gama_expat_1_1 -I../../.. -w-8026 -w-8027 -w-8004 -tWR\n"
   "OBJ       = obj\n"
   "LIBR      = tlib /P4096 libgama.lib +\n"
   "RANLIB    = rem\n"
@@ -85,7 +110,7 @@ const char* platform_pars[] = {
   "CC        = cl\n"
   "CFLAGS    =\n"
   "CXX       = cl\n"
-  "CXXFLAGS  = -I../../.. /nologo /W1 /GX /O2 /D \"WIN32\" \\\n"
+  "CXXFLAGS  = -DGNU_gama_expat_1_1 -I../../.. /nologo /W1 /GX /O2 /D \"WIN32\" \\\n"
   "            /D \"NDEBUG\" /D \"_MBCS\" /D \"_LIB\" /Zp1 /MT /GR\n"
   "OBJ       = obj\n"
   "LIBR      = rem link -lib libgama.lib\n"
@@ -200,6 +225,7 @@ int main(int argc, char* argv[])
     {
       string arg2 = argv[2];
       if      (arg2 == "gnu"          ) platform = t_gnu;
+      else if (arg2 == "gnu-expat-1.1") platform = t_gnu_expat_1_1;
       else if (arg2 == "win32-borland") platform = t_win32_borland;
       else if (arg2 == "win32-msvc"   ) platform = t_win32_msvc;
       else
@@ -283,8 +309,12 @@ int main(int argc, char* argv[])
 
   if (project == t_expat)
     {
+      string co  = "";
+
+      if (platform == t_gnu) co = "### ";  // don't use expat 1.1
+
       cout << 
-        "ALL : $(LIBGAMA)\n\n"
+        "ALL : " << co << "$(LIBGAMA)\n\n"
         
         "$(OBJDIR)xmltok.$(OBJ) : $(SRC)expat/xmltok/xmltok.c\n"
 	"\t$(CC) $(CFLAGS) -O2 -I../../../expat/xmltok "

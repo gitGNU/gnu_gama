@@ -20,7 +20,7 @@
  * available.  Attribute EN is ignored on input and serves as a kind
  * of comment.
  * 
- * $Id: slovnikar.cpp,v 1.7 2003/06/04 07:43:55 cepek Exp $
+ * $Id: slovnikar.cpp,v 1.8 2003/08/14 16:20:26 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
@@ -112,7 +112,7 @@ Dictionary dict;
 
 // ---------------------------------------------------------------------------
 
-#include <expat/xmlparse/xmlparse.h>
+#include <gnu_gama/xml_expat.h>
 #include <gnu_gama/xml/encoding.h>
 
 using namespace GNU_gama;

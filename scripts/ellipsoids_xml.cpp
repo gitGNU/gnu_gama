@@ -2,7 +2,7 @@
  * input file into ellipsoids.[h|cpp|html|texi] output.
  * ==========================================================================
  * 
- * $Id: ellipsoids_xml.cpp,v 1.10 2003/05/10 19:35:17 cepek Exp $
+ * $Id: ellipsoids_xml.cpp,v 1.11 2003/08/14 16:20:26 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
@@ -56,7 +56,6 @@ const char* version = "0.04";
 #include <string>
 #include <cstring>
 #include <list>
-#include <expat/xmlparse/xmlparse.h>
 #include <gnu_gama/xml/encoding.h>
 
 using namespace std;

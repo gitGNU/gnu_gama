@@ -1,18 +1,17 @@
 #include <iostream>
 #include <string>
-#include <expat/xmlparse/xmlparse.h>
 #include <gnu_gama/xml/encoding.h>
 
 /*
- * $Id: utf8-ascii.cpp,v 1.2 2003/05/10 13:43:03 cepek Exp $
+ * $Id: utf8-ascii.cpp,v 1.3 2003/08/14 16:20:26 cepek Exp $
  */
 
-namespace GaMaLib {
+namespace GNU_gama {
   int Utf8Decode(int& u, unsigned char *buf);
 }
 
 using namespace std;
-using namespace GaMaLib;
+using namespace GNU_gama;
 
 void init_ascii(unsigned char[]);
 
