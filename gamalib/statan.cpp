@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: statan.cpp,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: statan.cpp,v 1.2 2002/05/31 11:02:35 cepek Exp $
  */
 
 #include <gamalib/statan.h>
@@ -70,8 +70,8 @@ float Student(float palfa, int N)
    float b = 48.0/(a*a);
    float c = ((20700.0*a/b-98.0)*a-16.0)*a+96.36;
    float d = ((94.5/(b+c)-3.0)/b+1.0)*sqrt(M_PI/2*a)*r;
-   float x = d*alfa;
-   float y = pow(x,2.0/r);
+   float x = d*alfa, xx = 2.0/r;
+   float y = pow(x,xx);
 
    if (y > a+0.05)
    {

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.14 2002/05/29 16:06:54 cepek Exp $
+ *  $Id: version.cpp,v 1.15 2002/05/31 11:02:35 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.3.38";
+const char* GaMaLib_version  = "1.3.39";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
@@ -56,6 +56,14 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.3.39 ?????????? not yet released (available from CVS only)
+
+   - various bugs reported by g++ v3 (pointed out by Jan Pytel); files
+     observation.h, g2d_coordinates.cpp, statan.cpp.
+
+     All the changes are backward compatible with g++ 2.95.2
+
 
 1.3.38 2002-05-29
 

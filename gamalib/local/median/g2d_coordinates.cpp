@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_coordinates.cpp,v 1.2 2002/05/24 19:30:51 cepek Exp $
+ *  $Id: g2d_coordinates.cpp,v 1.3 2002/05/31 11:02:35 cepek Exp $
  */
 
 /*************************************************************
@@ -211,8 +211,8 @@ bool ApproximateCoordinates::Solve_insertion()
   PointIDList obs_points;
   bool prv_distance = true;
   bool prv_observation = true;
-  ObservationList::iterator first_distance = NULL;
-  ObservationList::iterator first_observation = NULL;
+  ObservationList::iterator first_distance = SM.end();
+  ObservationList::iterator first_observation = SM.end();
   {  // VC++ {}
     for(PointIDList::iterator i = selected.begin(); i != selected.end(); i++)
       for(ObservationList::iterator j = SM.begin(); j != SM.end(); j++)
@@ -297,7 +297,7 @@ bool ApproximateCoordinates::Solve_insertion()
   const Double pom_X = 5000;
   const Double const_distance = 1000;
   PointID local_cs_1, local_cs_2;
-  if(first_distance)
+  if(first_distance != SM.end())
     {
       local_cs_1 = (*first_distance)->from();
       local_cs_2 = (*first_distance)->to();
