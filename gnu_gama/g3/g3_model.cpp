@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.5 2003/04/08 16:41:51 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.6 2003/05/17 17:07:08 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -33,24 +33,30 @@ Model::Model()
 { 
   using namespace GNU_gama;
 
-  points.set_common_data(this); 
+  points = new PointBase;
+  obs    = new ObservationData;
+
+  points->set_common_data(this); 
   set(&ellipsoid, ellipsoid_wgs84);
 }
 
 
 Model::~Model()
 {
+  delete points;
+  delete obs;
+
 }
 
 
 Point* Model::get_point(const Point::Name& name)
 {
-  Point* p = points.find(name);
+  Point* p = points->find(name);
   if (p == 0)
     {
       p = new Point;
       p->name = name;
-      points.put(p);
+      points->put(p);
     }
 
   return p;

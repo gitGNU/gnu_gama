@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.4 2003/05/15 18:53:15 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.5 2003/05/17 17:07:08 cepek Exp $
  */
 
 // #########################################################################
@@ -133,6 +133,7 @@ int main()
 
 
 #include <gnu_gama/xml/dataparser.h>
+#include <gnu_gama/g3/g3_cluster.h>
 #include <cstring>
 
 using namespace std;
@@ -183,11 +184,77 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
 
   // .....  <g3-model>  ..............................................
 
-
   init(  s_gama_data, t_g3_model,
          //----------------------
          s_g3_model, 0, 0,
          &DataParser::g3_model, 0, &DataParser::g3_model);
+
+  // .....  <g3-model> <vector>  ....................................
+
+  init(  s_g3_model, t_vector,
+         //-------------------
+         s_g3_vector, s_g3_vector_after_czz, 0,
+         &DataParser::g3_vector, 0, &DataParser::g3_vector);
+
+  init(  s_g3_vector, t_from,
+         //------------------
+         s_g3_vector_from, 0, s_g3_vector_after_from,
+         0, &DataParser::add_text, &DataParser::g3_vector_from);
+
+  init(  s_g3_vector_after_from, t_to,
+         //---------------------------
+         s_g3_vector_to, 0, s_g3_vector_after_to,
+         0, &DataParser::add_text, &DataParser::g3_vector_to);
+
+  init(  s_g3_vector_after_from, t_to,
+         //---------------------------
+         s_g3_vector_to, 0, s_g3_vector_after_to,
+         0, &DataParser::add_text, &DataParser::g3_vector_to);
+
+  init(  s_g3_vector_after_to, t_dx,
+         //-------------------------
+         s_g3_vector_dx, 0, s_g3_vector_after_dx,
+         0, &DataParser::add_text, &DataParser::append_sp);
+
+  init(  s_g3_vector_after_dx, t_dy,
+         //-------------------------
+         s_g3_vector_dy, 0, s_g3_vector_after_dy,
+         0, &DataParser::add_text, &DataParser::append_sp);
+
+  init(  s_g3_vector_after_dy, t_dz,
+         //-------------------------
+         s_g3_vector_dz, 0, s_g3_vector_after_dz,
+         0, &DataParser::add_text, &DataParser::append_sp);
+
+  init(  s_g3_vector_after_dz, t_cxx,
+         //--------------------------
+         s_g3_vector_cxx, 0, s_g3_vector_after_cxx,
+         0, &DataParser::add_text, &DataParser::append_sp);
+
+  init(  s_g3_vector_after_cxx, t_cxy,
+         //---------------------------
+         s_g3_vector_cxy, 0, s_g3_vector_after_cxy,
+         0, &DataParser::add_text, &DataParser::append_sp);
+
+  init(  s_g3_vector_after_cxy, t_cxz,
+         //---------------------------
+         s_g3_vector_cxz, 0, s_g3_vector_after_cxz,
+         0, &DataParser::add_text, &DataParser::append_sp);
+
+  init(  s_g3_vector_after_cxz, t_cyy,
+         //---------------------------
+         s_g3_vector_cyy, 0, s_g3_vector_after_cyy,
+         0, &DataParser::add_text, &DataParser::append_sp);
+
+  init(  s_g3_vector_after_cyy, t_cyz,
+         //---------------------------
+         s_g3_vector_cyz, 0, s_g3_vector_after_cyz,
+         0, &DataParser::add_text, &DataParser::append_sp);
+
+  init(  s_g3_vector_after_cyz, t_czz,
+         //---------------------------
+         s_g3_vector_czz, 0, s_g3_vector_after_czz,
+         0, &DataParser::add_text, &DataParser::append_sp);
 
   // .....  <text>  ..................................................
  
@@ -372,12 +439,22 @@ DataParser::data_tag DataParser::tag(const char* c)
       break;
     case 'c' :
       if (!strcmp(c, "cols"          )) return t_cols;
+      if (!strcmp(c, "cxx"           )) return t_cxx;
+      if (!strcmp(c, "cxy"           )) return t_cxy;
+      if (!strcmp(c, "cxz"           )) return t_cxz;
+      if (!strcmp(c, "cyy"           )) return t_cyy;
+      if (!strcmp(c, "cyz"           )) return t_cyz;
+      if (!strcmp(c, "czz"           )) return t_czz;
       break;
     case 'd' :
       if (!strcmp(c, "dim"           )) return t_dim;
+      if (!strcmp(c, "dx"            )) return t_dx;
+      if (!strcmp(c, "dy"            )) return t_dy;
+      if (!strcmp(c, "dz"            )) return t_dz;
       break;
     case 'f' :
       if (!strcmp(c, "flt"           )) return t_flt;
+      if (!strcmp(c, "from"          )) return t_from;
       break;
     case 'g' :
       if (!strcmp(c, "g3-model"      )) return t_g3_model;
@@ -398,6 +475,7 @@ DataParser::data_tag DataParser::tag(const char* c)
       break;
     case 't' :
       if (!strcmp(c, "text"          )) return t_text;
+      if (!strcmp(c, "to"            )) return t_to;
       break;
     case 'v' :
       if (!strcmp(c, "vector"        )) return t_vector;
@@ -756,6 +834,62 @@ int DataParser::g3_model(const char *name)
 {
   objects.push_back( new DataObject::g3_model(mg3) );
   mg3 = 0;
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_vector(const char *name, const char **atts)
+{
+  no_attributes( name, atts );
+  state = next[state][tag(name)];
+
+  g3vec_from = "";
+  g3vec_to   = "";
+
+  return 0;
+}
+
+int DataParser::g3_vector(const char *name)
+{
+  stringstream istr(text_buffer);
+  double dx, dy, dz, cxx, cxy, cxz, cyy, cyz, czz;
+
+  if (!(istr >> dx >> dy >> dz >> cxx >> cxy >> cxz >> cyy >> cyz >> czz))
+    {
+      return error("### bad format of numerical data in <vector>");
+    }
+
+  using namespace g3;
+  
+  cout << dx<< " " <<  dy<< " " <<  dz<< " " 
+       <<  cxx<< " " <<  cxy<< " " <<  cxz<< " " 
+       <<  cyy<< " " <<  cyz<< " " <<  czz << endl;
+
+  Vector* v = new Vector(dx, dy, dz);
+  v->name[0] = g3vec_from;
+  v->name[1] = g3vec_to;
+
+  Model::ObservationData *obs = mg3->obs;
+  Vectors* vectors = new Vectors(obs);
+
+  vectors->add(v);
+  obs->CL.push_back(vectors);
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_vector_from(const char *name)
+{
+  g3vec_from = text_buffer;
+  text_buffer.erase();
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_vector_to(const char *name)
+{
+  g3vec_to = text_buffer;
+  text_buffer.erase();
 
   return  end_tag(name);
 }

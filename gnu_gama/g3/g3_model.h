@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.6 2003/05/15 18:53:15 cepek Exp $
+ *  $Id: g3_model.h,v 1.7 2003/05/17 17:07:08 cepek Exp $
  */
 
 #include <gnu_gama/pointbase.h>
@@ -44,10 +44,10 @@ namespace GNU_gama {  namespace g3 {
     typedef GNU_gama::PointBase<g3::Point>              PointBase;
     typedef GNU_gama::ObservationData<g3::Observation>  ObservationData;
     
-    PointBase           points;
-    ObservationData     obs;
+    PointBase           *points;
+    ObservationData     *obs;
     
-    GNU_gama::Ellipsoid ellipsoid;
+    GNU_gama::Ellipsoid  ellipsoid;
 
 
     Model();
@@ -55,7 +55,11 @@ namespace GNU_gama {  namespace g3 {
 
     Point* get_point(const Point::Name&);
 
-    void write_xml(std::ostream& out) { out << "<g3 XML not implemented>\n";}
+    void write_xml(std::ostream& out) { out << "<g3 XML output not implemented>\n";}
+
+  private:
+    Model(const Model&);
+    Model& operator=(const Model&);
   };
 
 

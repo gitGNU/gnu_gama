@@ -20,15 +20,13 @@
 */
 
 /*
- *  $Id: g3_obs_vec.h,v 1.2 2003/05/06 18:16:34 cepek Exp $
+ *  $Id: g3_obs_vec.h,v 1.3 2003/05/17 17:07:08 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_obs_base.h>
 
-
 #ifndef GNU_gama__g3_obs_vector_h_gnugamag3obs_vectorh___gnu_gama_g3obs__vec
 #define GNU_gama__g3_obs_vector_h_gnugamag3obs_vectorh___gnu_gama_g3obs__vec
-
 
 
 
@@ -40,11 +38,35 @@ namespace GNU_gama {  namespace g3 {
     
     Point::Name name[2];
     
-    Vector() : Observation(6), select(0) {}
+    Vector() : Observation(6), select(0) 
+    {
+    }
+    Vector(double x, double y, double z) : Observation(6), select(0)
+    {
+      dx_ = x; dy_ = y; dz_ = z;
+    }
+    Vector(const Vector& v) : Observation(6), select(0)
+    {
+      name[0] = v.name[0];
+      name[1] = v.name[1];
+
+      dx_ = v.dx_; dy_ = v.dy_; dz_ = v.dz_;
+    }
+    
+    void set_dxyz(double x, double y, double z)
+    {
+      dx_ = x; dy_ = y; dz_ = z;
+    }
+
+    double dx() const { return dx_; }
+    double dy() const { return dy_; }
+    double dz() const { return dz_; }
 
   private:
 
     int select;
+
+    double dx_, dy_, dz_;
 
     double parlist_value() const;    
     void   parlist_init (Model*);
@@ -95,7 +117,7 @@ namespace GNU_gama {  namespace g3 {
   class DiffX : public Diff { public: DiffX(Vector* v) : Diff(v, 0) {} };
   class DiffY : public Diff { public: DiffY(Vector* v) : Diff(v, 1) {} };
   class DiffZ : public Diff { public: DiffZ(Vector* v) : Diff(v, 2) {} };
-  
+
 }}
 
 

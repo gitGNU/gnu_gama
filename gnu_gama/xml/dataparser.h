@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.6 2003/05/15 18:53:15 cepek Exp $
+ *  $Id: dataparser.h,v 1.7 2003/05/17 17:07:08 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -66,6 +66,29 @@ namespace GNU_gama {
           s_start,
           s_gama_data,
           s_g3_model,
+          s_g3_vector,
+          s_g3_vector_from,
+          s_g3_vector_after_from,
+          s_g3_vector_to,
+          s_g3_vector_after_to,
+          s_g3_vector_dx,
+          s_g3_vector_after_dx,
+          s_g3_vector_dy,
+          s_g3_vector_after_dy,
+          s_g3_vector_dz,
+          s_g3_vector_after_dz,
+          s_g3_vector_cxx,
+          s_g3_vector_after_cxx,
+          s_g3_vector_cxy,
+          s_g3_vector_after_cxy,
+          s_g3_vector_cxz,
+          s_g3_vector_after_cxz,
+          s_g3_vector_cyy,
+          s_g3_vector_after_cyy,
+          s_g3_vector_cyz,
+          s_g3_vector_after_cyz,
+          s_g3_vector_czz,
+          s_g3_vector_after_czz,
           s_text,
           s_adj_input_data_1,
           s_adj_input_data_2,
@@ -115,8 +138,18 @@ namespace GNU_gama {
           t_block_diagonal,
           t_blocks,
           t_cols,
+          t_cxx,
+          t_cxy,
+          t_cxz,
+          t_cyy,
+          t_cyz,
+          t_czz,
           t_dim,
+          t_dx,
+          t_dy,
+          t_dz,
           t_flt,
+          t_from,
           t_g3_model,
           t_gama_data,
           t_int,
@@ -125,6 +158,7 @@ namespace GNU_gama {
           t_row,
           t_sparse_mat,
           t_text,
+          t_to,
           t_vector,
           t_width,
           t_unknown
@@ -146,6 +180,10 @@ namespace GNU_gama {
       int gama_data             (const char *name, const char **atts);
       int g3_model              (const char *name, const char **atts);
       int g3_model              (const char *name);
+      int g3_vector             (const char *name, const char **atts);
+      int g3_vector             (const char *name);
+      int g3_vector_from        (const char *name);
+      int g3_vector_to          (const char *name);
       int text                  (const char *name);
       int adj_input_data        (const char *name, const char **atts);
       int adj_input_data        (const char *name);
@@ -184,6 +222,9 @@ namespace GNU_gama {
       // DataObject::g3_model
 
       g3::Model*       mg3;
+      g3::Point::Name  g3vec_from;
+      g3::Point::Name  g3vec_to;
+      
 
       // DataObject::Text
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_dist.cpp,v 1.4 2003/04/11 09:38:26 cepek Exp $
+ *  $Id: g3_obs_dist.cpp,v 1.5 2003/05/17 17:07:08 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -79,8 +79,8 @@ void Distance::parlist_init(Model* m)
 
   if (!active())  return;
  
-  Point* from = model->points.find(name[0]);
-  Point* to   = model->points.find(name[1]);
+  Point* from = model->points->find(name[0]);
+  Point* to   = model->points->find(name[1]);
 
   if (from == 0 || to == 0)
     {
