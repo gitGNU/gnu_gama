@@ -3,34 +3,34 @@
 
 <e id="T_LN_rm_removed_points"
    EN="Removed points and coordinates"
-   fi="Poistettuja pisteitä ja koordinaatteja" />
+   du="Verworpen punten en coördinaten" />
 
 <e id="T_LN_rm_missing_xyz"
    EN="missing coordiantes xyz"
-   fi="xyz-koordinaatteja puuttuu" />
+   du="ontbrekende xyz coördinaten" />
 
 <e id="T_LN_rm_missing_xy"
    EN="missing coordiantes xy"
-   fi="xy-koordinaatteja puuttuu" />
+   du="ontbrekende xy coördinaten" />
 
 <e id="T_LN_rm_missing_z"
    EN="missing coordiantes z"
-   fi="z-koordinaatteja puuttuu" />
+   du="ontbrekende z coördinaat" />
 
 <e id="T_LN_rm_singular_xy"
    EN="singular coordiantes xy"
-   fi="singulaarisia xy-koordinaatteja" />
+   du="singulaire xy coördinaten" />
 
 <e id="T_LN_rm_huge_cov_xyz"
    EN="indeterminable coordinates xyz"
-   fi="xyz-koordinaatteja on mahdoton laskea" />
+   du="onbepaalbare xyz coördinaten" />
 
 <e id="T_LN_rm_huge_cov_xy"
    EN="indeterminable coordinates xy"
-   fi="xy-koordinaatteja on mahdoton laskea" />
+   du="onbepaalbare xy coördinaten" />
 
 <e id="T_LN_rm_huge_cov_z"
    EN="indeterminable coordinate z"
-   fi="z-koordinaatti on mahdoton laskea" />
+   du="onbepaalbare z coördinaat" />
 
 </entries>

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.43 2002/12/04 14:43:59 cepek Exp $
+ *  $Id: version.cpp,v 1.44 2002/12/14 13:28:46 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.5.06-pre";
+const char* GaMaLib_version  = "1.5.06";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
@@ -59,9 +59,11 @@ const char* GaMaLib_compiler =
 
 =============================================================================
 
-1.5.06 2002--
+1.5.06 2002-12-14
 
-    - added reduction for basic observation types (by Jan Pytel)
+    - added reductions for basic observation types (Jan Pytel)
+
+    - Dutch translation of output texts produced by gama-local (John Dedrum)
 
 
 1.5.05 2002-11-21

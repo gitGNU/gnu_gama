@@ -3,11 +3,11 @@
 
 <e id="T_IE_internal_error"
    EN="internal error"
-   fi="sisäinen virhe" />
+   du="interne fout" />
 
 <e id="T_GaMa_from_equals_to"
    EN="station and target are identical"
-   fi="havainto- ja kohdepiste ovat yhtäläiset" />
+   du="standpunt en richtpunt zijn identiek" />
 
 </entries>   
 
