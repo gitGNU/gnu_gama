@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.10 2003/11/06 17:58:57 cepek Exp $
+ *  $Id: network.cpp,v 1.11 2004/02/02 17:07:49 cepek Exp $
  */
 
 #include <fstream>
@@ -731,7 +731,7 @@ void LocalNetwork::prepareProjectEquations()
 
   for (ClusterList::const_iterator 
          cluster=OD.CL.begin(); cluster!=OD.CL.end(); ++cluster)
-    if (const Index N = (*cluster)->activeCount())
+    if (const Index N = (*cluster)->activeObs())
         {
           Vec t(N);
           Cov C = (*cluster)->activeCov();
@@ -834,7 +834,7 @@ void LocalNetwork::vyrovnani_()
     
     for (ClusterList::const_iterator 
            cluster=OD.CL.begin(); cluster!=OD.CL.end(); ++cluster)
-      if (const Index N = (*cluster)->activeCount())
+      if (const Index N = (*cluster)->activeObs())
         {
           Vec t(N), u(N);
           Cov C = (*cluster)->activeCov();
@@ -873,12 +873,12 @@ void LocalNetwork::vyrovnani_()
 
     for (ClusterList::const_iterator 
            cit=OD.CL.begin(); cit!=OD.CL.end(); ++cit)
-      if (const Index N = (*cit)->activeCount())
+      if (const Index N = (*cit)->activeObs())
         {
           const Cluster& cluster = *(*cit);
           // ??? if (cluster.covariance_matrix.bandWidth())
           // ???   {
-          // ???     // vypocet pro koleralovana mereni zatim chybi !!!
+          // ???     // vypocet pro korelovana mereni zatim chybi !!!
           // ???   }
           // ??? else
             {

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.13 2004/01/26 19:03:09 cepek Exp $
+ *  $Id: obsdata.h,v 1.14 2004/02/02 17:07:49 cepek Exp $
  */
 
 
@@ -49,7 +49,7 @@ namespace GNU_gama {
       
       
       Cluster(const ObservationData<Observation>* od) 
-        : observation_data(od), act_count(0), act_nonz(0) 
+        : observation_data(od), act_obs(0), act_dim(0), act_nonz(0) 
         {
         }
       virtual ~Cluster();
@@ -67,8 +67,9 @@ namespace GNU_gama {
       
       void update();
       
-      int  activeCount() const { return act_count; }
-      int  activeNonz () const { return act_nonz; }
+      int activeObs()  const { return act_obs;  }
+      int activeDim()  const { return act_dim;  }
+      int activeNonz() const { return act_nonz; }
       typename Observation::CovarianceMatrix  
            activeCov() const; 
       
@@ -77,7 +78,7 @@ namespace GNU_gama {
       Cluster(const Cluster&); 
       void operator=(const Cluster&);
       
-      int act_count, act_nonz;
+      int act_obs, act_dim, act_nonz;
     };
 
 
@@ -306,7 +307,8 @@ namespace GNU_gama {
   template <class Observation>
     void Cluster<Observation>::update()
     {
-      act_count = 0;
+      act_obs   = 0;
+      act_dim   = 0;
       act_nonz  = 0;
       int index = 0;
       Observation* p;
@@ -316,45 +318,54 @@ namespace GNU_gama {
           p = (*i);
           p->cluster = this;
           p->cluster_index = index++;
-          if (p->active()) act_count++;
+          if (p->active())
+            {
+              act_obs++;
+              act_dim += p->dimension();
+            }
         }
 
-      if (act_count)
+      if (act_dim)
         {
           int b = covariance_matrix.bandWidth();
-          if (act_count - 1 < b) b = act_count - 1;
-          act_nonz = act_count*(b+1) - b*(b+1)/2;
+          if (act_dim - 1 < b) b = act_dim - 1;
+          act_nonz = act_dim*(b+1) - b*(b+1)/2;
         }
     }
 
 
 
   template <class Observation>
-    typename Observation::CovarianceMatrix Cluster<Observation>::activeCov() const
+    typename Observation::CovarianceMatrix 
+       Cluster<Observation>::activeCov() const
     {
       typedef std::size_t Index;
       const Index M = covariance_matrix.rows();
       const Index B = covariance_matrix.bandWidth();
-      const Index N = activeCount();
-      Index temp = B;
-      if (N-1 < B) temp = N-1;
-      typename Observation::CovarianceMatrix C(N, temp);
-      
-      Index row = 1;
-      Index col = row;
-      for (Index i=0; i<M; ++i)
-        if (observation_list[i]->active())
-          {
-            for (Index j=0; j<=B && i+j<M; ++j)
+      const Index N = activeDim();
+      Index band = B;
+      if (N-1 < B) band = N-1;
+      typename Observation::CovarianceMatrix C(N, band);
+
+      Index* ind = new Index[act_dim + 1];
+      for (Index k=1, n=1, i=0; i<M; i++)
+        {
+          const Observation* obs = observation_list[i];
+
+          if (obs->active())
+            for (Index d=0; d<obs->dimension(); d++)
               {
-                if (observation_list[i+j]->active())
-                  {
-                    C(row, col++) = covariance_matrix(i+1, i+j+1);
-                  }
+                ind[k++] = n + d;
               }
-            col = ++row;
-          }
-      
+          
+          n += obs->dimension();
+        }
+
+      for (Index i=1; i<=N; i++)
+        for (Index j=0; j<=band && i+j<=N; j++)
+          C(i, i+j) = covariance_matrix(ind[i], ind[i+j]);
+
+      delete[] ind;
       return C;
     }
 

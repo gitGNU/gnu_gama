@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.18 2004/01/26 19:03:09 cepek Exp $
+ *  $Id: version.cpp,v 1.19 2004/02/02 17:07:49 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.08";
+const char* GNU_gama_version  = "1.7.09-pre";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -61,6 +61,12 @@ const char* GNU_gama_compiler =
  * in the same directory as GNU Gama
 
 =============================================================================
+
+1.7.09 2004-??-??
+    
+    - added observation dimensions into Cluster::activeCov (activeCount 
+      renamed to activeObs)
+
 
 1.7.08 2004-01-26
 
