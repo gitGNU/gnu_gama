@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?> 
+<entries>
+
+<e id="T_GaMa_Adjustment_of_geodetic_network"   
+   EN="Adjustment of local geodetic network"
+   fi="Paikallisen geodeettisen verkon tasoitus" /> 
+
+<e id="T_GaMa_version"
+   EN="version: "
+   fi="versio: " />
+
+<e id="T_GaMa_exception_1"
+   EN="Error during creation of InfoSit object"
+   fi="Virhe InfoSit-objektia luotaessa"  />
+
+<e id="T_GaMa_exception_2a"
+   EN="GaMa - error on reading XML input configuration file!"
+   fi="GaMa - virhe XML-konfiguraatiotiedosotoa luettaessa!" />
+
+<e id="T_GaMa_exception_2b"
+   EN="On line number "
+   fi="Rivillä numero " />
+
+<e id="T_GaMa_No_points_available"
+   EN="No points available"
+   fi="Pisteitä ei ole" />
+
+<e id="T_GaMa_No_observations_available"
+   EN="No observations available"
+   fi="Havaintoja ei ole" />
+
+<e id="T_GaMa_No_network_points_defined"
+   EN="No network points defined"
+   fi="Verkkopisteitä ei ole määritelty" />
+
+<e id="T_GaMa_No_unknowns_defined"
+   EN="No unknowns have been defined"
+   fi="Tuntemattomia ei ole määritelty" />
+
+<e id="T_GaMa_Observatios_with_outlying_absolute_terms_removed"
+   EN="Observations with outlying absolute terms removed"
+   fi="Havaintoja, joiden absoluutisessa termissä on karkeita virheitä on poistettu" />
+
+<e id="T_GaMa_adjustment_iteration"
+   EN=" - adjustment iteration"
+   fi=" - iteraatiokierros" />
+
+<e id="T_GaMa_Approximate_coordinates_replaced"
+   EN="Approximate coordinates of computed points replaced by adjusted"
+   fi="Laskettujen pisteiden likiarvoiset koordinaatit on korvattu tasoitetuilla" />
+
+<e id="T_GaMa_solution_ended_with_error"
+   EN="GaMa - solution ended with error!"
+   fi="GaMa - ratkaisu päättyi virheeseen!" />
+
+<e id="T_GaMa_internal_program_error"
+   EN="GaMa - internal program error!"
+   fi="GaMa - ohjelman sisäinen virhe!" />
+  
+</entries>   
+
+
+
+
+

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.cpp,v 1.5 2002/10/24 17:04:12 cepek Exp $
+ *  $Id: acord.cpp,v 1.6 2002/12/04 14:43:59 cepek Exp $
  */
 
  
@@ -28,6 +28,7 @@
 #include <gamalib/local/orientation.h>
 #include <gamalib/local/median/g2d_coordinates.h>
 #include <gamalib/local/acord/approx_heights.h>
+#include <gamalib/local/acord/reduce_observations.h>
 
 #include <iomanip>
 #include <cmath>
@@ -46,8 +47,8 @@ Acord::Acord(PointData& b, ObservationData& m)
 
   for (PointData::const_iterator i=PD.begin(); i!=PD.end(); ++i)
     {
-      const PointID& c = (*i).first;
-      const LocalPoint&   p = (*i).second;
+      const PointID&    c = (*i).first;
+      const LocalPoint& p = (*i).second;
       bool cp = p.test_xy();
       bool hp = p.test_z();
 
@@ -74,6 +75,9 @@ void Acord::execute()
     {
       int all;
 
+      ReducedObservations ro(PD, OD);
+      ro.execute();
+      
       do {
         all = total_z + total_xy + total_xyz;
 
@@ -83,7 +87,7 @@ void Acord::execute()
 
         ApproximateHeights ah(PD, OD);
         ah.execute();
-        
+	
         {
           // all transformed slope distances go to a single standpoint
           StandPoint* standpoint = new StandPoint(&OD);
@@ -99,7 +103,9 @@ void Acord::execute()
           OD.CL.pop_back();
           delete standpoint;
         }
-        
+
+	ro.execute();
+	
         ObservationList local;
         OD.for_each(Observation::CopyTo(local));
         

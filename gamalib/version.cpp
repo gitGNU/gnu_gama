@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.42 2002/11/22 17:46:22 cepek Exp $
+ *  $Id: version.cpp,v 1.43 2002/12/04 14:43:59 cepek Exp $
  */
 
 
@@ -61,7 +61,8 @@ const char* GaMaLib_compiler =
 
 1.5.06 2002--
 
-    -
+    - added reduction for basic observation types (by Jan Pytel)
+
 
 1.5.05 2002-11-21
 
