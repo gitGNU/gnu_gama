@@ -20,12 +20,14 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.19 2004/02/22 11:59:46 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.20 2004/04/21 16:49:39 cepek Exp $
  */
 
 
 
 #include <gnu_gama/xml/dataparser.h>
+#include <gnu_gama/gon2deg.h>
+#include <gnu_gama/radian.h>
 #include <cstring>
 
 using namespace std;
@@ -94,16 +96,61 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
        s_g3_model, 0, 0,
        &DataParser::g3_model, 0, &DataParser::g3_model);
 
+  // .....  <g3-model> <unused | fixed | free | constr>  .............
+
+  init(s_g3_model, t_unused,
+       s_g3_param, 0, s_g3_model,
+       &DataParser::g3_param_unused, 0, 0);
+
+  init(s_g3_model, t_fixed,
+       s_g3_param, 0, s_g3_model,
+       &DataParser::g3_param_fixed, 0, 0);
+
+  init(s_g3_model, t_free,
+       s_g3_param, 0, s_g3_model,
+       &DataParser::g3_param_free, 0, 0);
+
+  init(s_g3_model, t_constr,
+       s_g3_param, 0, s_g3_model,
+       &DataParser::g3_param_constr, 0, 0);
+
+  init(s_g3_param, t_n,
+       s_g3_param_n, 0, 0,
+       0, 0, &DataParser::g3_param_n);
+
+  init(s_g3_param, t_e,
+       s_g3_param_e, 0, 0,
+       0, 0, &DataParser::g3_param_e);
+
+  init(s_g3_param, t_u,
+       s_g3_param_u, 0, 0,
+       0, 0, &DataParser::g3_param_u);
+
   // .....  <g3-model> <point>  .....................................
 
   init(s_g3_model, t_point,
        s_g3_point_1, s_g3_point_2, s_g3_model,
-       0, 0, 0);
+       0, 0, &DataParser::g3_point);
 
   init(s_g3_point_1, t_id,
        s_g3_point_id, 0, s_g3_point_2,
        0, &DataParser::add_text, &DataParser::g3_point_id);
 
+
+
+  init(s_g3_point_2, t_b,
+       s_g3_point_b, 0, s_g3_point_after_b,
+       0, &DataParser::add_text, &DataParser::g3_point_b);
+
+  init(s_g3_point_after_b, t_l,
+       s_g3_point_l, 0, s_g3_point_after_l,
+       0, &DataParser::add_text, &DataParser::g3_point_l);
+
+  init(s_g3_point_after_l, t_h,
+       s_g3_point_h, 0, s_g3_point_2,
+       0, &DataParser::add_text, &DataParser::g3_point_h);
+
+  // ++++++++++++++++++++++++++++++++
   init(s_g3_point_2, t_x,
        s_g3_point_x, 0, s_g3_point_after_x,
        0, &DataParser::add_text, 0);
@@ -116,49 +163,38 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
        s_g3_point_z, 0, s_g3_point_2,
        0, &DataParser::add_text, &DataParser::g3_point_z);
 
+  // --------------------------------
   init(s_g3_point_2, t_height,
        s_g3_point_height, 0, s_g3_point_2,
        0, &DataParser::add_text, &DataParser::g3_point_height);
 
   init(s_g3_point_2, t_unused,
-       s_g3_point_unused, 0, s_g3_point_2,
-       0, 0, &DataParser::g3_point_unused);
+       s_g3_point_param, 0, s_g3_point_2,
+       &DataParser::g3_param_unused, 0, 0);
 
   init(s_g3_point_2, t_fixed,
-       s_g3_point_fixed, 0, s_g3_point_2,
-       0, 0, &DataParser::g3_point_fixed);
-
-  init(s_g3_point_2, t_fixed_p,
-       s_g3_point_fixed_p, 0, s_g3_point_2,
-       0, 0, &DataParser::g3_point_fixed_p);
-
-  init(s_g3_point_2, t_fixed_h,
-       s_g3_point_fixed_h, 0, s_g3_point_2,
-       0, 0, &DataParser::g3_point_fixed_h);
+       s_g3_point_param, 0, s_g3_point_2,
+       &DataParser::g3_param_fixed, 0, 0);
 
   init(s_g3_point_2, t_free,
-       s_g3_point_free, 0, s_g3_point_2,
-       0, 0, &DataParser::g3_point_free);
-
-  init(s_g3_point_2, t_free_p,
-       s_g3_point_free_p, 0, s_g3_point_2,
-       0, 0, &DataParser::g3_point_free_p);
-
-  init(s_g3_point_2, t_free_h,
-       s_g3_point_free_h, 0, s_g3_point_2,
-       0, 0, &DataParser::g3_point_free_h);
+       s_g3_point_param, 0, s_g3_point_2,
+       &DataParser::g3_param_free, 0, 0);
 
   init(s_g3_point_2, t_constr,
-       s_g3_point_constr, 0, s_g3_point_2,
-       0, 0, &DataParser::g3_point_constr);
+       s_g3_point_param, 0, s_g3_point_2,
+       &DataParser::g3_param_constr, 0, 0);
 
-  init(s_g3_point_2, t_constr_p,
-       s_g3_point_constr_p, 0, s_g3_point_2,
-       0, 0, &DataParser::g3_point_constr_p);
+  init(s_g3_point_param, t_n,
+       s_g3_point_param_n, 0, 0,
+       0, 0, &DataParser::g3_point_param_n);
 
-  init(s_g3_point_2, t_constr_h,
-       s_g3_point_constr_h, 0, s_g3_point_2,
-       0, 0, &DataParser::g3_point_constr_h);
+  init(s_g3_point_param, t_e,
+       s_g3_point_param_e, 0, 0,
+       0, 0, &DataParser::g3_point_param_e);
+
+  init(s_g3_point_param, t_u,
+       s_g3_point_param_u, 0, 0,
+       0, 0, &DataParser::g3_point_param_u);
 
   // .....  <g3-model> <obs>  ........................................
   
@@ -427,6 +463,7 @@ DataParser::data_tag DataParser::tag(const char* c)
       if (!strcmp(c, "array"          )) return t_array;
       break;
     case 'b':
+      if (!strcmp(c, "b"              )) return t_b;
       if (!strcmp(c, "band"           )) return t_band;
       if (!strcmp(c, "block-diagonal" )) return t_block_diagonal;
       if (!strcmp(c, "blocks"         )) return t_blocks;
@@ -435,8 +472,6 @@ DataParser::data_tag DataParser::tag(const char* c)
     case 'c' :
       if (!strcmp(c, "cols"           )) return t_cols;
       if (!strcmp(c, "constr"         )) return t_constr;
-      if (!strcmp(c, "constr-position")) return t_constr_p;
-      if (!strcmp(c, "constr-height"  )) return t_constr_h;
       if (!strcmp(c, "cov-mat"        )) return t_covmat;
       break;
     case 'd' :
@@ -446,29 +481,33 @@ DataParser::data_tag DataParser::tag(const char* c)
       if (!strcmp(c, "dy"             )) return t_dy;
       if (!strcmp(c, "dz"             )) return t_dz;
       break;
+    case 'e':
+      if (!strcmp(c, "e"              )) return t_e;
+      break;
     case 'f' :
       if (!strcmp(c, "fixed"          )) return t_fixed;
-      if (!strcmp(c, "fixed-position" )) return t_fixed_p;
-      if (!strcmp(c, "fixed-height"   )) return t_fixed_h;
       if (!strcmp(c, "flt"            )) return t_flt;
       if (!strcmp(c, "from"           )) return t_from;
       if (!strcmp(c, "from-dh"        )) return t_from_dh;
       if (!strcmp(c, "free"           )) return t_free;
-      if (!strcmp(c, "free-position"  )) return t_free_p;
-      if (!strcmp(c, "free-height"    )) return t_free_h;
       break;
     case 'g' :
       if (!strcmp(c, "g3-model"       )) return t_g3_model;
       if (!strcmp(c, "gnu-gama-data"  )) return t_gama_data;
       break;
     case 'h':
+      if (!strcmp(c, "h"              )) return t_h;
       if (!strcmp(c, "height"         )) return t_height;
       break;
     case 'i':
       if (!strcmp(c, "id"             )) return t_id;
       if (!strcmp(c, "int"            )) return t_int;
       break;
+    case 'l':
+      if (!strcmp(c, "l"              )) return t_l;
+      break;
     case 'n':
+      if (!strcmp(c, "n"              )) return t_n;
       if (!strcmp(c, "nonz"           )) return t_nonz;
       break;
     case 'o':
@@ -491,6 +530,7 @@ DataParser::data_tag DataParser::tag(const char* c)
       if (!strcmp(c, "to-dh"          )) return t_to_dh;
       break;
     case 'u' :
+      if (!strcmp(c, "u"              )) return t_u;
       if (!strcmp(c, "unused"         )) return t_unused;
       break;
     case 'v' :
@@ -886,6 +926,67 @@ int DataParser::g3_model(const char *name)
   return  end_tag(name);
 }
 
+int DataParser::g3_param_unused(const char *name, const char **atts)
+{
+  no_attributes( name, atts );
+  state = next[state][tag(name)];
+
+  local_state.set_unused();
+
+  return  0;
+}
+
+int DataParser::g3_param_fixed(const char *name, const char **atts)
+{
+  no_attributes( name, atts );
+  state = next[state][tag(name)];
+
+  local_state.set_fixed();
+
+  return  0;
+}
+
+int DataParser::g3_param_free(const char *name, const char **atts)
+{
+  no_attributes( name, atts );
+  state = next[state][tag(name)];
+
+  local_state.set_free();
+
+  return  0;
+}
+
+int DataParser::g3_param_constr(const char *name, const char **atts)
+{
+  no_attributes( name, atts );
+  state = next[state][tag(name)];
+
+  local_state.set_constr();
+
+  return  0;
+}
+
+int DataParser::g3_param_n(const char *name)
+{
+  global_state_N.set_state(local_state);
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_param_e(const char *name)
+{
+  global_state_E.set_state(local_state);
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_param_u(const char *name)
+{
+  global_state_U.set_state(local_state);
+
+  return  end_tag(name);
+}
+
 std::string DataParser::g3_get_id(std::string err)
 {
   char    c;
@@ -903,6 +1004,15 @@ std::string DataParser::g3_get_id(std::string err)
   return id;
 }
 
+int DataParser::g3_point(const char *name)
+{
+  // checks consistency of the current point
+
+  if (!point->N.cmp_state(point->E)) 
+    return error("### parameters N and E do not have common status");
+
+  return  end_tag(name);
+}
 
 int DataParser::g3_point_id(const char *name)
 {
@@ -910,75 +1020,68 @@ int DataParser::g3_point_id(const char *name)
 
   point = g3model->get_point(id);
 
-  return  end_tag(name);
-}
-
-int DataParser::g3_point_unused(const char *name)
-{
-  point->set_unused();
+  point->N.set_state(global_state_N);
+  point->E.set_state(global_state_E);
+  point->U.set_state(global_state_U);
 
   return  end_tag(name);
 }
 
-int DataParser::g3_point_fixed(const char *name)
+int DataParser::g3_point_param_n(const char *name)
 {
-  point->set_fixed_position();
+  point->N.set_state(local_state);
 
   return  end_tag(name);
 }
 
-int DataParser::g3_point_fixed_p(const char *name)
+int DataParser::g3_point_param_e(const char *name)
 {
-  point->set_fixed_horizontal_position();
+  point->E.set_state(local_state);
 
   return  end_tag(name);
 }
 
-int DataParser::g3_point_fixed_h(const char *name)
+int DataParser::g3_point_param_u(const char *name)
 {
-  point->set_fixed_height();
+  point->U.set_state(local_state);
 
   return  end_tag(name);
 }
 
-int DataParser::g3_point_free(const char *name)
+int DataParser::g3_point_b(const char *name)
 {
-  point->set_free_position();
+  if (!deg2gon(text_buffer, blh.b))
+    {
+      return error("### bad format of numerical data in <point> <b> ");
+    }
+  text_buffer.erase();
 
   return  end_tag(name);
 }
 
-int DataParser::g3_point_free_p(const char *name)
+int DataParser::g3_point_l(const char *name)
 {
-  point->set_free_horizontal_position();
+  if (!deg2gon(text_buffer, blh.l))
+    {
+      return error("### bad format of numerical data in <point> <l> ");
+    }
+  text_buffer.erase();
 
   return  end_tag(name);
 }
 
-int DataParser::g3_point_free_h(const char *name)
+int DataParser::g3_point_h(const char *name)
 {
-  point->set_free_height();
+  stringstream istr(text_buffer);
+  if (!(istr >> blh.h))
+    {
+      return error("### bad format of numerical data in <point> <h> ");
+    }
+  text_buffer.erase();
 
-  return  end_tag(name);
-}
-
-int DataParser::g3_point_constr(const char *name)
-{
-  point->set_constr_position();
-
-  return  end_tag(name);
-}
-
-int DataParser::g3_point_constr_p(const char *name)
-{
-  point->set_constr_horizontal_position();
-
-  return  end_tag(name);
-}
-
-int DataParser::g3_point_constr_h(const char *name)
-{
-  point->set_constr_height();
+  blh.b *= GON_TO_RAD;
+  blh.l *= GON_TO_RAD;
+  point->set_blh(blh.b, blh.l, blh.h);
 
   return  end_tag(name);
 }
@@ -1094,8 +1197,7 @@ int DataParser::g3_obs_cov(const char *name)
     for (int j=i; j<=i+b && j<=d; j++)
       if (istr >> f)
         cov(i,j) = f;
-      else
-        return error("### bad cov-mat / some data missing");
+      else        return error("### bad cov-mat / some data missing");
 
   if (!pure_data(istr)) return error("### bad cov-mat / redundant data");
 

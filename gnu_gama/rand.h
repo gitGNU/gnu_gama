@@ -20,21 +20,21 @@
 */
 
 /*
- *  $Id: rand.h,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: rand.h,v 1.1 2004/04/21 16:49:39 cepek Exp $
  */
 
-#ifndef GaMaLib_RanGen_h
-#define GaMaLib_RanGen_h
+#ifndef GNU_gama_RanGen_h
+#define GNU_gama_RanGen_h
 
 #include <cmath>
 
-namespace GaMaLib {
+namespace GNU_gama {
 
 /*
    IRAND55 random number generator
    
-   Based on the code form The Art of Computer Programming by D.E.K., 
-   Addison-Wesley Publishing Company, 2nd ed., 1981, vol. 2,
+   Based on the code form The Art of Computer Programming by Donald
+   E. Knuth, Addison-Wesley Publishing Company, 2nd ed., 1981, vol. 2,
    ISBN 0-201-03822-6, pp. 171-172.
 */
 
@@ -74,7 +74,7 @@ public:
    void operator++()    { next(); }
 };
 
-};      /* namespace GaMaLib */
+};      /* namespace GNU_gama */
 
 #endif
 //----------------------------------------------------------------------

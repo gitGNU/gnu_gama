@@ -20,16 +20,16 @@
 */
 
 /*
- *  $Id: rand.cpp,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: rand.cpp,v 1.1 2004/04/21 16:49:39 cepek Exp $
  */
 
-#include <gamalib/rand.h>
+#include <gnu_gama/rand.h>
 
 #ifndef _MSC_VER
 using namespace std;
 #endif
 
-namespace GaMaLib {
+namespace GNU_gama {
 
 long IRAND55::ia[56];
 long IRAND55::jrand = 0;
@@ -170,7 +170,7 @@ void Comb::next()
    k_ = 0;
 }
 
-}      /* namespace GaMaLib */
+}      /* namespace GNU_gama */
 
 
 

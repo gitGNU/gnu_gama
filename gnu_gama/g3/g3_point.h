@@ -20,10 +20,10 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.24 2004/03/24 19:27:07 cepek Exp $
+ *  $Id: g3_point.h,v 1.25 2004/04/21 16:49:39 cepek Exp $
  */
 
-#include <gamalib/pointid.h>
+#include <string>
 #include <gnu_gama/g3/g3_parameter.h>
 
 #ifndef GNU_gama__g3_point_h_gnugamag3pointh___gnu_gama_g3point
@@ -37,16 +37,16 @@ namespace GNU_gama {  namespace g3 {
   class Point : public ParXML {
   public:
   
-    typedef GaMaLib::PointID Name;
-    typedef Model            Common;
+    typedef std::string   Name;
+    typedef Model         Common;
 
     Name    name;
     Common* common; 
 
-    const Parameter& N;
-    const Parameter& E;
-    const Parameter& U;
-    const Parameter& height;
+    Parameter& N;
+    Parameter& E;
+    Parameter& U;
+    Parameter& height;
 
     const Parameter& B;
     const Parameter& L;

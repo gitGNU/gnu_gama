@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.36 2004/04/19 18:41:08 cepek Exp $
+ *  $Id: version.cpp,v 1.37 2004/04/21 16:49:39 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.10-f";
+const char* GNU_gama_version  = "1.7.10-g";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -64,7 +64,8 @@ const char* GNU_gama_compiler =
 
 1.7.10 2004-xx-xx
 
-    - file statan.{h|cpp} moved from gamalib to gnu_gama
+    - files statan.{h|cpp} and rand.{h|cpp} moved from gamalib to
+      gnu_gama
 
     - Hungarian translation of gama-local by Zoltan Faludi
 

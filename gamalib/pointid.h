@@ -22,7 +22,7 @@
 */
 
 /*
- *  $Id: pointid.h,v 1.3 2004/04/04 11:19:29 cepek Exp $
+ *  $Id: pointid.h,v 1.4 2004/04/21 16:49:39 cepek Exp $
  */
 
 // PointID - point identification 
@@ -98,7 +98,7 @@ namespace GaMaLib
         }
       
       #ifndef _MSC_VER
-      std::   /* one of ms improvements of C++ standard */
+      std::   
       #endif
            size_t length() const
         {

@@ -1,23 +1,24 @@
 # GNU Gama C++ library files 
 # -----------------------------------------------------------
 
+gnu_gama/adj/adj.cpp
 gnu_gama/ellipsoid.cpp
 gnu_gama/ellipsoids.cpp
-gnu_gama/outstream.cpp
-gnu_gama/gon2deg.cpp
-gnu_gama/version.cpp
 gnu_gama/g3/g3_model.cpp
 gnu_gama/g3/g3_model_distance.cpp
 gnu_gama/g3/g3_model_vector.cpp
 gnu_gama/g3/g3_model_xyz.cpp
 gnu_gama/g3/g3_point.cpp
 gnu_gama/g3/g3_cluster.cpp
+gnu_gama/gon2deg.cpp
+gnu_gama/outstream.cpp
+gnu_gama/rand.cpp
+gnu_gama/statan.cpp
+gnu_gama/version.cpp
 gnu_gama/xml/baseparser.cpp
 gnu_gama/xml/dataobject.cpp
 gnu_gama/xml/dataparser.cpp
 gnu_gama/xml/encoding.cpp
-gnu_gama/adj/adj.cpp
-gnu_gama/statan.cpp
 
 gamalib/c/api/capi_exception.cpp
 gamalib/c/api/capi_gkfparser.cpp
@@ -48,6 +49,5 @@ gamalib/observation/write/xyz.cpp
 gamalib/observation/write/xyzdiff.cpp
 gamalib/observation/write/zangle.cpp
 gamalib/pointid.cpp
-gamalib/rand.cpp
 gamalib/skipcomm.cpp
 gamalib/xml/gkfparser.cpp

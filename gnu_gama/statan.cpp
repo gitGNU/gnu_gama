@@ -20,21 +20,12 @@
 */
 
 /*
- *  $Id: statan.cpp,v 1.2 2004/04/19 18:41:08 cepek Exp $
+ *  $Id: statan.cpp,v 1.3 2004/04/21 16:49:39 cepek Exp $
  */
 
 #include <gnu_gama/statan.h>
+#include <gnu_gama/radian.h>
 
-#ifdef _MSC_VER
-
-   #ifndef M_PI
-   #define M_PI 3.14159265358979323846 
-   #endif
-
-   namespace std {   // VC++ 6.0 <cmath> doesn't declare std namespace
-   }
-
-#endif
 
 using namespace std;
 

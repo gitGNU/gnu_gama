@@ -20,12 +20,12 @@
 */
 
 /*
- *  $Id: ellipsoid.cpp,v 1.3 2004/04/04 11:19:29 cepek Exp $
+ *  $Id: ellipsoid.cpp,v 1.4 2004/04/21 16:49:39 cepek Exp $
  */ 
 
 #include <cmath>
 #include <gnu_gama/ellipsoid.h>
-#include <gamalib/float.h>
+#include <gnu_gama/radian.h>
 
 
 using namespace std;

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.18 2004/02/22 11:59:46 cepek Exp $
+ *  $Id: dataparser.h,v 1.19 2004/04/21 16:49:39 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -73,25 +73,31 @@ namespace GNU_gama {
 
           // ..................................................
 
+          s_g3_param,
+          s_g3_param_n,
+          s_g3_param_e,
+          s_g3_param_u,
+
+          // ..................................................
+
           s_g3_point_1,
           s_g3_point_id,
           s_g3_point_2,
+          s_g3_point_b,
+          s_g3_point_after_b,
+          s_g3_point_l,
+          s_g3_point_after_l,  
+          s_g3_point_h,
           s_g3_point_x,
           s_g3_point_after_x,
           s_g3_point_y,
           s_g3_point_after_y,
           s_g3_point_z,
           s_g3_point_height,
-          s_g3_point_unused,
-          s_g3_point_fixed,
-          s_g3_point_fixed_p,
-          s_g3_point_fixed_h,
-          s_g3_point_free,
-          s_g3_point_free_p,
-          s_g3_point_free_h,
-          s_g3_point_constr,
-          s_g3_point_constr_p,
-          s_g3_point_constr_h,
+          s_g3_point_param,
+          s_g3_point_param_n,
+          s_g3_point_param_e,
+          s_g3_point_param_u,
 
           // ..................................................
 
@@ -193,34 +199,33 @@ namespace GNU_gama {
         {
           t_adj_input_data,
           t_array,
+          t_b,
           t_band,
           t_block,
           t_block_diagonal,
           t_blocks,
           t_cols,
           t_constr,
-          t_constr_p,
-          t_constr_h,
           t_covmat,
           t_dim,
           t_dist,
           t_dx,
           t_dy,
           t_dz,
+          t_e,
           t_flt,
           t_fixed,
-          t_fixed_p,
-          t_fixed_h,
           t_free,
-          t_free_p,
-          t_free_h,
           t_from,
           t_from_dh,
           t_g3_model,
           t_gama_data,
+          t_h,
           t_height,
           t_id,
           t_int,
+          t_l,
+          t_n,
           t_nonz,
           t_obs,
           t_point,
@@ -231,6 +236,7 @@ namespace GNU_gama {
           t_text,
           t_to,
           t_to_dh,
+          t_u,
           t_unknown,
           t_val,
           t_variance,
@@ -259,26 +265,36 @@ namespace GNU_gama {
       int gama_data             (const char *name, const char **atts);
       int g3_model              (const char *name, const char **atts);
       int g3_model              (const char *name);
+
+      int g3_param_unused       (const char *name, const char **atts);
+      int g3_param_fixed        (const char *name, const char **atts);
+      int g3_param_free         (const char *name, const char **atts);
+      int g3_param_constr       (const char *name, const char **atts);
+
+      int g3_param_n            (const char *name);
+      int g3_param_e            (const char *name);
+      int g3_param_u            (const char *name);
+
+      int g3_point              (const char *name);
       int g3_point_id           (const char *name);
+      int g3_point_b            (const char *name);
+      int g3_point_l            (const char *name);
+      int g3_point_h            (const char *name);
       int g3_point_z            (const char *name);
       int g3_point_height       (const char *name);
-      int g3_point_unused       (const char *name);
-      int g3_point_fixed        (const char *name);
-      int g3_point_fixed_p      (const char *name);
-      int g3_point_fixed_h      (const char *name);
-      int g3_point_free         (const char *name);
-      int g3_point_free_p       (const char *name);
-      int g3_point_free_h       (const char *name);
-      int g3_point_constr       (const char *name);
-      int g3_point_constr_p     (const char *name);
-      int g3_point_constr_h     (const char *name);
+      int g3_point_param_n      (const char *name);
+      int g3_point_param_e      (const char *name);
+      int g3_point_param_u      (const char *name);
+
       int g3_obs                (const char *name, const char **atts);
       int g3_obs                (const char *name);
       int g3_obs_cov            (const char *name);
       int g3_obs_dist           (const char *name);
       int g3_obs_vector         (const char *name);
       int g3_obs_xyz            (const char *name);
+
       int text                  (const char *name);
+
       int adj_input_data        (const char *name, const char **atts);
       int adj_input_data        (const char *name);
       int sparse_mat            (const char *name);
@@ -364,6 +380,15 @@ namespace GNU_gama {
       Vec::iterator    bd_vector_iterator;  
       std::size_t      bd_vector_dim;
       g3::Point        *point;
+
+      g3::Parameter    local_state;
+      g3::Parameter    global_state_N;
+      g3::Parameter    global_state_E;
+      g3::Parameter    global_state_U;
+
+      struct {
+        double b, l, h;
+      } blh;
 
     };
 }

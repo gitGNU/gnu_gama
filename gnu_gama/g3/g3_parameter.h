@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.18 2004/03/24 19:27:07 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.19 2004/04/21 16:49:39 cepek Exp $  */
 
 #include <cstddef>
 #include <gnu_gama/model.h>
@@ -83,6 +83,9 @@ namespace GNU_gama { namespace g3 {
     bool fixed () const { return state_ == fixed_;  }
     bool free  () const { return state_ &  free_;   }
     bool constr() const { return state_ == constr_; }
+
+    void set_state(const Parameter& p) { state_ = p.state_; }
+    bool cmp_state(const Parameter& p) const { return state_ == p.state_; }
 
   private:
     
