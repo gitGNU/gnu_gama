@@ -1,4 +1,4 @@
-@comment $Id: gama-local-adj.texi,v 1.1 2003/01/19 18:25:37 cepek Exp $
+@comment $Id: gama-local-adj.texi,v 1.2 2003/01/20 17:52:31 cepek Exp $
 
 @c @setfilename gama-local-adj.info
 
@@ -201,7 +201,7 @@ directions sets.
 
 Approximate values of unknown parameters are usually not known and we
 have to compute them from the available observations.  For approximate
-value of orientation program @pgama{} uses median of all estimates
+value of orientation program @code{gama-local} uses median of all estimates
 from the given set of directions to the points with known coordinates.
 Median is less sensitive to outliers than arithmetic mean which is
 normally used for approximate estimate of orientations
@@ -209,7 +209,7 @@ normally used for approximate estimate of orientations
 
 
 During the phase of computation of approximate coordinate of points,
-program @pgama{} walks through the list of computed points
+program @code{gama-local} walks through the list of computed points
 and for each point gathers all determining elements pointing to 
 points with known or previously computed coordinates.
 Determining elements are
@@ -229,7 +229,7 @@ intersecting given points
 @end itemize
 
 @noindent
-For all combinations of determining elements program @pgama{}
+For all combinations of determining elements program @code{gama-local}
 computes intersections and estimates approximate coordinates as the
 median of all available solutions.
 
@@ -248,12 +248,12 @@ repeated.  Classes for computation of approximate coordinates have been
 written by Jiri Vesely.
 
 
-If program @pgama{} fails to compute approximate coordinates 
+If program @code{gama-local} fails to compute approximate coordinates 
 of some of the network points, they are eliminated from the
 adjustment and they are listed in the output listing.
 
 
-With the outlined strategy, program @pgama{} is able to estimate
+With the outlined strategy, program @code{gama-local} is able to estimate
 approximate coordinates in most of the cases we normally meet in
 surveying profession. Still there are cases in which the solution fails.
 One example is an inserted horizontal traverse with sets of observed
@@ -261,7 +261,7 @@ direction on both ends but without a connecting observed distance.  The
 solution of approximate coordinates can fail when there is a number of
 gross error for example resulting from confusion of point
 identifications but in normal situations, leaving computation of
-approximate coordinates on program @pgama{} is recommended.
+approximate coordinates on program @code{gama-local} is recommended.
 
 
 @unnumberedsubsec Example
@@ -295,7 +295,7 @@ List of unresolved points
 
 
 
-One of parameters in XML input of program @pgama{} is tolerance
+One of parameters in XML input of program @code{gama-local} is tolerance
 @code{tol-abs} for detecting of gross absolute terms in 
 project equations. Observations with outlying absolute terms
 are always excluded from adjustment.
@@ -320,7 +320,7 @@ $$
 @c % ----------------------------------------------------------------------
 @noindent
 
-for observed directions program @pgama{} tests transverse deviation 
+for observed directions program @code{gama-local} tests transverse deviation 
 corresponding to absolute term @gmat{b_i} from
 project equations (1)
 @c % ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -391,7 +391,7 @@ Observations with outlying absolute terms removed
 @comment  %%% \label{vyrovnani:parstatan}
 
 
-Program @pgama{} uses two basic statistical parameters
+Program @code{gama-local} uses two basic statistical parameters
 
 @itemize @bullet{}
 
@@ -451,7 +451,7 @@ adjusted unknown parameter (coordinate or orientation, $\theta=x_i$) or
 $i$-th adjusted observation (distance, direction, $\ldots, \theta=L_i$).
 
 
-Apart from standard deviation $m_{\theta}$, program @pgama{} computes
+Apart from standard deviation $m_{\theta}$, program @code{gama-local} computes
 for adjusted quantity $\theta$ its @emph{confidence interval}
 $(\Theta_1, \Theta_2)$ in which the real value $\Theta$ is located with
 probability $P$
@@ -496,7 +496,7 @@ dependence of the choice of actual type of reference standard deviation
 @noindent
 where @gmat{q} is the weight coefficient of the corresponding adjusted
 unknown parameter or observation. Apart from the standard deviation,
-program @pgama{} computes for the adjusted quantity its @emph{confidence
+program @code{gama-local} computes for the adjusted quantity its @emph{confidence
 interval} in which its real value is located with the probability
 @gmat{P}.
 
@@ -627,7 +627,7 @@ likely to be detected, but this can not be guaranteed.
 
 
 
-In addition, program @pgama{} computes a posteriori estimate 
+In addition, program @code{gama-local} computes a posteriori estimate 
 of reference standard deviation separately for horizontal distances
 and directions and/or angles after formula from
 @c %%% \cite[str. 175]{charamza:geodetpc}
@@ -686,7 +686,7 @@ on significance level 5 % for observation #35
 
 
 
-Program @pgama{} lists separately review of coordinates of fixed and
+Program @code{gama-local} lists separately review of coordinates of fixed and
 adjusted points; adjusted @emph{constrained} coordinates are marked with
 @code{*}; see equation (3).  Adjusted coordinate standard deviations
 @gmat{m_x} and @gmat{m_y}, and values for computing confidence intervals
@@ -824,7 +824,7 @@ $$
 
 
 Probability that standard ellipse covers real position of a point is
-relatively low. For this reason program @pgama{} computes extra
+relatively low. For this reason program @code{gama-local} computes extra
 @emph{confidence ellipse} for which the probability of covering real
 point position is equal to the given confidence probability.  Both
 ellipsy are located in the same center, they share the same bearing of
@@ -980,7 +980,7 @@ Adjusted bearings
 @section  Adjusted observations and residuals
 
 
-In the review of adjusted observations program @pgama{} prints index of
+In the review of adjusted observations program @code{gama-local} prints index of
 the observation, index of the row in matrix @m{A} in the system (1),
 identifications of standpoint and target point, type of the observation,
 its approximate and adjusted value, standard deviation and confidence
@@ -1059,7 +1059,7 @@ that homogenized residuals should have normal distribution as well.
 
 
 
-Program  @pgama{} estimates mean value $E(\tilde {v})$ and estimate
+Program  @code{gama-local} estimates mean value $E(\tilde {v})$ and estimate
 of variance $V(\tilde {v})$ for the vector of homogenized residuals
 $$
         E(\tilde {v}) = {1\over N}\sum_{i=1}^N{\tilde {v}_i}, \qquad
@@ -1070,7 +1070,7 @@ Vector of homogenized residuals transforms to @emph{normalized
 $$
   \nu_i = {{\tilde {v}_i - E(\tilde {v})}\over{\sqrt{V(\tilde {v})}}}.
 $$
-Using Kolmogorov-Smirnov test program @pgama{} verifies assumption of
+Using Kolmogorov-Smirnov test program @code{gama-local} verifies assumption of
 normality of elements of vector ${\bf \nu}$.  Result of the test is a
 value saying what is the probability that elements of vector ${\bf \nu}$
 are a random sample form normal distribution $N(0, 1).$
@@ -1379,7 +1379,7 @@ controlled in netowrk the less reliable these estimates are.
 
 
 
-Estimate of real error of an observation computes program @pgama{} as
+Estimate of real error of an observation computes program @code{gama-local} as
 @c % ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 @tex
 $$
@@ -1468,10 +1468,10 @@ ${\bf\bar{x}} = {\bf x_0} + {\bf x}$.  Disagreement ${\bf v}^{i} \ne
 
 
 
-Program @pgama{} similarly computes and tests differences in
+Program @code{gama-local} similarly computes and tests differences in
 values of adjusted observations once computed from residuals
 and once from adjusted coordinates. For measured directions
-and angles @pgama{} computes in addition transverse deviation
+and angles @code{gama-local} computes in addition transverse deviation
 corresponding to computed angle difference in the distance 
 of target point (or the farther of two targets for angle).
 As a criterion of bad linearization is supposed positional
@@ -1503,7 +1503,7 @@ Diffs in adj. obs from residuals and from adjusted coordinates
 
 From the practical point of view it might seem that the tolerance 0.0005
 mm for detecting poor linearization is too strict.  Its exceeding in
-program @pgama{} results in repeated adjustment with substitute adjusted
+program @code{gama-local} results in repeated adjustment with substitute adjusted
 coordinates for approximate (coordinates of constrained points are not
 changed). Given tolerance was chosen so strict to guarantee that listed
 output results would never be influenced by linearization and could
@@ -1520,7 +1520,7 @@ recovering.
 
 For any automatically controlled iteration we have to set up certain
 stopping criterion independent on the convergence and results obtained.
-Program @pgama{} computes iterated adjustment three times at maximum.
+Program @code{gama-local} computes iterated adjustment three times at maximum.
 If the bad linearization is detected even after three readjustments it
 signals that given network configuration is somehow suspicious.
 

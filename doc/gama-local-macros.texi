@@ -1,7 +1,7 @@
 @comment  helper macros used for easier conversion from latex to texinfo
 @comment  (most likely TeX macros are not the best, I not a TeX-expert. AC)
 
-@comment  $Id: gama-local-macros.texi,v 1.1 2003/01/19 18:25:37 cepek Exp $
+@comment  $Id: gama-local-macros.texi,v 1.2 2003/01/20 17:52:31 cepek Exp $
 
 @comment LaTex equation ==> Texinfo 
  
@@ -53,24 +53,6 @@
 @macro m{matrix}
 @tex\\hbox{$\\bf \matrix\$}
 @end tex
-@end macro
-@end iftex
-
-
-
-@comment  ****** program gama (a command line tool)
-
-@ifnottex
-@macro pgama{}
-@code{gama}
-@end macro
-@end ifnottex
-
-
-
-@iftex
-@macro pgama{}
-@code{gama}
 @end macro
 @end iftex
 

@@ -1,6 +1,6 @@
 /*  
     Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
-    Copyright (C) 2002  Jan Pytel  <pytel@gama.fsv.cvut.cz>
+    Copyright (C) 2002,2002  Jan Pytel  <pytel@gama.fsv.cvut.cz>
 
     This file is part of the GNU GaMa / GaMaLib C++ Library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: reduce_observations.cpp,v 1.2 2002/12/04 15:04:55 pytel Exp $
+ *  $Id: reduce_observations.cpp,v 1.3 2003/01/20 17:57:17 cepek Exp $
  */
 
  
@@ -345,10 +345,10 @@ void ReducedObservations::reduce_ydiff(ReducedObs* r_obs)
 }
 
 
-void  ReducedObservations::execute()
+void ReducedObservations::execute()
 {
-
-    if ( !number_of_reduced_observations() )
+    
+    if ( !number_of_not_reduced_observations() )
 	return;
 
     list_reduced_obs.remove_if( RemoveNonActiveObs() );

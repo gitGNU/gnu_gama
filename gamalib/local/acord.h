@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.h,v 1.1 2001/12/07 12:38:37 cepek Exp $
+ *  $Id: acord.h,v 1.2 2003/01/20 17:57:17 cepek Exp $
  */
 
  
@@ -28,6 +28,7 @@
 #define GaMaLib_Acord___accord___header___h
 
 #include <gamalib/local/gamadata.h>
+#include <gamalib/local/acord/reduce_observations.h>
 #include <fstream>
 #include <algorithm>
 #include <list>
@@ -42,7 +43,8 @@ namespace GaMaLib {
       
       PointData&          PD;
       ObservationData&    OD;
-
+      ReducedObservations RO;
+	
       Acord(PointData& b, ObservationData& m);
       void execute();
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2" standalone="yes" ?>
 <entries>
 
-<!-- $Id: review.lang,v 1.4 2002/11/22 17:46:22 cepek Exp $ -->
+<!-- $Id: review.lang,v 1.5 2003/01/20 17:57:17 cepek Exp $ -->
 
 <e id="T_GaMa_inconsistent_coordinates_and_angles"
    en="Inconsistent coordinates and angles: \nchanging internally sign of all Y coordinates" />
@@ -333,6 +333,21 @@
 <e id="T_GaMa_resobs_condition_number"
    en="Condition number        : " />
 
+<e id="T_GaMa_reduced_Review_of_reduced_observations"
+   en="Reduced observations" />
+
+<e id="T_GaMa_reduced_observed"
+   en="observed" />
+
+<e id="T_GaMa_reduced_reduced" 
+   en="reduced" />
+
+<e id="T_GaMa_reduced_header1"
+   en="  diff dh\n" />
+
+<e id="T_GaMa_reduced_value"
+   en="== value " />
+   
 <e id="T_GaMa_approx_Review_of_approximate_coordinates"
    en="Approximate coordinates" />
 

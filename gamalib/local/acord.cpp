@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.cpp,v 1.6 2002/12/04 14:43:59 cepek Exp $
+ *  $Id: acord.cpp,v 1.7 2003/01/20 17:57:17 cepek Exp $
  */
 
  
@@ -37,7 +37,7 @@ using namespace std;
 using namespace GaMaLib;
 
 Acord::Acord(PointData& b, ObservationData& m) 
-  : PD(b), OD(m)
+    : PD(b), OD(m), RO(b,m)
 {
   missing_coordinates = false;
   observations = 0;
@@ -75,8 +75,8 @@ void Acord::execute()
     {
       int all;
 
-      ReducedObservations ro(PD, OD);
-      ro.execute();
+      // ReducedObservations RO(PD, OD);
+      RO.execute();
       
       do {
         all = total_z + total_xy + total_xyz;
@@ -104,7 +104,7 @@ void Acord::execute()
           delete standpoint;
         }
 
-	ro.execute();
+	RO.execute();
 	
         ObservationList local;
         OD.for_each(Observation::CopyTo(local));

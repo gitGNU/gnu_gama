@@ -1,6 +1,6 @@
 /*  
     Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
-    Copyright (C) 2002  Jan Pytel  <pytel@gama.fsv.cvut.cz>
+    Copyright (C) 2002,2003  Jan Pytel  <pytel@gama.fsv.cvut.cz>
 
     This file is part of the GNU GaMa / GaMaLib C++ Library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: reduce_observations.h,v 1.2 2002/12/18 12:36:43 cepek Exp $
+ *  $Id: reduce_observations.h,v 1.3 2003/01/20 17:57:17 cepek Exp $
  */
 
  
@@ -30,6 +30,7 @@
 #include <gamalib/local/gamadata.h>
 #include <fstream>
 #include <list>
+#include <cstddef>
 
 namespace GaMaLib {
 
@@ -45,16 +46,15 @@ namespace GaMaLib {
 	    precise_  = 4,
 	    nonexist_ = 8
 	};
-
-    private:
-	
+		
 	class ReducedObs
 	{
 	public:
+	    
 	    ReducedObs(Observation* _obs, TypeOfReduction _type = none_)
 		:ptr_obs(_obs),type_of_reduction(_type)
 	    { 
-		_orig_value = ptr_obs->value();
+		orig_value_ = ptr_obs->value();
 	    }
 	    
 	    Observation*	ptr_obs;
@@ -62,27 +62,55 @@ namespace GaMaLib {
 	    
 	    Double  orig_value() const
 	    {
-		return _orig_value;
+		return orig_value_;
 	    }
+	    
+	    bool reduced() const
+		{
+		    return !( type_of_reduction & (none_ | nonexist_) );
+		}
 	    
 	private:
 	    friend class ReducedObservations;
-	    Double _orig_value;
+	    Double orig_value_;
 	};
 
+	typedef std::list<ReducedObs> ListReducedObs;
+	typedef std::list<ReducedObs>::iterator ListReducedObs_iter;
+	typedef std::list<ReducedObs>::const_iterator ListReducedObs_c_iter;
+
+	ListReducedObs_iter begin()
+	{
+	    return list_reduced_obs.begin();
+	}
+
+	ListReducedObs_iter end()
+	{
+	    return list_reduced_obs.end();
+	}
+
+	ListReducedObs_c_iter begin() const
+	{
+	    return list_reduced_obs.begin();
+	}
+
+	ListReducedObs_c_iter end()const
+	{
+	    return list_reduced_obs.end();
+	}
+	
+    private:
+	
 	ReducedObs* giveReducedObs(const Observation* _obs)
 	{
 	    for (ListReducedObs_iter i  = list_reduced_obs.begin();
 		                     i != list_reduced_obs.end(); ++i)
 		if (i->ptr_obs == _obs)
-		    return &(*i);
+ 		    return &(*i);
 	    return 0;
-	}
+	} 
 	
-	typedef std::list<ReducedObs> ListReducedObs;
-	typedef std::list<ReducedObs>::iterator ListReducedObs_iter;
-	typedef std::list<ReducedObs>::const_iterator ListReducedObs_c_iter;
-
+	
 	struct CopyReducedObservation 
 	{
 	    ListReducedObs&  LRO;
@@ -90,7 +118,7 @@ namespace GaMaLib {
 	    
 	    CopyReducedObservation(ListReducedObs& lro,ObservationList& ol) :
 		LRO(lro),OL(ol) {}
-
+	    
 	    void operator()(Observation* obs) const
 	    {
 		
@@ -110,50 +138,66 @@ namespace GaMaLib {
 	};
 	
 	struct RemoveNonActiveObs
-      {
-	  bool operator()(const ReducedObs& red_obs)
-	  {
-	      return !red_obs.ptr_obs->active();
-	  }
-      };
+	{
+	    bool operator()(const ReducedObs& red_obs)
+	    {
+		return !red_obs.ptr_obs->active();
+	    }
+	};
+	
+	
+	PointData&          PD;
+	ObservationData&    OD;
+	
+	ListReducedObs  list_reduced_obs;
+	ObservationList list_obs;
+	
+    protected:
+	
+	void reduce(ReducedObs&);
+	
+	void reduce_sdistance( ReducedObs* );
+	void reduce_zangle   ( ReducedObs* ); 
+	void reduce_ydiff    ( ReducedObs* );
 
-          
-      int number_of_reduced_observations()
-        {
+	size_t number_of_reduced_observations_with_attribute(size_t attrib) const
+	{
 	    if ( ! list_reduced_obs.size() )
 		return 0;
-
-	    int number = 0;
-
+	    
+	    size_t number = 0;
+	    
 	    for (ListReducedObs_c_iter ci  = list_reduced_obs.begin();
-		                       ci != list_reduced_obs.end(); ++ci)
-		if ( ci->type_of_reduction & (none_ | approx_) )
+		 ci != list_reduced_obs.end(); ++ci)
+		if ( ci->type_of_reduction & attrib )
 		    number++;
 	    
 	    return number;
 	}
-
-      PointData&          PD;
-      ObservationData&    OD;
-
-      ListReducedObs  list_reduced_obs;
-      ObservationList list_obs;
-
-    protected:
-      
-      void reduce(ReducedObs&);
-	  
-      void reduce_sdistance( ReducedObs* );
-      void reduce_zangle   ( ReducedObs* ); 
-      void reduce_ydiff    ( ReducedObs* );
-      
+	    
+	size_t number_of_not_reduced_observations() const
+	{	 
+	    return number_of_reduced_observations_with_attribute(none_ | approx_);
+	}
+	
     public:
-    
-      ReducedObservations(PointData& b, ObservationData& m);
-      void execute();
-      void print(std::ostream&);
-    };
+	
+	ReducedObservations(PointData& b, ObservationData& m);
 
+	size_t size() const
+	{
+	    return list_reduced_obs.size();
+	}
+
+	size_t size_nonexist() const
+	{
+	    return number_of_reduced_observations_with_attribute( nonexist_ );
+	}
+	
+	void execute();
+	void print(std::ostream&);
+  };
+    
 }   // namespace GaMaLib
 
 #endif

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.4 2002/12/15 16:12:44 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.5 2003/01/20 17:57:17 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -50,6 +50,7 @@
 #include <gamalib/local/results/text/adjusted_observations.h>
 #include <gamalib/local/results/text/adjusted_unknowns.h>
 #include <gamalib/local/results/text/outlying_abs_terms.h>
+#include <gamalib/local/results/text/reduced_observations.h>
 #include <gamalib/local/results/text/residuals_observations.h>
 #include <gamalib/local/results/text/error_ellipses.h>
 #include <gamalib/local/results/text/test_linearization.h>
@@ -330,7 +331,8 @@ int GaMa_Main(int argc, char **argv)
           }
         Acord acord(IS->PD, IS->OD);
         acord.execute();
-        ApproximateCoordinates(&acord, cout);
+	ReducedObservationsText(IS,&(acord.RO), cout);
+	ApproximateCoordinates(&acord, cout);
       }
     catch(...)
       {

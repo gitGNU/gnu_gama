@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2" standalone="yes" ?>
 <entries>
 
-<!-- $Id: review.cz.lang,v 1.4 2002/11/22 17:46:22 cepek Exp $ -->
+<!-- $Id: review.cz.lang,v 1.5 2003/01/20 17:57:18 cepek Exp $ -->
 
 <e id="T_GaMa_inconsistent_coordinates_and_angles"
    EN="Inconsistent coordinates and angles: \ninternally changing sign of all Y coordinates"
@@ -443,6 +443,27 @@
 <e id="T_GaMa_resobs_condition_number"
    EN="Condition number        : "
    cz="Číslo podmíněnosti      : " />
+
+<e id="T_GaMa_reduced_Review_of_reduced_observations"
+   en="Reduced observations" 
+   cz="Redukovaná pozorování" />
+
+<e id="T_GaMa_reduced_observed"
+   en="observed" 
+   cz="měřená" />
+
+<e id="T_GaMa_reduced_reduced" 
+   en="reduced" 
+   cz="redukovaná" />
+
+<e id="T_GaMa_reduced_header1"
+   en="  diff dh\n" 
+   cz=" rozd. dh\n" />
+
+<e id="T_GaMa_reduced_value"
+   en="== value " 
+   cz=" hodnota " />
+
 
 <e id="T_GaMa_approx_Review_of_approximate_coordinates"
    EN="Approximate coordinates"

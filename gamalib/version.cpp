@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.48 2003/01/18 20:27:08 cepek Exp $
+ *  $Id: version.cpp,v 1.49 2003/01/20 17:57:16 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.5.08";
+const char* GaMaLib_version  = "1.5.09";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
@@ -58,6 +58,12 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.5.09 2002-01-19
+
+    - Jan Pytel: reduction of observations with nonzero heights of
+      instrument and/or target in gama-local
+
 
 1.5.08 2002-01-18
 
