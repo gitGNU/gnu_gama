@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: smatrix.h,v 1.1 2001/12/07 12:59:48 cepek Exp $
+ *  $Id: smatrix.h,v 1.2 2002/09/09 17:40:39 cepek Exp $
  */
 
 #ifndef GaMaLib_Sparse_General_Matrix____GaMaLib___Sparse___General___Matrix__
@@ -184,7 +184,7 @@ template <class Float=double, class Index=std::size_t>
 
 #endif
 
-#ifdef GaMaLib_Sparse_General_Matrix_demo
+#ifdef GaMaLib_sparse_demo
 
 #include <iostream>
 

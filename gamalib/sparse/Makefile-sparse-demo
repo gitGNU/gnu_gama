@@ -1,0 +1,14 @@
+
+all : $(shell ls *.h | sed s/.h/-h/ | sed  s/^/demo-/ )
+
+demo-%-h : %.h
+	@rm -f $@ $@.cpp
+	@ln -s $< $@.cpp
+	$(CXX) $(CXXFLAGS) -D GaMaLib_sparse_demo -o $@ $@.cpp
+	@rm -f $@.cpp
+
+clean:
+	@rm -fv demo-*
+
+
+
