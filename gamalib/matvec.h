@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: matvec.h,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: matvec.h,v 1.2 2002/09/16 10:42:04 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_MatVec_H
@@ -28,7 +28,7 @@
 
 #include <gamalib/float.h>
 #include <gmatvec/svd.h>
-#include <gmatvec/bandmat.h>
+#include <gmatvec/bandmat2.h>
 
 namespace GaMaLib {
 
@@ -45,7 +45,7 @@ namespace GaMaLib {
   typedef gMatVec::SVD<double, MatVecException> SVD;
   
   // GaMa covariance matrix
-  typedef gMatVec::BandMat<double, MatVecException> Cov;
+  typedef gMatVec::BandMat2<double, MatVecException> Cov;
   
 }      // GaMaLib
 
