@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: reduce_observations.cpp,v 1.1 2002/12/04 14:43:59 cepek Exp $
+ *  $Id: reduce_observations.cpp,v 1.2 2002/12/04 15:04:55 pytel Exp $
  */
 
  
@@ -31,7 +31,7 @@
 using namespace std;
 using namespace GaMaLib;
 
-const Double EarthRadius = 6378000; // [m]
+const Double EarthRadius = 6378000;  // [m]
 
 class average_value {
 public:
