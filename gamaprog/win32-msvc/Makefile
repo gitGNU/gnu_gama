@@ -4,7 +4,7 @@
 
 # ------  GNU Gama supported platforms  --------------------------------------
 #
-# $Id: Makefile,v 1.20 2003/03/19 19:25:03 cepek Exp $
+# $Id: Makefile,v 1.21 2003/12/28 23:28:57 uid66336 Exp $
 #
 #gnu           :#CC       = gcc
 #gnu           :CFLAGS   += -pipe
@@ -66,4 +66,7 @@ all:
 	$(MAKE) -f Makefile-expat
 	cd ..
 	cd gama-local
+	$(MAKE)
+	cd ..
+	cd gama-g3
 	$(MAKE)

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gnu_gama_dep.cpp,v 1.5 2003/12/28 16:42:34 uid66336 Exp $
+ *  $Id: gnu_gama_dep.cpp,v 1.6 2003/12/28 23:28:57 uid66336 Exp $
  */
 
 #include <iostream>
@@ -252,7 +252,7 @@ int main(int argc, char* argv[])
     {
       cerr << "\n\nusage: " << argv[0] << " project platform  " << "\n\n"
 
-           << "project     lib | expat | gama-local \n"
+           << "project     lib | expat | gama-local | gama-g3\n"
            << "platform    gnu | win32-borland | win32-msvc \n\n";
       return 1;
     }
