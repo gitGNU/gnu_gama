@@ -1,6 +1,6 @@
 # ------  GNU GaMa supported platforms  --------------------------------------
 #
-# $Id:
+# $Id: platforms.defs,v 1.6 2002/10/01 17:23:25 cepek Exp $
 #
 #gnu           :#CC       = gcc
 #gnu           :CFLAGS   +=
