@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: model.h,v 1.3 2003/12/23 19:52:49 uid66336 Exp $
+ *  $Id: model.h,v 1.4 2003/12/24 11:34:11 uid66336 Exp $
  */
 
 
@@ -56,7 +56,8 @@ namespace GNU_gama {
   public:
 
     virtual ~Observation() {}
-    virtual bool revision_accept     (ObservationVisitor* visitor) = 0;
+    virtual int  dimension() const { return 1; }
+    virtual bool revision_accept(ObservationVisitor* visitor) = 0;
     // virtual void linearization_accept(ObservationVisitor* visitor) = 0;
   };
 
@@ -85,18 +86,6 @@ namespace GNU_gama {
     ObsData  obsdata;
   };
   
-
-  // ....................................................................
-  
-  /*!!!*/   template <class Observation>   //--- !!! to be removed !!! 
-  /*!!!*/   class Derivative 
-  /*!!!*/   {
-  /*!!!*/   public:
-  /*!!!*/     
-  /*!!!*/     virtual double derivative_visit(Observation*) = 0;
-  /*!!!*/   };
-  
-
 }
 
 #endif

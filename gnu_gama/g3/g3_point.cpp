@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.17 2003/12/23 19:52:49 uid66336 Exp $
+ *  $Id: g3_point.cpp,v 1.18 2003/12/24 11:34:11 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -304,29 +304,5 @@ double Point::diff_U() const
 
 // ----------------------------------------------------------------------
 
-double Parameter_N::derivative_visit(Distance*)
-{
-  return point()->diff_N();
-}
 
-double Parameter_E::derivative_visit(Distance*)
-{
-  return point()->diff_E();
-}
-
-double Parameter_U::derivative_visit(Distance*)
-{
-  return point()->diff_U();
-}
-
-double Parameter_U::derivative_visit(HeightDiff* hd)
-{
-  //---  if (!free()) return 0;
-  //---  
-  //---  Parameter**  p    = hd->parlist.begin();  
-  //---  Parameter_U* from = static_cast<Parameter_U*>(*p);
-  //---  
-  //---  return this == from ? -1 : +1;
-  return 1;
-}
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.19 2003/12/23 19:52:49 uid66336 Exp $
+ *  $Id: g3_point.h,v 1.20 2003/12/24 11:34:11 uid66336 Exp $
  */
 
 #include <gamalib/pointid.h>
@@ -50,8 +50,7 @@ namespace GNU_gama {  namespace g3 {
     };
 
   class Parameter_N : 
-    public Parameter_LocalPosition,
-    public Derivative<Distance>
+    public Parameter_LocalPosition
     {
     public:
       Parameter_N() {}
@@ -60,25 +59,19 @@ namespace GNU_gama {  namespace g3 {
     };
   
   class Parameter_E : 
-    public Parameter_LocalPosition,
-    public Derivative<Distance>
+    public Parameter_LocalPosition
     {
     public:
       Parameter_E() {}
 
-      double derivative_visit(Distance*);
     };
   
   class Parameter_U : 
-    public Parameter_LocalPosition,
-    public Derivative<Distance>,
-    public Derivative<HeightDiff>
+    public Parameter_LocalPosition
     {
     public:
       Parameter_U() {}
 
-      double derivative_visit(Distance*);
-      double derivative_visit(HeightDiff*);
     };
 
 
@@ -103,9 +96,6 @@ namespace GNU_gama {  namespace g3 {
     Parameter_N  N;
     Parameter_E  E;
     Parameter_U  U; 
-
-    //---  ParameterList<Parameter>  parlist;
-
 
     void set_unused();
     void set_fixed_horizontal_position();

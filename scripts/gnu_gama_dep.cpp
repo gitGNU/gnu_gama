@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gnu_gama_dep.cpp,v 1.3 2003/08/14 16:20:26 cepek Exp $
+ *  $Id: gnu_gama_dep.cpp,v 1.4 2003/12/24 11:34:11 uid66336 Exp $
  */
 
 #include <iostream>
@@ -29,10 +29,11 @@
 #include <string>
 #include <set>
 
-const char* version = "0.9";
+const char* version = "1.0";
 
 /*************************************************************************
  * 
+ * 1.0  - added comments into the 'gnu_gama_files' (lines starting with #)
  * 0.9  - various changes needed for GNU Gama to be compiled with
  *        expat version 1.95.2 (or any later). Old version 1.1 of expat 
  *        parser is still available as an alternative
@@ -364,6 +365,8 @@ int main(int argc, char* argv[])
   string file, line;
   while(getline(cin, file))
     {
+      if (file[0] == '#') continue;
+
       set<string> dep;
       string name;
       for (string::const_iterator i=file.begin(); i!=file.end(); ++i)

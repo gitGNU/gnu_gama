@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_cluster_vec.cpp,v 1.8 2003/12/23 19:52:49 uid66336 Exp $
+ *  $Id: g3_cluster_vec.cpp,v 1.9 2003/12/24 11:34:11 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_cluster_vec.h>
@@ -90,15 +90,4 @@ void Vectors::write_xml(std::ostream& out) const
 
       out << "</vector>\n";
     }
-}
-
-
-void Vectors::parlist_init(Model* model)
-{
-  for (GNU_gama::List<Vector*>::iterator
-       i = vectors.begin(), e = vectors.end();  i != e;  ++i)
-    {
-      (*i)->parlist_init(model);
-    }
-  
 }

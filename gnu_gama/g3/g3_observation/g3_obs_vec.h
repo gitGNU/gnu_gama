@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_vec.h,v 1.7 2003/12/23 19:52:49 uid66336 Exp $
+ *  $Id: g3_obs_vec.h,v 1.8 2003/12/24 11:34:11 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_obs_base.h>
@@ -52,7 +52,8 @@ namespace GNU_gama {  namespace g3 {
 
       dxyz_[0] = v.dxyz_[0]; dxyz_[1] = v.dxyz_[1]; dxyz_[2] = v.dxyz_[2];
     }
-    
+
+    int  dimension() const { return 3; }
     void set_dxyz(double x, double y, double z)
     {
       dxyz_[0] = x; dxyz_[1] = y; dxyz_[2] = z;
