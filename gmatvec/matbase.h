@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.21)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.22)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: matbase.h,v 1.8 2002/11/14 14:58:52 cepek Exp $
+ *  $Id: matbase.h,v 1.9 2003/07/27 17:55:38 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -52,8 +52,8 @@ protected:
 
 public:
 
-  typedef MatVecBase<Float, Exc>::iterator       iterator;
-  typedef MatVecBase<Float, Exc>::const_iterator const_iterator;
+  typedef typename MatVecBase<Float, Exc>::iterator       iterator;
+  typedef typename MatVecBase<Float, Exc>::const_iterator const_iterator;
 
   Index rows() const { return row_; }
   Index cols() const { return col_; }

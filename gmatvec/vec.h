@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.21)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.22)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: vec.h,v 1.8 2002/11/14 14:58:52 cepek Exp $
+ *  $Id: vec.h,v 1.9 2003/07/27 17:55:38 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -40,8 +40,8 @@ class Vec : public VecBase<Float, Exc> {
 
 public:
 
-  typedef VecBase<Float, Exc>::iterator       iterator;
-  typedef VecBase<Float, Exc>::const_iterator const_iterator;
+  typedef typename VecBase<Float, Exc>::iterator       iterator;
+  typedef typename VecBase<Float, Exc>::const_iterator const_iterator;
 
   Vec() {}
   Vec(Index nsz) : VecBase<Float, Exc>(nsz) {}
@@ -80,7 +80,7 @@ public:
   Vec& operator+=(const Vec &x) { add(x, *this); return *this; }
   Vec& operator-=(const Vec &x) { sub(x, *this); return *this; }
 
-  MatVecBase<Float, Exc>::ListInitialiser operator=(Float x)
+  typename MatVecBase<Float, Exc>::ListInitialiser operator=(Float x)
   {
     return list_init(x);
   }
@@ -124,10 +124,10 @@ operator*(const Mat<Float, Exc> &A, const Vec<Float, Exc> &b)
       throw Exc(BadRank, "Vec operator*(const Mat&, const Vec&)");
 
     Vec<Float, Exc> t(A.rows());
-    Vec<Float, Exc>::iterator ti = t.begin();
-    Vec<Float, Exc>::const_iterator bb = b.begin();
-    Vec<Float, Exc>::const_iterator bi;
-    Vec<Float, Exc>::const_iterator ai = A.begin();
+    typename Vec<Float, Exc>::iterator ti = t.begin();
+    typename Vec<Float, Exc>::const_iterator bb = b.begin();
+    typename Vec<Float, Exc>::const_iterator bi;
+    typename Vec<Float, Exc>::const_iterator ai = A.begin();
     Float s;
     for (Index i=1; i<=A.rows(); i++)
       {

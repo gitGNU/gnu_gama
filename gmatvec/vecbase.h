@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.21)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.22)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: vecbase.h,v 1.10 2002/12/15 22:00:16 cepek Exp $
+ *  $Id: vecbase.h,v 1.11 2003/07/27 17:55:38 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -45,8 +45,8 @@ protected:
 
 public:
 
-  typedef MatVecBase<Float, Exc>::iterator       iterator;
-  typedef MatVecBase<Float, Exc>::const_iterator const_iterator;
+  typedef typename MatVecBase<Float, Exc>::iterator       iterator;
+  typedef typename MatVecBase<Float, Exc>::const_iterator const_iterator;
 
   Index dim() const { return size(); }
 
@@ -125,8 +125,8 @@ std::istream& operator>>(std::istream& inp, VecBase<Float, Exc>& v)
     if (size != v.dim())
       v.reset(size);
     
-    MatVecBase<Float, Exc>::iterator b = v.begin();
-    MatVecBase<Float, Exc>::iterator e = v.end();
+    typename MatVecBase<Float, Exc>::iterator b = v.begin();
+    typename MatVecBase<Float, Exc>::iterator e = v.end();
     while (b != e)
       {
         inp >> *b;

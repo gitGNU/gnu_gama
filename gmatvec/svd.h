@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.21)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.22)
     Copyright (C) 1999, 2001  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: svd.h,v 1.14 2002/12/15 22:00:16 cepek Exp $
+ *  $Id: svd.h,v 1.15 2003/07/27 17:55:38 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -687,8 +687,8 @@ namespace gMatVec {
       if (n != x_.dim()) x_.reset(n);
 
       Vec<Float, Exc> t_(n);
-      Vec<Float, Exc>::const_iterator b = rhs.begin();
-      Vec<Float, Exc>::iterator t = t_.begin();
+      typename Vec<Float, Exc>::const_iterator b = rhs.begin();
+      typename Vec<Float, Exc>::iterator t = t_.begin();
       Float s;
 
       // t = trans(U)*b*inv(W);
@@ -703,7 +703,7 @@ namespace gMatVec {
       }   // for ...
 
       // x = V*t;
-      Vec<Float, Exc>::iterator x = x_.begin();
+      typename Vec<Float, Exc>::iterator x = x_.begin();
       for (Index i=1; i<=n; ++i, ++x)
         {
           s = 0;
