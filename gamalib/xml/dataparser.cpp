@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.10 2003/01/09 23:34:16 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.11 2003/01/10 23:57:53 cepek Exp $
  */
 
 // #########################################################################
@@ -134,15 +134,13 @@ using namespace GaMaLib;
 
 DataParser::DataParser(std::list<DataObject*>& obs) : objects(obs)
 {
-  int s, t, n, z;
-
   // initial parser state and implicit handlers
   
   state = s_start;
 
-  for (s=s_error; s<=s_stop; s++)
+  for (int s=s_error; s<=s_stop; s++)
     {
-      for (t=0; t<=t_unknown; t++)
+      for (int t=0; t<=t_unknown; t++)
         {
           next[s][t] = s_error;
           stag[s][t] = &DataParser::parser_error;
@@ -155,188 +153,151 @@ DataParser::DataParser(std::list<DataObject*>& obs) : objects(obs)
 
   // .....  <gnu-gama-data>  .........................................
 
-  s = s_start;                    
-  t = t_gama_data;        
-  n = s_gama_data;
-
-  next [s][t] = n;                  stag[s][t] = &DataParser::gama_data;  
-  after[n]    = s_stop;
+  init(  s_start, t_gama_data, 
+       //---------------------
+       s_gama_data, 0, s_stop,
+       &DataParser::gama_data, 0, 0);
 
   // .....  <text>  ..................................................
  
-  s = s_gama_data;                
-  t = t_text;
-  n = s_text;
-
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[n]    = s_gama_data;        data[n]    = &DataParser::add_text;
-                                    etag[n]    = &DataParser::text;
+  init(  s_gama_data, t_text,
+       //--------------------
+       s_text, 0, 0,
+       0, &DataParser::add_text, &DataParser::text);
  
   // .....  <adj-input-data>  ........................................
 
-  s = s_gama_data;
-  t = t_adj_input_data;
-  n = s_adj_input_data;
-
-  next [s][t] = n;                  stag[s][t] = &DataParser::adj_input_data;
-  after[n]    = s_gama_data;        etag[n]    = &DataParser::adj_input_data;
+  init(  s_gama_data, t_adj_input_data, 
+       //------------------------------
+       s_adj_input_data, 0, 0,
+       &DataParser::adj_input_data, 0, &DataParser::adj_input_data);
 
   // .....  <sparse-mat>  ............................................
 
-  s = s_adj_input_data;
-  t = t_sparse_mat;
-  n = s_sparse_mat_1;
-  z = s_sparse_mat_4;
+  init(  s_adj_input_data, t_sparse_mat,
+       //-------------------------------
+       s_sparse_mat_1, s_sparse_mat_4, 0,
+       0, 0, &DataParser::sparse_mat);
 
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[z]    = s_adj_input_data;   etag[z]    = &DataParser::sparse_mat;
+  init(  s_sparse_mat_1, t_rows, 
+       //-----------------------
+       s_sparse_mat_rows, 0, s_sparse_mat_2,
+       0, &DataParser::add_text, &DataParser::append_sp);
 
-  s = s_sparse_mat_1;
-  t = t_rows;
-  n = s_sparse_mat_rows;
+  init(  s_sparse_mat_2, t_cols,
+       //-----------------------
+       s_sparse_mat_cols, 0, s_sparse_mat_3,
+       0, &DataParser::add_text, &DataParser::append_sp);
 
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[n]    = s_sparse_mat_2;     data[n]    = &DataParser::add_text;
-                                    etag[n]    = &DataParser::append_sp;
+  init(  s_sparse_mat_3, t_nonz,
+       //-----------------------
+       s_sparse_mat_nonz, 0, s_sparse_mat_4,
+       0, &DataParser::add_text, &DataParser::sparse_mat_nonz);
+ 
+  init(  s_sparse_mat_4, t_row, 
+       //----------------------
+       s_sparse_mat_row_1, s_sparse_mat_row_2, 0,
+       &DataParser::sparse_mat_row, 0, &DataParser::sparse_mat_row);
 
-  s = s_sparse_mat_2;
-  t = t_cols;
-  n = s_sparse_mat_cols;
+  init(  s_sparse_mat_row_1, t_nonz,
+       //--------------------------- 
+       s_sparse_mat_row_n, 0, s_sparse_mat_row_2,
+       0, &DataParser::add_text, &DataParser::sparse_mat_row_n);
 
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[n]    = s_sparse_mat_3;     data[n]    = &DataParser::add_text;
-                                    etag[n]    = &DataParser::append_sp; 
+  init(  s_sparse_mat_row_2, t_int, 
+       //--------------------------
+       s_sparse_mat_row_i, 0, s_sparse_mat_row_3,
+       0, &DataParser::add_text, &DataParser::append_sp);
 
-  s = s_sparse_mat_3;
-  t = t_nonz;
-  n = s_sparse_mat_nonz;
-
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[n]    = s_sparse_mat_4;     data[n]    = &DataParser::add_text;
-                                    etag[n]    = &DataParser::sparse_mat_nonz;
-
-  s = s_sparse_mat_4;
-  t = t_row;
-  n = s_sparse_mat_row_1;
-  z = s_sparse_mat_row_2;
-
-  next [s][t] = n;                  stag[s][t] = &DataParser::sparse_mat_row;
-  after[z]    = s_sparse_mat_4;     etag[z]    = &DataParser::sparse_mat_row;
-
-  s = s_sparse_mat_row_1;
-  t = t_nonz;
-  n = s_sparse_mat_row_n;
-
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[n]    = s_sparse_mat_row_2; data[n]    = &DataParser::add_text;
-                                    etag[n]    = &DataParser::sparse_mat_row_n;
-
-  s = s_sparse_mat_row_2;
-  t = t_int;
-  n = s_sparse_mat_row_i;
-
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[n]    = s_sparse_mat_row_3; data[n]    = &DataParser::add_text;
-                                    etag[n]    = &DataParser::append_sp; 
-
-  s = s_sparse_mat_row_3;
-  t = t_flt;
-  n = s_sparse_mat_row_f;
-
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[n]    = s_sparse_mat_row_2; data[n]    = &DataParser::add_text;
-                                    etag[n]    = &DataParser::sparse_mat_row_f;
+  init(  s_sparse_mat_row_3, t_flt,
+       //--------------------------
+       s_sparse_mat_row_f, 0, s_sparse_mat_row_2,
+       0, &DataParser::add_text, &DataParser::sparse_mat_row_f);
 
   // ......  <block-diagonal>  .......................................
 
-  s = s_adj_input_data;
-  t = t_block_diagonal;
-  n = s_block_diagonal_1;
-  z = s_block_diagonal_3;
+  init(  s_adj_input_data, t_block_diagonal, 
+       //-----------------------------------
+       s_block_diagonal_1, s_block_diagonal_3, 0,
+       0, 0, &DataParser::block_diagonal);
 
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[z]    = s_adj_input_data;   etag[z]    = &DataParser::block_diagonal;
+  init(  s_block_diagonal_1, t_blocks,
+       //-----------------------------
+       s_block_diagonal_blocks, 0, s_block_diagonal_2,
+       0, &DataParser::add_text, &DataParser::append_sp);
 
-  s = s_block_diagonal_1;
-  t = t_blocks;
-  n = s_block_diagonal_blocks;
+  init(  s_block_diagonal_2, t_nonz,
+       //---------------------------
+       s_block_diagonal_nonz, 0, s_block_diagonal_3,
+       0, &DataParser::add_text, &DataParser::block_diagonal_nonz);
 
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[n]    = s_block_diagonal_2; data[n]    = &DataParser::add_text;
-                                    etag[n]    = &DataParser::append_sp;
+  init(  s_block_diagonal_3, t_block,
+       //----------------------------
+       s_block_diagonal_block_1, s_block_diagonal_block_3, 0,
+       0, 0, &DataParser::block_diagonal_block);
 
-  s = s_block_diagonal_2; 
-  t = t_nonz;
-  n = s_block_diagonal_nonz;
+  init(  s_block_diagonal_block_1, t_dim,
+       //--------------------------------
+       s_block_diagonal_block_d, 0, s_block_diagonal_block_2,
+       0, &DataParser::add_text, &DataParser::append_sp);
 
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[n]    = s_block_diagonal_3; data[n]    = &DataParser::add_text;
-                                    etag[n]    = &DataParser:: 
-                                                  block_diagonal_nonz;
-  s = s_block_diagonal_3;
-  t = t_block;
-  n = s_block_diagonal_block_1;
-  z = s_block_diagonal_block_3;
+  init(  s_block_diagonal_block_2, t_width,
+       //----------------------------------
+       s_block_diagonal_block_w, 0, s_block_diagonal_block_3,
+       0, &DataParser::add_text, &DataParser::block_diagonal_block_w);
 
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[z]    = s_block_diagonal_3; etag[z]    = &DataParser::
-                                                 block_diagonal_block;
-
-  s = s_block_diagonal_block_1;
-  t = t_dim;
-  n = s_block_diagonal_block_d;
-
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[n]    = s_block_diagonal_block_2; data[n] = &DataParser::add_text;
-                                    etag[n]    = &DataParser::append_sp;
-
-  s = s_block_diagonal_block_2;
-  t = t_width;
-  n = s_block_diagonal_block_w;
-
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[n]    = s_block_diagonal_block_3; data[n] = &DataParser::add_text;
-                                    etag[n]    = &DataParser::
-                                                 block_diagonal_block_w;
-
-  s = s_block_diagonal_block_3;
-  t = t_flt;
-  n = s_block_diagonal_block_f;
-
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[n]    = s_block_diagonal_block_3; data[n] = &DataParser::add_text;
-                                    etag[n]    = &DataParser::
-                                                 block_diagonal_vec_flt;
+  init(  s_block_diagonal_block_3, t_flt,  
+       //--------------------------------
+       s_block_diagonal_block_f, 0, 0,
+       0, &DataParser::add_text, &DataParser::block_diagonal_vec_flt);
 
   // ......  <vector>  ...............................................
 
-  s = s_adj_input_data;
-  t = t_vector;
-  n = s_vector_1;
-  z = s_vector_2;
+  init(  s_adj_input_data, t_vector, 
+       //--------------------------
+       s_vector_1, s_vector_2, 0,
+       0, 0, &DataParser::vector);
 
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag; 
-  after[z]    = s_adj_input_data;   etag[z]    = &DataParser::vector;
+  init(  s_vector_1, t_dim, 
+       //------------------
+       s_vector_dim, 0, s_vector_2,
+       0, &DataParser::add_text, &DataParser::vector_dim);
 
-  s = s_vector_1;
-  t = t_dim;
-  n = s_vector_dim;
-
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag; 
-  after[n]    = s_vector_2;         data[n]    = &DataParser::add_text;
-                                    etag[n]    = &DataParser::vector_dim;
-
-  s = s_vector_2;
-  t = t_flt;
-  n = s_vector_flt;
-
-  next [s][t] = n;                  stag[s][t] = &DataParser::start_tag;
-  after[n]    = s_vector_2;         data[n]    = &DataParser::add_text;
-                                    etag[n]    = &DataParser::vector_flt;
+  init(  s_vector_2, t_flt, 
+       //------------------
+       s_vector_flt, 0, 0,
+       0, &DataParser::add_text, &DataParser::vector_flt);
 
   // .................................................................
 }
 
+// #######################################################
+// #                                                     #
+// # states:      s         n         z=n        a=s     #
+// #              |         |         |          |       #
+// # tag t:        <...t...>           </...t...>        #
+// #                                                     #
+// # functions:    [ Stag  ][  Data   ][  Etag  ]        #
+// #                                                     #
+// #######################################################
+
+void DataParser::init(int s,   int t, 
+                      int n,   int z,   int a,
+                      Stag s_, Data d_, Etag e_)
+{
+  if (z == 0)  z = n;
+  if (a == 0)  a = s;
+
+  next [s][t] = n;
+  after[z]    = a;
+
+  if (s_) stag[s][t] = s_;
+  else    stag[s][t] = &DataParser::start_tag;
+
+  if (d_) data[n] = d_;
+
+  if (e_) etag[z] = e_;
+}
 
 DataParser::data_tag DataParser::tag(const char* c)
 {
@@ -392,7 +353,6 @@ DataParser::data_tag DataParser::tag(const char* c)
 
   return t_unknown;
 }
-
 
 // *****************************************************************
 

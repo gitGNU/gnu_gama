@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.9 2003/01/09 23:34:16 cepek Exp $
+ *  $Id: dataparser.h,v 1.10 2003/01/10 23:57:53 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -158,6 +158,9 @@ namespace GaMaLib {
       int start_tag    (const char *name, const char **atts);
       int white_spaces (const char *name, int len);
       int append_sp    (const char *name);
+
+      void init(int state, int tag, int next_state, int state_after, int a,
+                Stag, Data, Etag);
 
       std::string      text_buffer;
       SparseMatrix <> *adj_sparse_mat;
