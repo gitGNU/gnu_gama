@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.3 2003/03/22 13:34:51 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.4 2003/03/23 18:39:53 cepek Exp $  */
 
 #include <cstddef>
 
@@ -68,15 +68,23 @@ namespace GNU_gama { namespace g3 {
     double init_value() const { return val; }
     double correction() const { return cor; }
     size_t index     () const { return ind; }
-    bool   is_const  () const { return isc; }
 
     void set_init_value(double p) { val = p; cor = 0; }
     void set_correction(double p) { cor = p; }
     void set_index     (size_t t) { ind = t; }
-    void set_is_const  (bool   b) { isc = b; } 
 
 
     ParameterList  parlist;
+
+    enum {
+      unused      = 0,
+      fixed       = 1,
+      free        = 2,
+      constrained = 4+free
+    };
+
+    int  state(int s) const { return s & state_; }
+    void set_state(int s)   { state_ = s;        }
 
   private:
     
@@ -85,7 +93,7 @@ namespace GNU_gama { namespace g3 {
     double val;
     double cor;
     size_t ind;
-    bool   isc;
+    int    state_;
 
   };
 
@@ -100,7 +108,7 @@ namespace GNU_gama { namespace g3 {
       val = par.val;
       cor = par.cor;
       ind = par.ind;
-      isc = par.isc;
+      state_ = par.state_;
     }
 
   inline ParameterList::~ParameterList() 

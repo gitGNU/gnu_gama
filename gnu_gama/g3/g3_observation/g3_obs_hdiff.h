@@ -20,10 +20,10 @@
 */
 
 /*
- *  $Id: g3_obs_hdiff.h,v 1.1 2003/03/23 11:49:53 cepek Exp $
+ *  $Id: g3_obs_hdiff.h,v 1.2 2003/03/23 18:39:53 cepek Exp $
  */
 
-#include <gnu_gama/g3/g3_parameter.h>
+#include <gnu_gama/g3/g3_observation/g3_obs_base.h>
 
 
 #ifndef GNU_gama__g3_obs_hdiff_h_gnugamag3obs_hdiffh___gnu_gama_g3obs
@@ -37,6 +37,11 @@ namespace GNU_gama {  namespace g3 {
 
   public:  
 
+    Point::Name name[2];
+
+    H_diff() : Observation(2) {}
+
+    void init_parameters(Model*);
 
   };
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.7 2003/03/22 21:55:29 cepek Exp $
+ *  $Id: g3_point.h,v 1.8 2003/03/23 18:39:53 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_parameter.h>
@@ -43,7 +43,7 @@ namespace GNU_gama {  namespace g3 {
   };
 
 
-  class Parameter_height   : public Parameter {
+  class Parameter_height : public Parameter {
   public:
 
     Parameter_height* clone() { return new Parameter_height(*this); }
@@ -74,7 +74,28 @@ namespace GNU_gama {  namespace g3 {
     ParameterList        parlist;
 
 
+    enum {
+      unused               = 0,
+      fixed_position       = 1,
+      fixed_height         = 2,
+      fixed_point          = fixed_position + fixed_height,
+      free_position        = 4,
+      free_height          = 8,
+      free_point           = free_position  + free_height,
+      constrained_position = 16 + free_position,
+      constrained_height   = 32 + free_height,
+      constrained_point    = constrained_position + constrained_height,
+      position             = fixed_position + free_position, 
+      height               = fixed_height   + free_height,
+      point                = position + height  
+    };
+
+    int  state(int s) const { return s & state_; }
+    void set_state(int s)   { state_  = s;       }
+
   private:
+
+    int state_;
 
   };
 
