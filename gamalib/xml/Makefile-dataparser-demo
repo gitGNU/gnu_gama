@@ -1,0 +1,9 @@
+CXXFLAGS += -I../.. 
+
+data : dataparser.h dataparser.cpp
+	$(CXX) $(CXXFLAGS) -DGaMaLib_DataParser_demo -o demo-dataparser \
+                dataparser.cpp ../../gamaprog/linux/lib/gamalib.a
+
+
+
+

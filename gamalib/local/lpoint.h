@@ -20,12 +20,13 @@
 */
 
 /*
- *  $Id: point.h,v 1.2 2002/05/29 16:06:54 cepek Exp $
+ *  $Id: lpoint.h,v 1.1 2002/10/24 17:27:02 cepek Exp $
  */
 
-#ifndef GaMaLib___class__Point_h
-#define GaMaLib___class__Point_h
+#ifndef GaMaLib___class__LocalPoint_h
+#define GaMaLib___class__LocalPoint_h
 
+#include <gamalib/bpoint.h>
 #include <gamalib/float.h>
 #include <gamalib/exception.h>
 #include <gamalib/language.h>
@@ -33,7 +34,7 @@
 namespace GaMaLib {
 
 
-class Point {
+class LocalPoint {
 public:
 
   struct XYZ 
@@ -53,11 +54,11 @@ public:
   }; 
 
 
-  Point()      : bxy_(false), bz_(false), pst_(unused_) {}
-  Point(XYZ p) : x_(p.x), y_(p.y), z_(p.z), bxy_(true), bz_(true),  
-                 pst_(unused_) {}
-  Point(XY  p) : x_(p.x), y_(p.y), bxy_(true), bz_(false), pst_(unused_) {}
-  Point(ZZ  p) : z_(p.z), bxy_(false), bz_(true), pst_(unused_) {}
+  LocalPoint()      : bxy_(false), bz_(false), pst_(unused_) {}
+  LocalPoint(XYZ p) : x_(p.x), y_(p.y), z_(p.z), bxy_(true), bz_(true),  
+                      pst_(unused_) {}
+  LocalPoint(XY  p) : x_(p.x), y_(p.y), bxy_(true), bz_(false), pst_(unused_){}
+  LocalPoint(ZZ  p) : z_(p.z), bxy_(false), bz_(true), pst_(unused_) {}
   
 
   Double y() const 
