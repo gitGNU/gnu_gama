@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2" standalone="yes" ?>
 <entries>
 
-<!-- $Id: review.lang,v 1.6 2004/03/18 17:07:01 cepek Exp $ -->
+<!-- $Id: review.lang,v 1.7 2004/11/02 18:03:54 cepek Exp $ -->
 
 <e id="T_GaMa_inconsistent_coordinates_and_angles"
    en="Inconsistent coordinates and angles: \nchanging internally sign of all Y coordinates" />
@@ -380,6 +380,12 @@
 
 <e id="T_GaMa_abstrm_header2"
    en="== value ===== term ==\n\n" />
+
+<e id="T_GaMa_reduced_Review_of_reduced_observations_to_ellipsoid"
+   en="Reduced observations to ellipsoid" />
+
+<e id="T_GaMa_reduced_to_ellipsoid_header1"
+   en="  diff\n" />
 
 </entries>
 

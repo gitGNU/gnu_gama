@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: reduced_observations.h,v 1.5 2004/06/20 20:54:51 cepek Exp $
+ *  $Id: reduced_observations.h,v 1.6 2004/11/02 18:03:54 cepek Exp $
  */
 
 #ifndef GaMaLib_local_results_text_reduced_observations_h
@@ -140,7 +140,7 @@ void ReducedObservationsText(GaMaLib::LocalNetwork* IS,
        for (int i=0; i < kk; i++) out << "=";
    }
 
-   out << "=== [mm] =\n\n";
+   out << "=== [m] ==\n\n";
 
    out.flush();
    
