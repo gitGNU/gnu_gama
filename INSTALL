@@ -20,8 +20,8 @@ or a copy from
            http://gama.fsv.cvut.cz/gama/archive/expat/expat.zip
 
 Place the parser source into subdirectory `expat' located in the same
-directory in which are located subdirectories `gamalib', `gmatvec',
-etc. and run 
+directory in which are located subdirectories `gnu_gama', `gmatvec',
+etc. and run
                    make dep
                    make 
 
@@ -36,6 +36,8 @@ command line tools) and with MS Visual C++ (not the latest versions).
       change to gamaprog/win32-borland and run `make' or go to
       gamaprog/win32-msvc and run `nmake'.
 
+      Makefiles for win32 platform are not stored at CVS and can 
+      be build using  scripts/win32-makefiles.bat
 
 ---------------------------
 

@@ -1,19 +1,14 @@
-# $Id: Makefile,v 1.15 2003/03/20 20:43:48 cepek Exp $
+# $Id: Makefile,v 1.16 2003/03/20 21:22:00 cepek Exp $
 #
 # this Makefile and all files in ./scripts were tested on Debian GNU/Linux 2.2
 #
 
-.PHONY : archive gamalib
+.PHONY : archive
 
 
 all:
-	@if [ ! -f gamaprog/linux/gama-local/Makefile ] || \
-	    [ ! -f gamaprog/linux/lib/Makefile  ];   \
-	then          \
-	   make help; \
-	else          \
-	   make make-project; \
-	fi
+	( cd gamaprog/linux/lib; make -f Makefile-expat; make )
+	( cd gamaprog/linux/gama-local ; make )
 
 help:
 	@echo
@@ -51,10 +46,11 @@ archive:
 	./scripts/build-archive
 
 clean:
-	rm -f `find gamalib gamaprog scripts -name *\.[o]`
-	rm -f `find gamalib gamaprog scripts -name *\.[a]`
-	rm -f `find gamalib -name demo*`
-	rm -f `find . -name *[\~\#]*`
+	rm -f `find gnu_gama gamalib gamaprog scripts -name *\.[o]`
+	rm -f `find gnu_gama gamalib gamaprog scripts -name *\.[a]`
+	rm -f `find gnu_gama gamalib -name leak.out`
+	rm -f `find gnu_gama gamalib -name demo*`
+	rm -f `find . -name "*[\~\#]*"`
 	rm -f `find gamaprog/linux/gama-local/examples -name test*`
 
 # -----------------------------------------------------------------------
