@@ -20,10 +20,11 @@
 */
 
 /*
- *  $Id: g3_model_zenith_angle.cpp,v 1.1 2004/05/12 18:29:22 cepek Exp $
+ *  $Id: g3_model_zenith_angle.cpp,v 1.2 2004/05/17 16:20:25 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
+#include <gnu_gama/radian.h>
 
 using namespace GNU_gama::g3;
 
@@ -63,57 +64,72 @@ void Model::linearization_visit(ZenithAngle* z)
 {
   Point* from = points->find(z->from);
   Point* to   = points->find(z->to  );
+  
+  E_3 from_vertical, from_to, p1, v1, p2, v2;
+  
+  p1.set(from->X(), from->Y(), from->Z());
+  v1 = from_vertical = vertical(from);  
+  v1 *= z->from_dh;
+  p1 += v1;                               // instrument
+  
+  p2.set(to->X(), to->Y(), to->Z());
+  v2  = vertical(to);
+  v2 *= z->to_dh;
+  p2 += v2;                               // target
+  
+  from_to  = p2;
+  from_to -= p1;                          // instrument --> target
 
-  /* ++++  DEBUG  ++++++++++++++++++++++++++++++++++++++ */
-  {
-    double dx = to->X() - from->X();
-    double dy = to->Y() - from->Y();
-    double dz = to->Z() - from->Z();
-    if (double dd = std::sqrt(dx*dx + dy*dy + dz*dz))
-      {
-        dx /= dd;
-        dy /= dd;
-        dz /= dd;
-      }
-    from->set_diff_XYZ(-dx, -dy, -dz);
-    to  ->set_diff_XYZ( dx,  dy,  dz);
-  }
-  /* ----  DEBUG  --------------------------------------- */
+  R_3 R;
+  R.set_rotation(from->B(), from->L());   // dif_NEU --> dif_XYZ
+  E_3 local;
+  R.inverse(from_to, local);
 
+  const double r = std::sqrt(local.e1*local.e1 + local.e2*local.e2);
+  const double s = local.e1*local.e1 + local.e2*local.e2 + local.e3*local.e3;
+  const double q = 1.0/(r*s);
 
+  // pd - partial derivatives for the occupied station
+  E_3 pd( -local.e1*q, -local.e2*q, r/s); 
 
   // nonzero derivatives in project equations
   A->new_row();
   if (from->free_horizontal_position())
     {
-      A->add_element(from->diff_N(), from->N.index());
-      A->add_element(from->diff_E(), from->E.index());
+      A->add_element(pd.e1, from->N.index());
+      A->add_element(pd.e2, from->E.index());
     }
   if (from->free_height())
     {
-      A->add_element(from->diff_U(), from->U.index());
+      A->add_element(pd.e3, from->U.index());
     }
+
+  E_3 tmp;
+  R.rotation(pd, tmp);
+  tmp *= -1.0;
+  R.set_rotation(to->B(),to->L());
+  // pd - partial derivatives for the target station
+  R.inverse (tmp, pd);   
 
   if (to->free_horizontal_position())
     {
-      A->add_element(to->diff_N(), to->N.index());
-      A->add_element(to->diff_E(), to->E.index());
+      A->add_element(pd.e1, to->N.index());
+      A->add_element(pd.e2, to->E.index());
     }
   if (to->free_height())
     {
-      A->add_element(to->diff_U(), to->U.index());
+      A->add_element(pd.e3, to->U.index());
     }
 
 
+  // right hand site
+  
+  double za = angle(from_vertical, from_to); 
 
-  // right hand site  ... DEBUG !!!
-  {
-    double dx = to->X_dh(z->to_dh) - from->X_dh(z->from_dh);
-    double dy = to->Y_dh(z->to_dh) - from->Y_dh(z->from_dh);
-    double dz = to->Z_dh(z->to_dh) - from->Z_dh(z->from_dh);
-    double D  = std::sqrt(dx*dx + dy*dy + dz*dz);
+  /************************************************************/
+  /*          !!! add refraction correction here !!!          */
+  /************************************************************/
 
-    rhs(++rhs_ind) = z->obs() - D;
-  }
+  rhs(++rhs_ind) = z->obs()*GON_TO_RAD - za;
 }
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.28 2004/04/23 22:01:31 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.29 2004/05/17 16:20:25 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -380,4 +380,36 @@ void Model::write_xml_adjustment_results(std::ostream& out)
   out << "\n</adjustment-results>\n";
 }
 
+
+GNU_gama::E_3 Model::vector(const Point* from, const Point* to) const
+{
+  GNU_gama::E_3 v;
+  
+  v.set(to  ->X(), to  ->Y(), to  ->Z());
+  v.sub(from->X(), from->Y(), from->Z());
+
+  return v;
+}
+
+
+GNU_gama::E_3 Model::normal(const Point* p) const
+{
+  const double B = p->B();
+  const double L = p->L();
+
+  return GNU_gama::E_3(std::cos(B)*std::cos(L),
+                       std::cos(B)*std::sin(L),
+                       std::sin(B)            );
+}
+
+
+GNU_gama::E_3 Model::vertical(const Point* p) const
+{
+  const double B = p->B() + p->dB();
+  const double L = p->L() + p->dL();
+
+  return GNU_gama::E_3(std::cos(B)*std::cos(L),
+                       std::cos(B)*std::sin(L),
+                       std::sin(B)            );
+}
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: zangle.h,v 1.2 2002/10/24 17:04:12 cepek Exp $
+ *  $Id: zangle.h,v 1.3 2004/05/17 16:20:25 cepek Exp $
  */
 
 #include <gamalib/local/linearization.h>
@@ -58,8 +58,6 @@ void LocalLinearization::z_angle(const Z_Angle* obs) const
    
    Double za = acos(dz/sd);
 
-   // now we must find in what instrument position was observed, this
-   // cannot be decided from dz and as => we decide from obs->value()
    if (obs->value() > M_PI) za = 2*M_PI - za; 
    Double a  = (obs->value() - za);
 

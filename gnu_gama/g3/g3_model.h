@@ -20,8 +20,11 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.24 2004/05/12 18:29:21 cepek Exp $
+ *  $Id: g3_model.h,v 1.25 2004/05/17 16:20:25 cepek Exp $
  */
+
+#ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
+#define GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
 
 #include <gnu_gama/model.h>
 #include <gnu_gama/pointbase.h>
@@ -33,15 +36,11 @@
 #include <gnu_gama/sparse/smatrix.h>
 #include <gnu_gama/sparse/sbdiagonal.h>
 #include <gnu_gama/adj/adj.h>
-
-#ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
-#define GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
-
+#include <gnu_gama/e3.h>
 
 namespace GNU_gama {  namespace g3 {
 
-  
-  class Model : 
+    class Model : 
     public GNU_gama::Model<g3::Observation>,
     public Revision     <Distance>,
     public Linearization<Distance>,
@@ -98,6 +97,10 @@ namespace GNU_gama {  namespace g3 {
 
     void write_xml_adjustment_input_data(std::ostream&);
     void write_xml_adjustment_results   (std::ostream&);
+
+    GNU_gama::E_3 vector  (const Point* from, const Point* to) const;
+    GNU_gama::E_3 normal  (const Point* p) const;
+    GNU_gama::E_3 vertical(const Point* p) const;
 
   private:   /*-----------------------------------------------------------*/
       

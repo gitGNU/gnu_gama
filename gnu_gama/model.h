@@ -20,15 +20,13 @@
 */
 
 /*
- *  $Id: model.h,v 1.14 2004/01/17 21:36:14 cepek Exp $
+ *  $Id: model.h,v 1.15 2004/05/17 16:20:25 cepek Exp $
  */
-
-
-#include <gnu_gama/obsdata.h>
 
 #ifndef GNU_gama__mathematical_model_h_gnugamamodel___gnu_gama_gmodel___h
 #define GNU_gama__mathematical_model_h_gnugamamodel___gnu_gama_gmodel___h
 
+#include <gnu_gama/obsdata.h>
 #include <gnu_gama/matvec.h>
 
 namespace GNU_gama {

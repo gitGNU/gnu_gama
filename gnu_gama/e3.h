@@ -20,37 +20,54 @@
 */
 
 /*
- *  $Id: e3.h,v 1.1 2004/05/13 17:50:27 cepek Exp $
+ *  $Id: e3.h,v 1.2 2004/05/17 16:20:25 cepek Exp $
  */
 
 
 #ifndef GNU_gama__e3_____gnu_gama_e3_____gnugamae3____h
 #define GNU_gama__e3_____gnu_gama_e3_____gnugamae3____h
 
+#include <iostream>
+
 namespace GNU_gama {
 
-  struct E3 {
+  struct E_3 {
 
     double e1, e2, e3;
 
-    E3() {}
-    E3(double a, double b, double c) : e1(a), e2(b), e3(c) {}
+    E_3() {}
+    E_3(double a, double b, double c) : e1(a), e2(b), e3(c) {}
 
-    void   operator += (const E3&);
-    void   operator -= (const E3&);
+    void   operator += (const E_3&);
+    void   operator -= (const E_3&);
     void   operator *= (double);
 
     void   set(double, double, double);
     void   add(double, double, double);
     void   sub(double, double, double);
 
-    void   cross(const E3&, const E3&);
-    double dot  (const E3&) const;
+    void   cross(const E_3&, const E_3&);
+    double dot  (const E_3&) const;
 
   };
 
-  double angle(const E3&, const E3&);
+  double angle(const E_3&, const E_3&);
+
   
+
+  struct R_3 {    // rotation matrix 3x3
+
+    double  r11, r12, r13;
+    double  r21, r22, r23;
+    double  r31, r32, r33;
+
+    void set_rotation(double b, double l);
+
+    void rotation(const E_3&, E_3&) const;     // dif_NEU --> dif_XYZ
+    void inverse (const E_3&, E_3&) const;     // dif_XYZ --> dif_NEU
+
+  };
+
 }
 
 #endif
