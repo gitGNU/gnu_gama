@@ -1,7 +1,7 @@
 #
 # builds dictionaris for GaMaLib
 # 
-# $Id: build-makefiles,v 1.3 2003/03/29 13:33:57 cepek Exp $
+# $Id: build-makefiles,v 1.4 2003/12/28 16:42:34 uid66336 Exp $
 
 
 if pwd | grep /scripts$; then cd ..; fi
@@ -19,6 +19,7 @@ DEP=scripts/gnu_gama_dep
 $DEP expat      gnu           > gamaprog/linux/lib/Makefile-expat
 $DEP lib        gnu           > gamaprog/linux/lib/Makefile
 $DEP gama-local gnu           > gamaprog/linux/gama-local/Makefile
+$DEP gama-g3    gnu           > gamaprog/linux/gama-g3/Makefile
 
 $DEP expat      win32-borland > gamaprog/win32-borland/lib/Makefile-expat
 $DEP lib        win32-borland > gamaprog/win32-borland/lib/Makefile
