@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2" standalone="yes" ?>
 <entries>
 
-<!-- $Id: review.cz.lang,v 1.5 2003/01/20 17:57:18 cepek Exp $ -->
+<!-- $Id: review.cz.lang,v 1.6 2003/02/16 13:09:14 cepek Exp $ -->
 
 <e id="T_GaMa_inconsistent_coordinates_and_angles"
    EN="Inconsistent coordinates and angles: \ninternally changing sign of all Y coordinates"
@@ -322,7 +322,7 @@
 
 <e id="T_GaMa_distance"
    EN=" dist. "
-   cz=" delka " />
+   cz=" délka " />
 
 <e id="T_GaMa_direction"
    EN=" dir.  "
@@ -438,7 +438,7 @@
 
 <e id="T_GaMa_resobs_normality_test"
    EN="Test of normality of homogenised residuals"
-   cz="Overeni normalniho rozdeleni homogenizovanych oprav" />
+   cz="Oveření normálního rozdělení homogenizovaných oprav" />
 
 <e id="T_GaMa_resobs_condition_number"
    EN="Condition number        : "

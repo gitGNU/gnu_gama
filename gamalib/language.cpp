@@ -577,7 +577,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_approx_total="celkem      : ";
 	T_GaMa_detected_singular_variables="Jako lineárně závislé byly určeny následující proměnné";
 	T_GaMa_direction=" směr  ";
-	T_GaMa_distance=" delka ";
+	T_GaMa_distance=" délka ";
 	T_GaMa_errell_header1="    mp      mxy       stred. el. chyb     konfid. el. chyb   g\n";
 	T_GaMa_errell_header2="== [mm] == [mm] ==== a [mm] b   alfa[g] ==== a' [mm] b' ========";
 	T_GaMa_errell_review_of_mean_errors_and_error_ellipses="Střední chyby a parametry elips chyb";
@@ -647,7 +647,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_resobs_mc_max=" m ";
 	T_GaMa_resobs_mc_max_critical=" mk";
 	T_GaMa_resobs_no_control=" n";
-	T_GaMa_resobs_normality_test="Overeni normalniho rozdeleni homogenizovanych oprav";
+	T_GaMa_resobs_normality_test="Oveření normálního rozdělení homogenizovaných oprav";
 	T_GaMa_resobs_weak_control=" s";
 	T_GaMa_s_distance=" šikmá ";
 	T_GaMa_solution_ended_with_error="GaMa - výpočet skončil chybou!";

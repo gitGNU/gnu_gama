@@ -20,26 +20,38 @@
 */
 
 /*
- *  $Id: underline.cpp,v 1.1 2001/12/07 12:54:43 cepek Exp $
+ *  $Id: underline.cpp,v 1.2 2003/02/16 13:09:14 cepek Exp $
  */
 
 #include <string>
-
 #include <gamalib/local/results/text/underline.h>
+#include <gamalib/xml/encoding.h>
+
 
 namespace GaMaLib {
 
-std::string underline(std::string t, char c)
+std::string underline(std::string text, char c)
 {
-  std::string s(t);
-  const unsigned int n = s.length();
-  s.replace(0, n, n, c);
+  int i;
+  std::string s;
+  unsigned char* p = (unsigned char*)text.c_str();
+  while (*p)
+    {
+      p += Utf8Decode(i, p);
+      s += c;
+    }
   return s;
 }
 
 std::string set_width(std::string s, int n)
 {
-  const int N = s.length(); 
+  int N=0, i;
+  unsigned char* p = (unsigned char*)s.c_str();
+  while (*p)
+    {
+      p += Utf8Decode(i, p);
+      N++;
+    }
   std::string t(s);
   while (n-- > N) t += ' ';
   return t;

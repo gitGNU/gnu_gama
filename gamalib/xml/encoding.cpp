@@ -20,12 +20,10 @@
 */
 
 /*
- *  $Id: encoding.cpp,v 1.2 2002/08/18 16:50:19 cepek Exp $
+ *  $Id: encoding.cpp,v 1.3 2003/02/16 13:09:14 cepek Exp $
  */
 
 #include <string.h>
-#include <expat/xmlparse/xmlparse.h>
-
 #include <gamalib/xml/encoding.h>
 
 #ifdef __cplusplus

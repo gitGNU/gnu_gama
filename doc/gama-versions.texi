@@ -1,8 +1,8 @@
-@comment $Id: gama-versions.texi,v 1.5 2003/02/01 16:12:04 cepek Exp $
+@comment $Id: gama-versions.texi,v 1.6 2003/02/16 13:09:13 cepek Exp $
 
-GNU GaMa is a project dedicated to adjustment of @emph{geodetic
+GNU Gama is a project dedicated to adjustment of @emph{geodetic
 networks}. It was formerly inspired by Fortran system Geodet/PC (1990)
-designed by Frantisek Charamza. The GNU GaMa project has been started
+designed by Frantisek Charamza. The GNU Gama project has been started
 at the department of mapping and cartography, faculty of Civil
 Engineering, Czech Technical University in Prague (CTU) about 1998 and
 its name is an acronym for @emph{geodesy and mapping}.  It was
@@ -13,15 +13,15 @@ in Prague and then at FIG Workshop and Seminar at HUT Helsinki in
             @center   @uref{http://www.gnu.org/software/gama/}
 
 
-GNU GaMa is released under GNU General Public Licence and is based on
-a C++ library of geodetic classes and functions @code{GaMaLib} and a
+GNU Gama is released under GNU General Public Licence and is based on
+a C++ library of geodetic classes and functions @code{GamaLib} and a
 small C++ template matrix library @code{gMatVec}. For parsing XML
-documents GNU GaMa calls @code{expat} parser version 1.1 written by
-James Clark. The @code{expat} parser is not part of the GNU GaMa
-project, but is used with GNU GaMa.
+documents GNU Gama calls @code{expat} parser version 1.1 written by
+James Clark. The @code{expat} parser is not part of the GNU Gama
+project, but is used with GNU Gama.
 
 
-GNU GaMa currently contains two main development branches.  Stable
+GNU Gama currently contains two main development branches.  Stable
 branch of the project is limited to network adjustment in a local
 coordinate system and its functionality is represented by a command
 line program @code{gama-local}.  Program @code{gama-local} adjusts
@@ -37,7 +37,7 @@ functionality is going to be represented by command line program
 be compatible with the model of adjustment in geocentric coordinates.
 
 
-Project Rocinante is the GNU GaMa GUI for the adjustment in local
+Project Rocinante is the GNU Gama GUI for the adjustment in local
 coordinate systems (stable branch; program @code{roci-local}) and is
 based on the Qt graphical library. Rocinante is documented
 separatedly, for more information see
@@ -50,19 +50,19 @@ to stable version @value{STABLEV} for Linux and Win32 can be downloaded from
          @center @uref{http://sourceforge.net/projects/roci/}
 
 
-The latest GNU GaMa stable version can be found on in the subdirectory
+The latest GNU Gama stable version can be found on in the subdirectory
 @code{/gnu/gama/} on your favourite
 @uref{http://www.gnu.org/prep/ftp.html, GNU mirror} or from the CVS as
 the branch @code{@value{STABLEV}}.  See our project page at
 @uref{http://savannah.gnu.org/projects/gama/, savannah} for more
-information.  Unstable branch of GNU GaMa is available from the CVS on
+information.  Unstable branch of GNU Gama is available from the CVS on
 the main trunk.  Archive of previous versions (both stable and
 unstable) is available at
 @uref{http://gama.fsv.cvut.cz/gama/archive/}.
 
 
 To get an anonymous read-only access to the CVS repository for the
-latest GNU GaMa unstable source, submit the following commands
+latest GNU Gama unstable source, submit the following commands
 
 @example
 cvs -d:pserver:anoncvs@@subversions.gnu.org:/cvsroot/gama login

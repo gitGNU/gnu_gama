@@ -1,12 +1,12 @@
-@comment $Id: obsdata.texi,v 1.1 2002/10/12 15:52:23 cepek Exp $
+@comment $Id: obsdata.texi,v 1.2 2003/02/16 13:09:14 cepek Exp $
 
-@noindent The GaMa observation data structures are designed 
+@noindent The Gama observation data structures are designed 
 to enable adjustment of any combination of possibly correlated
 observations. 
 
 @image{obsdata-fig,14cm} 
 
-At its very early stage GaMa was limited to adjustment of uncorrelated
+At its very early stage Gama was limited to adjustment of uncorrelated
 observations. Only directions and distances were available and
 observable's weight was stored together with the observed value in a
 single object. A single array of pointers to observation objects was
@@ -16,7 +16,7 @@ together with coordinations in @emph{point objects}.
 
 To enable adjustment of possibly correlated observation (like angles
 derived from observed directions or already adjusted coordinates from
-a previous adjustment) GaMa has come with the concept of
+a previous adjustment) Gama has come with the concept of
 @emph{clusters}. Cluster is an object with a common
 variance-covariance matrix and a list of pointers to observation
 objects (distances, directions, angles, etc.). Weights were removed
@@ -35,7 +35,7 @@ is necessary to define special observation objects for separate
 coordinates X, Y and/or Z. This is possible but clearly this is not
 natural way of handling point coordinates. 
 
-For backward compatibility GaMa retains the described data structures
+For backward compatibility Gama retains the described data structures
 but from development version 1.5 more stress is going to be put on
 clusters than on observations. In other words clusters need not to
 present its informations as @emph{observations}. Linearization is not

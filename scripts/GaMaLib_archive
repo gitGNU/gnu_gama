@@ -3,7 +3,7 @@
 # gama tar: script is run in the parent directory of scripts
 # #########
 #
-# $Id: GaMaLib_archive,v 1.15 2003/02/01 16:12:04 cepek Exp $
+# $Id: GaMaLib_archive,v 1.16 2003/02/16 13:09:14 cepek Exp $
 
 if pwd | grep scripts$; then cd ..; fi
 
@@ -27,7 +27,7 @@ fi
 ln -s . $VERSION
 
 TAR=$VERSION.tar.gz
-ADD="$VERSION/gamalib $VERSION/gamaprog $VERSION/xml"
+ADD="$VERSION/gnu_gama $VERSION/gamalib $VERSION/gamaprog $VERSION/xml"
 ADD="$ADD $VERSION/Makefile $VERSION/AUTHORS"
 ADD="$ADD $VERSION/ChangeLog* $VERSION/TODO"
 ADD="$ADD $VERSION/INSTALL $VERSION/README"
@@ -36,7 +36,7 @@ ADD="$ADD $VERSION/expat"
 ADD="$ADD $VERSION/doc"
 
 
-MD5=$VERSION/gamalib-$LIBVER.md5sum
+MD5=$VERSION/gama-$LIBVER.md5sum
 rm -f $MD5
 for s in $(find $ADD | egrep \.'(h|cpp|c|gkf|dtd)'$ | egrep -v \# | grep -v \~ )
 do

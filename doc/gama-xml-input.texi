@@ -1,4 +1,4 @@
-@comment $Id: gama-xml-input.texi,v 1.4 2002/11/22 17:46:22 cepek Exp $
+@comment $Id: gama-xml-input.texi,v 1.5 2003/02/16 13:09:13 cepek Exp $
 
 @comment setfilename gama-xml-inp.info
 
@@ -1025,7 +1025,7 @@ guide to Geodet/PC by Frantisek Charamza.
 <network axes-xy="sw">          
 
 <description>
-XML input stream of points and observation data for program GaMa
+XML input stream of points and observation data for program Gama
 <!-- this is a XML comment -->
 </description>
 

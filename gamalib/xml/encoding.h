@@ -20,9 +20,10 @@
 */
 
 /*
- *  $Id: encoding.h,v 1.1 2001/12/07 13:02:30 cepek Exp $
+ *  $Id: encoding.h,v 1.2 2003/02/16 13:09:14 cepek Exp $
  */
 
+#include <expat/xmlparse/xmlparse.h>
 
 #ifndef GaMaLib_GKF__XML__encoding__h_
 #define GaMaLib_GKF__XML__encoding__h_
@@ -38,6 +39,7 @@ int   ascii(int* tab);
 char* utf8_cp1250(char *buf);
 char* utf8_iso_8859_2(char *buf);
 char* utf8_ascii(char *buf);
+int   Utf8Decode(int& u, unsigned char *buf);
 int   UnknownEncodingHandler(void *userData, const char *name,
                            XML_Encoding *info);
 

@@ -20,11 +20,13 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.6 2003/02/16 00:14:41 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.7 2003/02/16 13:09:14 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
 #define GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
+
+#include <gnu_gama/outstream.h>
 
 #include <cstring>
 #include <gamalib/version.h>
@@ -157,10 +159,12 @@ int GaMa_Main(int argc, char **argv)
 
   LocalNetwork* IS;
   ofstream fcout;
-  OutStream cout(fcout);
+  GNU_gama::OutStream cout(fcout);
   
   if (argv_enc)
     {
+      using namespace GNU_gama;
+
       if (!strcmp("utf-8", argv_enc)) 
         cout.set_encoding(OutStream::utf_8);
       else if (!strcmp("iso-8859-2", argv_enc)) 

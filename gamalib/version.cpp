@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.52 2003/02/16 00:14:41 cepek Exp $
+ *  $Id: version.cpp,v 1.53 2003/02/16 13:09:14 cepek Exp $
  */
 
 
@@ -59,13 +59,25 @@ const char* GaMaLib_compiler =
 
 =============================================================================
 
-1.7.00 2003-02-15 
+1.7.00 2003-02-16
 
      #####################################################################
      #                                                                   #
      #  unstable version 1.7 (main trunk at CVS savannah.gnu.org)        #
      #                                                                   #
      #####################################################################
+
+   - for the new development branch (g3) is introduced new namespace
+     GNU_gama; this name is going to replace old name GaMaLib
+     (similarly directory gnu_gama is going to replace directory
+     gamalib)
+
+   - added output encoding option into gama-local program. Output encoding
+     is handled by class GNU_gama::OutStream
+
+   - removed bugs in functions `underline' and `set_width' (bad text
+     length in utf-8 encoding)
+
 
 1.6.00 2003-02-01
 
