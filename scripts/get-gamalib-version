@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # GNU GaMa script get-gamalib-version
 # ===================================
@@ -7,7 +7,7 @@
 # gamalib, gamaprog and scripts. If we are in subdirectory ./scripts,
 # we go one level up.
 #
-# $Id: get-gamalib-version,v 1.1 2001/12/07 11:45:44 cepek Exp $
+# $Id: get-gamalib-version,v 1.2 2002/09/21 10:15:33 cepek Exp $
 
 if pwd | grep scripts$; then cd ..; fi
 

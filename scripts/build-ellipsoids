@@ -1,7 +1,7 @@
 #
-# builds ellipsoids.[h|cpp for GNU GaMa
+# builds ellipsoids.[h|cpp|texi] for GNU GaMa
 # 
-# $Id: build-ellipsoids,v 1.2 2002/06/12 11:57:55 cepek Exp $
+# $Id: build-ellipsoids,v 1.3 2002/09/21 10:15:33 cepek Exp $
 
 
 if pwd | grep /scripts$; then cd ..; fi
@@ -14,8 +14,9 @@ echo
 
 scripts/ellipsoids_xml xml/ellipsoids.xml gamalib/
 
-rm -f xml/ellipsoids.html
+rm -f xml/ellipsoids.html xml/ellipsoids.texi
 mv gamalib/ellipsoids.html xml
+mv gamalib/ellipsoids.texi xml
 
 # ------------------------------------------------------------------------
 

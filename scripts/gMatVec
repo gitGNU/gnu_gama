@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 #
 # gmatvec tarball: script is run in the parent directory of gmatvec
 # ############### 
 #
-# $Id: gMatVec,v 1.4 2002/09/16 16:30:15 cepek Exp $
+# $Id: gMatVec,v 1.5 2002/09/21 10:15:33 cepek Exp $
 
 HOME=.
 cd $HOME

@@ -1,14 +1,18 @@
 /* Ellipsoids_xml is a simple program to transform ellipsoids.xml
- * input file into ellipsoids.[h|cpp|html] output.
+ * input file into ellipsoids.[h|cpp|html|texi] output.
  * ==========================================================================
  * 
- * $Id: ellipsoids_xml.cpp,v 1.6 2002/06/28 09:01:40 cepek Exp $
+ * $Id: ellipsoids_xml.cpp,v 1.7 2002/09/21 10:15:33 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
-const char* version = "0.02";
+const char* version = "0.03";
 
 /* ---------------------------------------------------------------------------
+ *
+ * 0.03  2002-09-20
+ *
+ *       - added output in the Texinfo format
  *
  * 0.02  2002-06-28
  *
@@ -77,6 +81,7 @@ public:
   void xml2h   (ostream&);
   void xml2cpp (ostream&);
   void xml2html(ostream&);
+  void xml2texi(ostream&);
   void addlabel(string s)       { label.push_back(s); }
   void additem (string s)       { item .push_back(s); }
 
@@ -204,7 +209,12 @@ void characterDataHandler(void *userData, const char* s, int len)
 
   if (parser->state == ITEM)
     {
-      parser->item_data += string(s, len);
+      if (parser->item_data.empty() && *s == '\n')   // remove leading '\n'
+        {
+          s++;
+          len--;
+        }
+      if (len > 0) parser->item_data += string(s, len);
     }
   else
     for (int b=0; b <len; b++)
@@ -401,6 +411,43 @@ void Parser::xml2html(ostream& out)
     out << "</body>\n</html>\n";
 }
 
+void Parser::xml2texi(ostream& out)
+{
+  out << 
+    "@comment GNU GaMa ellipsoids (revision " << revision << ")\n"
+    "@comment http://www.gnu.org/software/gama/xml/ellipsoids.xml\n"
+    "@multitable @columnfractions .20 .20 .20 .30 .10\n"
+    "@item id @tab a  @tab b, 1/f, f @tab description\n\n";
+
+    for (list<Entry>::iterator i=elist.begin(); i!=elist.end(); ++i)
+      {
+        Entry e = *i;
+
+        out 
+          << "@item " << e.id
+          << " @tab " << e.a         
+          << " @tab " << (e.b+e.f+e.f1)
+          << " @tab " << e.caption   
+          << " @tab " << e.ref       
+          << "\n";  
+      }
+  
+  out << "@end multitable\n\n"; 
+
+
+  out << "@multitable @columnfractions .07 .93\n";
+  list<string>::iterator li=label.begin(), ti=item.begin();
+  while (li != label.end() && ti != item.end())
+    {
+      out 
+        << "@item " << *li++
+        << " @tab " << *ti++
+        << "\n";
+      }
+  out << "@end multitable\n";
+  
+}
+
 int main(int argc, char* argv[])
 {
   if (argc != 3 ||
@@ -433,6 +480,12 @@ int main(int argc, char* argv[])
     ofstream out(file.c_str());
 
     parser.xml2html(out);
+  }
+  {
+    string file = path + "ellipsoids.texi";
+    ofstream out(file.c_str());
+
+    parser.xml2texi(out);
   }
 
   return result;
