@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.cpp,v 1.2 2002/04/04 13:19:37 cepek Exp $
+ *  $Id: acord.cpp,v 1.3 2002/04/05 21:10:23 cepek Exp $
  */
 
  
@@ -60,35 +60,6 @@ Acord::Acord(PointData& b, ObservationData& m)
 
   if (Consistent(PD, OD)) return;
 
-  // switch (PD.local_coordinate_system)
-  //   {
-  //   case LocalCoordinateSystem::NE: 
-  //     PD.local_coordinate_system = LocalCoordinateSystem::NW;
-  //     break;
-  //   case LocalCoordinateSystem::SW: 
-  //     PD.local_coordinate_system = LocalCoordinateSystem::SE;
-  //     break;
-  //   case LocalCoordinateSystem::ES: 
-  //     PD.local_coordinate_system = LocalCoordinateSystem::EN;
-  //     break;
-  //   case LocalCoordinateSystem::WN: 
-  //     PD.local_coordinate_system = LocalCoordinateSystem::WS;
-  //     break;
-  //   case LocalCoordinateSystem::EN: 
-  //     PD.local_coordinate_system = LocalCoordinateSystem::ES;
-  //     break;
-  //   case LocalCoordinateSystem::NW: 
-  //     PD.local_coordinate_system = LocalCoordinateSystem::NE;
-  //     break;
-  //   case LocalCoordinateSystem::SE: 
-  //     PD.local_coordinate_system = LocalCoordinateSystem::SW;
-  //     break;
-  //   case LocalCoordinateSystem::WS: 
-  //     PD.local_coordinate_system = LocalCoordinateSystem::WN;
-  //     break;
-  //   default:
-  //     return;
-  //   }
   for (PointData::iterator ii=PD.begin(); ii!=PD.end(); ++ii)
     {
       Point& p = (*ii).second;
@@ -101,10 +72,15 @@ void Acord::execute()
 {
   try
     {
-      int all;
+      const int max_iter = 5;
+      int iter=0;
 
       do {
-        all = total_z + total_xy + total_xyz;
+        iter++;
+
+        missing_coordinates = false;
+        computed_xy = computed_z = computed_xyz = 0;
+        total_xy = total_z = total_xyz = 0;
 
         ApproximateHeights ah(PD, OD);
         ah.execute();
@@ -171,7 +147,7 @@ void Acord::execute()
               }
           }
 
-      } while (all != (total_z + total_xy + total_xyz));
+      } while (iter++ < max_iter && missing_coordinates);
     }
   catch(...)
     {

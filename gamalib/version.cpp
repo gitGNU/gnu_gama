@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.8 2002/04/03 15:08:43 cepek Exp $
+ *  $Id: version.cpp,v 1.9 2002/04/05 21:10:23 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.3.33";
+const char* GaMaLib_version  = "1.3.34";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
@@ -56,6 +56,12 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.3.34 2002-04-05
+
+   - approximate coordinates are computed in iterations if necessary
+     (gamalib/local/acord.cpp); max. number of iterations is set to 5.
+
 
 1.3.33 2002-04-03
 

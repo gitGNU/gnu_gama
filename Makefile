@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.2 2002/04/02 21:44:30 cepek Exp $
+# $Id: Makefile,v 1.3 2002/04/05 21:10:23 cepek Exp $
 #
 # this Makefile and all files in ./scripts were tested on Debian GNU/Linux 2.2
 #
@@ -36,7 +36,7 @@ help:
 
 build:
 	make clean
-	./scripts/Build_GaMa $(GaMaLib_CXX)
+	./scripts/Build_GaMa
 
 make-project:
 	@if [ ! -f gamaprog/linux/gama/Makefile      ]; then make build; fi
