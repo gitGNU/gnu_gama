@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.cpp,v 1.3 2002/04/05 21:10:23 cepek Exp $
+ *  $Id: acord.cpp,v 1.4 2002/04/06 13:57:57 cepek Exp $
  */
 
  
@@ -72,11 +72,10 @@ void Acord::execute()
 {
   try
     {
-      const int max_iter = 5;
-      int iter=0;
+      int all;
 
       do {
-        iter++;
+        all = total_z + total_xy + total_xyz;
 
         missing_coordinates = false;
         computed_xy = computed_z = computed_xyz = 0;
@@ -147,7 +146,7 @@ void Acord::execute()
               }
           }
 
-      } while (iter++ < max_iter && missing_coordinates);
+      } while ((all != (total_z + total_xy + total_xyz)) && missing_coordinates);
     }
   catch(...)
     {
