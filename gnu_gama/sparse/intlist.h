@@ -1,8 +1,8 @@
 /*  
-    Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
+    GNU Gama -- adjustment of geodetic networks
     Copyright (C) 2002  Ales Cepek <cepek@fsv.cvut.cz>
 
-    This file is part of the GNU GaMa / GaMaLib C++ Library.
+    This file is part of the GNU Gama library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: intlist.h,v 1.1 2003/02/22 19:40:55 cepek Exp $
+ *  $Id: intlist.h,v 1.2 2003/03/05 17:15:07 cepek Exp $
  */
 
 #ifndef GNU_gama___GaMaLib_Integer_list____GaMaLib_Integer_list

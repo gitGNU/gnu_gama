@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.13 2003/02/22 19:40:54 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.14 2003/03/05 17:15:07 cepek Exp $
  */
 
 // #########################################################################
@@ -608,6 +608,8 @@ int DataParser::block_diagonal_vec_flt(const char *name)
       
       return end_tag(name);
     }
+  
+  return error("### bad data format in a <flt> element in <block-diagonal>");
 }
 
 int DataParser::block_diagonal_block(const char *name)

@@ -1,13 +1,13 @@
-@comment $Id: algorithms.texi,v 1.1 2002/10/12 15:52:22 cepek Exp $
+@comment $Id: algorithms.texi,v 1.2 2003/03/05 17:15:07 cepek Exp $
 
 @menu
-* Observation data::            
+* Observation data and points::            
 * Supported ellipsoids::        
 * Transformation from spatial to geographical coordinates::  
 @end menu
 
-@node    Observation data
-@section Observation data
+@node    Observation data and points
+@section Observation data and points
 @include obsdata.texi
 
 @node    Supported ellipsoids

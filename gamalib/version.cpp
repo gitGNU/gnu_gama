@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.57 2003/03/03 19:50:30 cepek Exp $
+ *  $Id: version.cpp,v 1.58 2003/03/05 17:15:07 cepek Exp $
  */
 
 
@@ -60,6 +60,8 @@ const char* GaMaLib_compiler =
 =============================================================================
 
 1.7.02-pre .....
+
+   - added template class PointBase (gnu_gama/pointbase.h)
 
    - removed bug in SparserMatrix (gnu_gama/sparse/smatrix.h) reported
      by Jan Bilek; not enough memory was allocated for rptr array in

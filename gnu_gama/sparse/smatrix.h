@@ -1,8 +1,8 @@
 /*  
-    Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
-    Copyright (C) 2001  Ales Cepek <cepek@fsv.cvut.cz>
+    GNU Gama -- adjustment of geodetic networks
+    Copyright (C) 2001, 2003  Ales Cepek <cepek@fsv.cvut.cz>
 
-    This file is part of the GNU GaMa / GaMaLib C++ Library.
+    This file is part of the GNU Gama library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: smatrix.h,v 1.2 2003/03/03 19:53:31 cepek Exp $
+ *  $Id: smatrix.h,v 1.3 2003/03/05 17:15:07 cepek Exp $
  */
 
 #ifndef GNU_gama___GaMaLib_Sparse_General_Matrix_______General___Matrix__

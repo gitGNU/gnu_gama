@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: pointbase.h,v 1.1 2003/03/04 21:46:26 cepek Exp $
+ *  $Id: pointbase.h,v 1.2 2003/03/05 17:15:07 cepek Exp $
  */
 
 #include <map>
@@ -31,14 +31,6 @@
 
 
 namespace GNU_gama {
-
-
-
-  // template <class Point> 
-  //   class PointList : public std::vector<Point*>
-  //   {
-  //   };
-
 
 
   template <class Point>
@@ -58,12 +50,18 @@ namespace GNU_gama {
       PointBase& operator=(const PointBase& cod);
 
       void put(const Point&);
+      void put(Point*);
 
+      Point*       find(const typename Point::Name&);
+      const Point* find(const typename Point::Name&) const;
+      
+      void erase(const typename Point::Name&);
+      void erase();
       
       class const_iterator {
       public:
 
-        const_iterator(typename Points::const_iterator p) : pit(p) 
+        const_iterator(const typename Points::const_iterator& p) : pit(p) 
           {
           }
         bool operator==(const const_iterator& x) const 
@@ -76,15 +74,16 @@ namespace GNU_gama {
           }
         const_iterator& operator++()
           {
-            pit++;
+            ++pit;
             return *this;
           }
         const_iterator operator++(int)
           {
             const_iterator tmp(pit);
-            return ++pit;
+            ++pit;
+            return tmp;
           }
-        const Point* operator*()
+        const Point* operator*() const
           {
             return (*pit).second;
           }
@@ -97,10 +96,11 @@ namespace GNU_gama {
       const_iterator  begin() const { return points.begin(); }
       const_iterator  end  () const { return points.end  (); }
 
+
       class iterator {
       public:
 
-        iterator(typename Points::iterator p) : pit(p) 
+        iterator(const typename Points::iterator& p) : pit(p) 
           {
           }
         operator const_iterator() const
@@ -117,15 +117,16 @@ namespace GNU_gama {
           }
         iterator& operator++()
           {
-            pit++;
+            ++pit;
             return *this;
           }
         iterator operator++(int)
           {
             iterator tmp(pit);
-            return ++pit;
+            ++pit;
+            return tmp;
           }
-        Point* operator*()
+        Point* operator*() const
           {
             return (*pit).second;
           }
@@ -137,7 +138,6 @@ namespace GNU_gama {
 
       iterator  begin() { return points.begin(); }
       iterator  end  () { return points.end  (); }
-
       
     };
   
@@ -145,19 +145,17 @@ namespace GNU_gama {
   template <class Point>
     PointBase<Point>::~PointBase()
     {
-
+      erase();
     }
 
   
   template <class Point>
     PointBase<Point>::PointBase(const PointBase& cpd)
     {
-      if (this != &cpd)
+      for (const_iterator p=cpd.begin(), e=cpd.end(); p!=e; ++p)
         {
-
+          put( **p );
         }
-
-      return *this;
     }
 
 
@@ -166,7 +164,10 @@ namespace GNU_gama {
     {
       if (this != &cpd)
         {
-
+          for (const_iterator p=cpd.begin(), e=cpd.end(); p!=e; ++p)
+            {
+              put( **p );
+            }
         }
 
       return *this;
@@ -176,9 +177,90 @@ namespace GNU_gama {
   template <class Point>
     void PointBase<Point>::put(const Point& point)
     {
-      points[point.name] = new Point(point);
+      typename Points::iterator t = points.find(point.name);
+      if (t != points.end())
+        {
+          *((*t).second) = point;
+        }
+      else
+        {
+          points[point.name] = new Point(point);
+        }
     }
 
+
+  template <class Point>
+    void PointBase<Point>::put(Point* point_ptr)
+    {
+      typename Points::iterator t = points.find(point_ptr->name);
+      if (t != points.end())
+        {
+          Point* p = (*t).second;
+          if (p != point_ptr)
+            {
+              delete p;
+            }
+          else
+            {
+              return;
+            }
+        }
+
+      points[point_ptr->name] = point_ptr;
+    }
+
+
+  template <class Point>
+    Point* PointBase<Point>::find(const typename Point::Name& name)
+    {
+      typename Points::iterator t = points.find(name);
+      if (t != points.end())
+        {
+          return (*t).second;
+        }
+
+      return 0;
+    }
+
+
+  template <class Point>
+    const Point* PointBase<Point>::find(const typename Point::Name& name) const
+    {
+      typename Points::const_iterator t = points.find(name);
+      if (t != points.end())
+        {
+          return (*t).second;
+        }
+
+      return 0;
+    }
+  
+
+  template <class Point>
+    void PointBase<Point>::erase(const typename Point::Name& name)
+    {
+      typename Points::iterator t = points.find(name);
+      if (t != points.end())
+        {
+          delete (*t).second;
+          points.erase(t);
+        }
+    }
+  
+  
+  template <class Point>
+    void PointBase<Point>::erase()
+    {
+      typename Points::iterator t = points.begin();
+      typename Points::iterator e = points.end();
+      while (t != e)
+        {
+          delete (*t).second;
+          ++t;
+        }
+
+      points.erase(points.begin(), points.end());
+    }  
 
 }
 
