@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.62 2003/03/19 19:25:02 cepek Exp $
+ *  $Id: version.cpp,v 1.63 2003/03/19 19:34:05 cepek Exp $
  */
 
 
@@ -64,7 +64,9 @@ const char* GaMaLib_compiler =
    - bash scripts for generating makefiles replaced by C++ program
      scripts/gnu_gama_dep.cpp
 
-     Note: for building makefiles under win32 see scripts/win32-makefiles.bat  
+     * for building makefiles under win32 see scripts/win32-makefiles.bat  
+
+     * gamalib.a renamed to libgama.a
 
    - adjustments needed by MSVC compiler (in files gnu_gama/list.h and
      gamalib/cluster.h)
