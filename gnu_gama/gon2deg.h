@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gon2deg.h,v 1.2 2004/03/18 17:07:01 cepek Exp $
+ *  $Id: gon2deg.h,v 1.3 2004/04/03 11:06:37 cepek Exp $
  */
 
 #include <string>
@@ -31,9 +31,10 @@
 
 namespace GNU_gama {
 
-  // sign 0  konversion without sign
+  // sign 0  conversion without sign
   //      1  sign left-padded
   //      2  sign right-padded 
+  //      3  signed with leading spaces trimmed
   std::string gon2deg(double gon,  int sign, int prec);
 
   bool        deg2gon(std::string, double &);

@@ -8,6 +8,11 @@ gama-xml.dtd                       version 2.0.12  2004-03-30
       - added new attribute update-constrained-coordinates = "no | yes"
         into tag <parameters />
 
+      - added new attribute zenith-angle-stdev into <points-observations />
+
+      - reintroduced obsolete attributes xy="..." and height="..."
+        in tag <point />
+
 2.0.11  2002-06-27
 
       - added attributes for describing heights of instrument and/or
@@ -176,9 +181,10 @@ information visit
 
 <!ATTLIST points-observations
 
-   distance-stdev   NMTOKEN  #IMPLIED
-   direction-stdev  NMTOKEN  #IMPLIED
-   angle-stdev      NMTOKEN  #IMPLIED  >
+   distance-stdev      NMTOKEN  #IMPLIED
+   direction-stdev     NMTOKEN  #IMPLIED
+   angle-stdev         NMTOKEN  #IMPLIED
+   zenith-angle-stdev  NMTOKEN  #IMPLIED  >
 
 <!ATTLIST point
 
@@ -187,7 +193,13 @@ information visit
    y   NMTOKEN  #IMPLIED
    z   NMTOKEN  #IMPLIED
    fix (xy | XY | z | Z | xyz | XYZ | XYz | xyZ ) #IMPLIED
-   adj (xy | XY | z | Z | xyz | XYZ | XYz | xyZ ) #IMPLIED >
+   adj (xy | XY | z | Z | xyz | XYZ | XYz | xyZ ) #IMPLIED 
+
+   xy     (unused | fixed | free | constrained ) #IMPLIED
+   height (unused | fixed | free               ) #IMPLIED
+   >  
+<!--  **** attributes xy and height are obsolete and are ****  -->
+<!--  **** available only for backard data compatibility ****  -->
 
 <!ATTLIST obs    
    from         CDATA   #IMPLIED

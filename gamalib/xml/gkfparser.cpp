@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.13 2004/03/30 19:43:07 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.14 2004/04/03 11:06:37 cepek Exp $
  */
 
 
@@ -367,8 +367,11 @@ namespace GaMaLib {
     coordinates = 0;
     vectors     = 0;
 
+    obsolete_attribute = true;
+
     // throw exception if a covariance matrix is not positive-definite
     check_cov_mat = true;  
+
   }
 
 
@@ -525,7 +528,7 @@ namespace GaMaLib {
     // on reaching end tag </points-observations> this state is
     // ignored
 
-    string nam, val, sds_abc, sds, sdk, sde, ss="0", su="0"; 
+    string nam, val, sds_abc, sds, sdk, sde, ss="0", su="0", sz="0"; 
     state = state_point_obs;
 
     while (*atts)
@@ -548,8 +551,9 @@ namespace GaMaLib {
             if (i != val.end())
               return error(T_GKF_bad_attribute_distance_dev + sds_abc);
           }
-        else if (nam == "direction-stdev") ss = val;
-        else if (nam == "angle-stdev"    ) su = val;
+        else if (nam == "direction-stdev"   ) ss = val;
+        else if (nam == "angle-stdev"       ) su = val;
+        else if (nam == "zenith-angle-stdev") sz = val;
         else 
           return error(T_GKF_undefined_attribute_of_points_observations
                        + nam + " = " + val);
@@ -566,6 +570,8 @@ namespace GaMaLib {
       return error(T_GKF_bad_attribute_direction_dev + ss );
     if (!toDouble(su, uhel_str)) 
       return error(T_GKF_bad_attribute_angle_dev     + su );
+    if (!toDouble(sz, z_uhel_str)) 
+      return error(T_GKF_bad_attribute_angle_dev     + sz );
 
     return 0;
   }
@@ -589,14 +595,26 @@ namespace GaMaLib {
         else if (nam == "z"  ) sv = val;
         else if (nam == "fix") sf = val;
         else if (nam == "adj") sa = val;
-        else if (nam == "xy") st = val;          // ###### obsoleted
+        else if (nam == "xy" ) st = val;         // ###### obsoleted
         else if (nam == "height") sh = val;      // ###### obsoleted
         else 
-          return error(T_GKF_undefined_attribute_of_points + nam + " = " + val);
-        if (nam == "xy")          
-          description += "**** you are using obsolete XML attribute "+val+"\n";
-        else if (nam == "height") 
-          description += "**** you are using obsolete XML attribute "+val+"\n";
+          return 
+            error(T_GKF_undefined_attribute_of_points + nam + " = " + val);
+
+        if ((nam == "xy" || nam == "height") && obsolete_attribute)          
+          {
+            description += "\n**** Warning: ";
+            description += "obsolete XML attribute(s)";
+            description += "   <point ...";
+            description += " " + nam + "=\"" + val + "\" />\n";
+
+            ostringstream ostr;
+            ostr << "****          see line number " 
+                 << XML_GetCurrentLineNumber(parser) << "\n";;
+            description += ostr.str();
+
+            obsolete_attribute = false;
+          }
       }
 
     if (pp_id == "") return error(T_GKF_missing_point_ID);
@@ -674,24 +692,6 @@ namespace GaMaLib {
     else if (sh == "unused") SB[pp_id].unused_z();
     else if (sh != "")
       return error(T_GKF_undefined_height_type + sh);
-
-    if      (st == "fixed"     )  
-      description += "**** you are using obsolete XML tags\n"; 
-    else if (st == "free"      )  
-      description += "**** you are using obsolete XML tags\n";
-    else if (st =="constrained")  
-      description += "**** you are using obsolete XML tags\n";
-    else if (st == "unused"    )  
-      description += "**** you are using obsolete XML tags\n";
-                                  
-    if      (sh == "fixed" )      
-      description += "**** you are using obsolete XML tags\n";
-    else if (sh == "free"  )      
-      description += "**** you are using obsolete XML tags\n";
-    else if (sh == "unused")      
-      description += "**** you are using obsolete XML tags\n";
-
-    // ################
 
     return 0;
   }
@@ -821,7 +821,6 @@ namespace GaMaLib {
         d->set_from_dh(df);
         d->set_to_dh(dt);
         standpoint->observation_list.push_back( d );
-        if (degrees) dv /= 0.324;   // sec --> cc
         sigma.push_back(DB_pair(dv, degrees));
       } 
     catch (const /*GaMaLib::*/Exception &e) 
@@ -923,7 +922,7 @@ namespace GaMaLib {
     else
       if (!toDouble(sm, dm)) return error(T_GKF_bad_zangle + sm);
 
-    double dv = implicit_stdev_distance(dm);
+    double dv = implicit_stdev_zangle();
     if (sv != "")
       if (!toDouble(sv, dv)) return error(T_GKF_illegal_standard_deviation);
     double df = obs_from_dh;
@@ -946,7 +945,6 @@ namespace GaMaLib {
         d->set_from_dh(df);
         d->set_to_dh(dt);
         standpoint->observation_list.push_back( d );
-        if (degrees) dv /= 0.324;   // sec --> cc
         sigma.push_back(DB_pair(dv, degrees));
       } 
     catch (const /*GaMaLib::*/Exception &e) 
@@ -1091,7 +1089,6 @@ namespace GaMaLib {
         d->set_from_dh(df);
         d->set_to_dh(dt);
         standpoint->observation_list.push_back( d );
-        if (degrees) ds /= 0.324;   // sec --> cc
         sigma.push_back(DB_pair(ds, degrees));
       } 
     catch (const /*GaMaLib::*/Exception &e) 

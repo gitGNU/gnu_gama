@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.28 2004/03/30 19:43:07 cepek Exp $
+ *  $Id: version.cpp,v 1.29 2004/04/03 11:06:37 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.09-pre-d";
+const char* GNU_gama_version  = "1.7.09-pre-f";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -63,6 +63,9 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.09-pre 2004-.....
+
+    - added new attribute zenith-angle-stdev="..." in the tag
+      <points-observations /> in gama-local input XML data
 
     - added new parameter update-constrained-coordinates="yes | no"
       into XML tag <parameters ... /> (input data for gama-local)

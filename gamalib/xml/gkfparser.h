@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.h,v 1.12 2004/03/30 19:43:07 cepek Exp $
+ *  $Id: gkfparser.h,v 1.13 2004/04/03 11:06:37 cepek Exp $
  */
 
 #ifndef GaMaLib_GKF__XML__parser__h_
@@ -71,7 +71,8 @@ namespace GaMaLib {
       bool   update_constr;             // implicitly false
       
       double implicit_stdev_direction() const { return smer_str; }
-      double implicit_stdev_angle() const { return uhel_str; }
+      double implicit_stdev_angle()    const { return uhel_str; }
+      double implicit_stdev_zangle()   const { return z_uhel_str; }
       double implicit_stdev_distance(double d) const 
         { 
           using namespace std;
@@ -224,6 +225,11 @@ namespace GaMaLib {
       double delka_str_exp;
       double smer_str;
       double uhel_str;
+      double z_uhel_str;
+
+      // obsolete XML tags and attributes -- warning messages
+
+      bool  obsolete_attribute;
       
     };  // class GKFparser
 }       // namespace GaMaLib

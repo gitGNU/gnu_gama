@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.17 2004/03/18 17:07:01 cepek Exp $
+ *  $Id: obsdata.h,v 1.18 2004/04/03 11:06:37 cepek Exp $
  */
 
 
@@ -385,10 +385,12 @@ namespace GNU_gama {
       const int N = covariance_matrix.dim();
       int k = p + covariance_matrix.bandWidth();
       if (k > N) k = N;
+
+      // scaling upper part of symmetric band matrix
+      covariance_matrix(p, p) *= sc;
       for (int i=p; i<=k; i++)
         {
           covariance_matrix(p, i) *= sc;
-          covariance_matrix(i, p) *= sc;
         }
     }
 

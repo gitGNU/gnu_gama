@@ -20,12 +20,13 @@
 */
 
 /*
- *  $Id: test_linearization.h,v 1.7 2004/03/30 19:43:07 cepek Exp $
+ *  $Id: test_linearization.h,v 1.8 2004/04/03 11:06:37 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Test_Chyby_z_Linearizace_h_
 #define GaMa_GaMaProg_Prehled_Test_Chyby_z_Linearizace_h_
 
+#include <gnu_gama/gon2deg.h>
 #include <gamalib/local/gamadata.h>
 #include <gamalib/local/network.h>
 #include <gamalib/local/pobs/bearing.h>
@@ -212,8 +213,11 @@ TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
           out << T_GaMa_tstlin_obs_r_diff << "\n";
           
           for (int i=0; i<(IS->maxw_obs()+2*IS->maxw_id()+8); i++) out << '=';
-          out << T_GaMa_tstlin_header_value 
-              << "= [mm|cc] == [cc] == [mm] =\n\n";
+          out << T_GaMa_tstlin_header_value; 
+          if (IS->gons())
+            out << "= [mm|cc] == [cc] == [mm] =\n\n";
+          else
+            out << "= [mm|ss] == [ss] == [mm] =\n\n";
           out.flush();
         }
         
@@ -241,6 +245,7 @@ TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
             out << cc.c_str();
             out.setf(ios_base::fixed, ios_base::floatfield);
             
+            bool dms = false;
             Double mer;
             if (Distance* d = dynamic_cast<Distance*>(pm))
               {
@@ -250,12 +255,14 @@ TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
               }
             else if (Direction* s = dynamic_cast<Direction*>(pm))
               {
+                dms = IS->degrees();
                 out << T_GaMa_direction;
                 mer = (s->value())*R2G;
                 out.precision(6);
               }
             else if (Angle* u = dynamic_cast<Angle*>(pm))
               {
+                dms = IS->degrees();
                 out << '\n';
                 out.width(IS->maxw_obs() + 2 + 2*(IS->maxw_id()));
                 out << (u->fs()).c_str();
@@ -264,13 +271,23 @@ TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
                 out.precision(6);
               }
             
-            out.width(12);
-            out << mer << ' ';
+            if (!dms)
+              {
+                out.width(12);
+                out << mer << ' ';
+              }
+            else
+              {
+                out << GNU_gama::gon2deg(mer, 1, 1) << ' ';
+              }
             
             out.precision(3);
             out.width(9);
-            out << v(i) << ' ';
-            
+            if (!dms)
+              out << v(i) << ' ';
+            else
+              out << v(i)*0.324 << ' ';
+              
             if (typeid(*pm) == typeid(Distance))
               {
                 out << "         ";
@@ -279,7 +296,10 @@ TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
               {
                 out.precision(3);
                 out.width(8);
-                out << dif_m(i) << ' ';
+                if (!dms)
+                  out << dif_m(i) << ' ';
+                else
+                  out << dif_m(i)*0.324 << ' ';
               }            
             
             out.precision(3);

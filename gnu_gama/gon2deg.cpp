@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gon2deg.cpp,v 1.2 2004/03/18 17:07:01 cepek Exp $
+ *  $Id: gon2deg.cpp,v 1.3 2004/04/03 11:06:37 cepek Exp $
  */
 
 
@@ -50,7 +50,15 @@ namespace GNU_gama {
     ostringstream dms;
     if (sign == 1 || sign == 2) dms << " ";
     dms.setf(ios_base::fixed, ios_base::floatfield);
-    dms << setw(3) << d << "-";
+    if (sign == 3) 
+      {
+        if (negative) dms << "-";
+      }
+    else
+      {
+        dms << setw(3); 
+      }
+    dms << d << "-";
     dms.fill('0');
     dms << setw(2) << m << "-"
         << setprecision(prec) << setw(3+prec) << gon;
