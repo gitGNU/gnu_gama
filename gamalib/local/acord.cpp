@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.cpp,v 1.10 2003/07/24 16:25:46 cepek Exp $
+ *  $Id: acord.cpp,v 1.11 2003/07/27 14:45:11 cepek Exp $
  */
 
  
@@ -68,18 +68,6 @@ Acord::Acord(PointData& b, ObservationData& m)
       if (p.test_xy()) p.set_xy(p.x(), -p.y());
     }
   
-  /*      
-      template <class P> void for_each(const P& p) const
-        {
-          for (typename List<Cluster<Observation>*>::const_iterator
-                 c=CL.begin(); c!=CL.end(); ++c)
-            {
-              const Cluster<Observation>* cluster = (*c);
-              std::for_each(cluster->observation_list.begin(),
-                            cluster->observation_list.end(),  p);
-            }
-        }
-  */
   for (ObservationData::ClusterList::iterator 
          ci=OD.CL.begin(), ei=OD.CL.end(); ci!=ei; ++ci)
     {
