@@ -1,3 +1,32 @@
+0.9.24 2004-08-30
+
+       - introduced dependency using qualified names, variation 1 (g++-3.4)
+
+         see D.Vandervoorde & N.M.Josuttis, C++ Templates, Addison-Wesley 2003:
+
+           // Variation 1:
+           template<typename T>
+           class DD1 : public Base<T> {
+             public:
+               void f() { this->basefield = 0; }  // lookup delayed
+           };
+             
+           // Variation 2:
+           template<typename T>
+           class DD2 : public Base<T> {
+             public:
+               void f() { Base<T>::basefield = 0; }
+           };
+           
+           // Variation 3:
+           template<typename T>
+           class DD3 : public Base<T> {
+             public:
+               using Base<T>::basefield;    // (1) dependent name now in scope
+               void f() { basefield = 0; }  // (2) fine
+           };
+
+
 0.9.23 2004-06-21
 
        - all occurrences of keyword 'class' in template type definitions

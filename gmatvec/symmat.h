@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.23)
+    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
     Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: symmat.h,v 1.12 2004/06/21 16:10:17 cepek Exp $
+ *  $Id: symmat.h,v 1.13 2004/08/30 18:18:55 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -55,8 +55,8 @@ public:
     : MatBase<Float, Exc>(d, d, d*(d+1)/2), dim_(d), idf_(0)
     {
       using namespace std;
-      iterator a = begin();
-      iterator e = end();
+      iterator a = this->begin();
+      iterator e = this->end();
       *a = m11;
       a++;        
       va_list  ap;
@@ -78,20 +78,20 @@ public:
 
   Float  operator()(Index i, Index j) const 
     {
-      const Float *p = begin();
+      const Float *p = this->begin();
       return i>=j ? p[i*(i-1)/2+j-1] : p[j*(j-1)/2+i-1]; 
     }
   Float& operator()(Index i, Index j)  
     { 
-      Float *p = begin();
+      Float *p = this->begin();
       return i>=j ? p[i*(i-1)/2+j-1] : p[j*(j-1)/2+i-1]; 
     }
   void reset(Index r, Index c)
     {
       if (r != c || r < 0) 
         throw Exc(BadRank, "SymMat::reset(Index, Index)");
-      dim_ = row_ = col_ = r;
-      resize(r*(r+1)/2);
+      dim_ = this->row_ = this->col_ = r;
+      this->resize(r*(r+1)/2);
     }
   void reset(Index d)
     {
@@ -326,7 +326,7 @@ void SymMat<Float, Exc>::cholDec()
     idf_ = 0;
     const Index n = dim();
     Float  x, diag;
-    Float* a = begin() - 1;
+    Float* a = this->begin() - 1;
     
     Index i, ip, iq, ir, j, k;
     ip  = 0;
@@ -352,7 +352,7 @@ void SymMat<Float, Exc>::cholDec()
                 else
                   a[ip] = 0;
               }
-            else if (x > diag*cholTol())
+            else if (x > diag*this->cholTol())
               {
                 if (x < 0)
                   throw Exc(BadRank, "void SymMat::cholDec()");    
@@ -371,7 +371,7 @@ void SymMat<Float, Exc>::cholDec()
 template <typename Float, typename Exc>
 void SymMat<Float, Exc>::solve(Vec<Float, Exc>& rhs) const
   {
-    const_iterator a = begin();
+    const_iterator a = this->begin();
     typename Vec<Float, Exc>::iterator b;
     const Index N = dim();
     Float sum;
@@ -389,7 +389,7 @@ void SymMat<Float, Exc>::solve(Vec<Float, Exc>& rhs) const
       }
 
     // backward substitution
-    a = begin();
+    a = this->begin();
     for (i=N; i>=1; i--)
       {
         b = rhs.end();
@@ -410,7 +410,7 @@ template <typename Float, typename Exc>
 void SymMat<Float, Exc>::invert()
   {
     const Index n = dim();
-    iterator a = begin()-1;
+    iterator a = this->begin()-1;
     Vec<Float, Exc> w(n);
     Float p, q;
     Index i, ii, ij, k, m;
