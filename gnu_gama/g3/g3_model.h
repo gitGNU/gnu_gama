@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.16 2003/12/27 21:00:58 uid66336 Exp $
+ *  $Id: g3_model.h,v 1.17 2004/01/25 11:07:13 cepek Exp $
  */
 
 #include <gnu_gama/model.h>
@@ -47,12 +47,12 @@ namespace GNU_gama {  namespace g3 {
   {
   public:
     
-    typedef GNU_gama::PointBase<g3::Point>              PointBase;
     typedef GNU_gama::ObservationData<g3::Observation>  ObservationData;
+    typedef GNU_gama::List<Observation*>                ObservationList; 
+    typedef GNU_gama::PointBase<g3::Point>              PointBase;
+    typedef GNU_gama::List<Parameter*>                  ParameterList;
     
-    PointBase           *points;
-    ObservationData     *obs;
-    
+    PointBase           *points;    
     GNU_gama::Ellipsoid  ellipsoid;
     
     
@@ -64,17 +64,17 @@ namespace GNU_gama {  namespace g3 {
     void   write_xml(std::ostream& out) const;
     
     void reset()               { state_ = init_; }
-    void reset_points()        { if (points_ < state_) state_ = points_; }
+    void reset_parameters()    { if (params_ < state_) state_ = params_; }
     void reset_observations()  { if (obsrvs_ < state_) state_ = obsrvs_; }
     void reset_linearization() { if (linear_ < state_) state_ = linear_; }
     void reset_adjustment()    { if (adjust_ < state_) state_ = adjust_; }
     
-    bool check_points()        const { return state_ > points_; }
+    bool check_parameters()    const { return state_ > params_; }
     bool check_observations()  const { return state_ > obsrvs_; }
     bool check_linearization() const { return state_ > linear_; }
     bool check_adjustment()    const { return state_ > adjust_; }
     
-    void update_points();
+    void update_parameters();
     void update_observations();
     void update_linearization();
     void update_adjustment();
@@ -89,11 +89,14 @@ namespace GNU_gama {  namespace g3 {
     Model(const Model&);
     Model& operator=(const Model&);
     
-    // active observations' list (observations used in the adjustment)
-    GNU_gama::List<Observation*>  active_obs;
+    // active observations list (active observations used in the adjustment)
+    ObservationList*  active_obs;
+
+    // parameter list
+    ParameterList*  par_list;
     
     // basic revision steps 
-    enum State_{init_, points_, obsrvs_, linear_, adjust_, ready_} state_;
+    enum State_{init_, params_, obsrvs_, linear_, adjust_, ready_} state_;
     
     void next_state_(int s) { state_ = State_(++s); }
     bool check_init() const { return state_ > init_; }

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.21 2003/12/28 16:42:34 uid66336 Exp $
+ *  $Id: g3_point.h,v 1.22 2004/01/25 11:07:13 cepek Exp $
  */
 
 #include <gamalib/pointid.h>
@@ -117,6 +117,7 @@ namespace GNU_gama {  namespace g3 {
       position_        = h_pos_ + hheight_  
     };
 
+    friend class Model;
     Parameter  N_, E_, U_, height_;
     Parameter  B_, L_, H_, X_, Y_, Z_;
 

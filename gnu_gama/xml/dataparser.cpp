@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.15 2004/01/05 19:07:12 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.16 2004/01/25 11:07:13 cepek Exp $
  */
 
 // #########################################################################
@@ -1114,19 +1114,19 @@ int DataParser::g3_vector(const char *name)
   v->from = g3from;
   v->to   = g3to;
 
-  g3::Model::ObservationData *obs = g3model->obs;
-  Vectors* vectors = new Vectors(obs);
-
-  vectors->add(v);
-  vectors->covariance_matrix.reset(3,2);
-  vectors->covariance_matrix(1,1) = cxx;
-  vectors->covariance_matrix(1,2) = cxy;
-  vectors->covariance_matrix(1,3) = cxz;
-  vectors->covariance_matrix(2,2) = cyy;
-  vectors->covariance_matrix(2,3) = cyz;
-  vectors->covariance_matrix(3,3) = czz;
-
-  obs->CL.push_back(vectors);
+  // g3::Model::ObservationData *obs = g3model->obs;
+  // Vectors* vectors = new Vectors(obs);
+  // 
+  // vectors->add(v);
+  // vectors->covariance_matrix.reset(3,2);
+  // vectors->covariance_matrix(1,1) = cxx;
+  // vectors->covariance_matrix(1,2) = cxy;
+  // vectors->covariance_matrix(1,3) = cxz;
+  // vectors->covariance_matrix(2,2) = cyy;
+  // vectors->covariance_matrix(2,3) = cyz;
+  // vectors->covariance_matrix(3,3) = czz;
+  // 
+  // obs->CL.push_back(vectors);
 
   return  end_tag(name);
 }
@@ -1292,8 +1292,6 @@ int DataParser::g3_obs(const char *name)
       return error("### zero or negative variance");
 
   g3obs_cluster->update();
-
-  g3obs_cluster->write_xml(std::cerr);
   g3model->obsdata.CL.push_back(g3obs_cluster);
   g3var_list.clear();
 

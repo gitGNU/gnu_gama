@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: gama-g3.cpp,v 1.5 2004/01/05 19:07:12 cepek Exp $
+ * $Id: gama-g3.cpp,v 1.6 2004/01/25 11:07:13 cepek Exp $
  */
 
 #include <fstream>
@@ -121,9 +121,9 @@ namespace
             model =  m->model;
           }
 
-         std::cerr << (*i)->xml() << std::endl;
-        delete *i;
-        ++i;
+         // std::cerr << (*i)->xml() << std::endl;
+         delete *i;
+         ++i;
       }
 
     return model;
@@ -149,7 +149,6 @@ int main(int argc, char* argv[])
       Model::ObservationData::iterator e = model->obsdata.end();
       while (i != e)
         {
-          // Model::ObservationData::ClusterType* cl;
           cerr << "* ";
           if (Distance *d = dynamic_cast<Distance*>(*i))
             {
@@ -164,6 +163,8 @@ int main(int argc, char* argv[])
           cerr << "\n";
           ++i;
         }
+
+      model->update_linearization();
     }
   
   delete model;

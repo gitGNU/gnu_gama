@@ -6,6 +6,7 @@ gnu_gama/ellipsoids.cpp
 gnu_gama/outstream.cpp
 gnu_gama/version.cpp
 gnu_gama/g3/g3_model.cpp
+gnu_gama/g3/g3_model_distance.cpp
 gnu_gama/g3/g3_point.cpp
 gnu_gama/g3/g3_cluster.cpp
 gnu_gama/g3/g3_observation/g3_cluster_vec.cpp

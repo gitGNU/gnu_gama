@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: list.h,v 1.6 2003/12/23 19:52:49 uid66336 Exp $
+ *  $Id: list.h,v 1.7 2004/01/25 11:07:13 cepek Exp $
  */
 
 #include <vector>
@@ -34,15 +34,6 @@
 namespace GNU_gama {
 
 
-  #ifdef _MSC_VER
-  //-----------------------------------------------------------------------
-  // Class template partial specialization is not supported by the
-  // Visual C++ compiler
-  template <class T> class List : public std::vector<T> {};   
-  //-----------------------------------------------------------------------
-  #else
-
-
   template <class T> class List;
 
   template <class T> class List<T*>
@@ -52,17 +43,17 @@ namespace GNU_gama {
 
       List(const List& cod);
       // List& operator=(const List& cod);
-
+      
     public:    
-
+      
       class iterator;
       class const_iterator;
-
+      
       List() {}
-
+      
       std::size_t size()  const { return vec.size();  }
       bool        empty() const { return vec.empty(); }
-
+      
       void push_back(T* t)                        { vec.push_back(t);     }
       void pop_back()                             { vec.pop_back();       }
       void clear()                                { vec.clear();          }
@@ -181,7 +172,6 @@ namespace GNU_gama {
       iterator  end  () { return vec.end  (); }
     };
 
-    #endif
 }
 
 #endif

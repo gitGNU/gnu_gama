@@ -20,12 +20,11 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.22 2004/01/05 19:07:12 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.23 2004/01/25 11:07:13 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
 #include <gnu_gama/g3/g3_cluster.h>
-#include <gnu_gama/xml/dataparser.h>
 #include <gnu_gama/outstream.h>
 
 
@@ -37,8 +36,9 @@ Model::Model()
 { 
   using namespace GNU_gama;
 
-  points = new PointBase;
-  obs    = new ObservationData;
+  points     = new PointBase;
+  active_obs = new ObservationList;
+  par_list    = new ParameterList;
 
   A = 0;
   B = 0;
@@ -53,7 +53,8 @@ Model::Model()
 Model::~Model()
 {
   delete points;
-  delete obs;
+  delete active_obs;
+  delete par_list;
   delete A;
   delete B;
 }
@@ -85,7 +86,7 @@ void Model::write_xml(std::ostream& out) const
 
   {
     out << "\n";
-    for (Model::PointBase::const_iterator  // "Model::" needed by bcc32 5.6 ???
+    for (Model::PointBase::const_iterator
            b = points->begin(), e = points->end(); b != e; ++b)
       {
         const Point *p = *b;
@@ -151,7 +152,7 @@ void Model::update_init()
 }
 
 
-void Model::update_points()
+void Model::update_parameters()
 {
   if (!check_init()) update_init();
 
@@ -159,22 +160,25 @@ void Model::update_points()
          i=points->begin(), e=points->end(); i!=e; ++i)
     {
       Point* point = (*i);
-      cout << "point id = " << point->name.c_str();   // ??? .c_str() ???
-      cout << endl;
+      point->N_.set_index(0);
+      point->E_.set_index(0);
+      point->U_.set_index(0);
     }
 
-  return next_state_(points_);
+  return next_state_(params_);
 }
 
 
 void Model::update_observations()
 {
-  if (!check_points()) update_points();
+  if (!check_parameters()) update_parameters();
 
-  active_obs.clear();
+  par_list->clear();
+  active_obs->clear();
   dm_rows = dm_cols = dm_floats = 0;   // dimension and size of design matrix
 
-  for (ObservationData::iterator i=obs->begin(), e=obs->end(); i!=e; ++i)
+  for (Model::ObservationData::iterator 
+         i=obsdata.begin(), e=obsdata.end(); i!=e; ++i)
     {
       (*i)->revision_accept(this);
     }
@@ -187,10 +191,14 @@ void Model::update_linearization()
 {
   if (!check_observations()) update_observations();
 
+  cerr << "\n###  update_linearization() : dm_floats, dm_rows, dm_cols " 
+       << dm_floats << " " << dm_rows << " " << dm_cols<< "\n";
+
   // delete A;   A = new SparseMatrix<>(dm_floats, dm_rows, dm_cols);
   // delete B;   B = new BlockDiagonal<>;
 
-  for (ObservationData::iterator i=obs->begin(), e=obs->end(); i!=e; ++i)
+  for (ObservationList::iterator 
+         i=active_obs->begin(), e=active_obs->end(); i!=e; ++i)
     {
       (*i)->linearization_accept(this);
     }
@@ -205,40 +213,3 @@ void Model::update_adjustment()
 
   return next_state_(adjust_);
 }
-
-
-
-
-// ----------------------------------------------------------------------
-// ############   visitors   ############################################
-// ----------------------------------------------------------------------
-
-bool Model::revision_visit(Distance* d)
-{
-  if (!d->active()) return false;
-
-  const Point* from = points->find(d->from);
-  const Point* to   = points->find(d->to  );
-
-  if ( from == 0       ||  to == 0        ) return d->set_active(false);
-  if ( from->unused()  ||  to->unused()   ) return d->set_active(false);
-  if (!from->has_blh() || !from->has_blh()) return d->set_active(false);
-
-  active_obs.push_back(d);
-
-  dm_rows++;        // design matrix
-  // dm_cols ... doplnit
-  dm_floats += 6;
-
-  return d->active();
-}
-
-
-void Model::linearization_visit(Distance* d)
-{
-  const Point* from = points->find(d->from);
-  const Point* to   = points->find(d->to  );
-
-  // ....
-}
-
