@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.13 2003/03/19 19:25:02 cepek Exp $
+# $Id: Makefile,v 1.14 2003/03/19 19:54:09 cepek Exp $
 #
 # this Makefile and all files in ./scripts were tested on Debian GNU/Linux 2.2
 #
@@ -36,6 +36,8 @@ help:
 
 dep:
 	./scripts/build-makefiles
+
+build:
 	./scripts/build-dictionaries
 	./scripts/build-ellipsoids
 
