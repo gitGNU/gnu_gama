@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.11 2002/05/15 10:14:01 cepek Exp $
+ *  $Id: version.cpp,v 1.12 2002/05/21 16:45:55 cepek Exp $
  */
 
 
@@ -96,7 +96,7 @@ const char* GaMaLib_compiler =
 1.3.31 2001-12-21
 
    - in scripts/make-linux2borland.sed added parameters needed by
-     Rosinante and a minor change in scripts/Build_GaMa (Jan Pytel)
+     Rocinante and a minor change in scripts/Build_GaMa (Jan Pytel)
 
    - gmatvec 0.9.15: a bug in SymMat::invert() reported by Leos Mervart;
      in the case of dimension==1 inversion was computed twice
