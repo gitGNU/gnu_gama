@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# $Id: build-gamalib-Makefile-expat,v 1.2 2002/04/02 21:39:00 cepek Exp $
+# $Id: build-gamalib-Makefile-expat,v 1.3 2002/04/03 15:08:43 cepek Exp $
 # 
 if pwd | grep /script$; then cd ..; fi
 export SCRIPTS=`pwd`/scripts
@@ -49,17 +49,8 @@ echo
 EXPATPATH=../../../expat
 EXPATCFLAGS="-O2 -I$EXPATPATH/xmltok -I$EXPATPATH/xmlparse -DXML_NS"
 
-if [ ! -z "$1" ]; then EXPATCFLAGS="$EXPATCFLAGS $1"; fi  
-if [ ! -z "$2" ]; then EXPATCFLAGS="$EXPATCFLAGS $2"; fi  
-if [ ! -z "$3" ]; then EXPATCFLAGS="$EXPATCFLAGS $3"; fi  
-if [ ! -z "$4" ]; then EXPATCFLAGS="$EXPATCFLAGS $4"; fi  
-if [ ! -z "$5" ]; then EXPATCFLAGS="$EXPATCFLAGS $5"; fi  
-if [ ! -z "$6" ]; then EXPATCFLAGS="$EXPATCFLAGS $6"; fi  
-if [ ! -z "$7" ]; then EXPATCFLAGS="$EXPATCFLAGS $7"; fi  
-if [ ! -z "$8" ]; then EXPATCFLAGS="$EXPATCFLAGS $8"; fi  
-if [ ! -z "$9" ]; then EXPATCFLAGS="$EXPATCFLAGS $9"; fi  
 
-# neprekladam xmlwf/xmlwf.c /xmlwf/xmlfile.c
+# not compiling xmlwf/xmlwf.c /xmlwf/xmlfile.c
 EXPATCFILES="$EXPATCFILES $EXPATPATH/xmltok/xmltok.c"
 EXPATCFILES="$EXPATCFILES $EXPATPATH/xmltok/xmlrole.c"
 EXPATCFILES="$EXPATCFILES $EXPATPATH/xmlwf/codepage.c"
@@ -76,14 +67,11 @@ echo "#"                                            >> Makefile-expat.pro
 echo                                                >> Makefile-expat.pro
 cat   $SCRIPTS/platforms.defs                       >> Makefile-expat.pro
 echo                                                >> Makefile-expat.pro
-echo CFLAGS=$EXPATCFLAGS                            >> Makefile-expat.pro
-echo LIBR=@ar -r gamalib.a                          >> Makefile-expat.pro
 echo SRC=../../../                                  >> Makefile-expat.pro
 echo OBJDIR=                                        >> Makefile-expat.pro
 echo                                                >> Makefile-expat.pro
-echo "ALL : gamalib.a"                              >> Makefile-expat.pro
+echo -e "ALL : \$(GAMALIB)"                         >> Makefile-expat.pro
 echo                                                >> Makefile-expat.pro
-
 
 for i in $EXPATCFILES
 do  
@@ -91,19 +79,18 @@ do
     echo adding rule for $i	
     OBJECTS="$OBJECTS $NAME.\$(OBJ)"
     PNAME=$(echo "$i" | sed s=../../../="\$(SRC)"=g )
-    echo "\$(OBJDIR)$NAME.\$(OBJ) :" $PNAME   >> Makefile-expat.pro
-    echo -e "\\t\$(CC) \$(CFLAGS) -c" $PNAME  >> Makefile-expat.pro
-    echo -e "\\t\$(LIBR) $NAME.\$(OBJ)"       >> Makefile-expat.pro    
-    echo                                      >> Makefile-expat.pro  
+    echo -e "\$(OBJDIR)$NAME.\$(OBJ) :" $PNAME >> Makefile-expat.pro
+    echo -e "\\t\$(CC) \$(CFLAGS)" $EXPATCFLAGS -c $PNAME   >> Makefile-expat.pro
+    echo -e "\\t\$(LIBR) $NAME.\$(OBJ)"        >> Makefile-expat.pro    
+    echo                                       >> Makefile-expat.pro  
 done
 
 echo
 
-echo                           >> Makefile-expat.pro
-echo    "gamalib.a :$OBJECTS"  >> Makefile-expat.pro
-echo -e "\\tranlib gamalib.a"  >> Makefile-expat.pro
-echo -e "\\ttouch  gamalib.a"  >> Makefile-expat.pro
-echo                           >> Makefile-expat.pro 
+echo                                >> Makefile-expat.pro
+echo -e "\$(GAMALIB) : $OBJECTS"    >> Makefile-expat.pro
+echo -e "\\t\$(RANLIB)"             >> Makefile-expat.pro
+echo                                >> Makefile-expat.pro 
 
         
 

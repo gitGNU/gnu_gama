@@ -23,8 +23,12 @@ dubbed a GNU packaqe and today contains the following main components:
     [gmatvec] C++ matrix/vector template classes used in adjustment
     computations in gamalib.
 
+    [rosinante] is a GUI for GNU GaMa based on Qt graphical library
+    that is available for GNU/Linux under GNU GPL. Rosinante binaries 
+    are also available for win32 platform; see 
+              http://www.gnu.org/software/gama/rosinante
+    for more information.
+
 More information on GNU GaMa can be found at
 
                  http://www.gnu.org/software/gama
-
-

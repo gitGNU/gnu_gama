@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.7 2002/04/02 21:41:30 cepek Exp $
+ *  $Id: version.cpp,v 1.8 2002/04/03 15:08:43 cepek Exp $
  */
 
 
@@ -32,11 +32,11 @@ const char* GaMaLib_version  = "1.3.33";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
-              "g++"      // g++ 2.95.2
+              "GNU g++"             // g++ 2.95.2
               #elif defined __BORLANDC__
-              "bc"       // 5.5
+              "win32-borland"       // 5.5
               #elif defined _MSC_VER
-              "msc"      // 6.0
+              "win32-msvc"          // 6.0
               #else
               #error GaMaLib - has not been tested with your compiler
               #endif
@@ -59,7 +59,9 @@ const char* GaMaLib_compiler =
 
 1.3.33 2002-04-03
 
-   - new scripts for generating Makefiles
+   - new scripts for generating Makefiles (inspired by qmake Makefiles
+     and Qt project files). All platform dependent environment variables
+     are defined in a single file scripts/platforms.defs.
 
 
 1.3.32 2002-03-19

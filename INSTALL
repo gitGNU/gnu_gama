@@ -1,4 +1,4 @@
-Project GaMa source code can be downloaded from
+GNU GaMa source codes can be downloaded from
 
          http://gama.fsv.cvut.cz/gama/archive/gamalib/1.3/
 
@@ -19,11 +19,27 @@ etc. and run
                    make build 
                    make example
 
+
+---------------------------
+
 Project GaMa was developed and tested under Debian GNU/Linux 2.2.
-Apart from g++, the project was tested with bcc32 (Borland free
+Apart from GNU g++, the project was tested with bcc32 (Borland free
 command line tools) and with MS Visual C++ (not the latest versions).
 
+      To build command line program gama for win32 platform 
+      change to gamaprog/win32-borland and run `make' or go to
+      gamaprog/win32-msvc and run `nmake'.
 
+
+---------------------------
+
+GNU GaMa is also available from CVS at 
+
+              http://savannah.gnu.org/projects/gama
+
+You can download source codes from Savannah and build them under
+GNU/Linux but not under win32 platform (you would be missing some
+files like language.h etc that are generated during Lunix build).
 
 
 
