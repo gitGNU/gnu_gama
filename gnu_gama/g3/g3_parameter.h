@@ -19,9 +19,10 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.12 2003/10/30 18:11:04 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.13 2003/11/23 14:40:27 cepek Exp $  */
 
 #include <cstddef>
+#include <gnu_gama/model.h>
 #include <gnu_gama/list.h>
 
 
@@ -33,16 +34,6 @@ namespace GNU_gama { namespace g3 {
 
 
   class Parameter;
-
-
-  template <class ObservationType> 
-    class Derivative 
-    {
-    public:
-    
-      virtual double derivative(ObservationType*) = 0;
-    };
-
 
 
   class ParameterList {

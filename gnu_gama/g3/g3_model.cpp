@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.14 2003/11/19 19:36:32 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.15 2003/11/23 14:40:27 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -172,7 +172,8 @@ void Model::update_points()
 {
   if (!check_init()) update_init();
 
-  for (PointBase::iterator i=points->begin(), e=points->end(); i!=e; ++i)
+  for (Model::PointBase::iterator 
+         i=points->begin(), e=points->end(); i!=e; ++i)
     {
       Point* point = (*i);
       cout << "point id = " << point->name.c_str();   // ??? .c_str() ???
@@ -204,5 +205,18 @@ void Model::update_adjustment()
   if (!check_linearization()) update_linearization();
 
   return next_state_(adjust_);
+}
+
+
+bool Model::revision(Distance* d)
+{
+  if (!d->active()) return false;
+
+  const Point* from = get_point(d->name[0]);
+  const Point* to   = get_point(d->name[1]);
+
+  if (from->unused() || to->unused()) return d->set_active(false);
+
+  return d->active();
 }
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_base.h,v 1.12 2003/11/06 17:58:59 cepek Exp $
+ *  $Id: g3_obs_base.h,v 1.13 2003/11/23 14:40:27 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_parameter.h>
@@ -52,10 +52,10 @@ namespace GNU_gama {  namespace g3 {
     virtual double derivative   (Parameter*) = 0;
     virtual void   linearization(GNU_gama::SparseVector<>&);
 
-    bool   active() const     { return active_; }
-    void   set_active(bool b) { active_ = b;    }
+    bool    active() const     { return  active_;      }
+    bool    set_active(bool b) { return (active_ = b); }
 
-    double numerical_derivative (Parameter*);
+    double  numerical_derivative (Parameter*);
 
     ParameterList  parlist;
 

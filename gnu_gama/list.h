@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: list.h,v 1.3 2003/03/25 12:38:33 cepek Exp $
+ *  $Id: list.h,v 1.4 2003/11/23 14:40:27 cepek Exp $
  */
 
 #include <vector>
@@ -60,9 +60,13 @@ namespace GNU_gama {
       std::size_t size()  const { return vec.size();  }
       bool        empty() const { return vec.empty(); }
 
-      void push_back(T* t) { vec.push_back(t);   }
-      void pop_back()      { vec.pop_back();     }
-      void clear()         { vec.clear();        }
+      void push_back(T* t)                        { vec.push_back(t);     }
+      void pop_back()                             { vec.pop_back();       }
+      void clear()                                { vec.clear();          }
+      void erase (typename List<T*>::iterator i)  { vec.erase(i.vit);     }
+      void insert(typename List<T*>::iterator i, 
+                  T* value)                       { vec.insert(i, value); }
+
 
       T* operator[](std::size_t n)
         { 
@@ -169,13 +173,6 @@ namespace GNU_gama {
 
       iterator  begin() { return vec.begin(); }
       iterator  end  () { return vec.end  (); }
-
-
-      void erase(typename List<T*>::iterator i)
-        {
-          vec.erase(i.vit);
-        }
-
     };
 
     #endif
