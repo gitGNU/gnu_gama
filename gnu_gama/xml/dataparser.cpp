@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.2 2003/05/10 13:43:03 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.3 2003/05/11 12:32:25 cepek Exp $
  */
 
 // #########################################################################
@@ -422,7 +422,7 @@ int DataParser::white_spaces(const char* s, int len)
 {
   while (len--)
     {
-      if (!isspace(s[len])) return error(GaMaLib::T_GKF_illegal_text);
+      if (!isspace(s[len])) return error("### illegal text");
     }
 
   return 0;

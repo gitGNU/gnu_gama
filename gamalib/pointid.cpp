@@ -22,7 +22,7 @@
 */
 
 /*
- *  $Id: pointid.cpp,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: pointid.cpp,v 1.2 2003/05/11 12:32:25 cepek Exp $
  */
 
 
@@ -38,7 +38,7 @@ PointID::PointID(const std::string& s)
   using namespace std;
   
   string::const_iterator b=s.begin(), e=s.end();
-  TrimWhiteSpaces(b, e);
+  GNU_gama::TrimWhiteSpaces(b, e);
   sid = std::string(b,e);
   iid = atoi(sid.c_str());
   

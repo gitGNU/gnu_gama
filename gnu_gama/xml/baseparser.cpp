@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: baseparser.cpp,v 1.4 2003/05/11 10:04:02 cepek Exp $
+ *  $Id: baseparser.cpp,v 1.5 2003/05/11 12:32:25 cepek Exp $
  */
 
 #include <gnu_gama/xml/baseparser.h>
@@ -88,7 +88,7 @@ bool CoreParser::toDouble(const std::string& s, double& d) const
 {
   using namespace std;        // Visual C++ doesn't know std::atof ???
   
-  if (GaMaLib::IsFloat(s))
+  if (IsFloat(s))
     {
       d = atof(s.c_str());
       return true;

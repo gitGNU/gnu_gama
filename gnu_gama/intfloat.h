@@ -1,8 +1,8 @@
 /*  
-    Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
+    GNU Gama -- adjustment of geodetic networks
     Copyright (C) 2000  Ales Cepek <cepek@fsv.cvut.cz>
 
-    This file is part of the GNU GaMa / GaMaLib C++ Library.
+    This file is part of the GNU Gama C++ Library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,15 +20,15 @@
 */
 
 /*
- *  $Id: intfloat.h,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: intfloat.h,v 1.1 2003/05/11 12:32:25 cepek Exp $
  */
 
-#ifndef GaMaLib_CheckNum_IntFloat__h_
-#define GaMaLib_CheckNum_IntFloat__h_
+#ifndef GNU_gama_CheckNum_IntFloat__h_
+#define GNU_gama_CheckNum_IntFloat__h_
 
 #include <cctype>
 
-namespace GaMaLib {
+namespace GNU_gama {
 
 
 template <class Iterator> void SkipWhiteSpaces(Iterator& b, Iterator e)
@@ -133,11 +133,11 @@ template <class String> bool IsFloat(const String& s)
   }
 
 
-}   // namespace GaMaLib
+}   // namespace GNU_gama
 
 // --------------------------------------------------------------------------
 
-#ifdef GaMaLib_CheckNum_IntFloat_demo
+#ifdef GNU_gama_CheckNum_IntFloat_demo
 
 #include <iostream>
 #include <string>
@@ -145,7 +145,7 @@ template <class String> bool IsFloat(const String& s)
 void test(std::string s)
 {
   using namespace std;
-  using namespace GaMaLib;
+  using namespace GNU_gama;
 
   cout << (IsInteger(s) ? " Y " : " N ") << " "
        << (IsFloat  (s) ? " Y " : " N ") << " " << s << endl;
@@ -154,10 +154,10 @@ void test(std::string s)
 int main()
 {
   using namespace std;
-  using namespace GaMaLib;
+  using namespace GNU_gama;
 
-  cout << "\nGaMaLib_CheckNum_IntFloat_demo\n"
-       <<   "******************************\n\n";
+  cout << "\nGNU_gama_CheckNum_IntFloat_demo\n"
+       <<   "*******************************\n\n";
 
   cout << "int flt string\n\n";
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.10 2003/05/10 13:00:03 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.11 2003/05/11 12:32:25 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -311,7 +311,7 @@ int GaMa_Main(int argc, char **argv)
     fcout.open(file_txt.c_str());
     
   }
-  catch (const GNU_gama::ParserException& v) {
+  catch (const GaMaLib::ParserException& v) {
     cerr << "\n" << T_GaMa_exception_2a << "\n\n"
          << T_GaMa_exception_2b << v.line << " : " << v.text << endl;
     return 3;      

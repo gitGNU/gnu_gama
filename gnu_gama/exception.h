@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: exception.h,v 1.1 2003/05/10 13:00:03 cepek Exp $
+ *  $Id: exception.h,v 1.2 2003/05/11 12:32:25 cepek Exp $
  */
 
 
@@ -57,6 +57,18 @@ namespace GNU_gama { namespace Exception {
     const int error;
 
     matvec(int e, const char* s) : string(s), error(e) {}
+  };
+
+
+  class parser : public string {
+  public:
+
+    const int line, error_code;
+
+    parser(const std::string& s, int r, int c) 
+      : string(s), line(r), error_code(c) 
+      {
+      }
   };
 
 

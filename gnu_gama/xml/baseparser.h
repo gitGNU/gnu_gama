@@ -1,8 +1,8 @@
 /*  
-    Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
+    GNU Gama -- adjustment of geodetic networks
     Copyright (C) 2002  Ales Cepek <cepek@fsv.cvut.cz>
 
-    This file is part of the GNU GaMa / GaMaLib C++ Library.
+    This file is part of the GNU Gama C++ Library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: baseparser.h,v 1.3 2003/05/11 10:04:02 cepek Exp $
+ *  $Id: baseparser.h,v 1.4 2003/05/11 12:32:25 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa__XML__BASE_Base_base__PARSER_Parser_parser__h_
@@ -32,24 +32,11 @@
 #include <expat/xmlparse/xmlparse.h>
 
 #include <gnu_gama/xml/dataobject.h>
-#include <gamalib/local/gamadata.h>
+#include <gnu_gama/intfloat.h>
 #include <string>
 #include <list>
 
 namespace GNU_gama {
-
-  class ParserException : public GaMaLib::Exception 
-  {
-  public:
-
-    int line, error_code;
-
-    ParserException(std::string s, int r, int c)
-      : GaMaLib::Exception(s), line(r), error_code(c) 
-      {
-      }
-
-  };
   
   class CoreParser 
   {

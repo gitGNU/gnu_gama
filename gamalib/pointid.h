@@ -22,7 +22,7 @@
 */
 
 /*
- *  $Id: pointid.h,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: pointid.h,v 1.2 2003/05/11 12:32:25 cepek Exp $
  */
 
 // PointID - point identification
@@ -32,7 +32,7 @@
 
 #include <string>
 #include <cstddef>
-#include <gamalib/intfloat.h>
+#include <gnu_gama/intfloat.h>
 
 namespace GaMaLib 
 {
