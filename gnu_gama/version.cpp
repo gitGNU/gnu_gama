@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.24 2004/03/15 18:58:34 cepek Exp $
+ *  $Id: version.cpp,v 1.25 2004/03/18 17:07:02 cepek Exp $
  */
 
 
@@ -63,6 +63,26 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.09-pre 2004-.....
+
+    - a bug in "active covariance matrix" in obsdata.h
+
+         --- obsdata.h-bug	Thu Mar 18 11:57:06 2004
+         +++ obsdata.h	Thu Mar 18 11:58:08 2004
+         @@ -345,8 +345,10 @@
+                const Index i_size = observation_list.size();
+                Index active_band  = covariance_matrix.bandWidth();
+          
+         -      if (N && N-1 < active_band) 
+         -        active_band = N-1;
+         +      if (N)
+         +        {
+         +          if (N-1 < active_band) active_band = N-1;
+         +        }
+                else
+                  active_band = 0;
+ 
+    - a bug in gkfparser.cpp reported by Jan Pytel (wrong error
+      message for "bad zenith anlge")
 
     - gama-local: support for input of angular observables in 360
       degrees (implicitly 400 grades)

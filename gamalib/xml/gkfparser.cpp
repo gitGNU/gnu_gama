@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.11 2004/03/15 18:58:33 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.12 2004/03/18 17:07:01 cepek Exp $
  */
 
 
@@ -28,6 +28,7 @@
 #include <string>
 #include <cstring>
 #include <cmath>
+#include <utility>
 
 #include <gamalib/xml/gkfparser.h>
 #include <gnu_gama/xml/encoding.h>
@@ -37,6 +38,10 @@
 #include <gnu_gama/intfloat.h>
 #include <gnu_gama/gon2deg.h>
 
+
+namespace {
+  typedef std::pair<double, bool> DB_pair;
+}
 
 using namespace std;
 namespace GaMaLib {
@@ -732,7 +737,7 @@ namespace GaMaLib {
         d->set_from_dh(df);
         d->set_to_dh(dt);
         standpoint->observation_list.push_back( d );
-        sigma.push_back(dv);
+        sigma.push_back(DB_pair(dv, false));
       } 
     catch (const /*GaMaLib::*/Exception &e) 
       {
@@ -808,7 +813,7 @@ namespace GaMaLib {
         d->set_to_dh(dt);
         standpoint->observation_list.push_back( d );
         if (degrees) dv /= 0.324;   // sec --> cc
-        sigma.push_back(dv);
+        sigma.push_back(DB_pair(dv, degrees));
       } 
     catch (const /*GaMaLib::*/Exception &e) 
       {
@@ -868,7 +873,7 @@ namespace GaMaLib {
         d->set_from_dh(df);
         d->set_to_dh(dt);
         standpoint->observation_list.push_back( d );
-        sigma.push_back(dv);
+        sigma.push_back(DB_pair(dv, false));
       } 
     catch (const /*GaMaLib::*/Exception &e) 
       {
@@ -907,7 +912,7 @@ namespace GaMaLib {
     if (GNU_gama::deg2gon(sm, dm))
       degrees = true;
     else
-      if (!toDouble(sm, dm)) return error(T_GKF_bad_distance + sm);
+      if (!toDouble(sm, dm)) return error(T_GKF_bad_zangle + sm);
 
     double dv = implicit_stdev_distance(dm);
     if (sv != "")
@@ -933,7 +938,7 @@ namespace GaMaLib {
         d->set_to_dh(dt);
         standpoint->observation_list.push_back( d );
         if (degrees) dv /= 0.324;   // sec --> cc
-        sigma.push_back(dv);
+        sigma.push_back(DB_pair(dv, degrees));
       } 
     catch (const /*GaMaLib::*/Exception &e) 
       {
@@ -995,15 +1000,23 @@ namespace GaMaLib {
         const Index N = sigma.size();
         standpoint->covariance_matrix.reset(N, 0);
         Cov::iterator c=standpoint->covariance_matrix.begin();
-        std::vector<Double>::iterator s = sigma.begin();
+        std::vector<DB_pair>::iterator s = sigma.begin();
 
-        for (Index i=1; i<=N; ++i, ++c, ++s) *c = (*s) * (*s);
+        for (Index i=1; i<=N; ++i, ++c, ++s) *c = (*s).first * (*s).first;
       }
 
     if (check_cov_mat) 
       {
         try 
           {
+            // scaling of rows/columns corresponding to covariances
+            // given in sexagesimal seconds
+            std::vector<DB_pair>::iterator s = sigma.begin();
+            for (Index i=1; i<=sigma.size(); ++i, ++s)
+              {
+                if ((*s).second) standpoint->scaleCov(i, 1.0/0.324);
+              }
+
             Cov tmp = standpoint->covariance_matrix;
             tmp.cholDec();
           }
@@ -1070,7 +1083,7 @@ namespace GaMaLib {
         d->set_to_dh(dt);
         standpoint->observation_list.push_back( d );
         if (degrees) ds /= 0.324;   // sec --> cc
-        sigma.push_back(ds);
+        sigma.push_back(DB_pair(ds, degrees));
       } 
     catch (const /*GaMaLib::*/Exception &e) 
       {
@@ -1125,7 +1138,7 @@ namespace GaMaLib {
         H_Diff* hd = new H_Diff(sfrom, sto, dm, dd);
         // ###### heightdifferences->observation_list.push_back( hd );
         standpoint->observation_list.push_back( hd );
-        sigma.push_back(ds);
+        sigma.push_back(DB_pair(ds, false));
       }
     catch  (const /*GaMaLib::*/Exception &e) 
       {
@@ -1307,9 +1320,9 @@ namespace GaMaLib {
         const Index N = sigma.size();
         heightdifferences->covariance_matrix.reset(N, 0);
         Cov::iterator c=heightdifferences->covariance_matrix.begin();
-        std::vector<Double>::iterator s = sigma.begin();
+        std::vector<DB_pair>::iterator s = sigma.begin();
 
-        for (Index i=1; i<=N; ++i, ++c, ++s) *c = (*s) * (*s);
+        for (Index i=1; i<=N; ++i, ++c, ++s) *c = (*s).first * (*s).first;
       }
 
     if (check_cov_mat) 
@@ -1369,7 +1382,7 @@ namespace GaMaLib {
       {
         H_Diff* hd = new H_Diff(sfrom, sto, dm, dd);
         heightdifferences->observation_list.push_back( hd );
-        sigma.push_back(ds);
+        sigma.push_back(DB_pair(ds, false));
       }
     catch  (const /*GaMaLib::*/Exception &e) 
       {

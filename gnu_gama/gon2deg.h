@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gon2deg.h,v 1.1 2004/03/15 20:46:15 cepek Exp $
+ *  $Id: gon2deg.h,v 1.2 2004/03/18 17:07:01 cepek Exp $
  */
 
 #include <string>
@@ -31,7 +31,11 @@
 
 namespace GNU_gama {
 
-  std::string gon2deg(double gon,  int prec);
+  // sign 0  konversion without sign
+  //      1  sign left-padded
+  //      2  sign right-padded 
+  std::string gon2deg(double gon,  int sign, int prec);
+
   bool        deg2gon(std::string, double &);
 
 }

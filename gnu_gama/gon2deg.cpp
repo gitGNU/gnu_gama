@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gon2deg.cpp,v 1.1 2004/03/15 20:46:15 cepek Exp $
+ *  $Id: gon2deg.cpp,v 1.2 2004/03/18 17:07:01 cepek Exp $
  */
 
 
@@ -28,12 +28,13 @@
 #include <gnu_gama/intfloat.h>
 #include <sstream>
 #include <iomanip>
+#include <cctype>
 
 using namespace std;
 
 namespace GNU_gama {
   
-  string gon2deg(double gon, int prec)
+  string gon2deg(double gon, int sign, int prec)
   {
     bool negative = (gon < 0);
     if (negative) gon = -gon;
@@ -47,10 +48,7 @@ namespace GNU_gama {
     gon *= 60;
 
     ostringstream dms;
-    if (negative)  
-      dms << "-";
-    else
-      dms << " ";
+    if (sign == 1 || sign == 2) dms << " ";
     dms.setf(ios_base::fixed, ios_base::floatfield);
     dms << setw(3) << d << "-";
     dms.fill('0');
@@ -58,6 +56,19 @@ namespace GNU_gama {
         << setprecision(prec) << setw(3+prec) << gon;
 
     string deg = dms.str();
+    if (negative)
+      {
+        if (sign == 1) 
+          deg[0] = '-';
+        else if (sign == 2)
+          {
+            int k = 0;
+            if (deg[1] == ' ') k = 1;
+            if (deg[2] == ' ') k = 2;
+            deg[k] = '-';
+          }
+      }
+
     return deg;
   }
   
@@ -80,8 +91,10 @@ namespace GNU_gama {
 
     if (!(dms >> d))             return false;
     if (  dms.get() != '-')      return false;
+    if (! isdigit(dms.peek()))   return false;
     if (!(dms >> m))             return false;  
     if (  dms.get() != '-')      return false;
+    if (! isdigit(dms.peek()))   return false;
     if (!(dms >> s))             return false;
     if (d < 0 || m < 0 || s < 0) return false;
     if (! dms.eof())             return false;

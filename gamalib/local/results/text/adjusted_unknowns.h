@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adjusted_unknowns.h,v 1.7 2004/03/15 18:58:33 cepek Exp $
+ *  $Id: adjusted_unknowns.h,v 1.8 2004/03/18 17:07:01 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vyrovnane_Nezname_h_
@@ -214,9 +214,14 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
       out << "i" << " ";
       out.width(IS->maxw_id());
       out << T_GaMa_standpoint;
+      if (IS->degrees()) out << "   ";
       out << T_GaMa_adjunk_header3;
       for (int i=0; i<IS->maxw_unk()+IS->maxw_id()+1; i++) out << '=';
-      out << T_GaMa_adjunk_header4;
+      if (IS->gons())
+        out  << T_GaMa_adjunk_header4;
+      else
+        out << 
+          "====== [d] ========= [d] ======== [d] =========== [ss] ===\n\n";
       out.flush();    // flush() sends read data to output
       
       {   // for ...
@@ -238,16 +243,13 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
               if (IS->gons())
                 out << z << " ";
               else
-                out << GNU_gama::gon2deg(z, 2) << " ";
+                out << GNU_gama::gon2deg(z, 0, 2) << " ";
               out.width(10);
               double cor = y_sign*x(i)/10000;
               if (IS->gons())
                 out << cor << " ";
               else
-                {
-                  if (cor < 0) cor += 400;
-                  out << GNU_gama::gon2deg(cor, 2) << " ";
-                }
+                out << GNU_gama::gon2deg(cor, 2, 2) << " ";
               z += cor;
               if (z <  0 ) z += 400;
               if (z > 400) z -= 400;
@@ -255,7 +257,7 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
               if (IS->gons())
                 out << z << " ";
               else
-                out << GNU_gama::gon2deg(z, 2) << " ";
+                out << GNU_gama::gon2deg(z, 0, 2) << " ";
               out.precision(1);
               out.width(8);
               Double mz = IS->unknown_stdev(i)*scale;

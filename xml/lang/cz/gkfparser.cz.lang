@@ -157,6 +157,10 @@
    EN="bad distance: "
    cz="chybná délka: " />
 
+<e id="T_GKF_bad_zangle"
+   EN="bad zenith angle: "
+   cz="chybná zenitová vzdálenost: " />
+
 <e id="T_GKF_illegal_standard_deviation"
    EN="illegal standard deviation"
    cz="neplatná støední chyba" />

@@ -20,6 +20,7 @@ const char* T_GKF_bad_instrument_reflector_height = T_language_cpp_internal_erro
 const char* T_GKF_bad_network_configuration_unknown_parameter = T_language_cpp_internal_error;
 const char* T_GKF_bad_orientation_angle = T_language_cpp_internal_error;
 const char* T_GKF_bad_vector_data = T_language_cpp_internal_error;
+const char* T_GKF_bad_zangle = T_language_cpp_internal_error;
 const char* T_GKF_coordinate_x_is_not_defined = T_language_cpp_internal_error;
 const char* T_GKF_coordinate_y_is_not_defined = T_language_cpp_internal_error;
 const char* T_GKF_coordinates_without_covariance_matrix = T_language_cpp_internal_error;
@@ -186,7 +187,6 @@ const char* T_GaMa_resobs_Outlying_observations = T_language_cpp_internal_error;
 const char* T_GaMa_resobs_Review_of_residuals_analysis_obs = T_language_cpp_internal_error;
 const char* T_GaMa_resobs_condition_number = T_language_cpp_internal_error;
 const char* T_GaMa_resobs_header1 = T_language_cpp_internal_error;
-const char* T_GaMa_resobs_header2 = T_language_cpp_internal_error;
 const char* T_GaMa_resobs_mc_critical = T_language_cpp_internal_error;
 const char* T_GaMa_resobs_mc_max = T_language_cpp_internal_error;
 const char* T_GaMa_resobs_mc_max_critical = T_language_cpp_internal_error;
@@ -250,6 +250,7 @@ void set_gama_language(gama_language lang)
 	T_GKF_bad_network_configuration_unknown_parameter="bad network configuration - unknown parameter: ";
 	T_GKF_bad_orientation_angle="bad orientation angle: ";
 	T_GKF_bad_vector_data="bad vector data";
+	T_GKF_bad_zangle="bad zenith angle: ";
 	T_GKF_coordinate_x_is_not_defined="coordinate x is not defined";
 	T_GKF_coordinate_y_is_not_defined="coordinate y is not defined";
 	T_GKF_coordinates_without_covariance_matrix="coordinates without covariance matrix";
@@ -416,7 +417,6 @@ void set_gama_language(gama_language lang)
 	T_GaMa_resobs_Review_of_residuals_analysis_obs="Residuals and analysis of observations";
 	T_GaMa_resobs_condition_number="Condition number        : ";
 	T_GaMa_resobs_header1="        f[%]        v    |v'|     e-obs.  e-adj.\n";
-	T_GaMa_resobs_header2="======== [mm|cc] =========== [mm|cc] ===\n\n";
 	T_GaMa_resobs_mc_critical=" c ";
 	T_GaMa_resobs_mc_max=" m ";
 	T_GaMa_resobs_mc_max_critical=" mc";
@@ -476,6 +476,7 @@ void set_gama_language(gama_language lang)
 	T_GKF_bad_network_configuration_unknown_parameter="chybná konfigurace sítě - neznámý parametr: ";
 	T_GKF_bad_orientation_angle="chybný orientační posun: ";
 	T_GKF_bad_vector_data="chybný vektor";
+	T_GKF_bad_zangle="chybná zenitová vzdálenost: ";
 	T_GKF_coordinate_x_is_not_defined="není definována souřadnice x";
 	T_GKF_coordinate_y_is_not_defined="není definována souřadnice y";
 	T_GKF_coordinates_without_covariance_matrix="souřadnice bez kovarianční matice";
@@ -642,7 +643,6 @@ void set_gama_language(gama_language lang)
 	T_GaMa_resobs_Review_of_residuals_analysis_obs="Opravy a analýza pozorování";
 	T_GaMa_resobs_condition_number="Číslo podmíněnosti      : ";
 	T_GaMa_resobs_header1="        f[%]        v    |v'|     e-mer.  e-vyr.\n";
-	T_GaMa_resobs_header2="======== [mm|cc] =========== [mm|cc] ===\n\n";
 	T_GaMa_resobs_mc_critical=" k ";
 	T_GaMa_resobs_mc_max=" m ";
 	T_GaMa_resobs_mc_max_critical=" mk";
@@ -702,6 +702,7 @@ void set_gama_language(gama_language lang)
 	T_GKF_bad_network_configuration_unknown_parameter="virheellinen verkkokonfiguraatio - tuntematon parametri; ";
 	T_GKF_bad_orientation_angle="epäkelpo liitoskulma: ";
 	T_GKF_bad_vector_data="epäkelpoa vektoridataa";
+	T_GKF_bad_zangle="bad zenith angle: ";
 	T_GKF_coordinate_x_is_not_defined="x-koordinaatti ei ole määritetty";
 	T_GKF_coordinate_y_is_not_defined="y-koordinaatti ei ole määritetty";
 	T_GKF_coordinates_without_covariance_matrix="koordinaatteja ilman kovarianssimatriisia";
@@ -868,7 +869,6 @@ void set_gama_language(gama_language lang)
 	T_GaMa_resobs_Review_of_residuals_analysis_obs="Residuaalit ja havaintojen analyysi";
 	T_GaMa_resobs_condition_number="Tila numero             : ";
 	T_GaMa_resobs_header1="        f[%]        v    |v'|     e-hav.  e-tas.\n";
-	T_GaMa_resobs_header2="======== [mm|cc] =========== [mm|cc] ===\n\n";
 	T_GaMa_resobs_mc_critical=" k ";
 	T_GaMa_resobs_mc_max=" m ";
 	T_GaMa_resobs_mc_max_critical=" mk";
@@ -928,6 +928,7 @@ void set_gama_language(gama_language lang)
 	T_GKF_bad_network_configuration_unknown_parameter="ongeldige netwerk configuratie - onbekende parameter: ";
 	T_GKF_bad_orientation_angle="ongeldige orientatiehoek: ";
 	T_GKF_bad_vector_data="ongeldige vector data";
+	T_GKF_bad_zangle="bad zenith angle: ";
 	T_GKF_coordinate_x_is_not_defined="x coÖrdinaat is niet gedefinieerd";
 	T_GKF_coordinate_y_is_not_defined="y coÖrdinaat is niet gedefinieerd";
 	T_GKF_coordinates_without_covariance_matrix="coördinaten zonder covariantiematrix";
@@ -1094,7 +1095,6 @@ void set_gama_language(gama_language lang)
 	T_GaMa_resobs_Review_of_residuals_analysis_obs="Residus en analyse van de observaties";
 	T_GaMa_resobs_condition_number="Conditie nummer        : ";
 	T_GaMa_resobs_header1="        f[%]        v    |v'|     e-obs.  e-ver.\n";
-	T_GaMa_resobs_header2="======== [mm|cc] =========== [mm|cc] ===\n\n";
 	T_GaMa_resobs_mc_critical=" c ";
 	T_GaMa_resobs_mc_max=" m ";
 	T_GaMa_resobs_mc_max_critical=" mc";

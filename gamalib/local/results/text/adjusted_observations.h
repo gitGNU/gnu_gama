@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adjusted_observations.h,v 1.6 2004/03/15 18:58:33 cepek Exp $
+ *  $Id: adjusted_observations.h,v 1.7 2004/03/18 17:07:01 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vyrovnana_Pozorovani_h_
@@ -47,7 +47,6 @@ void AdjustedObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
        << underline(T_GaMa_adjobs_Adjusted_observations, '*') << "\n\n";
 
    int minval = 12;
-   if (IS->degrees()) minval = 13;
    int maxval = minval;   // maximal value field width (coordinates!)
    {
      for (int i=1; i<=pocmer; i++)
@@ -83,7 +82,6 @@ void AdjustedObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
    out << T_GaMa_adjobs_adjusted << T_GaMa_adjobs_header1;
    {   // for ...
      int kk = 13 + maxval-minval;
-     //     if (IS->degrees()) kk += 2;
      for (int i=0; i < (IS->maxw_obs()+2*(IS->maxw_id())+kk); i++) out << "=";
    }   // for ...
    out << T_GaMa_adjobs_value;
@@ -93,7 +91,7 @@ void AdjustedObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
    if (IS->gons())
      out << "==== [m|g] ====== [mm|cc] ==\n\n";
    else
-     out << "===== [m|d] ======= [mm|sec] =\n\n";
+     out << "==== [m|d] ====== [mm|ss] ==\n\n";
    out.flush();
 
    PointID predcs = "";   // provious standpoint ID
@@ -135,7 +133,7 @@ void AdjustedObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
             if (IS->gons())
               out << m << " ";
             else
-              out << GNU_gama::gon2deg(m, 2) << " ";
+              out << GNU_gama::gon2deg(m, 0, 2) << " ";
             out.width(maxval);
             m += v(i)/10000;
             if (m < 0) m += 400;
@@ -143,7 +141,7 @@ void AdjustedObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
             if (IS->gons())
               out << m << " ";
             else
-              out << GNU_gama::gon2deg(m, 2) << " ";
+              out << GNU_gama::gon2deg(m, 0, 2) << " ";
           }
         else if (Angle* u = dynamic_cast<Angle*>(pm))
           {
@@ -157,7 +155,7 @@ void AdjustedObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
             if (IS->gons())
               out << m << " ";
             else
-              out << GNU_gama::gon2deg(m, 2) << " ";
+              out << GNU_gama::gon2deg(m, 0, 2) << " ";
             out.width(maxval);
             m += v(i)/10000;
             if (m < 0) m += 400;
@@ -165,7 +163,7 @@ void AdjustedObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
             if (IS->gons())
               out << m << " ";
             else
-              out << GNU_gama::gon2deg(m, 2) << " ";
+              out << GNU_gama::gon2deg(m, 0, 2) << " ";
           }
         else if (S_Distance* sd = dynamic_cast<S_Distance*>(pm))
           {
@@ -187,13 +185,13 @@ void AdjustedObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
             if (IS->gons())
               out << m << " ";
             else
-              out << GNU_gama::gon2deg(m, 2) << " ";
+              out << GNU_gama::gon2deg(m, 0, 2) << " ";
             out.width(maxval);
             m += v(i)/10000;
             if (IS->gons())
               out << m << " ";
             else
-              out << GNU_gama::gon2deg(m, 2) << " ";
+              out << GNU_gama::gon2deg(m, 0, 2) << " ";
           }
         else if (X* x = dynamic_cast<X*>(pm))
           {

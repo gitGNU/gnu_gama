@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2" standalone="yes" ?>
 <entries>
 
-<!-- $Id: review.lang,v 1.5 2003/01/20 17:57:17 cepek Exp $ -->
+<!-- $Id: review.lang,v 1.6 2004/03/18 17:07:01 cepek Exp $ -->
 
 <e id="T_GaMa_inconsistent_coordinates_and_angles"
    en="Inconsistent coordinates and angles: \nchanging internally sign of all Y coordinates" />
@@ -309,8 +309,8 @@
 <e id="T_GaMa_resobs_header1"
    en="        f[%]        v    |v'|     e-obs.  e-adj.\n" />
 
-<e id="T_GaMa_resobs_header2"
-   en="======== [mm|cc] =========== [mm|cc] ===\n\n" />
+<!-- removed in 1.7.09 : e id="T_GaMa_resobs_header2"
+   en="======== [mm|cc] =========== [mm|cc] ===\n\n" / -->
 
 <e id="T_GaMa_resobs_no_control"
    en=" u" />

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: error_ellipses.h,v 1.5 2004/03/15 18:58:33 cepek Exp $
+ *  $Id: error_ellipses.h,v 1.6 2004/03/18 17:07:01 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Elipsy_Chyb_h_
@@ -86,8 +86,12 @@ void ErrorEllipses(GaMaLib::LocalNetwork* IS, OutStream& out)
      out << T_GaMa_point << ' ';
      out << T_GaMa_errell_header1;
      for (int i=0; i<IS->maxw_id()+1; i++) out << '=';
-     out << T_GaMa_errell_header2
-	 << "\n\n";
+     if (IS->gons())
+       out << T_GaMa_errell_header2;
+     else
+       out <<
+         "== [mm] == [mm] ==== a [mm] b ==== [d] ===== a' [mm] b' ========";
+     out << "\n\n";
      {   // for ...
        // 1.3.13 for (int i=1; i<=pocnez; i++)
        // 1.3.13  if (IS->unknown_type(i) == 'X')

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.16 2004/02/20 20:34:25 cepek Exp $
+ *  $Id: obsdata.h,v 1.17 2004/03/18 17:07:01 cepek Exp $
  */
 
 
@@ -67,11 +67,12 @@ namespace GNU_gama {
       
       void update();
       
-      int activeObs()  const { return act_obs;  }
-      int activeDim()  const { return act_dim;  }
-      int activeNonz() const { return act_nonz; }
+      int  activeObs()  const { return act_obs;  }
+      int  activeDim()  const { return act_dim;  }
+      int  activeNonz() const { return act_nonz; }
       typename Observation::CovarianceMatrix  
            activeCov() const; 
+      void scaleCov(int i, double sc);
       
     private:    // no copy ctor and no assignment
       
@@ -345,8 +346,10 @@ namespace GNU_gama {
       const Index i_size = observation_list.size();
       Index active_band  = covariance_matrix.bandWidth();
 
-      if (N && N-1 < active_band) 
-        active_band = N-1;
+      if (N)
+        {
+          if (N-1 < active_band) active_band = N-1;
+        }
       else
         active_band = 0;
 
@@ -372,6 +375,21 @@ namespace GNU_gama {
 
       delete[] ind;
       return C;
+    }
+
+
+
+  template <class Observation>
+    void Cluster<Observation>::scaleCov(int p, double sc)
+    {
+      const int N = covariance_matrix.dim();
+      int k = p + covariance_matrix.bandWidth();
+      if (k > N) k = N;
+      for (int i=p; i<=k; i++)
+        {
+          covariance_matrix(p, i) *= sc;
+          covariance_matrix(i, p) *= sc;
+        }
     }
 
 

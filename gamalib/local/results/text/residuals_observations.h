@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: residuals_observations.h,v 1.6 2004/03/15 18:58:33 cepek Exp $
+ *  $Id: residuals_observations.h,v 1.7 2004/03/18 17:07:01 cepek Exp $
  */
 
 
@@ -127,7 +127,11 @@ void ResidualsObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
         for (int i=0; i < (IS->maxw_obs() + 2*(IS->maxw_id()) + 10); i++) 
           out << "=";
       }   // for ...
-      out << T_GaMa_resobs_header2;
+      // removed in 1.7.09 : out << T_GaMa_resobs_header2;
+      if (IS->gons())
+        out << "======== [mm|cc] =========== [mm|cc] ===\n\n";
+      else
+        out << "======== [mm|ss] =========== [mm|ss] ===\n\n";
       out.flush();
       
       

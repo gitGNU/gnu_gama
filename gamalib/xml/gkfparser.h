@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.h,v 1.10 2003/05/11 12:32:25 cepek Exp $
+ *  $Id: gkfparser.h,v 1.11 2004/03/18 17:07:01 cepek Exp $
  */
 
 #ifndef GaMaLib_GKF__XML__parser__h_
@@ -145,7 +145,8 @@ namespace GaMaLib {
         state_stop
       };
       
-      std::vector<Double> sigma;
+      // 1.7.09 std::pair<"standard deviation", "angular value in degrees">
+      std::vector<std::pair<Double, bool> > sigma;
       Index        idim, iband;            // covariance matrix dim. / band
       bool         pp_xydef, pp_zdef;      // process_point();
       Double       pp_x, pp_y, pp_z;

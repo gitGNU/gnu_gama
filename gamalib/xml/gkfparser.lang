@@ -118,6 +118,9 @@
 <e id="T_GKF_bad_distance"
    en="bad distance: " />
 
+<e id="T_GKF_bad_zangle"
+   en="bad zenith angle: " />
+
 <e id="T_GKF_illegal_standard_deviation"
    en="illegal standard deviation" />
 
