@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_zenith_angle.cpp,v 1.2 2004/05/17 16:20:25 cepek Exp $
+ *  $Id: g3_model_zenith_angle.cpp,v 1.3 2004/06/05 08:28:13 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -129,7 +129,9 @@ void Model::linearization_visit(ZenithAngle* z)
   /************************************************************/
   /*          !!! add refraction correction here !!!          */
   /************************************************************/
-
+  std::cout << "??? zenith  " << (z->obs()*GON_TO_RAD - za)*RAD_TO_GON 
+            << "\t" << z->obs() << "\t" << za*RAD_TO_GON 
+            << "\n";
   rhs(++rhs_ind) = z->obs()*GON_TO_RAD - za;
 }
 

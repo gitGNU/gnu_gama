@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_azimuth.cpp,v 1.1 2004/05/21 08:06:00 cepek Exp $
+ *  $Id: g3_model_azimuth.cpp,v 1.2 2004/06/05 08:28:13 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -123,11 +123,9 @@ void Model::linearization_visit(Azimuth* a)
   // right hand site
   
   double az = std::atan2(local.e2, local.e1); 
-
-  /************************************************************/
-  /*          !!! add refraction correction here !!!          */
-  /************************************************************/
-
+  std::cout << "??? azimuth " << (a->obs()*GON_TO_RAD - az)*RAD_TO_GON 
+            << "\t" << a->obs() << "\t" << az*RAD_TO_GON 
+            << "\n";
   rhs(++rhs_ind) = a->obs()*GON_TO_RAD - az;
 }
 
