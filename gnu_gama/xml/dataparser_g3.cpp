@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser_g3.cpp,v 1.2 2004/06/06 10:02:54 cepek Exp $
+ *  $Id: dataparser_g3.cpp,v 1.3 2004/09/01 11:59:45 cepek Exp $
  */
 
 
@@ -583,10 +583,11 @@ int DataParser::g3_obs(const char *name)
   using namespace g3;
 
   int obs_dim = 0; 
-  for (int i=0, N=g3->obs_cluster->observation_list.size(); i<N; i++)
+  for (List<g3::Observation*>::const_iterator
+         i=g3->obs_cluster->observation_list.begin(),
+         e=g3->obs_cluster->observation_list.end();  i!=e;  ++i)
     {
-      g3::Observation* obs = g3->obs_cluster->observation_list[i];
-      obs_dim += obs->dimension();
+      obs_dim += (*i)->dimension();
     }
 
   int cov_dim  = 0;

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.16 2004/06/06 10:02:54 cepek Exp $
+ *  $Id: network.cpp,v 1.17 2004/09/01 11:59:45 cepek Exp $
  */
 
 #include <fstream>
@@ -163,8 +163,6 @@ void LocalNetwork::revision_observations()
       (*cit)->update();
     }
   
-  // RSM.erase(RSM.begin(), RSM.end());
-  // removed_obs.erase(removed_obs.begin(), removed_obs.end());
   RSM.clear();
   removed_obs.clear();
   for (ObservationData::iterator i=OD.begin(), e=OD.end(); i!=e; ++i)
@@ -216,7 +214,7 @@ void LocalNetwork::project_equations()
     
     int  r = 0;
     pocet_neznamych_ = 0;
-    for (ObservationList::iterator m=RSM.begin(); m!=RSM.end(); ++m)
+    for (RevisedObsList::iterator m=RSM.begin(); m!=RSM.end(); ++m)
       {
         (*m)->linearization(&loclin);
         b(++r)  = loclin.rhs;
@@ -602,7 +600,7 @@ void LocalNetwork::remove_huge_abs_terms()
   if (!huge_abs_terms()) return;
 
   Index r = 0;
-  for (ObservationList::iterator m = RSM.begin(); m!=RSM.end(); ++m)
+  for (RevisedObsList::iterator m = RSM.begin(); m!=RSM.end(); ++m)
     if (test_abs_term(++r))
       (*m)->set_passive();
   

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.22 2004/06/20 20:54:51 cepek Exp $
+ *  $Id: obsdata.h,v 1.23 2004/09/01 11:59:45 cepek Exp $
  */
 
 
@@ -355,25 +355,28 @@ namespace GNU_gama {
         active_band = 0;
 
       typename Observation::CovarianceMatrix C(N, active_band);
-
       Index* ind = new Index[act_dim + 1];
-      for (Index k=1, n=1, i=0; i<i_size; i++)
+      Index  k=1, n=1;
+
+      for (typename List<Observation*>::const_iterator
+             i=observation_list.begin(),
+             e=observation_list.end(); i!=e; ++i)
         {
-          const Observation* obs = observation_list[i];
+          const Observation* obs = *i;
 
           if (obs->active())
-            for (int /*Index*/ d=0; d<obs->dimension(); d++)
+            for (int /*Index*/ d=0; d < obs->dimension(); d++)
               {
                 ind[k++] = n + d;
               }
           
           n += obs->dimension();
         }
-
+      
       for (Index i=1; i<=N; i++)
         for (Index j=0; j<=active_band && i+j<=N; j++)
           C(i, i+j) = covariance_matrix(ind[i], ind[i+j]);
-
+      
       delete[] ind;
       return C;
     }

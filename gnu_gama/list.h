@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: list.h,v 1.8 2004/06/20 20:54:51 cepek Exp $
+ *  $Id: list.h,v 1.9 2004/09/01 11:59:45 cepek Exp $
  */
 
 #include <vector>
@@ -58,20 +58,20 @@ namespace GNU_gama {
       void pop_back()                             { vec.pop_back();       }
       void clear()                                { vec.clear();          }
       void erase (typename List<T*>::iterator i)  { vec.erase(i.vit);     }
-      void insert(typename List<T*>::iterator i,  T* value)  
-        { 
-          vec.insert(i.vit, value); 
-        }
+      //void insert(typename List<T*>::iterator i,  T* value)  
+      //  { 
+      //    vec.insert(i.vit, value); 
+      //  }
 
 
-      T* operator[](std::size_t n)
-        { 
-          return static_cast<T*>(vec[n]); 
-        }
-      const T* operator[](std::size_t n) const 
-        { 
-          return static_cast<T*>(vec[n]); 
-        }
+      // T* operator[](std::size_t n)
+      //   { 
+      //     return static_cast<T*>(vec[n]); 
+      //   }
+      // const T* operator[](std::size_t n) const 
+      //   { 
+      //     return static_cast<T*>(vec[n]); 
+      //   }
 
     
       class const_iterator
@@ -163,7 +163,7 @@ namespace GNU_gama {
           friend class List<T*>;
           #else
           friend void List<T*>::erase (typename List<T*>::iterator i);
-          friend void List<T*>::insert(typename List<T*>::iterator i, T* val);
+          //friend void List<T*>::insert(typename List<T*>::iterator i, T* val);
           #endif
 
         };

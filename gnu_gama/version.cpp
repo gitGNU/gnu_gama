@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.48 2004/08/30 18:19:35 cepek Exp $
+ *  $Id: version.cpp,v 1.49 2004/09/01 11:59:45 cepek Exp $
  */
 
 
@@ -28,13 +28,13 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.11-i";
+const char* GNU_gama_version  = "1.7.11-j";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
-              "GNU g++"             // g++ 3.0 / 3.3
-              #elif defined (__BORLANDC__) && (__linux__)
-              "kylix-bc++"          // 5.7
+              "GNU g++"             // g++ 3.3 / 3.4
+              // #elif defined (__BORLANDC__) && (__linux__)
+              // "kylix-bc++"          // 5.7
               #elif defined (__BORLANDC__)
               "win32-borland"       // 5.6
               #elif defined (_MSC_VER)
@@ -64,7 +64,7 @@ const char* GNU_gama_compiler =
 
 1.7.11 2004-05-xx
 
-    - a lot of changes due to errors reported by g++-3.4
+    - a lot of changes due to warnings reported by g++-3.4
 
     - a bug in gkfparser.cpp reported by Jan Pytel
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.h,v 1.9 2004/03/30 19:43:07 cepek Exp $
+ *  $Id: network.h,v 1.10 2004/09/01 11:59:45 cepek Exp $
  */
 
 // LocalNetwork - Network Informations class (Informace o siti)
@@ -45,6 +45,8 @@ namespace GaMaLib
   
   class LocalNetwork : virtual BaseOLS<Double, GaMaLib::MatVecException> 
     {
+      typedef std::vector<GaMaLib::Observation*>  RevisedObsList;
+      
     public:  
       
       LocalNetwork(); 
@@ -262,7 +264,8 @@ namespace GaMaLib
 
     private:
 
-      ObservationList  RSM;             // revised observation list
+      // ObservationList      RSM;      // revised observation list
+      RevisedObsList          RSM;
       
       PointIDList undefined_xy_z_;      // revision of points
       int pocbod_;
