@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.25 2002/06/11 17:01:44 cepek Exp $
+ *  $Id: version.cpp,v 1.26 2002/06/11 19:19:37 cepek Exp $
  */
 
 
@@ -59,7 +59,9 @@ const char* GaMaLib_compiler =
 
 1.5.01-pre
 
-     - initial draft of ellipsoid classes
+     - initial draft of the Ellipsoid class and a helper program
+       ellipsoids_xml.cpp for generating files ellipsoids.[h|cpp] from
+       xml/ellipsoids.xml
 
 
 1.5.00 2002-06-11

@@ -1,0 +1,11 @@
+
+
+ellipsoids_xml : ellipsoids_xml.o
+	( pwd; cd ../gamaprog/linux/lib; make -f Makefile-expat ) 
+	$(CXX) -o ellipsoids_xml ellipsoids_xml.o encoding.o \
+                ../gamaprog/linux/lib/gamalib.a
+
+ellipsoids_xml.o : ellipsoids_xml.cpp 
+	$(CXX) -I.. -c ellipsoids_xml.cpp ../gamalib/xml/encoding.cpp	
+
+

@@ -2,7 +2,7 @@
 #
 # parametr prekladu pro GSO je -DGaMaOLSgso
 # 
-# $Id: Build_GaMa,v 1.5 2002/05/29 16:06:54 cepek Exp $
+# $Id: Build_GaMa,v 1.6 2002/06/11 19:19:37 cepek Exp $
 
 # pokud jsem v podadresari ./scripts, prejdu o jednu uroven vys
 #
@@ -19,8 +19,8 @@ fi
 
 scripts/build-gamalib-Makefile-expat
 scripts/build-dictionaries
+scripts/build-ellipsoids
 scripts/build-gamalib-Makefile
-
 
 #--------------------------------------------------------------------------
 
