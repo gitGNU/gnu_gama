@@ -20,13 +20,55 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.5 2002/11/24 20:24:10 cepek Exp $
+ *  $Id: adj.cpp,v 1.6 2002/11/26 22:22:06 cepek Exp $
  */
 
 #include <gamalib/adj/adj.h>
 #include <vector>
 
 using namespace GaMaLib;
+
+
+void AdjInputData::write_xml(std::ostream& out) const
+{
+  const char* indent = "  ";
+
+  cout << "\n" << indent << "<adj-input-data>\n";
+
+  cout << "\n" << indent << "  <sparse-mat>\n";
+  cout << indent << "    "
+       << "<rows>" << A.rows() << "<rows> "
+       << "<cols>" << A.columns() << "</cols> "
+       << "<nonz>" << A.nonzeroes() << "</nonz>\n";
+
+  for (Index m, k=1; k<=A.rows(); k++)
+    {
+      cout << indent << "      <row>";
+      cout << " <nonz>" << (A.end(k)-A.begin(k)) << "</nonz>";
+ 
+      double* n = A.begin(k);
+      double* e = A.end  (k);
+      for(Index* i=A.ibegin(k) ; n!=e; n++, i++, m++)
+        {
+          cout << "\n        "
+               << "<int>" << *i << "</int>"
+               << "<flt>" << *n << "</flt>";
+        }
+      cout << "\n        </row>\n";
+    }
+
+  cout << indent << "  </sparse-mat>\n";
+
+  cout << "\n" << indent << "</adj-input-data>\n";
+}
+
+
+
+void AdjInputData::read_xml(std::istream& inp)
+{
+}
+
+
 
 void AdjInputData::read_gama_local_old_format(std::istream& inp)
 {
@@ -93,6 +135,7 @@ Adj::~Adj()
   delete data; 
   delete least_squares;
 }
+
 
 
 void Adj::init(const AdjInputData* inp)

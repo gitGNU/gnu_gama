@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.h,v 1.3 2002/11/24 20:24:10 cepek Exp $
+ *  $Id: adj.h,v 1.4 2002/11/26 22:22:06 cepek Exp $
  */
 
 #include <gamalib/exception.h>
@@ -51,6 +51,9 @@ namespace GaMaLib {
     BlockDiagonal<>  cov;
     IntegerList  <>  minx;
     Vec              rhs;
+
+    void write_xml(std::ostream&) const;
+    void read_xml(std::istream&);
 
     /* Sparse project equations for uncorrelated observations. *
      * Defined here only for backward data compatibility       */
