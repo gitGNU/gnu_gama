@@ -16,6 +16,7 @@ const char* T_GKF_bad_direction = T_language_cpp_internal_error;
 const char* T_GKF_bad_distance = T_language_cpp_internal_error;
 const char* T_GKF_bad_height = T_language_cpp_internal_error;
 const char* T_GKF_bad_height_diff = T_language_cpp_internal_error;
+const char* T_GKF_bad_instrument_reflector_height = T_language_cpp_internal_error;
 const char* T_GKF_bad_network_configuration_unknown_parameter = T_language_cpp_internal_error;
 const char* T_GKF_bad_orientation_angle = T_language_cpp_internal_error;
 const char* T_GKF_bad_vector_data = T_language_cpp_internal_error;
@@ -240,6 +241,7 @@ void set_gama_language(gama_language lang)
 	T_GKF_bad_distance="bad distance: ";
 	T_GKF_bad_height="bad height: ";
 	T_GKF_bad_height_diff="bad height difference: ";
+	T_GKF_bad_instrument_reflector_height="bad instrument/reflector height: ";
 	T_GKF_bad_network_configuration_unknown_parameter="bad network configuration - unknown parameter: ";
 	T_GKF_bad_orientation_angle="bad orientation angle: ";
 	T_GKF_bad_vector_data="bad vector data";
@@ -460,6 +462,7 @@ void set_gama_language(gama_language lang)
 	T_GKF_bad_distance="chybna delka: ";
 	T_GKF_bad_height="chybna vyska: ";
 	T_GKF_bad_height_diff="chybne prevyseni: ";
+	T_GKF_bad_instrument_reflector_height="chybna vyska pristroje/zamery: ";
 	T_GKF_bad_network_configuration_unknown_parameter="chybna konfigurace site - neznamy parametr: ";
 	T_GKF_bad_orientation_angle="chybny orientacni posun: ";
 	T_GKF_bad_vector_data="chybny vektor";

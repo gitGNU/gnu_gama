@@ -16,6 +16,7 @@ extern const char* T_GKF_bad_direction;
 extern const char* T_GKF_bad_distance;
 extern const char* T_GKF_bad_height;
 extern const char* T_GKF_bad_height_diff;
+extern const char* T_GKF_bad_instrument_reflector_height;
 extern const char* T_GKF_bad_network_configuration_unknown_parameter;
 extern const char* T_GKF_bad_orientation_angle;
 extern const char* T_GKF_bad_vector_data;
