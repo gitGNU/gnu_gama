@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: svd.h,v 1.7 2002/07/05 15:18:06 cepek Exp $
+ *  $Id: svd.h,v 1.8 2002/07/07 14:32:33 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -88,14 +88,19 @@ namespace gMatVec {
         >    if (s1 == s2) goto test_for_convergence;
 
      The problems occured sometimes with GNU g++ 2.95.2 and Borland
-     C++ 5.5 (bcc32) compilers (but not with the MS VC++ 6.0 compiler). 
+     C++ 5.5 (bcc32) compilers (but not with the MS VC++ 6.0
+     compiler).  
 
+     Acording to `info gcc' on 68000 and x86 systems this results from
+     the fact that the floating point registers hold a few more bits
+     of precision than fit in a `double' in memory.  Compiled code
+     moves values between memory and floating point registers at its
+     convenience, and moving them into memory truncates them.
+     
+     This insidious bug was detected thanks to the thorough testing
+     and analysis by Christopher T. Fallen <ctfallen@math.ukans.edu>
 
-     This perverse bug was detected thanks to the thorough testing and
-     analysis by Christopher T. Fallen <ctfallen@math.ukans.edu>
-
-     -------------------------------------------------------------------------
-  */
+     ------------------------------------------------------------------------- */
 
   template <class Float=double, class Exc=Exception>
     class SVD {
