@@ -1,4 +1,4 @@
-@comment $Id: gama-local-adj.texi,v 1.6 2004/04/19 18:00:15 cepek Exp $
+@comment $Id: gama-local-adj.texi,v 1.7 2004/06/20 13:34:23 cepek Exp $
 
 @c @setfilename gama-local-adj.info
 
@@ -1424,6 +1424,129 @@ $$
 @node     Linearization
 @section  Test on linearization
 
+Mathematical model of geodetic network adjustment in @code{gama-local}
+is defined as a set of known real-valued differentiable functions
+@c % ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+@tex
+$$
+         {\bf L}^* = \varphi(\bf X^*),               \eqno (11)
+$$
+@end tex
+@c % ......................................................................
+@ifnottex
+
+@example
+(11)      L^* = f(X^*)
+@end example
+
+@end ifnottex
+@c % ----------------------------------------------------------------------
+where 
+@tex
+${\bf L}^*$
+@end tex
+@ifnottex
+L^*
+@end ifnottex
+is a vector of theoretical correct observations and
+@tex
+${\bf X}^*$
+@end tex
+@ifnottex
+X^*
+@end ifnottex
+is a vector of correct values of parameters. For the given sample set
+of observations @m{L} and the unknown vector of residuals @m{v} we
+can express the estimate of parameters @m{X} as a nonlinear set of
+equations
+@c % ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+@tex
+$$
+         {\bf L + v} = \varphi(\bf X).                  \eqno (12)
+$$
+@end tex
+@c % ......................................................................
+@ifnottex
+
+@example
+(12)      L + v = f(X).
+@end example
+
+@end ifnottex
+@c % ----------------------------------------------------------------------
+With approximate values @m{X_0} of unknown parameters
+@tex
+$$
+         {\bf X = X_0 + x}                
+$$
+@end tex
+@c % ......................................................................
+@ifnottex
+
+@example
+(12)      X = X_0 + x
+@end example
+
+@end ifnottex
+we can linearize the equations (12)
+@c % ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+@tex
+$$
+         {\bf L + v} = \varphi({\bf X_0}) 
+                     + {\partial\varphi \over \partial{\bf X}}
+                       {\Bigg\vert}
+                       _{\bf X=X_0}
+                       {\bf x}
+$$
+yielding the linear set of equations (1) where 
+$$
+        {\bf A} = {\partial\varphi \over \partial{\bf X}}
+                       {\Bigg\vert}
+                       _{\bf X=X_0}\quad {\rm and} \qquad
+        {\bf b} = {\bf L} - \varphi({\bf X}_0). 
+$$
+@end tex
+@c % ......................................................................
+@ifnottex
+
+@example
+          L + v = f(X_0) + f'(X_0)x.
+@end example
+
+yielding the linear set of equations (1)
+@end ifnottex
+@c % ----------------------------------------------------------------------
+
+Unknown parameters in @code{gama-local} mathematical model are points
+coordinates and orientation angles (transforming observed directions
+to bearings). The observables described by functions (12) belong into
+two classes
+
+@itemize @w{}
+
+@item
+@strong{linear observables}: horizontal and slope distances, height
+differences, control coordinates and vectors (coordinate differences),
+
+@item
+@strong{angular observables}: directions, horizontal and zenith angles.
+@end itemize
+
+@noindent
+Internally in @code{gama-local} unknown corrections to linear
+observables are computed in millimeters and corrections to angular
+observables in centigrade seconds. To reflect the internal units in
+used all partial derivatives of angular observables by coordinates are
+scaled by factor
+@tex
+$2000/\pi = 10^{-3}\times(200\times10^{4}/\pi).$
+@end tex
+@ifnottex
+2000/pi.
+@end ifnottex
+
+
+@c ########################################################################
 
 When computing coefficients of project equations (1) we expect that
 approximate coordinates of points are known with sufficient accuracy
@@ -1435,7 +1558,7 @@ adjusted parameters.
 
 Generally we check linearization in adjustment by double calculation
 of residuals
-%
+@c
 @c % ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 @tex
 $$
