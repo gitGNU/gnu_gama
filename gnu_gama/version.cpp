@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.33 2004/04/12 11:29:50 cepek Exp $
+ *  $Id: version.cpp,v 1.34 2004/04/12 17:55:41 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.10-b";
+const char* GNU_gama_version  = "1.7.10-c";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -65,6 +65,10 @@ const char* GNU_gama_compiler =
 1.7.10 2004-xx-xx
 
     - Hungarian translation of gama-local by Zoltan Faludi
+
+    - bug in orientation of semimajor axes of error ellipses for
+      inconsistent coordinate systems (internally changed all y
+      coordinates to -y); see  GaMaLib::Network::ErrorEllipses()
 
 
 1.7.09 2004-04-07
