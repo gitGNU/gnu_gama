@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_zenith_angle.cpp,v 1.3 2004/06/05 08:28:13 cepek Exp $
+ *  $Id: g3_model_zenith_angle.cpp,v 1.4 2004/08/17 20:48:49 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -30,8 +30,6 @@ using namespace GNU_gama::g3;
 
 bool Model::revision_visit(ZenithAngle* z)
 {
-  if (!z->active()) return false;
-  
   Point* from = points->find(z->from);
   Point* to   = points->find(z->to  );
   
@@ -64,7 +62,7 @@ void Model::linearization_visit(ZenithAngle* z)
 {
   Point* from = points->find(z->from);
   Point* to   = points->find(z->to  );
-  
+
   E_3 from_vertical, from_to, p1, v1, p2, v2;
   
   p1.set(from->X(), from->Y(), from->Z());
