@@ -1,14 +1,17 @@
-0.9.20 2002-09-15
+0.9.20 2002-09-16
 
-       - new memory allocation model in the class BandMat<>.
+       - Added new class BandMat2<> as an alternative to BandMat<>
 
-         Previously it was used so called `diagonal storage scheme',
-         ie rectangular array of dim*(band+1) elements. From 
-         version 0.9.20 only nonzero elements are stored (upper
-         triangular part by rows). This represents a possibly
-         slower access to individual matrix elements but on the other
-         hand there is no memory overhead (in GNU GaMa for large
-         full covariance matrices such an overhead is not acceptable).
+         In BandMat<> so called `diagonal storage scheme' is
+         implemented , ie rectangular array of dim*(band+1)
+         elements. In BandMat2<> only nonzero elements of upper
+         triangular part are stored by rows. This represents a slower
+         access to individual matrix elements but on the other hand
+         there is no memory overhead (in GNU GaMa for large full
+         covariance matrices such an overhead is not acceptable).
+
+         CurrentlyBandMat2<> does not implement member functions
+         invBand(), triDiag() and eigenVal()
 
 
 0.9.19 2002-07-11
