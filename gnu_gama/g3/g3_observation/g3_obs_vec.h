@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_vec.h,v 1.4 2003/06/08 08:11:13 cepek Exp $
+ *  $Id: g3_obs_vec.h,v 1.5 2003/11/06 17:58:59 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_obs_base.h>
@@ -43,24 +43,24 @@ namespace GNU_gama {  namespace g3 {
     }
     Vector(double x, double y, double z) : Observation(6), select(0)
     {
-      dx_ = x; dy_ = y; dz_ = z;
+      dxyz_[0] = x; dxyz_[1] = y; dxyz_[2] = z;
     }
     Vector(const Vector& v) : Observation(6), select(0)
     {
       name[0] = v.name[0];
       name[1] = v.name[1];
 
-      dx_ = v.dx_; dy_ = v.dy_; dz_ = v.dz_;
+      dxyz_[0] = v.dxyz_[0]; dxyz_[1] = v.dxyz_[1]; dxyz_[2] = v.dxyz_[2];
     }
     
     void set_dxyz(double x, double y, double z)
     {
-      dx_ = x; dy_ = y; dz_ = z;
+      dxyz_[0] = x; dxyz_[1] = y; dxyz_[2] = z;
     }
 
-    double dx() const { return dx_; }
-    double dy() const { return dy_; }
-    double dz() const { return dz_; }
+    double dx() const { return dxyz_[0]; }
+    double dy() const { return dxyz_[1]; }
+    double dz() const { return dxyz_[2]; }
 
     void   parlist_init (Model*);
 
@@ -68,7 +68,7 @@ namespace GNU_gama {  namespace g3 {
 
     int select;
 
-    double dx_, dy_, dz_;
+    double dxyz_[3];
 
     double parlist_value() const;    
     double derivative   (Parameter*);
@@ -90,6 +90,10 @@ namespace GNU_gama {  namespace g3 {
       name[1] = vec->name[1];
     }
 
+    double obs() const 
+    { 
+      return vec->dxyz_[sel]; 
+    }
     void   parlist_init (Model*);
     double parlist_value() const 
     { 

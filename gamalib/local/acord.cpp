@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.cpp,v 1.12 2003/08/16 16:30:35 cepek Exp $
+ *  $Id: acord.cpp,v 1.13 2003/11/06 17:58:57 cepek Exp $
  */
 
  
@@ -58,7 +58,9 @@ Acord::Acord(PointData& b, ObservationData& m)
       else if (hp)  given_z++,   set_z  .insert(c);
     }
 
-  OD.for_each(CountObs(observations));
+  for (ObservationData::const_iterator 
+         i=OD.begin(), e=OD.end(); i!=e; ++i, ++observations);
+
 
   if (Consistent(PD)) return;
 
@@ -113,7 +115,32 @@ void Acord::execute()
         {
           // all transformed slope distances go to a single standpoint
           StandPoint* standpoint = new StandPoint(&OD);
-          OD.for_each(Acord::SlopeToHorizontal(standpoint->observation_list));
+          for (ObservationData::iterator t=OD.begin(), e=OD.end(); t!=e; ++t)
+            {
+              Observation* obs = *t;
+
+              S_Distance* s = dynamic_cast<S_Distance*>(obs);
+              if (s == 0) continue;
+
+              StandPoint* c = dynamic_cast<StandPoint*>(s->ptr_cluster());
+              if (c == 0) continue;   // this should newer happen
+
+              PointID from = s->from();
+              PointID to   = s->to();
+              
+              // look for a zenith angle corresponding to the given slope distance
+              ObservationList::iterator i   = c->observation_list.begin();
+              ObservationList::iterator end = c->observation_list.end();
+              for ( ;i!=end; ++i)
+                if (Z_Angle* z = dynamic_cast<Z_Angle*>(*i))
+                  if (from == z->from() && to == z->to())
+                    {
+                      // ... and fake a horizontal distance
+                      standpoint->observation_list.push_back(new Distance(from, to, s->value()*sin(z->value())));
+                      continue;
+                    }
+
+            }
           // bind observations to the cluster
           standpoint->update();
           // insert standpoint into `observation data'
@@ -129,7 +156,10 @@ void Acord::execute()
 	RO.execute();
 	
         ObservationList local;
-        OD.for_each(Observation::CopyTo(local));
+        for (ObservationData::iterator i=OD.begin(), e=OD.end(); i!=e; ++i) 
+        {
+          local.push_back(*i);
+        }
         
         Orientation orp(PD, local);
         orp.add_all();
@@ -183,32 +213,6 @@ void Acord::execute()
     }
 }
 
-void Acord::SlopeToHorizontal::operator()(const Observation* cobs) const
-{
-  Observation* obs = const_cast<Observation*>(cobs);
-
-  S_Distance* s = dynamic_cast<S_Distance*>(obs);
-  if (s == 0) return;
-
-  StandPoint* c = dynamic_cast<StandPoint*>(s->ptr_cluster());
-  if (c == 0) return;   // this should newer happen
-
-  PointID from = s->from();
-  PointID to   = s->to();
-
-  // look for a zenith angle corresponding to the given slope distance
-  ObservationList::iterator i   = c->observation_list.begin();
-  ObservationList::iterator end = c->observation_list.end();
-  for ( ;i!=end; ++i)
-    if (Z_Angle* z = dynamic_cast<Z_Angle*>(*i))
-      if (from == z->from() && to == z->to())
-        {
-          // ... and fake a horizontal distance
-          OL.push_back(new Distance(from, to, s->value()*sin(z->value())));
-          return;
-        }
-
-}
 
 
 

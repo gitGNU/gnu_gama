@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.13 2003/08/16 16:30:35 cepek Exp $
+ *  $Id: version.cpp,v 1.14 2003/11/06 17:58:59 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.07-pre";
+const char* GNU_gama_version  = "1.7.07";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -62,7 +62,16 @@ const char* GNU_gama_compiler =
 
 =============================================================================
 
-1.7.07 xxxxxxxxxx
+1.7.07 2003-11-06
+
+   - in template class GNU_gama::ObservationData
+
+     a) added iterators  
+     b) removed template function for_each (and all related function
+        objects rewritten using iterators)
+
+   - added check for valid covariance matrix in virtual functions
+     derived from GaMaLib::Observation::write(ostream&, bool)
 
    - added support for computation of approximate coordinates from
      vector data by Jan Pytel

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.h,v 1.5 2003/03/13 20:22:42 cepek Exp $
+ *  $Id: network.h,v 1.6 2003/11/06 17:58:57 cepek Exp $
  */
 
 // LocalNetwork - Network Informations class (Informace o siti)
@@ -94,7 +94,7 @@ namespace GaMaLib
       void  revision_observations();
       const ObservationList& sum_rejected_observations() const 
         { 
-          return vyloucena_mer_; 
+          return removed_obs; 
         }
       int sum_observations() const 
         { 
@@ -255,7 +255,7 @@ namespace GaMaLib
       int pocbod_;
       bool tst_redbod_;
       
-      ObservationList vyloucena_mer_;   // revision of observations
+      ObservationList removed_obs;     // revision of observations
       int pocmer_;
       bool tst_redmer_;
       
@@ -307,40 +307,6 @@ namespace GaMaLib
       // void backwardSubstitution(const Cov& chol, Vec& v);
       void prepareProjectEquations();
       bool singular_coords(const Mat&);
-      
-      // helper classes for clusters processing
-      
-      class FilterOutUnused {
-        const LocalRevision local_rev;
-      public:
-        FilterOutUnused(const PointData& pd) : local_rev(pd) {}
-        void operator()(const Observation* cm) const
-          {
-            Observation* m = const_cast<Observation*>(cm);
-
-            if (!m->revision(&local_rev)) m->set_passive();
-          }
-      };
-      
-      class FilterOutPassive {
-        
-        mutable ObservationList& active;
-        mutable ObservationList& passive;
-        
-      public:
-        FilterOutPassive(ObservationList& act, ObservationList& pas) 
-          : active(act), passive(pas) 
-          {
-          }
-        void operator()(const Observation* cm) const
-          {
-            Observation* m = const_cast<Observation*>(cm);
-
-            if (m->active()) active.push_back(m);
-            else             passive.push_back(m);
-          }
-      };
-      
 
     };     /* class LocalNetwork */ 
   

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.h,v 1.10 2003/05/10 16:33:13 cepek Exp $
+ *  $Id: observation.h,v 1.11 2003/11/06 17:58:57 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_Mereni_H
@@ -60,6 +60,7 @@ namespace GaMaLib {
       GNU_gama::Cluster<Observation>* cluster;
       int      cluster_index;
       friend   class GNU_gama::Cluster<Observation>;
+      bool     check_std_dev() const;
     
     public:
 
@@ -116,35 +117,6 @@ namespace GaMaLib {
       void    set_value  (Double v) { value_   = v; } 
       void    set_from_dh(Double h) { from_dh_ = h; }
       void    set_to_dh  (Double h) { to_dh_   = h; }
-
-      // function objects to be used with ObservationData::for_each()
-
-      class CopyTo {
-        mutable ObservationList& OL;
-      public:
-        CopyTo(ObservationList& ol) : OL(ol) {}
-        void operator()(const Observation* obs) const 
-          { 
-            OL.push_back(const_cast<Observation*>(obs)); 
-          }
-      };
-      
-      class CopyActiveTo {
-        mutable ObservationList& OL;
-      public:
-        CopyActiveTo(ObservationList& ol) : OL(ol) {}
-        void operator()(const Observation* obs) const 
-          { 
-            if(obs->active()) OL.push_back(const_cast<Observation*>(obs)); 
-          }
-      }; 
-
-      class CopyHorizontalTo {    // directions, angles, distances
-        mutable ObservationList& OL;
-      public:
-        CopyHorizontalTo(ObservationList& ol) : OL(ol) {}
-        void operator()(const Observation* obs) const;
-      }; 
 
     private:
     

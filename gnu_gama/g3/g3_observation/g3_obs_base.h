@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_base.h,v 1.11 2003/06/04 07:43:55 cepek Exp $
+ *  $Id: g3_obs_base.h,v 1.12 2003/11/06 17:58:59 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_parameter.h>
@@ -45,7 +45,7 @@ namespace GNU_gama {  namespace g3 {
     Observation(int n) : parlist(n), model(0), time(0), active_(true) {}
     virtual ~Observation() {}
 
-    double  obs() const { return 0; }
+    virtual double obs() const { return 0; }
 
     virtual double parlist_value() const     = 0;      
     virtual void   parlist_init (Model*)     = 0;

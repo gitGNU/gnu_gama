@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: reduce_observations.cpp,v 1.3 2003/01/20 17:57:17 cepek Exp $
+ *  $Id: reduce_observations.cpp,v 1.4 2003/11/06 17:58:57 cepek Exp $
  */
 
  
@@ -74,7 +74,20 @@ private:
 ReducedObservations::ReducedObservations(PointData& b, ObservationData& m):
     PD(b), OD(m)
 {
-    OD.for_each(CopyReducedObservation(list_reduced_obs, list_obs));
+  for (ObservationData::iterator i=OD.begin(), e=OD.end(); i!=e; ++i)
+    {
+      Observation* obs = *i;
+
+      if ( !obs->active() )  continue;
+
+      list_obs.push_back(obs);
+
+      if ( (obs->from_dh() == 0) && (obs->to_dh() == 0 ) ) continue;
+
+      if (dynamic_cast<S_Distance*>(obs) || 
+          dynamic_cast<Z_Angle*   >(obs) ||
+          dynamic_cast<Ydiff*     >(obs)  ) list_reduced_obs.push_back(obs);
+    }
 }
 
 void ReducedObservations::reduce(ReducedObs& r_obs)

@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: approx_heights.cpp,v 1.2 2002/10/24 17:04:12 cepek Exp $
+ *  $Id: approx_heights.cpp,v 1.3 2003/11/06 17:58:57 cepek Exp $
  */
 
  
@@ -43,7 +43,19 @@ ApproximateHeights::ApproximateHeights(PointData& b, ObservationData& m)
     }
 
   if (missing_heights)
-    OD.for_each(CopyHeights(OHD));
+    for (ObservationData::iterator i=OD.begin(), e=OD.end(); i!=e; ++i)
+    {
+      Observation* obs = *i;
+      
+      if (H_Diff* h = dynamic_cast<H_Diff*>(obs))  
+        OHD.HD.push_back(h);
+      if (Distance* d = dynamic_cast<Distance*>(obs))  
+        OHD.DI.push_back(d);
+      if (S_Distance* s = dynamic_cast<S_Distance*>(obs))  
+        OHD.SD.push_back(s);
+      if (Z_Angle* z = dynamic_cast<Z_Angle*>(obs))  
+        OHD.ZA.push_back(z);
+    }
 }
 
 void ApproximateHeights::make_heights()

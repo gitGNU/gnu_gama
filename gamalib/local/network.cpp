@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.9 2003/08/09 11:01:55 cepek Exp $
+ *  $Id: network.cpp,v 1.10 2003/11/06 17:58:57 cepek Exp $
  */
 
 #include <fstream>
@@ -115,7 +115,14 @@ void LocalNetwork::revision_observations()
 {
   if (!tst_redbod_) revision_points();
 
-  OD.for_each(FilterOutUnused(PD));
+  {
+    const LocalRevision local_rev(PD);
+    for (ObservationData::iterator i=OD.begin(), e=OD.end(); i!=e; ++i)
+      {
+        Observation* m = *i;
+        if (!m->revision(&local_rev)) m->set_passive();
+      }
+  }
 
   // test cycle for StandPoint clusters with single direction
   ClusterList& CL = OD.CL;
@@ -155,10 +162,16 @@ void LocalNetwork::revision_observations()
     }
   
   // RSM.erase(RSM.begin(), RSM.end());
-  // vyloucena_mer_.erase(vyloucena_mer_.begin(), vyloucena_mer_.end());
+  // removed_obs.erase(removed_obs.begin(), removed_obs.end());
   RSM.clear();
-  vyloucena_mer_.clear();
-  OD.for_each(FilterOutPassive(RSM, vyloucena_mer_));
+  removed_obs.clear();
+  for (ObservationData::iterator i=OD.begin(), e=OD.end(); i!=e; ++i)
+    {
+      Observation* m = *i;
+      
+      if (m->active()) RSM.push_back(m);
+      else             removed_obs.push_back(m);
+    }
   pocmer_ = RSM.size();
 
   tst_redmer_ = true;

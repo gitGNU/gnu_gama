@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: hdiff.cpp,v 1.1 2001/12/07 12:58:31 cepek Exp $
+ *  $Id: hdiff.cpp,v 1.2 2003/11/06 17:58:58 cepek Exp $
  */
 
 #include <iostream>
@@ -39,8 +39,9 @@ void H_Diff::write(std::ostream& out, bool /* print_at */) const
   // if (print_at) ... always print from="..." 
   out << " from=\"" << from() << '"';
   out << " to=\"" << to() << '"'
-      << " val=\""   << setprecision(Format::coord_p()) << value()  << '"'
-      << " stdev=\"" << setprecision(Format::stdev_p()) << stdDev() << '"';
+      << " val=\""   << setprecision(Format::coord_p()) << value()  << '"';
+  if (check_std_dev())
+    out << " stdev=\"" << setprecision(Format::stdev_p()) << stdDev() << '"';;
   if (dist_)
     out << " dist=\"" << dist_ << "\"";
   out << " />";

@@ -3,7 +3,7 @@
 # gama tar: script is run in the parent directory of scripts
 # #########
 #
-# $Id: build-archive,v 1.1 2003/03/20 20:43:48 cepek Exp $
+# $Id: build-archive,v 1.2 2003/11/06 17:58:59 cepek Exp $
 
 if pwd | grep scripts$; then cd ..; fi
 
@@ -70,6 +70,9 @@ tar czvf $TAR $MD5 $ADD --exclude=*.o --exclude=*.a --exclude=*.bak \
               --exclude=doc/gama \
               --exclude-from=/tmp/gama-$VERSION-exclude
 
+#md5sum $TAR | gpg --clearsign > $VERSION.md5sum
+md5sum  $TAR > $VERSION.md5sum
+
 rm -f /tmp/gama-$VERSION-exclude
 
 if ! test -d archive;
@@ -85,7 +88,8 @@ then
    mkdir archive/gama/$DIRVER
 fi
 
-cp $TAR archive/gama/$DIRVER
+cp $TAR            archive/gama/$DIRVER
+cp $VERSION.md5sum archive/gama/$DIRVER
 echo
 ls -l   archive/gama/$DIRVER/$TAR | awk '//{ print $5 " " $9 }'   
 echo

@@ -20,12 +20,11 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.9 2003/07/24 16:25:46 cepek Exp $
+ *  $Id: obsdata.h,v 1.10 2003/11/06 17:58:58 cepek Exp $
  */
 
 
 #include <gnu_gama/list.h>
-#include <vector>
 
 #ifndef GNU_gama__obsdata_h_gnugamaobsdata_observation_data__gnu_gama_obsdata
 #define GNU_gama__obsdata_h_gnugamaobsdata_observation_data__gnu_gama_obsdata
@@ -95,34 +94,197 @@ namespace GNU_gama {
       
       ObservationData& operator=(const ObservationData& cod);
       
-      template <class P> void for_each(const P& p) const
+
+      // ------------------------------------------------------------------
+
+      class iterator;
+
+      class const_iterator
+        // : public std::iterator <std::forward_iterator_tag, Observation*>
         {
-          for (typename List<Cluster<Observation>*>::const_iterator 
-                 c=CL.begin(); c!=CL.end(); ++c)
+        public:
+   
+          bool operator==(const const_iterator& x) const 
             {
-              const Cluster<Observation>* cluster = (*c);
-              std::for_each(cluster->observation_list.begin(),
-                            cluster->observation_list.end(),  p);
+              const bool t1 =  cluster   ==   OD->CL.end();
+              const bool t2 =  x.cluster == x.OD->CL.end();
+              if (t1 || t2) return t1 == t2;
+
+              return cluster == x.cluster && obs == x.obs; 
             }
+          bool operator!=(const const_iterator& x) const 
+            { 
+              return !this->operator==(x); 
+            }
+          const_iterator& operator++()
+            {
+                goto next_cycle;
+              
+                while (cluster != OD->CL.end())
+                  {
+                    obs = (*cluster)->observation_list.begin();
+                    while (obs != (*cluster)->observation_list.end())
+                      {
+                        return *this;
+                        
+                      next_cycle: 
+                        ++obs;
+                      }                    
+                    ++cluster;
+                  }
+              
+                return *this;
+            }
+          const_iterator operator++(int)
+            {
+              const_iterator tmp = *this;
+              operator++();
+              return tmp;
+            }
+          const Observation* operator*() const
+            {
+              return *obs;
+            }
+
+        private:
+          friend class ObservationData;
+          friend class iterator;
+
+          const ObservationData*  OD;
+          typename ObservationData::ClusterList::const_iterator  cluster;
+          typename List<Observation*>::const_iterator            obs;
+        };
+ 
+      const_iterator  begin() const 
+        {     
+          const_iterator  iter;
+          iter.OD       = this;
+          iter.cluster  = iter.OD->CL.begin();
+
+          while (iter.cluster != iter.OD->CL.end())
+          {
+            iter.obs     = (*iter.cluster)->observation_list.begin();
+
+            if (iter.obs != (*iter.cluster)->observation_list.end()) 
+              return iter;
+
+            ++iter.cluster;
+          }
+
+          return iter;
         }
 
-      // template <class P> void transform(P& p)
-      //   {
-      //     for (typename List<Cluster<Observation>*>::iterator 
-      //            c=CL.begin(); c!=CL.end(); ++c)
-      //       {
-      //         Cluster<Observation>* cluster = (*c);
-      //         std::transform(cluster->observation_list.begin(),
-      //                        cluster->observation_list.end(), 
-      //                        cluster->observation_list.begin(),  p);
-      //       }
-      //   }
+      const_iterator  end() const 
+        {
+          const_iterator  iter;
+          iter.OD       = this;
+          iter.cluster  = iter.OD->CL.end();
+
+          return iter;
+        }
       
+
+      // ------------------------------------------------------------------
+      
+      class iterator
+        // : public std::iterator <std::forward_iterator_tag, Observation*>
+        {
+        public:
+   
+          operator const_iterator() const
+            {
+              const_iterator ci;
+              ci.OD      = OD;
+              ci.cluster = cluster;
+              ci.obs     = obs;
+              return ci;
+            }
+          bool operator==(const iterator& x) const 
+            {
+              const bool t1 =  cluster   ==   OD->CL.end();
+              const bool t2 =  x.cluster == x.OD->CL.end();
+              if (t1 || t2) return t1 == t2;
+
+              return cluster == x.cluster && obs == x.obs; 
+            }
+          bool operator!=(const iterator& x) const 
+            { 
+              return !this->operator==(x); 
+            }
+          iterator& operator++()
+            {
+                goto next_cycle;
+              
+                while (cluster != OD->CL.end())
+                  {
+                    obs = (*cluster)->observation_list.begin();
+                    while (obs != (*cluster)->observation_list.end())
+                      {
+                        return *this;
+                        
+                      next_cycle: 
+                        ++obs;
+                      }                    
+                    ++cluster;
+                  }
+              
+                return *this;
+            }
+          iterator operator++(int)
+            {
+              iterator tmp = *this;
+              operator++();
+              return tmp;
+            }
+          Observation* operator*() const
+            {
+              return *obs;
+            }
+
+        private:
+          friend class ObservationData;
+
+          ObservationData*  OD;
+          typename ObservationData::ClusterList::iterator  cluster;
+          typename List<Observation*>::iterator            obs;
+        };
+ 
+      iterator  begin() 
+        {     
+          iterator  iter;
+          iter.OD       = this;
+          iter.cluster  = iter.OD->CL.begin();
+
+          while (iter.cluster != iter.OD->CL.end())
+          {
+            iter.obs     = (*iter.cluster)->observation_list.begin();
+
+            if (iter.obs != (*iter.cluster)->observation_list.end()) 
+              return iter;
+
+            ++iter.cluster;
+          }
+
+          return iter;
+        }
+
+      iterator  end() 
+        {
+          iterator  iter;
+          iter.OD       = this;
+          iter.cluster  = iter.OD->CL.end();
+
+          return iter;
+        }
+      
+
     private:
       void deepCopy(const ObservationData& at);
       
     };
   
+
+  // =====================================================================
 
 
   template <class Observation>

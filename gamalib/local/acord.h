@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.h,v 1.3 2003/03/13 20:22:42 cepek Exp $
+ *  $Id: acord.h,v 1.4 2003/11/06 17:58:57 cepek Exp $
  */
 
  
@@ -55,23 +55,7 @@ namespace GaMaLib {
       bool missing_coordinates;
 
     private:
-
-      class CountObs {
-        mutable int& count;
-      public:
-        CountObs(int& c) : count(c) {}
-        void operator()(const Observation*) const { count++; }
-      };
-
       std::set<PointID> set_xyz, set_xy, set_z;
-
-      class SlopeToHorizontal {  // s-dist & z-angle => horizontal distance
-        mutable ObservationList& OL;
-      public:
-        SlopeToHorizontal(ObservationList& ol) : OL(ol) {}
-        void operator()(const Observation*) const;
-      }; 
-      
     };
 
 }   // namespace GaMaLib

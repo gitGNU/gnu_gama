@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_coordinates.cpp,v 1.6 2003/03/13 20:22:51 cepek Exp $
+ *  $Id: g2d_coordinates.cpp,v 1.7 2003/11/06 17:58:57 cepek Exp $
  */
 
 /*************************************************************
@@ -35,6 +35,20 @@ using namespace std;
 using namespace GaMaLib;
 
 // private
+
+void ApproximateCoordinates::
+copy_horizontal(const ObservationData& from, ObservationList& to)
+{
+  for (ObservationData::
+         const_iterator i=from.begin(), e=from.end(); i!=e; ++i)
+    {
+        Observation* obs = const_cast<Observation*>(*i);
+
+        if      (dynamic_cast<Direction*>(obs))  to.push_back(obs);
+        else if (dynamic_cast<Angle*    >(obs))  to.push_back(obs);
+        else if (dynamic_cast<Distance *>(obs))  to.push_back(obs);
+    }
+}
 
 void ApproximateCoordinates::Reset()
 {

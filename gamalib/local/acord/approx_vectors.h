@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: approx_vectors.h,v 1.1 2003/08/16 16:30:35 cepek Exp $
+ *  $Id: approx_vectors.h,v 1.2 2003/11/06 17:58:57 cepek Exp $
  */
 
  
@@ -48,34 +48,6 @@ namespace GaMaLib {
 	    typedef std::vector<const Ydiff*>::const_iterator Y_const_iterator;
 	    typedef std::vector<const Zdiff*>::const_iterator Z_const_iterator;
 	    
-	    struct CopyVectors 
-	    {
-		mutable ObservedVData& OVD;
-		PointData&       PD;
-	  
-		CopyVectors(ObservedVData& ovd, PointData& pd): OVD(ovd),PD(pd) {}
-		
-		void operator()(const Observation* obs) const
-		{
-		    LocalPoint& from = PD[obs->from()];
-		    LocalPoint& to   = PD[obs->to  ()];
-		    
-		    if ( ApproximateVectors::unknown_xy(from) ||
-			 ApproximateVectors::unknown_xy(to) )
-		    {
-			if (const Xdiff* v = dynamic_cast<const Xdiff*>(obs))
-			    OVD.XD.push_back(v);
-			else
-			    if (const Ydiff* v = dynamic_cast<const Ydiff*>(obs))
-				OVD.YD.push_back(v);
-		    }
-		    if ( ApproximateVectors::unknown_z(from) ||
-			 ApproximateVectors::unknown_z(to) )
-			if (const Zdiff* v = dynamic_cast<const Zdiff*>(obs))
-			    OVD.ZD.push_back(v);
-		}
-	    };
-
 	    bool obs_list_empty() const
 		{
 		    return OVD.XD.empty() && OVD.YD.empty() && OVD.ZD.empty();

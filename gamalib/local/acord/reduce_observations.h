@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: reduce_observations.h,v 1.4 2003/03/13 20:22:47 cepek Exp $
+ *  $Id: reduce_observations.h,v 1.5 2003/11/06 17:58:57 cepek Exp $
  */
 
  
@@ -110,33 +110,6 @@ namespace GaMaLib {
 	    return 0;
 	} 
 	
-	
-	struct CopyReducedObservation 
-	{
-	    mutable ListReducedObs&  LRO;
-	    mutable ObservationList& OL;
-	    
-	    CopyReducedObservation(ListReducedObs& lro,ObservationList& ol) :
-		LRO(lro),OL(ol) {}
-	    
-	    void operator()(const Observation* cobs) const
-	    {
-              Observation* obs = const_cast<Observation*>(cobs);
-		
-              if ( !obs->active() )
-                return;
-              
-              OL.push_back(obs);
-              
-              if ( (obs->from_dh() == 0) && (obs->to_dh() == 0 ) )
-                return;
-              
-              if (	dynamic_cast<S_Distance*>(obs) || 
-			dynamic_cast<Z_Angle*   >(obs) ||
-			dynamic_cast<Ydiff*     >(obs)  )  
-                LRO.push_back(obs);
-	    }
-	};
 	
 	struct RemoveNonActiveObs
 	{

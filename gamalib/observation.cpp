@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.cpp,v 1.3 2003/03/13 20:22:22 cepek Exp $
+ *  $Id: observation.cpp,v 1.4 2003/11/06 17:58:57 cepek Exp $
  */
 
 #include <gamalib/observation.h>
@@ -30,9 +30,15 @@
 using namespace GaMaLib;
 using namespace std;
 
+bool  Observation::check_std_dev() const
+{
+  return cluster && cluster->covariance_matrix.dim();
+}
+
+
 Double Observation::stdDev() const 
-{ 
-  return cluster->stdDev(cluster_index); 
+{
+   return cluster->stdDev(cluster_index); 
 }  
 
 Double Direction::orientation() const
@@ -71,12 +77,4 @@ int Direction::index_orientation() const
   return sp->index_orientation();
 }
 
-void Observation::CopyHorizontalTo::operator()(const Observation* cobs) const
-{
-  Observation* obs = const_cast<Observation*>(cobs);
-
-  if      (typeid(*obs) == typeid(Direction))  OL.push_back(obs); 
-  else if (typeid(*obs) == typeid(Angle))      OL.push_back(obs); 
-  else if (typeid(*obs) == typeid(Distance))   OL.push_back(obs); 
-}
 

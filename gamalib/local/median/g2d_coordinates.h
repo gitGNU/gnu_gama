@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_coordinates.h,v 1.2 2002/05/24 19:30:51 cepek Exp $
+ *  $Id: g2d_coordinates.h,v 1.3 2003/11/06 17:58:58 cepek Exp $
  */
 
 /*************************************************************
@@ -120,21 +120,22 @@ namespace GaMaLib {
 
       // combines both previous methods
       void Computational_loop();
-      
+
+      void copy_horizontal(const ObservationData& from, ObservationList& to);
 
     public:
       
       ApproximateCoordinates(PointData& b, ObservationData& m) 
         : SB(b), OD(m),  depth(0)
         {
-          OD.for_each(Observation::CopyHorizontalTo(SM));
+          copy_horizontal(OD, SM);
           Reset();
         }
       
       ApproximateCoordinates(PointData& b, ObservationData& m, int vn)   
         : SB(b), OD(m), depth(vn)
         {
-          OD.for_each(Observation::CopyHorizontalTo(SM));
+          copy_horizontal(OD, SM);
           Reset();
         }
       

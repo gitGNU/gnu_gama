@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: distance.cpp,v 1.1 2001/12/07 12:58:31 cepek Exp $
+ *  $Id: distance.cpp,v 1.2 2003/11/06 17:58:58 cepek Exp $
  */
 
 #include <iostream>
@@ -40,9 +40,10 @@ void Distance::write(std::ostream& out, bool print_at) const
   if (print_at)
     out << " from=\"" << from() << '"';
   out << " to=\"" << to() << '"'
-      << " val=\""   << setprecision(Format::coord_p()) << value()  << '"'
-      << " stdev=\"" << setprecision(Format::stdev_p()) << stdDev() << '"'
-      << " />";
+      << " val=\""   << setprecision(Format::coord_p()) << value()  << '"';
+  if (check_std_dev())
+    out << " stdev=\"" << setprecision(Format::stdev_p()) << stdDev() << '"';
+  out << " />";
 }
 
 

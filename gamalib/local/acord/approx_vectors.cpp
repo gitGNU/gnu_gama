@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: approx_vectors.cpp,v 1.1 2003/08/16 16:30:35 cepek Exp $
+ *  $Id: approx_vectors.cpp,v 1.2 2003/11/06 17:58:57 cepek Exp $
  */
 
  
@@ -47,7 +47,28 @@ ApproximateVectors::ApproximateVectors(PointData& b, ObservationData& m)
     }
     
     if (missing_coords)
-	OD.for_each(CopyVectors(OVD,PD));
+      for (ObservationData::iterator i=OD.begin(), e=OD.end(); i!=e; ++i)
+        {
+          Observation* obs = *i;
+
+          LocalPoint& from = PD[obs->from()];
+          LocalPoint& to   = PD[obs->to  ()];
+          
+          if ( ApproximateVectors::unknown_xy(from) ||
+               ApproximateVectors::unknown_xy(to) )
+            {
+              if (const Xdiff* vx = dynamic_cast<const Xdiff*>(obs))
+                OVD.XD.push_back(vx);
+              else
+                if (const Ydiff* vy = dynamic_cast<const Ydiff*>(obs))
+                  OVD.YD.push_back(vy);
+            }
+          if ( ApproximateVectors::unknown_z(from) ||
+               ApproximateVectors::unknown_z(to) )
+            if (const Zdiff* vz = dynamic_cast<const Zdiff*>(obs))
+              OVD.ZD.push_back(vz);
+          
+        }
 }
 
 void ApproximateVectors::execute()
