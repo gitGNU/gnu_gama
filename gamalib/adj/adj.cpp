@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.2 2002/11/22 17:46:22 cepek Exp $
+ *  $Id: adj.cpp,v 1.3 2002/11/22 21:06:30 cepek Exp $
  */
 
 #include <gamalib/adj/adj.h>
@@ -30,16 +30,59 @@ using namespace GaMaLib;
 
 void AdjInputData::read_gama_local_old_format(std::istream& inp)
 {
+  // see void LocalNetwork::project_equations(std::ostream& out)
+
   using namespace std;
   vector<long>   ind;
   vector<double> flt;
 
-  double cols, rows;
-  inp >> cols >> rows;
+  long cols, rows;
+  inp >> cols >> rows;                    // dimensions 
 
   minx.reset(rows);
   rhs .reset(rows);
+  gMatVec::Vec<> c(rows);
 
+  IntegerList<>::iterator m = minx.begin();
+
+  long floats=0;
+  for (long nonz, n, k, i=1; i<=rows; i++)
+    {
+      inp >> nonz;                        // number of nonzero elements
+      *m++ = nonz;
+      floats += nonz;
+      for (k=1; k<=nonz; k++)
+        {
+          inp >> n;                       // indexes of nonzero elements
+          ind.push_back(n);
+        }
+
+      double d;
+      inp >> d;                           // i-th weight
+      c(i) = 1/d;
+      inp >> d;                           // i-th right-hand site element
+      rhs(i) = d;
+      for (k=1; k<=nonz; k++)
+        {
+          inp >> d;                       // nonzeroes elements
+          flt.push_back(d);
+        }
+    }
+
+
+  A.reset(floats, rows, cols);
+  m = minx.begin();
+  for (long r=1; r<=rows; r++)
+    {
+      A.new_row();
+      long nonz = *m++;
+      for (long i=0; i<nonz; i++)  A.add_element(flt[i], ind[i]);       
+    }
+
+  minx.reset();  // no regularization is defined for singular systems
+
+  cov.reset(1, rows);
+  cov.add_block(rows, 0, c.begin());
 }
 
 

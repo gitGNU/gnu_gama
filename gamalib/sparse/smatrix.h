@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: smatrix.h,v 1.4 2002/09/13 16:21:45 cepek Exp $
+ *  $Id: smatrix.h,v 1.5 2002/11/22 21:06:30 cepek Exp $
  */
 
 #ifndef GaMaLib_Sparse_General_Matrix____GaMaLib___Sparse___General___Matrix__
@@ -65,6 +65,12 @@ template <class Float=double, class Index=std::size_t>
     }
     
     public:
+
+    SparseMatrix()
+    {
+      nonz = 0;
+      cind = rptr = 0;
+    }
     
     SparseMatrix(Index floats, Index rows, Index cols) 
     {
@@ -97,6 +103,25 @@ template <class Float=double, class Index=std::size_t>
     Index* iend  (Index i) const { return cind + rptr1[i]; }
     
     Index  size  (Index i) const { return rptr1[i]-rptr[i]; }
+
+    void reset(Index floats, Index rows, Index cols) 
+    {
+      delete[]  nonz;
+      delete[]  cind;
+      delete[]  rptr;
+
+      nonz = new Float[floats];
+      cind = new Index[floats];
+      rptr = new Index[rows+2]; 
+      
+      rptr1  = rptr + 1;
+      rows_  = rows;
+      cols_  = cols;
+      rcnt_  = 0;
+      rnxt_  = 1;
+      ncnt_  = 0;
+    }
+    
 
     SparseMatrix* replicate() const 
     { 

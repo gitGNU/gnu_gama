@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: intlist.h,v 1.2 2002/11/22 17:46:22 cepek Exp $
+ *  $Id: intlist.h,v 1.3 2002/11/22 21:06:30 cepek Exp $
  */
 
 #ifndef GaMaLib_Integer_list____GaMaLib_Integer_list__
@@ -57,6 +57,12 @@ template <class Index=std::size_t>
     }
 
     Index dim() const { return Index(e-m); }
+
+    void reset()
+    {
+      delete[] m;
+      m = e = 0;
+    }
     void reset(Index n)
     {
       delete[] m;
