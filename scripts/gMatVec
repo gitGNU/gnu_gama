@@ -3,14 +3,14 @@
 # gmatvec tarball: script is run in the parent directory of gmatvec
 # ############### 
 #
-# $Id: gMatVec,v 1.3 2002/03/19 17:04:31 cepek Exp $
+# $Id: gMatVec,v 1.4 2002/09/16 16:30:15 cepek Exp $
 
 HOME=.
 cd $HOME
 
 LIBVER=$(awk '/gMatVec/ {print $8 ; exit }' gmatvec/memrep.h | tr --delete /\)/ )
 NAMEVER=gmatvec-$LIBVER
-TAR=$NAMEVER.tgz
+TAR=$NAMEVER.tar.gz
 
 
 rm -f   $NAMEVER 2>/dev/null
