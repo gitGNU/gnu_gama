@@ -16,11 +16,10 @@ $(LANGUAGES) : slovnikar $(FILES)
 	@mv -v language.* ../gamalib
 	@echo
 
-slovnikar: slovnikar.o
+slovnikar: slovnikar.cpp Makefile-slovnikar
 	( pwd; cd ../gamaprog/linux/lib; make -f Makefile-expat ) 
+	g++ -I.. -c slovnikar.cpp ../gamalib/xml/encoding.cpp	
 	g++ -o slovnikar slovnikar.o encoding.o ../gamaprog/linux/lib/gamalib.a
 
-slovnikar.o: slovnikar.cpp Makefile-slovnikar
-	g++ -I.. -c slovnikar.cpp ../gamalib/xml/encoding.cpp	
 
 

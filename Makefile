@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.12 2003/03/16 17:56:47 cepek Exp $
+# $Id: Makefile,v 1.13 2003/03/19 19:25:02 cepek Exp $
 #
 # this Makefile and all files in ./scripts were tested on Debian GNU/Linux 2.2
 #
@@ -18,10 +18,10 @@ all:
 help:
 	@echo
 	@echo -e make "    " \
-	"\t#" runs make on makefiles created by \`make build\'
+	"\t#" runs make on makefiles created by \`make dep\'
 	@echo
-	@echo -e make build \
-	"\t#" creates all Makefiles, builds GaMaLib and program GaMa
+	@echo -e make dep \
+	"\t#" creates all Makefiles
 	@echo
 	@echo "     aditional" \
 	options can be passed to g++ with export CXXFLAGS=\"...\"
@@ -34,9 +34,10 @@ help:
 	"\t#" this screen
 	@echo
 
-build:
-#	make clean
-	./scripts/Build_GaMa
+dep:
+	./scripts/build-makefiles
+	./scripts/build-dictionaries
+	./scripts/build-ellipsoids
 
 gamalib:
 	( cd gamaprog/linux/lib;   make; make -f Makefile-expat )
@@ -59,7 +60,7 @@ archive:
 
 
 clean:
-	rm -f `find gamalib gamaprog         -name *\.[o]`
+	rm -f `find gamalib gamaprog scripts -name *\.[o]`
 	rm -f `find gamalib gamaprog scripts -name *\.[a]`
 	rm -f `find gamalib -name demo*`
 	rm -f `find . -name *[\~\#]*`

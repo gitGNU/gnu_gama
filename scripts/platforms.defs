@@ -1,11 +1,11 @@
-# ------  GNU GaMa supported platforms  --------------------------------------
+# ------  GNU Gama supported platforms  --------------------------------------
 #
-# $Id: platforms.defs,v 1.7 2002/10/24 17:04:13 cepek Exp $
+# $Id: platforms.defs,v 1.8 2003/03/19 19:25:03 cepek Exp $
 #
 #gnu           :#CC       = gcc
-#gnu           :CFLAGS   +=
+#gnu           :CFLAGS   += -pipe
 #gnu           :#CXX      = g++
-#gnu           :CXXFLAGS += -I../../.. #-Wall -pedantic
+#gnu           :CXXFLAGS += -pipe -I../../.. #-Wall -pedantic
 #gnu           :OBJ       = o
 #gnu           :LIBR      = @ar -r gamalib.a
 #gnu           :RANLIB    = ranlib gamalib.a
