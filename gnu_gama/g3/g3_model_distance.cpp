@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_distance.cpp,v 1.3 2004/02/16 17:52:34 cepek Exp $
+ *  $Id: g3_model_distance.cpp,v 1.4 2004/02/19 17:21:23 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -92,7 +92,7 @@ void Model::linearization_visit(Distance* d)
 
 
 
-  // nonzero derivatives in proeject equations
+  // nonzero derivatives in project equations
   A->new_row();
   if (from->free_horizontal_position())
     {

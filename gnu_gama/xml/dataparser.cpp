@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.17 2004/02/16 17:54:23 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.18 2004/02/19 17:21:23 cepek Exp $
  */
 
 
@@ -61,6 +61,9 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
 
   point = 0;
 
+  optional(from_dh);
+  optional(to_dh);
+
   // initial parser state and implicit handlers
   
   state = s_start;
@@ -80,107 +83,88 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
 
   // .....  <gnu-gama-data>  .........................................
 
-  init(  s_start, t_gama_data, 
-       //---------------------
+  init(s_start, t_gama_data, 
        s_gama_data, 0, s_stop,
        &DataParser::gama_data, 0, 0);
 
 
   // .....  <g3-model>  ..............................................
 
-  init(  s_gama_data, t_g3_model,
-         //----------------------
-         s_g3_model, 0, 0,
-         &DataParser::g3_model, 0, &DataParser::g3_model);
+  init(s_gama_data, t_g3_model,
+       s_g3_model, 0, 0,
+       &DataParser::g3_model, 0, &DataParser::g3_model);
 
   // .....  <g3-model> <point>  .....................................
 
-  init(  s_g3_model, t_point,
-         //------------------
-         s_g3_point_1, s_g3_point_2, s_g3_model,
-         0, 0, 0);
+  init(s_g3_model, t_point,
+       s_g3_point_1, s_g3_point_2, s_g3_model,
+       0, 0, 0);
 
-  init(  s_g3_point_1, t_id,
-         //-----------------
-         s_g3_point_id, 0, s_g3_point_2,
-         0, &DataParser::add_text, &DataParser::g3_point_id);
+  init(s_g3_point_1, t_id,
+       s_g3_point_id, 0, s_g3_point_2,
+       0, &DataParser::add_text, &DataParser::g3_point_id);
 
-  init(  s_g3_point_2, t_x,
-         //----------------
-         s_g3_point_x, 0, s_g3_point_after_x,
-         0, &DataParser::add_text, 0);
+  init(s_g3_point_2, t_x,
+       s_g3_point_x, 0, s_g3_point_after_x,
+       0, &DataParser::add_text, 0);
 
-  init(  s_g3_point_after_x, t_y,
-         //----------------------
-         s_g3_point_y, 0, s_g3_point_after_y,
-         0, &DataParser::add_text, 0);
+  init(s_g3_point_after_x, t_y,
+       s_g3_point_y, 0, s_g3_point_after_y,
+       0, &DataParser::add_text, 0);
 
-  init(  s_g3_point_after_y, t_z,
-         //----------------------
-         s_g3_point_z, 0, s_g3_point_2,
-         0, &DataParser::add_text, &DataParser::g3_point_z);
+  init(s_g3_point_after_y, t_z,
+       s_g3_point_z, 0, s_g3_point_2,
+       0, &DataParser::add_text, &DataParser::g3_point_z);
 
-  init(  s_g3_point_2, t_height,
-         //---------------------
-         s_g3_point_height, 0, s_g3_point_2,
-         0, &DataParser::add_text, &DataParser::g3_point_height);
+  init(s_g3_point_2, t_height,
+       s_g3_point_height, 0, s_g3_point_2,
+       0, &DataParser::add_text, &DataParser::g3_point_height);
 
-  init(  s_g3_point_2, t_unused,
-         //---------------------
-         s_g3_point_unused, 0, s_g3_point_2,
-         0, 0, &DataParser::g3_point_unused);
+  init(s_g3_point_2, t_unused,
+       s_g3_point_unused, 0, s_g3_point_2,
+       0, 0, &DataParser::g3_point_unused);
 
-  init(  s_g3_point_2, t_fixed,
-         //--------------------
-         s_g3_point_fixed, 0, s_g3_point_2,
-         0, 0, &DataParser::g3_point_fixed);
+  init(s_g3_point_2, t_fixed,
+       s_g3_point_fixed, 0, s_g3_point_2,
+       0, 0, &DataParser::g3_point_fixed);
 
-  init(  s_g3_point_2, t_fixed_p,
-         //----------------------
-         s_g3_point_fixed_p, 0, s_g3_point_2,
-         0, 0, &DataParser::g3_point_fixed_p);
+  init(s_g3_point_2, t_fixed_p,
+       s_g3_point_fixed_p, 0, s_g3_point_2,
+       0, 0, &DataParser::g3_point_fixed_p);
 
-  init(  s_g3_point_2, t_fixed_h,
-         //----------------------
-         s_g3_point_fixed_h, 0, s_g3_point_2,
-         0, 0, &DataParser::g3_point_fixed_h);
+  init(s_g3_point_2, t_fixed_h,
+       s_g3_point_fixed_h, 0, s_g3_point_2,
+       0, 0, &DataParser::g3_point_fixed_h);
 
-  init(  s_g3_point_2, t_free,
-         //--------------------
-         s_g3_point_free, 0, s_g3_point_2,
-         0, 0, &DataParser::g3_point_free);
+  init(s_g3_point_2, t_free,
+       s_g3_point_free, 0, s_g3_point_2,
+       0, 0, &DataParser::g3_point_free);
 
-  init(  s_g3_point_2, t_free_p,
-         //----------------------
-         s_g3_point_free_p, 0, s_g3_point_2,
-         0, 0, &DataParser::g3_point_free_p);
+  init(s_g3_point_2, t_free_p,
+       s_g3_point_free_p, 0, s_g3_point_2,
+       0, 0, &DataParser::g3_point_free_p);
 
-  init(  s_g3_point_2, t_free_h,
-         //----------------------
-         s_g3_point_free_h, 0, s_g3_point_2,
-         0, 0, &DataParser::g3_point_free_h);
+  init(s_g3_point_2, t_free_h,
+       s_g3_point_free_h, 0, s_g3_point_2,
+       0, 0, &DataParser::g3_point_free_h);
 
-  init(  s_g3_point_2, t_constr,
-         //--------------------
-         s_g3_point_constr, 0, s_g3_point_2,
-         0, 0, &DataParser::g3_point_constr);
+  init(s_g3_point_2, t_constr,
+       s_g3_point_constr, 0, s_g3_point_2,
+       0, 0, &DataParser::g3_point_constr);
 
-  init(  s_g3_point_2, t_constr_p,
-         //----------------------
-         s_g3_point_constr_p, 0, s_g3_point_2,
-         0, 0, &DataParser::g3_point_constr_p);
+  init(s_g3_point_2, t_constr_p,
+       s_g3_point_constr_p, 0, s_g3_point_2,
+       0, 0, &DataParser::g3_point_constr_p);
 
-  init(  s_g3_point_2, t_constr_h,
-         //----------------------
-         s_g3_point_constr_h, 0, s_g3_point_2,
-         0, 0, &DataParser::g3_point_constr_h);
+  init(s_g3_point_2, t_constr_h,
+       s_g3_point_constr_h, 0, s_g3_point_2,
+       0, 0, &DataParser::g3_point_constr_h);
 
   // .....  <g3-model> <obs>  ........................................
   
-  init(  s_g3_model, t_obs,
-         //------------------
-         s_g3_obs, 0, 0,
-         &DataParser::g3_obs, 0, &DataParser::g3_obs);
+  init(s_g3_model, t_obs,
+       s_g3_obs, 0, 0,
+       &DataParser::g3_obs, 0, &DataParser::g3_obs);
          
   // .....  <g3-model> <obs> <cov-mat>  ..............................
 
@@ -200,22 +184,10 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
        s_g3_obs_covmat_flt, 0, s_g3_obs_covmat_after_band,
        0, &DataParser::add_text, 0);
 
-  // .....  <g3-model> <obs> <stdev>  ................................
-
-  init(s_g3_obs, t_stdev,
-       s_g3_obs_stdev, 0, s_g3_obs,
-       0, &DataParser::add_text, &DataParser::g3_obs_stdev);
-
-  // .....  <g3-model> <obs> <variance>  .............................
-
-  init(s_g3_obs, t_variance,
-       s_g3_obs_variance, 0, s_g3_obs,
-       0, &DataParser::add_text, &DataParser::g3_obs_variance);
-
   // .....  <g3-model> <obs> <distance>  .............................
 
   init(s_g3_obs, t_dist,
-       s_g3_obs_dist, s_g3_obs_dist_after_val, 0,
+       s_g3_obs_dist, s_g3_obs_dist_opt, 0,
        0, 0, &DataParser::g3_obs_dist);
 
   init(s_g3_obs_dist, t_from,
@@ -227,164 +199,164 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
        0, &DataParser::add_text, 0);
 
   init(s_g3_obs_dist_after_to, t_val,
-       s_g3_obs_dist_val, 0, s_g3_obs_dist_after_val,
+       s_g3_obs_dist_val, 0, s_g3_obs_dist_opt,
        0, &DataParser::add_text, 0);
+
+  init(s_g3_obs_dist_opt, t_stdev,
+       s_g3_obs_dist_opt_stdev, 0, 0,
+       0, &DataParser::optional_stdev, 0);
+ 
+  init(s_g3_obs_dist_opt, t_variance,
+       s_g3_obs_dist_opt_variance, 0, 0,
+       0, &DataParser::optional_variance, 0);
+ 
+  init(s_g3_obs_dist_opt, t_from_dh,
+       s_g3_obs_dist_opt_from_dh, 0, 0,
+       0, &DataParser::optional_from_dh, 0);
+ 
+  init(s_g3_obs_dist_opt, t_to_dh,
+       s_g3_obs_dist_opt_to_dh, 0, 0,
+       0, &DataParser::optional_to_dh, 0);
 
   // .....  <g3-model> <obs> <vector>  ...............................
 
   init(s_g3_obs, t_vector,
-       s_g3_obs_vector, s_g3_obs_vector_after_dz, 0,
+       s_g3_obs_vector, s_g3_obs_vector_opt, 0,
        0, 0, &DataParser::g3_obs_vector);
   
-  init(s_g3_obs_vector, t_from,
-       s_g3_obs_vector_from, 0, s_g3_obs_vector_after_from,
-       0, &DataParser::add_text, 0);
+   init(s_g3_obs_vector, t_from,
+        s_g3_obs_vector_from, 0, s_g3_obs_vector_after_from,
+        0, &DataParser::add_text, 0);
 
-  init(s_g3_obs_vector_after_from, t_to,
-       s_g3_obs_vector_to, 0, s_g3_obs_vector_after_to,
-       0, &DataParser::add_text, 0);
+   init(s_g3_obs_vector_after_from, t_to,
+        s_g3_obs_vector_to, 0, s_g3_obs_vector_after_to,
+        0, &DataParser::add_text, 0);
 
-  init(s_g3_obs_vector_after_to, t_dx,
-       s_g3_obs_vector_dx, 0, s_g3_obs_vector_after_dx,
-       0, &DataParser::add_text, 0);
+   init(s_g3_obs_vector_after_to, t_dx,
+        s_g3_obs_vector_dx, 0, s_g3_obs_vector_after_dx,
+        0, &DataParser::add_text, 0);
 
-  init(s_g3_obs_vector_after_dx, t_dy,
-       s_g3_obs_vector_dy, 0, s_g3_obs_vector_after_dy,
-       0, &DataParser::add_text, 0);
-
-  init(s_g3_obs_vector_after_dy, t_dz,
-       s_g3_obs_vector_dz, 0, s_g3_obs_vector_after_dz,
-       0, &DataParser::add_text, 0);
+   init(s_g3_obs_vector_after_dx, t_dy,
+        s_g3_obs_vector_dy, 0, s_g3_obs_vector_after_dy,
+        0, &DataParser::add_text, 0);
+  
+   init(s_g3_obs_vector_after_dy, t_dz,
+        s_g3_obs_vector_dz, 0, s_g3_obs_vector_opt,
+        0, &DataParser::add_text, 0);
+  
+   init(s_g3_obs_vector_opt, t_from_dh,
+        s_g3_obs_vector_opt_from_dh, 0, 0,
+        0, &DataParser::optional_from_dh, 0);
+  
+   init(s_g3_obs_vector_opt, t_to_dh,
+        s_g3_obs_vector_opt_to_dh, 0, 0,
+        0, &DataParser::optional_to_dh, 0);
 
   // .....  <text>  ..................................................
  
-  init(  s_gama_data, t_text,
-         //--------------------
-         s_text, 0, 0,
-         0, &DataParser::add_text, &DataParser::text);
+  init(s_gama_data, t_text,
+       s_text, 0, 0,
+       0, &DataParser::add_text, &DataParser::text);
  
   // .....  <adj-input-data>  ........................................
 
-  init(  s_gama_data, t_adj_input_data, 
-         //------------------------------
-         s_adj_input_data_1, s_adj_input_data_5, 0,
-         &DataParser::adj_input_data, 0, &DataParser::adj_input_data,
-         s_adj_input_data_4);
+  init(s_gama_data, t_adj_input_data, 
+       s_adj_input_data_1, s_adj_input_data_5, 0,
+       &DataParser::adj_input_data, 0, &DataParser::adj_input_data,
+       s_adj_input_data_4);
 
   // .....  <sparse-mat>  ............................................
 
-  init(  s_adj_input_data_1, t_sparse_mat,
-       //-------------------------------
+  init(s_adj_input_data_1, t_sparse_mat,
        s_sparse_mat_1, s_sparse_mat_4, s_adj_input_data_2,
        0, 0, &DataParser::sparse_mat);
 
-  init(  s_sparse_mat_1, t_rows, 
-       //-----------------------
+  init(s_sparse_mat_1, t_rows, 
        s_sparse_mat_rows, 0, s_sparse_mat_2,
        0, &DataParser::add_text, 0);
 
-  init(  s_sparse_mat_2, t_cols,
-       //-----------------------
+  init(s_sparse_mat_2, t_cols,
        s_sparse_mat_cols, 0, s_sparse_mat_3,
        0, &DataParser::add_text, 0);
 
-  init(  s_sparse_mat_3, t_nonz,
-       //-----------------------
+  init(s_sparse_mat_3, t_nonz,
        s_sparse_mat_nonz, 0, s_sparse_mat_4,
        0, &DataParser::add_text, &DataParser::sparse_mat_nonz);
  
-  init(  s_sparse_mat_4, t_row, 
-       //----------------------
+  init(s_sparse_mat_4, t_row, 
        s_sparse_mat_row_1, s_sparse_mat_row_2, 0,
        &DataParser::sparse_mat_row, 0, &DataParser::sparse_mat_row);
 
-  init(  s_sparse_mat_row_1, t_nonz,
-       //--------------------------- 
+  init(s_sparse_mat_row_1, t_nonz,
        s_sparse_mat_row_nonz, 0, s_sparse_mat_row_2,
        0, &DataParser::add_text, &DataParser::sparse_mat_row_n);
 
-  init(  s_sparse_mat_row_2, t_int, 
-       //--------------------------
+  init(s_sparse_mat_row_2, t_int, 
        s_sparse_mat_row_int, 0, s_sparse_mat_row_3,
        0, &DataParser::add_text, 0);
 
-  init(  s_sparse_mat_row_3, t_flt,
-       //--------------------------
+  init(s_sparse_mat_row_3, t_flt,
        s_sparse_mat_row_flt, 0, s_sparse_mat_row_2,
        0, &DataParser::add_text, &DataParser::sparse_mat_row_f);
 
   // ......  <block-diagonal>  .......................................
 
-  init(  s_adj_input_data_2, t_block_diagonal, 
-       //-----------------------------------
+  init(s_adj_input_data_2, t_block_diagonal, 
        s_block_diagonal_1, s_block_diagonal_3, s_adj_input_data_3,
        0, 0, &DataParser::block_diagonal);
 
-  init(  s_block_diagonal_1, t_blocks,
-       //-----------------------------
+  init(s_block_diagonal_1, t_blocks,
        s_block_diagonal_blocks, 0, s_block_diagonal_2,
        0, &DataParser::add_text, 0);
 
-  init(  s_block_diagonal_2, t_nonz,
-       //---------------------------
+  init(s_block_diagonal_2, t_nonz,
        s_block_diagonal_nonz, 0, s_block_diagonal_3,
        0, &DataParser::add_text, &DataParser::block_diagonal_nonz);
 
-  init(  s_block_diagonal_3, t_block,
-       //----------------------------
+  init(s_block_diagonal_3, t_block,
        s_block_diagonal_block_1, s_block_diagonal_block_3, 0,
        0, 0, &DataParser::block_diagonal_block);
 
-  init(  s_block_diagonal_block_1, t_dim,
-       //--------------------------------
+  init(s_block_diagonal_block_1, t_dim,
        s_block_diagonal_block_d, 0, s_block_diagonal_block_2,
        0, &DataParser::add_text, 0);
 
-  init(  s_block_diagonal_block_2, t_width,
-       //----------------------------------
+  init(s_block_diagonal_block_2, t_width,
        s_block_diagonal_block_w, 0, s_block_diagonal_block_3,
        0, &DataParser::add_text, &DataParser::block_diagonal_block_w);
 
-  init(  s_block_diagonal_block_3, t_flt,  
-       //--------------------------------
+  init(s_block_diagonal_block_3, t_flt,  
        s_block_diagonal_block_f, 0, 0,
        0, &DataParser::add_text, &DataParser::block_diagonal_vec_flt);
 
   // ......  <vector>  ...............................................
 
-  init(  s_adj_input_data_3, t_vector, 
-       //--------------------------
+  init(s_adj_input_data_3, t_vector, 
        s_vector_1, s_vector_2, s_adj_input_data_4,
        0, 0, &DataParser::vector);
 
-  init(  s_vector_1, t_dim, 
-       //------------------
+  init(s_vector_1, t_dim, 
        s_vector_dim, 0, s_vector_2,
        0, &DataParser::add_text, &DataParser::vector_dim);
 
-  init(  s_vector_2, t_flt, 
-       //------------------
+  init(s_vector_2, t_flt, 
        s_vector_flt, 0, 0,
        0, &DataParser::add_text, &DataParser::vector_flt);
 
   // ......  <array>  ................................................
 
-  init(  s_adj_input_data_4, t_array,
-       //--------------------------
+  init(s_adj_input_data_4, t_array,
        s_array_1, s_array_2, s_adj_input_data_5,
        0, 0, &DataParser::array);
 
-  init(  s_array_1, t_dim,
-       //-----------------
+  init(s_array_1, t_dim,
        s_array_dim, 0, s_array_2,
        0, &DataParser::add_text, &DataParser::array_dim);
 
-  init(  s_array_2, t_int,
-       //-----------------
+  init(s_array_2, t_int,
        s_array_int, 0, 0,
        0, &DataParser::add_text, &DataParser::array_int);
          
-
   // .................................................................
 }
 
@@ -458,6 +430,7 @@ DataParser::data_tag DataParser::tag(const char* c)
       if (!strcmp(c, "fixed-height"   )) return t_fixed_h;
       if (!strcmp(c, "flt"            )) return t_flt;
       if (!strcmp(c, "from"           )) return t_from;
+      if (!strcmp(c, "from-dh"        )) return t_from_dh;
       if (!strcmp(c, "free"           )) return t_free;
       if (!strcmp(c, "free-position"  )) return t_free_p;
       if (!strcmp(c, "free-height"    )) return t_free_h;
@@ -493,6 +466,7 @@ DataParser::data_tag DataParser::tag(const char* c)
     case 't' :
       if (!strcmp(c, "text"           )) return t_text;
       if (!strcmp(c, "to"             )) return t_to;
+      if (!strcmp(c, "to-dh"          )) return t_to_dh;
       break;
     case 'u' :
       if (!strcmp(c, "unused"         )) return t_unused;
@@ -1108,36 +1082,54 @@ int DataParser::g3_obs_cov(const char *name)
   return  end_tag(name);
 }
 
-int DataParser::g3_obs_stdev(const char *name)
+int DataParser::optional_stdev(const char *s, int len)
 {
   using namespace g3;
-  stringstream istr(text_buffer);
+  stringstream istr(string(s, len));
   g3Cov   cov(1,0);
   double  f;
   
-  if (!pure_data(istr >> f)) return error("### bad stdev");
-  text_buffer.clear();
+  if (!pure_data(istr >> f)) return error("### bad <stdev>");
 
   cov(1,1) = f*f;
   g3cov_list.push_back(cov);
 
-  return end_tag(name);
+  return 0;
 }
 
-int DataParser::g3_obs_variance(const char *name)
+int DataParser::optional_variance(const char *s, int len)
 {
   using namespace g3;
-  stringstream istr(text_buffer);
+  stringstream istr(string(s, len));
   g3Cov   cov(1,0);
   double  f;
   
-  if (!pure_data(istr >> f)) return error("### bad variance");
-  text_buffer.clear();
+  if (!pure_data(istr >> f)) return error("### bad <variance>");
 
   cov(1,1) = f;
   g3cov_list.push_back(cov);
 
-  return end_tag(name);
+  return 0;
+}
+
+int DataParser::optional_from_dh(const char *s, int len)
+{
+  using namespace g3;
+  stringstream istr(string(s,len));
+
+  if (pure_data(istr >> from_dh)) return 0;
+
+  return error("### bad data in <from-dh>");
+}
+
+int DataParser::optional_to_dh(const char *s, int len)
+{
+  using namespace g3;
+  stringstream istr(string(s,len));
+
+  if (pure_data(istr >> to_dh)) return 0;
+
+  return error("### bad data in <to-dh>");
 }
 
 int DataParser::g3_obs_dist(const char *name)
@@ -1155,6 +1147,8 @@ int DataParser::g3_obs_dist(const char *name)
       distance->from = from;
       distance->to   = to;
       distance->set(val);
+      distance->from_dh = optional(from_dh);
+      distance->to_dh   = optional(to_dh);
       g3obs_cluster->observation_list.push_back(distance);  
 
       return  end_tag(name);
@@ -1178,6 +1172,9 @@ int DataParser::g3_obs_vector(const char *name)
       vector->from = from;
       vector->to   = to;
       vector->set_dxyz(dx, dy, dz);
+      vector->from_dh = optional(from_dh);
+      vector->to_dh   = optional(to_dh);
+
       g3obs_cluster->observation_list.push_back(vector);
 
       return end_tag(name);

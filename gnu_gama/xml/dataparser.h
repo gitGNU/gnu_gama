@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.16 2004/02/16 17:54:23 cepek Exp $
+ *  $Id: dataparser.h,v 1.17 2004/02/19 17:21:23 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -102,8 +102,6 @@ namespace GNU_gama {
           s_g3_obs_covmat_band,
           s_g3_obs_covmat_after_band,
           s_g3_obs_covmat_flt,
-          s_g3_obs_stdev,
-          s_g3_obs_variance,
 
           s_g3_obs_dist,
           s_g3_obs_dist_from,
@@ -111,7 +109,11 @@ namespace GNU_gama {
           s_g3_obs_dist_to,
           s_g3_obs_dist_after_to,
           s_g3_obs_dist_val,
-          s_g3_obs_dist_after_val,
+          s_g3_obs_dist_opt,
+          s_g3_obs_dist_opt_stdev,
+          s_g3_obs_dist_opt_variance,
+          s_g3_obs_dist_opt_from_dh,
+          s_g3_obs_dist_opt_to_dh,
 
           s_g3_obs_vector,
           s_g3_obs_vector_from,
@@ -123,7 +125,9 @@ namespace GNU_gama {
           s_g3_obs_vector_dy,
           s_g3_obs_vector_after_dy,
           s_g3_obs_vector_dz,
-          s_g3_obs_vector_after_dz,
+          s_g3_obs_vector_opt,
+          s_g3_obs_vector_opt_from_dh,
+          s_g3_obs_vector_opt_to_dh,
 
           // ..................................................
 
@@ -136,6 +140,7 @@ namespace GNU_gama {
           s_adj_input_data_3,
           s_adj_input_data_4,
           s_adj_input_data_5,
+
           s_sparse_mat_1,
           s_sparse_mat_rows,
           s_sparse_mat_2,
@@ -149,6 +154,7 @@ namespace GNU_gama {
           s_sparse_mat_row_int,
           s_sparse_mat_row_3,
           s_sparse_mat_row_flt,
+
           s_block_diagonal_1,
           s_block_diagonal_blocks,
           s_block_diagonal_2,
@@ -160,10 +166,12 @@ namespace GNU_gama {
           s_block_diagonal_block_w,
           s_block_diagonal_block_3,
           s_block_diagonal_block_f,
+
           s_vector_1,
           s_vector_dim,
           s_vector_2,
           s_vector_flt,
+
           s_array_1,
           s_array_dim,
           s_array_2,
@@ -197,6 +205,7 @@ namespace GNU_gama {
           t_free_p,
           t_free_h,
           t_from,
+          t_from_dh,
           t_g3_model,
           t_gama_data,
           t_height,
@@ -211,6 +220,7 @@ namespace GNU_gama {
           t_stdev,
           t_text,
           t_to,
+          t_to_dh,
           t_unknown,
           t_val,
           t_variance,
@@ -254,8 +264,6 @@ namespace GNU_gama {
       int g3_obs                (const char *name, const char **atts);
       int g3_obs                (const char *name);
       int g3_obs_cov            (const char *name);
-      int g3_obs_stdev          (const char *name);
-      int g3_obs_variance       (const char *name);
       int g3_obs_dist           (const char *name);
       int g3_obs_vector         (const char *name);
       int text                  (const char *name);
@@ -286,6 +294,11 @@ namespace GNU_gama {
       int start_tag    (const char *name, const char **atts);
       int white_spaces (const char *name, int len);
 
+      int optional_stdev   (const char *name, int len);
+      int optional_variance(const char *name, int len);
+      int optional_from_dh (const char *name, int len);
+      int optional_to_dh   (const char *name, int len);
+
       void init(int state, int tag, 
                 int next_state, int end_state, int after_state,
                 Stag, Data, Etag,
@@ -294,7 +307,7 @@ namespace GNU_gama {
       bool pure_data(std::istream&);   // test for trailing junk in input data
 
 
-      // DataObject::g3_model
+      // ***  DataObject::g3_model ***
 
       g3::Model*         g3model;
       g3::Point::Name    g3from;
@@ -302,18 +315,24 @@ namespace GNU_gama {
       g3::ObsCluster*    g3obs_cluster;
       double             g3val;
 
+      double from_dh, to_dh;
+      double optional(double& attr)
+      {
+        double tmp = attr;  attr=0; return tmp;
+      }
+
       typedef g3::Model::ObservationType::CovarianceMatrix g3Cov;
       std::list<g3Cov>   g3cov_list;
 
       std::string g3_get_id(std::string err);
 
 
-      // DataObject::Text
+      // ***  DataObject::Text  ***
 
       std::string      text_buffer;
 
 
-      // DataObject::AdjInput
+      // ***  DataObject::AdjInput  ***
 
       GNU_gama::SparseMatrix <> *adj_sparse_mat;
       GNU_gama::BlockDiagonal<> *adj_block_diagonal;

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.19 2004/02/16 17:52:34 cepek Exp $
+ *  $Id: g3_model.h,v 1.20 2004/02/19 17:21:23 cepek Exp $
  */
 
 #include <gnu_gama/model.h>
@@ -44,7 +44,9 @@ namespace GNU_gama {  namespace g3 {
   class Model : 
     public GNU_gama::Model<g3::Observation>,
     public Revision     <Distance>,
-    public Linearization<Distance>
+    public Linearization<Distance>,
+    public Revision     <Vector>,
+    public Linearization<Vector>
   {
   public:
     
