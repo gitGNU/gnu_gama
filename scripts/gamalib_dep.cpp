@@ -4,7 +4,7 @@
 #include <set>
 
 /*
- * $Id: gamalib_dep.cpp,v 1.3 2002/06/04 14:15:19 cepek Exp $
+ * $Id: gamalib_dep.cpp,v 1.4 2002/06/06 19:50:23 cepek Exp $
  */
 
 /*************************************************************************
@@ -25,6 +25,7 @@ void add_dep(string file, set<string>& dep)
   if (!inp) 
     {
       file = path + file;
+      inp.clear();
       inp.open(file.c_str());
       if (!inp)
         {
