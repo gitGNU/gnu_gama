@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_coordinates.cpp,v 1.4 2002/10/24 17:04:12 cepek Exp $
+ *  $Id: g2d_coordinates.cpp,v 1.5 2002/12/18 13:33:24 cepek Exp $
  */
 
 /*************************************************************
@@ -31,6 +31,7 @@
 #include <gamalib/local/median/g2d_coordinates.h>
 #include <gamalib/local/median/g2d_point.h>
 
+using namespace std;
 using namespace GaMaLib;
 
 // private

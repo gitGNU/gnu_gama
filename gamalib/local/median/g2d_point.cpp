@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_point.cpp,v 1.3 2002/10/24 17:04:12 cepek Exp $
+ *  $Id: g2d_point.cpp,v 1.4 2002/12/18 13:33:24 cepek Exp $
  */
 
 /*************************************************************
@@ -32,6 +32,8 @@
 #include <gamalib/local/median/g2d_point.h>
 #include <gamalib/local/median/g2d_cogo.h>
 #include <gamalib/local/orientation.h>
+
+using namespace std;
 
 namespace GaMaLib {
 

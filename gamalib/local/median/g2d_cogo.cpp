@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_cogo.cpp,v 1.3 2002/10/24 17:04:12 cepek Exp $
+ *  $Id: g2d_cogo.cpp,v 1.4 2002/12/18 13:33:24 cepek Exp $
  */
 
 /**************************************************************
@@ -44,6 +44,7 @@
 #include <gamalib/local/median/g2d_helper.h>
 #include <gamalib/local/pobs/bearing.h>
 
+using namespace std;
 
 namespace GaMaLib {
   
