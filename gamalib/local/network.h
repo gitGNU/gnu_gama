@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.h,v 1.2 2002/05/29 16:06:54 cepek Exp $
+ *  $Id: network.h,v 1.3 2002/12/18 09:38:03 cepek Exp $
  */
 
 // LocalNetwork - Network Informations class (Informace o siti)
@@ -115,7 +115,11 @@ namespace GaMaLib
       PointID     unknown_pointid   (int i) const { return seznez_[i-1].cb;  }
       char        unknown_type      (int i) const { return seznez_[i-1].typ; }
       StandPoint* unknown_standpoint(int i) const { return seznez_[i-1].osn; }
-      Double      unknown_stdev     (int i) { return m_0()*sqrt(q_xx(i, i)); }
+      Double      unknown_stdev     (int i) 
+        {
+          using namespace std;
+          return m_0()*sqrt(q_xx(i, i)); 
+        }
 
 
       // ...  observations  ..................................................
@@ -189,7 +193,11 @@ namespace GaMaLib
       
       Double stdev_obs(int i) { return sigma_L(i); }
       Double wcoef_res(int i) { return vahkopr(i); }
-      Double stdev_res(int i) { return m_0()*sqrt(fabs(wcoef_res(i))); }
+      Double stdev_res(int i) 
+        {
+          using namespace std;
+          return m_0()*sqrt(fabs(wcoef_res(i))); 
+        }
 
       Double studentized_residual(int i) 
         { 
@@ -210,6 +218,7 @@ namespace GaMaLib
            *      f < 5%       weakly controlled observation
            */
           // 1.1.20 return 100*fabs((1-sqrt(q_bb(i,i)*w(i))));
+          using namespace std;
           return 100*fabs(1-sqrt(q_bb(i,i)));
         } 
       void std_error_ellipse(const PointID&, Double& a,
