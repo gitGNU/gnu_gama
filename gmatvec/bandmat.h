@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: bandmat.h,v 1.10 2002/11/14 14:58:52 cepek Exp $
+ *  $Id: bandmat.h,v 1.11 2002/12/15 22:00:16 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -95,12 +95,12 @@ private:
        if (absa > absb)
          {
            absq = absb/absa;
-           return absa*sqrt(1.0 + absq*absq);
+           return absa*std::sqrt(1.0 + absq*absq);
          }
        else if (absb)
          {
            absq = absa/absb;
-           return absb*sqrt(1.0 + absq*absq);
+           return absb*std::sqrt(1.0 + absq*absq);
          }
        
        return 0.0;

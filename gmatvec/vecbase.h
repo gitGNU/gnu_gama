@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: vecbase.h,v 1.9 2002/11/14 14:58:52 cepek Exp $
+ *  $Id: vecbase.h,v 1.10 2002/12/15 22:00:16 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -62,7 +62,7 @@ public:
   Float dot(const VecBase<Float, Exc> &B) const;
 
   Float norm_L1()   const;
-  Float norm_L2()   const { using namespace std; return sqrt(dot(*this)); }
+  Float norm_L2()   const { return std::sqrt(dot(*this)); }
   Float norm_Linf() const;
 
 };

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: symmat.h,v 1.8 2002/11/14 14:58:52 cepek Exp $
+ *  $Id: symmat.h,v 1.9 2002/12/15 22:00:16 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -356,7 +356,7 @@ void SymMat<Float, Exc>::cholDec()
               {
                 if (x < 0)
                   throw Exc(BadRank, "void SymMat::cholDec()");    
-                a[ip] = sqrt(x);
+                a[ip] = std::sqrt(x);
               }
             else
               {

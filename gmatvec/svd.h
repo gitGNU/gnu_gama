@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: svd.h,v 1.13 2002/12/15 20:36:27 cepek Exp $
+ *  $Id: svd.h,v 1.14 2002/12/15 22:00:16 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -210,21 +210,18 @@ namespace gMatVec {
 
   template <class Float> inline Float PYTHAG( Float a, Float b )
     {
-      using namespace std;
       Float at, bt, ct;
 
       return
-        ( ( at = ABS(a) )  > ( bt = ABS(b) ) )     ?
-        (        ct = bt/at, at * sqrt( (Float)1 + ct * ct ) ) :
-        ( bt ? ( ct = at/bt, bt * sqrt( (Float)1 + ct * ct ) ) : (Float)0 );
+        (( at = ABS(a) )  > ( bt = ABS(b) ) )     ?
+        (       ct = bt/at, at * std::sqrt( (Float)1 + ct * ct ) ) :
+        (bt ? ( ct = at/bt, bt * std::sqrt( (Float)1 + ct * ct ) ) : (Float)0);
     }
 
 
   template <class Float, class Exc>
     void SVD<Float, Exc>::svd()
     {
-      using namespace std;
-
       if (decomposed)
         return;
 
@@ -255,7 +252,7 @@ namespace gMatVec {
               s += tmp1*tmp1;
             }
             f = U[i][i];
-            g = sqrt(s); if (f >= ZERO) g = -g;   // g = -SIGN(sqrt(s),f)
+            g = std::sqrt(s); if (f >= ZERO) g = -g;   // g = -SIGN(sqrt(s),f)
             h = f*g - s;
             U[i][i] = f - g;
             if (i != n)
@@ -280,7 +277,7 @@ namespace gMatVec {
               s += tmp1*tmp1;
             }
             f = U[i][L];
-            g = sqrt(s); if ( f >= ZERO ) g = -g; // g = -SIGN(sqrt(s),f)
+            g = std::sqrt(s); if ( f >= ZERO ) g = -g; // g = -SIGN(sqrt(s),f)
             h = f*g - s;
             U[i][L] = f - g;
             for (k=L; k<=n; k++) rv1[k] = U[i][k] / h;
@@ -663,7 +660,7 @@ namespace gMatVec {
               Vimk = V[im][k];
               s += Vimk*Vimk;
             }
-            s = sqrt(s);
+            s = std::sqrt(s);
             if (s == 0) 
               throw Exc(BadRegularization, "void SVD::min_subset_x()");
             { for (Index i = 1; i <= n; i++) V[i][k] /= s; }   // for ...

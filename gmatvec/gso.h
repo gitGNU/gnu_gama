@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gso.h,v 1.9 2002/12/15 20:19:34 cepek Exp $
+ *  $Id: gso.h,v 1.10 2002/12/15 22:00:16 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -198,8 +198,6 @@ template <class Float, class Exc>
 void GSO<Float, Exc>::modified_gso(Index r_first, Index r_last, 
                                Index c_last,  Index r_dim, bool first)
 {
-  using namespace std;
-
   if (tol_ <= 0)
     {
       Float  eps, eps_1, eps_min, eps_max, sum;
@@ -217,7 +215,7 @@ void GSO<Float, Exc>::modified_gso(Index r_first, Index r_last,
           else
             eps_max = eps;
         } while (ABS(eps - eps_1)/eps > 0.1);
-      tol_ = sqrt(eps);
+      tol_ = std::sqrt(eps);
     }
   
   Mat<Float, Exc> &A = *pA;
@@ -237,7 +235,7 @@ void GSO<Float, Exc>::modified_gso(Index r_first, Index r_last,
               s += a*a;
             }
           using namespace std;
-          s = sqrt(s);
+          s = std::sqrt(s);
           if (s)
             for (r=r_first; r<=r_last; r++)
               A(r,c) /= s;
@@ -271,8 +269,7 @@ void GSO<Float, Exc>::modified_gso(Index r_first, Index r_last,
       clist[maxi] = t;
 
       c = clist[column];
-      using namespace std;
-      maxd = sqrt(maxd);
+      maxd = std::sqrt(maxd);
       if (first) 
         norm(c) = maxd;
 
