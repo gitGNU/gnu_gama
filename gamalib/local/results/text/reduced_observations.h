@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: reduced_observations.h,v 1.2 2003/03/15 21:22:52 cepek Exp $
+ *  $Id: reduced_observations.h,v 1.3 2003/06/14 15:00:22 cepek Exp $
  */
 
 #ifndef GaMaLib_local_results_text_reduced_observations_h
@@ -157,7 +157,7 @@ void ReducedObservationsText(GaMaLib::LocalNetwork* IS,
       PointID cc = pm->to();
       out.width(IS->maxw_id());
       out << cc.c_str();
-      out.setf(ios::fixed, ios::floatfield);
+      out.setf(ios_base::fixed, ios_base::floatfield);
 
       string str_nonexist("");
       for (int i=0; i < maxval_obs - 2; i++)

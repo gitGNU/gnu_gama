@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.11 2003/06/08 08:11:13 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.12 2003/06/14 15:00:22 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -66,12 +66,12 @@ Point* Model::get_point(const Point::Name& name)
 }
 
 
-void Model::write_xml(std::ostream& out) 
+void Model::write_xml(std::ostream& out) const
 {
   using namespace std;
  
   GNU_gama::SaveFlags sf(out);
-  out.setf(ios::fixed, ios::floatfield);
+  out.setf(ios_base::fixed, ios_base::floatfield);
   out.precision(5);
 
   out 
@@ -80,7 +80,7 @@ void Model::write_xml(std::ostream& out)
 
   {
     out << "\n";
-    for (PointBase::const_iterator 
+    for (Model::PointBase::const_iterator  // "Model::" needed by bcc32 5.6 ???
            b = points->begin(), e = points->end(); b != e; ++b)
       {
         const Point *p = *b;
@@ -124,7 +124,7 @@ void Model::write_xml(std::ostream& out)
   }
   
   {
-    for (ObservationData::ClusterList::const_iterator
+    for (Model::ObservationData::ClusterList::const_iterator
            b = obs->CL.begin(), e=obs->CL.end();  b != e;  ++b)
       if (const g3Cluster* c = dynamic_cast<const g3Cluster*>(*b))
       {
@@ -143,7 +143,7 @@ void Model::write_xml(std::ostream& out)
 
 void Model::pre_linearization()
 {
-  for (ObservationData::ClusterList::iterator
+  for (Model::ObservationData::ClusterList::iterator
          i=obs->CL.begin(), e=obs->CL.end();  i != e;  ++i)
     if (g3Cluster* cluster = dynamic_cast<g3Cluster*>(*i))
     {

@@ -1,7 +1,10 @@
-# $Id: Makefile,v 1.16 2003/03/20 21:22:00 cepek Exp $
+# $Id: Makefile,v 1.17 2003/06/14 15:00:22 cepek Exp $
 #
 # this Makefile and all files in ./scripts were tested on Debian GNU/Linux 2.2
 #
+
+export CC=gcc-3.0
+export CXX=g++-3.0
 
 .PHONY : archive
 

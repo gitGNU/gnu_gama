@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: coordinates.h,v 1.4 2003/05/10 13:46:25 cepek Exp $
+ *  $Id: coordinates.h,v 1.5 2003/06/14 15:00:22 cepek Exp $
  */
 
 #ifndef GaMaLib_XML_adjusted_coordinates____h
@@ -59,7 +59,7 @@ XML_adjusted_coordinates(GaMaLib::LocalNetwork* netinfo,
   Index dim = 0;
   {
     const Vec& x = netinfo->solve();
-    out.setf(ios::fixed, ios::floatfield);
+    out.setf(ios_base::fixed, ios_base::floatfield);
     out.precision(5);
     for (PointData::const_iterator 
            i=netinfo->PD.begin(); i!=netinfo->PD.end(); ++i)
@@ -96,7 +96,7 @@ XML_adjusted_coordinates(GaMaLib::LocalNetwork* netinfo,
     {
       out << "\n<cov-mat dim=\"" << dim << "\" band=\"" << dim-1 << "\" >\n\n";
 
-      out.setf(ios::scientific, ios::floatfield);
+      out.setf(ios_base::scientific, ios_base::floatfield);
       out.precision(7);
       const double m2 = netinfo->m_0() * netinfo->m_0();
       for (Index k=0, i=1; i<=dim; i++)

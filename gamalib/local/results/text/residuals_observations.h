@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: residuals_observations.h,v 1.4 2003/03/01 18:16:18 cepek Exp $
+ *  $Id: residuals_observations.h,v 1.5 2003/06/14 15:00:22 cepek Exp $
  */
 
 
@@ -147,7 +147,7 @@ void ResidualsObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
           PointID cc = pm->to();
           out.width(IS->maxw_id());
           out << cc.c_str();
-          out.setf(ios::fixed, ios::floatfield);
+          out.setf(ios_base::fixed, ios_base::floatfield);
           
           if (typeid(*pm) == typeid(Distance))
             {
@@ -291,7 +291,7 @@ void ResidualsObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
         GaMaLib::KStest(pv.begin(), pocmer, ResidualsObservations_N01, ks, prob);
         
         
-        out.setf(ios::fixed, ios::floatfield);
+        out.setf(ios_base::fixed, ios_base::floatfield);
         out.precision(1);
         out.width(5);
         out << "Test Kolmogorov-Smirnov : " << 100*prob << " %\n";
@@ -301,7 +301,7 @@ void ResidualsObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
 
   if (Double cond = IS->cond())
     {
-      out.setf(ios::scientific, ios::floatfield);
+      out.setf(ios_base::scientific, ios_base::floatfield);
       out.precision(1);
       out << "\n"
           << T_GaMa_resobs_condition_number << cond << "\n";

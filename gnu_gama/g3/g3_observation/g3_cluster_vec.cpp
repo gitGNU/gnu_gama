@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_cluster_vec.cpp,v 1.4 2003/06/08 08:11:13 cepek Exp $
+ *  $Id: g3_cluster_vec.cpp,v 1.5 2003/06/14 15:00:22 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_cluster_vec.h>
@@ -65,7 +65,7 @@ void Vectors::write_xml(std::ostream& out) const
        b = vectors.begin(), e=vectors.end();  b!=e;  ++b)
     {
       out.precision(5);
-      out.setf(ios::fixed, ios::floatfield);
+      out.setf(ios_base::fixed, ios_base::floatfield);
 
       out << "\n<vector>\n\t"
           << "<from>" << v->name[0] << "</from> "
@@ -77,7 +77,7 @@ void Vectors::write_xml(std::ostream& out) const
       if (single) 
         {
           out.precision(6);
-          out.setf(ios::scientific, ios::floatfield);
+          out.setf(ios_base::scientific, ios_base::floatfield);
      
           out << "\t"
               << "<cxx>" << covariance_matrix(1,1) << "</cxx> "

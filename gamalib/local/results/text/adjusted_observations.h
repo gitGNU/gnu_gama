@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adjusted_observations.h,v 1.3 2003/03/01 18:16:18 cepek Exp $
+ *  $Id: adjusted_observations.h,v 1.4 2003/06/14 15:00:22 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vyrovnana_Pozorovani_h_
@@ -104,7 +104,7 @@ void AdjustedObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
       PointID cc = pm->to();
       out.width(IS->maxw_id());
       out << cc.c_str();
-      out.setf(ios::fixed, ios::floatfield);
+      out.setf(ios_base::fixed, ios_base::floatfield);
 
       {   // ***************************************************
         if (Distance* d = dynamic_cast<Distance*>(pm))

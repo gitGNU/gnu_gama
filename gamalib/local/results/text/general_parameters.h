@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: general_parameters.h,v 1.4 2003/03/01 18:16:18 cepek Exp $
+ *  $Id: general_parameters.h,v 1.5 2003/06/14 15:00:22 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Zakladni_Parametry_h_
@@ -121,30 +121,30 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
       n = strlen(T_GaMa_gpar1_total);                    if (n > w1) w1 = n;
     }
 
-    out.setf(ios::left,  ios::adjustfield);
+    out.setf(ios_base::left,  ios_base::adjustfield);
     out << setw(w1) << T_GaMa_gpar1_coordinates << " ";
-    out.setf(ios::right, ios::adjustfield);
+    out.setf(ios_base::right, ios_base::adjustfield);
     out << setw(w_+1) << "xyz" 
         << setw(w_-1) << "xy" 
         << setw(w_)   << "z"  << "\n\n"; 
 
-    out.setf(ios::left,  ios::adjustfield);
+    out.setf(ios_base::left,  ios_base::adjustfield);
     out << setw(w1) << T_GaMa_gpar1_adjusted_coordinates << ":";
-    out.setf(ios::right, ios::adjustfield);
+    out.setf(ios_base::right, ios_base::adjustfield);
     out << setw(w_)  << a_xyz 
         << setw(w_)  << a_xy
         << setw(w_)  << a_z
         << '\n';
-    out.setf(ios::left,  ios::adjustfield);
+    out.setf(ios_base::left,  ios_base::adjustfield);
     out << setw(w1) << T_GaMa_gpar1_constrained_coordinates << ":";
-    out.setf(ios::right, ios::adjustfield);
+    out.setf(ios_base::right, ios_base::adjustfield);
     out << setw(w_)  << c_xyz 
         << setw(w_)  << c_xy
         << setw(w_)  << c_z
         << '\n';
-    out.setf(ios::left,  ios::adjustfield);
+    out.setf(ios_base::left,  ios_base::adjustfield);
     out << setw(w1) << T_GaMa_gpar1_fixed_coordinates << ":";
-    out.setf(ios::right, ios::adjustfield);
+    out.setf(ios_base::right, ios_base::adjustfield);
     out << setw(w_)  << f_xyz 
         << setw(w_)  << f_xy
         << setw(w_)  << f_z
@@ -152,9 +152,9 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
 
     for (int ii=0; ii<w1+1+3*w_+1; ii++) out << '-'; out << "\n";
 
-    out.setf(ios::left,  ios::adjustfield);
+    out.setf(ios_base::left,  ios_base::adjustfield);
     out << setw(w1) << T_GaMa_gpar1_total << ":";
-    out.setf(ios::right, ios::adjustfield);
+    out.setf(ios_base::right, ios_base::adjustfield);
     out << setw(w_)  << (a_xyz + f_xyz)
         << setw(w_)  << (a_xy  + f_xy )
         << setw(w_)  << (a_z   + f_z  )
@@ -311,7 +311,7 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
       << set_width(T_GaMa_gpar2_network_defect, w2) << ":"
       << setw(6) << IS->null_space()
       << '\n';
-  out.setf(ios::fixed, ios::floatfield);
+  out.setf(ios_base::fixed, ios_base::floatfield);
   
   out << "\n"
       << T_GaMa_m0_apriori << ":"
@@ -320,14 +320,14 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
       << setprecision(2) << setw(9) 
       << (IS->degrees_of_freedom() > 0 ? 
           sqrt(IS->trans_VWV()/IS->degrees_of_freedom()) : 0);
-  out.setf(ios::scientific, ios::floatfield);
+  out.setf(ios_base::scientific, ios_base::floatfield);
   out << "         "
       << "[pvv] : "
       << setprecision(5)<< IS->trans_VWV()
       << '\n';
   out.flush();
   
-  out.setf(ios::fixed, ios::floatfield);
+  out.setf(ios_base::fixed, ios_base::floatfield);
   out << "\n";
   out << T_GaMa_During_statistical_analysis_we_work << "\n\n"
       << (IS->m_0_aposteriori() ?
@@ -450,7 +450,7 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
       
       if (imax > 0)
         {
-          out.setf(ios::fixed, ios::floatfield);
+          out.setf(ios_base::fixed, ios_base::floatfield);
           if (aprm0)
             out << T_GaMa_Maximal_normalized_residual;
           else

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.6 2003/05/15 18:53:15 cepek Exp $
+ *  $Id: version.cpp,v 1.7 2003/06/14 15:00:22 cepek Exp $
  */
 
 
@@ -28,11 +28,11 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.05-pre";
+const char* GNU_gama_version  = "1.7.05-pre-2";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
-              "GNU g++"             // g++ 3.0.4 and 2.95.4
+              "GNU g++"             // g++ 3.0.4
               #elif defined (__BORLANDC__) && (__linux__)
               "kylix-bc++"          // 5.7
               #elif defined (__BORLANDC__)
@@ -60,6 +60,11 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.05
+
+   - from this version g++-3.0 (or higher) is necessary (g++ version 2.95.4
+     would not compile Gama). 
+
+     depreated name std::ios has been replaced by C++ standard std::ios_base
 
    - first testing version of vectors in gama-g3
 

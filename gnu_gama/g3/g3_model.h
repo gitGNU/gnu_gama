@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.9 2003/06/04 07:43:55 cepek Exp $
+ *  $Id: g3_model.h,v 1.10 2003/06/14 15:00:22 cepek Exp $
  */
 
 #include <gnu_gama/pointbase.h>
@@ -54,7 +54,7 @@ namespace GNU_gama {  namespace g3 {
     ~Model();
 
     Point* get_point(const Point::Name&);
-    void   write_xml(std::ostream& out);
+    void   write_xml(std::ostream& out) const;
     void   pre_linearization();
 
   private:

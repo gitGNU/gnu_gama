@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: error_ellipses.h,v 1.3 2003/03/01 18:16:18 cepek Exp $
+ *  $Id: error_ellipses.h,v 1.4 2003/06/14 15:00:22 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Elipsy_Chyb_h_
@@ -105,9 +105,9 @@ void ErrorEllipses(GaMaLib::LocalNetwork* IS, OutStream& out)
                
                Double mp = sqrt(my*my+mx*mx);
                if (mp < 1000)     
-                 out.setf(ios::fixed, ios::floatfield);
+                 out.setf(ios_base::fixed, ios_base::floatfield);
                else
-                 out.setf(ios::scientific, ios::floatfield);
+                 out.setf(ios_base::scientific, ios_base::floatfield);
                out.width(7);
                out << mp << ' ';
                
@@ -121,9 +121,9 @@ void ErrorEllipses(GaMaLib::LocalNetwork* IS, OutStream& out)
                Double myx = mp/sqrt(2.0);
                out.width(7);
                if (myx < 1000)     
-                 out.setf(ios::fixed, ios::floatfield);
+                 out.setf(ios_base::fixed, ios_base::floatfield);
                else
-                 out.setf(ios::scientific, ios::floatfield);
+                 out.setf(ios_base::scientific, ios_base::floatfield);
                out << myx << ' ' ;
                
                Double a, b, alfa;
@@ -134,18 +134,18 @@ void ErrorEllipses(GaMaLib::LocalNetwork* IS, OutStream& out)
                  }
                out.width(7);
                if (a < 1000)     
-                 out.setf(ios::fixed, ios::floatfield);
+                 out.setf(ios_base::fixed, ios_base::floatfield);
                else
-                 out.setf(ios::scientific, ios::floatfield);
+                 out.setf(ios_base::scientific, ios_base::floatfield);
                out << a << ' ';
                out.width(7);
                if (b < 1000)     
-                 out.setf(ios::fixed, ios::floatfield);
+                 out.setf(ios_base::fixed, ios_base::floatfield);
                else
-                 out.setf(ios::scientific, ios::floatfield);
+                 out.setf(ios_base::scientific, ios_base::floatfield);
                out << b << ' ';
                out.width(7);
-               out.setf(ios::fixed, ios::floatfield);
+               out.setf(ios_base::fixed, ios_base::floatfield);
                out << alfa*R2G << ' ';
                
                if (mp < 1000 && mp > 1e-3)
@@ -154,15 +154,15 @@ void ErrorEllipses(GaMaLib::LocalNetwork* IS, OutStream& out)
                    Double bk = b*elp_k;
                    out.width(7);
                    if (ak < 1000)     
-                     out.setf(ios::fixed, ios::floatfield);
+                     out.setf(ios_base::fixed, ios_base::floatfield);
                    else
-                     out.setf(ios::scientific, ios::floatfield);
+                     out.setf(ios_base::scientific, ios_base::floatfield);
                    out << ak << ' ';
                    out.width(7);
                    if (bk < 1000)     
-                     out.setf(ios::fixed, ios::floatfield);
+                     out.setf(ios_base::fixed, ios_base::floatfield);
                    else
-                     out.setf(ios::scientific, ios::floatfield);
+                     out.setf(ios_base::scientific, ios_base::floatfield);
                    out << bk << ' ';
                    
                    Double g  = 0;
@@ -177,9 +177,9 @@ void ErrorEllipses(GaMaLib::LocalNetwork* IS, OutStream& out)
                        g = sqrt(p1*p1 + p2*p2);
                      }
                    if (g < 1000)     
-                     out.setf(ios::fixed, ios::floatfield);
+                     out.setf(ios_base::fixed, ios_base::floatfield);
                    else
-                     out.setf(ios::scientific, ios::floatfield);
+                     out.setf(ios_base::scientific, ios_base::floatfield);
                    out.width(7);
                    out << g;		 
                  }

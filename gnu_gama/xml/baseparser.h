@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: baseparser.h,v 1.4 2003/05/11 12:32:25 cepek Exp $
+ *  $Id: baseparser.h,v 1.5 2003/06/14 15:00:22 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa__XML__BASE_Base_base__PARSER_Parser_parser__h_
@@ -82,7 +82,7 @@ namespace GNU_gama {
   {
   public:
     
-    void BaseParser::xml_parse(const char *s, int len, int  isFinal) 
+    void xml_parse(const char *s, int len, int  isFinal) 
     { 
       int err = XML_Parse(parser, s, len, isFinal);
       if (err == 0)

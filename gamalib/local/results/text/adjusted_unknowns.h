@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adjusted_unknowns.h,v 1.5 2003/03/01 18:16:18 cepek Exp $
+ *  $Id: adjusted_unknowns.h,v 1.6 2003/06/14 15:00:22 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vyrovnane_Nezname_h_
@@ -69,7 +69,7 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
       out << T_GaMa_adjunk_header1;
       for (int i=0; i<IS->maxw_unk()+IS->maxw_id()+1; i++) out << '=';
       out << T_GaMa_adjunk_header2;
-      out.setf(ios::fixed, ios::floatfield);
+      out.setf(ios_base::fixed, ios_base::floatfield);
 
       for (PointData::const_iterator ii=IS->PD.begin(); ii!=IS->PD.end(); ii++)
         {
@@ -230,7 +230,7 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
               Double z = y_sign*( k->orientation() )*R2G;
               if (z <  0 ) z += 400;
               if (z > 400) z -= 400;
-              out.setf(ios::fixed, ios::floatfield);
+              out.setf(ios_base::fixed, ios_base::floatfield);
               out.precision(6);
               out.width(12);
               out << z << " ";
@@ -277,7 +277,7 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
       out << T_GaMa_adjunk_header5;
       { for (int i=0; i<IS->maxw_unk()+IS->maxw_id()+1; i++) out << '='; }
       out << T_GaMa_adjunk_header6;
-      out.setf(ios::fixed, ios::floatfield);
+      out.setf(ios_base::fixed, ios_base::floatfield);
 
       for (int i=1; i<=pocnez; i++)
         if (IS->unknown_type(i) == 'Z')

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: write.cpp,v 1.5 2003/03/13 20:22:52 cepek Exp $
+ *  $Id: write.cpp,v 1.6 2003/06/14 15:00:22 cepek Exp $
  */
 
 #include <iostream>
@@ -39,8 +39,8 @@ std::ostream& operator << (std::ostream& str, PointData& sez)
 {
   using namespace std;
   int prec_p = str.precision();
-  std::ios::fmtflags flag_p = str.flags();
-  str.setf(ios::fixed);
+  std::ios_base::fmtflags flag_p = str.flags();
+  str.setf(ios_base::fixed);
   
   int maxkl = 0;
   for (PointData::iterator i=sez.begin(); i!=sez.end(); ++i)
@@ -107,8 +107,8 @@ std::ostream& operator << (std::ostream& str, ObservationData& od)
 {
   using namespace std;
   int prec_p = str.precision();
-  std::ios::fmtflags flag_p = str.flags();
-  str.setf(ios::fixed);
+  std::ios_base::fmtflags flag_p = str.flags();
+  str.setf(ios_base::fixed);
   
   for (ClusterList::iterator c=od.CL.begin(); c!=od.CL.end(); ++c)
     {

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.7 2003/03/29 13:33:57 cepek Exp $
+ *  $Id: network.cpp,v 1.8 2003/06/14 15:00:22 cepek Exp $
  */
 
 #include <fstream>
@@ -293,7 +293,7 @@ void LocalNetwork::project_equations()
 
   reset(A, b);
 
-  //--ofstream opr("A_scaled.bin", ios::trunc); 
+  //--ofstream opr("A_scaled.bin", ios_base::trunc); 
   //--int m=A.rows();
   //--int n=A.cols();
   //--opr.write(&m, sizeof(int));

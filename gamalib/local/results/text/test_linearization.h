@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: test_linearization.h,v 1.3 2002/10/24 17:04:13 cepek Exp $
+ *  $Id: test_linearization.h,v 1.4 2003/06/14 15:00:22 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Test_Chyby_z_Linearizace_h_
@@ -79,7 +79,7 @@ TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
   *     {
   *       if (!test) out << hlavicka;
   *       test  = true;
-  *       out.setf(ios::fixed, ios::floatfield);
+  *       out.setf(ios_base::fixed, ios_base::floatfield);
   *       out.precision(3);
   *       out << "\nMaximal correction of point " << pyx
   *           << " is greater then " << max_pyx << " [m]\n";
@@ -234,7 +234,7 @@ TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
             PointID cc = pm->to();
             out.width(IS->maxw_id());
             out << cc.c_str();
-            out.setf(ios::fixed, ios::floatfield);
+            out.setf(ios_base::fixed, ios_base::floatfield);
             
             Double mer;
             if (Distance* d = dynamic_cast<Distance*>(pm))
