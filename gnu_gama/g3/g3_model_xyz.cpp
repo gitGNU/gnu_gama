@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_xyz.cpp,v 1.3 2004/03/26 22:34:26 cepek Exp $
+ *  $Id: g3_model_xyz.cpp,v 1.4 2004/04/23 22:01:31 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -39,9 +39,9 @@ bool Model::revision_visit(XYZ* xyz)
 
   active_obs->push_back(xyz);
 
-  update_index(point->N_);
-  update_index(point->E_);
-  update_index(point->U_);
+  update_index(point->N);
+  update_index(point->E);
+  update_index(point->U);
 
   dm_rows += xyz->dimension();            // design matrix
   if (point->free_horizontal_position())   dm_floats += 6;

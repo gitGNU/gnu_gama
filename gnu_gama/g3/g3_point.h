@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.25 2004/04/21 16:49:39 cepek Exp $
+ *  $Id: g3_point.h,v 1.26 2004/04/23 22:01:31 cepek Exp $
  */
 
 #include <string>
@@ -43,10 +43,13 @@ namespace GNU_gama {  namespace g3 {
     Name    name;
     Common* common; 
 
-    Parameter& N;
-    Parameter& E;
-    Parameter& U;
-    Parameter& height;
+    Parameter N;
+    Parameter E;
+    Parameter U;
+    Parameter height;
+    Parameter geoid;
+    Parameter dB;
+    Parameter dL;
 
     const Parameter& B;
     const Parameter& L;
@@ -125,7 +128,6 @@ namespace GNU_gama {  namespace g3 {
     };
 
     friend class Model;
-    Parameter  N_, E_, U_, height_;
     Parameter  B_, L_, H_, X_, Y_, Z_;
 
     void point_copy(const Point&);

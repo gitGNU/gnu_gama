@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.27 2004/03/24 19:27:07 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.28 2004/04/23 22:01:31 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -173,48 +173,48 @@ void Model::update_parameters()
     {
       Point* point = (*i);
  
-      point->N_.set_index(0);
-      point->E_.set_index(0);
-      point->U_.set_index(0);
+      point->N.set_index(0);
+      point->E.set_index(0);
+      point->U.set_index(0);
 
 
       if (point->fixed_horizontal_position())
         {
-          point->N_.set_fixed();
-          point->E_.set_fixed();
+          point->N.set_fixed();
+          point->E.set_fixed();
         }
       else if (point->constr_horizontal_position())
         {
-          point->N_.set_constr();
-          point->E_.set_constr();
+          point->N.set_constr();
+          point->E.set_constr();
         }
       else if (point->free_horizontal_position())
         {
-          point->N_.set_free();
-          point->E_.set_free();
+          point->N.set_free();
+          point->E.set_free();
         }
       else
         {
-          point->N_.set_unused();
-          point->E_.set_unused();
+          point->N.set_unused();
+          point->E.set_unused();
         }
       
 
       if (point->fixed_height())
         {
-          point->U_.set_fixed();
+          point->U.set_fixed();
         }
       else if (point->constr_height())
         {
-          point->U_.set_constr();
+          point->U.set_constr();
         }
       else if (point->free_height())
         {
-          point->U_.set_free();
+          point->U.set_free();
         }
       else
         {
-          point->U_.set_unused();
+          point->U.set_unused();
         }
     }
 
