@@ -20,12 +20,13 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.14 2003/04/10 16:12:03 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.15 2003/04/11 09:38:26 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
 #include <gnu_gama/g3/g3_observation.h>
 #include <gnu_gama/g3/g3_model.h>
+#include <cmath>
 
 using namespace GNU_gama::g3;
 
@@ -241,6 +242,8 @@ void Point::set_xyz(double x, double y, double z)
 
 void Point::transformation_matrix(double b, double l)
 {
+  using namespace std;
+
   r11 = -sin(l);
   r12 = -sin(b)*cos(l);
   r13 =  cos(b)*cos(l);
@@ -294,28 +297,28 @@ double Point::diff_U() const
 
 // ----------------------------------------------------------------------
 
-double Parameter_N::analytical_derivative(Distance*)
+double Parameter_N::derivative(Distance*)
 {
   return point()->diff_N();
 }
 
-double Parameter_E::analytical_derivative(Distance*)
+double Parameter_E::derivative(Distance*)
 {
   return point()->diff_E();
 }
 
-double Parameter_U::analytical_derivative(Distance*)
+double Parameter_U::derivative(Distance*)
 {
   return point()->diff_U();
 }
 
-// double Parameter_U::analytical_derivative(HeightDiff* hd)
-// {
-//   if (!free()) return 0;
-// 
-//   Parameter**  p    = hd->parlist.begin();  
-//   Parameter_U* from = static_cast<Parameter_U*>(*p);
-// 
-//   return this == from ? -1 : +1;
-// }
+double Parameter_U::derivative(HeightDiff* hd)
+{
+  if (!free()) return 0;
+
+  Parameter**  p    = hd->parlist.begin();  
+  Parameter_U* from = static_cast<Parameter_U*>(*p);
+
+  return this == from ? -1 : +1;
+}
 

@@ -20,10 +20,9 @@
 */
 
 /*
- *  $Id: g3_obs_base.h,v 1.7 2003/04/10 16:12:03 cepek Exp $
+ *  $Id: g3_obs_base.h,v 1.8 2003/04/11 09:38:26 cepek Exp $
  */
 
-#include <gnu_gama/g3/g3_parameter.h>
 #include <gnu_gama/g3/g3_parameter.h>
 #include <gnu_gama/sparse/svector.h>
 #include <gnu_gama/ellipsoid.h>
@@ -59,7 +58,6 @@ namespace GNU_gama {  namespace g3 {
 
   protected:  
 
-    //GNU_gama::Ellipsoid* ellipsoid;
     GNU_gama::g3::Model* model;
     double  time;
 

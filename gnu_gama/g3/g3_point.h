@@ -20,13 +20,11 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.15 2003/04/10 16:12:03 cepek Exp $
+ *  $Id: g3_point.h,v 1.16 2003/04/11 09:38:26 cepek Exp $
  */
 
 #include <gamalib/pointid.h>
 #include <gnu_gama/g3/g3_parameter.h>
-#include <gnu_gama/g3/g3_observation/g3_der_dist.h>
-#include <gnu_gama/g3/g3_observation/g3_der_hdiff.h>
 
 #ifndef GNU_gama__g3_point_h_gnugamag3pointh___gnu_gama_g3point
 #define GNU_gama__g3_point_h_gnugamag3pointh___gnu_gama_g3point
@@ -36,6 +34,8 @@ namespace GNU_gama {  namespace g3 {
 
   class Model;
   class Point;
+  class Distance;
+  class HeightDiff;
 
   class Parameter_LocalPosition : public Parameter
     {
@@ -51,32 +51,34 @@ namespace GNU_gama {  namespace g3 {
 
   class Parameter_N : 
     public Parameter_LocalPosition,
-    public DistanceAnalyticalDerivative
+    public Derivative<Distance>
     {
     public:
       Parameter_N(Point* p) : Parameter_LocalPosition(p) {}
 
-      double analytical_derivative(Distance*);
+      double derivative(Distance*);
     };
   
   class Parameter_E : 
     public Parameter_LocalPosition,
-    public DistanceAnalyticalDerivative
+    public Derivative<Distance>
     {
     public:
       Parameter_E(Point* p) : Parameter_LocalPosition(p) {}
 
-      double analytical_derivative(Distance*);
+      double derivative(Distance*);
     };
   
   class Parameter_U : 
     public Parameter_LocalPosition,
-    public DistanceAnalyticalDerivative
+    public Derivative<Distance>,
+    public Derivative<HeightDiff>
     {
     public:
       Parameter_U(Point* p) : Parameter_LocalPosition(p) {}
 
-      double analytical_derivative(Distance*);
+      double derivative(Distance*);
+      double derivative(HeightDiff*);
     };
 
 

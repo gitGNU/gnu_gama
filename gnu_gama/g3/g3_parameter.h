@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.10 2003/04/10 16:12:03 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.11 2003/04/11 09:38:26 cepek Exp $  */
 
 #include <cstddef>
 #include <gnu_gama/list.h>
@@ -33,6 +33,16 @@ namespace GNU_gama { namespace g3 {
 
   using std::size_t;
   class Parameter;
+
+
+  template <class ObservationType> 
+    class Derivative 
+    {
+    public:
+    
+      virtual double derivative(ObservationType*) = 0;
+    };
+
 
 
   class ParameterList {
@@ -184,8 +194,8 @@ namespace GNU_gama { namespace g3 {
     
     const_iterator  begin() const { return tree.begin(); }
     const_iterator  end  () const { return tree.end  (); }
-    
-    
+
+
     class iterator 
       // : public std::iterator <std::forward_iterator_tag, Parameter*> 
       {
@@ -235,8 +245,7 @@ namespace GNU_gama { namespace g3 {
 
 
   };
-
-
+  
 }}
   
 #endif

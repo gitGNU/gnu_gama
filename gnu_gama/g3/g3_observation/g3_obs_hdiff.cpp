@@ -20,12 +20,11 @@
 */
 
 /*
- *  $Id: g3_obs_hdiff.cpp,v 1.8 2003/04/10 16:12:03 cepek Exp $
+ *  $Id: g3_obs_hdiff.cpp,v 1.9 2003/04/11 09:38:26 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
 #include <gnu_gama/g3/g3_model.h>
-#include <gnu_gama/g3/g3_observation/g3_der_hdiff.h>
 
 using namespace GNU_gama::g3;
 
@@ -44,10 +43,10 @@ void HeightDiff::parlist_init(Model* m)
 {
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // !!! this is not a real solution; used here just for testing !!! 
+  // !!! and will be rewritten later                             !!!
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   model = m;
-  // GNU_gama::Ellipsoid* ellipsoid = &model->ellipsoid;
   
   if (!active())  return;
   
@@ -77,11 +76,10 @@ void HeightDiff::parlist_init(Model* m)
 
 double HeightDiff::derivative(Parameter* p)
 {
-  HeightDiffAnalyticalDerivative* ad = 
-    dynamic_cast<HeightDiffAnalyticalDerivative*>(p);
+  Derivative<HeightDiff>* ad = dynamic_cast<Derivative<HeightDiff>*>(p);
   
   if (ad)
-    return ad->analytical_derivative(this);
+    return ad->derivative(this);
   else
     return numerical_derivative(p);
 }

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_dist.cpp,v 1.3 2003/04/10 16:12:03 cepek Exp $
+ *  $Id: g3_obs_dist.cpp,v 1.4 2003/04/11 09:38:26 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -76,7 +76,6 @@ double Distance::parlist_value() const
 void Distance::parlist_init(Model* m)
 {
   model = m; 
-  GNU_gama::Ellipsoid* ellipsoid = &model->ellipsoid;
 
   if (!active())  return;
  
@@ -113,11 +112,10 @@ void Distance::parlist_init(Model* m)
 
 double Distance::derivative(Parameter* p)
 {
-  DistanceAnalyticalDerivative* ad = 
-    dynamic_cast<DistanceAnalyticalDerivative*>(p);
+  Derivative<Distance>* ad = dynamic_cast<Derivative<Distance>*>(p);
 
   if (ad)
-    return ad->analytical_derivative(this);
+    return ad->derivative(this);
   else
     return numerical_derivative(p);
 }
