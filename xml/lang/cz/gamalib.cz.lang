@@ -2,10 +2,12 @@
 <entries>
 
 <e id="T_IE_internal_error"
-   en="internal error" />
+   EN="internal error"
+   cz="interní chyba" />
 
 <e id="T_GaMa_from_equals_to"
-   en="station and target are identical" />
+   EN="station and target are identical"
+   cz="stanovisko je toto¾né s cílem" />
 
 </entries>   
 

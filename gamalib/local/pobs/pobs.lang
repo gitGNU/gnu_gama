@@ -2,23 +2,18 @@
 <entries>
 
 <e id="T_POBS_computation_of_bearing_for_identical_points"
-   en="Computation of bearing for identical points"
-   cz="Výpoèet smìrníku pro identické body" />
+   en="Computation of bearing for identical points" />
 
 <e id="T_POBS_bad_data"
-   en="bad data"
-   cz="chybný údaj" />
+   en="bad data" />
 
 <e id="T_POBS_zero_or_negative_distance"
-   en="zero or negative distance"
-   cz="nulová nebo záporná délka" />
+   en="zero or negative distance" />
 
 <e id="T_POBS_zero_or_negative_slope_distance"
-   en="zero or negative slope distance"
-   cz="nulová nebo záporná ¹ikmá délka" />
+   en="zero or negative slope distance" />
 
 <e id="T_POBS_zero_or_negative_zenith_angle"
-   en="zero or negative zenith angle"
-   cz="nulová nebo záporná zenitová vzdálenost" />
+   en="zero or negative zenith angle" />
 
 </entries>

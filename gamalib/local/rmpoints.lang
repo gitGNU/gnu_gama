@@ -2,35 +2,27 @@
 <entries>
 
 <e id="T_LN_rm_removed_points"
-   en="Removed points and coordinates"
-   cz="Vylouèené body a suøadnice" />
+   en="Removed points and coordinates" />
 
 <e id="T_LN_rm_missing_xyz"
-   en="missing coordiantes xyz"
-   cz="chybí souøadnice xyz" />
+   en="missing coordiantes xyz" />
 
 <e id="T_LN_rm_missing_xy"
-   en="missing coordiantes xy"
-   cz="chybí souøadnice xy" />
+   en="missing coordiantes xy" />
 
 <e id="T_LN_rm_missing_z"
-   en="missing coordiantes z"
-   cz="chybí souøadnice z" />
+   en="missing coordiantes z" />
 
 <e id="T_LN_rm_singular_xy"
-   en="singular coordiantes xy"
-   cz="singulární souøadnice xy" />
+   en="singular coordiantes xy" />
 
 <e id="T_LN_rm_huge_cov_xyz"
-   en="indeterminable coordinates xyz"
-   cz="neurèitelné souøadnice xyz" />
+   en="indeterminable coordinates xyz" />
 
 <e id="T_LN_rm_huge_cov_xy"
-   en="indeterminable coordinates xy"
-   cz="neurèitelné souøadnice xy" />
+   en="indeterminable coordinates xy" />
 
 <e id="T_LN_rm_huge_cov_z"
-   en="indeterminable coordinate z"
-   cz="neurèitelná souøadnice z" />
+   en="indeterminable coordinate z" />
 
 </entries>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-2" standalone="yes" ?>
+<entries>
+
+<e id="T_LN_rm_removed_points"
+   EN="Removed points and coordinates"
+   cz="Vyloučené body a suřadnice" />
+
+<e id="T_LN_rm_missing_xyz"
+   EN="missing coordiantes xyz"
+   cz="chybí souřadnice xyz" />
+
+<e id="T_LN_rm_missing_xy"
+   EN="missing coordiantes xy"
+   cz="chybí souřadnice xy" />
+
+<e id="T_LN_rm_missing_z"
+   EN="missing coordiantes z"
+   cz="chybí souřadnice z" />
+
+<e id="T_LN_rm_singular_xy"
+   EN="singular coordiantes xy"
+   cz="singulární souřadnice xy" />
+
+<e id="T_LN_rm_huge_cov_xyz"
+   EN="indeterminable coordinates xyz"
+   cz="neurčitelné souřadnice xyz" />
+
+<e id="T_LN_rm_huge_cov_xy"
+   EN="indeterminable coordinates xy"
+   cz="neurčitelné souřadnice xy" />
+
+<e id="T_LN_rm_huge_cov_z"
+   EN="indeterminable coordinate z"
+   cz="neurčitelná souřadnice z" />
+
+</entries>
