@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.17 2004/06/21 16:58:58 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.18 2004/09/01 20:36:46 cepek Exp $
  */ 
 
 
@@ -45,8 +45,8 @@ namespace {
 
 using namespace std;
 namespace GaMaLib {
-  
-  
+
+
   int GKFparser::characterDataHandler(const char* s, int len)
   {
     if (state == state_description)
