@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: list.h,v 1.1 2003/03/13 20:23:17 cepek Exp $
+ *  $Id: list.h,v 1.2 2003/03/15 21:22:52 cepek Exp $
  */
 
 #include <vector>
@@ -32,6 +32,15 @@
 
 
 namespace GNU_gama {
+
+
+  #ifdef _MSC_VER
+  //-----------------------------------------------------------------------
+  // Class template partial specialization is not supported by the
+  // Visual C++ compiler
+  template <class T> class List : public std::vector<T> {};   
+  //-----------------------------------------------------------------------
+  #else
 
 
   template <class T> class List;
@@ -52,8 +61,8 @@ namespace GNU_gama {
       bool        empty() const { return vec.empty(); }
 
       void push_back(T* t) { vec.push_back(t);   }
-      void pop_back()      { vec.pop_back();     }   
-      void clear()         { vec.clear();        }   
+      void pop_back()      { vec.pop_back();     }
+      void clear()         { vec.clear();        }
 
       T* operator[](std::size_t n)
         { 
@@ -117,7 +126,7 @@ namespace GNU_gama {
           iterator()
             {
             }
-          iterator(const typename Vector::iterator& p) : vit(p) 
+          iterator(const typename Vector::iterator& p) : vit(p)
             {
             }
           operator const_iterator() const
@@ -147,28 +156,29 @@ namespace GNU_gama {
             {
               return static_cast<T*>(*vit);
             }
-          
-          operator typename Vector::iterator()
-            {
-              return vit;
-            }
 
         private:
           typename Vector::iterator vit;
+          #ifdef __BORLANDC__
+          friend class List<T*>;
+          #else
+          friend void  List<T*>::erase(typename List<T*>::iterator i);
+          #endif
 
         };
-      
+
       iterator  begin() { return vec.begin(); }
       iterator  end  () { return vec.end  (); }
 
 
-      void erase(typename List<T*>::iterator i) 
-        { 
-          vec.erase(typename Vector::iterator(i));
+      void erase(typename List<T*>::iterator i)
+        {
+          vec.erase(i.vit);
         }
 
     };
 
+    #endif
 }
 
 #endif

@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: reduced_observations.h,v 1.1 2003/01/20 18:02:23 cepek Exp $
+ *  $Id: reduced_observations.h,v 1.2 2003/03/15 21:22:52 cepek Exp $
  */
 
 #ifndef GaMaLib_local_results_text_reduced_observations_h
@@ -164,7 +164,7 @@ void ReducedObservationsText(GaMaLib::LocalNetwork* IS,
 	  str_nonexist+="-";
       
       {   // ***************************************************
-	 if (S_Distance* sd = dynamic_cast<S_Distance*>(pm))
+        if (/* S_Distance* sd = */ dynamic_cast<S_Distance*>(pm))
           {
             out << T_GaMa_s_distance; 
             out.precision(5);
@@ -178,7 +178,7 @@ void ReducedObservationsText(GaMaLib::LocalNetwork* IS,
             out << " ";
           }
 
-        else if (Z_Angle* za = dynamic_cast<Z_Angle*>(pm))
+        else if (/* Z_Angle* za = */ dynamic_cast<Z_Angle*>(pm))
           {
 	    out << T_GaMa_z_angle;
             out.precision(6); 
@@ -191,7 +191,7 @@ void ReducedObservationsText(GaMaLib::LocalNetwork* IS,
 		out << str_nonexist.c_str();
 	    out << " ";
           }
-        else if (H_Diff* h = dynamic_cast<H_Diff*>(pm))
+        else if (/* H_Diff* h = */ dynamic_cast<H_Diff*>(pm))
           {
             out << T_GaMa_levell;
             out.precision(5);

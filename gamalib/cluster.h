@@ -20,17 +20,11 @@
 */
 
 /*
- *  $Id: cluster.h,v 1.3 2003/02/28 17:36:56 cepek Exp $
+ *  $Id: cluster.h,v 1.4 2003/03/15 21:22:51 cepek Exp $
  */
 
 #ifndef GaMaLib_Cluster_of_observations__h
 #define GaMaLib_Cluster_of_observations__h
-
-#ifdef _MSC_VER
-      #define C_CLONE(ptr) Cluster*
-#else
-      #define C_CLONE(ptr) ptr
-#endif
 
 #include <gnu_gama/obsdata.h>
 
@@ -61,7 +55,7 @@ namespace GaMaLib {
       {
       }
 
-    C_CLONE(StandPoint*) clone(const ObservationData*p) const 
+    StandPoint* clone(const ObservationData*p) const 
       {
         return new StandPoint(p); 
       } 
@@ -95,7 +89,7 @@ namespace GaMaLib {
       : GNU_gama::Cluster<Observation>(od) 
       {
       }
-    C_CLONE(Coordinates*) clone(const ObservationData*p) const 
+    Coordinates* clone(const ObservationData*p) const 
       { 
         return new Coordinates(p); 
       } 
@@ -111,7 +105,7 @@ namespace GaMaLib {
       : GNU_gama::Cluster<Observation>(od) 
       {
       }
-    C_CLONE(HeightDifferences*) clone(const ObservationData*p) const 
+    HeightDifferences* clone(const ObservationData*p) const 
       { 
         return new HeightDifferences(p); 
       } 
@@ -127,7 +121,7 @@ namespace GaMaLib {
       : GNU_gama::Cluster<Observation>(od) 
       {
       }
-    C_CLONE(Vectors*) clone(const ObservationData*p) const 
+    Vectors* clone(const ObservationData*p) const 
       { 
         return new Vectors(p); 
       } 
@@ -135,8 +129,6 @@ namespace GaMaLib {
 
 
 }   // namespace GaMaLib
-
-#undef C_CLONE
 
 #endif
 

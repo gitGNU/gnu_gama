@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: outstream.h,v 1.3 2003/02/28 17:36:56 cepek Exp $
+ *  $Id: outstream.h,v 1.4 2003/03/15 21:22:52 cepek Exp $
  */
 
 #include <iostream>
@@ -59,11 +59,10 @@ namespace GNU_gama {
     
     std::ostream& std_stream() { return ostr; }
     
-    template<class T, 
-      class V> void setf (T t, V v)  { ostr.setf(t, v);   }
-    template<class T> void width     (T t)  { ostr.width(t);     }
-    template<class T> void precision (T t)  { ostr.precision(t); }
-    void flush() { ostr.flush(); }
+    void setf (std::ios::fmtflags t, std::ios::fmtflags v) { ostr.setf(t, v); }
+    void width     (int t)  { ostr.width(t);     }
+    void precision (int t)  { ostr.precision(t); }
+    void flush     ()       { ostr.flush();      }
     
     void set_encoding(int e) { encoding = e; }
     

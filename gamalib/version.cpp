@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.60 2003/03/13 20:22:35 cepek Exp $
+ *  $Id: version.cpp,v 1.61 2003/03/15 21:22:51 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.7.02";
+const char* GaMaLib_version  = "1.7.03";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
@@ -58,6 +58,12 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.7.03 2002.....
+
+   - adjustments needed by MSVC compiler (in files gnu_gama/list.h and
+     gamalib/cluster.h)
+
 
 1.7.02 2003-03-13
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.15 2003/02/22 19:40:54 cepek Exp $
+ *  $Id: adj.cpp,v 1.16 2003/03/15 21:22:51 cepek Exp $
  */
 
 #include <gamalib/adj/adj.h>
@@ -128,7 +128,7 @@ void AdjInputData::write_xml(std::ostream& out) const
       out << "\n  <vector>\n"
           << "    <dim>" << prhs.dim() << "</dim>\n";
       
-      for (long i=1; i<=prhs.dim(); i++)
+      for (std::size_t i=1; i<=prhs.dim(); i++)
         out << "      <flt>" << prhs(i) << "</flt>\n";
       
       out << "  </vector>\n";
@@ -142,7 +142,7 @@ void AdjInputData::write_xml(std::ostream& out) const
           << "    <dim>" << pminx->dim() << "</dim>\n";
       
       const std::size_t *indx = pminx->begin();
-      for (long i=1; i<=pminx->dim(); i++)
+      for (std::size_t i=1; i<=pminx->dim(); i++)
         out << "      <int>" << *indx++ << "</int>\n";
        
       out << "  </array>\n";
