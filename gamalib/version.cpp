@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.29 2002/09/06 16:04:54 cepek Exp $
+ *  $Id: version.cpp,v 1.30 2002/09/15 16:08:47 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.5.01-pre";
+const char* GaMaLib_version  = "1.5.01";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
@@ -57,7 +57,16 @@ const char* GaMaLib_compiler =
 
 =============================================================================
 
-1.5.01-pre
+1.5.01 2002-09-15
+
+   - new version of BandMat<> class (gmatvec 0.9.20)
+
+   - initial version of new class BlockDiagonal (in gamalib/sparse)
+     for symmetric block diagonal matrix (planned for new adjustment
+     model)
+
+   - expat source included into gamalib archive as a convenience for
+     GaMa users
 
    - initial draft of the Ellipsoid class and a helper program
      ellipsoids_xml.cpp for generating files ellipsoids.[h|cpp] from
