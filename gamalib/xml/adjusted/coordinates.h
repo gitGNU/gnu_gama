@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: coordinates.h,v 1.6 2004/06/20 20:54:51 cepek Exp $
+ *  $Id: coordinates.h,v 1.7 2004/10/30 11:08:35 cepek Exp $
  */
 
 #ifndef GaMaLib_XML_adjusted_coordinates____h
@@ -65,7 +65,8 @@ XML_adjusted_coordinates(GaMaLib::LocalNetwork* netinfo,
            i=netinfo->PD.begin(); i!=netinfo->PD.end(); ++i)
       {
         const LocalPoint& b = (*i).second;
-        if (!b.active_xy()) continue;
+        if (!b.active_xy() && !b.active_z()) continue;
+
         if (b.index_x()) 
           {
             ind[++dim] = b.index_x();

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.53 2004/10/26 20:01:02 cepek Exp $
+ *  $Id: version.cpp,v 1.54 2004/10/30 11:08:35 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.12-a";
+const char* GNU_gama_version  = "1.7.12-b";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -62,13 +62,22 @@ const char* GNU_gama_compiler =
 
 =============================================================================
 
-1.7.12-a
+1.7.12 2004
+
+    - a bug in the output of coordiantes in the XML format
+
+        diff -r1.6 coordinates.h
+        68c68,69
+        <         if (!b.active_xy()) continue;
+        ---
+        >         if (!b.active_xy() && !b.active_z()) continue;
+        > 
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.53 2004/10/26 20:01:02 cepek Exp $
+        <  *  $Id: version.cpp,v 1.54 2004/10/30 11:08:35 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.53 2004/10/26 20:01:02 cepek Exp $
+        >  *  $Id: version.cpp,v 1.54 2004/10/30 11:08:35 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),
