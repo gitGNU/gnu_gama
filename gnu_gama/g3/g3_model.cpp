@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.12 2003/06/14 15:00:22 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.13 2003/10/31 18:23:17 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -84,18 +84,18 @@ void Model::write_xml(std::ostream& out) const
            b = points->begin(), e = points->end(); b != e; ++b)
       {
         const Point *p = *b;
-        out << "<point>\t<id>" << p->name << "</id>";
-
+        out << "<point>\t<id>" << p->name.c_str() << "</id>";
+        
         if (p->has_xyz())
           out << "\n\t"
               << "<x>" << p->X.value(0) << "</x> "
               << "<y>" << p->Y.value(0) << "</y> "
               << "<z>" << p->Z.value(0) << "</z>";
-
+        
         if (p->has_height())
           out << "\n\t"
               << "<height>" << p->height.value(0) << "</height>";
-
+        
         if (p->unused())
           out << "\n\t"; // <unused/>";
         else if (p->fixed_position())   

@@ -1,5 +1,5 @@
 \input texinfo   @c -*-texinfo-*-
-@comment $Id: gama.texi,v 1.8 2003/09/17 16:38:36 cepek Exp $
+@comment $Id: gama.texi,v 1.9 2003/10/31 18:23:17 cepek Exp $
 
 @comment Part 1 : Header
 
@@ -73,6 +73,7 @@ Free Documentation License''.
 * XML input data format for @code{gama-local}::  
 * Network adjustment with @code{gama-local}::  
 * Data structures and algorithms::  
+
 * Copying This Manual::         The GNU Free Documentation License.
 * Concept Index::               
 @end menu
@@ -86,6 +87,8 @@ Free Documentation License''.
 @include gama-versions.texi
 
 @menu
+* Download::
+* Install::
 * Program @code{gama-local}::   
 * Contributors::                
 * Reporting bugs::              

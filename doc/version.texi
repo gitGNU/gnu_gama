@@ -1,4 +1,4 @@
-@set UPDATED 2003-09-17
+@set UPDATED 2003-10-31
 @set EDITION 0.12
 @set VERSION 1.7
 @set STABLEV gama-1-6
