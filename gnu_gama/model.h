@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: model.h,v 1.12 2004/01/17 17:19:33 cepek Exp $
+ *  $Id: model.h,v 1.13 2004/01/17 17:30:20 cepek Exp $
  */
 
 
@@ -52,7 +52,6 @@ namespace GNU_gama {
     virtual ~ObservationVisitor() {}
   };
   
-  template <class T> class Cluster;
 
   template <class Cluster, class Matrix, class Index=std::size_t>
   class Observation
