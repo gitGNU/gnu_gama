@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: residuals_observations.h,v 1.7 2004/03/18 17:07:01 cepek Exp $
+ *  $Id: residuals_observations.h,v 1.8 2004/04/19 18:00:17 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 #define GaMa_GaMaProg_Opravy_Pozorovani__h_
 
 #include <gamalib/local/network.h>
-#include <gamalib/statan.h>
+#include <gnu_gama/statan.h>
 #include <algorithm>
 #include <typeinfo>
 

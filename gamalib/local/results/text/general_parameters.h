@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: general_parameters.h,v 1.5 2003/06/14 15:00:22 cepek Exp $
+ *  $Id: general_parameters.h,v 1.6 2004/04/19 18:00:16 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Zakladni_Parametry_h_
@@ -29,7 +29,7 @@
 #include <iomanip>
 #include <gamalib/local/network.h>
 #include <gamalib/local/pobs/format.h>
-#include <gamalib/statan.h>
+#include <gnu_gama/statan.h>
 #include <gamalib/local/results/text/underline.h>
 #include <cstring>
 #include <typeinfo>

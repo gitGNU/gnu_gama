@@ -17,6 +17,7 @@ gnu_gama/xml/dataobject.cpp
 gnu_gama/xml/dataparser.cpp
 gnu_gama/xml/encoding.cpp
 gnu_gama/adj/adj.cpp
+gnu_gama/statan.cpp
 
 gamalib/c/api/capi_exception.cpp
 gamalib/c/api/capi_gkfparser.cpp
@@ -49,5 +50,4 @@ gamalib/observation/write/zangle.cpp
 gamalib/pointid.cpp
 gamalib/rand.cpp
 gamalib/skipcomm.cpp
-gamalib/statan.cpp
 gamalib/xml/gkfparser.cpp

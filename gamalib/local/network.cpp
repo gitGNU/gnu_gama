@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.13 2004/03/30 19:43:07 cepek Exp $
+ *  $Id: network.cpp,v 1.14 2004/04/19 18:00:16 cepek Exp $
  */
 
 #include <fstream>
@@ -33,7 +33,7 @@
 #include <gamalib/local/network.h>
 #include <gamalib/local/linearization.h>
 #include <gamalib/itstream.h>
-#include <gamalib/statan.h>
+#include <gnu_gama/statan.h>
 #include <gamalib/skipcomm.h>
 #include <gnu_gama/version.h>
 

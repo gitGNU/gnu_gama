@@ -20,14 +20,14 @@
 */
 
 /*
- *  $Id: error_ellipses.h,v 1.7 2004/04/12 17:55:41 cepek Exp $
+ *  $Id: error_ellipses.h,v 1.8 2004/04/19 18:00:16 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Elipsy_Chyb_h_
 #define GaMa_GaMaProg_Prehled_Elipsy_Chyb_h_
 
 #include <gamalib/local/network.h>
-#include <gamalib/statan.h>
+#include <gnu_gama/statan.h>
 #include <cmath>
 
 namespace GaMaLib {
@@ -132,14 +132,10 @@ void ErrorEllipses(GaMaLib::LocalNetwork* IS, OutStream& out)
                
                Double a, b, alfa;
                IS->std_error_ellipse(point_id, a, b, alfa);
-               if (y_sign == -1)
-                 {
-                   // 1.7.10 alfa = 2*M_PI - alfa;
-                   alfa -= M_PI/2;
-                   if (alfa < 0) alfa += M_PI;
-                   alfa = M_PI*3.0/2.0 - alfa;
-                   if (alfa >= M_PI) alfa -= M_PI;
-                 }
+               // if (y_sign == -1)
+               //   {
+               //     // 1.7.10 alfa = 2*M_PI - alfa;
+               //   }
                out.width(7);
                if (a < 1000)     
                  out.setf(ios_base::fixed, ios_base::floatfield);

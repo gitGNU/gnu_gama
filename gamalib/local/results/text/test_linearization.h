@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: test_linearization.h,v 1.8 2004/04/03 11:06:37 cepek Exp $
+ *  $Id: test_linearization.h,v 1.9 2004/04/19 18:00:18 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Test_Chyby_z_Linearizace_h_
@@ -30,7 +30,7 @@
 #include <gamalib/local/gamadata.h>
 #include <gamalib/local/network.h>
 #include <gamalib/local/pobs/bearing.h>
-#include <gamalib/statan.h>
+#include <gnu_gama/statan.h>
 #include <cmath>
 #include <algorithm>
 #include <typeinfo>

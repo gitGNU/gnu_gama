@@ -1,4 +1,4 @@
-@comment $Id: gama-local-adj.texi,v 1.5 2004/04/07 17:43:35 cepek Exp $
+@comment $Id: gama-local-adj.texi,v 1.6 2004/04/19 18:00:15 cepek Exp $
 
 @c @setfilename gama-local-adj.info
 
@@ -824,7 +824,8 @@ $$
 
 @end ifnottex
 @c % ----------------------------------------------------------------------
-
+The angle @gmat{\alpha} (the bearing of semimajor axis) is measured
+clockwise from X axis.
 
 
 Probability that standard ellipse covers real position of a point is

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: outlying_abs_terms.h,v 1.5 2004/03/28 16:52:11 cepek Exp $
+ *  $Id: outlying_abs_terms.h,v 1.6 2004/04/19 18:00:17 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vybocujici_Absolutni_Cleny_h_
@@ -29,7 +29,7 @@
 #include <iomanip>
 #include <gamalib/local/network.h>
 #include <gamalib/local/pobs/format.h>
-#include <gamalib/statan.h>
+#include <gnu_gama/statan.h>
 #include <gnu_gama/gon2deg.h>
 
 namespace GaMaLib {
@@ -148,7 +148,7 @@ void OutlyingAbsoluteTerms(GaMaLib::LocalNetwork* IS, OutStream& out)
 
                 throw GaMaLib::Exception(
                    "GaMa internal error - unknown observation\n"
-                   "$Id: outlying_abs_terms.h,v 1.5 2004/03/28 16:52:11 cepek Exp $");
+                   "$Id: outlying_abs_terms.h,v 1.6 2004/04/19 18:00:17 cepek Exp $");
               }
           }   // ************************************************
           
