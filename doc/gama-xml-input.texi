@@ -1,4 +1,4 @@
-@comment $Id: gama-xml-input.texi,v 1.7 2004/03/22 19:52:54 cepek Exp $
+@comment $Id: gama-xml-input.texi,v 1.8 2004/04/07 17:43:36 cepek Exp $
 
 @comment setfilename gama-xml-inp.info
 
@@ -44,7 +44,7 @@ In the @code{gama-local} XML input, distances are given in metres,
 angular values in centigrades and their standard deviations (rms
 errors) in millimetres or centigrade seconds, respectively.
 Alternatively angular values in @code{gama-local} XML input can be
-given in degrees and seconds; @pxref{Angular units}.  At the end of
+given in degrees and seconds (@pxref{Angular units}).  At the end of
 this document an example of the @code{gama-local} XML input data
 object is given.
 
@@ -258,6 +258,14 @@ absolute terms in project equations (default value 1000 mm)
 @code{sigma-act = "apriori"}  actual type of reference standard deviation
 use in statistical tests (@code{aposteriori | apriori}); default value
 is @code{apriori}
+
+@item
+@code{update-constrained-coordinates = "no"} enables user to control
+if coordinates of constrained points are updated in iterative
+adjustment. If test on linerarization fails (@pxref{Linearization}),
+Gama tries to improve approximate coordinates of adjusted points and
+repeats the whole adjustment. Coordinates of constrained points are
+implicitly not changed during iterations.
 @end itemize
 
 @noindent
@@ -275,7 +283,8 @@ between attribute names, values, and the @emph{equal} sign.
 @example
 <parameters sigma-apr = "15"
             conf-pr   = '0.90' 
-            sigma-act = "apriori"/>
+            sigma-act = "apriori"
+            update-constrained-coordinates = "no" />
 @end example
 
 
@@ -306,6 +315,10 @@ observed direction (default value is not defined)
 @item 
 @code{angle-stdev = "@dots{}"} defines the implicit value of observed
 angle (default value is not defined)
+
+@item 
+@code{zenith-angle-stdev = "@dots{}"} defines the implicit value of
+observed zenith angle (default value is not defined)
 
 @item 
 @code{distance-stdev = "@dots{}"} defines the implicit value of observed

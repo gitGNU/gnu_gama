@@ -1,5 +1,5 @@
 \input texinfo   @c -*-texinfo-*-
-@comment $Id: gama.texi,v 1.10 2004/03/03 17:06:15 cepek Exp $
+@comment $Id: gama.texi,v 1.11 2004/04/07 17:43:37 cepek Exp $
 
 @comment Part 1 : Header
 
@@ -110,11 +110,13 @@ Free Documentation License''.
 
 @node    Program @code{gama-local}
 @section Program @code{gama-local}
+@cindex  @code{gama-local}
 @include gama-local.texi
 
 
 @node    Program @code{gama-g3}
 @section Program @code{gama-g3}
+@cindex  @code{gama-g3}
 @include gama-g3.texi
 
 
@@ -124,32 +126,36 @@ Free Documentation License''.
 
 
 The following persons (in chronological order) have made contributions
-to GNU Gama
+to GNU Gama project: 
+@c
+Ales Cepek, Jiri Vesely, Petr Doubrava, Jan Pytel, Chuck Ghilani, Dan
+Haggman, Mauri Vaisanen, John Dedrum and Jim Sutherland.
 
-@itemize @bullet
-@item
-Ales Cepek @code{<cepek@@fsv.cvut.cz>} (Dept. of Mapping and
-Cartography, CTU Prague)
 
-@item
-Jiri Vesely @code{<vesely@@gama.fsv.cvut.cz>} (CTU Prague)
-
-@item
-Petr Doubrava @code{<petr@@gepro.cz>} (Gepro a.s.)
-
-@item
-Jan Pytel @code{<pytel@@gama.fsv.cvut.cz>} (CTU Prague)
-
-@item
-Chuck Ghilani (Surveying Program Chair, Penn State Wilkes-Barre)
-
-@item 
-Dan Haggman and Mauri Vaisanen (Helsinki University of Technology)
-
-@item 
-John Dedrum (Dutch translation for @code{gama-local})
-
-@end itemize
+@c @itemize @bullet
+@c @item
+@c Ales Cepek @code{<cepek@@gnu.org>} (Dept. of Mapping and
+@c Cartography, CTU Prague)
+@c 
+@c @item
+@c Jiri Vesely @code{<vesely@@gama.fsv.cvut.cz>} (CTU Prague)
+@c 
+@c @item
+@c Petr Doubrava @code{<petr@@gepro.cz>} (Gepro a.s.)
+@c 
+@c @item
+@c Jan Pytel @code{<pytel@@gama.fsv.cvut.cz>} (CTU Prague)
+@c 
+@c @item
+@c Chuck Ghilani (Surveying Program Chair, Penn State Wilkes-Barre)
+@c 
+@c @item 
+@c Dan Haggman and Mauri Vaisanen (Helsinki University of Technology)
+@c 
+@c @item 
+@c John Dedrum (Dutch translation for @code{gama-local})
+@c 
+@c @end itemize
 
 
 @node     Reporting bugs
@@ -166,7 +172,7 @@ please send a bug report to
 @noindent
 We will try to be as quick as possible in fixing the bugs and
 redistributing the fixes. If you prefere, you can always write
-directly to @uref{mailto:cepek@@fsv.cvut.cz, Ales Cepek}.
+directly to @uref{mailto:cepek@@gnu.org, Ales Cepek}.
 
 @c ----------------------------------------------------------------------
 

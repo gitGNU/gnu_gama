@@ -1,4 +1,4 @@
-@comment $Id: gama-local-adj.texi,v 1.4 2004/03/30 19:43:07 cepek Exp $
+@comment $Id: gama-local-adj.texi,v 1.5 2004/04/07 17:43:35 cepek Exp $
 
 @c @setfilename gama-local-adj.info
 
@@ -1515,7 +1515,8 @@ and testing of numerical solutions produced by other programs.
 
 Implicitly coordinates of constrained points are not changed in
 iterative adjustments. This feature can be changed in XML input data
-by setting @code{<parameters update-constrained-coordinates="yes" />}.
+by setting @code{<parameters update-constrained-coordinates = "yes" />}
+(@pxref{Network parameters}).
 
 
 Iterated adjustement with successive improvement of approximate
