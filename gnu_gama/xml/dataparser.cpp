@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.14 2004/01/01 23:24:51 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.15 2004/01/05 19:07:12 cepek Exp $
  */
 
 // #########################################################################
@@ -683,7 +683,7 @@ DataParser::data_tag DataParser::tag(const char* c)
 // *****************************************************************
 
 int DataParser::parser_error(const char *name, const char **atts)
-{
+{  
   return error(string("### tag <") + string(name) 
                + string("> cannot be used in this context"));
 }
@@ -751,7 +751,7 @@ int DataParser::g3_to(const char *name)
 int DataParser::g3_get_float(const char *name, double& d)
 {
   istringstream inp(text_buffer.c_str());
-  if (inp >> d)                // ### add test here on trailing junk !!! 
+  if (pure_data(inp >> d)) 
     {
       text_buffer.erase();
 
@@ -778,6 +778,17 @@ int DataParser::g3_stdev(const char *name)
 int DataParser::g3_variance(const char *name) 
 { 
   return g3_get_float(name, g3variance);
+}
+
+bool DataParser::pure_data(std::istream& istr)
+{
+  if (istr.eof()) return true;
+
+  char j;
+  if (istr >> j)
+    return false;  // trailing junk in data
+  else
+    return true;
 }
 
 // ......  <gnu-gama-data>  ................................................
@@ -844,7 +855,7 @@ int DataParser::sparse_mat_nonz(const char *name)
 {
   std::size_t  rows, cols;
   istringstream inp(text_buffer.c_str());
-  if (inp >> rows >> cols >> adj_sparse_mat_nonz)
+  if (pure_data(inp >> rows >> cols >> adj_sparse_mat_nonz))
     {
       text_buffer.erase();
       adj_sparse_mat = 
@@ -872,7 +883,7 @@ int DataParser::sparse_mat_row(const char *name)
 int DataParser::sparse_mat_row_n(const char *name)
 {
   istringstream inp(text_buffer.c_str());
-  if (inp >> adj_sparse_mat_row_nonz)
+  if (pure_data(inp >> adj_sparse_mat_row_nonz))
     {
       text_buffer.erase();
       return end_tag(name);
@@ -886,7 +897,7 @@ int DataParser::sparse_mat_row_f(const char *name)
   std::size_t  indx;
   double       flt;
   if (adj_sparse_mat_nonz-- && adj_sparse_mat_row_nonz--)
-    if (inp >> indx >> flt)
+    if (pure_data(inp >> indx >> flt))
       {
         adj_sparse_mat->add_element(flt, indx);
         text_buffer.erase();
@@ -908,7 +919,7 @@ int DataParser::block_diagonal(const char *name)
 int DataParser::block_diagonal_nonz(const char *name)
 {
   istringstream inp(text_buffer.c_str());
-  if (inp >> block_diagonal_blocks_ >> block_diagonal_nonz_)
+  if (pure_data(inp >> block_diagonal_blocks_ >> block_diagonal_nonz_))
     {
       text_buffer.erase();
       adj_block_diagonal = new BlockDiagonal<> 
@@ -922,7 +933,7 @@ int DataParser::block_diagonal_block_w(const char *name)
 {
   istringstream inp(text_buffer.c_str());
   std::size_t dim, width;
-  if ((inp >> dim >> width) && dim>0 && width>=0 && width<dim)
+  if (pure_data(inp >> dim >> width) && dim>0 && width>=0 && width<dim)
     {   
       block_diagonal_dim   = dim;
       block_diagonal_width = width;
@@ -943,7 +954,7 @@ int DataParser::block_diagonal_vec_flt(const char *name)
 
   double flt;
   istringstream inp(text_buffer.c_str());
-  if (inp >> flt)
+  if (pure_data(inp >> flt))
     {
       bd_vector_dim--;
       block_diagonal_nonz_--;
@@ -984,7 +995,7 @@ int DataParser::vector(const char *name)
 int DataParser::vector_dim(const char *name)
 {
   istringstream inp(text_buffer.c_str());
-  if (inp >> adj_vector_dim)
+  if (pure_data(inp >> adj_vector_dim))
     {
       text_buffer.erase();
       adj_vector.reset(adj_vector_dim);
@@ -1003,7 +1014,7 @@ int DataParser::vector_flt(const char *name)
 
   double flt;
   istringstream inp(text_buffer.c_str());
-  if (inp >> flt)
+  if (pure_data(inp >> flt))
     {
       adj_vector_dim--;
       text_buffer.erase();
@@ -1026,7 +1037,7 @@ int DataParser::array(const char *name)
 int DataParser::array_dim(const char *name)
 {
   istringstream inp(text_buffer.c_str());
-  if (inp >> adj_array_dim)
+  if (pure_data(inp >> adj_array_dim))
     {
       text_buffer.erase();
       adj_array = new IntegerList<>(adj_array_dim);
@@ -1044,7 +1055,7 @@ int DataParser::array_int(const char *name)
 
   int index;
   istringstream inp(text_buffer.c_str());
-  if (inp >> index)
+  if (pure_data(inp >> index))
     {
       adj_array_dim--;
       text_buffer.erase();
@@ -1258,10 +1269,8 @@ int DataParser::g3_obs(const char *name, const char **atts)
 int DataParser::g3_obs(const char *name)
 {
   using namespace g3;
-  g3obs_cluster->covariance_matrix.dim();
-  g3obs_cluster->covariance_matrix.bandWidth();
-  int cov_dim = g3obs_cluster->covariance_matrix.dim();
-  int obs_dim = g3var_list.size();
+  int cov_dim  = g3obs_cluster->covariance_matrix.dim();
+  int obs_dim  = g3var_list.size();
 
   if (cov_dim == 0)
     {
@@ -1277,13 +1286,14 @@ int DataParser::g3_obs(const char *name)
           ++ivar;
         }
     }
-  
+
   for (int N=g3obs_cluster->covariance_matrix.dim(), i=1; i<=N; i++)
     if(g3obs_cluster->covariance_matrix(i,i) <= 0)
       return error("### zero or negative variance");
-  
-  // ??????? g3obs_cluster->update();
 
+  g3obs_cluster->update();
+
+  g3obs_cluster->write_xml(std::cerr);
   g3model->obsdata.CL.push_back(g3obs_cluster);
   g3var_list.clear();
 
@@ -1294,15 +1304,20 @@ int DataParser::g3_obs_cov(const char *name)
 {
   using namespace g3;
   stringstream istr(text_buffer);
-  int d, b;
+  int     d, b;
+  double  f;
+
   if (!(istr >> d >> b))  return error("### bad cov-mat");
 
   g3obs_cluster->covariance_matrix.reset(d, b);
-  for (int i=1; i<=d; i++)
-    {
-      cerr << i << " opravit XXX\n";
-      g3obs_cluster->covariance_matrix(i,i) = 10 + i;
-    }
+  for (int i=1; i<=d; i++)          // upper triangular matrix by rows
+    for (int j=i; j<=i+b && j<=d; j++)
+      if (istr >> f)
+        g3obs_cluster->covariance_matrix(i,j) = f;
+      else
+        return error("### bad cov-mat / some data missing");
+
+  if (!pure_data(istr)) return error("### bad cov-mat / redundant data");
 
   text_buffer.clear();
   return  end_tag(name);

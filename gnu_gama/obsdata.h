@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.10 2003/11/06 17:58:58 cepek Exp $
+ *  $Id: obsdata.h,v 1.11 2004/01/05 19:07:12 cepek Exp $
  */
 
 
@@ -42,6 +42,7 @@ namespace GNU_gama {
     {
     public:
       
+      typedef Observation                  ObservationType;  
       const ObservationData<Observation>*  observation_data;
       List<Observation*>                   observation_list;
       typename Observation::Cov            covariance_matrix;  
@@ -84,6 +85,7 @@ namespace GNU_gama {
     {
     public:    
 
+      typedef Observation           ObservationType;  
       typedef Cluster<Observation>  ClusterType;
       typedef List<ClusterType*>    ClusterList;
       ClusterList                   CL;

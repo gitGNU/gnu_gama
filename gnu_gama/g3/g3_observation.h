@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.6 2003/12/29 19:43:51 uid66336 Exp $
+ *  $Id: g3_observation.h,v 1.7 2004/01/05 19:07:12 cepek Exp $
  */
 
 
@@ -41,7 +41,6 @@ namespace GNU_gama {  namespace g3 {
   public:
 
     typedef GNU_gama::Cov Cov;
-
   };
 
 

@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: gama-g3.cpp,v 1.4 2004/01/01 23:24:51 cepek Exp $
+ * $Id: gama-g3.cpp,v 1.5 2004/01/05 19:07:12 cepek Exp $
  */
 
 #include <fstream>
@@ -95,6 +95,14 @@ namespace
           }
         parser.xml_parse("", 0, 1);
       }
+    catch(const GNU_gama::Exception::parser& p)
+      {
+        std::cerr << "\nXML parser error on line " << p.line 
+                  << " of input data  "
+                  << "\t(error code " << p.error_code << ")\n"
+                  << p.str << "\n\n";
+        return 0;
+      }
     catch(...)
       {
         error("catch ... ");
@@ -106,14 +114,14 @@ namespace
     GNU_gama::List<GNU_gama::DataObject::Base*>::iterator e = objects.end();
     while (i != e)
       {
-        if (GNU_gama::DataObject::g3_model* m
+         if (GNU_gama::DataObject::g3_model* m
             = dynamic_cast<GNU_gama::DataObject::g3_model*>(*i))
           {
             if (model) delete model;   // this should never happen
             model =  m->model;
           }
 
-        std::cerr << (*i)->xml() << std::endl;
+         std::cerr << (*i)->xml() << std::endl;
         delete *i;
         ++i;
       }
@@ -131,7 +139,7 @@ int main(int argc, char* argv[])
   using namespace GNU_gama::g3;
 
   Model* model = get_xml_input(input);
-  if (model == 0) return error("error on reading XML input data");
+  if (model == 0) return 0; // ??? error("error on reading XML input data");
   
   if (model) 
     {

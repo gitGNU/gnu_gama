@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.14 2004/01/01 23:24:51 cepek Exp $
+ *  $Id: dataparser.h,v 1.15 2004/01/05 19:07:12 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -306,7 +306,8 @@ namespace GNU_gama {
                 int next_state, int end_state, int after_state,
                 Stag, Data, Etag,
                 int end_state2=0);
-      int g3_get_float (const char *name, double&);
+      int  g3_get_float (const char *name, double&);
+      bool pure_data(std::istream&);   // test for trailing junk in input data
 
 
       // DataObject::g3_model

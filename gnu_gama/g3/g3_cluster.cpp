@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_cluster.cpp,v 1.1 2003/12/29 19:43:51 uid66336 Exp $
+ *  $Id: g3_cluster.cpp,v 1.2 2004/01/05 19:07:12 cepek Exp $
  */
 
 
@@ -33,8 +33,38 @@ void ObsCluster::write_xml(std::ostream& out) const
 {
   out << "\n<obs>\n";
 
-  out << "<!--  ObsCluster .... not finished !!! -->\n";
+  List<ObservationType*>::const_iterator i = observation_list.begin();
+  List<ObservationType*>::const_iterator e = observation_list.end();
+  while (i != e)
+    {
+      const ObservationType* obs = (*i);
 
+      if (const Distance* distance = dynamic_cast<const Distance*>(obs))
+        {
+          out << "<distance>\n  "
+              << " <from>" << distance->from  << "</from>"
+              << " <to>"   << distance->to    << "</to>"
+              << " <val>"  << distance->obs() << "</val>\n"
+              << "   </distance>\n";
+        }
+
+      ++i;
+    }
+
+  const int dim  = covariance_matrix.dim();
+  const int band = covariance_matrix.bandWidth();
+  out << "\n<cov> "
+      << "<dim>"  << dim  << "</dim> "
+      << "<band>" << band << "</band>\n";
+  for (int i=1; i<=dim; i++)
+    {
+      for (int j=i; j<=i+band && j<=dim; j++)
+        {
+          out << "<flt>" << covariance_matrix(i,j) <<  "</flt> ";
+        }
+      out << "\n";
+    }
+  out << "</cov>\n";
   out << "</obs>\n";
 }
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.21 2003/12/28 16:42:34 uid66336 Exp $
+ *  $Id: g3_model.cpp,v 1.22 2004/01/05 19:07:12 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -81,9 +81,7 @@ void Model::write_xml(std::ostream& out) const
   out.setf(ios_base::fixed, ios_base::floatfield);
   out.precision(5);
 
-  out 
-    << DataParser::xml_start
-    << "<g3-model>\n";
+  out << "<g3-model>\n";
 
   {
     out << "\n";
@@ -131,20 +129,19 @@ void Model::write_xml(std::ostream& out) const
   }
   
   {
-    for (Model::ObservationData::ClusterList::const_iterator
-           b = obs->CL.begin(), e=obs->CL.end();  b != e;  ++b)
-      if (const g3Cluster* c = dynamic_cast<const g3Cluster*>(*b))
+    ClusterList::const_iterator i = obsdata.CL.begin();
+    ClusterList::const_iterator e = obsdata.CL.end();
+    while (i != e)
       {
-        
-         c->write_xml(out);
+        if (const g3Cluster* c = dynamic_cast<const g3Cluster*>(*i))
+          {
+            c->write_xml(out);
+          }
+        ++i;
       }
-
   }
 
-  out 
-    << "\n</g3-model>\n"
-    << DataParser::xml_end;
-;
+  out << "\n</g3-model>\n";
 }
 
 
