@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.h,v 1.7 2004/03/15 18:58:33 cepek Exp $
+ *  $Id: network.h,v 1.8 2004/03/29 12:06:51 cepek Exp $
  */
 
 // LocalNetwork - Network Informations class (Informace o siti)
@@ -245,8 +245,8 @@ namespace GaMaLib
 
       bool gons()    const { return  gons_; }
       bool degrees() const { return !gons_; }     
-      void set_gons()      { gons_ = true;  }
-      void set_degrees()   { gons_ = false; }
+      void set_gons()      { gons_ = true;  Observation::gons = true;  }
+      void set_degrees()   { gons_ = false; Observation::gons = false; }
 
       // #####################################################################
 

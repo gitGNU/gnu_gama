@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.26 2004/03/28 16:52:11 cepek Exp $
+ *  $Id: version.cpp,v 1.27 2004/03/29 12:06:51 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.09-pre-b";
+const char* GNU_gama_version  = "1.7.09-pre-c";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -63,6 +63,16 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.09-pre 2004-.....
+
+    - added static data member 'bool gons' in GaMaLib::Observation
+      class to enable simple selection of output format in virtual
+      functions GaMaLib::Observation::write (this is a dirty hack but
+      I want to minimize changes in old GaMaLib)
+
+      The value of Observation::gons is set in gama-local on startup
+      by GaMaLib::Network functions set_gons() and/or set_degrees()
+
+      Implicit value of Observation::gons is true
 
     - three bugs removed by Jan Pytel (approx. coordinates and new 360
       degrees output):

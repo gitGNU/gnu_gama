@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.h,v 1.13 2004/02/02 17:07:49 cepek Exp $
+ *  $Id: observation.h,v 1.14 2004/03/29 12:06:51 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_Mereni_H
@@ -108,6 +108,7 @@ namespace GaMaLib {
         }
 
       virtual void write(std::ostream&, bool print_at) const = 0;
+      static  bool gons;   // added in 1.7.09 
 
       // instrument / reflector height
 

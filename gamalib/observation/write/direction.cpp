@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: direction.cpp,v 1.2 2003/11/06 17:58:58 cepek Exp $
+ *  $Id: direction.cpp,v 1.3 2004/03/29 12:06:51 cepek Exp $
  */
 
 #include <iostream>
@@ -28,21 +28,30 @@
 #include <gamalib/observation.h>
 #include <gamalib/local/pobs/bearing.h>
 #include <gamalib/local/pobs/format.h>
+#include <gnu_gama/gon2deg.h>
 
 using namespace GaMaLib;
 using namespace std;
 
-
 void Direction::write(std::ostream& out, bool print_at) const
 {
-  using namespace std;
   out << "<direction";
   if (print_at)
     out << " from=\"" << from() << '"';
-  out << " to=\"" << to() << '"'
-      << " val=\""   << setprecision(Format::gon_p()  ) << value()*R2G << '"';
+
+  out << " to=\"" << to() << '"' << " val=\"";   
+  if (Observation::gons)
+    out << setprecision(Format::gon_p()  ) << value()*R2G;
+  else
+    out << GNU_gama::gon2deg(value()*R2G, 2, Format::gon_p());
+  out << '"';
+
   if (check_std_dev())
-    out << " stdev=\"" << setprecision(Format::stdev_p()) << stdDev() << '"';
+    {
+      double stddev = Observation::gons ? stdDev() : stdDev()*0.324;
+      out << " stdev=\"" << setprecision(Format::stdev_p()) << stddev << '"';
+    }
+
   out << " />";
 }
 

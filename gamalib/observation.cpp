@@ -20,12 +20,22 @@
 */
 
 /*
- *  $Id: observation.cpp,v 1.4 2003/11/06 17:58:57 cepek Exp $
+ *  $Id: observation.cpp,v 1.5 2004/03/29 12:06:51 cepek Exp $
  */
 
 #include <gamalib/observation.h>
 #include <gamalib/cluster.h>
 #include <typeinfo>
+
+namespace GaMaLib 
+{
+  // the static member Observation::gons was introduced in 1.7.09 to
+  // enable selection between grades and degrees in virtual functions
+  // Observation::write() with minimal changes in existing old code of
+  // GaMaLib
+
+  bool Observation::gons = true;
+}
 
 using namespace GaMaLib;
 using namespace std;
