@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.24 2002/06/11 12:12:58 cepek Exp $
+ *  $Id: version.cpp,v 1.25 2002/06/11 17:01:44 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.5.00";
+const char* GaMaLib_version  = "1.5.01-pre";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
@@ -56,6 +56,11 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.5.01-pre
+
+     - initial draft of ellipsoid classes
+
 
 1.5.00 2002-06-11
 
