@@ -20,12 +20,12 @@
 */
 
 /*
- *  $Id: bandmat2.h,v 1.4 2003/08/14 16:20:25 cepek Exp $
+ *  $Id: bandmat2.h,v 1.5 2004/06/12 19:21:59 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
-#ifndef gMatVec_Symmetric_Band_Matrix__H_
-#define gMatVec_Symmetric_Band_Matrix__H_
+#ifndef gMatVec_Symmetric_Band_Matrix_2__H_
+#define gMatVec_Symmetric_Band_Matrix_2__H_
 
 #include <gmatvec/gmatvec.h>
 #include <gmatvec/choldec.h>
