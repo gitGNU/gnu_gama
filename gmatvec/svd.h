@@ -1,6 +1,6 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.19pre.2)
-    Copyright (C) 1999, 2001, 2002  Ales Cepek <cepek@fsv.cvut.cz>
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.19)
+    Copyright (C) 1999, 2001  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: svd.h,v 1.8 2002/07/07 14:32:33 cepek Exp $
+ *  $Id: svd.h,v 1.9 2002/07/11 20:54:15 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -38,11 +38,11 @@ namespace gMatVec {
 
      SVD is based on the fortran SVD source from package CMLIB
 
-     C * ======================================================================
+     C * =====================================================================
      C * NIST Guide to Available Math Software.
      C * Source for module SVD from package CMLIB.
      C * Retrieved from ARNO on Thu Oct 29 08:04:40 1998.
-     C * ======================================================================
+     C * =====================================================================
      SUBROUTINE SVD(NM,M,N,A,W,MATU,U,MATV,V,IERR,RV1)
      C***BEGIN PROLOGUE  SVD
      C***REFER TO  EISDOC
@@ -56,7 +56,7 @@ namespace gMatVec {
      C     A=USV  of a REAL M by N rectangular matrix.  Householder
      C     bidiagonalization and a variant of the QR algorithm are used.
 
-     --------------------------------------------------------------------------
+     ------------------------------------------------------------------------- 
 
      2001-02-30  (AC) Occasional problems with SVD convergence:
 
@@ -66,8 +66,7 @@ namespace gMatVec {
      ISBN 0-13-822585-0, pp. 341 (QRBD : App. C, 298--300).
 
 
-
-     2002-07-05  (AC) problems with SVD convergence (hopefully) solved:
+     2002-07-05  (AC) problems with SVD convergence:
 
      Three tests for convergence had to be rewritten to explicitly
      use a temporary variable s2:
@@ -87,20 +86,7 @@ namespace gMatVec {
         >    s2 = s1 + ABS(f); 
         >    if (s1 == s2) goto test_for_convergence;
 
-     The problems occured sometimes with GNU g++ 2.95.2 and Borland
-     C++ 5.5 (bcc32) compilers (but not with the MS VC++ 6.0
-     compiler).  
-
-     Acording to `info gcc' on 68000 and x86 systems this results from
-     the fact that the floating point registers hold a few more bits
-     of precision than fit in a `double' in memory.  Compiled code
-     moves values between memory and floating point registers at its
-     convenience, and moving them into memory truncates them.
-     
-     This insidious bug was detected thanks to the thorough testing
-     and analysis by Christopher T. Fallen <ctfallen@math.ukans.edu>
-
-     ------------------------------------------------------------------------- */
+     ----------------------------------------------------------------------- */
 
   template <class Float=double, class Exc=Exception>
     class SVD {
@@ -203,7 +189,7 @@ namespace gMatVec {
               else
                 eps_max = eps;
             } while (ABS(eps - eps_1)/eps > 0.1);
-          W_tol = sqrt(eps);
+          W_tol = 1000*eps;
         }
 
       Float vmax = 0;

@@ -1,3 +1,37 @@
+0.9.19 2002-07-11
+
+       - Three tests for convergence in svd.h had to be rewritten to
+         explicitly use a temporary variable s2:
+
+            <    if ((s1 + ABS(rv1[L])) == s1) goto test_for_convergence;
+            ---  
+            >    s2 = s1 + ABS(rv1[L]); 
+            >    if (s1 == s2) goto test_for_convergence;
+                 
+            <    if (s1 + (ABS(W[L1])) == s1) break;
+            ---  
+            >    s2 = s1 + ABS(W[L1]); 
+            >    if (s1 == s2) break;
+                 
+            <    if (s1 + (ABS(f)) == s1) goto test_for_convergence;
+            ---  
+            >    s2 = s1 + ABS(f); 
+            >    if (s1 == s2) goto test_for_convergence;
+
+         Convergence problems occured sometimes with GNU g++ 2.95.2
+         and Borland C++ 5.5 (bcc32) compilers (but not with the MS
+         VC++ 6.0 compiler).
+
+         Acording to `info gcc' on 68000 and x86 systems this results
+         from the fact that the floating point registers hold a few
+         more bits of precision than fit in a `double' in memory.
+         Compiled code moves values between memory and floating point
+         registers at its convenience, and moving them into memory
+         truncates them.
+     
+         This insidious bug was detected thanks to the thorough testing 
+         and analysis by Christopher T. Fallen <ctfallen@math.ukans.edu>
+
 0.9.18 2002-04-10
 
        - Added new class Jacobian. Template class Jacobian computes

@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.18)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.19)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: vecbase.h,v 1.5 2002/04/10 16:19:59 cepek Exp $
+ *  $Id: vecbase.h,v 1.6 2002/07/11 20:54:15 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
