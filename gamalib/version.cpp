@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.50 2003/02/01 16:12:04 cepek Exp $
+ *  $Id: version.cpp,v 1.51 2003/02/01 17:33:25 cepek Exp $
  */
 
 
@@ -74,8 +74,6 @@ const char* GaMaLib_compiler =
      coordinates, program gama-g3) is going to continue in the CVS
      main trunk.
 
-
-1.5.09 2002-01-19
 
     - Jan Pytel: reduction of observations with nonzero heights of
       instrument and/or target in gama-local
