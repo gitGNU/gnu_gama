@@ -1,0 +1,11 @@
+MISSING FUNCTIONALITY WITH LOWER PRIORITY:
+
+* replace error ellipses for points with XYZ coordinates with 3D
+  characteristics
+
+* GUI based on Qt library
+
+* better documentation and web pages
+
+* adjustment in global coordinate system
+

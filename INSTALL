@@ -1,0 +1,29 @@
+Project GaMa source code can be downloaded from
+
+         http://gama.fsv.cvut.cz/gama/archive/gamalib/1.3/
+
+or any later version.
+
+For parsing XML input, gamalib uses parser expat v. 1.1 copyrighted by
+James Clark, which can downloaded directly from
+
+                   ftp://ftp.jclark.com/pub/xml/expat.zip
+
+or a copy from
+
+           http://gama.fsv.cvut.cz/gama/archive/expat/expat.zip
+
+Place the parser source into subdirectory `expat' located in the same
+directory in which are located subdirectories `gamalib', `gmatvec',
+etc. and run 
+                   make build 
+                   make example
+
+Project GaMa was developed and tested under Debian GNU/Linux 2.2.
+Apart from g++, the project was tested with bcc32 (Borland free
+command line tools) and with MS Visual C++ (not the latest versions).
+
+
+
+
+

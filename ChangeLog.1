@@ -1,0 +1,2645 @@
+/*
+
+ $Id: ChangeLog.1,v 1.1 2001/12/07 11:25:04 cepek Exp $
+
+
+See ChangeLog file for newer changes
+====================================
+
+
+1.3.28  2001-11-30
+
+   C API to gamalib C++ classes and functions (see gamalib/c/api/capi_demo.c)
+   ******************************************
+
+   - Functions for printing formatted output were moved from
+                gamaprog/linux/gama/review 
+     to new location
+                gamalib/local/results/text.  
+
+     It is planned for future versions to produce adjustment results
+     in XML (functions in directory local/results/xml) and current
+     text functions shell be rewritten to process the XML data as
+     their input
+
+
+1.3.27  2001-11-28
+
+   - bug in GKFparser / zero reference standard deviation m0 etc. in
+     XML input (Jan Pytel)
+
+   - program `slovnikar' changed to generate all undefined texts set to
+     "internal error : program must call function set_gama_language()"
+
+
+1.3.26  2001-11-24
+
+   - slope distances with corresponding zenith angles are used to fake
+     horizontal distances when computing approximate coordinates xy
+     (internaly in class Acord)
+
+   - GKFparser class member functions
+
+        double implicit_stdev_distance(double d) const;
+        double implicit_stdev_direction() const;
+        double implicit_stdev_angle() const;
+
+     declared to be public (were private)
+
+
+1.3.25  2001-11-22
+
+   - bug in `approximate coordinates' (when creating a local
+     approximate coordinates object all observations were copied and
+     not only horizontal observations, ie not only horizontal
+     distances, directions and angles)
+
+        diff -r1.2 g2d_coordinates.h
+        137c137
+        <           OD.for_each(Observation::CopyTo(SM));
+        ---
+        >           OD.for_each(Observation::CopyHorizontalTo(SM));
+
+
+1.3.24  2001-11-17
+
+   - added directory gamalib/c/api for C API interface functions to
+     gamalib and basic functions for handling GaMaLib C++ exceptions
+     from C.
+
+     Include <gamalib/c_api.h> for C API interface to GaMaLib
+
+   - program gama doesn't cut off input characters before tag
+     <?xml...?> and after </gama-xml> tag (from this version, this must
+     be done outside `gama')
+
+   - into function GKFparser::error(const char* text) added test
+
+        diff -r1.20 gkfparser.h
+        169a170,172
+        >           // store only the first detected error
+        >           if(errCode) return 1;
+
+     When debugging C API to GaMaLib, C program `capi_demo' reported
+     different error messages then `gama'. The reason was that `gama'
+     reads XML input by lines and C `capi_demo' reads input into a
+     buffer (1024 chars).  Expat detected the error, but continued
+     processing the whole buffer and thus `capi_demo' reported the
+     last error detected by `expat'.
+
+
+1.3.23  2001-11-03
+
+   - remaining Czech comments translated to English
+
+   - subdirectory gamalib/local/nacrt was removed. "nacrt" (sketch)
+     contained classes for producing network sketch in xfig format and
+     it was used in gama only as a conditional compile. I decided to
+     removed it now because translating comments would not be enough,
+     it needs all class and function names to be translated to English
+     and the more, it needs update to reflect different orientation of
+     coordinate axes. I would like to put it back when it is all in
+     English but I want to discuss it with its author first (Jan Pytel
+     is now bussy with Qt based GUI and "sketch" can wait)
+
+   - added warning message (appended to network description) if
+     obsoleted GaMa XML attributes are used (see GKFparser.cpp)
+
+   - renamed Format class members (output precisions in fixed format):
+
+         diff -r1.2 format.h         # cvs diff ... edited/shorten
+         33,35c33,35
+         <   static int souradnice_p;
+         <   static int grady_p;
+         <   static int str_chyby_p;
+         ---
+         >   static int coordinates_p;
+         >   static int centesimal_degrees_p;
+         >   static int standard_deviations_p;
+         39c39
+         <   static int sour_p(int n = souradnice_p)
+         ---
+         >   static int coord_p(int n = coordinates_p)
+         45c45
+         <   static int grad_p(int n = grady_p)
+         ---
+         >   static int gon_p(int n = centesimal_degrees_p)
+         51c51
+         <   static int str_p(int n = str_chyby_p)
+         ---
+         >   static int stdev_p(int n = standard_deviations_p)
+
+
+1.3.22  2001-11-02
+
+   - Former (sub)library Median is now considered to be integral part of
+     GaMaLib,
+
+         extern const char* GaMaLib_Median_version; 
+
+     is no longer used.  Here comes the English translation of Median
+     changelog (zmeny.cpp):
+
+     # 0.7.6 2000-07-18 
+     #       - renamed classes PointData a ObservationList; see changes
+     #       in gamalib-1.1.09 and following (AC)
+     # 0.7.5 2000-04-26 
+     #       - added blocks try/catch in methods of Vypocet, see
+     #       g_fce.cpp (AC)
+     # 0.7.4 1999-12-12
+     #       - removed conditional compile directives NonStdCpp and
+     #       similar minor changes.  
+     #       - a change in Vyber_reseni::Vypocet()
+     # 0.7.3 1999-07-09
+     #       - removed func. PtrSmer etc. see GaMaLib 0.9.14 (AC)
+     # 0.7.2 1999-07-06
+     #       - pribl_b.h / function ZnameStan(SezMer::const_iterator)
+     #       For testing of orientation shift must be called function
+     #       test_z(int), testing the number of orientation shifts is
+     #       not correct (AC)
+     # 0.7.1 1999-06-18
+     #       - bug: infinite loop in PriblSour::Vypocetni_cyklus()
+     # 0.7.0 1999-06-15 
+     #       - removed a bug in multiple orientation shifts
+     # 0.6.1 1999-05-31 
+     #       - removed a lesser bug in PriblSour::Pocitej_vetknuti()
+     # 0.6.0 1999-05-29
+     #       - into class PriblSour added functions: SezMer Vypoctene()
+     #       returns list of computed points; SezCB Nevypoctene() list
+     #       of points for which compution of coordiantes failed
+     # 0.5.0 1999-05-23
+     #       - Long jump in version numbering. Basic functionality is
+     #       more or less finished, can cope with "inserted" (sticked
+     #       in) configurations. For transformation from local
+     #       coordinate system, similarity transformation with minimum
+     #       of identical points is used.
+     # 0.1.0 1999-02-21
+     #       - added class PriblSour; only inserted polygons (travers)
+     #       are missing
+     # 0.0.6 1999-02-17
+     #     - corrected bug in Kruznice::Vypocet() (double value of
+     #     angles was used)
+     # 
+     # 0.0.5 1998-08-18
+     #    - PriblSeznam renamed to PriblSour, general method Vypocet
+     #    [computation] for all unknowns, point list, single point;
+     #    interface for approximate coordinates should be stable from
+     #    now
+     # 0.0.4 1998-08-02
+     #    - Change in computation of resulting coordinates; median is
+     #    used instead of average
+     # 0.0.3
+     #    - another constructor and method Vypocet() with different
+     #    number of parameters in Pribl_bod
+     # 0.0.2
+     #    - Dynamic_cast removed and functions PtrDelka(), PtrSmer() and
+     #    PtrUhel() are used instead, see GaMaLib 0.4.0.  added #ifndef
+     #    NonStdCpp for namespaces.
+     # 0.0.1 1998-06-28
+     #    - GaMaLib_Median changelog started by Jiri Vesely
+
+     -- removed filese gamalib/local/median/zmeny.[h|cpp] (median
+        changelog).
+     
+     -- in subdirectory median *.[h|cpp] files g_fce, g_ulohy, pribl_b,
+        pribl_s and vyjimky renamed to g2d_helper, g2d_cogo,
+        g2d_point, g2d_coordinates and g2d_exception
+
+     See median/README_cvs_diff.txt  for details (in gamalib-1.3.22.tgz)
+
+
+1.3.21   2001-10-29
+
+   - gmatvec version 0.9.14
+
+   - in ChangeLog (this file) all remaining Czech texts were
+     translated to English.  Next step is going to be thorough revision
+     of GaMa sources -- all Czech comments will be translated.
+
+   - a minor change (typo) in review "test of linearization ..."
+
+   - in constructor PointID::PointID(const char*) allowed zero
+     pointers (Jan Pytel). The question is if it wouldn't be better to
+     throw an exception?
+
+
+1.3.20   2001-09-05
+
+   - one more change in gamalib/xml/encoding.cpp to avoid warning
+     message:
+
+         RCS file: /home/CVS/gama/gamalib/xml/encoding.cpp,v
+         retrieving revision 1.5
+         diff -r1.5 encoding.cpp
+         332c332,338
+         <   static int itab=iso_8859_2_unicode((int*)tab);
+         ---
+         >   // static int itab=iso_8859_2_unicode((int*)tab);
+         >   static bool init_tab = true;
+         >   if (init_tab)
+         >     {
+         >       iso_8859_2_unicode((int*)tab);
+         >       init_tab = false;
+         >     }
+
+
+1.3.19   2001-09-05
+
+   - a lot of changes by Jan Pytel needed to compile with new version
+     of g++ (gcc version 2.96 20000731 / Red Hat Linux 7.1 2.96-81);
+     see cvs-diff-1.3.18-1.3.19.txt
+
+   - and some other minor changes needed to compile with Microsoft
+     compiler; no problems with Borland compiler as usual (see
+     make-bc-1.3.19.txt and make-msc-1.3.19.txt)
+
+
+1.3.18   2001-08-25
+
+   - for `inconsistent' coordinate systems sing of y coordinates are
+     changed and the sign is reversed on output
+
+     Index: gamaprog/linux/gama/review/adjusted_unknowns.h
+     ===================================================================
+     RCS file: /home/CVS/gama/gamaprog/linux/gama/review/adjusted_unknowns.h,v
+     retrieving revision 1.11
+     diff -r1.11 adjusted_unknowns.h
+     37a38,39
+     > 
+     >   const int y_sign = Consistent(IS->PD, IS->OD) ? +1 : -1;
+     123c125
+     <               out << b.y() << " ";
+     ---
+     >               out << y_sign*b.y() << " ";
+     125c127
+     <               out << (x(i+1)/1000) << " ";
+     ---
+     >               out << y_sign*(x(i+1)/1000) << " ";
+     127c129
+     <               out << (b.y()+x(i+1)/1000) << " ";
+     ---
+     >               out << y_sign*(b.y()+x(i+1)/1000) << " ";
+     223c225,227
+     <               Double z = ( k->orientation() )*R2G;
+     ---
+     >               Double z = y_sign*( k->orientation() )*R2G;
+     >               if (z <  0 ) z += 400;
+     >               if (z > 400) z -= 400;
+     229,230c233,234
+     <               out << x(i)/10000 << " ";
+     <               z += x(i)/10000;
+     ---
+     >               out << y_sign*x(i)/10000 << " ";
+     >               z += y_sign*x(i)/10000;
+     Index: gamaprog/linux/gama/review/error_ellipses.h
+     ===================================================================
+     RCS file: /home/CVS/gama/gamaprog/linux/gama/review/error_ellipses.h,v
+     retrieving revision 1.6
+     diff -r1.6 error_ellipses.h
+     39a40,41
+     >   const int y_sign = Consistent(IS->PD, IS->OD) ? +1 : -1;
+     >   
+     126a129,132
+     >                if (y_sign == -1)
+     >                  {
+     >                    alfa = 2*M_PI - alfa;
+     >                  }
+     162c168
+     <                    Double dy = x(i+1);
+     ---
+     >                    Double dy = y_sign*x(i+1);
+
+
+1.3.17   2001-08-20
+
+   - added classes LocalCoordinateSystem and AngularObservations
+
+
+1.3.16   2001-08-05
+
+   - enhanced version of computation of approximate heights by Jan Pytel
+
+   - removed bug in the counts of computed coordinates (see class Acord)
+
+
+1.3.15   2001-07-27
+
+   - term "empirical" replaced by "aposteriori" in output texts
+          "elev. "                "h dif "                     
+
+
+1.3.14   2001-07-25
+
+   - added command line parameter --version
+
+   - function PointID::to_string() introduced in 1.3.13 renamed to
+     PointID::str() .... inspired by std::stringstream.str() etc.
+
+   - class data member LocalNetwork::SB renamed to `PD' (point data)
+     as well as other public member functions with Czech names
+
+
+1.3.13   2001-07-23
+
+   - a bug in template <class Iterator> void TrimWhiteSpaces(Iterator& b,
+     Iterator& e) corrected by Jan Pytel:
+
+        RCS file: /home/CVS/gama/gamalib/intfloat.h,v
+        retrieving revision 1.4
+        diff -r1.4 intfloat.h
+        45d44
+        <     bool ws, pws = false;
+        47,53c46,47
+        <       {
+        <         ws = isspace(*i);
+        <         if (!pws && ws) z = i;
+        <         pws = ws;
+        <         ++i;
+        <       }
+        <       e = z;
+        ---
+        >       if (!isspace(*(i++))) z = i;
+        >     e = z;
+
+   - new sorting scheme for PointIDs by Jan Pytel: positive integers
+     first and then strings (see pointid.h)
+
+
+1.3.12   2001-07-22
+
+   - minor changes needed to compile with bc
+
+
+1.3.11   2001-07-20
+
+   - modified version of gmatvec/svd.h is used in this version trying
+     to avoid problems with convergence in SVD::diagonalization(); 
+     it is not solution of the problem but just a dirty hack:
+
+         RCS file: /home/CVS/gama/gmatvec/svd.h,v
+         retrieving revision 1.15
+         diff -r1.15 svd.h
+         602a603,605
+         >       bool try_to_recover = true;
+         >     start:
+         > 
+         655c658,670
+         <             if (its++ == 30) throw Exc("No convergence in SVD");
+         ---
+         >             if (its++ == 30) 
+         >               if(try_to_recover)
+         >                 {
+         >                   for (int i=1; i<=n; i++)
+         >                     if (norm + ABS(sd1[i]*1e-3) == norm) 
+         >                       sd1[i] = 0;
+         >                   try_to_recover = false;
+         >                   goto start;
+         >                 }
+         >               else
+         >                 {
+         >                   throw Exc("No convergence in SVD");
+         >                 }
+
+
+1.3.10   2001-07-18
+
+   - test on zero number of unknowns in LocalNetwork::vyrovnani_()
+
+
+1.3.09   2001-07-15
+
+   - in gama.cpp added test for networks without unknowns (all points
+     fixed and no orientations)
+
+   - replace approximate z coordinate by adjusted one in refinement of
+     unknown parameters in iterated adjustment
+
+
+1.3.08   2001-07-14
+
+   - adjusted bearings greater than 400g reduced to interval <0, 400)
+
+   - program gen-test for generating random crash test input data
+     (see gamaprog/linux/gama/examples/gen-test):
+
+     a) points with "singular coordinates xy" are removed before
+        adjustment (if all points, but one, are set fixed and the
+        resulting normal equations are singular)
+
+     b) check for observation sets with directions pointing to the same
+        target station
+
+     c) indeterminable points are detected and removed (coordinates
+        with standard deviation greater then 10 meters)
+
+
+1.3.07   2001-07-11
+
+   - new xml output in <<operator(ostrem&, PointData&) in pobs/write.cpp
+
+   - corrected error on linearization of zenith angle (mistaken name s for d)
+
+         <    Double k  = 10*R2G/(s*sd*sd);
+         ---
+         >    Double k  = 10*R2G/(d*sd*sd);
+
+         <    Double pz = -k *  s *  s;
+         ---
+         >    Double pz = -k *  d *  d;
+
+   - linearization of slope distances
+
+         <    Double s, sd;
+         <    bearing_sdistance(PD[obs->from()], PD[obs->to()], s, sd);
+         ---
+         >    // Double s, sd;
+         >    // bearing_sdistance(PD[obs->from()], PD[obs->to()], s, sd);
+         40,42c40,46
+         <    Double px = ( cbod.x() - sbod.x() ) / sd;
+         <    Double py = ( cbod.y() - sbod.y() ) / sd;
+         <    Double pz = ( cbod.z() - sbod.z() ) / sd;
+         ---
+         >    Double dx = cbod.x() - sbod.x();
+         >    Double dy = cbod.y() - sbod.y();
+         >    Double dz = cbod.z() - sbod.z();
+         >    Double sd = sqrt(dx*dx + dy*dy + dz*dz);
+         >    Double px = dx / sd;
+         >    Double py = dy / sd;
+         >    Double pz = dz / sd;
+
+   - removed obscure functions bearing_sdistance (pobs/bearing.h)
+
+   - corrected error in Point::set_constrained_z()
+
+   - changed order of points in the review of adjusted unknowns --- points
+     are sorted by their IDs in this version
+
+   - added test into class GKFparser for variance-covariance matrix
+     to be positive definite
+
+   - added test into class Observation for identical standpoint and target
+     points (and similarly into class Angle for second/right target)
+
+
+1.3.06   2001-07-09
+
+   - new class Acord for computation of approximate coordinates (xy,
+     xyz and z); current version is just a wrapper for "median" with
+     simple computation of unknown heights (cogo removed in this
+     version).
+
+   - new review of approximate coordinates
+
+   - added new function Point::active() and renamed the following
+     functions in Point class:
+
+        s/  set_fixed_point/         set_fixed_xy/
+        s/  set_free_point/          set_free_xy/
+        s/  set_constrained_point/   set_constrained_xy/
+        s/  set_fixed_height/        set_fixed_z/
+        s/  set_free_height/         set_free_z/
+        s/  set_constrained_height/  set_constrained_z/
+        s/  unset_network_point/     unused_xy/
+        s/  unset_height_point/      unused_z/
+        s/  unused_point/            unused/
+        s/  network_point/           active_xy/
+        s/  fixed_point/             fixed_xy/
+        s/  free_point/              free_xy/
+        s/  constrained_point/       constrained_xy/
+        s/  fixed_height/            fixed_z/
+        s/  free_height/             free_z/
+        s/  constrained_height/      constrained_z/
+        s/  height_point/            active_z/
+
+
+1.3.05   2001-06-30
+
+   - optional parameter --algorith svd | gso (classes LocalNetwork
+     and OLS rewritten as base virtual classes to enable algoritmh
+     switching)
+
+
+1.3.04   2001.06.26
+
+   - tag <dh/> allowed inside <obs> section (apart from <height-differences>)
+
+   - introduced constrained heights and new XML syntax for definition of
+     point type in adjustment  <point fix="..." adj="..." />
+
+
+1.3.03   2001.06.18
+
+   - minor corrections in translation of adjustment output (review.lang)
+
+
+1.3.02   2001.06.16
+
+   - first version of English translation of adjustment results
+
+
+1.3.01   2001.06.14
+
+   - implicit language is set to English
+
+   - nonstandard code "cz" can be used for Czech apart from standard "cs"
+
+   - dir. gamaprog/gama/linux/prehled renamed to gamaprog/gama/linux/review;
+     file zakladni_parametry renamed to general_parameters etc.
+
+
+1.3.00   2001.06.12    
+
+          ######################################################
+          ###                                                ###
+          ###           new unstable version 1.3.xx          ###   
+          ###                                                ### 
+          ######################################################
+
+   There is no stable version following version 1.1; version 1.3.00 is
+   practically identical to 1.1.66. The first goal of version 1.3 is
+   to translate Czech adjustment output into English.
+
+
+1.1.66   2001.05.08
+
+   - new function set_language (we don't use GNU gettext, but changing for
+     gettext should be easy if needed)
+
+   - optional parameter "--language en|cz" in the program gama (only
+     error messages in this version)
+
+
+1.1.65   2001.05.05
+
+   - bad XML tag in pobs/local/write.cpp (was <obs at="..."  must be
+     <obs from="...")
+   - bug in the output of linearization test (iterated adjustment)
+ 
+
+1.1.64   2001.05.03
+
+    - first version of adjustment of observed vectors 
+
+      Note: test of abs. terms is skipped for Coordinates and Vectors
+
+
+1.1.63   2001.04.27
+
+    - the following names were renamed:
+
+            Point.test_yxz       -->       test_xyz
+                  test_yx                  test_xy
+
+      etc. [Krovak coordinates are usually presented as (y,x) and not
+      (x,y) but Krovak is a local Czech coordinate system and
+      traditional order of its coordinates is unusual]   and
+
+            smernik              -->       bearing
+            delka                          distance
+
+    - added structures XYZ, XY and Z for safer Point constructors (see
+      rgrep -I "Point::" gamalib)
+
+    - added new tags into gama-xml.dtd : s-distance, z-angle,
+      height-differences, dh, vectors, vec
+
+    - "single distances" and "single angles" removed from XML input,
+      ie. distances and angles outside the tag <obs> (GKFparser)
+
+    - class GKFparser rewritten to reflect latest chnges in DTD
+      suggested by Jan Kolar (Kolda)
+
+    - no identical file names (in different directories) in Makefiles;
+      see gamalic/local/observation_local.cpp
+
+    - [gamaprog/linux/gama/prehled/opravy_pozorovani.h] estimation of
+      "real errors of observed and adjusted values are calculated only
+      for uncorrelated observations
+
+
+1.1.62   2001.04.24
+
+    - added attribute version into tag gama-xml (gama-xml.dtd).
+      Attribute version can be omitted in this version, the only
+      acceptable value is "2.0" (question: should attribute `value' be
+      redefined in DTD as #REQUIRED ?)
+
+    - added CVS keyword "Id:" into all source files (*.h, *.cpp)
+
+    Note: Petr Doubrava reported problems with MSC makefiles; the
+          source of problems are compiler switches (not clear why)
+
+
+1.1.61   2001.04.21
+
+    - namespace GaMaLib_Median renamed to namespace Median (first of all
+      because of problems with MSC but we do not need it anyway)
+
+    - added Makefiles for Microsoft Visual C++ (first draft tested
+      under NT with Developers Studio 6.0 -- only static library at
+      this version; as I know almost nothing about windows platform,
+      my makefiles are undoubtedly clumsy) AC
+
+    - corrected two bugs in gama-xml.dtd (v. 2.03 -- thanks to Jan Pytel 
+      and Jan Kolar)
+
+
+1.1.60   2001.04.16 
+
+    - gamalib/revision.[h|cpp] moved to gamalib/local (Jan Pytel), 
+      similarly moved gamadata.[h|cpp], point.h and directories
+      gamalib/pobs and gamalib/median; in directory gamalib/ now
+      should be remaining no files dependent on local coordinates (?)
+
+    - added file scripts/for-all-gkf.bat for bulk computations under
+      windows
+
+    - removed file scripts/MrProper (now done by Makefile)
+
+
+1.1.59   2001.04.14
+
+    - corrected Makefile for bcc32, revision.h a linearization.h 
+      according to suggestions by Petr Soucek
+
+    - minor change in main Makefile (to implicitly compile all project
+      or print help on the first use)
+
+
+1.1.58   2001.04.08
+
+    - coefficients of project equations for slope distancec and 
+      zenith angles and function smernik_sdelka (Jan Pytel)
+
+    - changes in usage of sparse matrix of project equations Asp
+
+      Comment: output of project equations matrix is correct only
+               for uncorrelated observations ... new general format
+               is needed!
+
+
+1.1.57   2001.04.01
+
+    Finished transition to new calculation of project equations and
+    revision of observations (from class Observation removed all methods
+    with relations to coordinate system)
+
+    - class NetInfo renamed to LocalNetwork (gamalib/local/network.*)
+
+    - added new directory gamalib/observation/write (similarly
+      gamalib/local)
+
+
+1.1.56   2001.03.31
+
+    Preparation for transition to new computation of project
+    equations.  Until now old virtual functions revision() and
+    linearization() are still called but now through independent classes
+    Revision and Linearization, which are independent on classes derived
+    from base class Observation. AC
+
+    - added template class SparseGeneralMatrix (directory gamalib/sparse)
+      for computation of project equation coefficients
+
+    - in InfoNet (temporarily?) removed working vector of weights `w'
+
+    - new class LocalNetwork (in directory gamalib/local), in future
+      shall replace class InfoNet; all references to InfoNet rewritten
+      to LocalNetWork.
+
+    - new abstract classes Revision and Linearization
+
+    - new classes LocalRevision and LocalLinearization (meanwhile
+      only formally; they rely on existing "revision" and
+      calculation of coeffificients from classes derived from Observation).
+
+    - renamed classes (and corresponding files)
+
+                 SlopeDistance    to    S_Distance
+                 ZenithAngle      to    Z_Angle
+                 HeightDiff       to    H_Diff
+
+
+1.1.55   2001.03.24
+
+                    ######################################
+                    ###                                ### 
+                    ###   GNU General Public Licence   ###
+                    ###                                ###
+                    ######################################
+                     
+
+1.1.54   2001.03.21
+
+    - removed forgotten `#include <vector>' in point.h (Jan Pytel)
+
+    - added observation types SlopeDistance and ZenithAngle (Jan Pytel);
+      meanwhile only as formal non-functioning model!
+
+         Comment: SlopeDistance derived directly from class
+                  Observation and not from class Distance; this might
+                  be discussed, but suppose this to be the best way (AC)
+
+    - processing of types SlopeDistance and ZenithAngle added to class
+      GKFparser but meanwhile not into outpue gama/prehled (AC)
+
+
+1.1.53   2001.03.18
+
+    - corrected two "bugs" reported by borland compiler (in fact
+      I am not quite sure if they are realy bugs)
+
+
+1.1.52   2001.03.17
+
+    - rewritten computation of approximate heights void
+      ApproximateHeights::execute()
+
+
+1.1.51   2001.03.16
+
+    - debuging adjustment of levelling network (first working version)
+
+    - new names (renamed just those functions that I have changed):
+
+          NetInfo::redakce_bodu()    ==>  NetInfo::revision_points()
+          NetInfo::redakce_mereni()       NetInfo::revision_observations()
+          NetInfo::nedef_yx()             NetInfo::undefined_coordinates()
+          NetInfo::rovnice_oprav(.*)      NetInfo::project_equations(.*)
+          NetInfo::test_absl_clen(.*)     NetInfo::test_abs_term(.*)
+
+    - removed bug in test of linearizations (I considered just first N
+      observations, where N was the number of unknowns); output was
+      changed to show only those observations that exceeds tollerance.
+
+
+1.1.50   2001.03.14
+
+    - first version of observation type "height difference" and
+      "coordinate differences" (ie. components of observed vectors -
+      not tested yet!)
+
+    - added files INSTALL a README, minor changes in
+     script/upgrade-GaMa, script/build-gamalib-Makefile and others
+     (mainly filtering out of backup files using: grep -v \# | grep -v
+     \~ )
+
+
+1.1.49   2001.03.02
+
+    - added files ChangeLog a TODO
+
+    - removed bug in SVD (gmatvec-0.9.11)
+
+    - added function BaseOLS::cond() { return 0; } for
+      computation/estimate of condition number
+
+
+1.1.48   2001.03.01
+
+    - added file AUTHORS (first version is not very detailed), in Makefile
+      added compile gamalib with algorithm GSO
+
+
+1.1.47   2001.02.26
+
+    - finished transition to GNU Lesser GPL
+
+
+1.1.46   2001.02.25
+
+   - added text GNU Lesser GPL (re-edited text licence to LGPL in
+     gamaprog and gmatvec)
+
+   - added directory gamaprog/linux/gama/examples and enhanced Makefile
+     with computation of example input data
+
+
+1.1.45   2001.02.23
+
+   - formal changes in naming of project GaMa/GaMaLib
+
+   - tar archive gamalib-a.b.c.tgz cintains all files in directory
+     gamalib-a.b.c, ie. in directory gamalib-"version number"
+
+
+1.1.44   2001.02.22
+
+   - in class Observation renamed method at() to from(); (in xml input
+     files meanwhile left at="..." as a synonym for from="...")
+
+   - preparation for introduction of new types "height differences"
+     and "vectors""
+
+
+1.1.43   2001.02.21
+
+   - reorganization of files pobs/\*.cpp (content of files
+     linearization.cpp, revision.cpp and write.cpp moved to new files
+     direction.cpp, distance.cpp, angle.cpp and xyz.cpp; files
+     revision.cpp a linearization.cpp removed)
+
+   - minor chages in scripts (mainly scripts/upgrade-GaMa)
+
+
+1.1.42   2001.02.12
+
+   - bug in print of "type of unknown"
+
+
+1.1.41   2000.12.04
+
+   - preparation for CVS (scripts/GaMaLib_archiv and scripts/gMatVec)
+
+   - renamed member functions of class Point:
+
+        s/vloz_yx/set_yx/g
+        s/vloz_z/set_z/g
+        s/zrus_yx/unset_yx/g
+        s/zrus_z/unset_z/g
+        s/nastav_pevny_bod/set_fixed_point/g
+        s/nastav_urcovany_bod/set_free_point/g
+        s/nastav_operny_bod/set_constrained_point/g
+        s/nastav_dana_vyska/set_fixed_height/g
+        s/nastav_urcovana_vyska/set_free_height/g
+        s/zrus_bod_site/unset_network_point/g
+        s/zrus_vyskovy_bod/unset_height_point/g
+        s/bod_nepouzit/unused_point/g
+        s/bod_site/network_point/g
+        s/pevny_bod/fixed_point/g
+        s/urcovany_bod/free_point/g
+        s/operny_bod/constrained_point/g
+        s/dana_vyska/fixed_height/g
+        s/urcovana_vyska/free_height/g
+        s/vyskovy_bod/height_point/g
+
+     Comment: I had been waiting with the renaming of these functions
+              until final version of English tag names in input XML is
+              settled. It's not clear if there will be some more
+              changes in XML or not but there is no reason to wait any
+              more. Let's just hope that possible future changes won't
+              be principal.
+
+
+1.1.40   2000.12.03
+
+   - corrected files Makefile-slovnikar, Makefile-utf8-ascii and
+     Build_GaMa
+
+
+1.1.39   2000.11.11
+
+   - added directory gamaprog/linux and added scripts for generating
+     filese for borland make in directory gamaprog/borland from linux'
+     makefiles
+
+   - directives #include "prehled/..." changed to #include <prehled/...>
+     
+
+1.1.38   2000.10.09
+
+   - removed bug in function << (std::ostream& str, PointData& sez);
+     output of point (was wrongly at="..." instead of correct id="...")
+
+
+1.1.37   2000.10.08
+
+   - added a tiny program scripts/utf8-ascii.cpp as an alternative to
+     recode, which is not available in slink
+
+
+1.1.36   2000.10.06
+
+   - script build-doc-html changed to work both in potato and slink
+   - basic data structure scheme added to html documentations of classes
+     for handling observables
+
+
+1.1.35   2000.09.21
+
+   - in XML allowed white spaces before and after numerical value of
+     attributes, (see intfloat.h) - corrected (unused) template function
+     Read_Sparse_Abw
+
+
+1.1.34   2000.09.11
+
+   - change in print of adjusted observations (in the case of
+     "observed coordinates" I have to enable columns wider than 12
+     characters)
+
+   - corrected error in xml output of adjusted coordinates
+
+   - into collection ef examples added test data for sequantial
+     adjustment, or in other words test on input type "observed
+     coordinates" (after manusripta Mervart-Cimbalnik: "Vyssi geodezie 2).
+     Comment: pay attention to aposteriory variances
+
+
+1.1.33   2000.08.29
+
+   - changed the order of indexing unknowns XYZ in project equations
+     (used to be YX); orientation shifts are marked as 'R' (used to be
+     'Z'); in the order XY are now printed adjusted coordinates to ouptut.
+
+   - removed "test on suspiciously big corrections" in function for
+     testing linearization errors.
+
+
+1.1.32   2000.08.27
+
+   - corrected mistakes in collection of examples in descriptions
+     (sed!), minor improvement of script build-doc-html, removed bug
+     in script build-gamalib-Makefile, removed bug in gamalib_dep
+     (must the path to gamalib for files withous explicit path
+     specification)
+
+   - in virtual functions write (Observation) replaces Chzech tags
+     by their English equivalents
+
+   - preparation for adjustment of correlated observations
+
+
+1.1.31   2000.08.23
+
+   - in scprits/Build_GaMa corrected generating of Makefile for
+     gama.cpp (unified with makefiles for gamalib and expat)
+
+   - gama-xml.dtd 2.00; all test converted to new format (changed
+     attribute `typ' to 'xy')
+
+
+1.1.30   2000.08.21
+
+   - for computing of approximate values of coordinates we copy to
+     local working observation list only horizontal directions, angles
+     anf distances (see template class Observation::CopyHorizontalTo
+     used in template std::for_each)
+
+   - lesser changes in structure of directories, scripts etc.:
+     directory spript renamed to scripts; added new Makefile for
+     compile of expat; gamalib2html and slovnikar moved to directory
+     scripts.
+
+   - added scripts/gamalib_dep.cpp for computing dependences for
+     generating makefiles (I haven't found, how easily removed 
+     references to system libraries as generated by g++; I would
+     like to generate makefile for bcc compiler in future)
+
+   - corrected two typos in gkfparser.lang and gama.lang (JV)
+
+
+1.1.29   2000.08.17
+
+   - new version gmatvec 0.9.8 (transiton to g++ 2.95.2 / Debian potato)
+
+   - into template function XML_adjusted_coordinates added third parameter
+     bool, to control if covariance matrix of adjusted coordinates should
+     be writen to output or not.
+
+   - in script/build-dictionaries replace command for removal of accents
+
+       2UTF -r iso8859-2 < language.cz | cstocs il2 ascii > language.cpp
+     
+     by program recode
+
+       recode UTF-8..iso8859-2 < language.cz | cstocs il2 ascii > language.cpp
+     
+     Comment: program 2UTF is not available in Debian potato; the same
+              will have to be rewritten in email version of gama (I am
+              removing accents for easier comparision with older
+              versions of results)
+
+
+1.1.28   2000.08.15
+
+   - in gama-xml.dtd introduced new observation type "observed coordinates"l
+     see XML tag <coordinates>
+
+        Comments: meanwhile just a proposal, implementation later !!!
+
+   - added template function XML_adjusted_coordinates(),
+     to be used to output adjusted coordinates:
+
+          <coordinates>
+             <point ... />
+             ...
+             <cov-mat> ... </cov-mat> 
+          </coordinates>
+
+     ie. one tag and to a whole xml document. Later should be added another
+     functions presenting adjustment results in xml.
+
+
+1.1.27   2000.08.14
+
+   - another changes in structure of directories:
+
+      * directory bodmer renamed to gamalib/pobs, several files
+        moved and put together
+      * directory infosit renamed to gamalib/netinfo and class InfoSit
+        renamed to NetInfo
+      * in class observation renamed function redakce_mereni to
+        revision 
+      * removed bm_* exceptions (formerly bodmer/vyjimka.h)
+
+   - minor change in output header
+
+
+1.1.26   2000.08.12
+
+   - point attribute type="adjusted" changed to type="free"
+
+
+1.1.25   2000.08.11
+
+   - removed bug computation of coefficients of homogenized project 
+     equations for the case of non-diagonal covariance (sub)matrix;
+     added two test examples into collection of sample input data.
+
+   - changed test on number of elements of covariance matrix and
+     corrected error in function Cluster::activeCov() const (test
+     non-diagonal covariances)
+
+
+1.1.24   2000.08.07
+
+   - characters \n and \t transfered from gama.lang into gama.cpp (+
+     two minor changes in program slovnikar 0.02)
+
+   - all error messages from GKFparser transfered into gkfparser.lang
+
+   - added input of covariance matrix in GKFparser
+
+
+1.1.23   2000.08.04
+
+   - first experiment with use of program `slovnikar' (lexicographer
+    in English) for transition to multilingual version of gamalib /
+    gama. I have introduced following convenstions and I hope their
+    usage will represent a trouble:
+
+     a) input XML bathes for building dictionary have extension .lang
+
+     b) all identifiers start with T_ (we shall introduce identifiers
+        in English; see gamaprog/gama/gama.lang as an example)
+
+     c) I suggest to derive names of`lang' files from an "essential"
+        header file
+        (for example gkfparser.h => gkfparser.lang);
+        but this need not be a strict rule.
+
+     Let's hope that other rules will be clarified later from
+     practical experience ;-)
+
+     Comment: in XML prolog must must declaration encoding="..." 
+     ******** PRECEDE declaration standalone="yes" !!!
+
+
+1.1.22   2000.08.03
+
+   - renamed the following functions (sed):
+
+               s/from/at/g
+               s/target2/rs/g    # `right sight station' 
+               s/target/to/g
+
+   - and similarly in gama-xml.dtd 
+
+
+1.1.21   2000.08.02
+
+   - in GKFparser introduced English tags (Czech tags still left
+     there); added new version of parameters for computation of
+     implicit values of stadnard deviations for distances:
+     distance-stdev="10 4 1" (old version left for backward
+     compatibility)
+
+
+1.1.20   2000.07.30
+
+   - for adjustment of correlated observations
+     =========================================
+
+     Prior to adjustment project equations are transforemed to
+     "homogenized form" (see Charamza: Geodet/PC, Zdiby 1990); this
+     off course means that the meaning of weight coefficient of
+     adjusted observations has changed and q_bb must be properly
+     transformed.
+
+     Warning: adjusted corrections of unknowns and adjusted residuals
+              should be already correct even for correlated observations;
+              but formulas for some other characteristics are correct only 
+              for uncorelated input.
+
+   - added functions Cluster::activeCov(), that return covariance
+     matrix of active observations
+
+
+
+1.1.19   2000.07.27
+
+   - Cluster::bind() renamed to Cluster::update()
+
+
+1.1.18   2000.07.27
+
+   - in class Point renamed unknown "height" from "v" to "z"
+
+   - classes CopyTo and CopyActiveTo rewritten as internal classes of
+     Observation, name of function member "observations" in clss
+     OdservationData changed to "for_each" (according similar standard
+     template). Copying of all observations is thus written this way:
+    
+            my_obs_data.for_each(Obseravation::CopyTo(obs_list));
+
+   - in class Observation removed functions vloz_mer and vloz_str,
+     which were never used and renamed remaining methods into English
+
+   - removed bug in GKFparser (program failed to process examples
+    tch*.gkf, that define no orientations).In class GKFparser
+    "temporarily" alowed usage of distances and angles outside tag
+    <osnova>.  This way it is defined in the current version - but I
+    plan to forbid this in next version in gkf files and leave it
+    there as undocumented feature for backward compatibility.  Will be
+    removed in future!
+
+
+1.1.17   2000.07.25
+
+   - in class ObservationalData removed common vector of observations;
+     each cluster has its own vector of observables.
+
+
+1.1.16   2000.07.24
+
+   - reorganization of header files of functions and classes for data
+     structures handling (observation.h, cluster.h, gamadata.h)
+
+   - in constructors Direction, Angle a Distance removed parameters
+     for setting pointers to cluster and cluster_index -- maintained
+     by Cluster::bind()
+
+
+1.1.15   2000.07.23
+
+   - removed bug in Orientation (during mass computations was skipped
+     first observation in orientation set)
+
+   - change in template function for print of review of approximate
+     coordinates (copying of lists replaced by const references)
+
+     For sample network mt-1189-77.gkf was printed negative number of
+     points with known coordinates (not for other samples!); solved
+     this as follows, the number is calculated by constructor (AC)
+
+        Comment: it seems that this version gives, at last, the same
+        ******** results as 1.0.01 (not counting "noise"; it's not
+                 clear to me, why the computation of approximate
+                 coordinates differs - from practical point of view it
+                 is not relevant)
+
+
+1.1.14   2000.07.22
+
+   - introduction of covariance matrices: in class Observation removed
+     attribute "standard deviation" (stdDev_/str_), same in Distance,
+     Direction and Angle; in constructors of these classes similarly
+     removed parameter "standard deviation" (must be defined
+     covariance matrix in corresponding cluster).
+
+   - a change in constructor of class GKFparser
+ 
+   - new versions of scripts Make_GaMa, Build_GaMa and
+     build-gamalib-Makefile (from Makefilu, created for linux by
+     build-gamalib-Makefile, might be possible to automaticaly
+     generate makefile for Borland compiler; I tried to filter out
+     unwanted header files in the script, but I had given it up)
+
+
+1.1.13   2000.07.21
+
+   - introduced class ObservationData, that joins ObservationList and
+     ClusterList and defines common global functions (copying etc.)
+     On this ocasion in sake of symetry I have renamed PointList to
+     PointData.
+
+     Definition of class PointData moved (from gamalist.h) to a common
+     header file gamalib/gamadata.h for both essential data structure
+     classes PointData and ObservationData.
+
+     In gamalibu replaced all include file direktives as gamalist.h
+     and similar by reference to one common header file
+     gamalib/gamadata.h
+
+     In class PriblSour changed constructor parameter ObservationList
+     to ObservationData (sources reformated by emacs function indent);
+     similar changes in InfoSit
+
+   - corrected "normalization of bearing" in class Orientation
+
+
+1.1.12   2000.07.21
+
+   - basic methods of class Observation translated into English:
+   from(), target(), target2(), value(), stdDev()
+
+   - in class Cluster added public mutable attribute "tag", in class
+     Observation method for its accessing "tag()"; and more in class
+     Observation added non-constant method ptr_cluster()
+
+        !!! crashes on mt-1189-77.gkf a mt-131-84.gkf !!!
+
+
+1.1.11   2000.07.20
+
+   - corrected minor error in class  Orientation (output parameter)
+
+
+1.1.10   2000.07.19
+
+   - removed bug in InfoSit::rovnice_oprav(); apart from test on
+     undefined orientation shift we have to reject orientation sets
+     with signle direction.
+
+     Note: it seems that there is a problem with computation of
+           orientation shifts during computation of approximate
+           coordinates. It seems that sometimes are store orientation
+           shifts computed in local/working coordinate system.  At
+           this point I simply solved the problem by clearing all
+           orientation shifts and then recomputing them again (see
+           gama.cpp).
+
+
+1.1.09   2000.07.17
+
+   - orientation shifts moved from class Point to class StandPoint
+
+   - from directions removed attribute "number of orientation set"
+     (and on this occation corrected error in std::ostream& operator
+     << (std::ostream& str, ObservationList& sez); operator wrongly
+     joined two sets on a single point (see example
+     dve-osnovy-uhel.gkf)
+
+   - class for computing of orientation shifts renamed to  Orientation
+     (was VypOrPos); see <gamalib/orientation.h>
+
+
+     !!! WARNING: solution crashes for data sets kablo-2000-3.gkf,
+     !!!          karmelit.gkf and mt-131-94.gkf
+
+
+1.1.08   2000.07.16
+
+   - added reference to class ClusterList into classes GKFparser and
+     InfoSit; at this moment does nothing
+
+   - introduce class StandPoint (: public Cluster) for uncorrelated
+     directions, distances and angles
+
+
+1.1.07   2000.07.13
+
+   - removed file gamalib/bodmer/cisbod.h (replaced by
+     gamalib/pointid.h)
+
+   - renamed file gamalist/bodmer/seznam.h to gamalist/gamalist.h.
+     File gamalist/bodmer/seznam.cpp removed. Functions
+
+          void pridej_seznam_bodu  (SezBod& cil, const SezBod& zdroj);
+          void pridej_seznam_mereni(SezMer& cil, const SezMer& zdroj);
+
+     were newer used (I found it accidentaly on a check of Makefilu
+     for bcc). I left declarations of all three in one header file 
+     partly because of "historical reasons" and then because
+     they are there  "neetly together". May be that later we will
+     movee them towards declarations of corresponding classes (?).
+
+   - renamed classes: SezCB  --> PointIDList
+                      SezBod --> PointList
+                      SezMer --> ObservationList
+
+
+1.1.06   2000.07.12
+
+   - renamed classes: Mereni --> Observation
+                      Delka  --> Distance
+                      Smer   --> Direction
+                      Uhel   --> Angle 
+
+         Note: At this moment just formally renamed without andy
+               functional changes
+
+   - renamed file gamalib/bodmer/mereni.h --> gamalib/observation.h
+
+
+1.1.05   2000.07.12
+
+   - header file gamalib/point.h replaced gamalib/bodmer/bod.h (file
+     bod.h deleted); Class Bod renamed to Point. In all files deleted
+     namespace GaMaLib_BodMer (replaced by GaMaLib).  More, in
+     subdirectory bodmer removed header file float.h (moved directly
+     to directory gamalib) ... and as we are moving to English, I have
+     renamed subdirectory skript to script ;-)
+
+
+1.1.04   2000.07.11
+
+   - introduced directory doc
+   - defined class PointID that replaces class CisBod
+
+
+1.1.03   2000.07.10
+
+   - corrected Makefile for bcc
+
+
+1.1.02   2000.05.17
+
+   - adopted improved version of xml encoding by Petr Doubrava from
+     stable version 1.0.01 a improved projects VC++ gama/gamalib
+
+
+1.1.01   2000.05.14
+
+  - update of gkfparser and added recoding windows-1250 and latin-2 by
+    Petr Doubrava (adopted from version 0.9.59)
+
+
+1.1.00   2000.05.03
+
+          ########################################################
+          ######                                            ######
+          ######  started unstable/development version 1.1  ######
+          ######                                            ######
+          ########################################################
+
+==========================================================================
+
+0.9.58   2000.05.01
+
+  - corrected errors in xml/gkfparser.cpp found by Jan Pytel  
+
+  - changes in projects VC++ after suggestions by Petr Doubrava
+
+
+0.9.57   2000.04.26
+
+  - added try/catch blok in all methods in library Median. Exceprions
+    Median::ps_chyba are send by throw for next processing, for all
+    ather exceptions is returned state pocet_reseni = -1 (in English:
+    number_of_solutions = -1). This update was motivated by situation,
+    when in library Median is demanded computation of bearing for two
+    identical points.
+
+          For details see median/g_fce.cpp a median/g_ulohy.cpp.
+
+
+0.9.56   2000.04.15
+
+  - in gama-xml.dtd changed types of numerical attributes from CDATA to
+    NMTOKEN after sugestion by Miloslav Nic
+
+  - in templates IsInteger and IsFloat removed calling of function
+    SkipWhiteSpaces; because NMTOKEN doesn't allow white spaces in
+    attributes, I consider white spaces in a numerical attribute to be
+    error (ass well as introductory and triling white spaces and empty
+    string - see XML REC [7] on page 4)
+
+
+0.9.55   2000.04.13
+
+  - added simple test of input format of type double in function
+    GKFparser::toDouble(); see also gamalib/intfloat.h
+
+
+0.9.54   2000.04.04
+
+  - corrected bug in program gama (junk after end of gkf input data
+    is filtered out)
+
+
+0.9.53   2000.04.01
+
+  - Reading of input data was rewritten to reading by characters (this
+    is not a joke!).  For several days I was not able to start expat
+    working with borland compiler. There two reasons. It took me some
+    time to realize that compilation fails just because of too many
+    warnings that had to be switched off (see  gama_bc/Makefile). 
+    Second problem was more serious.  Compiler bcc32 v. 5.5. wrongly
+    implements functions stg::getline(std::istream&, std::vector&);
+    into read in vector is added without warning binary zero ... expat
+    naturaly such an document rejects as "not well formed". After this
+    update GaMa works with all three compilers.
+
+
+0.9.52   2000.03.31
+
+  - renamed directory gamalib/gkf to gamalib/xml (I suppose that it
+    will contain more then gkfparser.(h|cpp) one day.  Then renamed
+    file xml/Makefile to xml/Makefile-gkfparser-demo (might be a model
+    for other demo programs).
+
+  - added (forgotten) test in gama to and tag </gama-xml> (gama
+    ignores everything at the end of gkf files)
+
+  - corrected skript/upgrade-GaMa
+
+
+0.9.51   2000.03.30
+
+  - library expat was extracted from gamalib. I thikn it's more
+    correct on one hand and then, it's not necessary to distribute it
+    on every update (may be that later will extracted eved sources
+    from gamaprog - at this moment it's not necessary).
+
+  - coorected organization of gamalib archive: added subdirectory 0.9
+    (see skript/GaMaLib).
+
+  - gamalib from this version relies on expat for XML data processing.
+    From gamalib library removed class KonfiguracniSoubor and current
+    templates for proecssing XML tags (infosit/znacka.h).
+
+  - change of attributes `description' from class Infosit from
+    std::list<std:string> to std::string (whole description is stored
+    as a single string)
+
+  - function bool PriblSour::Vypocet() ended in an infinite loop if
+    either list fo observations or list of coordinates are empty.
+    Added to the begining test
+
+            if (SB.empty() || SM.empty()) return true;
+
+    and added the same test into program gama.
+
+  - during debuging of gama I have found a bug in conversion program
+    geodet2gama (wrong output of introducing tag <body-mereni> - it
+    was written as an empty tag) and several bugs I have introduces
+    into testing gkf data myselve. In network description must not be
+    characters as &, < or >.  According to XML specification we have
+    to use &amp; &lt; &gt; ... etc.  
+    ??? how is it handled by WebGaMa ???
+
+
+0.9.50   2000.03.28
+
+  - added directory gamaxml; new version 1.01 of file
+    gamaxml/gama-xml.dtd.  In definition of element "osnova"
+    (standpoint) added element "uhel" (angle). This was out approach
+    until now, program gama accepted angles as elements of
+    "standpoint"; it's a question that culd be discussed but I can not
+    see any reason why to change current structure of existing data.
+    In directory gamaxml should be even other dtd files in future.
+
+  - example *.gkf separated from gamalib sources and added script
+    skript/Priklady_GaMa (tgz is stored in directory archiv/gamalib;
+    structure of example directories should be reconsidered)
+
+  - changed output format in zapis_s.cpp and zapis_u.cpp after zapis_d.cpp
+    ("<delka" "<smer " "<uhel " ... strings with of the same length)
+
+  - removed error in printing of angles (!!!).  I wouldn' believe that
+    such a silly bug could have been remaining in gamalib (unclosed
+    attributes "observed value" and "standard deviation") ... we don't
+    normaly work with angles and thus the bug remained hidden ;-(
+
+  - in directory gamalib/gkf added a link to `priklady' (examples) and
+    script `kontrola' (check); I will remove them later.  During first
+    experiments I haven't met any problems and (probably) I will
+    incorporate expat to gama in next version.
+
+    Note: it's not clear to me, if I should ignore in class GKFparser
+          everything before the tag <?xml version="1.0" ?> and after
+          tag </gama-xml> as it was don until now; there are pros
+          and cons as well.
+
+
+0.9.49   2000.03.27
+
+  - corrected text "uspesne vypocteno bodu .. " ("number of
+    succesfylly computed points ...") in computing of approximate
+    coordiantes (sugested by Jiri Vesely)
+
+  - corrected scripts as sugested by Jan Pytel
+
+  - in subdirectory gkf is updated version of class GKFparse (just a
+    testing version now)
+
+
+0.9.48   2000.03.25
+
+  - in directory gamalib added subdirectories expat and gkf. In
+    subdirectory gkf is plced a tiny program demo.cpp, that is a
+    modified version of the example from expat and that I used to
+    verify combination of C functions from expat and C++ classes and
+    functions from gamalib. Until now I just experimented under
+    Linux. From subdirectory expat I am going to remove everything
+    taht is not necessary (*.dll, *.exe etc.) Current gamalib
+    functions are not efected by this update.
+
+  - script GaMaLib_ar renamed to Make_GaMaLib and libray gamalib.a was
+    moved to gamaprog/lib (I hope that both is more logical and that
+    this is the last change of this kind ;-)  It would be useful to
+    add similar scripts for BCC and VC++ one day.
+
+
+0.9.47   2000.03.24
+
+  - new version gMatVec 0.9.7
+
+  - added skript/GaMaLib_ar for generating (Linux) library and updated
+    scripts Build_GaMa and Make_GaMa. Script GaMaLib_ar at this moment
+    can not react to chages in header fules but only reflects changes
+    in cpp files (must be improved!). Change makefile for conversion
+    program `pogrom' to use gamalib-ar/gamalib.a
+
+
+0.9.46   2000.03.15
+
+  - values of normalized / studentized residuals for uncontrolled
+    observations (f < 0.1) are not printed
+
+  - added source code for conversion program gama/pogrom v. 0.01 (a
+    conversion program for data exchange between `gama' and 'groma',
+    a Czech local geodetic window program; not interesting for users
+    outside CZ).
+
+
+0.9.45   2000.02.17
+
+  - private internal class KonfiguracniSoubor::xmlAttrib (from file
+    infosit/konfsoubor.h) was turned into individual class xmlAttrib
+    and stored into file infosit/znacka.h (I needed xml attributes for
+    program GaMaD for editing of GaMa input data files, taht I need
+    for presentation of C++ Builder 5 and until now I haven't made my
+    mind which of general XML parsers I will use)
+
+
+0.9.44   2000.02.09
+
+  - program wouldn't print max. normalized residual (review of general
+    parameters) if apriori standard referenvce variable was used
+    during statistical analysis 
+
+
+0.9.43   2000.02.07
+
+  - new version gMatVec 0.9.5; matrix inversion was rewritten to use
+    gauss-jordan algorithm, change of internal organization of header
+    files.
+
+
+0.9.42   2000.02.01
+
+  - new version gMatVec 0.9.4; rewritten function inv(const Mat<>&)
+
+
+0.9.41   2000.01.29
+
+  - added global characteristics:
+
+       a) maximal and average mean positional point error  (for 5 and
+          more points)
+       b) sorting of outlying observations 
+
+  - updated scripts Build_GaMa and Make_GaMa so, that after a change 
+    in files prehled.il2/.h automatically followed coding transformation
+    and then make and it was not needed to call script Build_GaMa and
+    compile the whole program again.
+
+
+0.9.40   2000.01.22
+
+  - new version gMatVec 0.9.3; number of allowed iteration in
+    diagonalization of bidiagonal matrix during singular decomposition
+    algorithm was raised from 30 to 300 (this should be "infinitu") -
+    unfortunately 30 is sometimes not enough  ;-)
+
+
+0.9.39   2000.01.19
+
+  - library MatVec renamed to gMatVec
+
+       On the Internet there is too much software called "matvec" (and
+       the more, one is a matrix/vector C++ library); I hope that the
+       name gMatVec is going to be be less conflicting.
+ 
+
+0.9.38   2000.01.11
+
+  - rejection of observations with huge absolute terms (we must repeat
+    redaction of observations, redaction of project equations is not
+    sufficient); see
+
+               InfoSit::zrus_vybocujici_abs_cleny()).
+
+
+0.9.37   2000.01.03
+
+  - new version of library MatVec (in class of symmetric matrices was
+    forgotten declaration of basic type `double' instead of Float)
+
+
+0.9.36   2000.01.01
+
+  - transition to new version of MatVec (0.9.0); in MatVec added new
+    class MatVec::Exception, in implicit values of template arguments
+    removed underlines in names of classes
+
+  - updated script skript/MatVec (original of source text is now in
+    directory gamalib/matvec; changes of version numbers is maintained
+    by sed editor).
+
+  - in gamalib/rand.cpp added directive for conditional translation
+    for MS compiler
+
+
+0.9.35   1999.12.29
+
+  - tested under OS Windows with compilers VC++ 6.0 and Borland 5.4
+    (C++ Builder4)
+
+  - updated method Vyber_reseni::Vypocet(), see median/g_fce.cpp.  My
+    opinion is that it was a bug, consider algorithm for choosing one
+    of two solutions, as presented in Geolibu/PC on page 153 (this
+    reference is of no use if you don't speak Czech ;-) In directory
+    gamalib/median a file of difference produced by dif (to be removed
+    in next versions).
+ 
+  - infosit/konfsoubor.h: directive `using namespace std;' in
+    constructor xmlAttrib (VC++ 6.0 doesn't know std::isspace)
+
+  - corrected errror in template TestLinearizace
+
+  - updated declarations in prehled.il2/elipsy_chyb.h according to
+    VC++ 6.0 (VC++ 6.0 doesn't know std::sqrt)
+
+  - updated file gama_bc/Makefile_bc, added files gama_bc/vypocet.bat,
+    gama_vc/vypocet.bat and gama_vc/gama.cpp
+
+  - g2g v.1.02 (corrected declarations according to warnings from
+    bcc32 v.5.4)
+
+
+0.9.34   1999.12.28
+
+  - a change in void InfoSit::redakce_mereni(); program didn't handle
+    situation, when all but one directions are removed from
+    orientation set (target outside the given configuration of network
+    points)
+
+  - added script /gama/gama-priklady/vypocet for mass computation of
+    test data (adds automatically number of version into output file
+    name) and script /gama/gama-priklady/srovnej, for comparing
+    results from different versions.
+
+
+0.9.33   1999.12.27
+
+  - change of implicit value of parameter 'sc' to 'false' in template
+    InputTextStream (itstream.h); ie. we read implicitly even comment
+    lines marked by character '#' (the change has impact only on
+    infosit/konfsoubor.h)
+
+  - error in helper program g2g (entity <osnova>; new version is 1.01)
+
+
+0.9.32   1999.12.25
+
+  - a change in output format of parameter g (error ellipsis)
+
+  - added program gamaprog/gama/geodet2gama/g2g for conversion of
+    coordinate batch in Geodet format (and stx) into format GaMa
+    (xml); geodet is a local Czech program, interesting only to Czech
+    speaking users.
+
+       Note: because coordinate format of Geodet doesn't contain all
+       information needed for network adjustment, it's necessary to
+       revise the output xml file / input data for GaMa (fixed points,
+       adjusted points etc.)  Program doesn't support conversion of
+       angular values in sexadecimal format (um 360)
+
+
+0.9.31   1999.12.23
+
+  - a change in header of bad linearization
+
+
+0.9.30   1999.12.21
+
+  - in class Mereni (bodmer/mereni.h) added protected method
+    norm_su(), that is called in constructors and virtual method
+    vloz_mer() in classes Smer and Uhel (direction and angle) for
+    "normalization" of angular value, ie. transformation into interval
+    <0, 400).
+
+       Prior this change program crashed during computation of
+       approximate coordinates for sample data polygon-pd-cm.gkf (it
+       differs from polygon-pd-mm.gkf only in that observed distances
+       are rounded to centimeters).
+
+       In this sample data is suspisious point with number 57210041,
+       even after this change are approximate coordinates computed
+       with error > 20m (bad network configuration; point cann't be
+       practically computed!), but adjustment gives "acceptable"
+       results (discrepancies in mm).
+
+  - added method InfoSit::zpresneni_souradnic(), to replace
+    approximate coordinates of unknown points with their adjusted
+    values (not for constrained points) and aproximate values of
+    orientation shifts by adjusted shifts
+
+  - corrected (2x) error in methos OLSsvd::reset(...); there was
+    missing SVD_::reset(A).  Error has no influence until now because
+    in constructor was called "SVD_::reset()" and adjustment was not
+    repeated.
+
+       Note: in class OLSgso (alternative algorithm for solving
+       project equations based on Gram-Schnidt ortogonalization) is
+       everything OK because OLSgso uses protected attribute
+       "is_solved" of base class BaseOLS.
+
+  - added directives for conditional compilation in template functions
+    prehled.il2 / *.h
+
+  - added test on linearization error. Adjustment with update of
+    approximate values of unknown coordinates repeats (3x max) if:
+
+       a) maximal correction of unknown point (not constrained point)
+          is greater or equal to 0.150 m (ie. 15 cm)
+
+       b) maximal difference in a value of adjusted distance computed
+          from residual and from adjusted coordinates is greater or
+          equal to 0.0005 millimetre
+
+       c) maximal transverse shift for direction or angle
+          corresponding to adjusted value computed from adjsuted
+          residual and from adjusted coordinates is greater or equal
+          to 0.0005 millimetre
+ 
+
+0.9.29   1999.11.23
+
+  - in class Bod (point) added constructor with single parameter
+    (point with a height) according to suggestion by Jan Pytel
+
+
+0.9.28   1999.11.04
+
+  - in class Bod (point) added attribute iv_ (index of a height in
+    project equations) and methods for setting and testing of height
+    points, rewritten methods for setting of types of positional
+    points in adjustment (pevny/fixed, urcovany/adjusted,
+    operny/constrained)
+
+
+0.9.27   1999.09.28
+
+  - in the review ov general parameters corrected wrong output of
+    empirical reference standard deviation for the case, when we work
+    with apriori reference standard deviation (actual value was
+    printed)
+
+
+0.9.26   1999.09.26
+
+  - corrected bug in computation of implicit values of standard
+    deviations for distances (we used distance and not the value of
+    distance in kilometers)
+
+
+0.9.25   1999.09.24
+
+  - removed an obscure error in print of parameter g
+    (prehled/elipsy_chyb.h); in condition ak>0 && bk>0 added test on
+    "noise" (for the case wehn bk is practically zero). On this
+    occasion I have added a test on mean positional error mp > 1e-3
+    [mm] (for coordinates with practically zero standard deviation we
+    do not compute coefficient).
+
+  - corrected bad format in print of mean positional error of point mp
+
+  - changed symbols [mm/cc] to [mm|cc] and [m/g] to [m|g]
+
+  - renamed function InfoSit::vahko_opravy (used to be wrongly
+    kovar_opravy); in English: weight coeffient of residua and
+    covariance of residual
+
+  - renamed functions cov_?? to q_?? (they are weight coefficients and
+    not covariances): ls/baseols.h, ls/olssvd.h, ls/olsgso.h,
+    infosit.h, infosit.cpp and matvec/matsvd.h (==> new version of
+    matvec 0.8.0)
+
+  - added scripts Build_GaMa and Make_GaMa, script gama_linux/build
+    changed the way, that on generating  Makefile system header are removed
+
+
+0.9.24   1999.09.19
+
+  - format of results changed after suggestions by M. Hampacher:
+     * standard deviations are not printed as +- xxx
+     * units are not given for standard deviations
+
+  - added script skript/Hledej_slovo (JP)
+
+  - updated skript/GaMaLib (binary program gama is not stored in the archive)
+
+
+0.9.23   1999.09.10
+
+  - added Kolmogorov-Smirnov tes on normality of homogenized residuals
+    (for the case of 30 observations and more)
+
+  - in function InfoSit::stredni_elipsa_chyb and in olsgso.h added
+    declaration using namespace std; and removed explicit declaration
+    of namespace std in names std::sqrt a std::atan2 (MS compiler VC++
+    doesn't has functions like sqrt and atan2 declared in namespace
+    std).
+
+    Note: for VC++ it is necessary to set up explicitly support for
+          RTTI (see 0.9.15 1999.07.12)
+   
+  - the same in file olsgso.h
+
+  - new verison of script skript/Porovnej_ver_gama enables to submit
+    version nubmer and file name (JP)
+
+
+0.9.22-a 1999.08.18
+
+  - change in directories in GaMaLib project gama/archiv --> gama/skript
+                                             gama/gama   --> gama/archiv
+
+0.9.22   1999.07.30
+
+  - in review of standard deviations and error ellipses added test for
+    "nasty" networks (output format in "scientific notation"),
+    confidence ellipse is not computed for points with positional
+    error greater then one meter
+
+
+0.9.21   1999.07.29
+
+  - removed bug in main (forgotten underlina at class Nacrt)
+
+0.9.20   1999.07.28
+
+  - nacrt 0.0.3 (support for graphical sketch of the network)
+
+0.9.19   1999.07.27
+
+  - corrected bad condition for computation of confidence ellipses
+    (condition was "reversed"); see prehled.il2/elipsy_chyb.h
+
+0.9.18   1999.07.26
+
+  - added network sketch by Pytel / verze 0.0.2 (viz gamalib/nacrt)
+
+  - in class Bod (point) removed enumeration constant `pevny_smer'
+    (fixed direction)
+
+  - added function Infosit::stredni_elipsa_chyb()
+
+  - added review of standard deviations and error ellipses  
+
+
+0.9.17   1999.07.16
+
+  - added estimation of "real errors" of observed/adjusted values (for
+    the Czech speaking minority: see F. Charamza: Geodet/PC, VUGTK
+    Zdiby 1990, page 183)
+
+
+0.9.16   1999.07.14
+
+  - first version of review of "residuals and analysis of
+     observations" (meanwhile without estimates of real errors)
+
+  - corrected function InfoSit::kontrola_mereni(int), see F. Charamza,
+    Geodet/PC, Zdiby 1990, page 180 (the function hadn't been used)
+
+  - in script build removed unused module skipcomm.cpp
+
+
+0.9.15   1999.07.12
+
+  - corrected text of exception "zero or negative distance / standard
+    deviation" and other strings in bodmer/vyjimky.h
+
+  - explicit catch for exception from constructors of classes Smer,
+    Delka and Uhel (direction, distance and angle) in functions
+    gkf_smer, gkf_delka and gkf_uhel in infosit/konfsoubor.h (catc all
+    exceptions and call function KonfiguracniSoubor::chyba("...");
+    ie. print line number and text where the error was detected during
+    reading input data).
+    
+  - "minor" changes needed to compile with Visual C++/Borland C++
+
+    Note: MS Visual C++ 6.0 doesn't implisitly set support for RTTI
+    ==> Project Settings | C/C++ | C++ Language | Enable Run-Time Type
+    Information (RTTI).
+
+
+0.9.14   1999.07.09
+
+  - in class Mereni (observation) deleted virtual function PtrSmer,
+    PtrDelka a PtrUhel and replaced by casting dynamic_cast<>() (see
+    verze 0.4.0 / egcs now fully supports RTTI)
+
+  - added implicit standard deviations in xml input data (section
+    <body-mereni>, see infosit/konfsoubor.h)
+
+
+0.9.13   1999.07.06
+
+  - corrected median/pribl_b.h (function bool
+                                ZnameStan(SezMer::const_iterator i))
+  
+  For points is necessary to check existence of orientation shift with
+  function test_z(int), it's not sufficient to test nubmer of shifts
+  (see "logically" deleted orientation shifts with standard deviation -1).
+
+
+0.9.12   1999.07.06
+
+  - *** read input (configuration files) in  XML *** 
+
+    !!! But for some configurations wouldn't compute approximate
+    coordinates (for example dsuloha-c.gkf or dsuloha-d.gkf) - bearing
+    for identical points !!!
+   
+  - deleted file bodmer/ctisebm.h 
+  - files bodmer/znacka.* moved to infosit (and changed namespace)
+
+
+0.9.11   1999.07.05
+
+  - preparation for new format of input data (XML)
+
+
+0.9.10   1999.07.04
+
+  - preparation fo transition to input data in XML. Rewritten files
+    gamalib/bodmer/zapis_*.*, mereni.h and prehled.il2/zakladni_parametry.h
+
+
+0.9.9   1999.06.29
+
+  - [Jan Pytel] a change in script `build' for the case when program
+    cstocs is not installed and function Read_Sparse_Abw
+
+    25c25
+    < # include <gamalib/matvec.h>
+    ---
+    > # include <gamalib/bodmer/matvec.h>
+    38,39c38,39
+    < void Read_Sparse_Abw(istream& inp, GenMat<Float, Exc>& A,
+    <                      GenVec<Float, Exc>& b, GenVec<Float, Exc>& w)
+    ---
+    > void Read_Sparse_Abw(istream& inp, MatVec::Mat_<Float, Exc>& A,
+    >              MatVec::Vec_<Float, Exc>& b, MatVec::Vec_<Float, Exc>& w)
+
+
+0.9.8   1999.06.22
+
+  - in review of general parameters during search for maximal
+    studentized residual added test for omitting observations with
+    covariance < 1e-4 (after getu03)
+
+  - in InfoSit::redakce_bodu() added forgotten test 
+           if (tst_redbod_)  return;
+
+  - class GSO moved to MatVec (class GSO is meant mainly for testing
+    purposes - after all, it was during debuging of GSO when I found
+    two silly bugs mentiond earlier :-)
+
+  - a change in order in review: general information, fixed points,
+    coordinates, orientation shifts, adjusted observations.
+
+
+0.9.7   1999.06.21 
+
+  - added zero version of algoritm GDO (gamalib/ls/matgso.h will
+    be moved to MatVec when debugged)
+
+  - conditional compile in version.cpp for gso vversion (implicitly is
+    used algorithm SVD)
+
+
+0.9.6   1999.06.18
+
+  - gamalib/median: changes
+
+
+0.9.5	1999.06.16
+
+  - gamalib/median/pribl_b.cpp : bug in computation of multiple
+    orientation shifts
+
+
+0.9.4   1999.06.15
+
+  - gama/gama.cpp / main(): output of residual, if asked for, is
+    always donem ie. even for singular networks (residuals might be
+    use later, for example combined adjustement etc.)
+
+  - added a dummy file olsgso.h for adjustment based on algorithm GSO
+    (so file bodmer/ols.h won't be changed later)
+
+  - added function InfoSit::min_n() const ... number of unknowns
+    entering regularization condition
+
+
+0.9.3   1999.06.13
+
+  - added print of m0 into general parameters
+  - added template function PevneBody (prehled.il2/pevne_body.h)
+  - a change in rovopr_u.cpp
+  - file ls/ols.h renamed to ls/olssvd.h and template class GenOLS
+    renamed to OLSsvd (=> a change in infosit/infosit.cpp). In file
+    bodmer/ols added directives for conditional compile as a preparation
+    for Gram-Schmid orthogonalization and other numerical methods.
+
+
+0.9.2   1999.06.11
+
+  - new version pribl_b.h and pribl_b.cpp (JV)
+  - added control sums from md5sum for *.h *.cpp *.gkf
+  - in script gama_linux/build added optional compile parameters
+  - added missing end lines in some files aftter warning from
+    parameter --pedantic (a heritage from NT ;-)
+  - parameter --pedantic added explicitly into script build
+  - program compiled with new version of MatVec 0.7.2
+  - updated script gama_linux/build to recode all files with accents
+    into 1250 a plain ascii. Originals of these files are now stored
+    in gama/prehled.il2 (together with gama.cpp)
+  - a change in InfoSit::defekt() to process possible exceptio
+    MatVec::BadRegularization and return network defect
+  - added pure virtual method bool BaseOLS::lindep(Index) for testing
+    lineraly dependent columns ub project equations.
+  - Methos lindep() defined in class OLS
+  - changed return type of function ZakladniParametry
+    (prehled.il2/zakladni_parametry.h) to bool:
+
+      true   network is OK
+      false  singular system with bad system of constrained points
+
+    added review of linearly dependent columns (index, point, type)
+
+  - ... I had to go through all of this just to find out a stupid error
+    in rovopr_s.cpp (more orientation sets on a single point):
+
+         $ diff rovopr_s.err rovopr_s.cpp 
+         50c50
+         <    indx_[ indx_[0]+1 ] = sbod.index_z();
+         ---
+         >    indx_[ indx_[0]+1 ] = sbod.index_z(osnova());
+
+   - to be sure I removed implicit values of parameters in all
+     functions for processing orientation shifts in class Bod (point):
+     index_z(int), z(int), vloz_z(int), zrus_z(int), test_z(int)
+
+
+0.9.1
+
+  - transition to Linux as the main development platform (until now
+    original sources were maintain on NT)
+
+
+0.9.0  
+
+   - added GNU licence
+
+   - program GaMa (formerly version 0.6.4) was included as a part of
+     library GaMaLib and no longer has its own version number.  Files
+     verze.cpp and verze.h (in English: version), that used to contain
+     version number of gama were removed.
+
+==========================================================================
+
+0.8.0  *********
+
+   Changes made on transition to version 0.8
+   ------------------------------------------
+
+   Added library GaMaLib_Median for copmuting appsoximate coordinates
+
+   New format of input data (poin a observation lists), new input
+   format for adjustment of plain netwok.
+
+   - class cti_txt replaced by template class InputTextStream, it
+   relays on a sole method get(char&) for reading input.  In future it
+   should enable reading data through sockets and the like.
+
+   - from file seznam.h removed class CtiSeznam, renamed to
+   CtiSeznamBM. File cti_sez.cpp renamed to ctisezbm.h, and inside it
+   added template class CtiSeznamBM
+
+  - in class InfoSit method nacti_soubor_BM renamed to
+  nacti_vstupni_davku()
+
+  - added file seznam.cpp (with functions pridej_seznam_mereni() and
+  pridej_seznam_bodu() )
+
+  - in computation of bearings added test on identical points ==>
+  return 0;
+
+  - in namespace GaMaLib defined class GaMaLibException (with single
+  atribute text of type string) as a parent class of all exceptions
+  used in GaMaLib library (existing exceptions modified)
+
+  - deleted file bodmer/vyjimka.h
+
+  - added second constructor of class bm_chyba, that enables to enter
+  error description, line number a the content of the input line
+
+==========================================================================
+
+0.7.2
+
+   - various minor changes on the way to standard C++ coding (removed
+   most of conditional compile directives)
+   - in class InfoSit removed helper class SeznamNeznamych_ formerly
+   used during cinditional compile for VC++ and GNU C
+   - in class Bod (point) removed helper class "list of orientation
+   shifts", used in conditional compile with VC++ 5.0
+
+
+0.7.1
+
+  - transition to usege of functions std; (#include <iostream.h> to
+   <iostream> etc.)
+  - removed class GaMa_ofstream (from now we use only std::ofstream)
+  - hopefully the last discrepancy with language standard is located
+   in files cti_txt.h and cti_txt.cpp, in which remains class
+   istrstream. Because class <stringstream> is not yet generally
+   implemented I am leaving as it is.
+
+
+0.7.0      *********   MatVec 0.7  ********
+
+   Matrix and vector classes were totaly rewritten in matvec 0.7 (it's
+   just a coincidence that versions equals for GaMaLib and MatVec). In
+   all sources are gradually removed directives for conditional
+   compile NonStdCpp (egcs enables usage of namespaces). Removed macro
+   Std_
+
+============================================================================
+
+0.6.0      *********   MatVec   *********
+
+  - new version of matvec updated for bc 5.4
+  - in declaration of friend functions sort and trans added explicit
+  declaration of namespace: friend void GaMaLib::sort(GenVec<Float,
+  Exc>&); For vc 5.0 I had to add conditional compile and keep the
+  former code (compiler ended with "internal compiler error")
+  - added explicit qualificatio in types iterator a const_iterator in
+  classes GenVec and GenMat
+  - the sam for rc_iterator and conts_rc_iterator
+  - in function PYTHAG removed declaration static of local variables at,
+  bt, ct
+
+0.5.12
+   - bug in function Rand_N(); in block if(start) {...} was missing
+   statement start = false; (see file gamalib/rand.cpp)
+
+0.5.11
+   - in batch version of lts added optional argument "path":
+         lts [path] parameters
+   If path is specified, it is appended to input file name.  output
+   file is written in current directory.
+
+0.5.10
+   - removed declaration friend class LTS from matvec.h (0.5.3) and in
+   class LTS pointers to matrix elements replacedby oterators
+
+0.5.9
+   - bodmer/cti_sez.cpp: explicit casting int(slovo.length()) and
+   char(tolower(slovo[i]))
+
+0.5.8 
+   - new version matvec.h (0.5.2). Moved template definition of
+   function ABS()
+
+0.5.7
+   - new version matvec.h (0.5.1). SVD after svd.for (fortrans source
+   code included into GaMaLib distribution)
+
+0.5.6
+   - new organization of directories, see gama/adresare.txt
+   - template class LTS moved to directory gamalib/lts/
+
+0.5.5
+   - LTS: in function LTS_Permutation() removed bug (residuals are in vector
+     r_ and not always in rk_)
+
+0.5.4
+   - LTS: added function LTS_Permutation() returning const pointer to
+     index permutation of sorted residuals for best estimate
+
+0.5.3
+   - LTS: bug in counter solve_count and sum_r2_count
+
+0.5.2
+   - added string GaMaLib_compiler (version.h / version.cpp)
+   - in LTS removed storing/searching of solved permutations
+   and sloution of all permutations
+
+0.5.1
+   - for VC++ defined class GaMa_ofstream (in infosit.h), that opens
+   input text file for exclusive use by the applications. For other
+   compilers GaMa_ofstream is just a substitute name for ofstream (typedef)
+
+0.5.0      *********   BodMer   *********
+
+   on transition to VC++ 5.0 /GNU C++ (egcs 2.90) the following
+   header files have been changed:
+   - float.h: added macro Std_, that replaces standard declaration
+              std::xxx; updated (hopefuly) in all files
+   - bod.h: for VC++ defined list of orientation shifts, that doen't
+            use std::vector
+   - bod.cpp: z_.size() replaced by call to poc_orpos()
+            : a change in test_z() / need to split return and throw
+   - cisbod.h: for VC++ added operator<<(ostream&, const CisBod&);
+
+0.4.6
+   - classe BaseOLS and OLS rewritten as templates (working version)
+   - calss OLS renamed to GenOLS (analogically as GenMat and GenVec)
+   - new file <gamalib/bodmer/ols>
+   - corrected definitions of namespaces and corresponding bugs
+        GaMaLib_Infosit  contains  GamaLib_BodMer
+        GaMaLib_BodMer   contains  GaMaLib
+   - added methos solve() into class GenOLS to solve ambiguity 
+   between BaseOLS::solve() and SVDGenMat::solve()
+
+0.4.5
+   - MatVec: added parameter for controling width in ostream <<
+   BaseMat and GenVec
+
+0.4.4
+   - MatVec: added constructors with variable number of parameters 
+   for classes  GenVec a GenMat (parameters are dimens and list of
+   all elements of type Float; for matrices given by lines).
+      GenVec::GenVec(int, Float ...);
+      GenMat::GenMat(int, int, Float ...);
+
+   Note: given elements must be of type Float (no conversions) !!!
+
+0.4.3      *********   MatVec   *********
+
+   - VC 5.0: all friend function definitions moved outside class definitions
+   - added second parameter (text/error description) for exceptions Exc
+   - removed bug in adding adn substracting of GenMat and TransGenMat
+   - GenMat iterators declared as public
+   - removed declaration `friend' of function inv(GenMat) in  GenMat/GenVec
+   - corrected explicit public ctor GenMat::GenMat(const TransGenMat&)
+
+0.4.2
+   - minor changes on transition to VC 5.0
+
+0.4.1
+   - GaMaLib : conditional compile for namespaces (#ifndef NonStdCpp).
+   When compileing with g++ (GNU C) or xlC (AIX) must be supplied
+   parameter -DNonStdCpp
+
+0.4.0
+   - in class Mereni (observation) defined functions
+         virtual Smer*  PtrSmer()  { return 0; }
+         virtual Delka* PtrDelka() { return 0; }
+         virtual Uhel*  PtrUhel()  { return 0; }
+   in child classes they are redefined to return pointer this
+   (similarly 3 functions for constant objects).
+   GNU C 2.7.2 has problems with RTTI, ie. dynamic_cast doesn't work
+   properly
+
+0.3.25
+
+   - in class LTS set a weight of selected observations to R (ie. one
+   observation gets heigher weight thea all remainnigntogether)
+   - corrected wrong condition in Trimmed_Ab to the form:
+        for (int p, i=1; i<=k; i++)
+            {
+               if (init)
+                  {
+                     if (!AllCombinations && RandomInit)
+                         ^^^^^^^^^^^^^^^^^^^^ .... pridano
+   -  in LTS added private attribute int* init_perm_ ; an array for
+   generating random vectors
+
+0.3.24
+   - in class LTS added public attribute RandomInit:
+        true  ... initial LTS guess is given by random sample
+        false ... initial guess is "random" combination
+
+0.3.23
+   - removed bug in InfoSit::pocet_bodu()
+
+0.3.22
+   - in function SVDGenMat<Float, Exc>::min_subset_x() new computation
+   for dot product (added helper variable Vimk). 
+
+0.3.21
+   - removed bug in print of constrained points (zapis_b.cpp); firstly
+   we must test for "constrained point" and then for "adjusted point".
+
+   - in BaseOLS added pure virtual methods min_x() and min_x(int, int[]);
+   with the same meaning as in SVD.
+
+   - the same in OLS
+
+0.3.20
+   - added function Chi_square(prob, N) for critical values of
+    chi-square distribution (after mtchi1() from geolib PC):
+
+0.3.19
+   - added user-defined i/o manipulator SkipComments ("skipcomm.h")
+
+0.3.18
+   - LTS: renamed attribute PermAging to CombAging
+   - LTS: added private function void RandomizePerm(int[]);
+   - LTS: renamed private functions (removed ending _);
+
+0.3.17
+   - LTS: added public attribute int PermAging. In the list of solved
+   combinations are deleted those older then `PermAging' steps.
+
+0.3.16
+   - LTS: on finding combination with lesser sum r^2 is permutation
+   perm_ reset after rg_perm and object comb_ is reset to its initial
+   state (1, 2, ..., K)
+
+   - LTS: function Reset_k() renamed to Reset_K()
+
+0.3.15
+   - into LTS added public attribute AllCombinations (switches off
+   functions conected with storage of computed combinations)
+
+0.3.14
+   - added public attribute bool StoreSolvedCombinations to control
+   `switching of' storage of solved combinations
+   - LTS: change of the type of loop variabel from  `int' to `unsigned'
+   in cases when compared with return value of type `unsigned'
+   (just to get rid off warning messages)
+   - after label TryNextPerm: added ';' ("label must be followed by
+   a statement")
+
+0.3.13
+   - LTS: added output of solved combinations  
+            PrintSolvedCombinations(ostream&, bool);
+   - stored combinations are sorted by the number of their accesses
+
+0.3.12
+   - in class LTS added storing of solved combinations
+
+0.3.11
+   - in class LTS added attribute Sampling_is_solved_ (protects against
+   repeted splves of known combination); the value is set by
+   Reset_k(), Sampling() a Next()
+   - minimal value LTS::K in function Reset_k() set to
+   C+1 (number of unknowns + 1)
+   - added third optional parameter for constructor for direct set 
+   set of value K (negative value means "all observations")
+
+0.3.10
+   - in class LTS removed test function citac_permutaci()
+   and test on similarity with previous combination (will be replaced 
+   by test on solved permutations)
+
+0.3.9
+   - working version: in class LTS is tested number of combinations 
+   that need to be solved. Test is maintained by helper function
+   citac_permutaci(), to be removed.
+
+0.3.8
+   - bug in counter of "best" LTS estimates (sum_r2_count_)
+   - LTS::RandomGuess() renamed to LTS::Sampling()
+
+0.3.7
+   - input function void GaMaLib_InfoSit::cti_rovnice_oprav(....)
+   replaced by template void GaMaLib::Read_Sparse_Abw(....)
+
+0.3.6
+   - rand.h: change in order of attribute initialization in ctor Comb
+   - lts.h: change in order of initialization for A_ a b_
+   - lts.h: explicit conversion 'int(Rand_U()*R)'
+   - lts.h: removed directive # include <gamalib/ols.h>
+   - gamlib/matvec.h: #include <algorithm.h> renamed to #include <algorithm>
+   for GNU C compiler
+
+0.3.5
+   - LTS: minor changes
+
+0.3.4
+   - started debugging of new class  LTS (Least Trimmed Squares)
+   - class LTS declared as friend class to GenMat and GenVec
+
+0.3.3
+   - all classes and functions from subdirectory "bodmer" included
+   into namespace GaMaLib_BodMer. Library GaMaLib starting from this
+   version has a basic namespace GaMaLib and two namespaces
+   corresponding to its subdirectories GaMaLib_BodMer and
+   GaMaLib_InfoSit
+
+0.3.2
+   - all header files are stored in directory gamalib and its subdirectories
+   - files gamaver.* renamed to version.*
+   - namespace MatVec renamed to GaMaLib
+   - file of template classes Mat a Vec renamed to  matvec.h
+   - files gamarand.* renamed to rand.*
+   - file matvec/matvec.h moved to bodmer/matvec.h and subderoctories
+   gamalib/matvec removed
+   - all files from subdirectory ols moved to gamalib (ols.* a baseols.*)
+   - all files from dir. zakladni moved to subdir  bodmer (float.h a vyjimka.h)
+   - namespace LeastSquares renamed to GaMaLib
+   - removed directory gamalib.src, all *.cpp moved to their header files
+   - namespace Informace_o_siti renamed to GaMaLib_InfoSit
+
+0.3.1
+   - namespace Zakladni rename to  GaMaLib in files:
+   zakladni/vyjimka.h, zakladni/float.h a  matvec/matvec.h
+   - namespace Bod_Mereni changed to GaMaLib in bodmer/vyjimky.h,
+   bod.h, bod.cpp, mereni.h and all others
+
+0.3.0
+   - TMatVec.h moved to the main GaMaLib directory
+   (==> in file matvec/matvec.h changed #include <TMatVec.h>)
+
+   - similarly files zakladni/verze.* renamed to
+   GaMaVer.*  Declaration namespace Zakladni changed to GaMaLib
+   and name GaMaLib_verze changed to GaMaLib_version, type changed
+   from const std::string to const char*
+
+   - similarly statistics function
+
+   - computation of orientation shift moved from directory median into
+   directory bodmer (changed namespace Median to GaMaLib)
+
+   - added files gamarand.* with random number generator
+   and class Comb for generations k-combinations of integers <1, N>
+
+0.2.3
+   - added test Kolmogorov-Smirnov (Stat_Anal)
+
+0.2.2
+   - added template function sort for class Vec (TMatVec 3.0.3)
+   - functions sort(Vec) used in computation of median
+
+0.2.1
+   - changes in  MatVec.h (3.0.2) for GNU C (g++ 2.7.2)
+
+0.2.0
+   - transition to new version of MatVec
+
+0.1.15
+   - in class cti_txt rewritten  operator>>(std::string&)
+
+   - class CtiSeznam ("ReadList") suplied with reading of configuration
+       stanovisko / pb  # pevny bod       ..... fixed poind
+       stanovisko / ub  # urcovany              adjusted
+       stanovisko / ob  # operny                constrained
+       stanovisko / nb  # neni bodem site       not used  
+
+   - in output of points added point types 
+
+   - in class InfoSit removed all methods for processing indput data
+
+   - added/prepared methods:
+      void InfoSit::nacti_soubor_BM(const string& soubor);
+      void InfoSit::nacti_soubor_parametru(const string& soubor);
+      void InfoSit::zapis_soubor_parametru(const string& soubor);
+
+0.1.14
+   - removed bug in calculation of approximate value of orientation shift
+     Added test for the case when average is computed from a positive 
+     and a negative value.
+
+0.1.13
+
+   - added function InfoSit::aktualizace() and enumeration type
+   InfoSit::Redakce; calling of aktualizace() replaced by asignment
+   tst_redbod_ = false (similarly tst_redmer_, tst_rov_opr_ and
+   tst_vyrovnani_); previous control of the solution state was wrong
+
+0.1.12
+   - added removal of object attributes in class InfoSit in methods
+   zrus_vsechny_body() and zrus_vsechna_mereni() [ remove all points
+   and remove all observations ]
+
+0.1.11
+   - in class InfoSit added function  zrus_vsechna_mereni(),
+   observations must be removed explicitly when needed 
+   (not done by destructor !!!). Added function  zrus_vsechny_body().
+   Both functions sets the appropriate solution state.
+
+0.1.10
+   - explicit usage of namespace names in parameters of function
+   or_pos (for computing orientation shifts)
+
+0.1.9
+   - in class Mereni (observation) added private data member aktivni_
+   (is active) and functions bool aktivni() const, void
+   aktivni_mereni() aand void pasivni_mereni() to be used for
+   "logically" deleting of observations (observations stays in the
+   list but is not used in forming project equations)
+
+   - bool test_bodu() renamed to bool redakce_mereni().  Apart from
+   point testing (does it belong to network configuration) tests if an
+   observation is active or passive. Renamed files test_bd, test_bs a
+   test_bu na redmer_dm redmer_s a redmer_u.
+
+0.1.8
+   - added functions for inclusion of observation/point lists
+   void pridej_seznam_bodu  (SezBod& cil, const SezBod& zdroj);
+   void pridej_seznam_mereni(SezMer& cil, const SezMer& zdroj);
+
+0.1.7
+   - added function bool InfoSit::prazdny_seznam() [empty list]
+
+   - function CtiSeznam::cti [read list] changed to accept empty lists
+   of points and observations (empty or containing only white spaces)
+
+0.1.6
+   - new namespace Statisticka_analyza (GaMaLib/statan)
+
+   - in class BaseOLS added pure virtual function defect() and
+   defined in derived class OLS
+
+   - added attributes and some methods for statistical analysis
+
+0.1.5
+   - in class InfoSit added helper functions for defining maximal
+   output width for unknow indexes and point numbers
+   
+0.1.4
+   - in class InfoSoubor replaced by private members path, IS,
+   SB a KS of the class InfoSit, added destructor ~InfoSit()
+
+0.1.3
+
+   - in class InfoSit three public members: SB (point list),
+   SM (observation list), Info (object of type InfoSoubor [InfoFile] )
+
+   - added external string const Zakladni::GaMaLib_verze ... [version]
+
+   - added structure Informace_o_siti::InfoSoubor for storing
+   of file names and other network configurations data
+
+0.1.2
+
+   - removed another bug in computation of otientation shifts
+   (orientation set with only two directions, one direction positive,
+   the other negative)
+
+   - added function members to class bod (point):
+
+	   void nastav_pevny_bod();
+	   void nastav_urcovany_bod();
+	   void nastav_operny_bod();
+	   void zrus_bod_site();
+	   bool bod_site() const;
+	   bool pevny_bod() const;
+	   bool urcovany_bod() const;
+	   bool operny_bod() const;
+
+     function priznaky() removed
+
+
+   - removed header file <bodmer/priznaky.h>
+
+   - in class Mereni (observation ) removed "priznaky (tags)" InfoMer {
+   vyloucit, pouzit} (these make no sense) and function priznaky()
+
+   - bud in constructor of class Mereni (must not have implicit values
+   for parametres observation / standard deviation).
+
+   - added exceptions Bod_Mereni::bm_strch and bm_delka()
+
+   - in functions mer() and str() removed test if(var_ <0) throw bm_udaj()
+
+   - method vloz_mer(Double, Double) changed to be virtual,
+   redefined in Delka [distance] (added test on negative distance)
+
+0.1.1
+
+   - corrected computation of orientation shifts (adding shifts into
+   point list - on a certain configurations some shifts wouldn't get
+   solved)
+
+   - in class Mereni (observation) is method var() used instead of
+   str(), because we work with variances and not with standard
+   deviations.
+
+   - similarly renamed function Format::var_p() from Format::str_p()
+
+   - in class Mereni removed methods test_mer() and zrus_mer(),
+   ie. "logically removed observations" are not supproted
+
+   - corrected computation of coefficients for angles in project
+   equations
+
+0.1.0
+   
+  Change log started on 1998-01-19 
+
+*/
+

@@ -1,0 +1,30 @@
+GNU package GaMa is a C++ free software for geodesy released under GNU
+General Public Licence. Project GaMa was started in 1998, in 2001 was
+dubbed a GNU packaqe and today contains the following main components:
+
+    [gamalib] C++ class library for handling geodetic observations
+    (measurements) and points (coordinates), computation of
+    approximate coordinates (needed for linearization) and adjustment
+    of local geodetic networks in 3d.  C API to essential gamalib C++
+    classes and functions is also available. Numerical solution of
+    adjustment is based on orthogonal decomposition of the design
+    matrix (ie without "normal equations"); currently supported
+    algorithms are SVD and GSO (an algorithm based on Gram-Schmidt
+    orthogonalisation). Adjustment on the ellipsoid is a long term
+    goal.
+
+    [program gama] C++ program for adjustment of horizontal geodetic
+    network based on gamalib (also available as a public service
+    accessible by email); format of input data is defined in XML. Data
+    structures used in adjustment enable usage of general
+    variance-covariance matrices of observations and are designed to
+    enable implementation of sparse matrices in future versions.
+
+    [gmatvec] C++ matrix/vector template classes used in adjustment
+    computations in gamalib.
+
+More information on GNU GaMa can be found at
+
+                 http://www.gnu.org/software/gama
+
+
