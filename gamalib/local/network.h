@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.h,v 1.3 2002/12/18 09:38:03 cepek Exp $
+ *  $Id: network.h,v 1.4 2003/02/22 19:40:54 cepek Exp $
  */
 
 // LocalNetwork - Network Informations class (Informace o siti)
@@ -37,7 +37,7 @@
 #include <gamalib/ls/baseols.h>
 #include <gamalib/cluster.h>
 #include <gamalib/local/revision.h>
-#include <gamalib/sparse/smatrix.h>
+#include <gnu_gama/sparse/smatrix.h>
 
 
 namespace GaMaLib 
@@ -290,7 +290,7 @@ namespace GaMaLib
       Vec sigma_L;          // standard deviation of adjusted observation
       Vec vahkopr;          // weight coefficient of residuals
       Double suma_pvv_;
-      SparseMatrix<Double, Index>*  Asp;
+      GNU_gama::SparseMatrix<Double, Index>*  Asp;
       
       // solution of Least Squares
       

@@ -20,14 +20,16 @@
 */
 
 /*
- *  $Id: outstream.h,v 1.1 2003/02/16 13:09:14 cepek Exp $
+ *  $Id: outstream.h,v 1.2 2003/02/22 19:40:55 cepek Exp $
  */
-
 
 #include <iostream>
 #include <string>
 #include <expat/xmlparse/xmlparse.h>
 #include <gamalib/xml/encoding.h>
+
+#ifndef GNU_gama__outstream__h____output_stream__outstreamh
+#define GNU_gama__outstream__h____output_stream__outstreamh
 
 namespace GNU_gama {
 
@@ -75,3 +77,5 @@ namespace GNU_gama {
   };
 
 }
+
+#endif

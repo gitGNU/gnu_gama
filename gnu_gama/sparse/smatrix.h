@@ -20,17 +20,17 @@
 */
 
 /*
- *  $Id: smatrix.h,v 1.6 2003/01/09 23:34:16 cepek Exp $
+ *  $Id: smatrix.h,v 1.1 2003/02/22 19:40:55 cepek Exp $
  */
 
-#ifndef GaMaLib_Sparse_General_Matrix____GaMaLib___Sparse___General___Matrix__
-#define GaMaLib_Sparse_General_Matrix____GaMaLib___Sparse___General___Matrix__
+#ifndef GNU_gama___GaMaLib_Sparse_General_Matrix_______General___Matrix__
+#define GNU_gama___GaMaLib_Sparse_General_Matrix_______General___Matrix__
 
 #include <cstddef>
 #include <cstring>
 
 
-namespace GaMaLib {
+namespace GNU_gama {
 
 template <class Float=double, class Index=std::size_t> 
 
@@ -217,16 +217,16 @@ template <class Float=double, class Index=std::size_t>
 
   };
  
-}   // namespace GaMaLib
+}   // namespace GNU_gama
 
 #endif
 
-#ifdef GaMaLib_sparse_demo
+#ifdef GNU_gama_sparse_demo
 
 #include <iostream>
 
 using namespace std;
-using namespace GaMaLib;
+using namespace GNU_gama;
 
 
 void write(ostream& cout, SparseMatrix<>* sgm)

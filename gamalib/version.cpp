@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.53 2003/02/16 13:09:14 cepek Exp $
+ *  $Id: version.cpp,v 1.54 2003/02/22 19:40:54 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.7.00";
+const char* GaMaLib_version  = "1.7.01-pre";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
@@ -58,6 +58,13 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.7.01 ..........
+
+   - directory `sparse' moved from `gamalib' to `gnu_gama', added
+     template class SparseVec (added directory <gnu_gama/...> for
+     processing in scripts/gamalaib_dep.cpp)
+
 
 1.7.00 2003-02-16
 

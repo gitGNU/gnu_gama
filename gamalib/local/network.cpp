@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.3 2002/10/24 17:04:12 cepek Exp $
+ *  $Id: network.cpp,v 1.4 2003/02/22 19:40:54 cepek Exp $
  */
 
 #include <fstream>
@@ -187,8 +187,8 @@ void LocalNetwork::project_equations()
     const size_t  M = V * loclin.max_size;   // reserved memory 
 
 
-    SparseMatrix<Double, Index>* 
-      tmp = new SparseMatrix<Double, Index>(M, V, 0);
+    GNU_gama::SparseMatrix<Double, Index>* 
+      tmp = new GNU_gama::SparseMatrix<Double, Index>(M, V, 0);
 
     b.reset(pocmer_);   // initialisation of base class OLS
     rhs_.reset(pocmer_);

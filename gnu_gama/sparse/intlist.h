@@ -20,15 +20,15 @@
 */
 
 /*
- *  $Id: intlist.h,v 1.3 2002/11/22 21:06:30 cepek Exp $
+ *  $Id: intlist.h,v 1.1 2003/02/22 19:40:55 cepek Exp $
  */
 
-#ifndef GaMaLib_Integer_list____GaMaLib_Integer_list__
-#define GaMaLib_Integer_list____GaMaLib_Integer_list__
+#ifndef GNU_gama___GaMaLib_Integer_list____GaMaLib_Integer_list
+#define GNU_gama___GaMaLib_Integer_list____GaMaLib_Integer_list
 
 #include <cstddef>
 
-namespace GaMaLib {
+namespace GNU_gama {
 
 template <class Index=std::size_t> 
 
@@ -79,18 +79,18 @@ template <class Index=std::size_t>
     
   };
  
-}   // namespace GaMaLib
+}   // namespace GNU_gama
 
 #endif
 
 
 
-#ifdef GaMaLib_sparse_demo
+#ifdef GNU_gama_sparse_demo
 
 #include <iostream>
 
 using namespace std;
-using namespace GaMaLib;
+using namespace GNU_gama;
 
 
 int main()

@@ -4,10 +4,11 @@
 #include <set>
 
 /*
- * $Id: gamalib_dep.cpp,v 1.4 2002/06/06 19:50:23 cepek Exp $
+ * $Id: gamalib_dep.cpp,v 1.5 2003/02/22 19:40:55 cepek Exp $
  */
 
 /*************************************************************************
+ * 0.6  added directory <gnu_gama/ ... > for processing
  * 0.5  added include <iostream> for g++ 3.0.4 
  * 0.4  .o changed to .$(OBJ) for
  * 0.3  `name' not written to output
@@ -36,9 +37,13 @@ void add_dep(string file, set<string>& dep)
   string line;
   while (getline(inp, line))
     {
-      size_t n; 
+      size_t  n, n1, n2; 
       if (string::npos == (n=line.find("#include" ))) continue;
-      if (string::npos == (n=line.find("<gamalib/"))) continue;
+      n1 = line.find("<gamalib/" );
+      n2 = line.find("<gnu_gama/");
+      if (string::npos == n1 && string::npos == n2) continue;
+      if (string::npos != n1) n = n1;
+      if (string::npos != n2) n = n2;
           
       string name;
       n++;

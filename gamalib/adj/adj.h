@@ -20,13 +20,13 @@
 */
 
 /*
- *  $Id: adj.h,v 1.7 2003/01/04 22:11:48 cepek Exp $
+ *  $Id: adj.h,v 1.8 2003/02/22 19:40:54 cepek Exp $
  */
 
 #include <gamalib/exception.h>
-#include <gamalib/sparse/smatrix.h>
-#include <gamalib/sparse/sbdiagonal.h>
-#include <gamalib/sparse/intlist.h>
+#include <gnu_gama/sparse/smatrix.h>
+#include <gnu_gama/sparse/sbdiagonal.h>
+#include <gnu_gama/sparse/intlist.h>
 #include <gamalib/ls/olssvd.h>
 #include <gamalib/ls/olsgso.h>
 
@@ -92,15 +92,15 @@ namespace GaMaLib {
     void write_xml(std::ostream&) const;
     void read_xml(std::istream&);
 
-    const SparseMatrix <> * mat () const { return A;     }
-    const BlockDiagonal<> * cov () const { return pcov;  }
-    const Vec               rhs () const { return prhs;  }
-    const IntegerList  <> * minx() const { return pminx; } 
+    const GNU_gama::SparseMatrix <> * mat () const { return A;     }
+    const GNU_gama::BlockDiagonal<> * cov () const { return pcov;  }
+    const Vec                         rhs () const { return prhs;  }
+    const GNU_gama::IntegerList  <> * minx() const { return pminx; } 
 
-    void set_mat (SparseMatrix <> * p) { delete A;     A     = p; }
-    void set_cov (BlockDiagonal<> * p) { delete pcov;  pcov  = p; }
-    void set_rhs (Vec               p) {               prhs  = p; }
-    void set_minx(IntegerList  <> * p) { delete pminx; pminx = p; } 
+    void set_mat (GNU_gama::SparseMatrix <> * p) { delete A;     A     = p; }
+    void set_cov (GNU_gama::BlockDiagonal<> * p) { delete pcov;  pcov  = p; }
+    void set_rhs (Vec                         p) {               prhs  = p; }
+    void set_minx(GNU_gama::IntegerList  <> * p) { delete pminx; pminx = p; } 
 
     void swap(AdjInputData *);
 
@@ -113,10 +113,10 @@ namespace GaMaLib {
 
     friend class Adj;
 
-    SparseMatrix <> * A;
-    BlockDiagonal<> * pcov;
-    Vec               prhs;
-    IntegerList  <> * pminx;
+    GNU_gama::SparseMatrix <> * A;
+    GNU_gama::BlockDiagonal<> * pcov;
+    Vec                         prhs;
+    GNU_gama::IntegerList  <> * pminx;
 
   };
   

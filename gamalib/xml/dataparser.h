@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.11 2003/01/18 14:14:59 cepek Exp $
+ *  $Id: dataparser.h,v 1.12 2003/02/22 19:40:54 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -177,13 +177,13 @@ namespace GaMaLib {
                 int end_state2=0);
 
       std::string      text_buffer;
-      SparseMatrix <> *adj_sparse_mat;
-      BlockDiagonal<> *adj_block_diagonal;
+      GNU_gama::SparseMatrix <> *adj_sparse_mat;
+      GNU_gama::BlockDiagonal<> *adj_block_diagonal;
       Vec              adj_vector;  
       Vec::iterator    adj_vector_iterator;  
       Index            adj_vector_dim;
-      IntegerList<>   *adj_array;
-      IntegerList<>::iterator adj_array_iterator;
+      GNU_gama::IntegerList<>   *adj_array;
+      GNU_gama::IntegerList<>::iterator adj_array_iterator;
       Index            adj_array_dim;
       std::size_t      adj_sparse_mat_nonz;
       std::size_t      adj_sparse_mat_row_nonz;

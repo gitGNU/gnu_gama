@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.14 2003/01/18 20:31:34 cepek Exp $
+ *  $Id: adj.cpp,v 1.15 2003/02/22 19:40:54 cepek Exp $
  */
 
 #include <gamalib/adj/adj.h>
@@ -200,8 +200,8 @@ void AdjInputData::read_gama_local_old_format(std::istream& inp)
 
   gMatVec::Vec<> c(rows);
 
-  IntegerList<> tmplist(rows);        
-  IntegerList<>::iterator m = tmplist.begin();
+  GNU_gama::IntegerList<> tmplist(rows);        
+  GNU_gama::IntegerList<>::iterator m = tmplist.begin();
 
   long floats=0;
   for (long nonz, n, k, i=1; i<=rows; i++)
@@ -228,7 +228,7 @@ void AdjInputData::read_gama_local_old_format(std::istream& inp)
     }
 
   delete A;
-  A = new SparseMatrix<>(floats, rows, cols);
+  A = new GNU_gama::SparseMatrix<>(floats, rows, cols);
 
   m = tmplist.begin();
   for (long k=0, r=1; r<=rows; r++)
@@ -239,7 +239,7 @@ void AdjInputData::read_gama_local_old_format(std::istream& inp)
     }
 
   delete pcov;
-  pcov = new BlockDiagonal<>(1, rows);
+  pcov = new GNU_gama::BlockDiagonal<>(1, rows);
   pcov->add_block(rows, 0, c.begin());
 }
 

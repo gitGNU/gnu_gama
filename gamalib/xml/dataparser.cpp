@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.12 2003/01/18 14:14:59 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.13 2003/02/22 19:40:54 cepek Exp $
  */
 
 // #########################################################################
@@ -503,7 +503,8 @@ int DataParser::sparse_mat_nonz(const char *name)
   if (inp >> rows >> cols >> adj_sparse_mat_nonz)
     {
       text_buffer.erase();
-      adj_sparse_mat = new SparseMatrix<>(adj_sparse_mat_nonz, rows, cols);
+      adj_sparse_mat = 
+        new GNU_gama::SparseMatrix<>(adj_sparse_mat_nonz, rows, cols);
       return end_tag(name);
     }
   return error("### bad data in tags <rows> / <cols> / <nonz>");
@@ -566,8 +567,8 @@ int DataParser::block_diagonal_nonz(const char *name)
   if (inp >> block_diagonal_blocks_ >> block_diagonal_nonz_)
     {
       text_buffer.erase();
-      adj_block_diagonal = new BlockDiagonal<> (block_diagonal_blocks_,
-                                                block_diagonal_nonz_);
+      adj_block_diagonal = new GNU_gama::BlockDiagonal<> 
+        (block_diagonal_blocks_, block_diagonal_nonz_);
       return end_tag(name);
     }
   return error("### bad data in tags <blocks> / <nonz>");
@@ -682,7 +683,7 @@ int DataParser::array_dim(const char *name)
   if (inp >> adj_array_dim)
     {
       text_buffer.erase();
-      adj_array = new IntegerList<>(adj_array_dim);
+      adj_array = new GNU_gama::IntegerList<>(adj_array_dim);
       adj_array_iterator = adj_array->begin();
       return end_tag(name);
     }

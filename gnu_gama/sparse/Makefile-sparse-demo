@@ -1,10 +1,10 @@
 
 all : $(shell ls *.h | sed s/.h/-h/ | sed  s/^/demo-/ )
 
-demo-%-h : %.h
+demo-%-h : %.h Makefile-sparse-demo
 	@rm -f $@ $@.cpp
 	@ln -s $< $@.cpp
-	$(CXX) $(CXXFLAGS) -DGaMaLib_sparse_demo -o $@ $@.cpp
+	$(CXX) $(CXXFLAGS) -g -DGNU_gama_sparse_demo -Wall -pedantic -o $@ $@.cpp
 	@rm -f $@.cpp
 
 clean:

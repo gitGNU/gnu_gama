@@ -20,11 +20,11 @@
 */
 
 /*
- *  $Id: sbdiagonal.h,v 1.6 2003/01/03 17:54:06 cepek Exp $
+ *  $Id: sbdiagonal.h,v 1.1 2003/02/22 19:40:55 cepek Exp $
  */
 
-#ifndef GaMaLib_Symmetric_Block_Diagonal____GaMaLib_Symmetric_Block_Diagonal__
-#define GaMaLib_Symmetric_Block_Diagonal____GaMaLib_Symmetric_Block_Diagonal__
+#ifndef GNU_gama____Symmetric_Block_Diagonal___Symmetric_Block_Diagonal
+#define GNU_gama____Symmetric_Block_Diagonal___Symmetric_Block_Diagonal
 
 #include <cstddef>
 #include <cstring>
@@ -32,7 +32,7 @@
 #include <cmath>
 
 
-namespace GaMaLib {
+namespace GNU_gama {
 
 template <class Float=double, class Index=std::size_t> 
 
@@ -174,18 +174,18 @@ template <class Float=double, class Index=std::size_t>
 
   };
  
-}   // namespace GaMaLib
+}   // namespace GNU_gama
 
 #endif
 
 
 
-#ifdef GaMaLib_sparse_demo
+#ifdef GNU_gama_sparse_demo
 
 #include <iostream>
 
 using namespace std;
-using namespace GaMaLib;
+using namespace GNU_gama;
 
 
 void write(ostream& cout, BlockDiagonal<>* bd)
