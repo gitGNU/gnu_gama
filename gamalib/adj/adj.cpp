@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.3 2002/11/22 21:06:30 cepek Exp $
+ *  $Id: adj.cpp,v 1.4 2002/11/23 20:28:50 cepek Exp $
  */
 
 #include <gamalib/adj/adj.h>
@@ -72,11 +72,11 @@ void AdjInputData::read_gama_local_old_format(std::istream& inp)
 
   A.reset(floats, rows, cols);
   m = minx.begin();
-  for (long r=1; r<=rows; r++)
+  for (long k=0, r=1; r<=rows; r++)
     {
       A.new_row();
       long nonz = *m++;
-      for (long i=0; i<nonz; i++)  A.add_element(flt[i], ind[i]);       
+      for (long i=1; i<=nonz; i++, k++)  A.add_element(flt[k], ind[k]);       
     }
 
   minx.reset();  // no regularization is defined for singular systems

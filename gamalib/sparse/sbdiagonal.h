@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: sbdiagonal.h,v 1.4 2002/11/22 17:46:22 cepek Exp $
+ *  $Id: sbdiagonal.h,v 1.5 2002/11/23 20:28:50 cepek Exp $
  */
 
 #ifndef GaMaLib_Symmetric_Block_Diagonal____GaMaLib_Symmetric_Block_Diagonal__
@@ -72,7 +72,9 @@ template <class Float=double, class Index=std::size_t>
 
     BlockDiagonal()
     {
-      dim_ = widtw_ = begin_ = nonz_ = 0;
+      dim_ = width_ = 0;
+      nonz_ = 0;
+      begin_ = 0;
     }
     
     BlockDiagonal(Index blcks, Index floats) 
