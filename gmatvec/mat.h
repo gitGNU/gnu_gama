@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.20)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.21)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: mat.h,v 1.7 2002/09/15 16:05:17 cepek Exp $
+ *  $Id: mat.h,v 1.8 2002/11/14 14:58:52 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -230,7 +230,7 @@ void Mat<Float, Exc>::invert()
           for (jj=step; jj<N; jj++)
             {
               e = entry(i, indc[jj]);
-              if (fabs(e) > fabs(pivot))
+              if (Abs(e) > Abs(pivot))
                 {
                   pivot = e; p_row = ii; p_col = jj;
                 }

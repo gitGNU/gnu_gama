@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.20)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.21)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: bandmat.h,v 1.9 2002/09/16 10:28:58 cepek Exp $
+ *  $Id: bandmat.h,v 1.10 2002/11/14 14:58:52 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -90,8 +90,8 @@ private:
    Float  absa, absb, absq;
    Float  pythag(Float  a, Float  b) 
      {
-       absa = fabs(a);
-       absb = fabs(b);
+       absa = Abs(a);
+       absb = Abs(b);
        if (absa > absb)
          {
            absq = absb/absa;
@@ -105,8 +105,6 @@ private:
        
        return 0.0;
      }
-
-   Float  Sign(Float  a, Float  b) { return b >= 0.0 ? fabs(a) : -fabs(a); }
 
 };      /* class BandMat */
 
@@ -171,7 +169,7 @@ void BandMat<Float, Exc>::cholDec()
 
    Float *b = begin();
    Float *p;
-   const Float  Tol = fabs(*b*cholTol());
+   const Float  Tol = Abs(*b*cholTol());
    const Index bw1 = band_ + 1;
    Index i, k, l, m, n;
    Float   q, b0;
@@ -534,8 +532,8 @@ void BandMat<Float, Exc>::eigenVal(Vec<Float, Exc>& eigvals)
       for (m=l; m<=n; m++) 
         {
           if (m == n) break;  
-          tst1 = fabs(d[m])+fabs(d[m+1]);
-          tst2 = tst1 + fabs(e[m]);
+          tst1 = Abs(d[m])+Abs(d[m+1]);
+          tst2 = tst1 + Abs(e[m]);
           if (tst1 == tst2) break;
         }
       p = d[l];

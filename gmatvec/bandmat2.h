@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.20)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.21)
     Copyright (C) 2002  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: bandmat2.h,v 1.1 2002/09/16 10:28:58 cepek Exp $
+ *  $Id: bandmat2.h,v 1.2 2002/11/14 14:58:52 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -160,7 +160,7 @@ void BandMat2<Float, Exc>::cholDec()
    Index  N = dim();
    Index  W = bandWidth();
 
-   const  Float  Tol = fabs(*B*cholTol());
+   const  Float  Tol = Abs(*B*cholTol());
    Float *p;
    Index  row, k, l, n;
    Float  pivot, q;

@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.20)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.21)
     Copyright (C) 2002  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: jacobian.h,v 1.3 2002/09/15 16:05:17 cepek Exp $
+ *  $Id: jacobian.h,v 1.4 2002/11/14 14:58:52 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -77,6 +77,8 @@ namespace gMatVec {
     Float    scale;
     Vec<Float, Exc>  h;
     Vec<Float, Exc>  coef;
+
+    const Float Abs(const Float x) const { return (x >= Float(0)) ? x : -x ; }
   };
   
 
@@ -139,7 +141,7 @@ namespace gMatVec {
     for (Index j=1; j<=idim; j++)
       {
         tx = x(j);
-        dh = tx + ( use_h ? h(j) : scale*(1.0 + fabs(x(j))) );
+        dh = tx + ( use_h ? h(j) : scale*(1.0 + Abs(x(j))) );
         dh = dh - tx;
        
         c    = degree/2;
