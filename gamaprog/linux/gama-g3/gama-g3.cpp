@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: gama-g3.cpp,v 1.3 2003/12/29 19:43:51 uid66336 Exp $
+ * $Id: gama-g3.cpp,v 1.4 2004/01/01 23:24:51 cepek Exp $
  */
 
 #include <fstream>
@@ -117,7 +117,7 @@ namespace
         delete *i;
         ++i;
       }
-    
+
     return model;
   }
 }
@@ -132,8 +132,32 @@ int main(int argc, char* argv[])
 
   Model* model = get_xml_input(input);
   if (model == 0) return error("error on reading XML input data");
-
-
+  
+  if (model) 
+    {
+      using namespace std;
+      cerr.precision(12);
+      Model::ObservationData::iterator i = model->obsdata.begin();
+      Model::ObservationData::iterator e = model->obsdata.end();
+      while (i != e)
+        {
+          // Model::ObservationData::ClusterType* cl;
+          cerr << "* ";
+          if (Distance *d = dynamic_cast<Distance*>(*i))
+            {
+              cerr << " distance : from = "
+                   << d->from
+                   << "  to = "
+                   << d->to
+                   << "  val = "
+                   << d->obs();
+              
+            }
+          cerr << "\n";
+          ++i;
+        }
+    }
+  
   delete model;
 
   return 0;

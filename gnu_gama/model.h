@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: model.h,v 1.6 2003/12/27 21:00:58 uid66336 Exp $
+ *  $Id: model.h,v 1.7 2004/01/01 23:24:51 cepek Exp $
  */
 
 
@@ -29,6 +29,7 @@
 #ifndef GNU_gama__mathematical_model_h_gnugamamodel___gnu_gama_gmodel___h
 #define GNU_gama__mathematical_model_h_gnugamamodel___gnu_gama_gmodel___h
 
+#include <gmatvec/bandmat2.h>
 
 namespace GNU_gama {
 
@@ -56,8 +57,11 @@ namespace GNU_gama {
   public:
 
     Observation() : active_(true) {}
-
     virtual ~Observation() {}
+
+    void* cluster;
+    int   cluster_index;
+
     virtual int  dimension() const { return 1; }
     virtual bool revision_accept(ObservationVisitor* visitor) = 0;
     virtual void linearization_accept(ObservationVisitor* visitor) = 0;

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.13 2003/12/30 19:35:42 cepek Exp $
+ *  $Id: dataparser.h,v 1.14 2004/01/01 23:24:51 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -114,8 +114,15 @@ namespace GNU_gama {
           s_g3_vector_after_cyz,
           s_g3_vector_czz,
           s_g3_vector_after_czz,
-          s_g3_obs,
 
+          s_g3_obs,
+          s_g3_obs_covmat,
+          s_g3_obs_covmat_dim,
+          s_g3_obs_covmat_after_dim,
+          s_g3_obs_covmat_band,
+          s_g3_obs_covmat_after_band,
+          s_g3_obs_covmat_flt,
+          s_g3_obs_after_covmat,
           s_g3_obs_dist,
           s_g3_obs_dist_from,
           s_g3_obs_dist_after_from,
@@ -173,6 +180,7 @@ namespace GNU_gama {
         {
           t_adj_input_data,
           t_array,
+          t_band,
           t_block,
           t_block_diagonal,
           t_blocks,
@@ -180,6 +188,7 @@ namespace GNU_gama {
           t_constr,
           t_constr_p,
           t_constr_h,
+          t_covmat,
           t_cxx,
           t_cxy,
           t_cxz,
@@ -257,6 +266,7 @@ namespace GNU_gama {
       int g3_vector             (const char *name);
       int g3_obs                (const char *name, const char **atts);
       int g3_obs                (const char *name);
+      int g3_obs_cov            (const char *name);
       int g3_obs_dist           (const char *name);
       int text                  (const char *name);
       int adj_input_data        (const char *name, const char **atts);

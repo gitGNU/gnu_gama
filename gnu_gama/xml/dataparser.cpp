@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.13 2003/12/30 19:35:42 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.14 2004/01/01 23:24:51 cepek Exp $
  */
 
 // #########################################################################
@@ -359,8 +359,27 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
   init(  s_g3_model, t_obs,
          //------------------
          s_g3_obs, 0, 0,
-         &DataParser::g3_obs, 0, &DataParser::g3_obs);
+         &DataParser::g3_obs, 0, &DataParser::g3_obs,
+         s_g3_obs_after_covmat);
          
+  // .....  <g3-model> <obs> <cov-mat>  ..............................
+
+  init(s_g3_obs, t_covmat,
+       s_g3_obs_covmat, s_g3_obs_covmat_after_band, s_g3_obs_after_covmat,
+       0, 0, &DataParser::g3_obs_cov);
+
+  init(s_g3_obs_covmat, t_dim,
+       s_g3_obs_covmat_dim, 0, s_g3_obs_covmat_after_dim,
+       0, &DataParser::add_text, &DataParser::append_sp);
+
+  init(s_g3_obs_covmat_after_dim, t_band,
+       s_g3_obs_covmat_band, 0, s_g3_obs_covmat_after_band,
+       0, &DataParser::add_text, &DataParser::append_sp);
+
+  init(s_g3_obs_covmat_after_band, t_flt,
+       s_g3_obs_covmat_flt, 0, s_g3_obs_covmat_after_band,
+       0, &DataParser::add_text, &DataParser::append_sp);
+
   // .....  <g3-model> <obs> <distance>  .............................
 
   init(s_g3_obs, t_dist,
@@ -565,6 +584,7 @@ DataParser::data_tag DataParser::tag(const char* c)
       if (!strcmp(c, "array"          )) return t_array;
       break;
     case 'b':
+      if (!strcmp(c, "band"           )) return t_band;
       if (!strcmp(c, "block-diagonal" )) return t_block_diagonal;
       if (!strcmp(c, "blocks"         )) return t_blocks;
       if (!strcmp(c, "block"          )) return t_block;
@@ -574,6 +594,7 @@ DataParser::data_tag DataParser::tag(const char* c)
       if (!strcmp(c, "constr"         )) return t_constr;
       if (!strcmp(c, "constr-position")) return t_constr_p;
       if (!strcmp(c, "constr-height"  )) return t_constr_h;
+      if (!strcmp(c, "cov-mat"        )) return t_covmat;
       if (!strcmp(c, "cxx"            )) return t_cxx;
       if (!strcmp(c, "cxy"            )) return t_cxy;
       if (!strcmp(c, "cxz"            )) return t_cxz;
@@ -1237,27 +1258,66 @@ int DataParser::g3_obs(const char *name, const char **atts)
 int DataParser::g3_obs(const char *name)
 {
   using namespace g3;
-  g3model->obsdata.CL.push_back(g3obs_cluster);
+  g3obs_cluster->covariance_matrix.dim();
+  g3obs_cluster->covariance_matrix.bandWidth();
+  int cov_dim = g3obs_cluster->covariance_matrix.dim();
+  int obs_dim = g3var_list.size();
 
+  if (cov_dim == 0)
+    {
+      // implicit diagonal covariance matrix
+      
+      g3obs_cluster->covariance_matrix.reset(obs_dim, 0);
+      std::list<double>::const_iterator ivar = g3var_list.begin();
+      double var;
+      for (int i=1; i<=obs_dim; i++)
+        {
+          var = *ivar;
+          g3obs_cluster->covariance_matrix(i,i) = var;
+          ++ivar;
+        }
+    }
+  
+  for (int N=g3obs_cluster->covariance_matrix.dim(), i=1; i<=N; i++)
+    if(g3obs_cluster->covariance_matrix(i,i) <= 0)
+      return error("### zero or negative variance");
+  
+  // ??????? g3obs_cluster->update();
+
+  g3model->obsdata.CL.push_back(g3obs_cluster);
+  g3var_list.clear();
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_obs_cov(const char *name)
+{
+  using namespace g3;
+  stringstream istr(text_buffer);
+  int d, b;
+  if (!(istr >> d >> b))  return error("### bad cov-mat");
+
+  g3obs_cluster->covariance_matrix.reset(d, b);
+  for (int i=1; i<=d; i++)
+    {
+      cerr << i << " opravit XXX\n";
+      g3obs_cluster->covariance_matrix(i,i) = 10 + i;
+    }
+
+  text_buffer.clear();
   return  end_tag(name);
 }
 
 int DataParser::g3_obs_dist(const char *name)
 {
-  using namespace g3;
-
-  cerr.precision(12);
-  cerr << "FROM = " << g3from
-       << " TO  = " << g3to
-       << " VAL = " << g3val
-       << " variance = " << g3variance
-       << endl;
-  
+  using namespace g3;  
   g3var_list.push_back(g3variance);
   g3variance = 0;
 
   Distance* distance = new Distance;
   distance->from = g3from;
+  distance->to   = g3to;
+  distance->set(g3val);
   g3obs_cluster->observation_list.push_back(distance);  
 
   return  end_tag(name);
