@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.9 2002/04/05 21:10:23 cepek Exp $
+ *  $Id: version.cpp,v 1.10 2002/04/06 14:07:27 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.3.34";
+const char* GaMaLib_version  = "1.3.35";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
@@ -56,6 +56,11 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.3.35 2002-04-06
+
+   - acord.cpp inproved by Jan Pytel (removed unnecessary iterations)
+
 
 1.3.34 2002-04-05
 
