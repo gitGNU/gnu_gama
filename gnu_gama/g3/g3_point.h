@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.12 2003/03/29 13:33:57 cepek Exp $
+ *  $Id: g3_point.h,v 1.13 2003/04/06 15:37:17 cepek Exp $
  */
 
 #include <gamalib/pointid.h>
@@ -36,13 +36,23 @@ namespace GNU_gama {  namespace g3 {
 
   class Model;
 
-  class Parameter_B : 
-    public Parameter
+  class Parameter_BL : public Parameter 
+    {
+    public:
+
+      Parameter_BL() : sc(1.0) {}
+
+      double step_size() const { return 7e-9; } 
+      double scale()     const { return sc;   }
+
+      double sc;
+    };
+
+  class Parameter_B : public Parameter_BL
     {
     };
   
-  class Parameter_L : 
-    public Parameter
+  class Parameter_L : public Parameter_BL
     {
     };
   
@@ -73,7 +83,7 @@ namespace GNU_gama {  namespace g3 {
 
     Parameter_B*  B;
     Parameter_L*  L;
-    Parameter_H*  H;
+    Parameter_H*  H;   // orthometric heights will be added into Point later
 
     ParameterList        parlist;
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_base.cpp,v 1.5 2003/03/29 13:33:57 cepek Exp $
+ *  $Id: g3_obs_base.cpp,v 1.6 2003/04/06 15:37:17 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -54,18 +54,19 @@ double Observation::numerical_derivative(Parameter* p)
   if (!p->free()) return 0;
  
   double p_correction = p->correction();
-  double d1, d2, d = p->step_size() + p_correction;
+  double d1, d2, d, h;
   { 
     // L'4(x) = +2/24*y(x-2h)  -4/6*y(x-h)  +4/6*y(x+h) -2/24*y(x+2h)
 
-    double h = d - p_correction;        // temp = x+h; h = temp-x 
+    d = p->step_size() + p_correction;
+    h = d - p_correction;               // temp = x+h; h = temp-x 
 
     p->set_correction(p_correction - 2*h);  d2  = parlist_value();
     p->set_correction(p_correction + 2*h);  d2 -= parlist_value();  
     p->set_correction(p_correction +  h );  d1  = parlist_value();
     p->set_correction(p_correction -  h );  d1 -= parlist_value();
 
-    d = (d2 + 8.0*d1) / (12.0*h);
+    d = (d2 + 8.0*d1) / (12.0*h*p->scale());
   }
   p->set_correction(p_correction);
 

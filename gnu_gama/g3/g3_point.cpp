@@ -20,11 +20,12 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.11 2003/03/29 13:33:57 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.12 2003/04/06 15:37:17 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
 #include <gnu_gama/g3/g3_observation.h>
+#include <gnu_gama/g3/g3_model.h>
 
 using namespace GNU_gama::g3;
 
