@@ -1,6 +1,8 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.18)
-    Copyright (C) 1999, 2001  Ales Cepek <cepek@fsv.cvut.cz>
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.19pre)
+    Copyright (C) 1999, 2001  Ales Cepek <cepek@fsv.cvut.cz>,
+    2002 Ales Cepek <cepek@fsv.cvut.cz>, 
+         Christopher T. Fallen <ctfallen@math.ukans.edu>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
     
@@ -20,7 +22,7 @@
 */
 
 /*
- *  $Id: svd.h,v 1.5 2002/04/10 16:19:59 cepek Exp $
+ *  $Id: svd.h,v 1.6 2002/06/30 12:02:50 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -211,7 +213,8 @@ namespace gMatVec {
 
       Index  i, i1, its, j, k, k1, L, L1;
       Float  c, f, h, s, x, y, z ;
-      Float  s1=ZERO, g=ZERO, scale=ZERO, r ;
+      // Float  s1=ZERO, g=ZERO, scale=ZERO, r ;
+      long double  s1=ZERO, g=ZERO, scale=ZERO, r, ff;
       Float  tmp1;
       Index  mn;
 
@@ -353,8 +356,9 @@ namespace gMatVec {
                   f = s * rv1[i];
                   rv1[i] = c * rv1[i];
                   if (s1 + (ABS(f)) == s1) goto test_for_convergence;
-                  g = W[i];
-                  h = PYTHAG(f,g);
+                  g  = W[i];
+                  ff = f;
+                  h  = PYTHAG(ff,g);
                   W[i] = h;
                   c =  g / h;
                   s = -f / h;
@@ -382,7 +386,7 @@ namespace gMatVec {
 
               /* shift from bottom 2 by 2 minor */
 
-              if ( its++ == 300)  // ### orig. 30 changed to "infinity"!
+              if ( its++ == 30)
                 throw Exc(NoConvergence, "No convergence in SVD");
 
               x = W[L];
