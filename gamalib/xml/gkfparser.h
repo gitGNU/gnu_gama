@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.h,v 1.13 2004/04/03 11:06:37 cepek Exp $
+ *  $Id: gkfparser.h,v 1.14 2005/03/27 17:43:26 cepek Exp $
  */
 
 #ifndef GaMaLib_GKF__XML__parser__h_
@@ -192,7 +192,7 @@ namespace GaMaLib {
       int process_dh(const char** atts);
       
       int process_cov(const char** atts);
-      int finish_cov(Cov&);
+      int finish_cov(CovMat&);
       int process_obs_cov(const char** atts)
         {
           state = state_obs_cov;

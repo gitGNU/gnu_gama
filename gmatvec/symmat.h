@@ -1,8 +1,8 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
+    C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
     Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Matrix/Vector template library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,20 +20,20 @@
 */
 
 /*
- *  $Id: symmat.h,v 1.13 2004/08/30 18:18:55 cepek Exp $
+ *  $Id: symmat.h,v 1.14 2005/03/27 17:43:26 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
-#ifndef gMatVec_SymMat__h_
-#define gMatVec_SymMat__h_
+#ifndef GNU_gama_gMatVec_SymMat__h_
+#define GNU_gama_gMatVec_SymMat__h_
 
 #include <gmatvec/gmatvec.h>
 #include <gmatvec/choldec.h>
 
 
-namespace gMatVec {
+namespace GNU_gama {
 
-template <typename Float=double,  typename Exc=Exception> 
+template <typename Float=double,  typename Exc=Exception::matvec> 
 class SymMat : public MatBase<Float, Exc>, public CholDec<Float, Exc> {
 
   Index dim_;
@@ -49,7 +49,7 @@ public:
   SymMat(Index r, Index c) : MatBase<Float, Exc>(r, c, r*(r+1)/2), 
     dim_(r), idf_(0)
     {
-      if (r != c) throw Exc(BadRank, "SymMat::SymMat(Index, Index, Init)");
+      if (r != c) throw Exc(Exception::BadRank, "SymMat::SymMat(Index, Index, Init)");
     }
   SymMat(Index d, Float m11 ...) 
     : MatBase<Float, Exc>(d, d, d*(d+1)/2), dim_(d), idf_(0)
@@ -89,14 +89,14 @@ public:
   void reset(Index r, Index c)
     {
       if (r != c || r < 0) 
-        throw Exc(BadRank, "SymMat::reset(Index, Index)");
+        throw Exc(Exception::BadRank, "SymMat::reset(Index, Index)");
       dim_ = this->row_ = this->col_ = r;
       this->resize(r*(r+1)/2);
     }
   void reset(Index d)
     {
       if (d < 0) 
-        throw Exc(BadRank, "SymMat::reset(Index)");
+        throw Exc(Exception::BadRank, "SymMat::reset(Index)");
       reset(d, d);
     }
 
@@ -107,14 +107,14 @@ public:
   }
   SymMat operator+(const SymMat& M) const {
     if (dim() != M.dim())
-      throw Exc(BadRank, "SymMat::operator+(const SymMat&) const");
+      throw Exc(Exception::BadRank, "SymMat::operator+(const SymMat&) const");
      SymMat T(dim()); 
      add(M, T);
      return T;
   }
   SymMat operator-(const SymMat& M) const {
     if (dim() != M.dim())
-      throw Exc(BadRank, "SymMat::operator-(const SymMat&) const");
+      throw Exc(Exception::BadRank, "SymMat::operator-(const SymMat&) const");
      SymMat T(dim()); 
      sub(M, T);
      return T;
@@ -162,7 +162,7 @@ SymMat<Float, Exc>
 operator+(const SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
   {
     if (A.dim() != B.dim())
-      throw Exc(BadRank, "operator+(const SymMat&, const SymMat&)");
+      throw Exc(Exception::BadRank, "operator+(const SymMat&, const SymMat&)");
 
     typename SymMat<Float, Exc>::const_iterator a = A.begin();
     typename SymMat<Float, Exc>::const_iterator b = B.begin();
@@ -180,7 +180,7 @@ SymMat<Float, Exc>
 operator-(const SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
   {
     if (A.dim() != B.dim())
-      throw Exc(BadRank, "operator-(const SymMat&, const SymMat&)");
+      throw Exc(Exception::BadRank, "operator-(const SymMat&, const SymMat&)");
 
     typename SymMat<Float, Exc>::const_iterator a = A.begin();
     typename SymMat<Float, Exc>::const_iterator b = B.begin();
@@ -198,7 +198,7 @@ SymMat<Float, Exc>&
 operator+=(SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
   {
     if (A.dim() != B.dim())
-      throw Exc(BadRank, "operator+=(const SymMat&, const SymMat&)");
+      throw Exc(Exception::BadRank, "operator+=(const SymMat&, const SymMat&)");
 
     typename SymMat<Float, Exc>::iterator a = A.begin();
     typename SymMat<Float, Exc>::iterator e = A.end();
@@ -214,7 +214,7 @@ SymMat<Float, Exc>&
 operator-=(SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
   {
     if (A.dim() != B.dim())
-      throw Exc(BadRank, "operator-=(const SymMat&, const SymMat&)");
+      throw Exc(Exception::BadRank, "operator-=(const SymMat&, const SymMat&)");
 
     typename SymMat<Float, Exc>::iterator a = A.begin();
     typename SymMat<Float, Exc>::iterator e = A.end();
@@ -287,7 +287,7 @@ SymMat<Float, Exc>
 Lower(const Mat<Float, Exc>& A)
   {
     if (A.rows() != A.cols())
-      throw Exc(BadRank, "SymMat<Float, Exc> Lower(const Mat<Float, Exc>& A)");
+      throw Exc(Exception::BadRank, "SymMat<Float, Exc> Lower(const Mat<Float, Exc>& A)");
 
     SymMat<Float, Exc> M(A.rows());
     typename SymMat<Float, Exc>::iterator m = M.begin();
@@ -304,7 +304,7 @@ SymMat<Float, Exc>
 Upper(const Mat<Float, Exc>& A)
   {
     if (A.rows() != A.cols())
-      throw Exc(BadRank, "SymMat<Float, Exc> Upper(const Mat<Float, Exc>& A)");
+      throw Exc(Exception::BadRank, "SymMat<Float, Exc> Upper(const Mat<Float, Exc>& A)");
 
     SymMat<Float, Exc> M(A.rows());
     typename SymMat<Float, Exc>::iterator m = M.begin();
@@ -355,7 +355,7 @@ void SymMat<Float, Exc>::cholDec()
             else if (x > diag*this->cholTol())
               {
                 if (x < 0)
-                  throw Exc(BadRank, "void SymMat::cholDec()");    
+                  throw Exc(Exception::BadRank, "void SymMat::cholDec()");    
                 a[ip] = std::sqrt(x);
               }
             else
@@ -418,7 +418,7 @@ void SymMat<Float, Exc>::invert()
     if (n == 1)
       {
         if (a[1] < 0)
-          throw Exc(BadRank, "SymMat<Float, Exc>::invert()");
+          throw Exc(Exception::BadRank, "SymMat<Float, Exc>::invert()");
         a[1] = 1/a[1];
         return;
       }
@@ -427,7 +427,7 @@ void SymMat<Float, Exc>::invert()
       {
         p = a[1];
         if (p < 0)
-          throw Exc(BadRank, "SymMat<Float, Exc>& inv(SymMat<Float, Exc>& A)");
+          throw Exc(Exception::BadRank, "SymMat<Float, Exc>& inv(SymMat<Float, Exc>& A)");
 
         ii = 1; 
         for (i=2; i<=n; i++)
@@ -470,7 +470,7 @@ SymMat<Float, Exc>
 operator*(const SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B) 
   { 
     if (A.dim() != B.dim())
-      throw Exc(BadRank, "operator*(const SymMat& A, const SymMat& B) ");
+      throw Exc(Exception::BadRank, "operator*(const SymMat& A, const SymMat& B) ");
 
     const Float *a = A.begin() - 1;
     const Float *b = B.begin() - 1;
@@ -507,7 +507,7 @@ Mat<Float, Exc>
 operator*(const Mat<Float, Exc>& A, const SymMat<Float, Exc>& B)
   {
     if (A.cols() != B.rows())
-      throw Exc(BadRank, "operator*(const Mat& A, const SymMat& B)");
+      throw Exc(Exception::BadRank, "operator*(const Mat& A, const SymMat& B)");
 
     const Index m  = A.rows();
     const Index n  = A.cols();
@@ -542,7 +542,7 @@ operator*(const Mat<Float, Exc>& A, const SymMat<Float, Exc>& B)
 // ======================================================================
 
 
-}      // namespace gMatVec
+}      // namespace GNU_gama
 
 #endif
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.17 2004/09/01 11:59:45 cepek Exp $
+ *  $Id: network.cpp,v 1.18 2005/03/27 17:43:26 cepek Exp $
  */
 
 #include <fstream>
@@ -614,7 +614,7 @@ int LocalNetwork::null_space()
     vyrovnani_(); 
   } 
   catch(const MatVecException& vs) {
-    if (vs.error != gMatVec::BadRegularization) throw;
+    if (vs.error != GNU_gama::Exception::BadRegularization) throw;
   } 
   return defect();
 }
@@ -679,7 +679,7 @@ void LocalNetwork::refine_approx()
 // preparing for project equations - Cholesky decomposition of
 // covariance matrix
 
-void LocalNetwork::cholesky(Cov& chol)
+void LocalNetwork::cholesky(CovMat& chol)
 {
   chol.cholDec();
 
@@ -698,7 +698,7 @@ void LocalNetwork::cholesky(Cov& chol)
     }
 }
 
-void LocalNetwork::forwardSubstitution(const Cov& chol, Vec& v)
+void LocalNetwork::forwardSubstitution(const CovMat& chol, Vec& v)
 {
   using namespace std;
   const Index N = chol.rows();
@@ -738,7 +738,7 @@ void LocalNetwork::prepareProjectEquations()
     if (const Index N = (*cluster)->activeObs())
         {
           Vec t(N);
-          Cov C = (*cluster)->activeCov();
+          CovMat C = (*cluster)->activeCov();
           C /= (m_0_apr_*m_0_apr_);        // covariances ==> cofactors
           cholesky(C);                     // cofactors   ==> weights
 
@@ -841,7 +841,7 @@ void LocalNetwork::vyrovnani_()
       if (const Index N = (*cluster)->activeObs())
         {
           Vec t(N), u(N);
-          Cov C = (*cluster)->activeCov();
+          CovMat C = (*cluster)->activeCov();
           C /= (m_0_apr_*m_0_apr_);
           cholesky(C);
           
@@ -851,7 +851,7 @@ void LocalNetwork::vyrovnani_()
               t(k) = tmp;
               suma_pvv_ += tmp*tmp;
             }
-          const Cov&  CC = C;
+          const CovMat&  CC = C;
           const Index b  = CC.bandWidth();
           {
             for (Index m, i=1; i<=N; i++)

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.18 2004/09/01 20:36:46 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.19 2005/03/27 17:43:26 cepek Exp $
  */ 
 
 
@@ -1007,7 +1007,7 @@ namespace GaMaLib {
       {
         const Index N = sigma.size();
         standpoint->covariance_matrix.reset(N, 0);
-        Cov::iterator c=standpoint->covariance_matrix.begin();
+        CovMat::iterator c=standpoint->covariance_matrix.begin();
         std::vector<DB_pair>::iterator s = sigma.begin();
 
         for (Index i=1; i<=N; ++i, ++c, ++s) *c = (*s).first * (*s).first;
@@ -1025,7 +1025,7 @@ namespace GaMaLib {
                 if ((*s).second) standpoint->scaleCov(i, 1.0/0.324);
               }
 
-            Cov tmp = standpoint->covariance_matrix;
+            CovMat tmp = standpoint->covariance_matrix;
             tmp.cholDec();
           }
         catch(...)
@@ -1187,7 +1187,7 @@ namespace GaMaLib {
   }
 
 
-  int GKFparser::finish_cov(Cov& cov_mat)
+  int GKFparser::finish_cov(CovMat& cov_mat)
   {
     cov_mat.reset(idim, iband);
     int elements =  idim*(iband+1) - iband*(iband+1)/2;
@@ -1259,7 +1259,7 @@ namespace GaMaLib {
       {
         try
           {
-            Cov tmp = coordinates->covariance_matrix;
+            CovMat tmp = coordinates->covariance_matrix;
             tmp.cholDec();
           }
         catch(...)
@@ -1326,7 +1326,7 @@ namespace GaMaLib {
       {
         const Index N = sigma.size();
         heightdifferences->covariance_matrix.reset(N, 0);
-        Cov::iterator c=heightdifferences->covariance_matrix.begin();
+        CovMat::iterator c=heightdifferences->covariance_matrix.begin();
         std::vector<DB_pair>::iterator s = sigma.begin();
 
         for (Index i=1; i<=N; ++i, ++c, ++s) *c = (*s).first * (*s).first;
@@ -1336,7 +1336,7 @@ namespace GaMaLib {
       {
         try
           {
-            Cov tmp = heightdifferences->covariance_matrix;
+            CovMat tmp = heightdifferences->covariance_matrix;
             tmp.cholDec();
           }
         catch(...)
@@ -1432,7 +1432,7 @@ namespace GaMaLib {
       {
         try
           {
-            Cov tmp = vectors->covariance_matrix;
+            CovMat tmp = vectors->covariance_matrix;
             tmp.cholDec();
           }
         catch(...)

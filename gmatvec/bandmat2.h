@@ -1,8 +1,8 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
+    C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
     Copyright (C) 2002  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Matrix/Vector template library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,12 +20,12 @@
 */
 
 /*
- *  $Id: bandmat2.h,v 1.8 2004/08/30 18:18:55 cepek Exp $
+ *  $Id: bandmat2.h,v 1.9 2005/03/27 17:43:26 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
-#ifndef gMatVec_Symmetric_Band_Matrix_2__H_
-#define gMatVec_Symmetric_Band_Matrix_2__H_
+#ifndef GNU_gama_gMatVec_Symmetric_Band_Matrix_2__H_
+#define GNU_gama_gMatVec_Symmetric_Band_Matrix_2__H_
 
 #include <gmatvec/gmatvec.h>
 #include <gmatvec/choldec.h>
@@ -46,10 +46,10 @@
  */
 
 
-namespace gMatVec {
+namespace GNU_gama {
 
 
-template <typename Float=double, typename Exc=Exception>
+template <typename Float=double, typename Exc=Exception::matvec>
 class BandMat2 : public MatBase<Float, Exc>, public CholDec<Float, Exc> {
 public:
 
@@ -143,7 +143,7 @@ Float& BandMat2<Float, Exc>::operator()(Index r, Index s)
    }
 
    if (s > r+band_)
-      throw Exc(BadIndex, "Float& BandMat2::operator()(Index r, Index s)");
+      throw Exc(Exception::BadIndex, "Float& BandMat2::operator()(Index r, Index s)");
 
    s -= r;
    return *(operator[](r) + s);
@@ -170,12 +170,12 @@ void BandMat2<Float, Exc>::cholDec()
    Float  pivot, q;
 
    if (N == 0)
-     throw Exc(BadRank, "BandMat2::cholDec(Float  tol) - zero dim matrix");
+     throw Exc(Exception::BadRank, "BandMat2::cholDec(Float  tol) - zero dim matrix");
 
    for (row=1; row<=N; row++)
      {
         if((pivot = *B) < Tol)
-          throw Exc(NonPositiveDefinite, "BandMat2::cholDec(Float  tol) - "
+          throw Exc(Exception::NonPositiveDefinite, "BandMat2::cholDec(Float  tol) - "
                                          "Matrix is not positive definite");
 
         k = min(W, N-row);             // number of of-diagonal elements
@@ -287,6 +287,6 @@ std::ostream& BandMat2<Float, Exc>::write(std::ostream& out) const
 }
 
 
-}      //  namespace gMatVec
+}      //  namespace GNU_gama
 
 #endif

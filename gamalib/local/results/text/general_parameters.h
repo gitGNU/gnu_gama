@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: general_parameters.h,v 1.8 2004/06/20 20:54:51 cepek Exp $
+ *  $Id: general_parameters.h,v 1.9 2005/03/27 17:43:26 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Zakladni_Parametry_h_
@@ -268,13 +268,13 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
     int d = IS->null_space();
     try {
       if (IS->min_n() < d) 
-        throw MatVecException(gMatVec::BadRegularization,
+        throw MatVecException(GNU_gama::Exception::BadRegularization,
                               T_GaMa_not_enough_constrained_points);
       IS->trans_VWV();  // now I try to adjust the nework
     }
     catch (const MatVecException& vs) 
       {
-        if (vs.error != gMatVec::BadRegularization) throw;
+        if (vs.error != GNU_gama::Exception::BadRegularization) throw;
         
         out << T_GaMa_Free_network << "\n"
             << underline(T_GaMa_Free_network, '*') << "\n\n";

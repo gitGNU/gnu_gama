@@ -1,8 +1,8 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
+    C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
     Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Matrix/Vector template library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,23 +20,23 @@
 */
 
 /*
- *  $Id: mat.h,v 1.13 2004/08/30 18:18:55 cepek Exp $
+ *  $Id: mat.h,v 1.14 2005/03/27 17:43:26 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
-#ifndef gMatVec_Mat__h_
-#define gMatVec_Mat__h_
+#ifndef GNU_gama_gMatVec_Mat__h_
+#define GNU_gama_gMatVec_Mat__h_
 
 #include <iostream>
 #include <cstdarg>
 #include <gmatvec/matbase.h>
 #include <gmatvec/array.h>
 
-namespace gMatVec {
+namespace GNU_gama {
 
 template <typename Float, typename Exc> class TransMat;
 
-template <typename Float=double, typename Exc=Exception> 
+template <typename Float=double, typename Exc=Exception::matvec> 
 class Mat : public MatBase<Float, Exc> {
 
 public:
@@ -53,7 +53,7 @@ public:
       iterator p=this->begin();
       iterator e=this->end();
       if (p == e)
-        throw Exc(BadRank, "Mat::Mat(Index, Float ...)");
+        throw Exc(Exception::BadRank, "Mat::Mat(Index, Float ...)");
       *p = m11;  
       ++p;
       
@@ -81,7 +81,7 @@ public:
   }
   Mat operator+(const Mat& M) const { 
     if (this->rows() != M.rows() || this->cols() != M.cols())
-      throw Exc(BadRank, "Mat::operator+(const Mat& M) const");
+      throw Exc(Exception::BadRank, "Mat::operator+(const Mat& M) const");
     
     Mat T(this->rows(), this->cols()); 
     add(M, T); 
@@ -89,7 +89,7 @@ public:
   }
   Mat operator-(const Mat& M) const { 
     if (this->rows() != M.rows() || this->cols() != M.cols())
-      throw Exc(BadRank, "Mat::operator-(const Mat& M) const");
+      throw Exc(Exception::BadRank, "Mat::operator-(const Mat& M) const");
     
     Mat T(this->rows(), this->cols()); 
     sub(M, T); 
@@ -123,7 +123,7 @@ Mat<Float, Exc>
 operator* (const MatBase<Float, Exc> &A, const MatBase<Float, Exc> &B)
   {
     if (A.cols() != B.rows())
-      throw Exc(BadRank, "Mat operator* (const MatBase&, const MatBase&)");
+      throw Exc(Exception::BadRank, "Mat operator* (const MatBase&, const MatBase&)");
 
     Mat<Float, Exc> C(A.rows(), B.cols());
     typename Mat<Float, Exc>::iterator c = C.begin();
@@ -146,7 +146,7 @@ Mat<Float, Exc>
 operator+(const MatBase<Float, Exc> &A,const MatBase<Float, Exc> &B)
   {
     if (A.rows() != B.rows() || A.cols() != B.cols())
-      throw Exc(BadRank, "Mat operator+(const MatBase &A, const MatBase &B)");
+      throw Exc(Exception::BadRank, "Mat operator+(const MatBase &A, const MatBase &B)");
 
     Mat<Float, Exc> C(A.rows(), A.cols());
     for (Index i=1; i<=A.rows(); i++)
@@ -162,7 +162,7 @@ Mat<Float, Exc>
 operator-(const MatBase<Float, Exc> &A, const MatBase<Float, Exc> &B)
   {
     if (A.rows() != B.rows() || A.cols() != B.cols())
-      throw Exc(BadRank, "Mat operator-(const MatBase &A,const MatBase &B)");
+      throw Exc(Exception::BadRank, "Mat operator-(const MatBase &A,const MatBase &B)");
 
     Mat<Float, Exc> C(A.rows(), A.cols());
     for (Index i=1; i<=A.rows(); i++)
@@ -179,7 +179,7 @@ Mat<Float, Exc>
 operator*(const Mat<Float, Exc> &A, const Mat<Float, Exc> &B)
   {
     if (A.cols() != B.rows())
-      throw Exc(BadRank, "Mat operator*(const Mat&, const Mat&)");
+      throw Exc(Exception::BadRank, "Mat operator*(const Mat&, const Mat&)");
 
     Mat<Float, Exc> C(A.rows(), B.cols());
     typename Mat<Float, Exc>::iterator c = C.begin();
@@ -210,7 +210,7 @@ void Mat<Float, Exc>::invert()
   /* Gauss-Jordan elimination */
 
   if (this->rows() != this->cols())
-    throw Exc(BadRank, "Mat<>::invert()");
+    throw Exc(Exception::BadRank, "Mat<>::invert()");
 
   pentry = this->begin();
 
@@ -237,7 +237,7 @@ void Mat<Float, Exc>::invert()
             }
         }
       if (pivot == 0)
-        throw Exc(Singular, "Mat<>::invert()");
+        throw Exc(Exception::Singular, "Mat<>::invert()");
 
       if (step != p_row) indr.swap(step, p_row);
       if (step != p_col) indc.swap(step, p_col);
@@ -319,6 +319,6 @@ inline Mat<Float, Exc> inv(const Mat<Float, Exc>& A)
 }
 
 
-}   // namespace gMatVec
+}   // namespace GNU_gama
 
 #endif

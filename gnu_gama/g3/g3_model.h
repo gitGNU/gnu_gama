@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.26 2004/05/20 16:16:45 cepek Exp $
+ *  $Id: g3_model.h,v 1.27 2005/03/27 17:43:26 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -129,7 +129,7 @@ namespace GNU_gama {  namespace g3 {
     // design matrix
     int dm_rows, dm_cols, dm_floats;
     SparseMatrix <>*  A;
-    Vec               rhs;
+    Vec          <>   rhs;
     int               rhs_ind;
     BlockDiagonal<>*  B;
     GNU_gama::AdjInputData*  adj_input_data;

@@ -1,8 +1,8 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
+    C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
     Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Matrix/Vector template library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,16 +20,16 @@
 */
 
 /*
- *  $Id: pinv.h,v 1.12 2004/08/30 18:18:55 cepek Exp $
+ *  $Id: pinv.h,v 1.13 2005/03/27 17:43:26 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
-#ifndef gMatVec_Mat_Inv__h_
-#define gMatVec_Mat_Inv__h_
+#ifndef GNU_gama_gMatVec_Mat_Inv__h_
+#define GNU_gama_gMatVec_Mat_Inv__h_
 
 #include <gmatvec/svd.h>
 
-namespace gMatVec {
+namespace GNU_gama {
 
 template <typename Float, typename Exc>
 Mat<Float, Exc> pinv(const Mat<Float, Exc>& A)
@@ -68,7 +68,7 @@ Mat<Float, Exc> pinv(const Mat<Float, Exc>& A)
 }       /* Mat<Float, Exc> pinv(const Mat<Float, Exc>& A) */
 
 
-}   // namespace gMatVec
+}   // namespace GNU_gama
 
 #endif
 

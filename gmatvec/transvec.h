@@ -1,8 +1,8 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
+    C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
     Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Matrix/Vector template library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,22 +20,22 @@
 */
 
 /*
- *  $Id: transvec.h,v 1.13 2004/08/30 18:18:55 cepek Exp $
+ *  $Id: transvec.h,v 1.14 2005/03/27 17:43:26 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
-#ifndef gMatVec_TransVec__h_
-#define gMatVec_TransVec__h_
+#ifndef GNU_gama_gMatVec_TransVec__h_
+#define GNU_gama_gMatVec_TransVec__h_
 
 #include <iostream>
 #include <cstdarg>
 #include <cmath>
 #include <gmatvec/vec.h>
 
-namespace gMatVec {
+namespace GNU_gama {
   
 
-template <typename Float=double, typename Exc=Exception>
+template <typename Float=double, typename Exc=Exception::matvec>
 class TransVec : public VecBase<Float, Exc> {
 
 public:
@@ -139,7 +139,7 @@ TransVec<Float, Exc>
 operator*(const TransVec<Float, Exc> &b, const MatBase<Float, Exc> &A)
   {
     if (b.dim() != A.rows())
-      throw Exc(BadRank, "TransVec operator*(const TransVec&, const MatBase&)");
+      throw Exc(Exception::BadRank, "TransVec operator*(const TransVec&, const MatBase&)");
 
     TransVec<Float, Exc> t(A.cols());
     Float s;
@@ -160,7 +160,7 @@ TransVec<Float, Exc>
 operator*(const TransVec<Float, Exc> &b, const Mat<Float, Exc> &A)
   {
     if (b.dim() != A.rows())
-      throw Exc(BadRank, "TransVec operator*(const TransVec&, const Mat&)");
+      throw Exc(Exception::BadRank, "TransVec operator*(const TransVec&, const Mat&)");
 
     TransVec<Float, Exc> t(A.cols());
     typename TransVec<Float, Exc>::iterator ti =t.begin();
@@ -186,7 +186,7 @@ operator*(const TransVec<Float, Exc> &b, const Mat<Float, Exc> &A)
   }
 
 
-}   // namespace gMatVec
+}   // namespace GNU_gama
 
 #endif
 

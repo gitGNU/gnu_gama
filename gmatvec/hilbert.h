@@ -1,8 +1,8 @@
 /*
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
+    C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
     Copyright (C) 2000  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Matrix/Vector template library.
 
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,16 +20,16 @@
 */
 
 /*
- *  $Id: hilbert.h,v 1.12 2004/08/30 18:18:55 cepek Exp $
+ *  $Id: hilbert.h,v 1.13 2005/03/27 17:43:26 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
-#ifndef gMatVec__Hilbert_Matrix__h__
-#define gMatVec__Hilbert_Matrix__h__
+#ifndef GNU_gama_gMatVec__Hilbert_Matrix__h__
+#define GNU_gama_gMatVec__Hilbert_Matrix__h__
 
 #include <gmatvec/gmatvec.h>
 
-namespace gMatVec {
+namespace GNU_gama {
 
 template <typename Float, typename Exc> Mat<Float, Exc> InvHilbert(Index n)
 {
@@ -75,7 +75,7 @@ template <typename Float, typename Exc> Mat<Float, Exc> InvHilbert(Index n)
 
 template <typename Float, typename Exc> Mat<Float, Exc> Hilbert(Index n)
 {
-  gMatVec::Mat<Float, Exc> H(n,n);
+  GNU_gama::Mat<Float, Exc> H(n,n);
   const Float one = 1;
 
   for (Index i=1; i<=n; i++)

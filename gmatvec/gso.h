@@ -1,8 +1,8 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
+    C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
     Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Matrix/Vector template library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,12 +20,12 @@
 */
 
 /*
- *  $Id: gso.h,v 1.16 2004/10/31 10:24:47 cepek Exp $
+ *  $Id: gso.h,v 1.17 2005/03/27 17:43:26 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
-#ifndef gMatVec_GSO__h_
-#define gMatVec_GSO__h_
+#ifndef GNU_gama_gMatVec_GSO__h_
+#define GNU_gama_gMatVec_GSO__h_
 
 #include <gmatvec/gmatvec.h>
 #include <cmath>
@@ -67,9 +67,9 @@
  *
  *  */
 
-namespace gMatVec {
+namespace GNU_gama {
 
-template <typename Float=double, typename Exc=Exception>
+template <typename Float=double, typename Exc=Exception::matvec>
 class GSO {
 
 public:   
@@ -310,7 +310,7 @@ void GSO<Float, Exc>::modified_gso(Index r_first, Index r_last,
     }
 }
 
-}   // namespace gMatVec
+}   // namespace GNU_gama
 
 #endif
 

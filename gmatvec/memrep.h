@@ -1,8 +1,8 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
+    C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
     Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Matrix/Vector template library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,19 +20,19 @@
 */
 
 /*
- *  $Id: memrep.h,v 1.12 2004/08/30 18:18:55 cepek Exp $
+ *  $Id: memrep.h,v 1.13 2005/03/27 17:43:26 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
-#ifndef gMatVec_MemRep__h_
-#define gMatVec_MemRep__h_
+#ifndef GNU_gama_gMatVec_MemRep__h_
+#define GNU_gama_gMatVec_MemRep__h_
 
 #include <cstring>
 #include <gmatvec/inderr.h>
 
-namespace gMatVec {
+namespace GNU_gama {
   
-template <typename Float=double, typename Exc=Exception>
+template <typename Float=double, typename Exc=Exception::matvec>
 class MemRep {
 
 private:
@@ -68,7 +68,7 @@ protected:
          else if (nsz == 0)
             rep = new Mrep;
          else
-            throw Exc(BadRank, "MemRep::MemRep(Index nsz)");
+            throw Exc(Exception::BadRank, "MemRep::MemRep(Index nsz)");
       }
    MemRep(const MemRep& x) { x.rep->n++; rep = x.rep; }
    MemRep& operator=(const MemRep& x)
@@ -113,7 +113,7 @@ public:
 };      /* class MemRep; */
 
 
-}   // namespace gMatVec
+}   // namespace GNU_gama
 
 #endif
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.3 2003/05/15 18:53:15 cepek Exp $
+ *  $Id: adj.cpp,v 1.4 2005/03/27 17:43:26 cepek Exp $
  */
 
 #include <gnu_gama/adj/adj.h>
@@ -198,7 +198,7 @@ void AdjInputData::read_gama_local_old_format(std::istream& inp)
   pminx = 0;        // no regularization is defined for singular systems
   prhs.reset(rows);
 
-  gMatVec::Vec<> c(rows);
+  Vec<> c(rows);
 
   GNU_gama::IntegerList<> tmplist(rows);        
   GNU_gama::IntegerList<>::iterator m = tmplist.begin();
@@ -303,14 +303,14 @@ void Adj::init_least_squares()
     {
       dim   = data->pcov->dim(b);
       width = data->pcov->width(b);
-      Cov C(dim, width);
+      Cov<> C(dim, width);
 
       const double *p = data->pcov->begin(b), *e = data->pcov->end(b);
-      Cov::iterator c = C.begin();
+      Cov<>::iterator c = C.begin();
       while (p != e) *c++ = *p++;
       cholesky(C);
 
-      Vec t(dim);
+      Vec<> t(dim);
       for (i=1; i<=dim; i++) t(i) = data->prhs(r+i);
       forwardSubstitution(C, t);
       for (i=1; i<=dim; i++) b_dot(r+i) = t(i);
@@ -346,7 +346,7 @@ void Adj::preferred_algorithm(Adj::algorithm alg)
 
 
 
-Vec Adj::x()
+Vec<> Adj::x()
 {
   if (!solved) 
     {
@@ -363,7 +363,7 @@ Vec Adj::x()
  * in LocalNetwork and shall be moved to a single class
  * ###################################################################### */
 
-void Adj::cholesky(Cov& chol)
+void Adj::cholesky(Cov<>& chol)
 {
   chol.cholDec();
 
@@ -382,7 +382,7 @@ void Adj::cholesky(Cov& chol)
     }
 }
 
-void Adj::forwardSubstitution(const Cov& chol, Vec& v)
+void Adj::forwardSubstitution(const Cov<>& chol, Vec<>& v)
 {
   using namespace std;
   const std::size_t N = chol.rows();

@@ -20,19 +20,22 @@
 */
 
 /*
- *  $Id: exception.h,v 1.2 2003/05/11 12:32:25 cepek Exp $
+ *  $Id: exception.h,v 1.3 2005/03/27 17:43:26 cepek Exp $
  */
 
 
 #ifndef GNU_gama__exception__exception_class_hierarchy_____exception_h
 #define GNU_gama__exception__exception_class_hierarchy_____exception_h
 
+#include <gmatvec/inderr.h>
 #include <string>
 
 namespace GNU_gama { namespace Exception {
 
-  class base {
-  };
+  //---  class base {
+  //---  public:
+  //---   virtual ~base() {}
+  //---  };
   
 
   class string : public base {
@@ -51,13 +54,13 @@ namespace GNU_gama { namespace Exception {
   };
 
 
-  class matvec : public string {
-  public:
-
-    const int error;
-
-    matvec(int e, const char* s) : string(s), error(e) {}
-  };
+  //---  class matvec : public string {
+  //---  public:
+  //---  
+  //---    const int error;
+  //---  
+  //---    matvec(int e, const char* s) : string(s), error(e) {}
+  //---  };
 
 
   class parser : public string {

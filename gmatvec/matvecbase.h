@@ -1,8 +1,8 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
+    C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
     Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Matrix/Vector template library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,19 +20,19 @@
 */
 
 /*
- *  $Id: matvecbase.h,v 1.13 2004/08/30 18:18:55 cepek Exp $
+ *  $Id: matvecbase.h,v 1.14 2005/03/27 17:43:26 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
-#ifndef gMatVec_MatVecBase__h_
-#define gMatVec_MatVecBase__h_
+#ifndef GNU_gama_gMatVec_MatVecBase__h_
+#define GNU_gama_gMatVec_MatVecBase__h_
 
 #include <gmatvec/memrep.h>
 
  
-namespace gMatVec {
+namespace GNU_gama {
   
-template <typename Float=double, typename Exc=Exception>
+template <typename Float=double, typename Exc=Exception::matvec>
 class MatVecBase : public MemRep<Float, Exc> {
 
 public:
@@ -68,7 +68,7 @@ protected:
   void mul(Float f, MatVecBase& X) const
     {
       if (this->size() != X.size())
-        throw Exc(BadRank, "MatVecBase::mul(Float f, MatVecBase& X)");
+        throw Exc(Exception::BadRank, "MatVecBase::mul(Float f, MatVecBase& X)");
 
       const_iterator a = this->begin();
       iterator x = X.begin();
@@ -80,7 +80,7 @@ protected:
   void add(const MatVecBase& B, MatVecBase& X) const
     {
       if (this->size() != B.size() || this->size() != X.size())
-        throw Exc(BadRank, "MatVecBase::add(const MatVecBase&, MatVecBase&)");
+        throw Exc(Exception::BadRank, "MatVecBase::add(const MatVecBase&, MatVecBase&)");
 
       const_iterator a = this->begin();
       const_iterator b = B.begin();
@@ -93,7 +93,7 @@ protected:
   void sub(const MatVecBase& B, MatVecBase& X) const
     {
       if (this->size() != B.size() || this->size() != X.size())
-        throw Exc(BadRank, "MatVecBase::sub(const MatVecBase&, MatVecBase&)");
+        throw Exc(Exception::BadRank, "MatVecBase::sub(const MatVecBase&, MatVecBase&)");
 
       const_iterator a = this->begin();
       const_iterator b = B.begin();
@@ -131,13 +131,13 @@ protected:
   ~ListInitialiser()
     {
       if (x != first && x != e)  
-        throw Exc(BadRank, "ListInitialiser : "
+        throw Exc(Exception::BadRank, "ListInitialiser : "
                            "not enough elements in the initialisation list");
     }
 
   void add(Float p)
     {
-      if (x == e)  throw Exc(BadRank, "ListInitialiser : "
+      if (x == e)  throw Exc(Exception::BadRank, "ListInitialiser : "
                              "too many elements in the initialisation list");
       *x = p;
       ++x;
@@ -160,7 +160,7 @@ protected:
  
 };
 
-}   // namespace gMatVec
+}   // namespace GNU_gama
 
 #endif
 

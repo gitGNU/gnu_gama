@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.21 2004/05/20 16:16:45 cepek Exp $
+ *  $Id: dataparser.h,v 1.22 2005/03/27 17:43:26 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -393,8 +393,8 @@ namespace GNU_gama {
 
       GNU_gama::SparseMatrix <> *adj_sparse_mat;
       GNU_gama::BlockDiagonal<> *adj_block_diagonal;
-      Vec              adj_vector;  
-      Vec::iterator    adj_vector_iterator;  
+      Vec<>            adj_vector;  
+      Vec<>::iterator  adj_vector_iterator;  
       std::size_t      adj_vector_dim;
       GNU_gama::IntegerList<>   *adj_array;
       GNU_gama::IntegerList<>::iterator adj_array_iterator;
@@ -405,8 +405,8 @@ namespace GNU_gama {
       std::size_t      block_diagonal_nonz_;  
       std::size_t      block_diagonal_dim;
       std::size_t      block_diagonal_width;
-      Vec              bd_vector;
-      Vec::iterator    bd_vector_iterator;  
+      Vec<>            bd_vector;
+      Vec<>::iterator  bd_vector_iterator;  
       std::size_t      bd_vector_dim;
       g3::Point        *point;
 

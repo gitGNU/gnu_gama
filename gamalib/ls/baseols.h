@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: baseols.h,v 1.2 2004/06/20 20:54:51 cepek Exp $
+ *  $Id: baseols.h,v 1.3 2005/03/27 17:43:26 cepek Exp $
  */
 
 #ifndef GaMa_BaseOLS_h
@@ -36,23 +36,23 @@ class BaseOLS {
 
 public:
   BaseOLS() {}
-  BaseOLS(const gMatVec::Mat<Float, Exc>& A, const gMatVec::Vec<Float, Exc>& b)
+  BaseOLS(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b)
     : pA(&A), pb(&b), pw(0), is_solved(false) {}
-  BaseOLS(const gMatVec::Mat<Float, Exc>& A, const gMatVec::Vec<Float, Exc>& b,
-          const gMatVec::Vec<Float, Exc>& w)
+  BaseOLS(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b,
+          const GNU_gama::Vec<Float, Exc>& w)
     : pA(&A), pb(&b), pw(&w), is_solved(false) {}
   virtual ~BaseOLS() {}
 
-  virtual void reset(const gMatVec::Mat<Float, Exc>& A, 
-             const gMatVec::Vec<Float, Exc>& b) {
+  virtual void reset(const GNU_gama::Mat<Float, Exc>& A, 
+             const GNU_gama::Vec<Float, Exc>& b) {
     pA = &A;
     pb = &b;
     pw = 0;
     is_solved = false;
   }
-  virtual void reset(const gMatVec::Mat<Float, Exc>& A, 
-             const gMatVec::Vec<Float, Exc>& b,
-             const gMatVec::Vec<Float, Exc>& w)
+  virtual void reset(const GNU_gama::Mat<Float, Exc>& A, 
+             const GNU_gama::Vec<Float, Exc>& b,
+             const GNU_gama::Vec<Float, Exc>& w)
   {
     pA = &A;
     pb = &b;
@@ -60,29 +60,29 @@ public:
     is_solved = false;
   }
 
-  const gMatVec::Vec<Float, Exc>& solve(gMatVec::Vec<Float, Exc>& x) 
+  const GNU_gama::Vec<Float, Exc>& solve(GNU_gama::Vec<Float, Exc>& x) 
     { 
       solve_me(); return x = BaseOLS::x; 
     }
-  const gMatVec::Vec<Float, Exc>& solve() { solve_me(); return x; }
-  const gMatVec::Vec<Float, Exc>& residuals(gMatVec::Vec<Float, Exc>& res) 
+  const GNU_gama::Vec<Float, Exc>& solve() { solve_me(); return x; }
+  const GNU_gama::Vec<Float, Exc>& residuals(GNU_gama::Vec<Float, Exc>& res) 
     { 
       solve_me(); return res = r; 
     }
-  const gMatVec::Vec<Float, Exc>& residuals() { solve_me(); return r; }
+  const GNU_gama::Vec<Float, Exc>& residuals() { solve_me(); return r; }
 
   Float trwr();   // trans(r)*w*r
-  virtual gMatVec::Index defect() = 0;
+  virtual GNU_gama::Index defect() = 0;
 
 
-  virtual void  q_xx(gMatVec::Mat<Float, Exc>&);        // weight coefficients 
-  virtual Float q_xx(gMatVec::Index, gMatVec::Index) = 0; // w. coeff. (xi,xj)
-  virtual Float q_bb(gMatVec::Index, gMatVec::Index) = 0; //           (bi,bj)
-  virtual Float q_bx(gMatVec::Index, gMatVec::Index) = 0; //           (bi,xj)
+  virtual void  q_xx(GNU_gama::Mat<Float, Exc>&);        // weight coefficients 
+  virtual Float q_xx(GNU_gama::Index, GNU_gama::Index) = 0; // w. coeff. (xi,xj)
+  virtual Float q_bb(GNU_gama::Index, GNU_gama::Index) = 0; //           (bi,bj)
+  virtual Float q_bx(GNU_gama::Index, GNU_gama::Index) = 0; //           (bi,xj)
 
-  virtual bool lindep(gMatVec::Index) = 0; // linearly dependent column/unknown
+  virtual bool lindep(GNU_gama::Index) = 0; // linearly dependent column/unknown
   virtual void min_x() = 0;
-  virtual void min_x(gMatVec::Index, gMatVec::Index[]) = 0;
+  virtual void min_x(GNU_gama::Index, GNU_gama::Index[]) = 0;
 
   virtual Float cond() { return 0; }  // condition number (0 if not available)
 
@@ -91,12 +91,12 @@ protected:
   // solve_me() must compute vectors x, r, sqrt_w and set is_solved=true
   virtual void solve_me() = 0;
 
-  const gMatVec::Mat<Float, Exc>* pA;
-  const gMatVec::Vec<Float, Exc>* pb;
-  const gMatVec::Vec<Float, Exc>* pw;
-  gMatVec::Vec<Float, Exc> x;
-  gMatVec::Vec<Float, Exc> r;
-  gMatVec::Vec<Float, Exc> sqrt_w;
+  const GNU_gama::Mat<Float, Exc>* pA;
+  const GNU_gama::Vec<Float, Exc>* pb;
+  const GNU_gama::Vec<Float, Exc>* pw;
+  GNU_gama::Vec<Float, Exc> x;
+  GNU_gama::Vec<Float, Exc> r;
+  GNU_gama::Vec<Float, Exc> sqrt_w;
   bool is_solved;
 
 };
@@ -109,7 +109,7 @@ Float BaseOLS<Float, Exc>::trwr()
   if (!is_solved) solve_me();
 
   Float s = 0, p;
-  for (gMatVec::Index i = 1; i <= r.dim(); i++) {
+  for (GNU_gama::Index i = 1; i <= r.dim(); i++) {
       p = sqrt_w(i) * r(i);
       s += p*p;
   }
@@ -118,17 +118,17 @@ Float BaseOLS<Float, Exc>::trwr()
 }
 
 template <typename Float, typename Exc>
-void BaseOLS<Float, Exc>::q_xx(gMatVec::Mat<Float, Exc>& cxx)
+void BaseOLS<Float, Exc>::q_xx(GNU_gama::Mat<Float, Exc>& cxx)
 {
   if (!is_solved) solve_me();
 
-  const gMatVec::Index x_dim = x.dim();
+  const GNU_gama::Index x_dim = x.dim();
   if (cxx.rows() != x_dim || cxx.cols() != x_dim)
     cxx.reset(x_dim, x_dim);
 
-  for (gMatVec::Index i = 1; i <= x_dim; i++) {
+  for (GNU_gama::Index i = 1; i <= x_dim; i++) {
     cxx(i,i) = q_xx(i, i);
-    for (gMatVec::Index j = i+1; j <= x_dim; j++)
+    for (GNU_gama::Index j = i+1; j <= x_dim; j++)
       cxx(i,j) = cxx(j,i) = q_xx(i, j);
   }
 }

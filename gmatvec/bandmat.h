@@ -1,8 +1,8 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
+    C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
     Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Matrix/Vector template library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,12 +20,12 @@
 */
 
 /*
- *  $Id: bandmat.h,v 1.15 2004/08/30 18:18:55 cepek Exp $
+ *  $Id: bandmat.h,v 1.16 2005/03/27 17:43:26 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
-#ifndef gMatVec_Symmetric_Band_Matrix__H_
-#define gMatVec_Symmetric_Band_Matrix__H_
+#ifndef GNU_gama_gMatVec_Symmetric_Band_Matrix__H_
+#define GNU_gama_gMatVec_Symmetric_Band_Matrix__H_
 
 #include <gmatvec/gmatvec.h>
 #include <gmatvec/choldec.h>
@@ -41,10 +41,10 @@
  */
 
 
-namespace gMatVec {
+namespace GNU_gama {
 
 
-template <typename Float=double, typename Exc=Exception>
+template <typename Float=double, typename Exc=Exception::matvec>
 class BandMat : public MatBase<Float, Exc>, public CholDec<Float, Exc> {
 public:
 
@@ -148,7 +148,7 @@ Float& BandMat<Float, Exc>::operator()(Index r, Index s)
    }
 
    if (s > r+band_)
-      throw Exc(BadIndex, "Float& BandMat::operator()(Index r, Index s)");
+      throw Exc(Exception::BadIndex, "Float& BandMat::operator()(Index r, Index s)");
 
    Float *m = this->begin();
    s -= r;
@@ -165,7 +165,7 @@ void BandMat<Float, Exc>::cholDec()
    * Matrices L and D replace factored band symmetric matrix `in situ'.
    */
    if (dim() == 0)
-     throw Exc(BadRank, "BandMat::cholDec(Float  tol) - zero dim matrix");
+     throw Exc(Exception::BadRank, "BandMat::cholDec(Float  tol) - zero dim matrix");
 
    Float *b = this->begin();
    Float *p;
@@ -178,7 +178,7 @@ void BandMat<Float, Exc>::cholDec()
      {
         b0 = b[0];
         if(Tol >= b0)
-          throw Exc(NonPositiveDefinite, "BandMat::cholDec(Float  tol) - "
+          throw Exc(Exception::NonPositiveDefinite, "BandMat::cholDec(Float  tol) - "
                                          "Matrix is not positive definite");
 
         k = band_;
@@ -197,7 +197,7 @@ void BandMat<Float, Exc>::cholDec()
 
      b0 = b[0];
      if(Tol >= b0) 
-       throw Exc(NonPositiveDefinite, "BandMat::cholDec(Float  tol) - " 
+       throw Exc(Exception::NonPositiveDefinite, "BandMat::cholDec(Float  tol) - " 
                                       "Matrix is not positive definite");
 }
 
@@ -544,7 +544,7 @@ void BandMat<Float, Exc>::eigenVal(Vec<Float, Exc>& eigvals)
         }
       
       if (j++ == 30)
-        throw Exc(NoConvergence, "void BandMat::eigenVal(Vec& eigvals) - "
+        throw Exc(Exception::NoConvergence, "void BandMat::eigenVal(Vec& eigvals) - "
                   "No convergence to an eigenvalue after 30 iterations");
       
       // form shift
@@ -587,7 +587,7 @@ void BandMat<Float, Exc>::eigenVal(Vec<Float, Exc>& eigvals)
 }
 
 
-}      //  namespace gMatVec
+}      //  namespace GNU_gama
 
 #endif
 

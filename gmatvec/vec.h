@@ -1,8 +1,8 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
+    C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
     Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Matrix/Vector template library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,22 +20,22 @@
 */
 
 /*
- *  $Id: vec.h,v 1.13 2004/08/30 18:18:55 cepek Exp $
+ *  $Id: vec.h,v 1.14 2005/03/27 17:43:26 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
-#ifndef gMatVec_Vec__h_
-#define gMatVec_Vec__h_
+#ifndef GNU_gama_gMatVec_Vec__h_
+#define GNU_gama_gMatVec_Vec__h_
 
 #include <iostream>
 #include <cstdarg>
 #include <cmath>
 #include <gmatvec/vecbase.h>
 
-namespace gMatVec {
+namespace GNU_gama {
   
 
-template <typename Float=double, typename Exc=Exception>
+template <typename Float=double, typename Exc=Exception::matvec>
 class Vec : public VecBase<Float, Exc> {
 
 public:
@@ -52,7 +52,7 @@ public:
          iterator p=this->begin();
          iterator e=this->end();
          if (p == e)
-            throw Exc(BadRank, "Vec::Vec(Index, Float ...)");
+            throw Exc(Exception::BadRank, "Vec::Vec(Index, Float ...)");
          *p = m11;  
          ++p;
 
@@ -100,7 +100,7 @@ Vec<Float, Exc>
 operator*(const MatBase<Float, Exc> &A, const Vec<Float, Exc> &b)
   {
     if (A.cols() != b.dim())
-      throw Exc(BadRank, "Vec operator*(const MatBase&, const Vec&)");
+      throw Exc(Exception::BadRank, "Vec operator*(const MatBase&, const Vec&)");
 
     Vec<Float, Exc> t(A.rows());
     Float s;
@@ -121,7 +121,7 @@ Vec<Float, Exc>
 operator*(const Mat<Float, Exc> &A, const Vec<Float, Exc> &b)
   {
     if (A.cols() != b.dim())
-      throw Exc(BadRank, "Vec operator*(const Mat&, const Vec&)");
+      throw Exc(Exception::BadRank, "Vec operator*(const Mat&, const Vec&)");
 
     Vec<Float, Exc> t(A.rows());
     typename Vec<Float, Exc>::iterator ti = t.begin();
@@ -142,6 +142,6 @@ operator*(const Mat<Float, Exc> &A, const Vec<Float, Exc> &b)
   }
 
 
-}   // namespace gMatVec
+}   // namespace GNU_gama
 
 #endif

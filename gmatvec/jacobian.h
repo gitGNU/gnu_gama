@@ -1,8 +1,8 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
+    C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
     Copyright (C) 2002  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Matrix/Vector template library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,13 +20,13 @@
 */
 
 /*
- *  $Id: jacobian.h,v 1.8 2004/08/30 18:18:55 cepek Exp $
+ *  $Id: jacobian.h,v 1.9 2005/03/27 17:43:26 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
 
-#ifndef gMatVec_Jacobian___h__
-#define gMatVec_Jacobian___h__
+#ifndef GNU_gama_gMatVec_Jacobian___h__
+#define GNU_gama_gMatVec_Jacobian___h__
 
 
 #include <gmatvec/transmat.h>
@@ -34,7 +34,7 @@
 #include <gmatvec/vec.h>
 
 
-namespace gMatVec {
+namespace GNU_gama {
 
   /* 
    *  Template C++ class Jacobian computes Jacobian matrix for the
@@ -47,7 +47,7 @@ namespace gMatVec {
    *  The derivative L'4(x) = 2/24*y1 - 4/6*y2 + 4/6*y4 - 2/24*y5.
    */
 
-  template <typename Float=double, typename Exc=Exception>
+  template <typename Float=double, typename Exc=Exception::matvec>
   class Jacobian {
     
   public:
@@ -201,7 +201,7 @@ namespace gMatVec {
     }
 
  
-}   // namespace gMatVec
+}   // namespace GNU_gama
 
 #endif
 

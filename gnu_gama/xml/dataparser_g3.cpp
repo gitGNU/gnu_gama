@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser_g3.cpp,v 1.3 2004/09/01 11:59:45 cepek Exp $
+ *  $Id: dataparser_g3.cpp,v 1.4 2005/03/27 17:43:26 cepek Exp $
  */
 
 
@@ -592,10 +592,10 @@ int DataParser::g3_obs(const char *name)
 
   int cov_dim  = 0;
   int cov_band = 0; 
-  typedef std::list<Cov>::const_iterator Iterator;
+  typedef std::list<Cov<> >::const_iterator Iterator;
   for (Iterator i=g3->cov_list.begin(), e=g3->cov_list.end(); i!=e; ++i)
     {
-      const Cov& cov = *i;
+      const Cov<>& cov = *i;
 
       cov_dim += cov.dim();
       if (int(cov.bandWidth()) > cov_band) cov_band = cov.bandWidth();
@@ -610,7 +610,7 @@ int DataParser::g3_obs(const char *name)
   int offset = 0;
   for (Iterator i=g3->cov_list.begin(), e=g3->cov_list.end(); i!=e; ++i)
     {
-      const Cov& cov = *i;
+      const Cov<>& cov = *i;
 
       for (size_t i=1; i<=cov.dim(); i++)
         for (size_t j=0; j<=cov.bandWidth() && i+j<=cov.dim(); j++)

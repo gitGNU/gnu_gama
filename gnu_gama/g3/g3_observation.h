@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.11 2004/05/20 16:16:45 cepek Exp $
+ *  $Id: g3_observation.h,v 1.12 2005/03/27 17:43:26 cepek Exp $
  */
 
 
@@ -37,7 +37,7 @@ namespace GNU_gama {  namespace g3 {
 
 
   class Observation :
-    public GNU_gama::Observation<Cluster<Observation>, GNU_gama::Cov>
+    public GNU_gama::Observation<Cluster<Observation>, GNU_gama::Cov<> >
   {
   };
 

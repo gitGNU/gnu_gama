@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.h,v 1.10 2004/09/01 11:59:45 cepek Exp $
+ *  $Id: network.h,v 1.11 2005/03/27 17:43:26 cepek Exp $
  */
 
 // LocalNetwork - Network Informations class (Informace o siti)
@@ -321,8 +321,8 @@ namespace GaMaLib
       
       // preparation for design matrix
       
-      void cholesky(Cov& chol);
-      void forwardSubstitution(const Cov& chol, Vec& v);
+      void cholesky(CovMat& chol);
+      void forwardSubstitution(const CovMat& chol, Vec& v);
       // void backwardSubstitution(const Cov& chol, Vec& v);
       void prepareProjectEquations();
       bool singular_coords(const Mat&);

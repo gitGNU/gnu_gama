@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.h,v 1.1 2003/05/10 13:13:35 cepek Exp $
+ *  $Id: adj.h,v 1.2 2005/03/27 17:43:26 cepek Exp $
  */
 
 #include <gnu_gama/matvec.h>
@@ -56,7 +56,7 @@ namespace GNU_gama {
     void set(const AdjInputData* inp) { init(inp); }
     void preferred_algorithm(Adj::algorithm);
   
-    Vec x();
+    Vec<> x();
   
   private:
     
@@ -66,14 +66,14 @@ namespace GNU_gama {
     bool      solved;
     algorithm algorithm_;
     int       n_obs_, n_par_;
-    Mat       A_dot;
-    Vec       b_dot;
-    Vec       x_;
+    Mat <>    A_dot;
+    Vec <>    b_dot;
+    Vec <>    x_;
   
     void init(const AdjInputData*);
     void init_least_squares();
-    void cholesky(Cov& chol);                          // move it away!   
-    void forwardSubstitution(const Cov& chol, Vec& v); // move it away!
+    void cholesky(Cov<>& chol);                            // move it away!   
+    void forwardSubstitution(const Cov<>& chol, Vec<>& v); // move it away!
 
   };
   
@@ -89,13 +89,13 @@ namespace GNU_gama {
 
     const GNU_gama::SparseMatrix <> * mat () const { return A;     }
     const GNU_gama::BlockDiagonal<> * cov () const { return pcov;  }
-    const Vec                         rhs () const { return prhs;  }
+    const           Vec          <>   rhs () const { return prhs;  }
     const GNU_gama::IntegerList  <> * minx() const { return pminx; } 
 
-    void set_mat (GNU_gama::SparseMatrix <> * p) { delete A;     A     = p; }
-    void set_cov (GNU_gama::BlockDiagonal<> * p) { delete pcov;  pcov  = p; }
-    void set_rhs (Vec                         p) {               prhs  = p; }
-    void set_minx(GNU_gama::IntegerList  <> * p) { delete pminx; pminx = p; } 
+    void set_mat (SparseMatrix <> * p) { delete A;     A     = p; }
+    void set_cov (BlockDiagonal<> * p) { delete pcov;  pcov  = p; }
+    void set_rhs (Vec          <>   p) {               prhs  = p; }
+    void set_minx(IntegerList  <> * p) { delete pminx; pminx = p; } 
 
     void swap(AdjInputData *);
 
@@ -110,7 +110,7 @@ namespace GNU_gama {
 
     SparseMatrix <> * A;
     BlockDiagonal<> * pcov;
-    Vec               prhs;
+    Vec          <>   prhs;
     IntegerList  <> * pminx;
 
   };

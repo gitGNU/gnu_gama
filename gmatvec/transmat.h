@@ -1,8 +1,8 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
+    C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
     Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Matrix/Vector template library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,12 +20,12 @@
 */
 
 /*
- *  $Id: transmat.h,v 1.13 2004/08/30 18:18:55 cepek Exp $
+ *  $Id: transmat.h,v 1.14 2005/03/27 17:43:26 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
-#ifndef gMatVec_TransMat__h_
-#define gMatVec_TransMat__h_
+#ifndef GNU_gama_gMatVec_TransMat__h_
+#define GNU_gama_gMatVec_TransMat__h_
 
 #include <iostream>
 #include <cstdarg>
@@ -33,7 +33,7 @@
 #include <gmatvec/vec.h>
 #include <gmatvec/transvec.h>
 
-namespace gMatVec {
+namespace GNU_gama {
 
 
 template <typename Float, typename Exc> 
@@ -69,7 +69,7 @@ public:
   }
   TransMat operator+(const TransMat& M) const { 
     if (this->rows() != M.rows() || this->cols() != M.cols())
-      throw Exc(BadRank, "TransMat operator+(const TransMat& M) const");
+      throw Exc(Exception::BadRank, "TransMat operator+(const TransMat& M) const");
     
     TransMat T(this->rows(), this->cols()); 
     add(M, T); 
@@ -77,7 +77,7 @@ public:
   }
   TransMat operator-(const TransMat& M) const { 
     if (this->rows() != M.rows() || this->cols() != M.cols())
-      throw Exc(BadRank, "TransMat operator-(const TransMat& M) const");
+      throw Exc(Exception::BadRank, "TransMat operator-(const TransMat& M) const");
     
     TransMat T(this->rows(), this->cols()); 
     sub(M, T); 
@@ -133,7 +133,7 @@ Mat<Float, Exc>
 operator+(const Mat<Float, Exc> &A, const TransMat<Float, Exc> &B) 
   {
     if (A.rows() != B.rows() || A.cols() != B.cols())
-      throw Exc(BadRank, "Mat operator+(const Mat&, const TransMat&)");
+      throw Exc(Exception::BadRank, "Mat operator+(const Mat&, const TransMat&)");
 
     Mat<Float, Exc> T(B);
     typename Mat<Float, Exc>::iterator t=T.begin();
@@ -151,7 +151,7 @@ inline Mat<Float, Exc>
 operator-(const Mat<Float, Exc> &A, const TransMat<Float, Exc> &B) 
   { 
     if (A.rows() != B.rows() || A.cols() != B.cols())
-      throw Exc(BadRank, "Mat operator-(const Mat&, const TransMat&)");
+      throw Exc(Exception::BadRank, "Mat operator-(const Mat&, const TransMat&)");
 
     Mat<Float, Exc> T(B);
     typename Mat<Float, Exc>::iterator t=T.begin();
@@ -169,7 +169,7 @@ inline Mat<Float, Exc>
 operator+(const TransMat<Float, Exc> &A, const Mat<Float, Exc> &B) 
   {  
     if (A.rows() != B.rows() || A.cols() != B.cols())
-      throw Exc(BadRank, "Mat operator+(const TransMat&, const Mat&)");
+      throw Exc(Exception::BadRank, "Mat operator+(const TransMat&, const Mat&)");
 
     Mat<Float, Exc> T(A);
     typename Mat<Float, Exc>::iterator t=T.begin();
@@ -187,7 +187,7 @@ inline Mat<Float, Exc>
 operator-(const TransMat<Float, Exc> &A, const Mat<Float, Exc> &B) 
   { 
     if (A.rows() != B.rows() || A.cols() != B.cols())
-      throw Exc(BadRank, "Mat operator-(const TransMat&, const Mat&)");
+      throw Exc(Exception::BadRank, "Mat operator-(const TransMat&, const Mat&)");
 
     Mat<Float, Exc> T(A);
     typename Mat<Float, Exc>::iterator t=T.begin();
@@ -205,7 +205,7 @@ Vec<Float, Exc>
 operator*(const TransMat<Float, Exc> &A, const Vec<Float, Exc> &b)
   {
     if (A.cols() != b.dim())
-      throw Exc(BadRank, "Vec operator*(const TransMat&, const Vec&)");
+      throw Exc(Exception::BadRank, "Vec operator*(const TransMat&, const Vec&)");
 
     Vec<Float, Exc> t(A.rows());
     typename Vec<Float, Exc>::iterator ti = t.begin();
@@ -234,7 +234,7 @@ TransVec<Float, Exc>
 operator*(const Vec<Float, Exc> &b, const TransMat<Float, Exc> &A)
   {
     if (A.rows() != b.dim())
-      throw Exc(BadRank, "TransVec operator*(const TransMat&, const Vec&)");
+      throw Exc(Exception::BadRank, "TransVec operator*(const TransMat&, const Vec&)");
 
     TransVec<Float, Exc> t(A.rows());
     typename TransVec<Float, Exc>::iterator ti = t.begin();
@@ -264,7 +264,7 @@ Mat<Float, Exc>
 operator*(const TransMat<Float, Exc> &A, const Mat<Float, Exc> &B)
   {
     if (A.cols() != B.rows())
-      throw Exc(BadRank, "Mat operator*(const TransMat&, const Mat&)");
+      throw Exc(Exception::BadRank, "Mat operator*(const TransMat&, const Mat&)");
 
     Mat<Float, Exc> C(A.rows(), B.cols());
     typename Mat<Float, Exc>::iterator c = C.begin();
@@ -294,7 +294,7 @@ Mat<Float, Exc>
 operator*(const Mat<Float, Exc> &A, const TransMat<Float, Exc> &B)
   {
     if (A.cols() != B.rows())
-      throw Exc(BadRank, "Mat operator*(const Mat&, const TransMat&)");
+      throw Exc(Exception::BadRank, "Mat operator*(const Mat&, const TransMat&)");
 
     Mat<Float, Exc> C(A.rows(), B.cols());
     typename Mat<Float, Exc>::iterator c = C.begin();
@@ -324,7 +324,7 @@ Mat<Float, Exc>
 operator*(const TransMat<Float, Exc> &A, const TransMat<Float, Exc> &B)
   {
     if (A.cols() != B.rows())
-      throw Exc(BadRank, "Mat operator*(const TransMat&, const TransMat&)");
+      throw Exc(Exception::BadRank, "Mat operator*(const TransMat&, const TransMat&)");
 
     Mat<Float, Exc> C(A.rows(), B.cols());
     typename Mat<Float, Exc>::iterator c = C.begin();
@@ -349,6 +349,6 @@ operator*(const TransMat<Float, Exc> &A, const TransMat<Float, Exc> &B)
   }
 
 
-}   // namespace gMatVec
+}   // namespace GNU_gama
 
 #endif

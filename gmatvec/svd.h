@@ -1,8 +1,8 @@
 /*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
+    C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
     Copyright (C) 1999, 2001  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Matrix/Vector template library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,20 +20,20 @@
 */
 
 /*
- *  $Id: svd.h,v 1.18 2004/08/30 18:18:55 cepek Exp $
+ *  $Id: svd.h,v 1.19 2005/03/27 17:43:26 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
-#ifndef gMatVec_MatSVD__h_
-#define gMatVec_MatSVD__h_
+#ifndef GNU_gama_gMatVec_MatSVD__h_
+#define GNU_gama_gMatVec_MatSVD__h_
 
 #include <cmath>
 #include <gmatvec/gmatvec.h>
 
 
-namespace gMatVec {
+namespace GNU_gama {
 
-  /* Singular Value Decomposition          A = U*W*trans(V)
+  /* Exception::Singular Value Decomposition          A = U*W*trans(V)
      ############################
 
      SVD is based on the fortran SVD source from package CMLIB
@@ -88,7 +88,7 @@ namespace gMatVec {
 
      ----------------------------------------------------------------------- */
 
-  template <typename Float=double, typename Exc=Exception>
+  template <typename Float=double, typename Exc=Exception::matvec>
     class SVD {
 
       public:
@@ -161,7 +161,7 @@ namespace gMatVec {
     };      /* class SVD */
 
 
-  // --------- Singular Value Decompiosition member functions -------------
+  // --------- Exception::Singular Value Decompiosition member functions -------------
 
 
   template <typename T> inline const T ABS(const T& x)
@@ -406,7 +406,7 @@ namespace gMatVec {
               /* shift from bottom 2 by 2 minor */
 
               if ( its++ == 30)
-                throw Exc(NoConvergence, "No convergence in SVD");
+                throw Exc(Exception::NoConvergence, "No convergence in SVD");
 
               x = W[L];
               y = W[k1];
@@ -559,7 +559,7 @@ namespace gMatVec {
     Float SVD<Float, Exc>::q_xx(Index i, Index j)
     {
       if (!(1 <= i && i <= n && 1 <= j && j <= n))
-        throw Exc(BadRank, "Float SVD::q_xx(Index, Index)");
+        throw Exc(Exception::BadRank, "Float SVD::q_xx(Index, Index)");
       // A = U*W*trans(V)
       // Covariance = V * inv_W * trans(inv_W) * trans(V);
       svd();
@@ -574,7 +574,7 @@ namespace gMatVec {
     Float SVD<Float, Exc>::q_bb(Index i, Index j)
     {
       if (!(1 <= i && i <= m && 1 <= j && j <= m))
-        throw Exc(BadRank, "Float SVD::q_bb(Index, Index)");
+        throw Exc(Exception::BadRank, "Float SVD::q_bb(Index, Index)");
       // A = U*W*trans(V)
       // Covariance = U * trans(U);
       svd();
@@ -590,7 +590,7 @@ namespace gMatVec {
     Float SVD<Float, Exc>::q_bx(Index i, Index j)
     {
       if (!(1 <= i && i <= m && 1 <= j && j <= n))
-        throw Exc(BadRank, "Float SVD::q_bx(Index, Index)");
+        throw Exc(Exception::BadRank, "Float SVD::q_bx(Index, Index)");
       // A = U*W*trans(V)
       // Covariance = U * trans(V);
       svd();
@@ -646,7 +646,7 @@ namespace gMatVec {
 
       if (defect == 0) return;
       if (defect > n_min) 
-        throw Exc(BadRegularization, "void SVD::min_subset_x()");
+        throw Exc(Exception::BadRegularization, "void SVD::min_subset_x()");
 
       Index im;
       Float s;
@@ -662,7 +662,7 @@ namespace gMatVec {
             }
             s = std::sqrt(s);
             if (s == 0) 
-              throw Exc(BadRegularization, "void SVD::min_subset_x()");
+              throw Exc(Exception::BadRegularization, "void SVD::min_subset_x()");
             { for (Index i = 1; i <= n; i++) V[i][k] /= s; }   // for ...
 
             for (Index j = 1; j <= n; j++)
@@ -715,6 +715,6 @@ namespace gMatVec {
 
 
 
-}   // namespace gMatVec 
+}   // namespace GNU_gama 
 
 #endif

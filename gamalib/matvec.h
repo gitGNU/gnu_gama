@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: matvec.h,v 1.3 2003/02/28 17:36:56 cepek Exp $
+ *  $Id: matvec.h,v 1.4 2005/03/27 17:43:26 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_MatVec_H
@@ -39,14 +39,12 @@ namespace GaMaLib {
     MatVecException(int e, const char *s) : GaMaLib::Exception(s), error(e) {}
   };
   
-  typedef gMatVec::Index Index;
+  typedef GNU_gama::Index Index;
   
-  typedef gMatVec::Vec<double, MatVecException> Vec;
-  typedef gMatVec::Mat<double, MatVecException> Mat;
-  typedef gMatVec::SVD<double, MatVecException> SVD;
-  
-  // GaMa covariance matrix
-  typedef gMatVec::BandMat2<double, MatVecException> Cov;
+  typedef GNU_gama::Vec     <double, MatVecException>   Vec;
+  typedef GNU_gama::Mat     <double, MatVecException>   Mat;
+  typedef GNU_gama::SVD     <double, MatVecException>   SVD;
+  typedef GNU_gama::BandMat2<double, MatVecException>   CovMat;  // covariances
   
 }      // GaMaLib
 

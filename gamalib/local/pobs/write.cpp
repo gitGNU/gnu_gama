@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: write.cpp,v 1.7 2004/06/06 10:02:54 cepek Exp $
+ *  $Id: write.cpp,v 1.8 2005/03/27 17:43:26 cepek Exp $
  */
 
 #include <iostream>
@@ -157,7 +157,7 @@ std::ostream& operator << (std::ostream& str, ObservationData& od)
 
       if ((*c)->covariance_matrix.bandWidth())
         {
-          const Cov& C = (*c)->covariance_matrix;
+          const CovMat& C = (*c)->covariance_matrix;
           Index  dim   = C.dim();
           Index  band  = C.bandWidth();
           str << "\n<cov-mat dim=\"" << dim 

@@ -1,8 +1,8 @@
-/*  
-    C++ Matrix/Vector templates (GNU Gama / gMatVec 0.9.24)
+/*
+    C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
     Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the gMatVec C++ Matrix/Vector template library.
+    This file is part of the GNU Gama C++ Matrix/Vector template library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,22 +20,22 @@
 */
 
 /*
- *  $Id: vecbase.h,v 1.15 2004/08/30 18:18:55 cepek Exp $
+ *  $Id: vecbase.h,v 1.16 2005/03/27 17:43:26 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
-#ifndef gMatVec_VecBase__h_
-#define gMatVec_VecBase__h_
+#ifndef GNU_gama_gMatVec_VecBase__h_
+#define GNU_gama_gMatVec_VecBase__h_
 
 #include <iostream>
 #include <cstdarg>
 #include <cmath>
 #include <gmatvec/matvecbase.h>
 
-namespace gMatVec {
+namespace GNU_gama {
 
   
-template <typename Float=double, typename Exc=Exception>
+template <typename Float=double, typename Exc=Exception::matvec>
 class VecBase : public MatVecBase<Float, Exc> {
 
 protected:
@@ -72,7 +72,7 @@ template <typename Float, typename Exc>
 Float VecBase<Float, Exc>::dot(const VecBase<Float, Exc> &B) const
   {
     if (dim() != B.dim())
-      throw Exc(BadRank, "Float VecBase::dot(const VecBase&) const");
+      throw Exc(Exception::BadRank, "Float VecBase::dot(const VecBase&) const");
     
     const_iterator a = this->begin();
     const_iterator e = this->end();
@@ -137,6 +137,6 @@ std::istream& operator>>(std::istream& inp, VecBase<Float, Exc>& v)
   }
 
 
-}   // namespace gMatVec
+}   // namespace GNU_gama
 
 #endif

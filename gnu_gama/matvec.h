@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: matvec.h,v 1.1 2003/05/10 13:00:03 cepek Exp $
+ *  $Id: matvec.h,v 1.2 2005/03/27 17:43:26 cepek Exp $
  */
 
 
@@ -33,9 +33,10 @@
 
 namespace GNU_gama { 
 
-  typedef gMatVec::Vec     <double, Exception::matvec>   Vec;
-  typedef gMatVec::Mat     <double, Exception::matvec>   Mat;
-  typedef gMatVec::BandMat2<double, Exception::matvec>   Cov;
+  // typedef gMatVec::Vec     <double, Exception::matvec>   Vec;
+  // typedef gMatVec::Mat     <double, Exception::matvec>   Mat;
+  // typedef gMatVec::BandMat2<double, Exception::matvec>   Cov;
+  #define Cov  BandMat2
 
 }
 
