@@ -1,0 +1,20 @@
+# ------  GNU GaMa supported platforms  --------------------------------------
+#
+# $(Id:)
+#
+#gnu            :CC        = gcc
+#gnu            :CFLAGS   +=
+#gnu            :CXX       = g++
+#gnu            :CXXFLAGS += -I../../.. -Wall -pedantic
+#gnu            :OBJ       = o
+#gnu            :LINK      = g++
+#gnu            :LFLAGS   +=
+#gnu            :LIBS      =
+#gnu            :MAKE      = make
+#
+#win32-msvc     :
+#
+#win32-borland  :
+#
+# ----------------------------------------------------------------------------
+

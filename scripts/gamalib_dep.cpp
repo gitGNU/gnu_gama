@@ -3,10 +3,11 @@
 #include <set>
 
 /*
- * $Id: gamalib_dep.cpp,v 1.1 2001/12/07 11:45:44 cepek Exp $
+ * $Id: gamalib_dep.cpp,v 1.2 2002/04/02 21:39:00 cepek Exp $
  */
 
 /*************************************************************************
+ * 0.4  .o changed to .$(OBJ) for
  * 0.3  `name' not written to output
  * 0.2  added SRC make macro (2000-11-11)
  *  
@@ -75,7 +76,7 @@ int main(int argc, char* argv[])
         {
           file.replace(0, 9, "$(SRC)");   // # 0.2
         }
-      cout << ".o : " << file;
+      cout << ".$(OBJ) : " << file;
       for (set<string>::const_iterator i=dep.begin(); i!=dep.end(); ++i)
         cout << " $(SRC)" << *i;  // # 0.2 cout << " ../../" << *i;
       cout << endl;
