@@ -2,7 +2,7 @@
  * input file into ellipsoids.[h|cpp|html] output.
  * ==========================================================================
  * 
- * $Id: ellipsoids_xml.cpp,v 1.4 2002/06/12 20:05:59 cepek Exp $
+ * $Id: ellipsoids_xml.cpp,v 1.5 2002/06/17 19:08:53 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
@@ -294,7 +294,7 @@ void Parser::xml2cpp(ostream& out)
       << /* version << */ ") from\n"
       << "// http://www.gnu.org/software/gama/xml/ellipsoids.xml"
       << " revision " << revision << "\n\n"
-      << "using namespace GaMaLib;\n\n";
+      << "namespace GaMaLib {\n\n";
   out << "const char * const gama_ellipsoid_caption[] = { \"\",\n";
   {
     for (list<Entry>::iterator i=elist.begin(); i!=elist.end(); )
@@ -345,7 +345,7 @@ void Parser::xml2cpp(ostream& out)
       out << "(!strcmp(\""<< e.id << "\", s))"
           << "  T = ellipsoid_" << e.id << ";\n";
     }
-  out << "\n   return T;\n}\n\n";
+  out << "\n   return T;\n}\n\n}      // namespace GaMaLib\n";
 }
 
 void Parser::xml2html(ostream& out)

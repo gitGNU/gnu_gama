@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: ellipsoid.h,v 1.1 2002/06/11 16:48:32 cepek Exp $
+ *  $Id: ellipsoid.h,v 1.2 2002/06/17 19:08:53 cepek Exp $
  */
 
 #ifndef GaMaLib__gamalib____ellipsoid_H___________ELLIPSOID_H________
@@ -51,7 +51,7 @@ namespace GaMaLib {
   private:
 
     double A, B, ff, n, e2, e22;
-    double Ime2, Ipe22, AIme2;
+    double Ime2, Ipe22, AIme2, AB;
 
     void set_abff1(double, double, double, double);
   };

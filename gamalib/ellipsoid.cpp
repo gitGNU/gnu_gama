@@ -1,3 +1,4 @@
+#include <iostream>
 /*  
     Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
     Copyright (C) 2002  Ales Cepek <cepek@fsv.cvut.cz>
@@ -20,7 +21,7 @@
 */
 
 /*
- *  $Id: ellipsoid.cpp,v 1.1 2002/06/11 16:48:32 cepek Exp $
+ *  $Id: ellipsoid.cpp,v 1.2 2002/06/17 19:08:53 cepek Exp $
  */
 
 #include "ellipsoid.h"
@@ -70,6 +71,7 @@ void Ellipsoid::set_abff1(double pa, double pb, double pf, double pf1)
   Ime2  = 1 - e2;
   Ipe22 = 1 + e22;
   AIme2 = A*Ime2;
+  AB    = A/B;
 }
 
 void Ellipsoid::blh2xyz(double  b, double  l, double  h, 
@@ -91,5 +93,67 @@ void Ellipsoid::blh2xyz(double  b, double  l, double  h,
 void Ellipsoid::xyz2blh(double  x, double  y, double  z, 
                         double& b, double& l, double& h) const
 {
+  /* ****************************************************************
+   * B. R. Bowring: Transformation from spatial to geographical     *
+   * coordinates, Survey Review XXIII, 181, July 1976, pp. 323--327 *
+   * ****************************************************************/
+
+  double t, tan_u, cos2_u, cos_u, sin2_u, sin_u;
+
+  l = atan2(y, x);
+
+  x = abs(x);
+  y = abs(y);
+  if (x > y)
+    {
+      t = y/x;
+      x = x * sqrt(1 + t*t);
+    } 
+  else if (y)
+    {
+      t = x/y;
+      x = y * sqrt(1 + t*t);
+    }
+  else
+    {
+      l = 0;
+      if (z > 0)
+        {
+          b = M_PI/2;
+          h = z - Ime2*N(b);
+        }
+      else
+        {
+          b = -M_PI/2;
+          h = -z - Ime2*N(b);
+        }
+      return;
+    }
+
+  tan_u  = AB*z/x;
+  cos2_u = 1/(1 + tan_u*tan_u);
+  cos_u  = sqrt(cos2_u);
+  sin2_u = 1 - cos2_u;
+  sin_u  = sqrt(sin2_u);
+  if (z < 0) sin_u = -sin_u;
+
+  b = atan2(z + e22*B*sin2_u*sin_u, x - e2*A*cos2_u*cos_u);
+
+  /* next iteration is never needed in earth bound region; max error
+   * is 0.0018" for H=2a
+   
+  sin_u  = Ime2*N(b)/B*sin(b);
+  sin2_u = sin_u*sin_u;
+  cos2_u = 1 - sin2_u;
+  cos_u  = sqrt(cos2_u);
+  b = atan2(z + e22*B*sin2_u*sin_u, x - e2*A*cos2_u*cos_u);
+
+  */
+
+  if (x > abs(z))
+    h = x/cos(b) - N(b);
+  else
+    h = z/sin(b) - Ime2*N(b);
 }
+
 
