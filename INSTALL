@@ -1,13 +1,14 @@
 GNU GaMa (http://www.gnu.org/software/gama/) source codes can be
 downloaded from FTP
 
-           http://www.gnu.org/prep/ftp.html
+         http://www.gnu.org/prep/ftp.html   (stable version 1.6)
+         ftp://alpha.gnu.org/gnu/gama/      (development version 1.7)
 or CVS
-           http://savannah.gnu.org/projects/gama/          
+         http://savannah.gnu.org/projects/gama/          
 
 Archive of old versions is 
 
-           http://gama.fsv.cvut.cz/~cepek/gama/archive
+         http://gama.fsv.cvut.cz/~cepek/gama/archive
 
 
 --------------------------
@@ -51,9 +52,11 @@ GNU GaMa is also available from CVS at
 
               http://savannah.gnu.org/projects/gama
 
-You can download source codes from Savannah and build them under
-GNU/Linux but not under win32 platform (you would be missing some
-files like language.h etc that are generated during Lunix build).
+You can download source codes from Savannah server and build them
+under GNU/Linux but under win32 platform you would be missing several
+makefiles, that are normally generated during Lunix build.  To
+generate these missing files you need to compile program
+scripts/gnu_gama_dep.cpp and then run scripts/win32-makefiles.bat.
 
 
 

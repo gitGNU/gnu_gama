@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.15 2003/11/12 17:37:50 cepek Exp $
+ *  $Id: version.cpp,v 1.16 2003/11/24 17:02:36 cepek Exp $
  */
 
 
@@ -64,7 +64,9 @@ const char* GNU_gama_compiler =
 
 1.7.08-pre ???????
 
-   -
+   - ftp download: development branch 1.7    ftp://alpha.gnu.org/gnu/gama/
+                   stable branch 1.6         ftp://ftp.gnu.org/gnu/gama/
+
 
 1.7.07 2003-11-06
 

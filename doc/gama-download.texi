@@ -3,9 +3,12 @@ The latest GNU Gama stable version can be found on in the subdirectory
 @uref{http://www.gnu.org/prep/ftp.html, GNU mirror} or from the CVS as
 the branch @code{@value{STABLEV}}.  See our project page at
 @uref{http://savannah.gnu.org/projects/gama/, savannah} for more
-information.  Unstable branch of GNU Gama is available from the CVS on
-the main trunk.  Archive of previous versions (both stable and
-unstable) is available at
+information.  
+
+Development branch version @code{@value{VERSION}} is available from
+the CVS on the main trunk or from the alpha GNU FTP server
+@uref{ftp://alpha.gnu.org/gnu/gama/}.  Archive of previous versions
+(both stable and unstable) is available at
 @uref{http://gama.fsv.cvut.cz/gama/archive/}.
 
 
