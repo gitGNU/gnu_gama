@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_helper.h,v 1.2 2002/10/24 17:04:12 cepek Exp $
+ *  $Id: g2d_helper.h,v 1.3 2002/12/18 12:44:17 cepek Exp $
  */
 
 /*********************************************************************
@@ -108,12 +108,14 @@ namespace GaMaLib {
   // --------------------------------------------------------------
   inline Double g2d_distance(const LocalPoint& b1, const LocalPoint& b2)
     {
+      using namespace std;
       return sqrt(g2d_sqr(b1.x()-b2.x())+g2d_sqr(b1.y()-b2.y()));
     };
 
   // --------------------------------------------------------------
   inline bool g2d_even(std::vector<Double>::size_type& x)
     {
+      using namespace std;
       return (fmod(x,2) == 0);
     };
 
