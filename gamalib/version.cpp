@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.5 2002/02/22 18:57:25 cepek Exp $
+ *  $Id: version.cpp,v 1.6 2002/03/19 17:04:31 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.3.31-a";
+const char* GaMaLib_version  = "1.3.32";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
@@ -57,8 +57,11 @@ const char* GaMaLib_compiler =
 
 =============================================================================
 
-1.3.21 2002-xx-xx
+1.3.32 2002-03-19
 
+   - gmatvec 0.9.17 (a bug in BandMat::cholDec(); Jan Pytel: Cholesky
+     decomposition failed if the first element of the matrix was zero)
+   
    - gmatvec 0.9.16 (added iterators to Mat<> / Vec<> classes)
 
 

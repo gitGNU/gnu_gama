@@ -1,3 +1,9 @@
+0.9.17 2002-03-19
+
+       - bug in BandMat::cholDec() [ test "if (Tol > b0)..." failed if
+         the first element of the matrix was zero; replaced by new test
+         "if (Tol >= b0) ..."; Jan Pytel]
+
 0.9.16 2002-02-22
 
        - added Mat<> / Vec<> iterators

@@ -1,10 +1,9 @@
 #!/bin/bash
 #
-# Skript se spousti z adresare ve kterem jsou podadresare gamalib,
-# gamaprog a scripts.  Pokud jsem v podadresari ./scripts, prejdu o
-# jednu uroven vys.
+# gamalib tarball: script is run in the parent directory of scripts
+# ###############
 #
-# $Id: GaMaLib_archive,v 1.1 2001/12/07 11:45:44 cepek Exp $
+# $Id: GaMaLib_archive,v 1.2 2002/03/19 17:04:31 cepek Exp $
 
 if pwd | grep scripts$; then cd ..; fi
 
