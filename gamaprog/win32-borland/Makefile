@@ -3,7 +3,7 @@
 
 # ------  GNU GaMa supported platforms  --------------------------------------
 #
-# $Id:
+# $Id: Makefile,v 1.3 2002/10/01 18:19:43 cepek Exp $
 #
 #gnu           :#CC       = gcc
 #gnu           :CFLAGS   +=
