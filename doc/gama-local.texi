@@ -21,7 +21,7 @@ file name with extension@code{.txt} is used.  If run without arguments
 
 $ ./gama-local 
 
-Adjustment of local geodetic network        version: 1.7.00 / GNU g++
+Adjustment of local geodetic network        version: 1.7.09 / GNU g++
 ************************************
 http://www.gnu.org/software/gama/
 
@@ -32,6 +32,7 @@ Options:
 --algorithm  svd | gso
 --language   en | cz | fi | du
 --encoding   utf-8 | iso-8859-2 | iso-8859-2-flat | cp-1250
+--angles     400 | 360
 --version
 --help
 
@@ -61,3 +62,4 @@ Option @code{--encoding} enables to change inplicit UTF-8 output
 encoding to iso-8859-2 (latin-2), iso-8859-2-flat (latin-2 without
 diacritics) or cp-1250 (MS-EE encoding).
 
+Option @code{--angles} selects angular units to be used in output.

@@ -1,4 +1,4 @@
-@comment $Id: gama-xml-input.texi,v 1.6 2003/02/20 18:32:45 cepek Exp $
+@comment $Id: gama-xml-input.texi,v 1.7 2004/03/22 19:52:54 cepek Exp $
 
 @comment setfilename gama-xml-inp.info
 
@@ -42,12 +42,15 @@ instead.
 
 In the @code{gama-local} XML input, distances are given in metres,
 angular values in centigrades and their standard deviations (rms
-errors) in millimetres or centigrade seconds, respectively.  At the
-end of this document an example of the @code{gama-local} XML input
-data object is given.
+errors) in millimetres or centigrade seconds, respectively.
+Alternatively angular values in @code{gama-local} XML input can be
+given in degrees and seconds; @pxref{Angular units}.  At the end of
+this document an example of the @code{gama-local} XML input data
+object is given.
 
 
 @menu
+* Angular units::             Angular units
 * Prolog::                    XML declaration
 * Network definition::        Tags @code{<gama-xml>} and @code{<network>} 
 * Network description::       Tag  @code{<description>}
@@ -65,6 +68,40 @@ data object is given.
 * Coordinate differences::    Tag  @code{<vectors>}
 * Example::                   A complete example of a network
 @end menu
+
+
+@node     Angular units
+@section  Angular units
+@c index
+
+Horizontal angles, directions and zenith angles in @code{gama-local}
+XML adjustment input are implicitly given in gons and their standard
+deviations and/or variances in centicentigons.  Gon, also called
+centesimal grade and Neugrad (German for new grad), is 1/400-th of the
+circumference. For example
+
+@example
+ <direction  from="202" to="416" val="63.9347"  stdev="10.0" />
+@end example
+
+@paragraphindent 0
+The same angular value (direction) can be expressed in degrees as
+
+@example
+ <direction  from="202" to="416" val="57-32-28.428"  stdev="3.24" />
+@end example
+
+In XML adjustment input degrees are coded as a single string, where
+degrees (57), minutes (32) and seconds (28.428) are separated by
+dashes (-) with optional leading sign. Spaces are not allowed inside
+the string. Gons and degrees may be mixed in a single XML document but
+one should be careful to supply the information on standard deviations
+and/or covariances in the proper corresponding units.
+
+Internaly @code{gama-local} works with gons but output can be
+transformed to degrees using the option @code{--angles 360}.
+
+
 
 @node     Prolog
 @section  Prolog
@@ -591,7 +628,7 @@ empty-element tag @code{<direction />}
 @code{to = "@dots{}"}      target point identification 
 
 @item 
-@code{val = "@dots{}"}     observed direction
+@code{val = "@dots{}"}     observed direction;  @pxref{Angular units}
 
 @item 
 @code{stdev = "@dots{}"}   standard deviation (optional)
@@ -697,7 +734,7 @@ empty-element tag @code{<angle />}
 @code{fs = "@dots{}"}      foresight target identification
 
 @item 
-@code{val = "@dots{}"}     observed angle
+@code{val = "@dots{}"}     observed angle;  @pxref{Angular units}
 
 @item 
 @code{stdev = "@dots{}" }  standard deviation (optional)
@@ -801,7 +838,7 @@ with the following attributes
 @code{to = "@dots{}"}     target identification
 
 @item 
-@code{val = "@dots{}"}    observed zenith angle
+@code{val = "@dots{}"}    observed zenith angle; @pxref{Angular units}
 
 @item 
 @code{stdev = "@dots{}"}  standard deviation of observed zenith angle
