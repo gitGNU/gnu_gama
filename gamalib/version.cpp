@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.10 2002/04/06 14:07:27 cepek Exp $
+ *  $Id: version.cpp,v 1.11 2002/05/15 10:14:01 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.3.35";
+const char* GaMaLib_version  = "1.3.36";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
@@ -56,6 +56,16 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.3.36 2002-05-15
+
+   - in the class GKFparser implicitly all covariance matrices are
+     checked for positive-definiteness. This test can be suppressed
+     if the function GKFparser::check_covariances(false) is called.
+     
+     This dark feature was introduced to GKFparser by Jan Pytel. If
+     you use it you go on your own risk. You have been warned!
+
 
 1.3.35 2002-04-06
 

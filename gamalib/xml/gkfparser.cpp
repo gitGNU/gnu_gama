@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.1 2001/12/07 13:02:30 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.2 2002/05/15 10:14:01 cepek Exp $
  */
 
 
@@ -397,6 +397,9 @@ namespace GaMaLib {
     idim        = 0;
     coordinates = 0;
     vectors     = 0;
+
+    // throw exception if a covariance matrix is not positive-definite
+    check_cov_mat = true;  
 
     parser  = XML_ParserCreate(0); 
 
@@ -996,14 +999,17 @@ namespace GaMaLib {
         for (Index i=1; i<=N; ++i, ++c, ++s) *c = (*s) * (*s);
       }
 
-    try
+    if (check_cov_mat) 
       {
-        Cov tmp = standpoint->covariance_matrix;
-        tmp.cholDec();
-      }
-    catch(...)
-      {
-        return error(T_GKF_covariance_matrix_is_not_positive_definite);
+        try 
+          {
+            Cov tmp = standpoint->covariance_matrix;
+            tmp.cholDec();
+          }
+        catch(...)
+          {
+            return error(T_GKF_covariance_matrix_is_not_positive_definite);
+          }
       }
 
     standpoint = 0;
@@ -1210,14 +1216,17 @@ namespace GaMaLib {
     coordinates->update();
     finish_cov(coordinates->covariance_matrix);
 
-    try
+    if (check_cov_mat) 
       {
-        Cov tmp = coordinates->covariance_matrix;
-        tmp.cholDec();
-      }
-    catch(...)
-      {
-        return error(T_GKF_covariance_matrix_is_not_positive_definite);
+        try
+          {
+            Cov tmp = coordinates->covariance_matrix;
+            tmp.cholDec();
+          }
+        catch(...)
+          {
+            return error(T_GKF_covariance_matrix_is_not_positive_definite);
+          }
       }
 
     coordinates = 0;
@@ -1284,14 +1293,17 @@ namespace GaMaLib {
         for (Index i=1; i<=N; ++i, ++c, ++s) *c = (*s) * (*s);
       }
 
-    try
+    if (check_cov_mat) 
       {
-        Cov tmp = heightdifferences->covariance_matrix;
-        tmp.cholDec();
-      }
-    catch(...)
-      {
-        return error(T_GKF_covariance_matrix_is_not_positive_definite);
+        try
+          {
+            Cov tmp = heightdifferences->covariance_matrix;
+            tmp.cholDec();
+          }
+        catch(...)
+          {
+            return error(T_GKF_covariance_matrix_is_not_positive_definite);
+          }
       }
 
     heightdifferences = 0;
@@ -1377,14 +1389,17 @@ namespace GaMaLib {
     vectors->update();         // bind observations to the cluster
     finish_cov(vectors->covariance_matrix);
 
-    try
+    if (check_cov_mat)
       {
-        Cov tmp = vectors->covariance_matrix;
-        tmp.cholDec();
-      }
-    catch(...)
-      {
-        return error(T_GKF_covariance_matrix_is_not_positive_definite);
+        try
+          {
+            Cov tmp = vectors->covariance_matrix;
+            tmp.cholDec();
+          }
+        catch(...)
+          {
+            return error(T_GKF_covariance_matrix_is_not_positive_definite);
+          }
       }
 
     vectors = 0;

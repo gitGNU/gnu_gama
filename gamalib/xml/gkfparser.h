@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.h,v 1.1 2001/12/07 13:02:30 cepek Exp $
+ *  $Id: gkfparser.h,v 1.2 2002/05/15 10:14:01 cepek Exp $
  */
 
 #ifndef GaMaLib_GKF__XML__parser__h_
@@ -103,6 +103,9 @@ namespace GaMaLib {
       double implicit_stdev_distance_a() const { return delka_str;     }
       double implicit_stdev_distance_b() const { return delka_str_km;  }
       double implicit_stdev_distance_c() const { return delka_str_exp; }
+
+      /* check if covariance matrices are positive-definite */
+      void   check_covariances(bool ch=true)   { check_cov_mat = ch;   }
       
     private: 
       
@@ -199,7 +202,9 @@ namespace GaMaLib {
       Coordinates       * coordinates;
       HeightDifferences * heightdifferences;
       Vectors           * vectors; 
-      
+
+      bool                check_cov_mat;
+
       int process_gama_xml   (const char** atts);
       int process_network    (const char** atts);
       int process_parameters (const char** atts);
