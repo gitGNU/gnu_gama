@@ -9,7 +9,7 @@
 #gnu           :OBJ       = o
 #gnu           :LIBR      = @ar -r gamalib.a
 #gnu           :RANLIB    = ranlib gamalib.a
-#gnu           :LINK      = g++
+#gnu           :LINK      = $(CXX) #g++
 #gnu           :LFLAGS   += -o
 #gnu           :LIBS     += 
 #gnu           :MAKE      = make
