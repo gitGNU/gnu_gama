@@ -8,7 +8,7 @@
 #CC       = gcc
 CFLAGS   +=
 #CXX      = g++
-CXXFLAGS += -I../../.. -Wall -pedantic
+CXXFLAGS += -I../../.. #-Wall -pedantic
 OBJ       = o
 LIBR      = @ar -r gamalib.a
 RANLIB    = ranlib gamalib.a

@@ -1,9 +1,7 @@
-# $Id: Makefile,v 1.6 2002/09/21 10:15:33 cepek Exp $
+# $Id: Makefile,v 1.7 2002/09/23 16:14:38 cepek Exp $
 #
 # this Makefile and all files in ./scripts were tested on Debian GNU/Linux 2.2
 #
-
-SHELL = /bin/sh
 
 .PHONY : archive
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.30 2002/09/15 16:08:47 cepek Exp $
+ *  $Id: version.cpp,v 1.31 2002/09/23 16:14:38 cepek Exp $
  */
 
 
@@ -31,11 +31,13 @@ namespace GaMaLib {
 const char* GaMaLib_version  = "1.5.01";
 
 const char* GaMaLib_compiler =
-              #ifdef __GNUC__
+              #if   defined (__GNUC__)
               "GNU g++"             // g++ 3.0.4 and 2.95.2
-              #elif defined __BORLANDC__
+              #elif defined (__BORLANDC__) && (__linux__)
+              "kylix-bc++"          // 5.7
+              #elif defined (__BORLANDC__)
               "win32-borland"       // 5.5
-              #elif defined _MSC_VER
+              #elif defined (_MSC_VER)
               "win32-msvc"          // 6.0
               #else
               #error GaMaLib - has not been tested with your compiler
@@ -56,6 +58,12 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.5.02 2002...
+
+   - added scripts/kylix.sh for compilation GaMa with bc++ compilere
+     from Kylix3 Open Edition under Linux
+
 
 1.5.01 2002-09-15
 

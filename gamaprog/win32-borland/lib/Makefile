@@ -8,7 +8,7 @@
 #gnu           :#CC       = gcc
 #gnu           :CFLAGS   +=
 #gnu           :#CXX      = g++
-#gnu           :CXXFLAGS += -I../../.. -Wall -pedantic
+#gnu           :CXXFLAGS += -I../../.. #-Wall -pedantic
 #gnu           :OBJ       = o
 #gnu           :LIBR      = @ar -r gamalib.a
 #gnu           :RANLIB    = ranlib gamalib.a
