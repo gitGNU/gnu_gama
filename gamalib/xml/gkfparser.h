@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.h,v 1.5 2002/10/18 20:52:29 cepek Exp $
+ *  $Id: gkfparser.h,v 1.6 2002/12/18 08:00:14 cepek Exp $
  */
 
 #ifndef GaMaLib_GKF__XML__parser__h_
@@ -58,6 +58,7 @@ namespace GaMaLib {
       double implicit_stdev_angle() const { return uhel_str; }
       double implicit_stdev_distance(double d) const 
         { 
+          using namespace std;
           return delka_str + delka_str_km * pow(d/1000, delka_str_exp);
         }
       double implicit_stdev_distance_a() const { return delka_str;     }

@@ -2,7 +2,7 @@
 #
 # parametr prekladu pro GSO je -DGaMaOLSgso
 # 
-# $Id: Build_GaMa,v 1.15 2002/10/25 16:29:09 cepek Exp $
+# $Id: Build_GaMa,v 1.16 2002/12/18 08:00:14 cepek Exp $
 
 # pokud jsem v podadresari ./scripts, prejdu o jednu uroven vys
 #
@@ -107,14 +107,14 @@ sed s/^\#win32-msvc[\ \t]*://    < linux/lib/Makefile-expat.pro      \
 
 rm `find linux | grep \.pro\$`
 
-if [ "$(which unix2dos)" ]; then
-   for i in $(find win32-borland win32-msvc | grep -v CVS)
-   do
-      if [ -f $i ]; then
-         unix2dos $i
-      fi
-   done
-fi
+# if [ "$(which unix2dos)" ]; then
+#    for i in $(find win32-borland win32-msvc | grep -v CVS)
+#    do
+#       if [ -f $i ]; then
+#          unix2dos $i
+#       fi
+#    done
+# fi
 
 # ----------------------------------------------------------------------
 
