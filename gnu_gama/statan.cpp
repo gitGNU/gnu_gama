@@ -20,10 +20,10 @@
 */
 
 /*
- *  $Id: statan.cpp,v 1.2 2002/05/31 11:02:35 cepek Exp $
+ *  $Id: statan.cpp,v 1.1 2004/04/19 18:08:37 cepek Exp $
  */
 
-#include <gamalib/statan.h>
+#include <gnu_gama/statan.h>
 
 #ifdef _MSC_VER
 

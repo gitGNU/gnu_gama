@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: statan.h,v 1.2 2002/12/18 14:23:27 cepek Exp $
+ *  $Id: statan.h,v 1.1 2004/04/19 18:08:37 cepek Exp $
  */
 
 #ifndef GaMaLib_StatAn_h
