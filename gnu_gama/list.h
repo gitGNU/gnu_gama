@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: list.h,v 1.9 2004/09/01 11:59:45 cepek Exp $
+ *  $Id: list.h,v 1.10 2004/09/01 21:59:29 cepek Exp $
  */
 
 #include <vector>
@@ -51,27 +51,11 @@ namespace GNU_gama {
       
       List() {}
       
-      std::size_t size()  const { return vec.size();  }
-      bool        empty() const { return vec.empty(); }
-      
-      void push_back(T* t)                        { vec.push_back(t);     }
-      void pop_back()                             { vec.pop_back();       }
-      void clear()                                { vec.clear();          }
-      void erase (typename List<T*>::iterator i)  { vec.erase(i.vit);     }
-      //void insert(typename List<T*>::iterator i,  T* value)  
-      //  { 
-      //    vec.insert(i.vit, value); 
-      //  }
-
-
-      // T* operator[](std::size_t n)
-      //   { 
-      //     return static_cast<T*>(vec[n]); 
-      //   }
-      // const T* operator[](std::size_t n) const 
-      //   { 
-      //     return static_cast<T*>(vec[n]); 
-      //   }
+      std::size_t size()  const   { return vec.size();  }
+      bool        empty() const   { return vec.empty(); }
+      void        push_back(T* t) { vec.push_back(t);   }
+      void        pop_back()      { vec.pop_back();     }
+      void        clear()         { vec.clear();        }
 
     
       class const_iterator
@@ -159,12 +143,6 @@ namespace GNU_gama {
 
         private:
           typename Vector::iterator vit;
-          #ifdef __BORLANDC__
-          friend class List<T*>;
-          #else
-          friend void List<T*>::erase (typename List<T*>::iterator i);
-          //friend void List<T*>::insert(typename List<T*>::iterator i, T* val);
-          #endif
 
         };
 

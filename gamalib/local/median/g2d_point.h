@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_point.h,v 1.4 2003/03/13 20:22:52 cepek Exp $
+ *  $Id: g2d_point.h,v 1.5 2004/09/01 21:59:29 cepek Exp $
  */
 
 /*************************************************************
@@ -107,8 +107,7 @@ namespace GaMaLib {
           bool test_xyz = SB[(*i)->from()].test_xy();
           if (test_xyz)
             {
-              const Direction *s = dynamic_cast<const Direction*>(*i);
-              if (s)
+              if (const Direction *s = dynamic_cast<const Direction*>(*i))
                 {
                   if (!s->test_orientation()) return false;
                 }

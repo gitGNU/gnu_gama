@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_coordinates.h,v 1.3 2003/11/06 17:58:58 cepek Exp $
+ *  $Id: g2d_coordinates.h,v 1.4 2004/09/01 21:59:29 cepek Exp $
  */
 
 /*************************************************************
@@ -74,9 +74,8 @@ namespace GaMaLib {
           bool pom = false;
           pom = (std::find(sb.begin(), sb.end(), (*sm)->from()) != sb.end()) &&
             (std::find(sb.begin(), sb.end(), (*sm)->to()) != sb.end());
-          if(dynamic_cast<Angle*>(*sm))
+          if(Angle* u = dynamic_cast<Angle*>(*sm))
             {
-              Angle* u = static_cast<Angle*>(*sm);
               pom = pom && (std::find(sb.begin(), sb.end(), u->fs()) 
                             != sb.end());
             }
@@ -89,8 +88,8 @@ namespace GaMaLib {
                              PointIDList::iterator cb)
         {
           bool pom = (((*m)->from() == (*cb)) || ((*m)->to() == (*cb)));
-          Angle *u = dynamic_cast<Angle*>(*m);
-          if (u)
+
+          if (Angle* u = dynamic_cast<Angle*>(*m))
             {
               pom = pom || (u->fs() == (*cb));
             };

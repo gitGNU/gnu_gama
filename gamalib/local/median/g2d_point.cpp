@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_point.cpp,v 1.6 2004/08/29 18:01:52 cepek Exp $
+ *  $Id: g2d_point.cpp,v 1.7 2004/09/01 21:59:29 cepek Exp $
  */
 
 /*************************************************************
@@ -71,7 +71,7 @@ namespace GaMaLib {
                            d1->from() == d2->to())))
                   {
                     pom_sez.push_back(d2->value());
-                    sm_pom.erase(j);
+                    j = sm_pom.erase(j);
                   }
                 else
                   j++;
@@ -83,7 +83,7 @@ namespace GaMaLib {
             Distance* DD 
               = new Distance(CB, (d1->from()==CB?d1->to():d1->from()), med);
             SM.push_back(DD);
-            sm_pom.erase(i);
+            i = sm_pom.erase(i);
             pom_sez.erase(pom_sez.begin(), pom_sez.end());
           }
         else
@@ -94,17 +94,17 @@ namespace GaMaLib {
     i = SM_S.begin();
     while(i != SM_S.end())
       {
-        Direction* s1 = static_cast<Direction*>(*i);
+        Direction* s1 = dynamic_cast<Direction*>(*i);
         pom_sez.push_back(s1->value());
         // j = i+1;
         j = i; ++j;
         while(j != SM_S.end())
           {
-            Direction* s2 = static_cast<Direction*>(*j);
+            Direction* s2 = dynamic_cast<Direction*>(*j);
             if(s1->from() == s2->from())
               {
                 pom_sez.push_back(s2->value());
-                SM_S.erase(j);
+                j = SM_S.erase(j);
                 delete(s2);
               }
             else
@@ -116,7 +116,7 @@ namespace GaMaLib {
                pom_sez[(size+1)/2-1]);
         Direction* SS = new Direction(s1->from(),s1->to(),med);
         SM.push_back(SS);
-        SM_S.erase(i);
+        i = SM_S.erase(i);
         delete(s1);
         pom_sez.erase(pom_sez.begin(), pom_sez.end());
       }
@@ -128,18 +128,18 @@ namespace GaMaLib {
     Double u_mer;
     while(i != sm_pom.end())
       {
-        Angle* u1 = static_cast<Angle*>(*i);
+        Angle* u1 = dynamic_cast<Angle*>(*i);
         j = SM_U.begin();
         pom_sez.push_back(u1->value());
         while(j != SM_U.end())
           {
-            Angle* u2 = static_cast<Angle*>(*j);
+            Angle* u2 = dynamic_cast<Angle*>(*j);
             if(((u1->to()==u2->to())&&(u1->fs()==u2->fs()))||
                ((u1->to()==u2->fs())&&(u1->fs()==u2->to())))
               {
                 u_mer = (u1->to() == u2->to() ? u2->value() : 2*M_PI-u2->value());
                 pom_sez.push_back(u_mer);
-                SM_U.erase(j);
+                j = SM_U.erase(j);
                 delete(u2);
               }
             else
@@ -156,26 +156,26 @@ namespace GaMaLib {
         else
           UU = new Angle(u1->from(),u1->to(),u1->fs(),med);
         SM.push_back(UU);
-        sm_pom.erase(i);
+        i = sm_pom.erase(i);
         pom_sez.erase(pom_sez.begin(), pom_sez.end());
       }
     i = SM_U.begin();
     // finishing remaining angles
     while(i != SM_U.end())
       {
-        Angle* u1 = static_cast<Angle*>(*i);
+        Angle* u1 = dynamic_cast<Angle*>(*i);
         // j = i+1;
         j = i; ++j;
         pom_sez.push_back(u1->value());
         while(j != SM_U.end())
           {
-            Angle* u2 = static_cast<Angle*>(*j);
+            Angle* u2 = dynamic_cast<Angle*>(*j);
             if(((u1->to()==u2->to())&&(u1->fs()==u2->fs()))||
                ((u1->to()==u2->fs())&&(u1->fs()==u2->to())))
               {
                 u_mer = (u1->to() == u2->to() ? u2->value() : 2*M_PI-u2->value());
                 pom_sez.push_back(u_mer);
-                SM_U.erase(j);
+                j = SM_U.erase(j);
                 delete(u2);
               }
             else
@@ -192,7 +192,7 @@ namespace GaMaLib {
         else
           UU = new Angle(u1->from(),u1->to(),u1->fs(),med);
         SM.push_back(UU);
-        SM_U.erase(i);
+        i = SM_U.erase(i);
         delete(u1);
         pom_sez.erase(pom_sez.begin(), pom_sez.end());
       }

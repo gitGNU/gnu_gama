@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.h,v 1.14 2004/03/29 12:06:51 cepek Exp $
+ *  $Id: observation.h,v 1.15 2004/09/01 21:59:29 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_Mereni_H
@@ -41,6 +41,7 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
 
 #include <gnu_gama/obsdata.h>
 #include <gamalib/matvec.h>
@@ -51,7 +52,8 @@ namespace GaMaLib {
   class Observation;
 
 
-  typedef GNU_gama::List<Observation*> ObservationList ;
+  typedef GNU_gama::List<Observation*> ObservationList;
+
   
   class Observation 
     {

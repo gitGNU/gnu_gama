@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_helper.cpp,v 1.6 2004/08/29 18:01:52 cepek Exp $
+ *  $Id: g2d_helper.cpp,v 1.7 2004/09/01 21:59:29 cepek Exp $
  */
 
 /*************************************************************
@@ -95,7 +95,7 @@ void Select_solution_g2d::Calculation()
             break;
           case is_Angle :
             {
-              const Angle* u = static_cast<const Angle*>(*i);
+              const Angle* u = dynamic_cast<const Angle*>(*i);
               PB1 = (*(SB->find(u->to()))).second;
               PB2 = (*(SB->find(u->fs()))).second;
               Double uu1 = bearing(B1,PB2)-bearing(B1,PB1);
