@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: parameter.h,v 1.1 2003/02/20 18:35:01 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.1 2003/03/16 10:40:27 cepek Exp $  */
 
 #include <cstddef>
 
