@@ -3,6 +3,10 @@
 gama-xml.dtd                       version 2.0.08  2001-08-20
 ============  
 
+2.0.09  2002-01-03
+
+      - corrected definition of point attributes fix and adj
+
 2.0.08  2001-08-20
 
       - added attributes axes-xy and angles into tag <network>
@@ -162,8 +166,8 @@ Licence, for more details visit
    x   NMTOKEN  #IMPLIED
    y   NMTOKEN  #IMPLIED
    z   NMTOKEN  #IMPLIED
-   fix (xy | XY | z | Z | xyz | XYZ | XYz | xyZ )
-   adj (xy | XY | z | Z | xyz | XYZ | XYz | xyZ ) >
+   fix (xy | XY | z | Z | xyz | XYZ | XYz | xyZ ) #IMPLIED
+   adj (xy | XY | z | Z | xyz | XYZ | XYz | xyZ ) #IMPLIED >
 
 <!ATTLIST obs    
    from         CDATA   #IMPLIED
