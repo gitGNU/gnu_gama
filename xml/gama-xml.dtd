@@ -217,7 +217,8 @@ information visit
    val      NMTOKEN  #REQUIRED
    stdev    NMTOKEN  #IMPLIED  
    from_dh  NMTOKEN  #IMPLIED
-   to_dh    NMTOKEN  #IMPLIED >
+   bs_dh    NMTOKEN  #IMPLIED 
+   fs_dh    NMTOKEN  #IMPLIED >
 
 <!ATTLIST s-distance
 
