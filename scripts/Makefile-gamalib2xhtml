@@ -1,3 +1,0 @@
-
-gamalib2xhtml: gamalib2xhtml.cpp
-	g++ -O2 -o gamalib2xhtml gamalib2xhtml.cpp

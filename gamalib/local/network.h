@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.h,v 1.1 2001/12/07 12:38:37 cepek Exp $
+ *  $Id: network.h,v 1.2 2002/05/29 16:06:54 cepek Exp $
  */
 
 // LocalNetwork - Network Informations class (Informace o siti)
@@ -116,7 +116,7 @@ namespace GaMaLib
       char        unknown_type      (int i) const { return seznez_[i-1].typ; }
       StandPoint* unknown_standpoint(int i) const { return seznez_[i-1].osn; }
       Double      unknown_stdev     (int i) { return m_0()*sqrt(q_xx(i, i)); }
-      
+
 
       // ...  observations  ..................................................
   

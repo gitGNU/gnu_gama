@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.13 2002/05/24 19:30:51 cepek Exp $
+ *  $Id: version.cpp,v 1.14 2002/05/29 16:06:54 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.3.37";
+const char* GaMaLib_version  = "1.3.38";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
@@ -56,6 +56,20 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.3.38 2002-05-29
+
+   - class Point : added functions x_0(), y_0(), z_0() and set_xyz_0()
+     used for correct output of dx/dy/dz corrections in the case of
+     iterated adjustment (output of coordinates corrections for the
+     initial approximation and not to the last iteration).
+
+   - removed directory gamalib/doc and files scripts/build-doc-html and
+     build scripts/gamalib2xhtml*
+
+     automaticaly generated html files for browsing gamalib sources were
+     neither maintained nor used
+
 
 1.3.37 2002-05-24
 

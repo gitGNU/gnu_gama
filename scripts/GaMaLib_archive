@@ -3,7 +3,7 @@
 # gamalib tarball: script is run in the parent directory of scripts
 # ###############
 #
-# $Id: GaMaLib_archive,v 1.2 2002/03/19 17:04:31 cepek Exp $
+# $Id: GaMaLib_archive,v 1.3 2002/05/29 16:06:54 cepek Exp $
 
 if pwd | grep scripts$; then cd ..; fi
 
@@ -30,7 +30,7 @@ ADD="$VERSION/gamalib $VERSION/gamaprog $VERSION/gamaxml"
 ADD="$ADD $VERSION/Makefile $VERSION/AUTHORS"
 ADD="$ADD $VERSION/ChangeLog* $VERSION/TODO"
 ADD="$ADD $VERSION/INSTALL $VERSION/README"
-ADD="$ADD $VERSION/gmatvec $VERSION/scripts $VERSION/doc"
+ADD="$ADD $VERSION/gmatvec $VERSION/scripts"
 
 
 MD5=$VERSION/gamalib-$LIBVER.md5sum

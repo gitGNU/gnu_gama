@@ -1,8 +1,14 @@
-GNU GaMa source codes can be downloaded from
+GNU GaMa (http://www.gnu.org/software/gama/) source codes can be
+downloaded from FTP
 
-         http://gama.fsv.cvut.cz/gama/archive/gamalib/1.3/
+           http://www.gnu.org/prep/ftp.html
+or CVS
+           http://savannah.gnu.org/projects/gama/          
 
-or any later version.
+Archive of old versions is 
+
+           http://gama.fsv.cvut.cz/gama/archive/gamalib/
+
 
 For parsing XML input, gamalib uses parser expat v. 1.1 copyrighted by
 James Clark, which can downloaded directly from

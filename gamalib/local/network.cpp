@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.1 2001/12/07 12:38:37 cepek Exp $
+ *  $Id: network.cpp,v 1.2 2002/05/29 16:06:54 cepek Exp $
  */
 
 #include <fstream>
@@ -68,6 +68,9 @@ void LocalNetwork::revision_points()
     {
       bool ok = true;
       Point& b = (*bod).second;
+
+      b.set_xyz_0();       // store initial values even for unused points
+
       if (b.active_xy())
         {
           if (b.test_xy())

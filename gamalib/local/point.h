@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: point.h,v 1.1 2001/12/07 12:38:37 cepek Exp $
+ *  $Id: point.h,v 1.2 2002/05/29 16:06:54 cepek Exp $
  */
 
 #ifndef GaMaLib___class__Point_h
@@ -133,11 +133,22 @@ public:
   bool constrained_height() const { return pst_ & z_constrained_;  }
   bool height_point()       const { return pst_ & active_z_;       }
   */
+
+
+  // initial values of coordinates used in the first adjustment iteration
+
+  Double x_0() const { return x0_; }
+  Double y_0() const { return y0_; }
+  Double z_0() const { return z0_; }
+
+  void   set_xyz_0() { x0_ = x_; y0_ = y_; z0_ = z_;  }
+
 private:
 
   Double  x_, y_, z_;       // coordinates
   bool    bxy_, bz_;        // coordinates are/are_not defined
   int     ix_, iy_, iz_;    // indexes of unknowns in project equations
+  Double  x0_, y0_, z0_;    // initial values of cordinates in adjustment
   int     pst_;             // point status in adjustment
 
   enum 

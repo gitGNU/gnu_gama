@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adjusted_unknowns.h,v 1.1 2001/12/07 12:54:43 cepek Exp $
+ *  $Id: adjusted_unknowns.h,v 1.2 2002/05/29 16:06:54 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vyrovnane_Nezname_h_
@@ -102,11 +102,12 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
                 out << "x" << "   ";
               out.precision(5);
               out.width(13);
-              out << b.x() << " ";
+              Double adj_x = b.x()+x(i)/1000;
+              out << b.x_0() << " ";
               out.width(9);
-              out << (x(i)/1000) << " ";
+              out << (adj_x - b.x_0()) << " ";
               out.width(13);
-              out << (b.x()+x(i)/1000) << " ";
+              out << adj_x << " ";
               out.precision(1);
               out.width(7);
               out << mx << " ";
@@ -124,11 +125,12 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
                 out << "y" << "   ";
               out.precision(5);
               out.width(13);
-              out << y_sign*b.y() << " ";
+              Double adj_y = y_sign*(b.y()+x(i+1)/1000);
+              out << y_sign*b.y_0() << " ";
               out.width(9);
-              out << y_sign*(x(i+1)/1000) << " ";
+              out << (adj_y - y_sign*b.y_0()) << " ";
               out.width(13);
-              out << y_sign*(b.y()+x(i+1)/1000) << " ";
+              out << adj_y << " ";
               out.precision(1);
               out.width(7);
               out << my << " ";
@@ -162,11 +164,12 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
                 out << "z" << "   ";
               out.precision(5);
               out.width(13);
-              out << b.z() << " ";
+              Double adj_z = b.z()+x(i)/1000;
+              out << b.z_0() << " ";
               out.width(9);
-              out << (x(i)/1000) << " ";
+              out << (adj_z - b.z_0()) << " ";
               out.width(13);
-              out << (b.z()+x(i)/1000) << " ";
+              out << adj_z << " ";
               double mv = IS->unknown_stdev(i);
               out.precision(1);
               out.width(7);
@@ -292,11 +295,12 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
               out << "   ";    
             out.precision(5);
             out.width(13);
-            out << b.z() << " ";
+            Double adj_z = b.z()+x(i)/1000;
+            out << b.z_0() << " ";
             out.width(9);
-            out << (x(i)/1000) << " ";
+            out << (adj_z - b.z_0()) << " ";
             out.width(13);
-            out << (b.z()+x(i)/1000) << " ";
+            out << adj_z << " ";
             double mv = IS->unknown_stdev(i);
             out.precision(1);
             out.width(7);
