@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.cpp,v 1.1 2001/12/07 12:38:37 cepek Exp $
+ *  $Id: acord.cpp,v 1.2 2002/04/04 13:19:37 cepek Exp $
  */
 
  
@@ -101,71 +101,77 @@ void Acord::execute()
 {
   try
     {
-      ApproximateHeights ah(PD, OD);
-      ah.execute();
+      int all;
 
-      {
-        // all transformed slope distances go to a single standpoint
-        StandPoint* standpoint = new StandPoint(&OD);
-        OD.for_each(Acord::SlopeToHorizontal(standpoint->observation_list));
-        // bind observations to the cluster
-        standpoint->update();
-        // insert standpoint into `observation data'
-        OD.CL.push_back(standpoint);
+      do {
+        all = total_z + total_xy + total_xyz;
+
+        ApproximateHeights ah(PD, OD);
+        ah.execute();
         
-        ApproximateCoordinates ps(PD, OD);
-        ps.Calculation();
-
-        OD.CL.pop_back();
-        delete standpoint;
-      }
-
-      ObservationList local;
-      OD.for_each(Observation::CopyTo(local));
-      
-      Orientation orp(PD, local);
-      orp.add_all();
-
-      for (PointData::const_iterator i=PD.begin(); i!=PD.end(); ++i)
         {
-          const PointID& c = (*i).first;
-          const Point&   p = (*i).second;
-          bool cp = p.test_xy();
-          bool hp = p.test_z();
-
-          if (cp && hp) total_xyz++;
-          else if (cp)  total_xy++;
-          else if (hp)  total_z++;
-
-          if (p.active_xy() && !cp) missing_coordinates = true;
-          if (p.active_z()  && !hp) missing_coordinates = true;
-
-          int t = 0;
-          if      (set_xyz.find(c) != set_xyz.end()) t = 1;
-          else if (set_xy .find(c) != set_xy .end()) t = 2;
-          else if (set_z  .find(c) != set_z  .end()) t = 3;
-
-          if (cp && hp)
-            {
-              switch (t) 
-                {
-                case 0 : computed_xyz++; break;
-                case 1 :                 break;
-                case 2 : computed_z++;   break;
-                case 3 : computed_xy++;  break;
-                default:                 break;
-                }
-            }
-          else if (cp)
-            {
-              if (t!=2)  computed_xy++; 
-            }
-          else if (hp)
-            {
-              if (t!=3)  computed_z++;
-            }
+          // all transformed slope distances go to a single standpoint
+          StandPoint* standpoint = new StandPoint(&OD);
+          OD.for_each(Acord::SlopeToHorizontal(standpoint->observation_list));
+          // bind observations to the cluster
+          standpoint->update();
+          // insert standpoint into `observation data'
+          OD.CL.push_back(standpoint);
+          
+          ApproximateCoordinates ps(PD, OD);
+          ps.Calculation();
+          
+          OD.CL.pop_back();
+          delete standpoint;
         }
+        
+        ObservationList local;
+        OD.for_each(Observation::CopyTo(local));
+        
+        Orientation orp(PD, local);
+        orp.add_all();
+        
+        for (PointData::const_iterator i=PD.begin(); i!=PD.end(); ++i)
+          {
+            const PointID& c = (*i).first;
+            const Point&   p = (*i).second;
+            bool cp = p.test_xy();
+            bool hp = p.test_z();
+            
+            if (cp && hp) total_xyz++;
+            else if (cp)  total_xy++;
+            else if (hp)  total_z++;
+            
+            if (p.active_xy() && !cp) missing_coordinates = true;
+            if (p.active_z()  && !hp) missing_coordinates = true;
+            
+            int t = 0;
+            if      (set_xyz.find(c) != set_xyz.end()) t = 1;
+            else if (set_xy .find(c) != set_xy .end()) t = 2;
+            else if (set_z  .find(c) != set_z  .end()) t = 3;
+            
+            if (cp && hp)
+              {
+                switch (t) 
+                  {
+                  case 0 : computed_xyz++; break;
+                  case 1 :                 break;
+                  case 2 : computed_z++;   break;
+                  case 3 : computed_xy++;  break;
+                  default:                 break;
+                  }
+              }
+            else if (cp)
+              {
+                if (t!=2)  computed_xy++; 
+              }
+            else if (hp)
+              {
+                if (t!=3)  computed_z++;
+              }
+          }
 
+      } while (all != (total_z + total_xy + total_xyz));
     }
   catch(...)
     {
