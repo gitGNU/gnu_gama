@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.h,v 1.5 2003/01/03 17:54:06 cepek Exp $
+ *  $Id: adj.h,v 1.6 2003/01/03 21:15:41 cepek Exp $
  */
 
 #include <gamalib/exception.h>
@@ -44,24 +44,7 @@ namespace GaMaLib {
     AdjException(std::string s) : Exception(s) {} 
   };
 
-  class AdjInputData {
-  public:
-    
-    SparseMatrix <>  A;
-    BlockDiagonal<>  cov;
-    Vec              rhs;
-    IntegerList  <>  minx;
-
-    void write_xml(std::ostream&) const;
-    void read_xml(std::istream&);
-
-    /* Sparse project equations for uncorrelated observations. *
-     * Defined here only for backward data compatibility       */
-    void read_gama_local_old_format(std::istream&);
-    
-  };
-  
-
+  class AdjInputData;
 
   class Adj 
   {
@@ -96,6 +79,39 @@ namespace GaMaLib {
     void init_least_squares();
     void cholesky(Cov& chol);                          // move it away!   
     void forwardSubstitution(const Cov& chol, Vec& v); // move it away!
+
+  };
+  
+
+  class AdjInputData {
+  public:
+
+    AdjInputData();
+    ~AdjInputData();
+    
+    void write_xml(std::ostream&) const;
+    void read_xml(std::istream&);
+
+    const SparseMatrix <> * mat () const { return A;     }
+    const BlockDiagonal<> * cov () const { return pcov;  }
+    const Vec               rhs () const { return prhs;  }
+    const IntegerList  <> * minx() const { return pminx; } 
+
+    void swap(AdjInputData *);
+
+    /* Sparse project equations for uncorrelated observations. *
+     * Defined here only for backward data compatibility       */
+    void read_gama_local_old_format(std::istream&);
+
+
+  private:
+
+    friend class Adj;
+
+    SparseMatrix <> * A;
+    BlockDiagonal<> * pcov;
+    Vec               prhs;
+    IntegerList  <> * pminx;
 
   };
   

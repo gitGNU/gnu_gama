@@ -20,15 +20,43 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.8 2003/01/03 17:54:06 cepek Exp $
+ *  $Id: adj.cpp,v 1.9 2003/01/03 21:15:41 cepek Exp $
  */
 
 #include <gamalib/adj/adj.h>
 #include <gamalib/xml/dataparser.h>
 #include <vector>
 #include <cstddef>
+#include <algorithm>
 
 using namespace GaMaLib;
+
+AdjInputData::AdjInputData()
+{
+  A     = new SparseMatrix<>;
+  pcov  = new BlockDiagonal<>;
+  pminx = new IntegerList<>;
+}
+
+
+
+AdjInputData::~AdjInputData()
+{
+  delete A;
+  delete pcov;
+  delete pminx;
+}
+
+
+
+void AdjInputData::swap(AdjInputData *data)
+{
+  std::swap(A     , data->A    );     
+  std::swap(pcov  , data->pcov );  
+  std::swap(prhs  , data->prhs );
+  std::swap(pminx , data->pminx); 
+}
+
 
 
 void AdjInputData::write_xml(std::ostream& out) const
@@ -39,18 +67,18 @@ void AdjInputData::write_xml(std::ostream& out) const
 
   out << "\n" << indent << "  <sparse-mat>\n";
   out << indent << "    "
-      << "<rows>" << A.rows() << "<rows> "
-      << "<cols>" << A.columns() << "</cols> "
-      << "<nonz>" << A.nonzeroes() << "</nonz>\n";
+      << "<rows>" << A->rows() << "<rows> "
+      << "<cols>" << A->columns() << "</cols> "
+      << "<nonz>" << A->nonzeroes() << "</nonz>\n";
 
-  for (Index m, k=1; k<=A.rows(); k++)
+  for (Index m, k=1; k<=A->rows(); k++)
     {
       out << indent << "      <row>";
-      out << " <nonz>" << (A.end(k)-A.begin(k)) << "</nonz>";
+      out << " <nonz>" << (A->end(k)-A->begin(k)) << "</nonz>";
  
-      double* n = A.begin(k);
-      double* e = A.end  (k);
-      for(Index* i=A.ibegin(k) ; n!=e; n++, i++, m++)
+      double* n = A->begin(k);
+      double* e = A->end  (k);
+      for(Index* i=A->ibegin(k) ; n!=e; n++, i++, m++)
         {
           out << "\n        "
               << "<int>" << *i << "</int>"
@@ -63,22 +91,22 @@ void AdjInputData::write_xml(std::ostream& out) const
 
   // =================================================================
 
-  const long blocks = cov.blocks();
+  const long blocks = pcov->blocks();
 
   out << "\n" << indent << " <block-diagonal>\n"
       << indent << "    <blocks>" << blocks << "</blocks>\n";
 
   for (long b=1; b<=blocks; b++)
     {
-      long dim   = cov.dim(b);
-      long width = cov.width(b);
+      long dim   = pcov->dim(b);
+      long width = pcov->width(b);
 
       out << indent << "      <block> <dim>" 
           << dim    << "</dim> <width>" 
           << width  << "</width>\n";
 
-      const double *m = cov.begin(b);
-      const double *e = cov.end(b);
+      const double *m = pcov->begin(b);
+      const double *e = pcov->end(b);
       while (m != e)
         cout << indent << "      <flt>" << *m++ << "</flt>\n";
 
@@ -91,23 +119,23 @@ void AdjInputData::write_xml(std::ostream& out) const
 
   out << "\n" <<  indent << "  <vector>\n"
       << indent 
-      << "    <dim>" << rhs.dim() << "</dim>\n";
+      << "    <dim>" << prhs.dim() << "</dim>\n";
 
-  for (long i=1; i<=rhs.dim(); i++)
-        cout << indent << "      <flt>" << rhs(i) << "</flt>\n";
+  for (long i=1; i<=prhs.dim(); i++)
+        cout << indent << "      <flt>" << prhs(i) << "</flt>\n";
 
   out << indent << "  </vector>\n";
 
   // =================================================================
  
-  if (minx.dim())
+  if (pminx->dim())
     {
       out << "\n" <<  indent << "  <array>\n"
           << indent 
-          << "    <dim>" << minx.dim() << "</dim>\n";
+          << "    <dim>" << pminx->dim() << "</dim>\n";
       
-      const std::size_t *indx = minx.begin();
-      for (long i=1; i<=minx.dim(); i++)
+      const std::size_t *indx = pminx->begin();
+      for (long i=1; i<=pminx->dim(); i++)
         cout << indent << "      <int>" << *indx++ << "</int>\n";
        
       out << indent << "  </array>\n";
@@ -137,15 +165,10 @@ void AdjInputData::read_xml(std::istream& inp)
        i!=objects.end(); ++i)
     if (AdjInputData *data = dynamic_cast<AdjInputData*>(*i))
       {
-        // SparseMatrix <>  A;
-        // BlockDiagonal<>  cov;
-        // Vec              rhs;
-        // IntegerList  <>  minx;
-        data->A;
-        data->cov;
-        data->rhs;
-        data->minx;
-        
+        // take over the data from DataObject
+        swap(data);
+        delete data;
+
         return;
       }
 }
@@ -163,11 +186,11 @@ void AdjInputData::read_gama_local_old_format(std::istream& inp)
   long cols, rows;
   inp >> cols >> rows;                    // dimensions 
 
-  minx.reset(rows);
-  rhs .reset(rows);
+  pminx->reset(rows);
+  prhs . reset(rows);
   gMatVec::Vec<> c(rows);
 
-  IntegerList<>::iterator m = minx.begin();
+  IntegerList<>::iterator m = pminx->begin();
 
   long floats=0;
   for (long nonz, n, k, i=1; i<=rows; i++)
@@ -185,7 +208,7 @@ void AdjInputData::read_gama_local_old_format(std::istream& inp)
       inp >> d;                           // i-th weight
       c(i) = 1/d;
       inp >> d;                           // i-th right-hand site element
-      rhs(i) = d;
+      prhs(i) = d;
       for (k=1; k<=nonz; k++)
         {
           inp >> d;                       // nonzeroes elements
@@ -193,20 +216,19 @@ void AdjInputData::read_gama_local_old_format(std::istream& inp)
         }
     }
 
-
-  A.reset(floats, rows, cols);
-  m = minx.begin();
+  A->reset(floats, rows, cols);
+  m = pminx->begin();
   for (long k=0, r=1; r<=rows; r++)
     {
-      A.new_row();
+      A->new_row();
       long nonz = *m++;
-      for (long i=1; i<=nonz; i++, k++)  A.add_element(flt[k], ind[k]);       
+      for (long i=1; i<=nonz; i++, k++)  A->add_element(flt[k], ind[k]);       
     }
 
-  minx.reset();  // no regularization is defined for singular systems
+  pminx->reset();  // no regularization is defined for singular systems
 
-  cov.reset(1, rows);
-  cov.add_block(rows, 0, c.begin());
+  pcov->reset(1, rows);
+  pcov->add_block(rows, 0, c.begin());
 }
 
 
@@ -230,8 +252,8 @@ void Adj::init(const AdjInputData* inp)
 
   if (data)
     {
-      n_obs_ = data->A.rows();
-      n_par_ = data->A.columns();
+      n_obs_ = data->A->rows();
+      n_par_ = data->A->columns();
     }
 }
 
@@ -253,34 +275,35 @@ void Adj::init_least_squares()
       throw AdjException("### unknown algorithm");
     }
 
-  A_dot.reset(data->A.rows(), data->A.columns());
+  A_dot.reset(data->A->rows(), data->A->columns());
   A_dot.set_zero();
-  b_dot.reset(data->A.rows());
+  b_dot.reset(data->A->rows());
 
-  for (Index k=1; k<=data->A.rows(); k++)
+  for (Index k=1; k<=data->A->rows(); k++)
     {
-      double* n = data->A.begin(k);
-      double* e = data->A.end  (k);
-      for(size_t* i=data->A.ibegin(k) ; n!=e; n++, i++)  A_dot(k,*i) = *n; 
+      double* n = data->A->begin(k);
+      double* e = data->A->end  (k);
+      for(size_t* i=data->A->ibegin(k) ; n!=e; n++, i++)  A_dot(k,*i) = *n; 
      }
 
-  for (Index i, j, dim, width, r=0, b=1; b<=data->cov.blocks(); b++, r += dim)
+  for (Index i, j, dim, width, r=0, b=1; 
+       b<=data->pcov->blocks(); b++, r += dim)
     {
-      dim   = data->cov.dim(b);
-      width = data->cov.width(b);
+      dim   = data->pcov->dim(b);
+      width = data->pcov->width(b);
       Cov C(dim, width);
 
-      const Double *p = data->cov.begin(b), *e = data->cov.end(b);
+      const Double *p = data->pcov->begin(b), *e = data->pcov->end(b);
       Cov::iterator c = C.begin();
       while (p != e) *c++ = *p++;
       cholesky(C);
 
       Vec t(dim);
-      for (i=1; i<=dim; i++) t(i) = data->rhs(r+i);
+      for (i=1; i<=dim; i++) t(i) = data->prhs(r+i);
       forwardSubstitution(C, t);
       for (i=1; i<=dim; i++) b_dot(r+i) = t(i);
 
-      for (j=1; j<=data->A.columns(); j++)
+      for (j=1; j<=data->A->columns(); j++)
         {
           for (i=1; i<=dim; i++) t(i) = A_dot(r+i,j);
           forwardSubstitution(C, t);
