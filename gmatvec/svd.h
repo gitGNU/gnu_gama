@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: svd.h,v 1.12 2002/12/15 20:19:34 cepek Exp $
+ *  $Id: svd.h,v 1.13 2002/12/15 20:36:27 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -645,6 +645,8 @@ namespace gMatVec {
   template <class Float, class Exc>
     void SVD<Float, Exc>::min_subset_x()
     {
+      using namespace std;
+
       if (defect == 0) return;
       if (defect > n_min) 
         throw Exc(BadRegularization, "void SVD::min_subset_x()");
