@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.40 2004/05/17 16:20:25 cepek Exp $
+ *  $Id: version.cpp,v 1.41 2004/05/20 11:33:01 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.11-c";
+const char* GNU_gama_version  = "1.6.02";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -62,7 +62,14 @@ const char* GNU_gama_compiler =
 
 =============================================================================
 
-1.7.11 2004-
+1.6.02 2004-05-20      ******  stable version 1.6  ******
+
+    - CVS tag gama-1-6 moved to point to the current development branch
+
+                        cvs tag -F gama-1-6
+
+                            **********************  
+
 
     - first draft of zenith angles in gama-g3
 
