@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: baseparser.cpp,v 1.4 2003/05/10 13:00:03 cepek Exp $
+ *  $Id: baseparser.cpp,v 1.1 2003/05/10 13:13:36 cepek Exp $
  */
 
 #include <gamalib/xml/baseparser.h>

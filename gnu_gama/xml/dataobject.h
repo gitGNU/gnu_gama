@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataobject.h,v 1.6 2003/05/10 13:00:03 cepek Exp $
+ *  $Id: dataobject.h,v 1.1 2003/05/10 13:13:36 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_Data_Object__object___h_

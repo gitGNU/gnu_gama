@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: encoding.h,v 1.3 2003/05/10 13:00:03 cepek Exp $
+ *  $Id: encoding.h,v 1.1 2003/05/10 13:13:36 cepek Exp $
  */
 
 #include <expat/xmlparse/xmlparse.h>

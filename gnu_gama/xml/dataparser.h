@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.13 2003/05/10 13:00:03 cepek Exp $
+ *  $Id: dataparser.h,v 1.1 2003/05/10 13:13:36 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_DataParser__data_parser__dataparser___h_

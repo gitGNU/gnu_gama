@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: baseparser.h,v 1.3 2003/05/10 13:00:03 cepek Exp $
+ *  $Id: baseparser.h,v 1.1 2003/05/10 13:13:36 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa__XML__BASE_Base_base__PARSER_Parser_parser__h_

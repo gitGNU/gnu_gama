@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.17 2003/05/10 13:00:03 cepek Exp $
+ *  $Id: adj.cpp,v 1.1 2003/05/10 13:13:35 cepek Exp $
  */
 
 #include <gamalib/adj/adj.h>

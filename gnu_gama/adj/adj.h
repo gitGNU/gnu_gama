@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.h,v 1.9 2003/05/10 13:00:03 cepek Exp $
+ *  $Id: adj.h,v 1.1 2003/05/10 13:13:35 cepek Exp $
  */
 
 #include <gnu_gama/matvec.h>
