@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.58 2003/03/05 17:15:07 cepek Exp $
+ *  $Id: version.cpp,v 1.59 2003/03/09 18:48:27 cepek Exp $
  */
 
 
@@ -60,6 +60,9 @@ const char* GaMaLib_compiler =
 =============================================================================
 
 1.7.02-pre .....
+
+   - removed bug in template BlockDiagonal (sparse/sbdiagonal.h)
+     repoted by Jan Bilek
 
    - added template class PointBase (gnu_gama/pointbase.h)
 

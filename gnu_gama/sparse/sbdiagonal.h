@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: sbdiagonal.h,v 1.2 2003/03/05 17:15:07 cepek Exp $
+ *  $Id: sbdiagonal.h,v 1.3 2003/03/09 18:48:27 cepek Exp $
  */
 
 #ifndef GNU_gama____Symmetric_Block_Diagonal___Symmetric_Block_Diagonal
@@ -111,7 +111,7 @@ template <class Float=double, class Index=std::size_t>
 
     BlockDiagonal* replicate(Index new_floats, Index new_blocks) const 
     {
-      BlockDiagonal* r = new BlockDiagonal(new_blocks, new_floats);
+      BlockDiagonal* r = new BlockDiagonal(new_floats, new_blocks);
 
       for (Index i=1; i<=blocks_; i++)  
       {
