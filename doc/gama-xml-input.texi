@@ -1,4 +1,4 @@
-@comment $Id: gama-xml-input.texi,v 1.5 2003/02/16 13:09:13 cepek Exp $
+@comment $Id: gama-xml-input.texi,v 1.6 2003/02/20 18:32:45 cepek Exp $
 
 @comment setfilename gama-xml-inp.info
 
@@ -153,7 +153,7 @@ is reverted back by @code{gama-local}).
 
 
 
-@unnumberedsubsec Example
+@heading Example
 
 @example
 <gama-xml>
@@ -185,7 +185,7 @@ adjustment output and serves for easier identification of results.  The
 text is not interpreted by the program, but it may be helpful for users.
 
 
-@unnumberedsubsec Example
+@heading Example
 
 @example
 <description>
@@ -231,7 +231,7 @@ between attribute names, values, and the @emph{equal} sign.
 
 
 
-@unnumberedsubsec Example
+@heading Example
 
  
 
@@ -312,7 +312,7 @@ default values of $b=0$ and $c=1$ will be used.
 @end iftex
 @c % ----------------------------------------------------------------------
 
-@unnumberedsubsec Example
+@heading Example
 
  
 
@@ -424,7 +424,7 @@ networks.
 
 
 
-@unnumberedsubsec Example
+@heading Example
 
  
 
@@ -555,7 +555,7 @@ Height differences can be entered in the @code{<obs>} or
 @code{<height-differences>} section. If entered in the @code{<obs>} section,
 the @code{dist="..."} parameter is ignored (@ref{Height differences}). 
 
-@unnumberedsubsec Example
+@heading Example
 
 @example
 <obs from="418">  
@@ -615,7 +615,7 @@ observations (distances, angles, etc.)
 
 
 
-@unnumberedsubsec Example
+@heading Example
 
 
 
@@ -666,7 +666,7 @@ Contrary to directions,  distances in an observation set
 set of distances observed from several stand-points with
 a common variance-covariance matrix.
 
-@unnumberedsubsec Example 
+@heading Example 
 
 @example
 <distance from = "2"  to = "1" val = "659.184" />
@@ -717,7 +717,7 @@ Similar to distance observations, one observation set may group angles
 observed from several standpoints.
 
 
-@unnumberedsubsec Example
+@heading Example
 
 @example
 <angle from="433" bs="422" fs="402" val="128.6548" stdev="14.1"/>
@@ -769,7 +769,7 @@ distances observed from several standpoints.
 
 
 
-@unnumberedsubsec Example
+@heading Example
 
 
 
@@ -822,7 +822,7 @@ angles observed from several standpoints.
 
 
 
-@unnumberedsubsec Example
+@heading Example
 
 
 
@@ -892,7 +892,7 @@ elevations in the set.
 
 
 
-@unnumberedsubsec Example
+@heading Example
 
 
 @example
@@ -941,7 +941,7 @@ defined either directly within the @code{<coordinates>} tag or outside
 of it.
 
 
-@unnumberedsubsec Example
+@heading Example
 
 @example
 <coordinates>
@@ -981,7 +981,7 @@ instrument and/or target height are
 @end itemize
 
 
-@unnumberedsubsec Example
+@heading Example
 
 
 @example
@@ -1163,7 +1163,6 @@ XML input stream of points and observation data for program Gama
 </network>
 </gama-xml>
 @end example
-
 
 
 

@@ -18,9 +18,10 @@ file name with extension@code{.txt} is used.  If run without arguments
 @code{gama-local} prints a short help
 
 @example
-bash-2.03$ ./gama-local
 
-Adjustment of local geodetic network        version: 1.5.08 / GNU g++
+$ ../gama-local 
+
+Adjustment of local geodetic network        version: 1.7.00 / GNU g++
 ************************************
 http://www.gnu.org/software/gama/
 
@@ -28,12 +29,12 @@ Usage: gama-local [options] xml_input_file.gkf  [ output. ]
 
 Options:
 
---algorithm svd|gso     
---language  en|cz|fi|du 
---version               
---help              this text
+--algorithm  svd | gso
+--language   en | cz | fi | du
+--encoding   utf-8 | iso-8859-2 | iso-8859-2-flat | cp-1250
+--version
+--help
 
-bash-2.03$
 @end example
 
 @noindent
@@ -56,4 +57,7 @@ example, if run with option @code{--language cz}, @code{gama-local}
 prints output results in Czech languague using UTF-8
 encoding. Implicit value is @code{en} for output in English.
 
+Option @code{--encoding} enables to change inplicit UTF-8 output
+encoding to iso-8859-2 (latin-2), iso-8859-2-flat (latin-2 without
+diacritics) or cp-1250 (MS-EE encoding).
 

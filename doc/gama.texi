@@ -1,5 +1,5 @@
 \input texinfo   @c -*-texinfo-*-
-@comment $Id: gama.texi,v 1.6 2003/02/16 13:09:14 cepek Exp $
+@comment $Id: gama.texi,v 1.7 2003/02/20 18:32:45 cepek Exp $
 
 @comment Part 1 : Header
 
@@ -15,6 +15,9 @@
 
 @include gama-local-macros.texi
 
+@iftex
+@comment exampleindent 0
+@end iftex
 
 @comment Part 2: Summary Description and Copyright
 

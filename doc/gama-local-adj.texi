@@ -1,4 +1,4 @@
-@comment $Id: gama-local-adj.texi,v 1.2 2003/01/20 17:52:31 cepek Exp $
+@comment $Id: gama-local-adj.texi,v 1.3 2003/02/20 18:32:45 cepek Exp $
 
 @c @setfilename gama-local-adj.info
 
@@ -28,6 +28,9 @@ $$
 @c noindent
 @end ignore
 
+@comment iftex
+@comment exampleindent 0
+@comment end iftex
 
 Adjustment of local geodetic network is a classical case of
 @emph{adjustment of indirect observations.}  After estimation of
@@ -264,7 +267,8 @@ identifications but in normal situations, leaving computation of
 approximate coordinates on program @code{gama-local} is recommended.
 
 
-@unnumberedsubsec Example
+@heading Example
+@c unnumberedsubsec Example
 
 @example
 Computation of approximate coordinates of points
@@ -363,7 +367,7 @@ $$
 Default value of parameter @code{tol-abs} is 1000 mm.
 
 
-@unnumberedsubsec Example
+@heading Example
 
 @example
 Outlying absolute terms in project equations
@@ -654,7 +658,7 @@ angles.
 
 
 
-@unnumberedsubsec Example
+@heading Example
 
 
 @example
@@ -696,7 +700,7 @@ analysis}).  In the review index @gmat{i} is the index of unknown
 point coordinates @gmat{x} and @gmat{y}.
 
 
-@unnumberedsubsec Example
+@heading Example
 
 @example
 Fixed points
@@ -741,7 +745,7 @@ and coefficients @gmat{g} characterizing position of approximate
 coordinates with regard to the confidence ellipse.
 
 
-@unnumberedsubsec Example
+@heading Example
 
 
 @example
@@ -959,7 +963,7 @@ project equations.
 
 
 
-@unnumberedsubsec Example
+@heading Example
 
 @example
 Adjusted bearings
@@ -988,7 +992,7 @@ interval.
 
 
 
-@unnumberedsubsec Example
+@heading Example
 
 
 @example
@@ -1025,7 +1029,7 @@ marked with symbol @code{m}.
 
 
 
-@unnumberedsubsec Example
+@heading Example
 
 @example
 Residuals and analysis of observations
@@ -1197,7 +1201,7 @@ $x$
 %=======================================================================
 
 
-@unnumberedsubsec Example
+@heading Example
 
 @example
 Test of normality of homogenised residuals of observations
@@ -1478,7 +1482,7 @@ As a criterion of bad linearization is supposed positional
 deviation greater or equal to 0.0005 millimetres.
 
 
-@unnumberedsubsec Example
+@heading Example
 
 
 @example
@@ -1525,5 +1529,8 @@ If the bad linearization is detected even after three readjustments it
 signals that given network configuration is somehow suspicious.
 
 
+@comment iftex
+@comment exampleindent 5
+@comment end iftex
 
 
