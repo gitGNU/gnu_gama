@@ -3,7 +3,7 @@
 # gamalib tar ball: script is run in the parent directory of scripts
 # ################
 #
-# $Id: GaMaLib_archive,v 1.11 2002/10/11 09:58:23 cepek Exp $
+# $Id: GaMaLib_archive,v 1.12 2002/10/17 17:30:16 cepek Exp $
 
 if pwd | grep scripts$; then cd ..; fi
 
@@ -32,6 +32,7 @@ ADD="$ADD $VERSION/ChangeLog* $VERSION/TODO"
 ADD="$ADD $VERSION/INSTALL $VERSION/README"
 ADD="$ADD $VERSION/gmatvec $VERSION/scripts"
 ADD="$ADD $VERSION/expat"
+ADD="$ADD $VERSION/doc"
 
 
 MD5=$VERSION/gamalib-$LIBVER.md5sum
@@ -62,7 +63,7 @@ rm -f $TAR
 echo
 echo tar czvf $TAR
 echo 
-tar czvf $TAR $MD5 $ADD --exclude=*.o --exclude=*.a \
+tar czvf $TAR $MD5 $ADD --exclude=*.o --exclude=*.a --exclude=*.bak\
               --exclude=$VERSION/$VERSION \
               --exclude=CVS \
               --exclude-from=/tmp/gamalib-$VERSION-exclude

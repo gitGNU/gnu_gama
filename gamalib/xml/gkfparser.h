@@ -1,6 +1,6 @@
 /*  
     Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
-    Copyright (C) 2000  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 2000, 2002  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the GNU GaMa / GaMaLib C++ Library.
     
@@ -20,32 +20,31 @@
 */
 
 /*
- *  $Id: gkfparser.h,v 1.3 2002/06/27 17:11:57 cepek Exp $
+ *  $Id: gkfparser.h,v 1.4 2002/10/17 17:24:55 cepek Exp $
  */
 
 #ifndef GaMaLib_GKF__XML__parser__h_
 #define GaMaLib_GKF__XML__parser__h_
 
-
-// GKFparser is just a simple C++ wrapper for XML parser expat
-
-#include <expat/xmlparse/xmlparse.h>
+#include <gamalib/xml/baseparser.h>
 #include <gamalib/local/gamadata.h>
-#include <string>
+
 
 namespace GaMaLib {
 
-  class GKFexception : public GaMaLib::Exception 
-    {
-    public:
-      int line;
-      GKFexception(std::string s, int r) : GaMaLib::Exception(s), line(r) {}
-    };
-  
-  class GKFparser 
+  class GKFparser : public BaseParser 
     {
     public:
    
+      // constructor and destructor
+      
+      GKFparser(GaMaLib::PointData& sb, GaMaLib::ObservationData& od);
+      ~GKFparser();
+      
+      int characterDataHandler(const char* s, int len);
+      int startElement(const char *cname, const char **atts);
+      int endElement(const char * name);
+      
       // public data members
       
       std::string description;          // network description
@@ -60,39 +59,6 @@ namespace GaMaLib {
       std::string errString;
       int         errLineNumber;  
       int         errCode;              // -1 bad data in gkf; 0 OK; >0 expat
-      
-      // constructor and destructor
-      
-      GKFparser(GaMaLib::PointData& sb, GaMaLib::ObservationData& od);
-      ~GKFparser();
-      
-      // expat parser interface
-      
-      void xml_parse(const char *s, int len, int isFinal) 
-        { 
-          int err = XML_Parse(parser, s, len, isFinal);
-          if (err == 0)
-            {
-              // fatal error
-              
-              errString=std::string(XML_ErrorString(XML_GetErrorCode(parser)));
-              errCode  =XML_GetErrorCode(parser);
-              errLineNumber = XML_GetCurrentLineNumber(parser);
-              
-              throw GKFexception(errString, errLineNumber);
-            }
-          
-          if (state == state_error)
-            {
-              errCode = -1;   
-              // errLineNumber is set by function  error("...");    
-              throw GKFexception(errString, errLineNumber);
-            }
-        }
-      
-      int gkf_characterDataHandler(const char* s, int len);
-      int gkf_startElement(const char *cname, const char **atts);
-      int gkf_endElement(const char * name);
       
       double implicit_stdev_direction() const { return smer_str; }
       double implicit_stdev_angle() const { return uhel_str; }
@@ -137,8 +103,7 @@ namespace GaMaLib {
       gkf_tag tag(const char* cname);
 
       enum gkf_state {
-        state_error,
-        state_start,
+        state_start = 1,
         state_gama_xml,
         state_network,
         state_description,
@@ -167,7 +132,7 @@ namespace GaMaLib {
         state_vectors_cov,
         state_vectors_after_cov,
         state_stop
-      } state;
+      };
       
       std::vector<Double> sigma;
       Index        idim, iband;            // covariance matrix dim. / band
@@ -175,23 +140,6 @@ namespace GaMaLib {
       Double       pp_x, pp_y, pp_z;
       PointID      pp_id;      
       std::string  cov_mat_data;
-      XML_Parser   parser;
-
-      int error(std::string s) { return error(s.c_str()); }
-      int error(const char* text)
-        {
-          // store only the first detected error
-          if(errCode) return 1;
-
-          errString = std::string(text);
-          errCode   = -1;
-          errLineNumber = XML_GetCurrentLineNumber(parser);
-          state = state_error;
-          return 1;
-        }
-      
-      bool toDouble(const std::string&, double&) const;
-      bool toIndex (const std::string&, Index& ) const;
       
       // Implicit value of stanpoint ID is set for sets of
       // directions/distances and/or angles.

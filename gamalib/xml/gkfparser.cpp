@@ -1,6 +1,6 @@
 /*  
     Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
-    Copyright (C) 2000  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 2000, 2002  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the GNU GaMa / GaMaLib C++ Library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.4 2002/06/27 17:11:57 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.5 2002/10/17 17:24:55 cepek Exp $
  */
 
 
@@ -29,7 +29,6 @@
 #include <cstring>
 #include <cmath>
 
-#include <expat/xmlparse/xmlparse.h>
 #include <gamalib/xml/gkfparser.h>
 #include <gamalib/xml/encoding.h>
 #include <gamalib/observation.h>
@@ -38,47 +37,11 @@
 #include <gamalib/language.h>
 
 
-// ===========================================================================
-
-namespace {
-  extern "C" {
-    
-    void characterDataHandler(void *userData, const char* s, int len)
-    {
-      using namespace GaMaLib;
-      GKFparser* gexp = static_cast<GKFparser*>(userData);
-      
-      gexp->gkf_characterDataHandler(s, len);
-    }      
-    
-    void startElement(void *userData, const char *cname, const char **atts)
-    {
-      using namespace GaMaLib;
-      GKFparser* gexp = static_cast<GKFparser*>(userData);
-
-      gexp->gkf_startElement(cname, atts);
-    }
-
-    void endElement(void *userData, const char *cname)
-    {
-      using namespace GaMaLib;
-      GKFparser* gexp = static_cast<GKFparser*>(userData);
-
-      gexp->gkf_endElement(cname);
-    }
-
-  }   // extern "C" 
-}     // unnamed namespace 
-
-// ===========================================================================
-
-
 using namespace std;
-
 namespace GaMaLib {
   
   
-  int GKFparser::gkf_characterDataHandler(const char* s, int len)
+  int GKFparser::characterDataHandler(const char* s, int len)
   {
     if (state == state_description)
       {
@@ -106,7 +69,7 @@ namespace GaMaLib {
   
   
   
-  int GKFparser::gkf_startElement(const char *cname, const char **atts)
+  int GKFparser::startElement(const char *cname, const char **atts)
   {
     const gkf_tag ntag  = tag(cname);
 
@@ -207,7 +170,7 @@ namespace GaMaLib {
     
     
     
-  int GKFparser::gkf_endElement(const char * /*name*/)
+  int GKFparser::endElement(const char * /*name*/)
   {
     switch (state) 
       {
@@ -400,53 +363,12 @@ namespace GaMaLib {
 
     // throw exception if a covariance matrix is not positive-definite
     check_cov_mat = true;  
-
-    parser  = XML_ParserCreate(0); 
-
-    XML_SetUserData(parser, this);
-    XML_SetElementHandler(parser, startElement, endElement);
-    XML_SetCharacterDataHandler(parser, characterDataHandler);
-    XML_SetUnknownEncodingHandler(parser, UnknownEncodingHandler, 0);
   }
 
 
 
   GKFparser::~GKFparser() 
   { 
-    XML_ParserFree(parser); 
-  }
-
-
-
-  bool GKFparser::toDouble(const std::string& s, double& d) const
-  {
-    using namespace std;        // Visual C++ doesn't know std::atof ???
-
-    if (IsFloat(s))
-      {
-        d = atof(s.c_str());
-        return true;
-      }
-    else
-      return false;
-  }
-
-
-
-  bool GKFparser::toIndex(const std::string& s, Index& index) const
-  {
-    for (std::string::const_iterator i=s.begin(); i!=s.end(); ++i)
-      if (!isspace(*i) && !isdigit(*i))
-        return false;
-
-    double d;
-    if (toDouble(s, d))
-      {
-        index = static_cast<Index>(d);
-        return true;
-      }
-    else
-      return false;
   }
 
 

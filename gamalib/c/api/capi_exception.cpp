@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: capi_exception.cpp,v 1.1 2001/12/07 12:33:41 cepek Exp $
+ *  $Id: capi_exception.cpp,v 1.2 2002/10/17 17:27:40 cepek Exp $
  */
 
 #include <gamalib/c/api/capi_exception.h>
@@ -107,7 +107,7 @@ void Cgama_private_set_exception(const GaMaLib::Exception& e)
   c_api_data.text[255] = 0;
   
   using namespace GaMaLib;
-  if (const GKFexception* g = dynamic_cast<const GKFexception*>(&e))
+  if (const ParserException* g = dynamic_cast<const ParserException*>(&e))
     {
       c_api_data.xml_line = g->line;
     }

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.35 2002/10/01 13:27:26 cepek Exp $
+ *  $Id: version.cpp,v 1.36 2002/10/17 17:26:15 cepek Exp $
  */
 
 
@@ -60,6 +60,10 @@ const char* GaMaLib_compiler =
 =============================================================================
 
 1.5.03 2002...
+
+    - general parts of GKFparser moved into the new class BaseParser.
+      Class BaseParser is public base class to GKFparser and a new
+      GaMa XML parser DataParser
 
     - added a test if dos2unix utility is available into
       scripts/Build_GaMa (Jan Pytel)

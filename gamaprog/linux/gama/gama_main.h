@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama_main.h,v 1.2 2002/09/29 14:00:19 cepek Exp $
+ *  $Id: gama_main.h,v 1.3 2002/10/17 17:30:16 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -299,7 +299,7 @@ int GaMa_Main(int argc, char **argv)
     cout.open(file_txt.c_str());
     
   }
-  catch (const GKFexception& v) {
+  catch (const ParserException& v) {
     cerr << "\n" << T_GaMa_exception_2a << "\n\n"
          << T_GaMa_exception_2b << v.line << " : " << v.text << endl;
     return 3;      
