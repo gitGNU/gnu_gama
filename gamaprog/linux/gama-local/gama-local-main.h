@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.18 2004/06/06 10:02:54 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.19 2004/11/02 18:09:32 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -30,6 +30,7 @@
 
 #include <cstring>
 #include <gnu_gama/version.h>
+#include <gnu_gama/intfloat.h>
 #include <gamalib/language.h>
 #include <gamalib/local/gamadata.h>
 #include <gamalib/xml/gkfparser.h>
@@ -53,6 +54,7 @@
 #include <gamalib/local/results/text/adjusted_unknowns.h>
 #include <gamalib/local/results/text/outlying_abs_terms.h>
 #include <gamalib/local/results/text/reduced_observations.h>
+#include <gamalib/local/results/text/reduced_observations_to_ellipsoid.h>
 #include <gamalib/local/results/text/residuals_observations.h>
 #include <gamalib/local/results/text/error_ellipses.h>
 #include <gamalib/local/results/text/test_linearization.h>
@@ -81,6 +83,8 @@ int help()
        << "--language   en | ca | cz | du | fi | hu\n"
        << "--encoding   utf-8 | iso-8859-2 | iso-8859-2-flat | cp-1250\n"
        << "--angles     400 | 360\n"  
+       << "--latitude   <latitude>\n"
+       << "--ellipsoid  <ellipsoid name>\n"
        << "--version\n"
        << "--help\n";
   cerr << endl;
@@ -112,7 +116,13 @@ int GaMa_Main(int argc, char **argv)
   const char* argv_lang = 0;
   const char* argv_enc  = 0;
   const char* argv_angles = 0;
+  const char* argv_ellipsoid = 0;
+  const char* argv_latitude = 0;
 
+  bool correction_to_ellipsoid = false;
+  GNU_gama::Ellipsoid el;
+  double latitude = M_PI/4.0;
+  
   for (int i=1; i<argc; i++)
     {
       c = argv[i];
@@ -125,7 +135,7 @@ int GaMa_Main(int argc, char **argv)
           if (!argv_2) {
               argv_2 = c;
               continue;
-            }
+          }
           return help();
         }
 
@@ -136,15 +146,18 @@ int GaMa_Main(int argc, char **argv)
       string name = string(c);
       c = argv[++i];
 
-      if      (name == "help"     ) return help();
-      else if (name == "version"  ) return version();
-      else if ( i   ==  argc      ) return help();
-      else if (name == "algorithm") argv_algo = c; 
-      else if (name == "language" ) argv_lang = c;
-      else if (name == "encoding" ) argv_enc  = c;
-      else if (name == "angles"   ) argv_angles = c;
+      if      (name == "help"      ) return help();
+      else if (name == "version"   ) return version();
+      else if (name == "corr_to_el") { correction_to_ellipsoid = true; --i; }
+      else if ( i   ==  argc       ) return help();
+      else if (name == "algorithm" ) argv_algo = c; 
+      else if (name == "language"  ) argv_lang = c;
+      else if (name == "encoding"  ) argv_enc  = c;
+      else if (name == "angles"    ) argv_angles = c;
+      else if (name == "ellipsoid" ) argv_ellipsoid = c;
+      else if (name == "latitude"  ) argv_latitude = c;
       else
-        return help();
+          return help();
     }
   
   if (!argv_1) return help();
@@ -182,6 +195,7 @@ int GaMa_Main(int argc, char **argv)
         return help();
     }
 
+  
   try {
     
     try {
@@ -211,6 +225,31 @@ int GaMa_Main(int argc, char **argv)
       throw 
         GaMaLib::Exception(T_GaMa_exception_1);
     }
+    
+
+    if (argv_latitude)
+    {
+        if ( !GNU_gama::IsFloat(string(argv_latitude)) )
+            return help();
+
+        latitude = atof(argv_latitude) * M_PI / (IS->gons() ? 200 : 180);
+
+	correction_to_ellipsoid = true;
+    }
+
+    GNU_gama::set(&el, GNU_gama::ellipsoid_wgs84);
+
+    if (argv_ellipsoid)
+    {
+        using namespace GNU_gama;
+        
+        gama_ellipsoid gama_el = ellipsoid(argv_ellipsoid);
+        if  ( (gama_el == ellipsoid_unknown) || GNU_gama::set(&el,  gama_el) )
+            return help();
+	    
+	correction_to_ellipsoid = true;
+    }
+
     
     ifstream soubor(argv_1);
     
@@ -373,7 +412,16 @@ int GaMa_Main(int argc, char **argv)
         Acord acord(IS->PD, IS->OD);
         acord.execute();
 	ReducedObservationsText(IS,&(acord.RO), cout);
-	ApproximateCoordinates(&acord, cout);
+
+        if (correction_to_ellipsoid)
+        {
+            ReduceToEllipsoid reduce_to_el(IS->PD, IS->OD, el, latitude);
+            reduce_to_el.execute();
+            ReducedObservationsToEllipsoidText(IS, reduce_to_el.getMap(), cout);
+        }
+
+        ApproximateCoordinates(&acord, cout);
+
       }
     catch(...)
       {

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.h,v 1.4 2003/11/06 17:58:57 cepek Exp $
+ *  $Id: acord.h,v 1.5 2004/11/02 18:09:32 cepek Exp $
  */
 
  
@@ -29,6 +29,7 @@
 
 #include <gamalib/local/gamadata.h>
 #include <gamalib/local/acord/reduce_observations.h>
+#include <gamalib/local/acord/reduce_to_ellipsoid.h>
 #include <fstream>
 #include <algorithm>
 #include <list>
@@ -61,8 +62,4 @@ namespace GaMaLib {
 }   // namespace GaMaLib
 
 #endif
-
-
-
-
 

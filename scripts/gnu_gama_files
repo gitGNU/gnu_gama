@@ -34,6 +34,7 @@ gamalib/local/acord.cpp
 gamalib/local/acord/approx_heights.cpp
 gamalib/local/acord/approx_vectors.cpp
 gamalib/local/acord/reduce_observations.cpp
+gamalib/local/acord/reduce_to_ellipsoid.cpp
 gamalib/local/median/g2d_cogo.cpp
 gamalib/local/median/g2d_coordinates.cpp
 gamalib/local/median/g2d_helper.cpp
