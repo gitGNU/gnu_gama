@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: list.h,v 1.4 2003/11/23 14:40:27 cepek Exp $
+ *  $Id: list.h,v 1.5 2003/11/24 17:15:40 cepek Exp $
  */
 
 #include <vector>
@@ -54,6 +54,9 @@ namespace GNU_gama {
       // List& operator=(const List& cod);
 
     public:    
+
+      class iterator;
+      class const_iterator;
 
       List() {}
 
