@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.8 2002/10/24 17:04:12 cepek Exp $
+# $Id: Makefile,v 1.9 2002/10/26 12:20:15 cepek Exp $
 #
 # this Makefile and all files in ./scripts were tested on Debian GNU/Linux 2.2
 #
@@ -7,7 +7,7 @@
 
 
 all:
-	@if [ ! -f gamaprog/linux/gama/Makefile ] || \
+	@if [ ! -f gamaprog/linux/gama-local/Makefile ] || \
 	    [ ! -f gamaprog/linux/lib/Makefile  ];   \
 	then          \
 	   make help; \

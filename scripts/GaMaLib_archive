@@ -3,7 +3,7 @@
 # gama tar: script is run in the parent directory of scripts
 # #########
 #
-# $Id: GaMaLib_archive,v 1.13 2002/10/24 17:04:13 cepek Exp $
+# $Id: GaMaLib_archive,v 1.14 2002/10/26 12:20:15 cepek Exp $
 
 if pwd | grep scripts$; then cd ..; fi
 
@@ -44,17 +44,17 @@ do
     fi 
 done
 
-rm -f /tmp/gamalib-$VERSION-exclude
+rm -f /tmp/gama-$VERSION-exclude
 for i in `find $ADD | grep -v [.]o$ | grep -v [.]cpp$ | grep -v [.]h$ \
           | grep -v CVS | grep -v [.]html$ | grep -v [.]c$`
 do
   if [ ! -d $i ] ; then
     echo -n \.
     TTT=`file $i`
-    echo $TTT | grep ELF.*execu | sed s/:.*// >> /tmp/gamalib-$VERSION-exclude
-    echo $TTT | grep "ar archi" | sed s/:.*// >> /tmp/gamalib-$VERSION-exclude
-    echo $TTT | grep "core fil" | sed s/:.*// >> /tmp/gamalib-$VERSION-exclude
-    echo $TTT | grep [\#~]      | sed s/:.*// >> /tmp/gamalib-$VERSION-exclude
+    echo $TTT | grep ELF.*execu | sed s/:.*// >> /tmp/gama-$VERSION-exclude
+    echo $TTT | grep "ar archi" | sed s/:.*// >> /tmp/gama-$VERSION-exclude
+    echo $TTT | grep "core fil" | sed s/:.*// >> /tmp/gama-$VERSION-exclude
+    echo $TTT | grep [\#~]      | sed s/:.*// >> /tmp/gama-$VERSION-exclude
   fi
 done
 echo
@@ -67,26 +67,26 @@ tar czvf $TAR $MD5 $ADD --exclude=*.o --exclude=*.a --exclude=*.bak \
               --exclude=$VERSION/$VERSION \
               --exclude=CVS \
               --exclude=doc/gama \
-              --exclude-from=/tmp/gamalib-$VERSION-exclude
+              --exclude-from=/tmp/gama-$VERSION-exclude
 
-rm -f /tmp/gamalib-$VERSION-exclude
+rm -f /tmp/gama-$VERSION-exclude
 
 if ! test -d archive;
 then
    mkdir archive
 fi
-if ! test -d archive/gamalib;
+if ! test -d archive/gama;
 then
-   mkdir archive/gamalib
+   mkdir archive/gama
 fi
-if ! test -d archive/gamalib/$DIRVER;
+if ! test -d archive/gama/$DIRVER;
 then
-   mkdir archive/gamalib/$DIRVER
+   mkdir archive/gama/$DIRVER
 fi
 
-cp $TAR archive/gamalib/$DIRVER
+cp $TAR archive/gama/$DIRVER
 echo
-ls -l   archive/gamalib/$DIRVER/$TAR | awk '//{ print $5 " " $9 }'   
+ls -l   archive/gama/$DIRVER/$TAR | awk '//{ print $5 " " $9 }'   
 echo
 rm -f   $TAR $MD5 $VERSION
 

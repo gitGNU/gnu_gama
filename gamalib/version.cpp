@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.38 2002/10/25 16:32:11 cepek Exp $
+ *  $Id: version.cpp,v 1.39 2002/10/26 12:20:15 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.5.04";
+const char* GaMaLib_version  = "1.5.05-pre";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
@@ -59,6 +59,12 @@ const char* GaMaLib_compiler =
 
 =============================================================================
 
+1.5.05 2002--
+
+    - some minor changes in scripts/GaMaLib_archive to reflect new
+      archive file names in format 'gama-xx.yy.zz.tar.gz'
+
+
 1.5.04 2002-10-25
 
     - updated documantation (added references to 'gama-local')
@@ -69,7 +75,7 @@ const char* GaMaLib_compiler =
 1.5.03 2002-10-24
 
     - tar archive file names changed from 'gamalib-xx.yy.zz.tar.gz' to
-      'gamalib-xx.yy.zz.tar.gz'
+      'gama-xx.yy.zz.tar.gz'
 
     - class Point renamed to LocalPoint (file local/point.h renamed to
       local/lpoint.h)
