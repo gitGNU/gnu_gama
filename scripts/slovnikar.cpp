@@ -20,16 +20,20 @@
  * available.  Attribute EN is ignored on input and serves as a kind
  * of comment.
  * 
- * $Id: slovnikar.cpp,v 1.4 2002/11/22 17:46:22 cepek Exp $
+ * $Id: slovnikar.cpp,v 1.5 2003/03/16 17:56:47 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
          const int    N = 4;
          const char* language[N] = { "en", "cz", "fi", "du" };
 
-         const char* version = "1.01";
+         const char* version = "1.02";
 
 /* ---------------------------------------------------------------------------
+ *
+ * 1.02  2003-03-16
+ *
+ *       - processing moved from build-dictionaries to Makefile-slovnikar 
  *
  * 1.01  2002-11-22
  *
@@ -239,6 +243,7 @@ Parser::Parser(string fn)
   state = START;
   
   ifstream inp(filename.c_str());
+  if (!inp) cerr << "cannot open file " << filename << endl;
   char   c;
   while (getline(inp, text))
     {

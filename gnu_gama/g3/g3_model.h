@@ -20,10 +20,14 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.1 2003/03/16 10:40:27 cepek Exp $
+ *  $Id: g3_model.h,v 1.2 2003/03/16 17:56:47 cepek Exp $
  */
 
-//#include <iterator>
+#include <gnu_gama/pointbase.h>
+#include <gnu_gama/obsdata.h>
+#include <gnu_gama/list.h>
+#include <gnu_gama/g3/g3_point.h>
+#include <gnu_gama/g3/g3_observation.h>
 
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -31,6 +35,23 @@
 
 
 namespace GNU_gama {  namespace g3 {
+
+  
+  class Model {
+  public:
+
+    typedef GNU_gama::PointBase<g3::Point>              PointBase;
+    typedef GNU_gama::ObservationData<g3::Observation>  ObservationData;
+
+    PointBase        points;
+    ObservationData  obs;
+
+
+    Model() { points.set_common_data(this); }
+    ~Model();
+
+  };
+
 
 }}
 

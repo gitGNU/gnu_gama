@@ -1,10 +1,26 @@
+FILA=$(shell find ../gamalib  | grep \\\.lang$ | grep -v \\\# | grep -v \\\~ )
+FILB=$(shell find ../gamaprog | grep \\\.lang$ | grep -v \\\# | grep -v \\\~ )
+FILC=$(shell find ../xml      | grep \\\.lang$ | grep -v \\\# | grep -v \\\~ )
 
+FILES=$(FILA) $(FILB) $(FILC)
+
+LANGUAGES=../gamalib/language.h    ../gamalib/language.cpp \
+          ../gamalib/language.html
+
+
+$(LANGUAGES) : slovnikar $(FILES)
+	@echo
+	@echo input files : $(FILES)
+	@(echo $(FILES) | ./slovnikar )
+	@echo
+	@mv -v language.* ../gamalib
+	@echo
 
 slovnikar: slovnikar.o
 	( pwd; cd ../gamaprog/linux/lib; make -f Makefile-expat ) 
 	g++ -o slovnikar slovnikar.o encoding.o ../gamaprog/linux/lib/gamalib.a
 
-slovnikar.o: slovnikar.cpp 
+slovnikar.o: slovnikar.cpp Makefile-slovnikar
 	g++ -I.. -c slovnikar.cpp ../gamalib/xml/encoding.cpp	
 
 

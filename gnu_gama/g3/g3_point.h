@@ -20,10 +20,11 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.1 2003/03/16 10:40:27 cepek Exp $
+ *  $Id: g3_point.h,v 1.2 2003/03/16 17:56:47 cepek Exp $
  */
 
-//#include <iterator>
+#include <gnu_gama/g3/g3_parameter.h>
+#include <gamalib/pointid.h>
 
 
 #ifndef GNU_gama__g3_point_h_gnugamag3pointh___gnu_gama_g3point
@@ -31,6 +32,21 @@
 
 
 namespace GNU_gama {  namespace g3 {
+
+  class Model;
+
+  class Point {
+  public:
+  
+    typedef GaMaLib::PointID Name;
+    typedef Model            Common;
+
+    Name    name;
+    Common* common;
+
+
+  };
+
 
 }}
 

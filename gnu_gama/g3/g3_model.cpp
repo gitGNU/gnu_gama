@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.1 2003/03/16 10:40:27 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.2 2003/03/16 17:56:47 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -29,3 +29,6 @@
 using namespace GNU_gama::g3;
 
 
+Model::~Model()
+{
+}

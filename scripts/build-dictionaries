@@ -1,7 +1,7 @@
 #
 # builds dictionaris for GaMaLib
 # 
-# $Id: build-dictionaries,v 1.6 2003/02/16 13:09:14 cepek Exp $
+# $Id: build-dictionaries,v 1.7 2003/03/16 17:56:47 cepek Exp $
 
 
 if pwd | grep /scripts$; then cd ..; fi
@@ -10,19 +10,17 @@ echo
 echo "Building dictionaries"
 echo
 
-(cd scripts ; make -f Makefile-slovnikar) #--- ; make -f Makefile-utf8-ascii )
-cd gamalib
+(cd scripts ; make -f Makefile-slovnikar)
 
-FILES1=$(find ../gamalib  | grep \.lang$ | grep -v \# | grep -v \~ ) 
-FILES2=$(find ../gamaprog | grep \.lang$ | grep -v \# | grep -v \~ ) 
-FILES3=$(find ../xml      | grep \.lang$ | grep -v \# | grep -v \~ ) 
+# cd gamalib
+# 
+# FILES1=$(find ../gamalib  | grep \.lang$ | grep -v \# | grep -v \~ ) 
+# FILES2=$(find ../gamaprog | grep \.lang$ | grep -v \# | grep -v \~ ) 
+# FILES3=$(find ../xml      | grep \.lang$ | grep -v \# | grep -v \~ ) 
+# 
+# echo input files: $FILES1 $FILES2 $FILES3
+# echo $FILES1 $FILES2 $FILES3 | ../scripts/slovnikar
 
-echo input files: $FILES1 $FILES2 $FILES3
-echo $FILES1 $FILES2 $FILES3 | ../scripts/slovnikar
-
-#---  # program utf8-ascii is a replacement for  "recode UTF-8..flat"
-#---  cp language.cpp language.utf-8
-#---  ../scripts/utf8-ascii     < language.utf-8 > language.cpp
 
 # ------------------------------------------------------------------------
 

@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.11 2003/01/06 17:44:12 cepek Exp $
+# $Id: Makefile,v 1.12 2003/03/16 17:56:47 cepek Exp $
 #
 # this Makefile and all files in ./scripts were tested on Debian GNU/Linux 2.2
 #
@@ -59,7 +59,7 @@ archive:
 
 
 clean:
-	rm -f `find gamalib gamaprog scripts -name *\.[o]`
+	rm -f `find gamalib gamaprog         -name *\.[o]`
 	rm -f `find gamalib gamaprog scripts -name *\.[a]`
 	rm -f `find gamalib -name demo*`
 	rm -f `find . -name *[\~\#]*`
