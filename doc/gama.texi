@@ -1,5 +1,5 @@
 \input texinfo   @c -*-texinfo-*-
-@comment $Id: gama.texi,v 1.11 2004/04/07 17:43:37 cepek Exp $
+@comment $Id: gama.texi,v 1.12 2004/04/11 18:21:59 cepek Exp $
 
 @comment Part 1 : Header
 
@@ -129,7 +129,7 @@ The following persons (in chronological order) have made contributions
 to GNU Gama project: 
 @c
 Ales Cepek, Jiri Vesely, Petr Doubrava, Jan Pytel, Chuck Ghilani, Dan
-Haggman, Mauri Vaisanen, John Dedrum and Jim Sutherland.
+Haggman, Mauri Vaisanen, John Dedrum, Jim Sutherland and Zoltan Faludi.
 
 
 @c @itemize @bullet

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.31 2004/04/07 17:43:37 cepek Exp $
+ *  $Id: version.cpp,v 1.32 2004/04/11 18:21:59 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.09";
+const char* GNU_gama_version  = "1.7.10-a";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -61,6 +61,11 @@ const char* GNU_gama_compiler =
  * in the same directory as GNU Gama
 
 =============================================================================
+
+1.7.10 2004-xx-xx
+
+    - Hungarian translation of gama-local by Zoltan Faludi
+
 
 1.7.09 2004-04-07
 
