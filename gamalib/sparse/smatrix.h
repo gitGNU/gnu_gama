@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: smatrix.h,v 1.5 2002/11/22 21:06:30 cepek Exp $
+ *  $Id: smatrix.h,v 1.6 2003/01/09 23:34:16 cepek Exp $
  */
 
 #ifndef GaMaLib_Sparse_General_Matrix____GaMaLib___Sparse___General___Matrix__
@@ -201,6 +201,18 @@ template <class Float=double, class Index=std::size_t>
       nonz[ncnt_  ] = e;
       cind[ncnt_++] = k;
       rptr[rnxt_]++;
+    }
+
+    bool check() const 
+    {
+      bool ok_ = true;
+
+      for (Index k=1; k<=rows(); k++)
+      {
+          if (begin(k) > end(k)) ok_ = false;
+      }
+
+      return ok_;
     }
 
   };

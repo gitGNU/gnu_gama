@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.8 2003/01/06 17:44:12 cepek Exp $
+ *  $Id: dataparser.h,v 1.9 2003/01/09 23:34:16 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -80,13 +80,32 @@ namespace GaMaLib {
           s_sparse_mat_row_i,
           s_sparse_mat_row_3,
           s_sparse_mat_row_f,
+          s_block_diagonal_1,
+          s_block_diagonal_blocks,
+          s_block_diagonal_2,
+          s_block_diagonal_nonz,
+          s_block_diagonal_3,
+          s_block_diagonal_block_1,
+          s_block_diagonal_block_d,
+          s_block_diagonal_block_2,
+          s_block_diagonal_block_w,
+          s_block_diagonal_block_3,
+          s_block_diagonal_block_f,
+          s_vector_1,
+          s_vector_dim,
+          s_vector_2,
+          s_vector_flt,
           s_stop       
         }; 
       
       enum data_tag 
         {
           t_adj_input_data,
+          t_block,
+          t_block_diagonal,
+          t_blocks,
           t_cols,
+          t_dim,
           t_flt,
           t_gama_data,
           t_int,
@@ -95,13 +114,15 @@ namespace GaMaLib {
           t_row,
           t_sparse_mat,
           t_text,
+          t_vector,
+          t_width,
           t_unknown
         };
       
-      data_tag tag(const char* name);
+      data_tag tag(const char *name);
       
       typedef int (DataParser::*Stag)(const char *name, const char **atts);
-      typedef int (DataParser::*Data)(const char *s, int len);
+      typedef int (DataParser::*Data)(const char *name, int len);
       typedef int (DataParser::*Etag)(const char *name);
 
       Stag stag[s_stop+1][t_unknown+1];
@@ -111,36 +132,50 @@ namespace GaMaLib {
       int next [s_stop+1][t_unknown+1];
       int after[s_stop+1]; 
 
-      int gama_data       (const char *name, const char **atts);
-      int text            (const char* s);
-      int adj_input_data  (const char *name, const char **atts);
-      int adj_input_data  (const char *name);
-      int sparse_mat      (const char *name);
-      int sparse_mat_nonz (const char *name);
-      int sparse_mat_row  (const char *name, const char **atts);
-      int sparse_mat_row  (const char *name);
-      int sparse_mat_row_n(const char *name);
-      int sparse_mat_row_f(const char *name);
+      int gama_data             (const char *name, const char **atts);
+      int text                  (const char *name);
+      int adj_input_data        (const char *name, const char **atts);
+      int adj_input_data        (const char *name);
+      int sparse_mat            (const char *name);
+      int sparse_mat_nonz       (const char *name);
+      int sparse_mat_row        (const char *name, const char **atts);
+      int sparse_mat_row        (const char *name);
+      int sparse_mat_row_n      (const char *name);
+      int sparse_mat_row_f      (const char *name);
+      int block_diagonal        (const char *name);
+      int block_diagonal_nonz   (const char *name);
+      int block_diagonal_block_w(const char *name);
+      int block_diagonal_vec_flt(const char *name);
+      int block_diagonal_block  (const char *name);
+      int vector                (const char *name);
+      int vector_dim            (const char *name);
+      int vector_flt            (const char *name);
       
-
-      int add_text     (const char* s, int len);
+      int add_text     (const char *name, int len);
       int end_tag      (const char *name);
       int no_attributes(const char *name, const char **atts);
       int parser_error (const char *name, const char **atts);
       int start_tag    (const char *name, const char **atts);
-      int white_spaces (const char* s, int len);
+      int white_spaces (const char *name, int len);
       int append_sp    (const char *name);
 
-      
-      
       std::string      text_buffer;
       SparseMatrix <> *adj_sparse_mat;
       BlockDiagonal<> *adj_block_diagonal;
       Vec              adj_vector;  
+      Vec::iterator    adj_vector_iterator;  
+      Index            adj_vector_dim;
       IntegerList<>   *adj_array;
       std::size_t      adj_sparse_mat_nonz;
       std::size_t      adj_sparse_mat_row_nonz;
-      
+      Index            block_diagonal_blocks_;
+      Index            block_diagonal_nonz_;  
+      Index            block_diagonal_dim;
+      Index            block_diagonal_width;
+      Vec              bd_vector;
+      Vec::iterator    bd_vector_iterator;  
+      Index            bd_vector_dim;
+
     };
 }
 

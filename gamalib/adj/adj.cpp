@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.11 2003/01/04 22:11:48 cepek Exp $
+ *  $Id: adj.cpp,v 1.12 2003/01/09 23:34:16 cepek Exp $
  */
 
 #include <gamalib/adj/adj.h>
@@ -64,7 +64,7 @@ void AdjInputData::write_xml(std::ostream& out) const
 {
   out << "\n<adj-input-data>\n";
 
-  if (A)
+  if (A && A->check())
     {
       out << "\n  <sparse-mat>\n";
       out << "    "
@@ -74,11 +74,11 @@ void AdjInputData::write_xml(std::ostream& out) const
       
       for (Index m, k=1; k<=A->rows(); k++)
         {
-          out << "      <row>";
-          out << " <nonz>" << (A->end(k)-A->begin(k)) << "</nonz>";
-          
           double* n = A->begin(k);
           double* e = A->end  (k);
+
+          out << "      <row>";
+          out << " <nonz>" << (e - n) << "</nonz>";
           for(Index* i=A->ibegin(k) ; n!=e; n++, i++, m++)
             {
               out << "\n        "
@@ -98,7 +98,8 @@ void AdjInputData::write_xml(std::ostream& out) const
       const long blocks = pcov->blocks();
       
       out << "\n  <block-diagonal>\n"
-          << "    <blocks>" << blocks << "</blocks>\n";
+          << "    <blocks>" << blocks << "</blocks>"
+          << " <nonz>" << pcov->nonzeroes() << "</nonz>\n";
       
       for (long b=1; b<=blocks; b++)
         {
@@ -112,7 +113,7 @@ void AdjInputData::write_xml(std::ostream& out) const
           const double *m = pcov->begin(b);
           const double *e = pcov->end(b);
           while (m != e)
-            cout << "      <flt>" << *m++ << "</flt>\n";
+            out << "      <flt>" << *m++ << "</flt>\n";
           
           out << "      </block>\n";
         }
@@ -122,13 +123,16 @@ void AdjInputData::write_xml(std::ostream& out) const
 
   // =================================================================
 
-  out << "\n  <vector>\n"
-      << "    <dim>" << prhs.dim() << "</dim>\n";
-
-  for (long i=1; i<=prhs.dim(); i++)
-        cout << "      <flt>" << prhs(i) << "</flt>\n";
-
-  out << "  </vector>\n";
+  if (prhs.dim())
+    {
+      out << "\n  <vector>\n"
+          << "    <dim>" << prhs.dim() << "</dim>\n";
+      
+      for (long i=1; i<=prhs.dim(); i++)
+        out << "      <flt>" << prhs(i) << "</flt>\n";
+      
+      out << "  </vector>\n";
+    }
 
   // =================================================================
  
@@ -139,7 +143,7 @@ void AdjInputData::write_xml(std::ostream& out) const
       
       const std::size_t *indx = pminx->begin();
       for (long i=1; i<=pminx->dim(); i++)
-        cout << "      <int>" << *indx++ << "</int>\n";
+        out << "      <int>" << *indx++ << "</int>\n";
        
       out << "  </array>\n";
     }
