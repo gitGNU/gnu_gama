@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.6 2003/01/04 22:11:48 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.7 2003/01/05 12:18:31 cepek Exp $
  */
 
 #include <gamalib/xml/dataparser.h>
@@ -32,59 +32,56 @@ using namespace GaMaLib;
 DataParser::DataParser(std::list<DataObject*>& obs) : objects(obs)
 {
 
-  // startElement
+  // initial parser state
+  
+  state = state_start;
+
+  // implicit startElement
 
   for (int s=state_error; s<=state_stop; s++)
     for (int t=tag_gama_data; t<=tag_unknown; t++)
       {
         next[s][t] = state_error;
-        fun [s][t] = &DataParser::t_error;
+        func[s][t] = &DataParser::t_error;
       }
 
-  next
-    [ state_start          ]
-    [ tag_gama_data        ] = state_gama_data;
-  fun 
-    [ state_start          ]
-    [ tag_gama_data        ] = &DataParser::t_gama_data;
-  // ........................................................
-  next
-    [ state_gama_data      ]
-    [ tag_text             ] = state_text;
-  fun 
-    [ state_gama_data      ]
-    [ tag_text             ] = &DataParser::t_text;
-  // ........................................................
-  next
-    [ state_gama_data      ]
-    [ tag_adj_input_data   ] = state_adj_input_data;
-  fun 
-    [ state_gama_data      ]
-    [ tag_adj_input_data   ] = &DataParser::t_adj_input_data;
-  next
-    [ state_adj_input_data ]
-    [ tag_sparse_mat       ] = state_adj_input_data_sm1;
-  fun 
-    [ state_adj_input_data ]
-    [ tag_sparse_mat       ] = &DataParser::t_no_attributes;
-
-
-  // characterDataHandler
+  // implicit characterDataHandler
 
   for (int n=state_error; n<=state_stop; n++)
     {
-      dat[n] = &DataParser::d_ws;
+      data[n] = &DataParser::d_ws;
     }
 
-  dat[state_text] = &DataParser::d_text;
+  // endElement
 
+  for (int e=state_error; e<=state_stop; e++)
+    {
+      ende[e] = 0;
+    }
 
-  // initial parser state
-  
-  state = state_start;
+  // ......  gnu-gama-data  .................................
+  next[ state_start ][ tag_gama_data ] = state_gama_data;
+  func[ state_start ][ tag_gama_data ] = &DataParser::t_gama_data;
+  // ......  text  ..........................................
+  next[ state_gama_data ][ tag_text ] = state_text;
+  func[ state_gama_data ][ tag_text ] = &DataParser::t_text;
+  data[ state_text ] = &DataParser::d_text;
+  ende[ state_text ] = &DataParser::e_text;
+  // ......  adj-input-data  ................................
+  next[ state_gama_data ][ tag_adj_input_data ] = state_adj_input_data;
+  func[ state_gama_data ][ tag_adj_input_data ] 
+    = &DataParser::t_adj_input_data;
+  ende[ state_adj_input_data ] = &DataParser::e_adj_input_data;
+  // ......  adj-input-data sparse-mat  .....................
+  next[ state_adj_input_data ][ tag_sparse_mat ] = state_sparse_mat;
+  func[ state_adj_input_data ][ tag_sparse_mat ] 
+    = &DataParser::t_sparse_mat;
+  ende[ state_sparse_mat ] = &DataParser::e_sparse_mat;
+  //
+  next[ state_sparse_mat ][ tag_sparse_mat_rows ] = state_sparse_mat_rows;
+  func[ state_sparse_mat ][ tag_sparse_mat_rows ] = 
+    &DataParser::t_no_attributes;
 }
-
-
 
 
 DataParser::data_tag DataParser::tag(const char* c)
@@ -131,22 +128,6 @@ int DataParser::t_no_attributes(const char *cname, const char **atts)
   return 0;
 }
 
-int DataParser:: t_gama_data(const char *cname, const char **atts)
-{
-  t_no_attributes  (cname, atts); // shall have attribute 'version' later
-  return 0;
-}
-
-int DataParser:: t_text(const char *cname, const char **atts)
-{
-  t_no_attributes  (cname, atts);
-  objects.push_back( new TextDataObject );
-  return 0;
-}
-
-
-// *****************************************************************
-
 int DataParser::d_ws(const char* s, int len)
 {
   while (len--)
@@ -157,14 +138,75 @@ int DataParser::d_ws(const char* s, int len)
   return 0;
 }
 
+// ......  gnu-gama-data  ..................................................
+
+int DataParser:: t_gama_data(const char *cname, const char **atts)
+{
+  t_no_attributes  (cname, atts); // will have attribute 'version' later
+  return 0;
+}
+
+// ......  Text  ...........................................................
+
+int DataParser:: t_text(const char *cname, const char **atts)
+{
+  t_no_attributes  (cname, atts);
+  text_buffer.erase();
+  return 0;
+}
+
 int DataParser::d_text(const char* s, int len)
 {
-  if (TextDataObject* tdo = dynamic_cast<TextDataObject*>(objects.back()) )
-    tdo->text += string(s, len);
+  text_buffer += string(s, len);
+  return 0;
+}
+
+int DataParser::e_text()
+{
+  objects.push_back( new TextDataObject(text_buffer) );
+  return 0;
+}
+
+// ......  AdjInputData  ...................................................
+
+int DataParser::t_adj_input_data(const char *cname, const char **atts)
+{
+  t_no_attributes  ( cname, atts );
+
+  tmp_sparse_mat = 0;
+  tmp_block_diagonal = 0;
+  tmp_vector.reset();  
+  tmp_array = 0;
 
   return 0;
 }
 
+int DataParser::e_adj_input_data()
+{
+  AdjInputData *data = new AdjInputData;
+
+  if (tmp_sparse_mat    ) data->set_mat(tmp_sparse_mat);
+  if (tmp_block_diagonal) data->set_cov(tmp_block_diagonal);
+  if (tmp_vector.dim()  ) data->set_rhs(tmp_vector);  
+  if (tmp_array         ) data->set_minx(tmp_array);
+  objects.push_back( new AdjInputDataObject(data) );
+
+  return 0;
+}
+
+int DataParser::t_sparse_mat(const char *cname, const char **atts)
+{
+  t_no_attributes  ( cname, atts );
+
+  text_buffer.erase();
+  return 0;
+}
+
+int DataParser::e_sparse_mat()
+{
+  tmp_sparse_mat = new SparseMatrix<>;
+  return 0;
+}
 
 // #########################################################################
 
@@ -197,8 +239,8 @@ int main()
     "</text>\n\n"
 
     "<adj-input-data>\n"
-//    "  <sparse-mat>\n"
-//    "  </sparse-mat>\n"
+    "  <sparse-mat>\n"
+    "  </sparse-mat>\n"
     "</adj-input-data>\n"
 
     "\n</gnu-gama-data>\n\n"

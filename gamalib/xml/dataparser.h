@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.5 2003/01/04 22:11:48 cepek Exp $
+ *  $Id: dataparser.h,v 1.6 2003/01/05 12:18:31 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_Data_Object___parser__h_
@@ -44,7 +44,7 @@ namespace GaMaLib {
       } 
     int characterDataHandler(const char* s, int len)
       {
-        return (this->*dat[state])(s, len);
+        return (this->*data[state])(s, len);
       }
     int startElement(const char *name, const char **atts)
       {
@@ -52,10 +52,11 @@ namespace GaMaLib {
         int s = state;
         stack.push(state);
         state = next[state][t];
-        return (this->*fun[s][t])(name, atts);
+        return (this->*func[s][t])(name, atts);
       }
     int endElement(const char * /*name*/)
       {
+        if (Ende e = ende[state]) (this->*e)();
         if (state) state = stack.pop();
         return state;
       }
@@ -71,20 +72,21 @@ namespace GaMaLib {
         state_gama_data,
         state_text,
         state_adj_input_data,
-        state_adj_input_data_sm1,
-        state_adj_input_data_sm1_rows,
-        state_adj_input_data_sm2,
-        state_adj_input_data_sm2_cols,
-        state_adj_input_data_sm3,
-        state_adj_input_data_sm3_nonz,
-        state_adj_input_data_sm,
+        state_sparse_mat,
+        state_sparse_mat_rows,
+        state_sparse_mat_cols,
+        state_sparse_mat_nonz,
+        state_sparse_mat_row,
         state_stop       
       }; 
 
     enum data_tag 
       {
         tag_adj_input_data,
+        tag_cols,
         tag_gama_data,
+        tag_nonz,
+        tag_rows,
         tag_sparse_mat,
         tag_text,
         tag_unknown
@@ -102,23 +104,39 @@ namespace GaMaLib {
     };
     Stack stack;
     
-    typedef int (DataParser::*FUN)(const char *cname, const char **atts);
-    FUN fun [state_stop+1][tag_unknown+1];
-    int next[state_stop+1][tag_unknown+1];
+    typedef int (DataParser::*Func)(const char *cname, const char **atts);
+    Func func[state_stop+1][tag_unknown+1];
+    int  next[state_stop+1][tag_unknown+1];
+
+    typedef int (DataParser::*Data)(const char* s, int len);
+    Data data[state_stop+1];
+
+
+    typedef int (DataParser::*Ende)();
+    Ende ende[state_stop+1];
 
     int t_error         (const char *cname, const char **atts);
     int t_no_attributes (const char *cname, const char **atts);
-    int t_gama_data     (const char *cname, const char **atts);
-    int t_text          (const char *cname, const char **atts);
-    int t_adj_input_data(const char *cname, const char **atts);
+    int d_ws            (const char* s, int len);
 
-    AdjInputDataObject *ptr_adj_input_data;
+    int t_gama_data(const char *cname, const char **atts);
 
-    typedef int (DataParser::*DATA)(const char* s, int len);
-    DATA dat[state_stop+1];
-
-    int d_ws  (const char* s, int len);
+    int t_text(const char *cname, const char **atts);
     int d_text(const char* s, int len);
+    int e_text();
+
+    int t_adj_input_data(const char *cname, const char **atts);
+    int e_adj_input_data();
+
+    int t_sparse_mat(const char *cname, const char **atts);
+    int e_sparse_mat();
+
+    std::string      text_buffer;
+    SparseMatrix <> *tmp_sparse_mat;
+    BlockDiagonal<> *tmp_block_diagonal;
+    Vec              tmp_vector;  
+    IntegerList<>   *tmp_array;
+
   };
 }
 
