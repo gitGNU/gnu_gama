@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.13 2003/10/31 18:23:17 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.14 2003/11/19 19:36:32 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -29,6 +29,7 @@
 #include <gnu_gama/outstream.h>
 
 
+using namespace std;
 using namespace GNU_gama::g3;
 
 
@@ -41,6 +42,8 @@ Model::Model()
 
   points->set_common_data(this); 
   set(&ellipsoid, ellipsoid_wgs84);
+
+  reset();
 }
 
 
@@ -157,3 +160,49 @@ void Model::pre_linearization()
         }
     }
 }
+
+
+void Model::update_init()
+{
+  return next_state_(init_);
+}
+
+
+void Model::update_points()
+{
+  if (!check_init()) update_init();
+
+  for (PointBase::iterator i=points->begin(), e=points->end(); i!=e; ++i)
+    {
+      Point* point = (*i);
+      cout << "point id = " << point->name.c_str();   // ??? .c_str() ???
+      cout << endl;
+    }
+
+  return next_state_(points_);
+}
+
+
+void Model::update_observations()
+{
+  if (!check_points()) update_points();
+
+  return next_state_(obsrvs_);
+}
+
+
+void Model::update_linearization()
+{
+  if (!check_observations()) update_observations();
+
+  return next_state_(linear_);
+}
+
+
+void Model::update_adjustment()
+{
+  if (!check_linearization()) update_linearization();
+
+  return next_state_(adjust_);
+}
+

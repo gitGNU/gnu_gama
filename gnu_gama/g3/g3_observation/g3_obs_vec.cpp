@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_vec.cpp,v 1.4 2003/06/08 08:11:13 cepek Exp $
+ *  $Id: g3_obs_vec.cpp,v 1.5 2003/11/19 19:36:33 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -132,7 +132,7 @@ double Vector::derivative(Parameter* p)
   //--  Derivative<Vector>* ad = dynamic_cast<Derivative<Vector>*>(p);
   //--  
   //--  if (ad)
-  //--    return ad->derivative(this);
+  //--   return ad->derivative(this);
   //--  else
   return numerical_derivative(p);
 }
