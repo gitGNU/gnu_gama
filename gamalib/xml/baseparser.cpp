@@ -62,10 +62,10 @@ namespace {
 
 
 
-const int BaseParser::state_error = 0; 
-
 BaseParser::BaseParser()
 {
+  errCode = errLineNumber = 0;
+
   parser  = XML_ParserCreate(0);
  
   XML_SetUserData              (parser, this);
@@ -90,14 +90,14 @@ void BaseParser::xml_parse(const char *s, int len, int  isFinal)
       errCode  =XML_GetErrorCode(parser);
       errLineNumber = XML_GetCurrentLineNumber(parser);
       
-      throw ParserException(errString, errLineNumber);
+      throw ParserException(errString, errLineNumber, errCode);
     }
   
-  if (state == state_error)
+  if (state == 0)     /*  state_error must be 0  */
     {
-      errCode = -1;   
       // errLineNumber is set by function  error("...");    
-      throw ParserException(errString, errLineNumber);
+      errCode = -1;
+      throw ParserException(errString, errLineNumber, errCode);
     }
 }
 
@@ -134,16 +134,16 @@ bool BaseParser::toIndex(const std::string& s, Index& index) const
 }
 
 int BaseParser::error(const char* text)
-    {
-      // store only the first detected error
-      if(errCode) return 1;
-      
-      errString = std::string(text);
-      errCode   = -1;
-      errLineNumber = XML_GetCurrentLineNumber(parser);
-      state = state_error;
-      return 1;
-    }
-    
+{
+  // store only the first detected error
+  if(errCode) return 1;
+  
+  errString = std::string(text);
+  errCode   = -1;
+  errLineNumber = XML_GetCurrentLineNumber(parser);
+  state = 0;     /*  state_error is 0  */
+  return 1;
+}
+
 
 

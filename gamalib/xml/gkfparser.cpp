@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.5 2002/10/17 17:24:55 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.6 2002/10/18 20:52:29 cepek Exp $
  */
 
 
@@ -354,7 +354,6 @@ namespace GaMaLib {
     tol_abs         = 1000;
     typ_m0_apriorni = false;
 
-    errCode     = errLineNumber = 0;
     state       = state_start;
     standpoint  = 0;
     idim        = 0;
@@ -1538,8 +1537,8 @@ int main(int argc, char* argv[])
   }
   catch (GaMaLib::Exception e) {
     cout << "\nException : " << e.text << "\n\n";
-    cout << "line = " << gp.errLineNumber 
-         << " expat error code = " << gp.errCode << "\n\n";
+    // cout << "line = " << gp.errLineNumber 
+    //      << " expat error code = " << gp.errCode << "\n\n";
     return 2;
   }
 

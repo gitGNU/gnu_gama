@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.h,v 1.4 2002/10/17 17:24:55 cepek Exp $
+ *  $Id: gkfparser.h,v 1.5 2002/10/18 20:52:29 cepek Exp $
  */
 
 #ifndef GaMaLib_GKF__XML__parser__h_
@@ -36,8 +36,6 @@ namespace GaMaLib {
     {
     public:
    
-      // constructor and destructor
-      
       GKFparser(GaMaLib::PointData& sb, GaMaLib::ObservationData& od);
       ~GKFparser();
       
@@ -55,10 +53,6 @@ namespace GaMaLib {
       std::string   TXT, STX, OPR;      // file names from gkf specification
       double m0_apr, konf_pr, tol_abs;  // implicitly 10, 0.95, 1000
       bool   typ_m0_apriorni;           // implicitly false
-      
-      std::string errString;
-      int         errLineNumber;  
-      int         errCode;              // -1 bad data in gkf; 0 OK; >0 expat
       
       double implicit_stdev_direction() const { return smer_str; }
       double implicit_stdev_angle() const { return uhel_str; }
@@ -103,7 +97,8 @@ namespace GaMaLib {
       gkf_tag tag(const char* cname);
 
       enum gkf_state {
-        state_start = 1,
+        state_error,
+        state_start,
         state_gama_xml,
         state_network,
         state_description,

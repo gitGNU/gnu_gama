@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: baseparser.h,v 1.1 2002/10/17 17:24:55 cepek Exp $
+ *  $Id: baseparser.h,v 1.2 2002/10/18 20:52:29 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa__XML__BASE_Base_base__PARSER_Parser_parser__h_
@@ -41,19 +41,19 @@ namespace GaMaLib {
   class ParserException : public GaMaLib::Exception 
   {
   public:
-    int line;
-    ParserException(std::string s, int r) : GaMaLib::Exception(s), line(r) {}
+
+    int line, error_code;
+
+    ParserException(std::string s, int r, int c)
+      : GaMaLib::Exception(s), line(r), error_code(c) 
+      {
+      }
+
   };
   
   class BaseParser 
   {
   public:
-    
-    std::string errString;
-    int         errLineNumber;  
-    int         errCode;              // -1 bad data in gkf; 0 OK; >0 expat
-    
-    // constructor and destructor
     
     BaseParser();
     virtual ~BaseParser();
@@ -71,16 +71,20 @@ namespace GaMaLib {
 
   protected: 
     
-    XML_Parser        parser;
-    static const int  state_error;
-    int               state;
+    XML_Parser  parser;
+    int         state;      /*  state_error must be 0  */
     
     int error(const char* text);
-    int error(std::string s)   { return error(s.c_str()); }
+    int error(const std::string& s)   { return error(s.c_str()); }
 
     bool toDouble(const std::string&, double&) const;
     bool toIndex (const std::string&, Index& ) const;
       
+  private:
+
+    std::string errString;
+    int         errLineNumber;  
+    int         errCode;              // -1 bad data in gkf; 0 OK; >0 expat
 
   };  // class DataParser
 }     // namespace GaMaLib

@@ -20,14 +20,11 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.1 2002/10/17 17:24:55 cepek Exp $
+ *  $Id: dataparser.h,v 1.2 2002/10/18 20:52:29 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_Data_Object___parser__h_
 #define GaMaLib_GaMa_XML_Data_Object___parser__h_
-
-
-// DataParser is just a simple C++ wrapper for XML parser expat
 
 #include <gamalib/xml/baseparser.h>
 #include <gamalib/xml/dataobject.h>
@@ -36,86 +33,44 @@
 #include <list>
 
 namespace GaMaLib {
-
-  class DataParserException : public GaMaLib::Exception 
-  {
-  public:
-    int line;
-    DataParserException(std::string s, int r) 
-      : GaMaLib::Exception(s), line(r) {}
-  };
   
-  class DataParser 
+  class DataParser : public BaseParser
   {
   public:
-    
-    std::string errString;
-    int         errLineNumber;  
-    int         errCode;              // -1 bad data in gkf; 0 OK; >0 expat
-    
-    // constructor and destructor
     
     DataParser(std::list<DataObject*>&);
     ~DataParser();
-    
-    // expat parser interface
-    
-    void xml_parse(const std::string& s, bool isFinal) 
-    {
-      xml_parse(s.c_str(), s.length(), isFinal ? 1 : 0);
-    }
-    void xml_parse(const char *s, int len, int  isFinal) 
-    { 
-      int err = XML_Parse(parser, s, len, isFinal);
-      if (err == 0)
-        {
-          // fatal error
-               
-          errString=std::string(XML_ErrorString(XML_GetErrorCode(parser)));
-          errCode  =XML_GetErrorCode(parser);
-          errLineNumber = XML_GetCurrentLineNumber(parser);
-          
-          throw DataParserException(errString, errLineNumber);
-        }
-      
-      if (state == state_error)
-        {
-          errCode = -1;   
-          // errLineNumber is set by function  error("...");    
-          throw DataParserException(errString, errLineNumber);
-        }
-    }
-    
-    // int gkf_characterDataHandler(const char* s, int len);
-    // int gkf_startElement(const char *cname, const char **atts);
-    // int gkf_endElement(const char * name);
+     
+    int characterDataHandler(const char* s, int len);
+    int startElement(const char *cname, const char **atts);
+    int endElement(const char * name);
     
   private: 
 
-    XML_Parser  parser;
+    std::list<DataObject*>& objects;
 
-    enum parser_state {
-      state_error,
-      state_start,
-      state_stop
-    } state;
+    enum parser_state 
+      {
+        state_error,
+        state_start,
+        state_gama_data,
+        state_stop       
+      } next[state_stop]; 
 
-    int error(std::string s) { return error(s.c_str()); }
-    int error(const char* text)
-    {
-      // store only the first detected error
-      if(errCode) return 1;
-      
-      errString = std::string(text);
-      errCode   = -1;
-      errLineNumber = XML_GetCurrentLineNumber(parser);
-      state = state_error;
-      return 1;
-    }
-    
-    bool toDouble(const std::string&, double&) const;
-    bool toIndex (const std::string&, Index& ) const;
-      
+    enum data_tag 
+      {
+        tag_gama_data,
+        tag_text,
+        tag_unknown
+      };
+
+    typedef int (DataParser::*FUN)(const char *cname, const char **atts);
+    FUN fun[state_stop+1][tag_unknown+1];
+
+    data_tag tag(const char* cname);
+
+    int t_error    (const char *cname, const char **atts);
+    int t_gama_data(const char *cname, const char **atts);
 
   };  // class DataParser
 }     // namespace GaMaLib
