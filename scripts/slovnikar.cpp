@@ -20,7 +20,7 @@
  * available.  Attribute EN is ignored on input and serves as a kind
  * of comment.
  * 
- * $Id: slovnikar.cpp,v 1.6 2003/05/10 13:43:03 cepek Exp $
+ * $Id: slovnikar.cpp,v 1.7 2003/06/04 07:43:55 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
@@ -115,7 +115,7 @@ Dictionary dict;
 #include <expat/xmlparse/xmlparse.h>
 #include <gnu_gama/xml/encoding.h>
 
-using namespace GaMaLib;
+using namespace GNU_gama;
 
 enum parser_state { START, ENTRIES, ENTRY, END };
 int  result = 0;

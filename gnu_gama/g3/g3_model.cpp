@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.8 2003/05/29 16:04:14 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.9 2003/06/04 07:43:55 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -136,4 +136,45 @@ void Model::write_xml(std::ostream& out)
     << "\n</g3-model>\n"
     << DataParser::xml_end;
 ;
+}
+
+
+// void Model::pre_linearization()
+
+namespace {
+
+  class CopyActiveObservation {
+  public:
+
+    typedef GNU_gama::List<GNU_gama::g3::Observation*> Active;
+
+    CopyActiveObservation(Active& act) : active(act) 
+    {
+    }
+    void operator()(const GNU_gama::g3::Observation* const_obs) const
+    {
+      using namespace GNU_gama::g3;
+      Observation* obs = const_cast<Observation*>(const_obs);
+
+
+      if (!obs->active()) return;
+
+      active.push_back(obs);
+      cerr << "?";
+    }
+
+  private:
+
+    mutable Active&  active;
+
+  };
+
+};
+
+void Model::pre_linearization()
+{
+  active_obs.clear();
+
+  obs->for_each(CopyActiveObservation(active_obs));
+
 }
