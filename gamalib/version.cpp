@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.15 2002/05/31 11:02:35 cepek Exp $
+ *  $Id: version.cpp,v 1.16 2002/05/31 11:19:35 cepek Exp $
  */
 
 
@@ -59,8 +59,8 @@ const char* GaMaLib_compiler =
 
 1.3.39 ?????????? not yet released (available from CVS only)
 
-   - various bugs reported by g++ v3 (pointed out by Jan Pytel); files
-     observation.h, g2d_coordinates.cpp, statan.cpp.
+   - various bugs reported by g++ 3.0.4 (pointed out by Jan Pytel);
+     files observation.h, g2d_coordinates.cpp, statan.cpp.
 
      All the changes are backward compatible with g++ 2.95.2
 
