@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: write.cpp,v 1.3 2002/10/24 17:04:13 cepek Exp $
+ *  $Id: write.cpp,v 1.4 2003/02/28 17:36:56 cepek Exp $
  */
 
 #include <iostream>
@@ -31,6 +31,9 @@
 #include <gamalib/observation.h>
 
 namespace GaMaLib {
+
+typedef GNU_gama::ClusterList<Observation> ClusterList;
+
 
 std::ostream& operator << (std::ostream& str, PointData& sez)
 {

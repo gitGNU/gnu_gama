@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.6 2002/10/18 20:52:29 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.7 2003/02/28 17:36:56 cepek Exp $
  */
 
 
@@ -429,8 +429,8 @@ namespace GaMaLib {
           }
         else if (nam == "angles")
           {
-            if      (val == "right-handed") OD.right_handed_angles = true;
-            else if (val == "left-handed" ) OD.right_handed_angles = false;
+            if      (val == "right-handed") SB.right_handed_angles = true;
+            else if (val == "left-handed" ) SB.right_handed_angles = false;
             else
               return error(T_GKF_undefined_value_of_attribute
                            + nam + " = " + val);            

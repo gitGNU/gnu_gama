@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.4 2003/02/22 19:40:54 cepek Exp $
+ *  $Id: network.cpp,v 1.5 2003/02/28 17:36:56 cepek Exp $
  */
 
 #include <fstream>
@@ -39,6 +39,9 @@
 
 using namespace std;
 using namespace GaMaLib;
+
+typedef GNU_gama::ClusterList<Observation> ClusterList;
+typedef GNU_gama::Cluster<Observation>     Cluster;
 
 
 LocalNetwork::LocalNetwork()        

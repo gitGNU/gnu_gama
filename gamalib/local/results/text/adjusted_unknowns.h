@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adjusted_unknowns.h,v 1.3 2002/10/24 17:04:13 cepek Exp $
+ *  $Id: adjusted_unknowns.h,v 1.4 2003/02/28 17:36:56 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vyrovnane_Nezname_h_
@@ -38,7 +38,7 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
   using namespace std;
   using namespace GaMaLib;
 
-  const int y_sign = Consistent(IS->PD, IS->OD) ? +1 : -1;
+  const int y_sign = Consistent(IS->PD) ? +1 : -1;
   
   const Vec& x = IS->solve();
   Double kki = IS->conf_int_coef();

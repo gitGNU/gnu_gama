@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.7 2003/02/16 13:09:14 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.8 2003/02/28 17:36:56 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -347,7 +347,7 @@ int GaMa_Main(int argc, char **argv)
     
     try
       {
-        if (!Consistent(IS->PD, IS->OD))
+        if (!Consistent(IS->PD))
           {
             cout << T_GaMa_inconsistent_coordinates_and_angles << "\n\n\n";
           }

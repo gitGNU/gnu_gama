@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.54 2003/02/22 19:40:54 cepek Exp $
+ *  $Id: version.cpp,v 1.55 2003/02/28 17:36:56 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.7.01-pre";
+const char* GaMaLib_version  = "1.7.01";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
@@ -59,7 +59,11 @@ const char* GaMaLib_compiler =
 
 =============================================================================
 
-1.7.01 ..........
+1.7.01 2003-02-28 
+
+   - observation data structures (formerly defined in gamalib/cluster.*
+     and gamalib/local/gamadata.*) rewritten as template functions 
+     and moved into gnu_gama/obsdata.h
 
    - directory `sparse' moved from `gamalib' to `gnu_gama', added
      template class SparseVec (added directory <gnu_gama/...> for
@@ -100,7 +104,6 @@ const char* GaMaLib_compiler =
      unstable version 1.7 (aimed to adjustment in geocentric
      coordinates, program gama-g3) is going to continue in the CVS
      main trunk.
-
 
     - Jan Pytel: reduction of observations with nonzero heights of
       instrument and/or target in gama-local

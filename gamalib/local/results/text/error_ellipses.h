@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: error_ellipses.h,v 1.1 2001/12/07 12:54:43 cepek Exp $
+ *  $Id: error_ellipses.h,v 1.2 2003/02/28 17:36:56 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Elipsy_Chyb_h_
@@ -39,7 +39,7 @@ void ErrorEllipses(GaMaLib::LocalNetwork* IS, OutStream& out)
    using namespace GaMaLib;
    using GaMaLib::Double;
 
-  const int y_sign = Consistent(IS->PD, IS->OD) ? +1 : -1;
+  const int y_sign = Consistent(IS->PD) ? +1 : -1;
   
    const Vec& x = IS->solve();
    Double elp_k = 0;

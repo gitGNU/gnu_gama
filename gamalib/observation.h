@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.h,v 1.7 2002/09/29 14:00:19 cepek Exp $
+ *  $Id: observation.h,v 1.8 2003/02/28 17:36:56 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_Mereni_H
@@ -42,9 +42,11 @@
 #include <iostream>
 #include <vector>
 
+#include <gnu_gama/obsdata.h>
+
 namespace GaMaLib {
 
-  class Cluster;
+  //class Cluster;
   class PointData;
   class Observation;
 
@@ -55,13 +57,14 @@ namespace GaMaLib {
     {
     protected:
     
-      Cluster* cluster;
+      GNU_gama::Cluster<Observation>* cluster;
       int      cluster_index;
-      friend   class Cluster;
+      friend   class GNU_gama::Cluster<Observation>;
     
     public:
     
-      Observation(const PointID& s, const PointID& c, Double m) :
+      Observation(const PointID& s, const PointID& c, Double m) 
+        :
         cluster(0), from_(s), to_(c), value_(m), active_(true),
         from_dh_(0), to_dh_(0)
         {
@@ -71,9 +74,18 @@ namespace GaMaLib {
 
       virtual Observation* clone() const = 0; 
 
-      const Cluster* ptr_cluster() const     { return cluster; }
-      Cluster*       ptr_cluster()           { return cluster; }
-      void           set_cluster(Cluster* c) { cluster = c; }
+      const GNU_gama::Cluster<Observation>* ptr_cluster() const     
+        { 
+          return cluster; 
+        }
+      GNU_gama::Cluster<Observation>* ptr_cluster()           
+        { 
+          return cluster; 
+        }
+      void set_cluster(GNU_gama::Cluster<Observation>* c) 
+        { 
+          cluster = c; 
+        }
 
       const PointID& from() const { return from_;    }
       const PointID& to()   const { return to_;      }

@@ -20,11 +20,13 @@
 */
 
 /*
- *  $Id: gamadata.h,v 1.2 2002/10/24 17:04:12 cepek Exp $
+ *  $Id: gamadata.h,v 1.3 2003/02/28 17:36:56 cepek Exp $
  */
 
 #ifndef GaMaLib____ObservationData____and_other_data_objects___h_____
 #define GaMaLib____ObservationData____and_other_data_objects___h_____
+
+#include <gnu_gama/obsdata.h>
 
 #include <gamalib/pointid.h>
 #include <gamalib/local/lpoint.h>
@@ -40,53 +42,22 @@
 namespace GaMaLib {
 
   typedef std::list<PointID>    PointIDList;
-  class ClusterList : public std::vector<Cluster*> {};
 
   class PointData : public std::map <PointID, LocalPoint>,
-                    public LocalCoordinateSystem 
+                    public LocalCoordinateSystem,
+                    public AngularObservations
     {
     };
-
-  class ObservationData : public AngularObservations
-    {
-    public:    
-      
-      ClusterList     CL;
-      
-      ObservationData() {}
-      ObservationData(const ObservationData& cod) { deepCopy(cod); }
-      ~ObservationData();
-      
-      ObservationData& operator=(const ObservationData& cod);
-      
-      template <class P> void for_each(const P& p) const
-        {
-          for (ClusterList::const_iterator c=CL.begin(); c!=CL.end(); ++c)
-            {
-              const Cluster* cluster = (*c);
-              std::for_each(cluster->observation_list.begin(),
-                            cluster->observation_list.end(), p);
-            }
-        }
-
-    private:
-      void deepCopy(const ObservationData& at);
-
-    };
-  
-
-  //---------------------------------------------------------------------
 
 
   std::ostream& operator << (std::ostream&,     PointData&);
   std::ostream& operator << (std::ostream& str, ObservationData&);
 
-  inline bool Consistent(const LocalCoordinateSystem& lcs,
-                         const AngularObservations&   obs)
+  inline bool Consistent(const PointData& lcs)
     {
       return 
-        (lcs.right_handed_coordinates() &&  obs.right_handed_angles) ||
-        (lcs. left_handed_coordinates() && !obs.right_handed_angles) ; 
+        (lcs.right_handed_coordinates() &&  lcs.right_handed_angles) ||
+        (lcs. left_handed_coordinates() && !lcs.right_handed_angles) ; 
     }
 
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: outstream.h,v 1.2 2003/02/22 19:40:55 cepek Exp $
+ *  $Id: outstream.h,v 1.3 2003/02/28 17:36:56 cepek Exp $
  */
 
 #include <iostream>
@@ -71,7 +71,7 @@ namespace GNU_gama {
     
     std::ostream& ostr;
     int           encoding;
-    string        text;
+    std::string   text;
     
     const char* recode(const char* s);  
   };

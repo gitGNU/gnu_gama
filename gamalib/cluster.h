@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: cluster.h,v 1.2 2002/09/06 16:08:49 cepek Exp $
+ *  $Id: cluster.h,v 1.3 2003/02/28 17:36:56 cepek Exp $
  */
 
 #ifndef GaMaLib_Cluster_of_observations__h
@@ -32,6 +32,8 @@
       #define C_CLONE(ptr) ptr
 #endif
 
+#include <gnu_gama/obsdata.h>
+
 #include <gamalib/observation.h>
 #include <gamalib/matvec.h>
 #include <vector>
@@ -39,56 +41,23 @@
 
 namespace GaMaLib {
 
-  class ObservationData;
-
-  class Cluster {
-  public:
-
-    const ObservationData*  observation_data;
-    ObservationList         observation_list;
-    Cov                     covariance_matrix;  
-
-  
-    Cluster(const ObservationData* od) : observation_data(od), act_count(0) {}
-    virtual ~Cluster();
-
-    virtual Cluster* clone(const ObservationData*) const = 0;
-
-    Double stdDev(int i) const 
-      { 
-        i++; using namespace std; return sqrt(covariance_matrix(i,i)); 
-      }
-    int size() const 
-      { 
-        return observation_list.size(); 
-      }
-
-    void update();
-
-    int  activeCount() const { return act_count; }
-    Cov  activeCov() const; 
-
-  private:    // no copy ctor and no assignment
-
-    Cluster(const Cluster&); 
-    void operator=(const Cluster&);
-
-    friend class Observation;
-    int act_count;
-  };
-
-
 
   // simple observation types: horizontal directions, distances and
   // angles
 
-  class StandPoint : public Cluster {
+
+  typedef GNU_gama::ObservationData<Observation> ObservationData;
+
+
+  class StandPoint : public GNU_gama::Cluster<Observation> {
   public:
 
     PointID  station;
     
     StandPoint(const ObservationData* od) 
-      : Cluster(od), test_or(false), indx_or(0) 
+      : 
+      GNU_gama::Cluster<Observation>(od), 
+      test_or(false), indx_or(0) 
       {
       }
 
@@ -119,10 +88,13 @@ namespace GaMaLib {
 
   // coordinate observations (observed coordinates) x, y, z
 
-  class Coordinates : public Cluster {
+  class Coordinates : public GNU_gama::Cluster<Observation> {
   public:
 
-    Coordinates(const ObservationData* od) : Cluster(od) {}
+    Coordinates(const ObservationData* od) 
+      : GNU_gama::Cluster<Observation>(od) 
+      {
+      }
     C_CLONE(Coordinates*) clone(const ObservationData*p) const 
       { 
         return new Coordinates(p); 
@@ -132,10 +104,13 @@ namespace GaMaLib {
 
   // height differences (levelling)
 
-  class HeightDifferences : public Cluster {
+  class HeightDifferences : public GNU_gama::Cluster<Observation> {
   public:
 
-    HeightDifferences(const ObservationData* od) : Cluster(od) {}
+    HeightDifferences(const ObservationData* od) 
+      : GNU_gama::Cluster<Observation>(od) 
+      {
+      }
     C_CLONE(HeightDifferences*) clone(const ObservationData*p) const 
       { 
         return new HeightDifferences(p); 
@@ -145,10 +120,13 @@ namespace GaMaLib {
 
   // vectors (coordinate differences  diff_x, diff_y, diff_z)
 
-  class Vectors : public Cluster {
+  class Vectors : public GNU_gama::Cluster<Observation> {
   public:
 
-    Vectors(const ObservationData* od) : Cluster(od) {}
+    Vectors(const ObservationData* od) 
+      : GNU_gama::Cluster<Observation>(od) 
+      {
+      }
     C_CLONE(Vectors*) clone(const ObservationData*p) const 
       { 
         return new Vectors(p); 

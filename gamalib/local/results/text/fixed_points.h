@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: fixed_points.h,v 1.2 2002/11/21 17:31:59 cepek Exp $
+ *  $Id: fixed_points.h,v 1.3 2003/02/28 17:36:56 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Pevne_Body_h_
@@ -38,7 +38,7 @@ void FixedPoints(GaMaLib::LocalNetwork* IS, OutStream& out)
   using namespace std;
   using namespace GaMaLib;
   
-  const int y_sign = Consistent(IS->PD, IS->OD) ? +1 : -1;
+  const int y_sign = Consistent(IS->PD) ? +1 : -1;
 
   int pocpevb=0, pocpevv=0;
   {   // for ...

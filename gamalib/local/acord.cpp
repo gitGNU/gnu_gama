@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.cpp,v 1.7 2003/01/20 17:57:17 cepek Exp $
+ *  $Id: acord.cpp,v 1.8 2003/02/28 17:36:56 cepek Exp $
  */
 
  
@@ -59,7 +59,7 @@ Acord::Acord(PointData& b, ObservationData& m)
 
   OD.for_each(CountObs(observations));
 
-  if (Consistent(PD, OD)) return;
+  if (Consistent(PD)) return;
 
   for (PointData::iterator ii=PD.begin(); ii!=PD.end(); ++ii)
     {

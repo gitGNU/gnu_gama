@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: orientation.cpp,v 1.1 2001/12/07 12:38:37 cepek Exp $
+ *  $Id: orientation.cpp,v 1.2 2003/02/28 17:36:56 cepek Exp $
  */
 
 #include <gamalib/local/orientation.h>
@@ -30,6 +30,9 @@
 
 
 using namespace GaMaLib;
+
+typedef GNU_gama::Cluster<Observation>  Cluster;
+
 
 void Orientation::add_all()
 {
