@@ -3,7 +3,7 @@
 # gamalib tar ball: script is run in the parent directory of scripts
 # ################
 #
-# $Id: GaMaLib_archive,v 1.9 2002/09/21 10:15:33 cepek Exp $
+# $Id: GaMaLib_archive,v 1.10 2002/09/30 11:47:28 cepek Exp $
 
 if pwd | grep scripts$; then cd ..; fi
 
@@ -50,7 +50,7 @@ do
   if [ ! -d $i ] ; then
     echo -n \.
     TTT=`file $i`
-    echo $TTT | grep executable | sed s/:.*// >> /tmp/gamalib-$VERSION-exclude
+    echo $TTT | grep ELF.*execu | sed s/:.*// >> /tmp/gamalib-$VERSION-exclude
     echo $TTT | grep "ar archi" | sed s/:.*// >> /tmp/gamalib-$VERSION-exclude
     echo $TTT | grep "core fil" | sed s/:.*// >> /tmp/gamalib-$VERSION-exclude
   fi
