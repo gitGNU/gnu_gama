@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.57 2005/03/28 11:06:24 cepek Exp $
+ *  $Id: version.cpp,v 1.58 2005/03/28 11:55:26 cepek Exp $
  */
 
 
@@ -64,6 +64,18 @@ const char* GNU_gama_compiler =
 
 1.7.13 ....
 
+    - three classes BaseOLS, OLSsvd and OLSgso (namespace GaMaLib,
+      directory gamalib/ls) renamed to AdjBase, AdjSVD and AdjGSO and
+      placed into the namespace GNU_gama (directory gnu_gama/adj).
+
+      From now there is no function, nor class, defined in the old
+      namespace GaMaLib referenced from the namespace GNU_gama.
+
+      Rather obsolate namespace GaMaLib is kept for the backward
+      compatibility and is mainly dedicated to the command line
+      program gama-local. 
+     
+
 
 1.7.12 2005-03-27
 
@@ -82,9 +94,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.57 2005/03/28 11:06:24 cepek Exp $
+        <  *  $Id: version.cpp,v 1.58 2005/03/28 11:55:26 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.57 2005/03/28 11:06:24 cepek Exp $
+        >  *  $Id: version.cpp,v 1.58 2005/03/28 11:55:26 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),
