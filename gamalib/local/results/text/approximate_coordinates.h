@@ -20,8 +20,8 @@
 */
 
 /*
- *  $Id: approximate_coordinates.h,v 1.2 2002/10/24 17:04:13 cepek Exp $
- */
+ *  $Id: approximate_coordinates.h,v 1.3 2004/04/04 11:19:29 cepek Exp $
+ */ 
 
 #ifndef GaMa_GaMaProg_Priblizne_Souradnice_h_
 #define GaMa_GaMaProg_Priblizne_Souradnice_h_

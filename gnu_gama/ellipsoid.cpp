@@ -20,8 +20,8 @@
 */
 
 /*
- *  $Id: ellipsoid.cpp,v 1.2 2003/03/22 18:07:39 cepek Exp $
- */
+ *  $Id: ellipsoid.cpp,v 1.3 2004/04/04 11:19:29 cepek Exp $
+ */ 
 
 #include <cmath>
 #include <gnu_gama/ellipsoid.h>

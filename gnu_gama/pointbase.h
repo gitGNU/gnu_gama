@@ -20,8 +20,8 @@
 */
 
 /*
- *  $Id: pointbase.h,v 1.7 2003/03/25 12:38:33 cepek Exp $
- */
+ *  $Id: pointbase.h,v 1.8 2004/04/04 11:19:29 cepek Exp $
+ */ 
 
 #include <map>
 #include <iterator>

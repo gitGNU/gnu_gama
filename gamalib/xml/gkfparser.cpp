@@ -20,8 +20,8 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.14 2004/04/03 11:06:37 cepek Exp $
- */
+ *  $Id: gkfparser.cpp,v 1.15 2004/04/04 11:19:29 cepek Exp $
+ */ 
 
 
 #include <fstream>

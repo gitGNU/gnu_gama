@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.19 2004/04/03 15:17:43 cepek Exp $
+ *  $Id: obsdata.h,v 1.20 2004/04/04 11:15:42 cepek Exp $
  */
 
 
@@ -383,13 +383,17 @@ namespace GNU_gama {
     void Cluster<Observation>::scaleCov(int p, double sc)
     {
       const int N = covariance_matrix.dim();
-      int k = p + covariance_matrix.bandWidth();
+      const int B = covariance_matrix.bandWidth();
+      int k = p + B; 
       if (k > N) k = N;
+      int  q = p - B;
+      if (q < 1) q = 1;
 
-      for (int i=p; i<=k; i++)
+      // scaling upper part of symmetric band matrix
+      covariance_matrix(p, p) *= sc;
+      for (int i=q; i<=k; i++)
         {
           covariance_matrix(p, i) *= sc;
-          covariance_matrix(i, p) *= sc;
         }
     }
 

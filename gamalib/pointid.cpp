@@ -22,13 +22,13 @@
 */
 
 /*
- *  $Id: pointid.cpp,v 1.2 2003/05/11 12:32:25 cepek Exp $
+ *  $Id: pointid.cpp,v 1.3 2004/04/04 11:19:29 cepek Exp $
  */
 
 
 #include <gamalib/pointid.h>
 
-// typedef std::string PointID;
+// typedef std::string PointID;  
 
 
 using namespace GaMaLib;

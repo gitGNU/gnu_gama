@@ -22,10 +22,10 @@
 */
 
 /*
- *  $Id: pointid.h,v 1.2 2003/05/11 12:32:25 cepek Exp $
+ *  $Id: pointid.h,v 1.3 2004/04/04 11:19:29 cepek Exp $
  */
 
-// PointID - point identification
+// PointID - point identification 
 
 #ifndef GaMaLib_Point_Identification__h
 #define GaMaLib_Point_Identification__h

@@ -20,8 +20,8 @@
 */
 
 /*
- *  $Id: gamadata.h,v 1.3 2003/02/28 17:36:56 cepek Exp $
- */
+ *  $Id: gamadata.h,v 1.4 2004/04/04 11:19:29 cepek Exp $
+ */ 
 
 #ifndef GaMaLib____ObservationData____and_other_data_objects___h_____
 #define GaMaLib____ObservationData____and_other_data_objects___h_____

@@ -20,8 +20,8 @@
 */
 
 /*
- *  $Id: dataobject.h,v 1.5 2003/12/23 19:52:49 uid66336 Exp $
- */
+ *  $Id: dataobject.h,v 1.6 2004/04/04 11:19:29 cepek Exp $
+ */ 
 
 #ifndef GaMaLib_GaMa_XML_Data_Object__object___h_
 #define GaMaLib_GaMa_XML_Data_Object__object___h_
