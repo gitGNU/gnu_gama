@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.14 2003/03/19 19:54:09 cepek Exp $
+# $Id: Makefile,v 1.15 2003/03/20 20:43:48 cepek Exp $
 #
 # this Makefile and all files in ./scripts were tested on Debian GNU/Linux 2.2
 #
@@ -41,16 +41,6 @@ build:
 	./scripts/build-dictionaries
 	./scripts/build-ellipsoids
 
-gamalib:
-	( cd gamaprog/linux/lib;   make; make -f Makefile-expat )
-
-make-project:
-	@if [ ! -f gamaprog/linux/gama-local/Makefile ]; then make build; fi
-	@if [ ! -f gamaprog/linux/lib/Makefile        ]; then make build; fi
-	@if [ ! -f gamaprog/linux/lib/Makefile-expat  ]; then make build; fi
-	( cd gamaprog/linux/lib;   make; make -f Makefile-expat )
-	( cd gamaprog/linux/gama-local ; make )
-
 example:
 	@if [ ! -x  gamaprog/linux/gama-local/gama-local ]; \
 		then make make-project; fi
@@ -58,8 +48,7 @@ example:
 	../gama-local gama-xml.gkf test. ; cat test.txt )
 
 archive:
-	./scripts/GaMaLib_archive
-
+	./scripts/build-archive
 
 clean:
 	rm -f `find gamalib gamaprog scripts -name *\.[o]`

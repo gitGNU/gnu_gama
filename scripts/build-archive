@@ -3,7 +3,7 @@
 # gama tar: script is run in the parent directory of scripts
 # #########
 #
-# $Id: GaMaLib_archive,v 1.16 2003/02/16 13:09:14 cepek Exp $
+# $Id: build-archive,v 1.1 2003/03/20 20:43:48 cepek Exp $
 
 if pwd | grep scripts$; then cd ..; fi
 

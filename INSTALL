@@ -22,8 +22,8 @@ or a copy from
 Place the parser source into subdirectory `expat' located in the same
 directory in which are located subdirectories `gamalib', `gmatvec',
 etc. and run 
-                   make build 
-                   make example
+                   make dep
+                   make 
 
 
 ---------------------------
