@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: write.cpp,v 1.6 2003/06/14 15:00:22 cepek Exp $
+ *  $Id: write.cpp,v 1.7 2004/06/06 10:02:54 cepek Exp $
  */
 
 #include <iostream>
@@ -110,7 +110,7 @@ std::ostream& operator << (std::ostream& str, ObservationData& od)
   std::ios_base::fmtflags flag_p = str.flags();
   str.setf(ios_base::fixed);
   
-  for (ClusterList::iterator c=od.CL.begin(); c!=od.CL.end(); ++c)
+  for (ClusterList::iterator c=od.clusters.begin(); c!=od.clusters.end(); ++c)
     {
       bool common_standpoint = true;
       string start_tag, end_tag;

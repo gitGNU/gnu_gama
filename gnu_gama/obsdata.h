@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.20 2004/04/04 11:15:42 cepek Exp $
+ *  $Id: obsdata.h,v 1.21 2004/06/06 10:02:54 cepek Exp $
  */
 
 
@@ -92,7 +92,8 @@ namespace GNU_gama {
       typedef Observation           ObservationType;  
       typedef Cluster<Observation>  ClusterType;
       typedef List<ClusterType*>    ClusterList;
-      ClusterList                   CL;
+
+      ClusterList                   clusters;
       
       ObservationData() {}
       ObservationData(const ObservationData& cod) { deepCopy(cod); }
@@ -112,8 +113,8 @@ namespace GNU_gama {
    
           bool operator==(const const_iterator& x) const 
             {
-              const bool t1 =  cluster   ==   OD->CL.end();
-              const bool t2 =  x.cluster == x.OD->CL.end();
+              const bool t1 =  cluster   ==   OD->clusters.end();
+              const bool t2 =  x.cluster == x.OD->clusters.end();
               if (t1 || t2) return t1 == t2;
 
               return cluster == x.cluster && obs == x.obs; 
@@ -126,7 +127,7 @@ namespace GNU_gama {
             {
                 goto next_cycle;
               
-                while (cluster != OD->CL.end())
+                while (cluster != OD->clusters.end())
                   {
                     obs = (*cluster)->observation_list.begin();
                     while (obs != (*cluster)->observation_list.end())
@@ -165,9 +166,9 @@ namespace GNU_gama {
         {     
           const_iterator  iter;
           iter.OD       = this;
-          iter.cluster  = iter.OD->CL.begin();
+          iter.cluster  = iter.OD->clusters.begin();
 
-          while (iter.cluster != iter.OD->CL.end())
+          while (iter.cluster != iter.OD->clusters.end())
           {
             iter.obs     = (*iter.cluster)->observation_list.begin();
 
@@ -184,7 +185,7 @@ namespace GNU_gama {
         {
           const_iterator  iter;
           iter.OD       = this;
-          iter.cluster  = iter.OD->CL.end();
+          iter.cluster  = iter.OD->clusters.end();
 
           return iter;
         }
@@ -207,8 +208,8 @@ namespace GNU_gama {
             }
           bool operator==(const iterator& x) const 
             {
-              const bool t1 =  cluster   ==   OD->CL.end();
-              const bool t2 =  x.cluster == x.OD->CL.end();
+              const bool t1 =  cluster   ==   OD->clusters.end();
+              const bool t2 =  x.cluster == x.OD->clusters.end();
               if (t1 || t2) return t1 == t2;
 
               return cluster == x.cluster && obs == x.obs; 
@@ -221,7 +222,7 @@ namespace GNU_gama {
             {
                 goto next_cycle;
               
-                while (cluster != OD->CL.end())
+                while (cluster != OD->clusters.end())
                   {
                     obs = (*cluster)->observation_list.begin();
                     while (obs != (*cluster)->observation_list.end())
@@ -259,9 +260,9 @@ namespace GNU_gama {
         {     
           iterator  iter;
           iter.OD       = this;
-          iter.cluster  = iter.OD->CL.begin();
+          iter.cluster  = iter.OD->clusters.begin();
 
-          while (iter.cluster != iter.OD->CL.end())
+          while (iter.cluster != iter.OD->clusters.end())
           {
             iter.obs     = (*iter.cluster)->observation_list.begin();
 
@@ -278,7 +279,7 @@ namespace GNU_gama {
         {
           iterator  iter;
           iter.OD       = this;
-          iter.cluster  = iter.OD->CL.end();
+          iter.cluster  = iter.OD->clusters.end();
 
           return iter;
         }
@@ -341,7 +342,7 @@ namespace GNU_gama {
        Cluster<Observation>::activeCov() const
     {
       typedef std::size_t Index;
-      const Index M      = covariance_matrix.rows();
+      // const Index M      = covariance_matrix.rows();
       const Index N      = activeDim();
       const Index i_size = observation_list.size();
       Index active_band  = covariance_matrix.bandWidth();
@@ -361,7 +362,7 @@ namespace GNU_gama {
           const Observation* obs = observation_list[i];
 
           if (obs->active())
-            for (Index d=0; d<obs->dimension(); d++)
+            for (int /*Index*/ d=0; d<obs->dimension(); d++)
               {
                 ind[k++] = n + d;
               }
@@ -403,7 +404,7 @@ namespace GNU_gama {
     ObservationData<Observation>::~ObservationData()
     {
       for (typename List<Cluster<Observation>*>::iterator 
-             c=CL.begin(); c!=CL.end(); ++c) 
+             c=clusters.begin(); c!=clusters.end(); ++c) 
         {
           delete *c;
         }
@@ -418,7 +419,7 @@ namespace GNU_gama {
       if (this != &cod)
         {
           for (typename List<Cluster<Observation>*>::iterator 
-                 c=CL.begin(); c!=CL.end(); ++c) delete *c;
+                 c=clusters.begin(); c!=clusters.end(); ++c) delete *c;
           {
             deepCopy(cod);
           }
@@ -433,7 +434,7 @@ namespace GNU_gama {
     void ObservationData<Observation>::deepCopy(const ObservationData& cod)
     {
       for (typename List<Cluster<Observation>*>::const_iterator 
-             ci=cod.CL.begin(); ci!=cod.CL.end(); ++ci)
+             ci=cod.clusters.begin(); ci!=cod.clusters.end(); ++ci)
         {
           Cluster<Observation>* current = (*ci)->clone(this);
           
@@ -449,7 +450,7 @@ namespace GNU_gama {
           
           current->covariance_matrix = (*ci)->covariance_matrix;
           current->update();
-          CL.push_back( current );
+          clusters.push_back( current );
         }      
     }
   

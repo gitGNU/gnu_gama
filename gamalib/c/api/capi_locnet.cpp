@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: capi_locnet.cpp,v 1.1 2001/12/07 12:33:41 cepek Exp $
+ *  $Id: capi_locnet.cpp,v 1.2 2004/06/06 10:02:54 cepek Exp $
  */
 
 #include <gamalib/c/api/capi_locnet.h>
@@ -196,7 +196,7 @@ extern "C" {
     try
       {
         LocalNetwork* locnet = static_cast<LocalNetwork*>(ptr);
-        return locnet->OD.CL.empty();
+        return locnet->OD.clusters.empty();
       }
     catch (const GaMaLib::Exception& e)
       {

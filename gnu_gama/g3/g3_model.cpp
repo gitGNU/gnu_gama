@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.29 2004/05/17 16:20:25 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.30 2004/06/06 10:02:54 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -128,8 +128,8 @@ void Model::write_xml(std::ostream& out) const
   }
   
   {
-    ClusterList::const_iterator i = obsdata.CL.begin();
-    ClusterList::const_iterator e = obsdata.CL.end();
+    ClusterList::const_iterator i = obsdata.clusters.begin();
+    ClusterList::const_iterator e = obsdata.clusters.end();
     while (i != e)
       {
         if (const g3Cluster* c = dynamic_cast<const g3Cluster*>(*i))
@@ -236,8 +236,8 @@ void Model::update_observations()
       (*i)->revision_accept(this);
     }
 
-  for (Model::ClusterList::iterator
-         ci = obsdata.CL.begin(), ce = obsdata.CL.end(); ci!=ce; ++ci)
+  for (Model::ClusterList::iterator ci = obsdata.clusters.begin(), 
+         ce = obsdata.clusters.end(); ci!=ce; ++ci)
     {
       (*ci)->update();
     }
@@ -295,8 +295,8 @@ void Model::update_linearization()
   
   {
     int nonzeroes=0, blocks=0;
-    for (ClusterList::iterator
-           ci = obsdata.CL.begin(), ce = obsdata.CL.end(); ci!=ce; ++ci)
+    for (ClusterList::iterator ci = obsdata.clusters.begin(), 
+           ce = obsdata.clusters.end(); ci!=ce; ++ci)
       {
         if (int n = (*ci)->activeNonz())
           {
@@ -308,8 +308,8 @@ void Model::update_linearization()
     GNU_gama::BlockDiagonal<>* 
       bd = new GNU_gama::BlockDiagonal<>(blocks, nonzeroes);
 
-    for (ClusterList::const_iterator
-           ci = obsdata.CL.begin(), ce = obsdata.CL.end(); ci!=ce; ++ci)
+    for (ClusterList::const_iterator ci = obsdata.clusters.begin(),
+           ce = obsdata.clusters.end(); ci!=ce; ++ci)
       {
         Cov C = (*ci)->activeCov();
         if (C.dim())

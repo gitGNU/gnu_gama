@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.17 2004/05/01 13:56:31 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.18 2004/06/06 10:02:54 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -361,7 +361,7 @@ int GaMa_Main(int argc, char **argv)
     if (IS->PD.empty())
       throw GaMaLib::Exception(T_GaMa_No_points_available);
     
-    if (IS->OD.CL.empty())
+    if (IS->OD.clusters.empty())
       throw GaMaLib::Exception(T_GaMa_No_observations_available);
     
     try

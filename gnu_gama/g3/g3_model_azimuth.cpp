@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_azimuth.cpp,v 1.2 2004/06/05 08:28:13 cepek Exp $
+ *  $Id: g3_model_azimuth.cpp,v 1.3 2004/06/06 10:02:54 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -85,7 +85,7 @@ void Model::linearization_visit(Azimuth* a)
   E_3 local;
   R.inverse(from_to, local);
 
-  const double h = std::sqrt(local.e1*local.e1 + local.e2*local.e2);
+  // const double h = std::sqrt(local.e1*local.e1 + local.e2*local.e2);
 
   // pd - partial derivatives for the occupied station
   E_3 pd( std::cos(a->obs()), -std::sin(a->obs()), 0); 

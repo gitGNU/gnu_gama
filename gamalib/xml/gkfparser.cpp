@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.15 2004/04/04 11:19:29 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.16 2004/06/06 10:02:54 cepek Exp $
  */ 
 
 
@@ -740,7 +740,7 @@ namespace GaMaLib {
         if (standpoint == 0)
           {
             standpoint = new StandPoint(&OD);
-            OD.CL.push_back( standpoint );
+            OD.clusters.push_back( standpoint );
           }
         Distance* d = new Distance(ss, sc, dm);
         d->set_from_dh(df);
@@ -815,7 +815,7 @@ namespace GaMaLib {
         if (standpoint == 0)
           {
             standpoint = new StandPoint(&OD);
-            OD.CL.push_back( standpoint );
+            OD.clusters.push_back( standpoint );
           }
         Angle* d = new Angle(ss, sl, sp, dm*G2R);
         d->set_from_dh(df);
@@ -875,7 +875,7 @@ namespace GaMaLib {
         if (standpoint == 0)
           {
             standpoint = new StandPoint(&OD);
-            OD.CL.push_back( standpoint );
+            OD.clusters.push_back( standpoint );
           }
         S_Distance* d = new S_Distance(ss, sc, dm);
         d->set_from_dh(df);
@@ -939,7 +939,7 @@ namespace GaMaLib {
         if (standpoint == 0)
           {
             standpoint = new StandPoint(&OD);
-            OD.CL.push_back( standpoint );
+            OD.clusters.push_back( standpoint );
           }
         Z_Angle* d = new Z_Angle(ss, sc, dm*G2R);
         d->set_from_dh(df);
@@ -988,7 +988,7 @@ namespace GaMaLib {
       if (!toDouble(sh, obs_from_dh)) 
         return error(T_GKF_bad_instrument_reflector_height + sh);
     }
-    OD.CL.push_back(standpoint);
+    OD.clusters.push_back(standpoint);
 
     return 0;
   }
@@ -1239,7 +1239,7 @@ namespace GaMaLib {
       }
 
     coordinates = new Coordinates(&OD);
-    OD.CL.push_back(coordinates);
+    OD.clusters.push_back(coordinates);
 
     return 0;
   }
@@ -1308,7 +1308,7 @@ namespace GaMaLib {
       }
 
     heightdifferences = new HeightDifferences(&OD);
-    OD.CL.push_back(heightdifferences);
+    OD.clusters.push_back(heightdifferences);
 
     return 0;
   }
@@ -1412,7 +1412,7 @@ namespace GaMaLib {
       }
 
     vectors = new Vectors(&OD);
-    OD.CL.push_back(vectors);
+    OD.clusters.push_back(vectors);
 
     return 0;
   }

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.42 2004/05/20 16:16:45 cepek Exp $
+ *  $Id: version.cpp,v 1.43 2004/06/06 10:02:54 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.11-d";
+const char* GNU_gama_version  = "1.7.11-e";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -63,6 +63,9 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.11 2004-05-xx
+
+    - in the template class ObservationData (gnu_gama/obsdata.h) the
+      data member CL was renamed to 'clusters'
 
     - first draft of zenith and azimuth angles in gama-g3 (NOT DEBUGGED YET!)
 

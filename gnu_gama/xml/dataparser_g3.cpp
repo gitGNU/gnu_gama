@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser_g3.cpp,v 1.1 2004/05/20 16:16:45 cepek Exp $
+ *  $Id: dataparser_g3.cpp,v 1.2 2004/06/06 10:02:54 cepek Exp $
  */
 
 
@@ -611,8 +611,8 @@ int DataParser::g3_obs(const char *name)
     {
       const Cov& cov = *i;
 
-      for (int i=1; i<=cov.dim(); i++)
-        for (int j=0; j<=cov.bandWidth() && i+j<=cov.dim(); j++)
+      for (size_t i=1; i<=cov.dim(); i++)
+        for (size_t j=0; j<=cov.bandWidth() && i+j<=cov.dim(); j++)
           g3->obs_cluster->covariance_matrix(offset+i, offset+i+j) = cov(i, i+j);
 
       offset += cov.dim();
@@ -624,7 +624,7 @@ int DataParser::g3_obs(const char *name)
       return error("### zero or negative variance");
 
   g3->obs_cluster->update();
-  g3->model->obsdata.CL.push_back(g3->obs_cluster);
+  g3->model->obsdata.clusters.push_back(g3->obs_cluster);
   g3->cov_list.clear();
 
   return  end_tag(name);
@@ -736,7 +736,6 @@ int DataParser::g3_obs_zenith(const char *name)
   stringstream istr(text_buffer);
   string       from, to;
   string       sval;
-  double       val; 
 
   if (pure_data(istr >> from >> to >> sval))
     {
@@ -769,7 +768,6 @@ int DataParser::g3_obs_azimuth(const char *name)
   stringstream istr(text_buffer);
   string       from, to;
   string       sval;
-  double       val; 
 
   if (pure_data(istr >> from >> to >> sval))
     {

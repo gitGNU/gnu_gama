@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.19 2004/04/21 16:49:39 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.20 2004/06/06 10:02:54 cepek Exp $  */
 
 #include <cstddef>
 #include <gnu_gama/model.h>
@@ -37,6 +37,7 @@ namespace GNU_gama { namespace g3 {
   public:
 
     ParXML() : owner(0), finished(false) {}
+    virtual ~ParXML() {}
 
     virtual void write_xml(std::ostream& ostr)
     {

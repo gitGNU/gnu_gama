@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.cpp,v 1.14 2004/03/28 16:52:11 cepek Exp $
+ *  $Id: acord.cpp,v 1.15 2004/06/06 10:02:54 cepek Exp $
  */
 
  
@@ -72,7 +72,7 @@ Acord::Acord(PointData& b, ObservationData& m)
     }
   
   for (ObservationData::ClusterList::iterator 
-         ci=OD.CL.begin(), ei=OD.CL.end(); ci!=ei; ++ci)
+         ci=OD.clusters.begin(), ei=OD.clusters.end(); ci!=ei; ++ci)
     {
       ObservationData::ClusterType *cluster = *ci;
       for (ObservationList::iterator 
@@ -144,12 +144,12 @@ void Acord::execute()
           // bind observations to the cluster
           standpoint->update();
           // insert standpoint into `observation data'
-          OD.CL.push_back(standpoint);
+          OD.clusters.push_back(standpoint);
           
           ApproximateCoordinates ps(PD, OD);
           ps.Calculation();
           
-          OD.CL.pop_back();
+          OD.clusters.pop_back();
           delete standpoint;
         }
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gnu_gama_dep.cpp,v 1.7 2004/03/05 22:27:32 cepek Exp $
+ *  $Id: gnu_gama_dep.cpp,v 1.8 2004/06/06 10:02:54 cepek Exp $
  */
 
 #include <iostream>
@@ -29,10 +29,12 @@
 #include <string>
 #include <set>
 
-const char* version = "1.01";
+const char* version = "1.02";
 
 /**************************************************************************
  * 
+ * 1.02  - brief messages (compiler + filename) when building libgama 
+ *         for GNU platform
  * 1.01  - conditional usage of compilere option '-pipe' for GNU compilers
  * 1.00  - added project gama-g3
  *       - added support for comments (lines starting with #)
@@ -463,7 +465,11 @@ int main(int argc, char* argv[])
         cout << " $(SRC)" << *i;
       cout << "\n";
 
-      cout << "\t$(CXX) $(CXXFLAGS) -c $(SRC)" << file << "\n";
+      if (platform == t_gnu)
+        cout << "\t@echo [$(CXX)] $(patsubst %.o,%.cpp,$@) && "
+             << "$(CXX) $(CXXFLAGS) -c $(SRC)" << file << "\n";
+      else
+        cout << "\t$(CXX) $(CXXFLAGS) -c $(SRC)" << file << "\n";
       cout << "\t@$(LIBR) " << object_file << "\n\n";
     }
 

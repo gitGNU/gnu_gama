@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.15 2004/04/19 18:41:08 cepek Exp $
+ *  $Id: network.cpp,v 1.16 2004/06/06 10:02:54 cepek Exp $
  */
 
 #include <fstream>
@@ -127,8 +127,8 @@ void LocalNetwork::revision_observations()
   }
 
   // test cycle for StandPoint clusters with single direction
-  ClusterList& CL = OD.CL;
-  for (ClusterList::iterator cit=CL.begin(); cit!=CL.end(); ++cit)
+  ClusterList& clusters = OD.clusters;
+  for (ClusterList::iterator cit=clusters.begin(); cit!=clusters.end(); ++cit)
     {
       if (StandPoint* sp = dynamic_cast<StandPoint*>(*cit))
         {
@@ -196,8 +196,8 @@ void LocalNetwork::project_equations()
         }
     }
 
-  ClusterList& CL = OD.CL;
-  for (ClusterList::iterator cl=CL.begin(); cl!=CL.end(); ++cl)
+  ClusterList& clusters = OD.clusters;
+  for (ClusterList::iterator cl=clusters.begin(); cl!=clusters.end(); ++cl)
     if (StandPoint* standpoint=dynamic_cast<StandPoint*>(*cl))
       standpoint->index_orientation(0);
   
@@ -248,7 +248,8 @@ void LocalNetwork::project_equations()
   seznez_.resize(pocet_neznamych_);
   neznama_ nez;
   
-  for (ClusterList::iterator clptr=CL.begin(); clptr!=CL.end(); ++clptr)
+  for (ClusterList::iterator 
+         clptr=clusters.begin(); clptr!=clusters.end(); ++clptr)
     if (StandPoint* standpoint=dynamic_cast<StandPoint*>(*clptr))
       /*
        * in the following if (...) statement we test index of an orientation
@@ -735,7 +736,7 @@ void LocalNetwork::prepareProjectEquations()
   Index ind_0 = 0;
 
   for (ClusterList::const_iterator 
-         cluster=OD.CL.begin(); cluster!=OD.CL.end(); ++cluster)
+         cluster=OD.clusters.begin(); cluster!=OD.clusters.end(); ++cluster)
     if (const Index N = (*cluster)->activeObs())
         {
           Vec t(N);
@@ -838,7 +839,7 @@ void LocalNetwork::vyrovnani_()
     Index  ind_0 = 0;
     
     for (ClusterList::const_iterator 
-           cluster=OD.CL.begin(); cluster!=OD.CL.end(); ++cluster)
+           cluster=OD.clusters.begin(); cluster!=OD.clusters.end(); ++cluster)
       if (const Index N = (*cluster)->activeObs())
         {
           Vec t(N), u(N);
@@ -877,7 +878,7 @@ void LocalNetwork::vyrovnani_()
     Index ind_0 = 0;
 
     for (ClusterList::const_iterator 
-           cit=OD.CL.begin(); cit!=OD.CL.end(); ++cit)
+           cit=OD.clusters.begin(); cit!=OD.clusters.end(); ++cit)
       if (const Index N = (*cit)->activeObs())
         {
           const Cluster& cluster = *(*cit);
