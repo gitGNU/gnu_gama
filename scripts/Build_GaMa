@@ -2,7 +2,7 @@
 #
 # parametr prekladu pro GSO je -DGaMaOLSgso
 # 
-# $Id: Build_GaMa,v 1.7 2002/06/11 19:57:37 cepek Exp $
+# $Id: Build_GaMa,v 1.8 2002/06/27 17:32:45 cepek Exp $
 
 # pokud jsem v podadresari ./scripts, prejdu o jednu uroven vys
 #
@@ -68,9 +68,10 @@ echo -e "\t\$(MAKE)"                                 >> Makefile.pro
 # ------------- GNU Makefiles to other formats  ------------------------
 
 cd ..                
-rm -rf win32-borland win32-msvc
-mkdir  win32-borland win32-borland/gama  win32-borland/lib
-mkdir  win32-msvc    win32-msvc/gama     win32-msvc/lib
+# must not be removed, present at CVS !!!!
+#    rm -rf win32-borland win32-msvc
+#    mkdir  win32-borland win32-borland/gama  win32-borland/lib
+#    mkdir  win32-msvc    win32-msvc/gama     win32-msvc/lib
 
 
 sed s/^\#gnu[\ \t]*:// < linux/gama/Makefile.pro      > linux/gama/Makefile
