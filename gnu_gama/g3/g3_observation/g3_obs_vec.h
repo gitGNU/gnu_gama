@@ -20,13 +20,44 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.5 2003/05/06 12:01:23 cepek Exp $
+ *  $Id: g3_obs_vec.h,v 1.1 2003/05/06 12:01:23 cepek Exp $
  */
 
-
 #include <gnu_gama/g3/g3_observation/g3_obs_base.h>
-#include <gnu_gama/g3/g3_observation/g3_obs_vec.h>
-#include <gnu_gama/g3/g3_observation/g3_obs_dist.h>
-#include <gnu_gama/g3/g3_observation/g3_obs_hdiff.h>
 
 
+#ifndef GNU_gama__g3_obs_vector_h_gnugamag3obs_vectorh___gnu_gama_g3obs__vec
+#define GNU_gama__g3_obs_vector_h_gnugamag3obs_vectorh___gnu_gama_g3obs__vec
+
+
+namespace GNU_gama {  namespace g3 {
+
+//--  class Vector : public Observation {
+//--  public:  
+//--    
+//--    Point::Name name[2];
+//--    
+//--    Vector() : Observation(6) {}
+//--    
+//--
+//--    double parlist_value(int) const;    
+//--    void   parlist_init (Model*);
+//--    double derivative   (Parameter*, int);
+//--
+//--  protected:
+//--
+//--    void prepare_to_linearization();
+//--  };
+//--
+//--
+//--  class Vectors {
+//--  public:
+//--
+//--    List<Vector*> vec;
+//--
+//--  };
+  
+}}
+
+
+#endif

@@ -6,6 +6,7 @@ gnu_gama/g3/g3_model.cpp
 gnu_gama/g3/g3_parameter.cpp
 gnu_gama/g3/g3_point.cpp
 gnu_gama/g3/g3_observation/g3_obs_base.cpp
+gnu_gama/g3/g3_observation/g3_obs_vec.cpp
 gnu_gama/g3/g3_observation/g3_obs_dist.cpp
 gnu_gama/g3/g3_observation/g3_obs_hdiff.cpp
 gamalib/adj/adj.cpp
