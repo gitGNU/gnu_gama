@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.h,v 1.2 2002/05/15 10:14:01 cepek Exp $
+ *  $Id: gkfparser.h,v 1.3 2002/06/27 17:11:57 cepek Exp $
  */
 
 #ifndef GaMaLib_GKF__XML__parser__h_
@@ -197,6 +197,7 @@ namespace GaMaLib {
       // directions/distances and/or angles.
       
       std::string         standpoint_id;
+      Double              obs_from_dh; 
       
       StandPoint        * standpoint;
       Coordinates       * coordinates;

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.h,v 1.4 2002/05/31 10:10:28 cepek Exp $
+ *  $Id: observation.h,v 1.5 2002/06/27 17:11:57 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_Mereni_H
@@ -61,8 +61,9 @@ namespace GaMaLib {
     
     public:
     
-      Observation(const PointID& s, const PointID& c, Double m)
-        : cluster(0), from_(s), to_(c), value_(m), active_(true) 
+      Observation(const PointID& s, const PointID& c, Double m) :
+        cluster(0), from_(s), to_(c), value_(m), active_(true),
+        from_dh_(0), to_dh_(0)
         {
           if (s == c) throw GaMaLib::Exception(T_GaMa_from_equals_to);
         }
@@ -93,6 +94,14 @@ namespace GaMaLib {
         }
 
       virtual void write(std::ostream&, bool print_at) const = 0;
+
+      // instrument / reflector height
+
+      Double  from_dh() const { return from_dh_; }
+      Double  to_dh  () const { return to_dh_;   }
+
+      void    set_from_dh(Double h) { from_dh_ = h; }
+      void    set_to_dh  (Double h) { to_dh_   = h; }
 
       // function objects to be used with ObservationData::for_each()
 
@@ -125,6 +134,8 @@ namespace GaMaLib {
       const PointID to_;
       Double        value_;        // observed value
       mutable bool  active_;       // set false for unused observation
+      Double        from_dh_;      // height of instrument
+      Double        to_dh_;        // height of reflector
     
     protected:
     
@@ -181,9 +192,10 @@ namespace GaMaLib {
     {
     private:
       PointID fs_;
+      Double  fs_dh_;
     public:
       Angle(const PointID& s, const PointID& b,  const PointID& f,
-            Double d) : Observation(s, b, d), fs_(f) 
+            Double d) : Observation(s, b, d), fs_(f), fs_dh_(0) 
         { 
           /* was: if (s == c2 || c == c2) ...; from 1.3.31 we allow
            * left and right targets to be identical, surely this is
@@ -200,6 +212,11 @@ namespace GaMaLib {
       const PointID& bs() const { return to(); }     // backsight station
       const PointID& fs() const { return fs_;  }     // foresight station
       void write(std::ostream&, bool print_at) const;
+
+      Double bs_dh() const       { return to_dh(); }
+      void   set_bs_dh(Double h) { set_to_dh(h);   }
+      Double fs_dh() const       { return fs_dh_;  }
+      void   set_fs_dh(Double h) { fs_dh_ = h;     }
     };
 
 

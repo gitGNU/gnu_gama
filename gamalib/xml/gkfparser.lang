@@ -181,6 +181,10 @@
    en="undefined attribute of &lt;obs&gt;: " 
    cz="nedefinovaný atribut znaèky &lt;obs&gt;: " />
 
+<e id="T_GKF_bad_instrument_reflector_height"
+   en="bad instrument/reflector height: "
+   cz="chybná vý¹ka pøístroje/zámìry: " />
+
 <e id="T_GKF_bad_orientation_angle"
    en="bad orientation angle: "
    cz="chybný orientaèní posun: " />

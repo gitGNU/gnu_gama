@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.26 2002/06/11 19:19:37 cepek Exp $
+ *  $Id: version.cpp,v 1.27 2002/06/27 17:11:57 cepek Exp $
  */
 
 
@@ -62,6 +62,9 @@ const char* GaMaLib_compiler =
      - initial draft of the Ellipsoid class and a helper program
        ellipsoids_xml.cpp for generating files ellipsoids.[h|cpp] from
        xml/ellipsoids.xml
+
+     - joined changes from 1.4.01 concerning heights of instrument
+       and/or reflector
 
 
 1.5.00 2002-06-11

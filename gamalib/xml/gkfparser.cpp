@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.3 2002/05/24 19:30:51 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.4 2002/06/27 17:11:57 cepek Exp $
  */
 
 
@@ -764,18 +764,21 @@ namespace GaMaLib {
 
   int GKFparser::process_distance(const char** atts)
   {
-    string nam, val, ss=standpoint_id, sc, sm, sv;
+    string nam, val, ss=standpoint_id, sc, sm, sv, hf, ht;
     state = state_obs_distance;
 
     while (*atts)
       {
         nam = string(*atts++);
         val = string(*atts++);
-        if      (nam == "from" ) ss = val;
-        else if (nam == "to"   ) sc = val;
-        else if (nam == "val"  ) sm = val;
-        else if (nam == "stdev") sv = val;
-        else return error(T_GKF_undefined_attribute_of_distance +nam+" = "+val);
+        if      (nam == "from"   ) ss = val;
+        else if (nam == "to"     ) sc = val;
+        else if (nam == "val"    ) sm = val;
+        else if (nam == "stdev"  ) sv = val;
+        else if (nam == "from_dh") hf = val;
+        else if (nam == "to_dh"  ) ht = val;
+        else 
+          return error(T_GKF_undefined_attribute_of_distance +nam+" = "+val);
       }
 
     if (ss == "") return error(T_GKF_missing_standpoint_id);
@@ -787,6 +790,14 @@ namespace GaMaLib {
     double dv = implicit_stdev_distance(dm);
     if (sv != "")
       if (!toDouble(sv, dv)) return error(T_GKF_illegal_standard_deviation);
+    double df = obs_from_dh;
+    if (hf != "")
+      if (!toDouble(hf, df)) 
+        return error(T_GKF_bad_instrument_reflector_height + hf);
+    double dt = 0;
+    if (ht != "")
+      if (!toDouble(ht, dt)) 
+        return error(T_GKF_bad_instrument_reflector_height + ht);
 
     try 
       {
@@ -795,7 +806,10 @@ namespace GaMaLib {
             standpoint = new StandPoint(&OD);
             OD.CL.push_back( standpoint );
           }
-        standpoint->observation_list.push_back( new Distance(ss, sc, dm) );
+        Distance* d = new Distance(ss, sc, dm);
+        d->set_from_dh(df);
+        d->set_to_dh(dt);
+        standpoint->observation_list.push_back( d );
         sigma.push_back(dv);
       } 
     catch (const /*GaMaLib::*/Exception &e) 
@@ -810,7 +824,7 @@ namespace GaMaLib {
 
   int GKFparser::process_angle(const char** atts)
   {
-    string nam, val, ss=standpoint_id, sl, sp, sm, sv;
+    string nam, val, ss=standpoint_id, sl, sp, sm, sv, hf, ht, h2;
     state = state_obs_angle;
 
     while (*atts)
@@ -818,13 +832,16 @@ namespace GaMaLib {
         nam = string(*atts++);
         val = string(*atts++);
       
-        if      (nam == "from" ) ss = val;
-        else if (nam == "bs"   ) sl = val;  // backsight station
-        else if (nam == "fs"   ) sp = val;  // foresight station
-        else if (nam == "to"   ) sl = val;  // <== undocumented feature for
-        else if (nam == "rs"   ) sp = val;  // <== backward compatibility
-        else if (nam == "val"  ) sm = val;
-        else if (nam == "stdev") sv = val;
+        if      (nam == "from"   ) ss = val;
+        else if (nam == "bs"     ) sl = val;  // backsight station
+        else if (nam == "fs"     ) sp = val;  // foresight station
+        else if (nam == "to"     ) sl = val;  // <== undocumented feature for
+        else if (nam == "rs"     ) sp = val;  // <== backward compatibility
+        else if (nam == "val"    ) sm = val;
+        else if (nam == "stdev"  ) sv = val;
+        else if (nam == "from_dh") hf = val;
+        else if (nam == "bs_dh"  ) ht = val;
+        else if (nam == "fs_dh"  ) h2 = val;
         else 
           return error(T_GKF_undefined_attribute_of_angle + nam + " = " + val);
       }
@@ -839,6 +856,18 @@ namespace GaMaLib {
     double dv = implicit_stdev_angle();
     if (sv != "")
       if (!toDouble(sv, dv)) return error(T_GKF_illegal_standard_deviation);
+    double df = obs_from_dh;
+    if (hf != "")
+      if (!toDouble(hf, df)) 
+        return error(T_GKF_bad_instrument_reflector_height + hf);
+    double dt = 0;
+    if (ht != "")
+      if (!toDouble(ht, dt)) 
+        return error(T_GKF_bad_instrument_reflector_height + ht);
+    double d2 = 0;
+    if (h2 != "")
+      if (!toDouble(h2, d2)) 
+        return error(T_GKF_bad_instrument_reflector_height + h2);
 
     try 
       {
@@ -847,7 +876,10 @@ namespace GaMaLib {
             standpoint = new StandPoint(&OD);
             OD.CL.push_back( standpoint );
           }
-        standpoint->observation_list.push_back( new Angle(ss, sl, sp, dm*G2R) );
+        Angle* d = new Angle(ss, sl, sp, dm*G2R);
+        d->set_from_dh(df);
+        d->set_to_dh(dt);
+        standpoint->observation_list.push_back( d );
         sigma.push_back(dv);
       } 
     catch (const /*GaMaLib::*/Exception &e) 
@@ -862,18 +894,21 @@ namespace GaMaLib {
 
   int GKFparser::process_sdistance(const char** atts)
   {
-    string nam, val, ss=standpoint_id, sc, sm, sv;
+    string nam, val, ss=standpoint_id, sc, sm, sv, hf, ht;
     state = state_obs_sdistance;
               
     while (*atts)
       {
         nam = string(*atts++);
         val = string(*atts++);
-        if      (nam == "from" ) ss = val;
-        else if (nam == "to"   ) sc = val;
-        else if (nam == "val"  ) sm = val;
-        else if (nam == "stdev") sv = val;
-        else return error(T_GKF_undefined_attribute_of_slopedist +nam+" = "+val);
+        if      (nam == "from"   ) ss = val;
+        else if (nam == "to"     ) sc = val;
+        else if (nam == "val"    ) sm = val;
+        else if (nam == "stdev"  ) sv = val;
+        else if (nam == "from_dh") hf = val;
+        else if (nam == "to_dh"  ) ht = val;
+        else 
+          return error(T_GKF_undefined_attribute_of_slopedist +nam+" = "+val);
       }
 
     if (ss == "") return error(T_GKF_missing_standpoint_id);
@@ -885,6 +920,14 @@ namespace GaMaLib {
     double dv = implicit_stdev_distance(dm);
     if (sv != "")
       if (!toDouble(sv, dv)) return error(T_GKF_illegal_standard_deviation);
+    double df = obs_from_dh;
+    if (hf != "")
+      if (!toDouble(hf, df)) 
+        return error(T_GKF_bad_instrument_reflector_height + hf);
+    double dt = 0;
+    if (ht != "")
+      if (!toDouble(ht, dt)) 
+        return error(T_GKF_bad_instrument_reflector_height + ht);
 
     try 
       {
@@ -893,7 +936,10 @@ namespace GaMaLib {
             standpoint = new StandPoint(&OD);
             OD.CL.push_back( standpoint );
           }
-        standpoint->observation_list.push_back( new S_Distance(ss, sc, dm) );
+        S_Distance* d = new S_Distance(ss, sc, dm);
+        d->set_from_dh(df);
+        d->set_to_dh(dt);
+        standpoint->observation_list.push_back( d );
         sigma.push_back(dv);
       } 
     catch (const /*GaMaLib::*/Exception &e) 
@@ -908,17 +954,19 @@ namespace GaMaLib {
 
   int GKFparser::process_zangle(const char** atts)
   {
-    string nam, val, ss=standpoint_id, sc, sm, sv;
+    string nam, val, ss=standpoint_id, sc, sm, sv, hf, ht;
     state = state_obs_zangle;
 
     while (*atts)
       {
         nam = string(*atts++);
         val = string(*atts++);
-        if      (nam == "from" ) ss = val;
-        else if (nam == "to"   ) sc = val;
-        else if (nam == "val"  ) sm = val;
-        else if (nam == "stdev") sv = val;
+        if      (nam == "from"   ) ss = val;
+        else if (nam == "to"     ) sc = val;
+        else if (nam == "val"    ) sm = val;
+        else if (nam == "stdev"  ) sv = val;
+        else if (nam == "from_dh") hf = val;
+        else if (nam == "to_dh"  ) ht = val;
         else return error(T_GKF_undefined_attribute_of_zangle +nam+" = "+val);
       }
 
@@ -931,6 +979,14 @@ namespace GaMaLib {
     double dv = implicit_stdev_distance(dm);
     if (sv != "")
       if (!toDouble(sv, dv)) return error(T_GKF_illegal_standard_deviation);
+    double df = obs_from_dh;
+    if (hf != "")
+      if (!toDouble(hf, df)) 
+        return error(T_GKF_bad_instrument_reflector_height + hf);
+    double dt = 0;
+    if (ht != "")
+      if (!toDouble(ht, dt)) 
+        return error(T_GKF_bad_instrument_reflector_height + ht);
 
     try 
       {
@@ -939,7 +995,10 @@ namespace GaMaLib {
             standpoint = new StandPoint(&OD);
             OD.CL.push_back( standpoint );
           }
-        standpoint->observation_list.push_back(new Z_Angle(ss, sc, dm*G2R) );
+        Z_Angle* d = new Z_Angle(ss, sc, dm*G2R);
+        d->set_from_dh(df);
+        d->set_to_dh(dt);
+        standpoint->observation_list.push_back( d );
         sigma.push_back(dv);
       } 
     catch (const /*GaMaLib::*/Exception &e) 
@@ -954,7 +1013,8 @@ namespace GaMaLib {
 
   int GKFparser::process_obs(const char** atts)
   {
-    string nam, val, ss, sz;
+    string nam, val, ss, sz, sh;
+    obs_from_dh = 0;           // implicit instrument height for <obs />
     state = state_obs;
 
     while (*atts)
@@ -964,6 +1024,7 @@ namespace GaMaLib {
 
         if      (nam == "from"       ) ss = val;
         else if (nam == "orientation") sz = val;
+        else if (nam == "from_dh"    ) sh = val;
         else return error(T_GKF_undefined_attribute_of_obs 
                           + nam + " = " + val);
       }
@@ -976,6 +1037,10 @@ namespace GaMaLib {
       double dz;
       if (!toDouble(sz, dz)) return error(T_GKF_bad_orientation_angle + sz);
       standpoint->set_orientation(dz);
+    }
+    if (sh != "") {
+      if (!toDouble(sh, obs_from_dh)) 
+        return error(T_GKF_bad_instrument_reflector_height + sh);
     }
     OD.CL.push_back(standpoint);
 
@@ -1024,7 +1089,7 @@ namespace GaMaLib {
 
   int GKFparser::process_direction(const char** atts)
   {
-    string nam, val, sc, sm, ss;
+    string nam, val, sc, sm, ss, hf, ht;
     state = state_obs_direction;
 
     while (*atts)
@@ -1032,9 +1097,11 @@ namespace GaMaLib {
         nam = string(*atts++);
         val = string(*atts++);
 
-        if      (nam == "to"   ) sc = val;
-        else if (nam == "val"  ) sm = val;
-        else if (nam == "stdev") ss = val;
+        if      (nam == "to"     ) sc = val;
+        else if (nam == "val"    ) sm = val;
+        else if (nam == "stdev"  ) ss = val;
+        else if (nam == "from_dh") hf = val;
+        else if (nam == "to_dh"  ) ht = val;
         else return error(T_GKF_undefined_attribute_of_direction 
                           + nam + " = "+val);
       }
@@ -1048,10 +1115,20 @@ namespace GaMaLib {
     double ds = implicit_stdev_direction();
     if (ss != "")
       if (!toDouble(ss, ds)) return error(T_GKF_illegal_standard_deviation);
+    double df = obs_from_dh;
+    if (hf != "")
+      if (!toDouble(hf, df)) 
+        return error(T_GKF_bad_instrument_reflector_height + hf);
+    double dt = 0;
+    if (ht != "")
+      if (!toDouble(ht, dt)) 
+        return error(T_GKF_bad_instrument_reflector_height + ht);
 
     try 
       {
         Direction* d = new Direction(standpoint_id, sc, dm*G2R);
+        d->set_from_dh(df);
+        d->set_to_dh(dt);
         standpoint->observation_list.push_back( d );
         sigma.push_back(ds);
       } 
@@ -1411,7 +1488,7 @@ namespace GaMaLib {
 
   int GKFparser::process_vec(const char** atts)
   {
-    string  nam, val, sfrom, sto,  sdx, sdy, sdz;
+    string  nam, val, sfrom, sto,  sdx, sdy, sdz, hf, ht;
     state = state_vectors_vec;
 
     while (*atts)
@@ -1419,11 +1496,13 @@ namespace GaMaLib {
         nam = string(*atts++);
         val = string(*atts++);
       
-        if      (nam == "from") sfrom = val;
-        else if (nam == "to"  ) sto   = val;
-        else if (nam == "dx"  ) sdx   = val;
-        else if (nam == "dy"  ) sdy   = val;
-        else if (nam == "dz"  ) sdz   = val;
+        if      (nam == "from"   ) sfrom = val;
+        else if (nam == "to"     ) sto   = val;
+        else if (nam == "dx"     ) sdx   = val;
+        else if (nam == "dy"     ) sdy   = val;
+        else if (nam == "dz"     ) sdz   = val;
+        else if (nam == "from_dh") hf    = val;
+        else if (nam == "to_dh"  ) ht    = val;
         else 
           return error(T_GKF_undefined_attribute_of_height_differences 
                        + nam + " = " + val);
@@ -1439,12 +1518,25 @@ namespace GaMaLib {
     if (!toDouble(sdx, dx) ||
         !toDouble(sdy, dy) ||
         !toDouble(sdz, dz)  ) return error(T_GKF_bad_vector_data);
+    double df = 0;
+    if (hf != "")
+      if (!toDouble(hf, df)) 
+        return error(T_GKF_bad_instrument_reflector_height + hf);
+    double dt = 0;
+    if (ht != "")
+      if (!toDouble(ht, dt)) 
+        return error(T_GKF_bad_instrument_reflector_height + ht);
 
     try
       {
         Xdiff* xdiff = new Xdiff(sfrom, sto, dx);
         Ydiff* ydiff = new Ydiff(sfrom, sto, dy);
         Zdiff* zdiff = new Zdiff(sfrom, sto, dz);
+
+        xdiff->set_from_dh(df);      xdiff->set_to_dh(dt);
+        ydiff->set_from_dh(df);      ydiff->set_to_dh(dt);
+        zdiff->set_from_dh(df);      zdiff->set_to_dh(dt);
+
         vectors->observation_list.push_back( xdiff );
         vectors->observation_list.push_back( ydiff );
         vectors->observation_list.push_back( zdiff );
