@@ -2,8 +2,9 @@ gnu_gama/ellipsoid.cpp
 gnu_gama/ellipsoids.cpp
 gnu_gama/outstream.cpp
 gnu_gama/g3/g3_model.cpp
-gnu_gama/g3/g3_observation.cpp
 gnu_gama/g3/g3_point.cpp
+gnu_gama/g3/g3_observation/g3_obs_base.cpp
+gnu_gama/g3/g3_observation/g3_obs_hdiff.cpp
 gamalib/adj/adj.cpp
 gamalib/c/api/capi_exception.cpp
 gamalib/c/api/capi_gkfparser.cpp

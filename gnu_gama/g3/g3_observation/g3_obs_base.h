@@ -20,11 +20,28 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.2 2003/03/23 11:47:32 cepek Exp $
+ *  $Id: g3_obs_base.h,v 1.1 2003/03/23 11:49:53 cepek Exp $
  */
 
-
-#include <gnu_gama/g3/g3_observation/g3_obs_base.h>
-#include <gnu_gama/g3/g3_observation/g3_obs_hdiff.h>
+#include <gnu_gama/g3/g3_parameter.h>
 
 
+#ifndef GNU_gama__g3_obs_base_h_gnugamag3obs_baseh___gnu_gama_g3obs
+#define GNU_gama__g3_obs_base_h_gnugamag3obs_baseh___gnu_gama_g3obs
+
+
+namespace GNU_gama {  namespace g3 {
+
+
+  class Observation {
+
+  protected:  
+
+    ParameterList  parlist;
+
+  };
+
+}}
+
+
+#endif
