@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.2 2003/05/10 13:43:03 cepek Exp $
+ *  $Id: dataparser.h,v 1.3 2003/05/10 19:35:17 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -28,7 +28,6 @@
 
 #include <gnu_gama/xml/baseparser.h>
 #include <gnu_gama/xml/dataobject.h>
-#include <gamalib/local/gamadata.h>
 #include <cstddef>
 #include <string>
 #include <list>

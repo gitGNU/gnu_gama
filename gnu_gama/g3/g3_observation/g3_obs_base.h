@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_base.h,v 1.9 2003/05/06 18:16:34 cepek Exp $
+ *  $Id: g3_obs_base.h,v 1.10 2003/05/10 19:35:17 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_parameter.h>
@@ -31,6 +31,7 @@
 #define GNU_gama__g3_obs_base_h_gnugamag3obs_baseh___gnu_gama_g3obs
 
 #include <gnu_gama/g3/g3_point.h>
+#include <gnu_gama/matvec.h>
 
 
 namespace GNU_gama {  namespace g3 {
@@ -38,6 +39,8 @@ namespace GNU_gama {  namespace g3 {
 
   class Observation {
   public:
+
+    typedef GNU_gama::Cov Cov;
 
     Observation(int n) : parlist(n), model(0), time(0) {}
     virtual ~Observation() {}
@@ -58,7 +61,7 @@ namespace GNU_gama {  namespace g3 {
 
   protected:  
 
-    GNU_gama::g3::Model* model;
+    Model*  model;
     double  time;
 
     virtual void prepare_to_linearization() {}

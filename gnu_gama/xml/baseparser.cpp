@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: baseparser.cpp,v 1.2 2003/05/10 13:43:03 cepek Exp $
+ *  $Id: baseparser.cpp,v 1.3 2003/05/10 19:35:17 cepek Exp $
  */
 
 #include <gnu_gama/xml/baseparser.h>
@@ -37,7 +37,7 @@ namespace {
     
     void characterDataHandler(void *userData, const char* s, int len)
     {
-      using namespace GaMaLib;
+      using namespace GNU_gama;
       BaseParser* gexp = static_cast<BaseParser*>(userData);
       
       gexp->characterDataHandler(s, len);
@@ -45,7 +45,7 @@ namespace {
     
     void startElement(void *userData, const char *cname, const char **atts)
     {
-      using namespace GaMaLib;
+      using namespace GNU_gama;
       BaseParser* gexp = static_cast<BaseParser*>(userData);
 
       gexp->startElement(cname, atts);
@@ -53,7 +53,7 @@ namespace {
 
     void endElement(void *userData, const char *cname)
     {
-      using namespace GaMaLib;
+      using namespace GNU_gama;
       BaseParser* gexp = static_cast<BaseParser*>(userData);
 
       gexp->endElement(cname);

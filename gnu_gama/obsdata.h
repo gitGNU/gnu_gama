@@ -20,13 +20,12 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.5 2003/03/25 12:38:33 cepek Exp $
+ *  $Id: obsdata.h,v 1.6 2003/05/10 19:35:17 cepek Exp $
  */
 
 
 #include <gnu_gama/list.h>
 #include <vector>
-#include <gamalib/matvec.h>
 
 #ifndef GNU_gama__obsdata_h_gnugamaobsdata_observation_data__gnu_gama_obsdata
 #define GNU_gama__obsdata_h_gnugamaobsdata_observation_data__gnu_gama_obsdata
@@ -46,7 +45,7 @@ namespace GNU_gama {
       
       const ObservationData<Observation>*  observation_data;
       List<Observation*>                   observation_list;
-      GaMaLib::Cov                         covariance_matrix;  
+      typename Observation::Cov            covariance_matrix;  
       
       
       Cluster(const ObservationData<Observation>* od) 
@@ -69,7 +68,7 @@ namespace GNU_gama {
       void update();
       
       int  activeCount() const { return act_count; }
-      GaMaLib::Cov  activeCov() const; 
+      typename Observation::Cov  activeCov() const; 
       
     private:    // no copy ctor and no assignment
       
@@ -155,7 +154,7 @@ namespace GNU_gama {
 
 
   template <class Observation>
-    GaMaLib::Cov Cluster<Observation>::activeCov() const
+    typename Observation::Cov Cluster<Observation>::activeCov() const
     {
       typedef std::size_t Index;
       const Index M = covariance_matrix.rows();
@@ -163,7 +162,7 @@ namespace GNU_gama {
       const Index N = activeCount();
       Index temp = B;
       if (N-1 < B) temp = N-1;
-      GaMaLib::Cov C(N, temp);     // vc++ ... std::min<Index>(B, N-1)
+      typename Observation::Cov C(N, temp);
       
       Index row = 1;
       Index col = row;
