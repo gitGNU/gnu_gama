@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.56 2005/03/27 17:43:26 cepek Exp $
+ *  $Id: version.cpp,v 1.57 2005/03/28 11:06:24 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.12";
+const char* GNU_gama_version  = "1.7.13-a";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -62,6 +62,9 @@ const char* GNU_gama_compiler =
 
 =============================================================================
 
+1.7.13 ....
+
+
 1.7.12 2005-03-27
 
     - MatVec templete library moved to namespace GNU_gama
@@ -79,9 +82,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.56 2005/03/27 17:43:26 cepek Exp $
+        <  *  $Id: version.cpp,v 1.57 2005/03/28 11:06:24 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.56 2005/03/27 17:43:26 cepek Exp $
+        >  *  $Id: version.cpp,v 1.57 2005/03/28 11:06:24 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),
