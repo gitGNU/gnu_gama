@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.21 2002/06/09 10:59:14 cepek Exp $
+ *  $Id: version.cpp,v 1.22 2002/06/09 11:29:46 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.3.39pre";
+const char* GaMaLib_version  = "1.3.39";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
@@ -57,7 +57,7 @@ const char* GaMaLib_compiler =
 
 =============================================================================
 
-1.3.39 ?????????? not yet released (available from CVS only)
+1.3.39 2002-06-09
 
    - various bugs reported by g++ 3.0.4 (Jan Pytel); files
      observation.h, g2d_coordinates.cpp, statan.cpp, write.cpp.
