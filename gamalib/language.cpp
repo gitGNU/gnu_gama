@@ -1,4 +1,4 @@
-/* slovnikar 1.02 */
+/* slovnikar 1.03 */
 
 #include <gamalib/language.h>
 

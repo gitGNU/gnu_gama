@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.9 2003/06/04 07:43:55 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.10 2003/06/04 08:00:04 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -67,7 +67,9 @@ Point* Model::get_point(const Point::Name& name)
 
 
 void Model::write_xml(std::ostream& out) 
-{ 
+{
+  using namespace std;
+ 
   GNU_gama::SaveFlags sf(out);
   out.setf(ios::fixed, ios::floatfield);
   out.precision(5);

@@ -18,7 +18,7 @@ $(LANGUAGES) : slovnikar $(FILES)
 
 slovnikar: slovnikar.cpp Makefile-slovnikar
 	( pwd; cd ../gamaprog/linux/lib; make -f Makefile-expat ) 
-	g++ -I.. -c slovnikar.cpp ../gamalib/xml/encoding.cpp	
+	g++ -I.. -c slovnikar.cpp ../gnu_gama/xml/encoding.cpp	
 	g++ -o slovnikar slovnikar.o encoding.o ../gamaprog/linux/lib/libgama.a
 
 
