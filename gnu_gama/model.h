@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: model.h,v 1.5 2003/12/24 17:25:12 uid66336 Exp $
+ *  $Id: model.h,v 1.6 2003/12/27 21:00:58 uid66336 Exp $
  */
 
 
@@ -60,7 +60,7 @@ namespace GNU_gama {
     virtual ~Observation() {}
     virtual int  dimension() const { return 1; }
     virtual bool revision_accept(ObservationVisitor* visitor) = 0;
-    // virtual void linearization_accept(ObservationVisitor* visitor) = 0;
+    virtual void linearization_accept(ObservationVisitor* visitor) = 0;
 
     bool active() const     { return  active_;      }
     bool set_active(bool b) { return (active_ = b); }
@@ -83,7 +83,7 @@ namespace GNU_gama {
   template <class Observation> class Linearization 
   {
   public:
-    virtual bool linearization_visit(Observation* observation) = 0;
+    virtual void linearization_visit(Observation* observation) = 0;
   };
     
   template <class Observation> 
@@ -93,7 +93,7 @@ namespace GNU_gama {
     typedef Observation                           ObservationType;
     typedef ObservationData<Observation>          ObsData;
 
-    ObsData  obsdata;
+    ObsData  obsdata; 
   };
   
 }

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_vec.h,v 1.9 2003/12/24 17:25:12 uid66336 Exp $
+ *  $Id: g3_obs_vec.h,v 1.10 2003/12/27 21:00:58 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_obs_base.h>
@@ -33,44 +33,37 @@
 namespace GNU_gama {  namespace g3 {
 
 
-  class Vector : private Observation {
+  class Vector : public Observation {
   public:  
     
-    Point::Name name[2];
+    Point::Name from;
+    Point::Name to;
     
-    Vector() : select(0) 
+    Vector()
     {
     }
-    Vector(double x, double y, double z) : select(0)
+    Vector(double x, double y, double z)
     {
-      dxyz_[0] = x; dxyz_[1] = y; dxyz_[2] = z;
+      dx_ = x; dy_ = y; dz_ = z;
     }
-    Vector(const Vector& v) : select(0)
+    Vector(const Vector& v)
     {
-      name[0] = v.name[0];
-      name[1] = v.name[1];
-
-      dxyz_[0] = v.dxyz_[0]; dxyz_[1] = v.dxyz_[1]; dxyz_[2] = v.dxyz_[2];
+      from = v.from;
+      to   = v.to;
+      
+      dx_ = v.dx_; dy_ = v.dy_; dz_ = v.dz_;
     }
-
+    
     int  dimension() const { return 3; }
     void set_dxyz(double x, double y, double z)
     {
-      dxyz_[0] = x; dxyz_[1] = y; dxyz_[2] = z;
+      dx_ = x; dy_ = y; dz_ = z;
     }
-
-    double dx() const { return dxyz_[0]; }
-    double dy() const { return dxyz_[1]; }
-    double dz() const { return dxyz_[2]; }
-
-    void   parlist_init (Model*);
-
-  private:
-
-    int select;
-
-    double dxyz_[3];
-
+    
+    double dx() const { return dx_; }
+    double dy() const { return dy_; }
+    double dz() const { return dz_; }
+    
     bool revision_accept(ObservationVisitor* visitor)
     {
       if (Revision<Vector>* rv = dynamic_cast<Revision<Vector>*>(visitor))
@@ -80,47 +73,22 @@ namespace GNU_gama {  namespace g3 {
       else
         return false;
     }
-
-    friend class Diff;
-  };
-
-
-
-  class Diff : public Observation {
-  public: 
-
-    Point::Name name[2];
-    
-    Diff(Vector* v, int r) : vec(v), sel(r)
+  
+    void linearization_accept(ObservationVisitor* visitor)
     {
-      name[0] = vec->name[0];
-      name[1] = vec->name[1];
+      if (Linearization<Vector>* 
+          lv = dynamic_cast<Linearization<Vector>*>(visitor))
+        {
+          lv->linearization_visit(this);
+        }
     }
-
-    double obs() const 
-    { 
-      return vec->dxyz_[sel]; 
-    }
-    bool   revision_accept(ObservationVisitor* visitor) 
-    { 
-      return vec->revision_accept(visitor); 
-    }
-
-    Vector* vector() const { return vec; }
-
+  
+    
   private:
     
-    Vector*   vec;
-    const int sel;
-
+    double dx_, dy_, dz_;
   };
-
-
-
-  class DiffX : public Diff { public: DiffX(Vector* v) : Diff(v, 0) {} };
-  class DiffY : public Diff { public: DiffY(Vector* v) : Diff(v, 1) {} };
-  class DiffZ : public Diff { public: DiffZ(Vector* v) : Diff(v, 2) {} };
-
+  
 }}
 
 

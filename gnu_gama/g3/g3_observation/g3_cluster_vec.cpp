@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_cluster_vec.cpp,v 1.9 2003/12/24 11:34:11 uid66336 Exp $
+ *  $Id: g3_cluster_vec.cpp,v 1.10 2003/12/27 21:00:58 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_cluster_vec.h>
@@ -42,10 +42,6 @@ Vectors::~Vectors()
 void Vectors::add(Vector* v)
 {
   vectors.push_back(v);
-
-  observation_list.push_back( new DiffX(v) );
-  observation_list.push_back( new DiffY(v) );
-  observation_list.push_back( new DiffZ(v) );
 }
 
 
@@ -68,8 +64,8 @@ void Vectors::write_xml(std::ostream& out) const
       out.setf(ios_base::fixed, ios_base::floatfield);
 
       out << "\n<vector>\n\t"
-          << "<from>" << v->name[0].c_str() << "</from> "
-          << "<to>"   << v->name[1].c_str() << "</to>\n\t"
+          << "<from>" << v->from.c_str() << "</from> "
+          << "<to>"   << v->to.c_str()   << "</to>\n\t"
           << "<dx>"   << v->dx() << "</dx> "
           << "<dy>"   << v->dy() << "</dy> "
           << "<dz>"   << v->dz() << "</dz>\n";

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.15 2003/12/25 17:51:59 uid66336 Exp $
+ *  $Id: g3_model.h,v 1.16 2003/12/27 21:00:58 uid66336 Exp $
  */
 
 #include <gnu_gama/model.h>
@@ -30,7 +30,8 @@
 #include <gnu_gama/ellipsoids.h>
 #include <gnu_gama/g3/g3_point.h>
 #include <gnu_gama/g3/g3_observation.h>
-
+#include <gnu_gama/sparse/smatrix.h>
+#include <gnu_gama/sparse/sbdiagonal.h>
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
 #define GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -41,7 +42,8 @@ namespace GNU_gama {  namespace g3 {
   
   class Model : 
     public GNU_gama::Model<g3::Observation>,
-    public Revision<Distance>
+    public Revision     <Distance>,
+    public Linearization<Distance>
   {
   public:
     
@@ -78,8 +80,8 @@ namespace GNU_gama {  namespace g3 {
     void update_adjustment();
     
     
-    // virtual functions derived from template class Revision<>
-    bool revision_visit(Distance* d);
+    bool revision_visit     (Distance* d);
+    void linearization_visit(Distance* d);
 
 
   private:   /*-----------------------------------------------------------*/
@@ -96,7 +98,13 @@ namespace GNU_gama {  namespace g3 {
     void next_state_(int s) { state_ = State_(++s); }
     bool check_init() const { return state_ > init_; }
     void update_init();
-    
+        
+
+    // design matrix
+    int dm_rows, dm_cols, dm_floats;
+    SparseMatrix <>*  A;
+    BlockDiagonal<>*  B;
+
   };
   
 }}

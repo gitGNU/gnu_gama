@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.10 2003/12/23 19:52:49 uid66336 Exp $
+ *  $Id: dataparser.cpp,v 1.11 2003/12/27 21:00:58 uid66336 Exp $
  */
 
 // #########################################################################
@@ -989,8 +989,8 @@ int DataParser::g3_vector(const char *name)
   using namespace g3;
   
   Vector* v = new Vector(dx, dy, dz);
-  v->name[0] = g3vec_from;
-  v->name[1] = g3vec_to;
+  v->from = g3vec_from;
+  v->to   = g3vec_to;
 
   g3::Model::ObservationData *obs = mg3->obs;
   Vectors* vectors = new Vectors(obs);

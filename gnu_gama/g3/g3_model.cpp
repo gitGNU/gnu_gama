@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.19 2003/12/25 17:51:59 uid66336 Exp $
+ *  $Id: g3_model.cpp,v 1.20 2003/12/27 21:00:58 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -40,6 +40,9 @@ Model::Model()
   points = new PointBase;
   obs    = new ObservationData;
 
+  A = 0;
+  B = 0;
+
   points->set_common_data(this); 
   set(&ellipsoid, ellipsoid_wgs84);
 
@@ -51,7 +54,8 @@ Model::~Model()
 {
   delete points;
   delete obs;
-
+  delete A;
+  delete B;
 }
 
 
@@ -171,6 +175,8 @@ void Model::update_observations()
   if (!check_points()) update_points();
 
   active_obs.clear();
+  dm_rows = dm_cols = dm_floats = 0;   // dimension and size of design matrix
+
   for (ObservationData::iterator i=obs->begin(), e=obs->end(); i!=e; ++i)
     {
       (*i)->revision_accept(this);
@@ -183,6 +189,14 @@ void Model::update_observations()
 void Model::update_linearization()
 {
   if (!check_observations()) update_observations();
+
+  // delete A;   A = new SparseMatrix<>(dm_floats, dm_rows, dm_cols);
+  // delete B;   B = new BlockDiagonal<>;
+
+  for (ObservationData::iterator i=obs->begin(), e=obs->end(); i!=e; ++i)
+    {
+      (*i)->linearization_accept(this);
+    }
 
   return next_state_(linear_);
 }
@@ -209,6 +223,19 @@ bool Model::revision_visit(Distance* d)
 
   active_obs.push_back(d);
 
+  dm_rows++;        // design matrix
+  // dm_cols ... doplnit
+  dm_floats += 6;
+
   return d->active();
+}
+
+
+void Model::linearization_visit(Distance* d)
+{
+  const Point* from = points->find(d->from);
+  const Point* to   = points->find(d->to  );
+
+  // ....
 }
 

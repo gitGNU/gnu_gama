@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_dist.h,v 1.6 2003/12/24 17:25:12 uid66336 Exp $
+ *  $Id: g3_obs_dist.h,v 1.7 2003/12/27 21:00:58 uid66336 Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_obs_base.h>
@@ -42,7 +42,8 @@ namespace GNU_gama {  namespace g3 {
     Distance() {}
     Distance(double d) : distance(d) {}
 
-    double obs() const { return distance; }
+    double obs() const   { return distance; }
+    void   set(double d) { distance = d;    }
 
     bool revision_accept(ObservationVisitor* visitor)
     {
@@ -52,6 +53,15 @@ namespace GNU_gama {  namespace g3 {
         }
       else
         return false;
+    }
+  
+    void linearization_accept(ObservationVisitor* visitor)
+    {
+      if (Linearization<Distance>* 
+          lv = dynamic_cast<Linearization<Distance>*>(visitor))
+        {
+          lv->linearization_visit(this);
+        }
     }
 
 
