@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.35 2004/04/19 18:00:18 cepek Exp $
+ *  $Id: version.cpp,v 1.36 2004/04/19 18:41:08 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.10-e";
+const char* GNU_gama_version  = "1.7.10-f";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)

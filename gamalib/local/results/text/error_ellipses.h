@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: error_ellipses.h,v 1.8 2004/04/19 18:00:16 cepek Exp $
+ *  $Id: error_ellipses.h,v 1.9 2004/04/19 18:41:08 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Elipsy_Chyb_h_
@@ -47,7 +47,7 @@ void ErrorEllipses(GaMaLib::LocalNetwork* IS, OutStream& out)
      Double alfa = (1 - IS->conf_pr());
      if (IS->m_0_apriori())
        {
-	 elp_k = sqrt(GaMaLib::Chi_square(float(alfa), 2));
+	 elp_k = sqrt(GNU_gama::Chi_square(float(alfa), 2));
        }
      else
        {

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: residuals_observations.h,v 1.8 2004/04/19 18:00:17 cepek Exp $
+ *  $Id: residuals_observations.h,v 1.9 2004/04/19 18:41:08 cepek Exp $
  */
 
 
@@ -35,7 +35,7 @@
 static float ResidualsObservations_N01(float x)   // local helper function
 {
    double D, f;
-   GaMaLib::NormalDistribution(double(x), D, f);
+   GNU_gama::NormalDistribution(double(x), D, f);
    return D;
 }
 
@@ -302,7 +302,8 @@ void ResidualsObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
           for (int i=1; i<=pocmer; i++) pv(i) = (pv(i) - pvstr) / pvvar;
         
         float  ks, prob;
-        GaMaLib::KStest(pv.begin(), pocmer, ResidualsObservations_N01, ks, prob);
+        GNU_gama::KStest(pv.begin(), 
+                         pocmer, ResidualsObservations_N01, ks, prob);
         
         
         out.setf(ios_base::fixed, ios_base::floatfield);

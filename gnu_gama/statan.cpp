@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: statan.cpp,v 1.1 2004/04/19 18:08:37 cepek Exp $
+ *  $Id: statan.cpp,v 1.2 2004/04/19 18:41:08 cepek Exp $
  */
 
 #include <gnu_gama/statan.h>
@@ -38,7 +38,7 @@
 
 using namespace std;
 
-namespace GaMaLib {
+namespace GNU_gama {
 
 // Vypocet kritickych hodnot Studentova rozdeleni
 
@@ -254,7 +254,7 @@ float KSprob(float lambda)
 
 float Chi_square(float p, int n)
 {
-   if (n < 2)                     // Omnia Vincit Fortran IV
+   if (n < 2)            
    {
       float a = Normal(0.5*p);
       return a*a;

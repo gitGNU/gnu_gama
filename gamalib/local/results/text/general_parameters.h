@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: general_parameters.h,v 1.6 2004/04/19 18:00:16 cepek Exp $
+ *  $Id: general_parameters.h,v 1.7 2004/04/19 18:41:08 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Zakladni_Parametry_h_
@@ -345,8 +345,8 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
       if (IS->m_0_aposteriori())
         {
           float testm0 = IS->m_0() / IS->apriori_m_0();
-          float dolni = sqrt(GaMaLib::Chi_square(1-alfa_pul,nadb)/nadb);
-          float horni = sqrt(GaMaLib::Chi_square(  alfa_pul,nadb)/nadb);
+          float dolni = sqrt(GNU_gama::Chi_square(1-alfa_pul,nadb)/nadb);
+          float horni = sqrt(GNU_gama::Chi_square(  alfa_pul,nadb)/nadb);
           
           out << T_GaMa_Ratio_empirical_to_apriori << setprecision(3)
               << testm0 << '\n'
@@ -430,10 +430,10 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
       bool aprm0 = IS->m_0_apriori();
       float krit_opr;
       if (aprm0)
-        krit_opr = GaMaLib::Normal(alfa_pul);
+        krit_opr = GNU_gama::Normal(alfa_pul);
       else
         {
-          float s = GaMaLib::Student(alfa_pul, nadb-1);
+          float s = GNU_gama::Student(alfa_pul, nadb-1);
           float t = s*s;
           krit_opr = sqrt(nadb*t/(nadb-1+t));
         }

@@ -20,15 +20,15 @@
 */
 
 /*
- *  $Id: statan.h,v 1.1 2004/04/19 18:08:37 cepek Exp $
+ *  $Id: statan.h,v 1.2 2004/04/19 18:41:08 cepek Exp $
  */
 
-#ifndef GaMaLib_StatAn_h
-#define GaMaLib_StatAn_h
+#ifndef GNU_gama___gnu_gama____StatAn_h
+#define GNU_gama___gnu_gama____StatAn_h
 
 #include <cmath>
 
-namespace GaMaLib {
+namespace GNU_gama {
 
 float Student(float alfa, int N);
 /*

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.14 2004/04/19 18:00:16 cepek Exp $
+ *  $Id: network.cpp,v 1.15 2004/04/19 18:41:08 cepek Exp $
  */
 
 #include <fstream>
@@ -493,12 +493,12 @@ Double LocalNetwork::conf_int_coef()
   
   Double pravdepodobnost = (1 - konf_pr_)/2;
   if (m_0_apriori())
-    return Normal(pravdepodobnost);
+    return GNU_gama::Normal(pravdepodobnost);
   else if (m_0_aposteriori())
     {
       const int nadb = degrees_of_freedom();
       if ( nadb > 0)
-        return Student(pravdepodobnost, nadb);
+        return GNU_gama::Student(pravdepodobnost, nadb);
       else
         return 0;
     }
