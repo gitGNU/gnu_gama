@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_helper.h,v 1.3 2002/12/18 12:44:17 cepek Exp $
+ *  $Id: g2d_helper.h,v 1.4 2002/12/18 13:23:28 cepek Exp $
  */
 
 /*********************************************************************
@@ -115,8 +115,9 @@ namespace GaMaLib {
   // --------------------------------------------------------------
   inline bool g2d_even(std::vector<Double>::size_type& x)
     {
-      using namespace std;
-      return (fmod(x,2) == 0);
+      // using namespace std;
+      // return (fmod(x,2) == 0);
+      return x%2 == 0;
     };
 
   
