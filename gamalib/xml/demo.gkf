@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<!DOCTYPE gama-xml SYSTEM "gama-xml.dtd">
+
+<gama-xml>
+<network>
+
+<parameters
+   sigma-apr = "   10 "
+   conf-pr   = " 0.95 "
+   tol-abs   = " 1000 "
+   sigma-act = "aposteriori"
+/>
+
+
+<points-observations distance-stdev='5.0' direction-stdev="10.0">
+
+<point id=  "1" y=" 644498.590 "  x=" 1054980.484 " fix="xy" />
+<point id=  "2" y=" 643654.101 "  x=" 1054933.801 " fix="xy" />
+<point id="403" adj="xy" />
+
+<obs from="1">
+   <direction  to=  "2" val=  "0.0000" />
+   <direction  to="422" val= "28.2057" />
+   <distance   to="403" val= "388.536" />
+   <distance   to="407" val= "498.750" />
+   <s-distance to="502" val= "843.423" />
+   <z-angle    to="502" val= "90.2372" />
+</obs>
+
+<obs from="403">
+   <direction  to=  "1" val=  "0.0000" />
+   <direction  to="407" val="313.5542" />
+   <distance to="407" val="405.4030" />
+</obs>
+
+<height-differences>
+      <dh from="1002" to="1004"  val=" 56.231" dist="432.2" />
+      <dh from="1002" to="1006"  val="112.301" dist=" 23.5" />
+      <dh from="1004" to="1005"  val=" -2.380" dist="523.1" />
+</height-differences>
+
+</points-observations>
+
+
+</network>
+</gama-xml>
+
+
+
+
+
+
+

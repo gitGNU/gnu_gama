@@ -1,7 +1,6 @@
 /*  
     Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
-    Copyright (C) 1999  Jiri Vesely <vesely@gama.fsv.cvut.cz>
-                  2001  Ales Cepek  <cepek@fsv.cvut.cz>
+    Copyright (C) 2001  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the GNU GaMa / GaMaLib C++ Library.
     
@@ -21,32 +20,28 @@
 */
 
 /*
- *  $Id: g2d_exception.h,v 1.1 2001/12/07 12:46:44 cepek Exp $
+ *  $Id: direction.h,v 1.1 2001/12/07 12:54:43 cepek Exp $
  */
 
-/******************************************************************
- * local exception for GaMaLib (Median)                           *
- ******************************************************************/
- 
-#ifndef GaMaLib_g2d_exception_h__GaMaLib_Median_Vyjimky_H
-#define GaMaLib_g2d_exception_h__GaMaLib_Median_Vyjimky_H
+#include <gamalib/local/revision.h>
 
-#include <gamalib/exception.h>
-#include <gamalib/language.h>
+using namespace GaMaLib;
+using namespace std;
 
-namespace GaMaLib 
+
+bool LocalRevision::direction(const Direction* obs) const
 {
+  if (!obs->active()) return false; 
+  
+  PointData::const_iterator s = PD.find(obs->from());
+  if (s == PD.end()) return false;
+  if (!(*s).second.active_xy()) return false;
+  if (!(*s).second.test_xy()) return false;
 
-  class g2d_exc : public GaMaLib::Exception
-    {
-    public:
-      g2d_exc(const std::string& description) : 
-        GaMaLib::Exception(T_IE_internal_error+std::string(" ")+description) 
-        {
-        }
-    };
-    
-}  // GaMaLib
+  PointData::const_iterator c = PD.find(obs->to());
+  if (c == PD.end()) return false;
+  if (!(*c).second.active_xy()) return false;
+  if (!(*c).second.test_xy()) return false;
 
-#endif
-
+  return true;
+}

@@ -1,0 +1,8 @@
+
+
+demo : smatrix.h
+	rm -f demo.cpp
+	ln -s smatrix.h demo.cpp
+	g++ -o demo -D GaMaLib_Sparse_General_Matrix_demo demo.cpp
+	rm -f demo.cpp
+

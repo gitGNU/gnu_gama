@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="iso-8859-2" standalone="yes" ?> 
+<entries>
+
+<e id="T_GKF_illegal_text"
+   en="illegal text"
+   cz="nepovolený text" />
+
+<e id="T_GKF_must_start_with_gama_xml"
+   en="document must start with tag &lt;gama-xml&gt;"
+   cz="dávka musí začínat značkou &lt;gama-xml&gt;" />
+
+<e id="T_GKF_undefined_value_of_attribute"
+   en="illegal value of the attribute: "
+   cz="nepovolená hodnota atributu: " />
+
+<e id="T_GKF_illegal_value_of_gama_xml_version"
+   en="illegal value of attribue 'version' of tag &lt;gama-xml&gt;: "
+   cz="nepovolená hodnota atributu 'version' znacky &lt;gama-xml&gt;: " />
+
+<e id="T_GKF_undefined_attribute_of_gama_xml"
+   en="undefined attribute of tag &lt;gama-xml&gt;: "
+   cz="nedefinovaný atribut značky &lt;gama-xml&gt;: " />
+
+<e id="T_GKF_undefined_attribute_of_vectors"
+   en="undefined attribute of tag &lt;vectors&gt;: "
+   cz="nedefinovaný atribut značky &lt;vectors&gt;: " />
+
+<e id ="T_GKF_missing_tag_network"
+   en="missing tag &lt;network&gt;"
+   cz="chybí značka &lt;network&gt;" />
+
+<e id="T_GKF_e01a_illegal_tag"
+   en="illegal_tag &lt;"
+   cz="nepovolená značka &lt;" />
+
+<e id="T_GKF_e01b_after_tag"
+   en="&gt; after tag"
+   cz="&gt; za značkou" />
+
+<e id="T_GKF_error_on_reading_of_standard_deviation"
+   en="error on reading of standard deviation"
+   cz="chyba při čtení apriorní jednotkové střední chyby" />
+
+<e id="T_GKF_error_on_reading_of_confidence_probability"
+   en="error on reading of confidence probability"
+   cz="chyba při čtení konfidenční pravděpodobnosti" />
+
+<e id="T_GKF_error_on_reading_of_absolute_terms_tolerance"
+   en="error on reading of tolerance for identification of outlying absolute terms"
+   cz="chyba při čtení tolerance pro identifikaci vybočujících absolutních členů" />
+
+<e id="T_GKF_wrong_type_of_standard_deviation"
+   en="wrong type of standard deviation" 
+   cz="chybný typ empirické jednotkové střední chyby" />
+
+<e id="T_GKF_bad_network_configuration_unknown_parameter"
+   en="bad network configuration - unknown parameter: "
+   cz="chybná konfigurace sítě - neznámý parametr: " />
+
+<e id="T_GKF_bad_attribute_distance_dev"
+   en="bad attribute distance-stdev: "
+   cz="chybný atribut distance-stdev: " />
+
+<e id="T_GKF_bad_attribute_direction_dev"
+   en="bad attribute direction-stdev: "
+   cz="chybný atribut direction-stdev: " />
+
+<e id="T_GKF_bad_attribute_angle_dev"
+   en="bad attribute angle-stdev: "
+   cz="chybný atribut angle-stdev: " />
+
+<e id="T_GKF_undefined_attribute_of_points_observations"
+   en="undefined attribute of &lt;points-observations&gt;: " 
+   cz="nedefinovaný atribut značky &lt;points-observations&gt;: " />
+
+<e id="T_GKF_undefined_attribute_of_points"
+   en="undefined attribute of &lt;point&gt;: " 
+   cz="nedefinovaný atribut značky &lt;point&gt;: " />
+
+<e id="T_GKF_missing_point_ID"
+   en="missing point ID"
+   cz="chybí číslo bodu" />
+
+<e id="T_GKF_missing_from_ID"
+   en="missing point ID (attribute from=\&quot;...\&quot;)"
+   cz="chybí číslo bodu (atribut from=\&quot;...\&quot;)" />
+
+<e id="T_GKF_missing_to_ID"
+   en="missing point ID (attribute to=\&quot;...\&quot;)"
+   cz="chybí číslo bodu (atribut to=\&quot;...\&quot;)" />
+
+<e id="T_GKF_multiple_definition_of_xy_in_tag_point"
+   en="multiple dexinition of coordinates xy in tag &lt;point&gt;"
+   cz="vícenásobná definice souřadnic xy ve značce &lt;point&gt;" />
+
+<e id="T_GKF_multiple_definition_of_z_in_tag_point"
+   en="multiple definition of coordinate z in tag &lt;point&gt;"
+   cz="vícenásobná definice souřadnice z ve značce &lt;point&gt;" /> 
+
+<e id="T_GKF_point_must_define_xy_andor_z_inside_tag_coordinates"
+   en="tag &lt;point /&gt; must define coordinates xy and/or z inside tag &lt;coordinates&gt;"
+   cz="značka &lt;point /&gt; musí definovat souřadnice xy anebo z uvnitř značky &lt;coordinates&gt;" />
+
+<e id="T_GKF_coordinate_x_is_not_defined"
+   en="coordinate x is not defined"
+   cz="není definována souřadnice x" />
+
+<e id="T_GKF_coordinate_y_is_not_defined"
+   en="coordinate y is not defined"
+   cz="není definována souřadnice y" />
+
+<e id="T_GKF_bad_coordinate_x"
+   en="bad coordinate x: "
+   cz="chybná souřadnice x:" />
+
+<e id="T_GKF_bad_coordinate_y"
+   en="bad coordinate y: "
+   cz="chybná souřadnice y:" />
+
+<e id="T_GKF_bad_height"
+   en="bad height: "
+   cz="chybná výška: " />
+
+<e id="T_GKF_undefined_point_type"
+   en="undefined point type: "
+   cz="nedefinovaný typ bodu: " />
+
+<e id="T_GKF_undefined_height_type"
+   en="undefined height type: "
+   cz="nedefinovaný typ výšky: " />
+
+<e id="T_GKF_undefined_attribute_of_distance"
+   en="undefined attribute of &lt;distance&gt;: " 
+   cz="nedefinovaný atribut značky &lt;distance&gt;: " />
+
+<e id="T_GKF_undefined_attribute_of_slopedist"
+   en="undefined attribute of &lt;s-distance&gt;: " 
+   cz="nedefinovaný atribut značky &lt;s-distance&gt;: " />
+
+<e id="T_GKF_undefined_attribute_of_zangle"
+   en="undefined attribute of &lt;z-angle&gt;: " 
+   cz="nedefinovaný atribut značky &lt;z-angle&gt;: " />
+
+<e id="T_GKF_missing_standpoint_id"
+   en="missing standpoint ID"
+   cz="chybí číslo stanoviska" />
+
+<e id="T_GKF_missing_forepoint_id"
+   en="missing forepoint ID"
+   cz="chybí číslo cíle" />
+
+<e id="T_GKF_missing_observed_value"
+   en="missing observed value"
+   cz="chybí měřená hodnota" />
+
+<e id="T_GKF_bad_distance"
+   en="bad distance: "
+   cz="chybná délka: " />
+
+<e id="T_GKF_illegal_standard_deviation"
+   en="illegal standard deviation"
+   cz="neplatná střední chyba" />
+
+<e id="T_GKF_undefined_attribute_of_angle"
+   en="undefined attribute of &lt;angle&gt;: " 
+   cz="nedefinovaný atribut značky &lt;angle&gt;: " />
+
+<e id="T_GKF_missing_left_forepoint_id"
+   en="missing left forepoint ID"
+   cz="chybí číslo cíle vlevo" />
+
+<e id="T_GKF_missing_right_forepoint_id"
+   en="missing right forepoint ID"
+   cz="chybí číslo cíle vpravo" />
+
+<e id="T_GKF_bad_angle"
+   en="bad angle: "
+   cz="chybný úhel: " />
+
+<e id="T_GKF_undefined_attribute_of_obs"
+   en="undefined attribute of &lt;obs&gt;: " 
+   cz="nedefinovaný atribut značky &lt;obs&gt;: " />
+
+<e id="T_GKF_bad_orientation_angle"
+   en="bad orientation angle: "
+   cz="chybný orientační posun: " />
+
+<e id="T_GKF_undefined_attribute_of_direction"
+   en="undefined attribute of &lt;direction&gt;: " 
+   cz="nedefinovaný atribut značky &lt;direction&gt;: " />
+
+<e id="T_GKF_bad_direction"
+   en="bad direction: "
+   cz="chybný směr: " />
+
+<e id="T_GKF_bad_height_diff"
+   en="bad height difference: "
+   cz="chybné převýšení: " />
+
+<e id="T_GKF_undefined_attribute_of_cov_mat"
+   en="undefined attribute of &lt;cov-mat&gt;: " 
+   cz="nedefinovaný atribut značky &lt;cov-mat&gt;: " />
+
+<e id="T_GKF_undefined_attribute_of_coordinates"
+   en="undefined attribute of &lt;coordinates&gt;: " 
+   cz="nedefinovaný atribut značky &lt;coordinates&gt;: " />
+
+<e id="T_GKF_undefined_attribute_of_height_differences"
+   en="undefined attribute of &lt;height-differences&gt;: " 
+   cz="nedefinovaný atribut značky &lt;height-differences&gt;: " />
+
+<e id="T_GKF_cov_mat_missing_dim"
+   en="missing dimension of covariance matrix"
+   cz="chybí dimenze kovarianční matice" />
+
+<e id="T_GKF_cov_mat_missing_band_width"
+   en="missing band-width of covariance matrix"
+   cz="chybí šířka pásu kovarianční matice" />
+
+<e id="T_GKF_covariance_matrix_is_not_positive_definite"
+   en="variance-covariance matrix is not positive definite"
+   cz="varianční-kovarianční matice není positivně definitní" />
+
+<e id="T_GKF_cov_mat_bad_dim"
+   en="bad dimension of covariance matrix: "
+   cz="chybná dimenze kovarianční matice: " />
+
+<e id="T_GKF_cov_mat_bad_band_width"
+   en="missing band-width of covariance matrix: "
+   cz="chybna šířka pásu kovarianční matice: " />
+
+<e id="T_GKF_cov_mat_bad_dim_too_many_elements"
+   en="bad dimension of covariance matrix - too many elements"
+   cz="chybná dimenze kovarianční matice - příliš mnoho prvků" />
+
+<e id="T_GKF_cov_mat_bad_dim_not_enough_elements"
+   en="bad dimension of covariance matrix - not enough elements"
+   cz="chybná dimenze kovarianční matice - nedostatečný počet prvků" />
+
+<e id="T_GKF_cov_mat_bad_element"
+   en="bad covariance matrix element: "
+   cz="chybny prvek kovarianční matice: " />
+
+<e id="T_GKF_no_observations_after_cov_mat"
+   en="observations can not come after covariance matrix"
+   cz="meření nesmí následovat za kovarianční maticí" />
+
+<e id="T_GKF_coordinates_without_covariance_matrix"
+   en="coordinates without covariance matrix"
+   cz="souřadnice bez kovarianční matice" />
+
+<e id="T_GKF_cov_dim_differs_from_number_of_coordinates"
+   en="covariance matrix dimension differs from the number of coordinates"
+   cz="dimenze kovarianční matice se neshoduje s počtem souřadnic" />
+
+<e id="T_GKF_vectors_without_covariance_matrix"
+   en="vectors without covariance matrix"
+   cz="vektory bez kovarianční matice" />
+
+<e id="T_GKF_cov_dim_differs_from_number_of_vectors"
+   en="covariance matrix dimension differs from the number of vectors"
+   cz="dimenze kovarianční matice se neshoduje s počtem vektorů" />
+
+<e id="T_GKF_bad_vector_data"
+   en="bad vector data"
+   cz="chybný vektor" />
+
+</entries>   
+
+
+
+
+
+
