@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_point.cpp,v 1.8 2004/09/02 11:36:06 cepek Exp $
+ *  $Id: g2d_point.cpp,v 1.9 2004/09/02 12:54:13 cepek Exp $
  */
 
 /*************************************************************
@@ -102,14 +102,6 @@ namespace GaMaLib {
     // from and to the stanpoint, identical angles, ... etc.
     ArrangeObservations(sm_pom);
 
-#ifdef PB_Debug
-    std::cout << "\n***** reset done *****\nfor poind ID " << CB << '\n';
-    std::cout << "***** directions on the standpoint *****\n" << sm_s << '\n';
-    std::cout << "***** inner angles from directions  *****\n" << SM_U << '\n';
-    std::cout << "***** outer bearing *****\n"  << SM_S << '\n';
-    std::cout << "***** other observations *****\n" << sm_pom << '\n';
-    std::cout << "+++++ observations with a point +++++\n" << SM << '\n';
-#endif
   }  /* ApproxPoint::reset(PointData& sb, const ObservationList& sm, 
          const PointID& cb) */
 
@@ -178,11 +170,6 @@ namespace GaMaLib {
                 if(VR->State() == 1)         // unique solution selection
                   {
                     Solved_points.push_back(VR->Solution());
-#ifdef PB_Debug
-                    std::cout.precision(10);
-                    std::cout << "-> " << VR->Solution().y() << ' ' 
-                              << VR->Solution().x() << '\n';
-#endif
                   }
                 if(Solved_points.empty() && 
                    (VR -> State() == 0)  &&  (!two_solutions))
@@ -196,10 +183,6 @@ namespace GaMaLib {
             case 1 :
               {
                 Solved_points.push_back(GU->Solution_1());
-#ifdef PB_Debug
-                std::cout << "-> " << GU->Solution_1().y() << ' ' 
-                          << GU->Solution_1().x() << '\n';
-#endif
               }
               break;
             default : // void solution remains - nothing else could be done
@@ -214,11 +197,6 @@ namespace GaMaLib {
         Statistics_g2d* ST = new Statistics_g2d(&Solved_points);
         ST->Calculation();
         v_point = ST->Median();
-#ifdef PB_Debug
-        std::cout.precision(10);
-        std::cout << '*' << ST->Median().y() << ' ' 
-                  << ST->Median().x() << '\n';
-#endif
       }
     else
       state = no_solution;
@@ -229,18 +207,40 @@ namespace GaMaLib {
         state = ambiguous_solution;   // two solutions
       }
 
-#ifdef PB_Debug
-    for(std::vector<LocalPoint>::const_iterator i = Solved_points.begin(); 
-        i != Solved_points.end(); i++)
-      std::cout << "-> " << i->y() << ' ' << i->x() << '\n';
-#endif
   }      // void ApproxPoint::Calculation()
 
 
 
   void ApproxPoint::ArrangeObservations(ObservationList& psm_pom)
   {
-    std::list<Observation*> sm_pom;
+    // ----------------------------------------------------------------------
+    // in this function we use std:list instead of GNU_gama::List
+    // tu allow 'erase' of list elements
+ 
+    typedef std::list<Observation*> ObservationList;
+
+    ObservationList sm_pom;
+    for (GaMaLib::ObservationList::iterator 
+           i=psm_pom.begin(), e=psm_pom.end(); i!=e; ++i)
+      {
+        sm_pom.push_back(*i);
+      }
+
+    ObservationList SM_S;
+    for (GaMaLib::ObservationList::iterator 
+           i=ApproxPoint::SM_S.begin(), e=ApproxPoint::SM_S.end(); i!=e; ++i)
+      {
+        SM_S.push_back(*i);
+      }
+
+    ObservationList SM_U;
+    for (GaMaLib::ObservationList::iterator 
+           i=ApproxPoint::SM_U.begin(), e=ApproxPoint::SM_U.end(); i!=e; ++i)
+      {
+        SM_U.push_back(*i);
+      }
+
+    // ----------------------------------------------------------------------
 
     ObservationList::iterator i, j;
     // distances
@@ -263,19 +263,22 @@ namespace GaMaLib {
                            d1->from() == d2->to())))
                   {
                     pom_sez.push_back(d2->value());
-                    sm_pom.erase(j);
+                    j = sm_pom.erase(j);
                   }
                 else
                   j++;
               }
             std::sort(pom_sez.begin(),pom_sez.end());
             std::vector<Double>::size_type size = pom_sez.size();
-            med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
+            med = (g2d_even(size) ? 
+                   (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
                    pom_sez[(size+1)/2-1]);
             Distance* DD 
-              = new Distance(CB, (d1->from()==CB?d1->to():d1->from()), med);
+              = new Distance(CB, (d1->from()==CB ?
+                                  d1->to() :
+                                  d1->from()), med);
             SM.push_back(DD);
-            sm_pom.erase(i);
+            i = sm_pom.erase(i);
             pom_sez.erase(pom_sez.begin(), pom_sez.end());
           }
         else
@@ -296,7 +299,7 @@ namespace GaMaLib {
             if(s1->from() == s2->from())
               {
                 pom_sez.push_back(s2->value());
-                SM_S.erase(j);
+                j = SM_S.erase(j);
                 delete(s2);
               }
             else
@@ -304,11 +307,12 @@ namespace GaMaLib {
           }
         std::sort(pom_sez.begin(),pom_sez.end());
         std::vector<Double>::size_type size = pom_sez.size();
-        med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
+        med = (g2d_even(size) ? 
+               (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
                pom_sez[(size+1)/2-1]);
         Direction* SS = new Direction(s1->from(),s1->to(),med);
         SM.push_back(SS);
-        SM_S.erase(i);
+        i = SM_S.erase(i);
         delete(s1);
         pom_sez.erase(pom_sez.begin(), pom_sez.end());
       }
@@ -329,9 +333,11 @@ namespace GaMaLib {
             if(((u1->to()==u2->to())&&(u1->fs()==u2->fs()))||
                ((u1->to()==u2->fs())&&(u1->fs()==u2->to())))
               {
-                u_mer = (u1->to() == u2->to() ? u2->value() : 2*M_PI-u2->value());
+                u_mer = (u1->to() == u2->to() ? 
+                         u2->value() 
+                         : 2*M_PI-u2->value());
                 pom_sez.push_back(u_mer);
-                SM_U.erase(j);
+                j = SM_U.erase(j);
                 delete(u2);
               }
             else
@@ -339,7 +345,8 @@ namespace GaMaLib {
           }
         std::sort(pom_sez.begin(),pom_sez.end());
         std::vector<Double>::size_type size = pom_sez.size();
-        med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
+        med = (g2d_even(size) ? 
+               (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
                pom_sez[(size+1)/2-1]);
         Angle* UU;
         if(med >= M_PI)
@@ -348,7 +355,7 @@ namespace GaMaLib {
         else
           UU = new Angle(u1->from(),u1->to(),u1->fs(),med);
         SM.push_back(UU);
-        sm_pom.erase(i);
+        i = sm_pom.erase(i);
         pom_sez.erase(pom_sez.begin(), pom_sez.end());
       }
     i = SM_U.begin();
@@ -365,9 +372,11 @@ namespace GaMaLib {
             if(((u1->to()==u2->to())&&(u1->fs()==u2->fs()))||
                ((u1->to()==u2->fs())&&(u1->fs()==u2->to())))
               {
-                u_mer = (u1->to() == u2->to() ? u2->value() : 2*M_PI-u2->value());
+                u_mer = (u1->to() == u2->to() ? 
+                         u2->value() : 
+                         2*M_PI-u2->value());
                 pom_sez.push_back(u_mer);
-                SM_U.erase(j);
+                j = SM_U.erase(j);
                 delete(u2);
               }
             else
@@ -375,7 +384,8 @@ namespace GaMaLib {
           }
         std::sort(pom_sez.begin(),pom_sez.end());
         std::vector<Double>::size_type size = pom_sez.size();
-        med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
+        med = (g2d_even(size) ? 
+               (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
                pom_sez[(size+1)/2-1]);
         Angle* UU;
         if(med >= M_PI)
@@ -384,10 +394,35 @@ namespace GaMaLib {
         else
           UU = new Angle(u1->from(),u1->to(),u1->fs(),med);
         SM.push_back(UU);
-        SM_U.erase(i);
+        i = SM_U.erase(i);
         delete(u1);
         pom_sez.erase(pom_sez.begin(), pom_sez.end());
       }
+
+    // ----------------------------------------------------------------------
+    // now we copy working std::lists back
+
+    psm_pom.clear();
+    for (ObservationList::iterator 
+           i=sm_pom.begin(), e=sm_pom.end(); i!=e; ++i)
+      {
+        psm_pom.push_back(*i);
+      }
+
+    ApproxPoint::SM_S.clear();
+    for (ObservationList::iterator 
+           i=SM_S.begin(), e=SM_S.end(); i!=e; ++i)
+      {
+        ApproxPoint::SM_S.push_back(*i);
+      }
+
+    ApproxPoint::SM_U.clear();
+    for (ObservationList::iterator 
+           i=SM_U.begin(), e=SM_U.end(); i!=e; ++i)
+      {
+        ApproxPoint::SM_U.push_back(*i);
+      }
+
   }  // void ApproxPoint::ArrangeObservations()
 
 

@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_cogo.cpp,v 1.5 2004/08/29 18:01:52 cepek Exp $
+ *  $Id: g2d_cogo.cpp,v 1.6 2004/09/02 12:54:13 cepek Exp $
  */
 
  /**************************************************************
@@ -64,9 +64,6 @@ namespace GaMaLib {
   void Distance_distance::Calculation()
   {
     try {
-#ifdef PB_Debug
-      std::cout << "computing distance_distance....\n ";
-#endif
 
       number_of_solutions = 0;             // -1 when computation not done
       if(r1 == -1)
@@ -131,10 +128,6 @@ namespace GaMaLib {
   void Direction_direction::Calculation()
   {
     try {
-#ifdef PB_Debug
-      std::cout << "computing direction_direction...." << h1->from() 
-                << " and " << h2->from() << '\n';
-#endif
 
       number_of_solutions = 0;           // -1 when computation not done
       if(fabs(sin(h2->value())) < fabs(sin(h1->value())))
@@ -205,9 +198,6 @@ namespace GaMaLib {
   void Direction_distance::Calculation()
   {
     try {
-#ifdef PB_Debug
-      std::cout << "computing direction_distance.... \n";
-#endif
 
       number_of_solutions = 0;    // -1 when computation not done
       const LocalPoint B1 = (*(SB->find(h1->from()))).second;
@@ -281,9 +271,6 @@ namespace GaMaLib {
   void Direction_angle::Calculation()
   {
     try {
-#ifdef PB_Debug
-      std::cout << "computing direction_angle....\n";
-#endif
 
       number_of_solutions = 0;           // -1 when computation not done
       Circle K(h2,SB);
@@ -359,9 +346,6 @@ namespace GaMaLib {
   void Distance_angle::Calculation()
   {
     try {
-#ifdef PB_Debug
-      std::cout << "computing distance_angle....\n";
-#endif
 
       number_of_solutions = 0;           // -1 when computation not done
       Circle K(h2,SB);
@@ -436,9 +420,6 @@ namespace GaMaLib {
   void Angle_angle::Calculation()
   {
     try {
-#ifdef PB_Debug
-      std::cout << "computing angle_angle....\n";
-#endif
 
       number_of_solutions = 0;           // -1 when computation not done
       Circle K1(h1,SB);
@@ -527,9 +508,6 @@ namespace GaMaLib {
   void Circle::Calculation()
   {
     try {
-#ifdef PB_Debug
-      std::cout << "computing parameters of circle....\n";
-#endif
 
       number_of_solutions = 0;       // -1 when computation not done
       Double u = h1->value();	     // just to spare typing h1->value()

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.49 2004/09/01 11:59:45 cepek Exp $
+ *  $Id: version.cpp,v 1.50 2004/09/02 12:54:13 cepek Exp $
  */
 
 
@@ -64,7 +64,12 @@ const char* GNU_gama_compiler =
 
 1.7.11 2004-05-xx
 
-    - a lot of changes due to warnings reported by g++-3.4
+    - simplified version of GNU_gama::List<> template
+
+    - observation lists in gamalib/local/median rewritten to conform
+      the standard C++ library
+
+    - a lot of changes based on warnings reported by g++-3.4
 
     - a bug in gkfparser.cpp reported by Jan Pytel
 
