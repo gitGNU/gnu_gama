@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: gama-g3.cpp,v 1.2 2003/12/28 23:28:57 uid66336 Exp $
+ * $Id: gama-g3.cpp,v 1.3 2003/12/29 19:43:51 uid66336 Exp $
  */
 
 #include <fstream>
@@ -63,7 +63,7 @@ namespace
 
     std::cerr << 
       "\n"
-      "Usage:  gama-g3  input  [ output ] [ options ] \n\n"
+      "Usage:  gama-g3  [ options ] input  [ output ] \n\n"
 
       " input      xml data file name\n"
       " output     optional output data file name\n\n"
@@ -85,15 +85,23 @@ namespace
     GNU_gama::List<GNU_gama::DataObject::Base*> objects;
     GNU_gama::DataParser parser(objects);
 
-    std::string text;
-    while (std::getline(input, text))
-    {
-      parser.xml_parse(text.c_str(), text.length(), 0);
-      parser.xml_parse("\n", 1, 0);
-    }
-    parser.xml_parse("", 0, 1);
+    try 
+      {
+        std::string text;
+        while (std::getline(input, text))
+          {
+            parser.xml_parse(text.c_str(), text.length(), 0);
+            parser.xml_parse("\n", 1, 0);
+          }
+        parser.xml_parse("", 0, 1);
+      }
+    catch(...)
+      {
+        error("catch ... ");
+        return 0;
+      }
 
-    Model* model = 0;
+    GNU_gama::g3::Model* model = 0;
     GNU_gama::List<GNU_gama::DataObject::Base*>::iterator i = objects.begin();
     GNU_gama::List<GNU_gama::DataObject::Base*>::iterator e = objects.end();
     while (i != e)
@@ -104,7 +112,10 @@ namespace
             if (model) delete model;   // this should never happen
             model =  m->model;
           }
+
+        std::cerr << (*i)->xml() << std::endl;
         delete *i;
+        ++i;
       }
     
     return model;

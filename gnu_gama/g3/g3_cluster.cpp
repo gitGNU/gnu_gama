@@ -1,6 +1,6 @@
 /*  
     GNU Gama -- adjustment of geodetic networks
-    Copyright (C) 2003  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 2004  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the GNU Gama C++ library.
     
@@ -20,16 +20,21 @@
 */
 
 /*
- *  $Id: g3_obs_vec.cpp,v 1.7 2003/12/23 19:52:49 uid66336 Exp $
+ *  $Id: g3_cluster.cpp,v 1.1 2003/12/29 19:43:51 uid66336 Exp $
  */
 
-#include <gnu_gama/g3/g3_observation.h>
-#include <gnu_gama/g3/g3_model.h>
-#include <cmath>
+
+#include <gnu_gama/g3/g3_cluster.h>
 
 using namespace GNU_gama::g3;
-using namespace std;
 
 
+void ObsCluster::write_xml(std::ostream& out) const 
+{
+  out << "\n<obs>\n";
 
+  out << "<!--  ObsCluster .... not finished !!! -->\n";
+
+  out << "</obs>\n";
+}
 

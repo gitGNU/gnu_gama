@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.11 2003/12/27 21:00:58 uid66336 Exp $
+ *  $Id: dataparser.cpp,v 1.12 2003/12/29 19:43:51 uid66336 Exp $
  */
 
 // #########################################################################
@@ -353,20 +353,27 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
          s_g3_vector_czz, 0, s_g3_vector_after_czz,
          0, &DataParser::add_text, &DataParser::append_sp);
 
+  // .....  <g3-model> <obs>  ........................................
+
+  init(  s_g3_model, t_obs,
+         //------------------
+         s_g3_obs, 0, 0,
+         &DataParser::g3_obs, 0, &DataParser::g3_obs);
+         
   // .....  <text>  ..................................................
  
   init(  s_gama_data, t_text,
-       //--------------------
-       s_text, 0, 0,
-       0, &DataParser::add_text, &DataParser::text);
+         //--------------------
+         s_text, 0, 0,
+         0, &DataParser::add_text, &DataParser::text);
  
   // .....  <adj-input-data>  ........................................
 
   init(  s_gama_data, t_adj_input_data, 
-       //------------------------------
-       s_adj_input_data_1, s_adj_input_data_5, 0,
-       &DataParser::adj_input_data, 0, &DataParser::adj_input_data,
-       s_adj_input_data_4);
+         //------------------------------
+         s_adj_input_data_1, s_adj_input_data_5, 0,
+         &DataParser::adj_input_data, 0, &DataParser::adj_input_data,
+         s_adj_input_data_4);
 
   // .....  <sparse-mat>  ............................................
 
@@ -575,6 +582,9 @@ DataParser::data_tag DataParser::tag(const char* c)
       break;
     case 'n':
       if (!strcmp(c, "nonz"           )) return t_nonz;
+      break;
+    case 'o':
+      if (!strcmp(c, "obs"            )) return t_obs;
       break;
     case 'p':
       if (!strcmp(c, "point"          )) return t_point;
@@ -1149,5 +1159,23 @@ int DataParser::g3_point_height(const char *name)
 
   return  end_tag(name);
 }
+
+int DataParser::g3_obs(const char *name, const char **atts)
+{
+  no_attributes( name, atts );
+  state = next[state][tag(name)];
+
+
+  return 0;
+}
+
+int DataParser::g3_obs(const char *name)
+{
+  using namespace g3;
+
+  
+  return  end_tag(name);
+}
+
 
 #endif

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.11 2003/12/23 19:52:49 uid66336 Exp $
+ *  $Id: dataparser.h,v 1.12 2003/12/29 19:43:51 uid66336 Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -111,6 +111,7 @@ namespace GNU_gama {
           s_g3_vector_after_cyz,
           s_g3_vector_czz,
           s_g3_vector_after_czz,
+          s_g3_obs,
           s_text,
           s_adj_input_data_1,
           s_adj_input_data_2,
@@ -187,6 +188,7 @@ namespace GNU_gama {
           t_id,
           t_int,
           t_nonz,
+          t_obs,
           t_point,
           t_rows,
           t_row,
@@ -235,6 +237,8 @@ namespace GNU_gama {
       int g3_vector             (const char *name);
       int g3_vector_from        (const char *name);
       int g3_vector_to          (const char *name);
+      int g3_obs                (const char *name, const char **atts);
+      int g3_obs                (const char *name);
       int text                  (const char *name);
       int adj_input_data        (const char *name, const char **atts);
       int adj_input_data        (const char *name);

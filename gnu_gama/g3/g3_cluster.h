@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_cluster.h,v 1.5 2003/12/23 19:52:49 uid66336 Exp $
+ *  $Id: g3_cluster.h,v 1.6 2003/12/29 19:43:51 uid66336 Exp $
  */
 
 
@@ -30,7 +30,6 @@
 #define GNU_gama__g3_cluster___g3clustergnugamag3cluster__gnu_gama_g3_cluster
 
 #include <gnu_gama/model.h>
-#include <gnu_gama/g3/g3_observation/g3_obs_vec.h>
 #include <gnu_gama/g3/g3_model.h>
 #include <iostream>
 
@@ -39,21 +38,30 @@ namespace GNU_gama { namespace g3 {
 
   class g3Cluster :  public GNU_gama::Cluster<Observation> {
   public:
+    
+    g3Cluster(const Model::ObservationData* obs) : Cluster<Observation>(obs) 
+    {
+    }
+    
+    g3Cluster* clone(const Model::ObservationData*) const 
+    { 
+      throw 
+        GNU_gama::Exception::string("g3Cluster::clone() not implemented");
+      return 0; 
+    }
+    
+    virtual void write_xml(std::ostream&) const = 0;
+  };
   
-      g3Cluster(const Model::ObservationData* obs) : Cluster<Observation>(obs) 
-      {
-      }
 
-      g3Cluster* clone(const Model::ObservationData*) const 
-        { 
-          throw 
-            GNU_gama::Exception::string("g3Cluster::clone() not implemented");
-          return 0; 
-        }
+  class ObsCluster : public g3Cluster {
+  public:
 
-      virtual void write_xml(std::ostream&) const = 0;
-      virtual void parlist_init(Model*) {}
- };
+    ObsCluster(const Model::ObservationData* obs) : g3Cluster(obs) {}
+
+    void write_xml(std::ostream& out) const;
+  };
+
 
 }}
 
