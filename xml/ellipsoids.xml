@@ -24,7 +24,7 @@
   >
 ]>
 
-<ellipsoids revision="0.09">
+<ellipsoids revision="0.10">
 
 <!--
 
@@ -266,7 +266,7 @@ write to
 <!-- Entry written by Ales Cepek (2002-06-05) -->
 
 
-<ellipsoid id="fisher1960m"  a="6278155"  f1="298.3"
+<ellipsoid id="fisher1960m"  a="6378155"  f1="298.3"
                      caption="Modified Fisher 1960" ref="[3] [4]" />
 <!-- Entry written by Ales Cepek (2002-06-05) -->
 

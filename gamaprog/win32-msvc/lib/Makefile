@@ -84,22 +84,6 @@ $(OBJDIR)capi_output_file.$(OBJ) : $(SRC)gamalib/c/api/capi_output_file.cpp $(SR
 	$(CXX) $(CXXFLAGS) -c $(SRC)gamalib/c/api/capi_output_file.cpp
 	@$(LIBR) capi_output_file.$(OBJ)
 
-$(OBJDIR)g3.$(OBJ) : $(SRC)gamalib/g3/g3.cpp
-	$(CXX) $(CXXFLAGS) -c $(SRC)gamalib/g3/g3.cpp
-	@$(LIBR) g3.$(OBJ)
-
-$(OBJDIR)ellipsoid.$(OBJ) : $(SRC)gamalib/ellipsoid.cpp
-	$(CXX) $(CXXFLAGS) -c $(SRC)gamalib/ellipsoid.cpp
-	@$(LIBR) ellipsoid.$(OBJ)
-
-$(OBJDIR)ellipsoids.$(OBJ) : $(SRC)gamalib/ellipsoids.cpp $(SRC)gamalib/ellipsoid.h $(SRC)gamalib/ellipsoids.h
-	$(CXX) $(CXXFLAGS) -c $(SRC)gamalib/ellipsoids.cpp
-	@$(LIBR) ellipsoids.$(OBJ)
-
-$(OBJDIR)language.$(OBJ) : $(SRC)gamalib/language.cpp $(SRC)gamalib/language.h
-	$(CXX) $(CXXFLAGS) -c $(SRC)gamalib/language.cpp
-	@$(LIBR) language.$(OBJ)
-
 $(OBJDIR)observation.$(OBJ) : $(SRC)gamalib/observation.cpp $(SRC)gamalib/cluster.h $(SRC)gamalib/exception.h $(SRC)gamalib/float.h $(SRC)gamalib/intfloat.h $(SRC)gamalib/language.h $(SRC)gamalib/linearization.h $(SRC)gamalib/matvec.h $(SRC)gamalib/observation.h $(SRC)gamalib/pointid.h $(SRC)gamalib/revision.h
 	$(CXX) $(CXXFLAGS) -c $(SRC)gamalib/observation.cpp
 	@$(LIBR) observation.$(OBJ)
@@ -216,8 +200,24 @@ $(OBJDIR)gkfparser.$(OBJ) : $(SRC)gamalib/xml/gkfparser.cpp $(SRC)gamalib/angobs
 	$(CXX) $(CXXFLAGS) -c $(SRC)gamalib/xml/gkfparser.cpp
 	@$(LIBR) gkfparser.$(OBJ)
 
+$(OBJDIR)language.$(OBJ) : $(SRC)gamalib/language.cpp $(SRC)gamalib/language.h
+	$(CXX) $(CXXFLAGS) -c $(SRC)gamalib/language.cpp
+	@$(LIBR) language.$(OBJ)
 
-$(GAMALIB) :  cluster.$(OBJ) capi_exception.$(OBJ) capi_gkfparser.$(OBJ) capi_locnet.$(OBJ) capi_output_file.$(OBJ) g3.$(OBJ) ellipsoid.$(OBJ) ellipsoids.$(OBJ) language.$(OBJ) observation.$(OBJ) pointid.$(OBJ) rand.$(OBJ) skipcomm.$(OBJ) statan.$(OBJ) version.$(OBJ) approx_heights.$(OBJ) acord.$(OBJ) gamadata.$(OBJ) network.$(OBJ) observation_local.$(OBJ) orientation.$(OBJ) g2d_cogo.$(OBJ) g2d_coordinates.$(OBJ) g2d_helper.$(OBJ) g2d_point.$(OBJ) format.$(OBJ) write.$(OBJ) underline.$(OBJ) angle.$(OBJ) direction.$(OBJ) distance.$(OBJ) hdiff.$(OBJ) sdistance.$(OBJ) xyz.$(OBJ) xyzdiff.$(OBJ) zangle.$(OBJ) encoding.$(OBJ) gkfparser.$(OBJ)
+$(OBJDIR)g3.$(OBJ) : $(SRC)gamalib/g3/g3.cpp
+	$(CXX) $(CXXFLAGS) -c $(SRC)gamalib/g3/g3.cpp
+	@$(LIBR) g3.$(OBJ)
+
+$(OBJDIR)ellipsoid.$(OBJ) : $(SRC)gamalib/ellipsoid.cpp
+	$(CXX) $(CXXFLAGS) -c $(SRC)gamalib/ellipsoid.cpp
+	@$(LIBR) ellipsoid.$(OBJ)
+
+$(OBJDIR)ellipsoids.$(OBJ) : $(SRC)gamalib/ellipsoids.cpp $(SRC)gamalib/ellipsoid.h $(SRC)gamalib/ellipsoids.h
+	$(CXX) $(CXXFLAGS) -c $(SRC)gamalib/ellipsoids.cpp
+	@$(LIBR) ellipsoids.$(OBJ)
+
+
+$(GAMALIB) :  cluster.$(OBJ) capi_exception.$(OBJ) capi_gkfparser.$(OBJ) capi_locnet.$(OBJ) capi_output_file.$(OBJ) observation.$(OBJ) pointid.$(OBJ) rand.$(OBJ) skipcomm.$(OBJ) statan.$(OBJ) version.$(OBJ) approx_heights.$(OBJ) acord.$(OBJ) gamadata.$(OBJ) network.$(OBJ) observation_local.$(OBJ) orientation.$(OBJ) g2d_cogo.$(OBJ) g2d_coordinates.$(OBJ) g2d_helper.$(OBJ) g2d_point.$(OBJ) format.$(OBJ) write.$(OBJ) underline.$(OBJ) angle.$(OBJ) direction.$(OBJ) distance.$(OBJ) hdiff.$(OBJ) sdistance.$(OBJ) xyz.$(OBJ) xyzdiff.$(OBJ) zangle.$(OBJ) encoding.$(OBJ) gkfparser.$(OBJ) language.$(OBJ) g3.$(OBJ) ellipsoid.$(OBJ) ellipsoids.$(OBJ)
 	$(MAKE) -f Makefile-expat
 	$(RANLIB)
 
