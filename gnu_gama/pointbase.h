@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: pointbase.h,v 1.2 2003/03/05 17:15:07 cepek Exp $
+ *  $Id: pointbase.h,v 1.3 2003/03/08 20:39:31 cepek Exp $
  */
 
 #include <map>
@@ -42,8 +42,10 @@ namespace GNU_gama {
       Points  points;
 
     public:    
+
+      typename Point::Common* common;
       
-      PointBase() {}
+      PointBase() : common(0) {}
       PointBase(const PointBase& cod);
       ~PointBase();
       
@@ -152,6 +154,7 @@ namespace GNU_gama {
   template <class Point>
     PointBase<Point>::PointBase(const PointBase& cpd)
     {
+      common = cpd.common;
       for (const_iterator p=cpd.begin(), e=cpd.end(); p!=e; ++p)
         {
           put( **p );
@@ -164,6 +167,8 @@ namespace GNU_gama {
     {
       if (this != &cpd)
         {
+          erase();
+          common = cpd.common;
           for (const_iterator p=cpd.begin(), e=cpd.end(); p!=e; ++p)
             {
               put( **p );
@@ -184,7 +189,9 @@ namespace GNU_gama {
         }
       else
         {
-          points[point.name] = new Point(point);
+          Point* ptr  = new Point(point);
+          ptr->common = common;
+          points[point.name] = ptr;
         }
     }
 
@@ -206,6 +213,7 @@ namespace GNU_gama {
             }
         }
 
+      point_ptr->common = common;
       points[point_ptr->name] = point_ptr;
     }
 
