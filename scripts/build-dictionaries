@@ -1,7 +1,7 @@
 #
 # builds dictionaris for GaMaLib
 # 
-# $Id: build-dictionaries,v 1.4 2002/11/21 17:31:59 cepek Exp $
+# $Id: build-dictionaries,v 1.5 2003/02/16 00:14:41 cepek Exp $
 
 
 if pwd | grep /scripts$; then cd ..; fi
@@ -20,9 +20,9 @@ FILES3=$(find ../xml      | grep \.lang$ | grep -v \# | grep -v \~ )
 echo input files: $FILES1 $FILES2 $FILES3
 echo $FILES1 $FILES2 $FILES3 | ../scripts/slovnikar
 
-# program utf8-ascii is a replacement for  "recode UTF-8..flat"
-cp language.cpp language.utf-8
-../scripts/utf8-ascii     < language.utf-8 > language.cpp
+#---  # program utf8-ascii is a replacement for  "recode UTF-8..flat"
+#---  cp language.cpp language.utf-8
+#---  ../scripts/utf8-ascii     < language.utf-8 > language.cpp
 
 # ------------------------------------------------------------------------
 

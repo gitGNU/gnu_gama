@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: capi_output_file.cpp,v 1.1 2001/12/07 12:33:41 cepek Exp $
+ *  $Id: capi_output_file.cpp,v 1.2 2003/02/16 00:14:41 cepek Exp $
  */
 
 #include <gamalib/c/api/capi_output_file.h>
@@ -196,7 +196,7 @@ extern "C" {
         C_API_output_file* capiof = static_cast<C_API_output_file*>(object);
         LocalNetwork*  ln = capiof->IS;
         std::ofstream* of = capiof->out;
-        return GeneralParameters(ln, *of);
+        return 1; // GeneralParameters(ln, *of);
       }
     catch(const GaMaLib::Exception& e)
       {

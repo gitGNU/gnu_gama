@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.5 2003/01/20 17:57:17 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.6 2003/02/16 00:14:41 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -75,10 +75,11 @@ int help()
        << " [ output. ]\n\n";
   cerr << "Options:\n"
        << "\n";
-  cerr << "--algorithm svd|gso     \n" 
-       << "--language  en|cz|fi|du \n"
-       << "--version               \n"
-       << "--help              this text\n";
+  cerr << "--algorithm  svd | gso\n" 
+       << "--language   en | cz | fi | du\n"
+       << "--encoding   utf-8 | iso-8859-2 | iso-8859-2-flat | cp-1250\n"
+       << "--version\n"
+       << "--help\n";
   cerr << endl;
   return 1;
 }
@@ -106,6 +107,7 @@ int GaMa_Main(int argc, char **argv)
   const char* argv_2 = 0;
   const char* argv_algo = 0;
   const char* argv_lang = 0;
+  const char* argv_enc  = 0;
 
   for (int i=1; i<argc; i++)
     {
@@ -135,6 +137,7 @@ int GaMa_Main(int argc, char **argv)
       else if ( i   ==  argc      ) return help();
       else if (name == "algorithm") argv_algo = c; 
       else if (name == "language" ) argv_lang = c;
+      else if (name == "encoding" ) argv_enc  = c;
       else
         return help();
     }
@@ -153,8 +156,23 @@ int GaMa_Main(int argc, char **argv)
     }
 
   LocalNetwork* IS;
-  ofstream cout;
+  ofstream fcout;
+  OutStream cout(fcout);
   
+  if (argv_enc)
+    {
+      if (!strcmp("utf-8", argv_enc)) 
+        cout.set_encoding(OutStream::utf_8);
+      else if (!strcmp("iso-8859-2", argv_enc)) 
+        cout.set_encoding(OutStream::iso_8859_2);
+      else if (!strcmp("iso-8859-2-flat", argv_enc)) 
+        cout.set_encoding(OutStream::iso_8859_2_flat);
+      else if (!strcmp("cp-1250", argv_enc)) 
+        cout.set_encoding(OutStream::cp_1250);
+      else
+        return help();
+    }
+
   try {
     
     try {
@@ -286,7 +304,7 @@ int GaMa_Main(int argc, char **argv)
                           + "-" + string(GaMaLib_version)
                           + "-" + string(IS->algorithm());
 
-    cout.open(file_txt.c_str());
+    fcout.open(file_txt.c_str());
     
   }
   catch (const ParserException& v) {

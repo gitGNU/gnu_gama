@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.51 2003/02/01 17:33:25 cepek Exp $
+ *  $Id: version.cpp,v 1.52 2003/02/16 00:14:41 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.6.00";
+const char* GaMaLib_version  = "1.7.00";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
@@ -58,6 +58,14 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.7.00 2003-02-15 
+
+     #####################################################################
+     #                                                                   #
+     #  unstable version 1.7 (main trunk at CVS savannah.gnu.org)        #
+     #                                                                   #
+     #####################################################################
 
 1.6.00 2003-02-01
 

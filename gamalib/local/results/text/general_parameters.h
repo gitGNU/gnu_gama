@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: general_parameters.h,v 1.2 2002/10/24 17:04:13 cepek Exp $
+ *  $Id: general_parameters.h,v 1.3 2003/02/16 00:14:41 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Zakladni_Parametry_h_
@@ -465,7 +465,7 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
               << setprecision(0) << (1 - IS->conf_pr())*100
               << T_GaMa_genpar_for_observation_ind
               << imax << "\n";
-          ptr->write(out, true);
+          ptr->write(out.std_stream(), true);
           out << "\n";
         }    
 
