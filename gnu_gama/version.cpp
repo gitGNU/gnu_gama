@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.51 2004/09/02 13:06:32 cepek Exp $
+ *  $Id: version.cpp,v 1.52 2004/10/26 19:58:07 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.11";
+const char* GNU_gama_version  = "1.7.12-a";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -61,6 +61,10 @@ const char* GNU_gama_compiler =
  * in the same directory as GNU Gama
 
 =============================================================================
+
+1.7.12-a
+
+    - a bug in second GSO constructor
 
 1.7.11 2004-09-02
 
