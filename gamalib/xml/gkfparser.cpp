@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.16 2004/06/06 10:02:54 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.17 2004/06/21 16:58:58 cepek Exp $
  */ 
 
 
@@ -55,7 +55,8 @@ namespace GaMaLib {
       }
     else if (state == state_obs_cov     || 
              state == state_coords_cov  ||
-             state == state_vectors_cov )
+             state == state_vectors_cov ||
+             state == state_hdiffs_cov )
       {
         cov_mat_data += string (s, len);
       }

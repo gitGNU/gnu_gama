@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.45 2004/06/21 16:10:18 cepek Exp $
+ *  $Id: version.cpp,v 1.46 2004/06/21 16:58:58 cepek Exp $
  */
 
 
@@ -63,6 +63,15 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.11 2004-05-xx
+
+    - a bug in gkfparser.cpp reported by Jan Pytel
+
+            kwak$ diff gamalib/xml/gkfparser.cpp gkfparser.cpp.~1.16.~
+            58,59c58
+            <              state == state_vectors_cov ||
+            <              state == state_hdiffs_cov )
+            ---
+            >              state == state_vectors_cov )
 
     - all occurrences of keyword 'class' in template type definitions
       replaced by 'typeneme' (new gmatvec version 0.9.23)
