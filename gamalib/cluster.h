@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: cluster.h,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: cluster.h,v 1.2 2002/09/06 16:08:49 cepek Exp $
  */
 
 #ifndef GaMaLib_Cluster_of_observations__h
@@ -47,7 +47,6 @@ namespace GaMaLib {
     const ObservationData*  observation_data;
     ObservationList         observation_list;
     Cov                     covariance_matrix;  
-    mutable int             tag;
 
   
     Cluster(const ObservationData* od) : observation_data(od), act_count(0) {}

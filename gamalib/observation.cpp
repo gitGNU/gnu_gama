@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.cpp,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: observation.cpp,v 1.2 2002/09/06 16:08:49 cepek Exp $
  */
 
 #include <gamalib/observation.h>
@@ -34,11 +34,6 @@ Double Observation::stdDev() const
 { 
   return cluster->stdDev(cluster_index); 
 }  
-
-int& Observation::tag() const 
-{ 
-  return cluster->tag; 
-}
 
 Double Direction::orientation() const
 {

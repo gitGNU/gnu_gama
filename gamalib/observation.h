@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.h,v 1.5 2002/06/27 17:11:57 cepek Exp $
+ *  $Id: observation.h,v 1.6 2002/09/06 16:08:49 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_Mereni_H
@@ -74,7 +74,6 @@ namespace GaMaLib {
       const Cluster* ptr_cluster() const     { return cluster; }
       Cluster*       ptr_cluster()           { return cluster; }
       void           set_cluster(Cluster* c) { cluster = c; }
-      int&           tag() const;
 
       const PointID& from() const { return from_;    }
       const PointID& to()   const { return to_;      }

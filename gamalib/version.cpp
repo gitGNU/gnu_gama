@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.28 2002/08/18 16:50:19 cepek Exp $
+ *  $Id: version.cpp,v 1.29 2002/09/06 16:04:54 cepek Exp $
  */
 
 
@@ -32,7 +32,7 @@ const char* GaMaLib_version  = "1.5.01-pre";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
-              "GNU g++"             // g++ 2.95.2
+              "GNU g++"             // g++ 3.0.4 and 2.95.2
               #elif defined __BORLANDC__
               "win32-borland"       // 5.5
               #elif defined _MSC_VER
@@ -63,8 +63,11 @@ const char* GaMaLib_compiler =
      ellipsoids_xml.cpp for generating files ellipsoids.[h|cpp] from
      xml/ellipsoids.xml
 
-   - joined changes from 1.4.01 concerning heights of instrument
-     and/or reflector
+   - merged changes from 1.4.01:
+
+     -- changes concerning heights of instrument  and/or reflector
+     -- removed unused public data member `tag' from the class Cluster
+        (in files cluster.h and observation.[h|cpp])
 
    - removed bug reported by Jan Bilek in utf8_cp1250(char *buf); file
      gamalib/xml/encoding.cpp:
