@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_point.cpp,v 1.7 2004/09/01 21:59:29 cepek Exp $
+ *  $Id: g2d_point.cpp,v 1.8 2004/09/02 11:36:06 cepek Exp $
  */
 
 /*************************************************************
@@ -32,6 +32,7 @@
 #include <gamalib/local/median/g2d_point.h>
 #include <gamalib/local/median/g2d_cogo.h>
 #include <gamalib/local/orientation.h>
+#include <list>
 
 using namespace std;
 
@@ -48,156 +49,6 @@ namespace GaMaLib {
   }
 
   
-  void ApproxPoint::ArangeObservations(ObservationList& sm_pom)
-  {
-    ObservationList::iterator i, j;
-    // distances
-    Double med;
-    std::vector<Double> pom_sez; 
-    i = sm_pom.begin();
-    while(i != sm_pom.end())
-      {
-        if(Distance* d1 = dynamic_cast<Distance*>(*i))
-          {
-            pom_sez.push_back(d1->value());
-            // j = i+1;
-            j = i; ++j;
-            while(j != sm_pom.end())
-              {
-                Distance* d2 = dynamic_cast<Distance*>(*j);
-                if(d2 && ((d1->from() == d2->from() && 
-                           d1->to() == d2->to()) ||
-                          (d1->to() == d2->from() && 
-                           d1->from() == d2->to())))
-                  {
-                    pom_sez.push_back(d2->value());
-                    j = sm_pom.erase(j);
-                  }
-                else
-                  j++;
-              }
-            std::sort(pom_sez.begin(),pom_sez.end());
-            std::vector<Double>::size_type size = pom_sez.size();
-            med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
-                   pom_sez[(size+1)/2-1]);
-            Distance* DD 
-              = new Distance(CB, (d1->from()==CB?d1->to():d1->from()), med);
-            SM.push_back(DD);
-            i = sm_pom.erase(i);
-            pom_sez.erase(pom_sez.begin(), pom_sez.end());
-          }
-        else
-          i++;
-      }
-    
-    // outer bearings
-    i = SM_S.begin();
-    while(i != SM_S.end())
-      {
-        Direction* s1 = dynamic_cast<Direction*>(*i);
-        pom_sez.push_back(s1->value());
-        // j = i+1;
-        j = i; ++j;
-        while(j != SM_S.end())
-          {
-            Direction* s2 = dynamic_cast<Direction*>(*j);
-            if(s1->from() == s2->from())
-              {
-                pom_sez.push_back(s2->value());
-                j = SM_S.erase(j);
-                delete(s2);
-              }
-            else
-              j++;
-          }
-        std::sort(pom_sez.begin(),pom_sez.end());
-        std::vector<Double>::size_type size = pom_sez.size();
-        med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
-               pom_sez[(size+1)/2-1]);
-        Direction* SS = new Direction(s1->from(),s1->to(),med);
-        SM.push_back(SS);
-        i = SM_S.erase(i);
-        delete(s1);
-        pom_sez.erase(pom_sez.begin(), pom_sez.end());
-      }
-
-    // inner angles
-    // in sm_pom are only inner angels now; dists. have been already removed 
-    // in SM_U are only angles
-    i = sm_pom.begin();
-    Double u_mer;
-    while(i != sm_pom.end())
-      {
-        Angle* u1 = dynamic_cast<Angle*>(*i);
-        j = SM_U.begin();
-        pom_sez.push_back(u1->value());
-        while(j != SM_U.end())
-          {
-            Angle* u2 = dynamic_cast<Angle*>(*j);
-            if(((u1->to()==u2->to())&&(u1->fs()==u2->fs()))||
-               ((u1->to()==u2->fs())&&(u1->fs()==u2->to())))
-              {
-                u_mer = (u1->to() == u2->to() ? u2->value() : 2*M_PI-u2->value());
-                pom_sez.push_back(u_mer);
-                j = SM_U.erase(j);
-                delete(u2);
-              }
-            else
-              j++;
-          }
-        std::sort(pom_sez.begin(),pom_sez.end());
-        std::vector<Double>::size_type size = pom_sez.size();
-        med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
-               pom_sez[(size+1)/2-1]);
-        Angle* UU;
-        if(med >= M_PI)
-          UU = new Angle(u1->from(),u1->fs(),u1->to(),
-                         M_PI*2-med);
-        else
-          UU = new Angle(u1->from(),u1->to(),u1->fs(),med);
-        SM.push_back(UU);
-        i = sm_pom.erase(i);
-        pom_sez.erase(pom_sez.begin(), pom_sez.end());
-      }
-    i = SM_U.begin();
-    // finishing remaining angles
-    while(i != SM_U.end())
-      {
-        Angle* u1 = dynamic_cast<Angle*>(*i);
-        // j = i+1;
-        j = i; ++j;
-        pom_sez.push_back(u1->value());
-        while(j != SM_U.end())
-          {
-            Angle* u2 = dynamic_cast<Angle*>(*j);
-            if(((u1->to()==u2->to())&&(u1->fs()==u2->fs()))||
-               ((u1->to()==u2->fs())&&(u1->fs()==u2->to())))
-              {
-                u_mer = (u1->to() == u2->to() ? u2->value() : 2*M_PI-u2->value());
-                pom_sez.push_back(u_mer);
-                j = SM_U.erase(j);
-                delete(u2);
-              }
-            else
-              j++;
-          }
-        std::sort(pom_sez.begin(),pom_sez.end());
-        std::vector<Double>::size_type size = pom_sez.size();
-        med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
-               pom_sez[(size+1)/2-1]);
-        Angle* UU;
-        if(med >= M_PI)
-          UU = new Angle(u1->from(),u1->fs(),u1->to(),
-                         M_PI*2-med);
-        else
-          UU = new Angle(u1->from(),u1->to(),u1->fs(),med);
-        SM.push_back(UU);
-        i = SM_U.erase(i);
-        delete(u1);
-        pom_sez.erase(pom_sez.begin(), pom_sez.end());
-      }
-  }  // void ApproxPoint::ArangeObservations()
-
 
   void ApproxPoint::Reset(PointData* sb, ObservationList* sm, 
                           const PointID& cb)
@@ -249,7 +100,7 @@ namespace GaMaLib {
 
     // now putting selected observations in good order - both distances
     // from and to the stanpoint, identical angles, ... etc.
-    ArangeObservations(sm_pom);
+    ArrangeObservations(sm_pom);
 
 #ifdef PB_Debug
     std::cout << "\n***** reset done *****\nfor poind ID " << CB << '\n';
@@ -385,7 +236,159 @@ namespace GaMaLib {
 #endif
   }      // void ApproxPoint::Calculation()
 
+
+
+  void ApproxPoint::ArrangeObservations(ObservationList& psm_pom)
+  {
+    std::list<Observation*> sm_pom;
+
+    ObservationList::iterator i, j;
+    // distances
+    Double med;
+    std::vector<Double> pom_sez; 
+    i = sm_pom.begin();
+    while(i != sm_pom.end())
+      {
+        if(Distance* d1 = dynamic_cast<Distance*>(*i))
+          {
+            pom_sez.push_back(d1->value());
+            // j = i+1;
+            j = i; ++j;
+            while(j != sm_pom.end())
+              {
+                Distance* d2 = dynamic_cast<Distance*>(*j);
+                if(d2 && ((d1->from() == d2->from() && 
+                           d1->to() == d2->to()) ||
+                          (d1->to() == d2->from() && 
+                           d1->from() == d2->to())))
+                  {
+                    pom_sez.push_back(d2->value());
+                    sm_pom.erase(j);
+                  }
+                else
+                  j++;
+              }
+            std::sort(pom_sez.begin(),pom_sez.end());
+            std::vector<Double>::size_type size = pom_sez.size();
+            med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
+                   pom_sez[(size+1)/2-1]);
+            Distance* DD 
+              = new Distance(CB, (d1->from()==CB?d1->to():d1->from()), med);
+            SM.push_back(DD);
+            sm_pom.erase(i);
+            pom_sez.erase(pom_sez.begin(), pom_sez.end());
+          }
+        else
+          i++;
+      }
+    
+    // outer bearings
+    i = SM_S.begin();
+    while(i != SM_S.end())
+      {
+        Direction* s1 = static_cast<Direction*>(*i);
+        pom_sez.push_back(s1->value());
+        // j = i+1;
+        j = i; ++j;
+        while(j != SM_S.end())
+          {
+            Direction* s2 = static_cast<Direction*>(*j);
+            if(s1->from() == s2->from())
+              {
+                pom_sez.push_back(s2->value());
+                SM_S.erase(j);
+                delete(s2);
+              }
+            else
+              j++;
+          }
+        std::sort(pom_sez.begin(),pom_sez.end());
+        std::vector<Double>::size_type size = pom_sez.size();
+        med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
+               pom_sez[(size+1)/2-1]);
+        Direction* SS = new Direction(s1->from(),s1->to(),med);
+        SM.push_back(SS);
+        SM_S.erase(i);
+        delete(s1);
+        pom_sez.erase(pom_sez.begin(), pom_sez.end());
+      }
+
+    // inner angles
+    // in sm_pom are only inner angels now; dists. have been already removed 
+    // in SM_U are only angles
+    i = sm_pom.begin();
+    Double u_mer;
+    while(i != sm_pom.end())
+      {
+        Angle* u1 = static_cast<Angle*>(*i);
+        j = SM_U.begin();
+        pom_sez.push_back(u1->value());
+        while(j != SM_U.end())
+          {
+            Angle* u2 = static_cast<Angle*>(*j);
+            if(((u1->to()==u2->to())&&(u1->fs()==u2->fs()))||
+               ((u1->to()==u2->fs())&&(u1->fs()==u2->to())))
+              {
+                u_mer = (u1->to() == u2->to() ? u2->value() : 2*M_PI-u2->value());
+                pom_sez.push_back(u_mer);
+                SM_U.erase(j);
+                delete(u2);
+              }
+            else
+              j++;
+          }
+        std::sort(pom_sez.begin(),pom_sez.end());
+        std::vector<Double>::size_type size = pom_sez.size();
+        med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
+               pom_sez[(size+1)/2-1]);
+        Angle* UU;
+        if(med >= M_PI)
+          UU = new Angle(u1->from(),u1->fs(),u1->to(),
+                         M_PI*2-med);
+        else
+          UU = new Angle(u1->from(),u1->to(),u1->fs(),med);
+        SM.push_back(UU);
+        sm_pom.erase(i);
+        pom_sez.erase(pom_sez.begin(), pom_sez.end());
+      }
+    i = SM_U.begin();
+    // finishing remaining angles
+    while(i != SM_U.end())
+      {
+        Angle* u1 = static_cast<Angle*>(*i);
+        // j = i+1;
+        j = i; ++j;
+        pom_sez.push_back(u1->value());
+        while(j != SM_U.end())
+          {
+            Angle* u2 = static_cast<Angle*>(*j);
+            if(((u1->to()==u2->to())&&(u1->fs()==u2->fs()))||
+               ((u1->to()==u2->fs())&&(u1->fs()==u2->to())))
+              {
+                u_mer = (u1->to() == u2->to() ? u2->value() : 2*M_PI-u2->value());
+                pom_sez.push_back(u_mer);
+                SM_U.erase(j);
+                delete(u2);
+              }
+            else
+              j++;
+          }
+        std::sort(pom_sez.begin(),pom_sez.end());
+        std::vector<Double>::size_type size = pom_sez.size();
+        med = (g2d_even(size) ? (pom_sez[size/2-1] + pom_sez[size/2])/2 : 
+               pom_sez[(size+1)/2-1]);
+        Angle* UU;
+        if(med >= M_PI)
+          UU = new Angle(u1->from(),u1->fs(),u1->to(),
+                         M_PI*2-med);
+        else
+          UU = new Angle(u1->from(),u1->to(),u1->fs(),med);
+        SM.push_back(UU);
+        SM_U.erase(i);
+        delete(u1);
+        pom_sez.erase(pom_sez.begin(), pom_sez.end());
+      }
+  }  // void ApproxPoint::ArrangeObservations()
+
+
 }       // namespace GaMaLib
-
-
-

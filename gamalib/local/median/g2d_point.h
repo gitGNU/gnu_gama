@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_point.h,v 1.5 2004/09/01 21:59:29 cepek Exp $
+ *  $Id: g2d_point.h,v 1.6 2004/09/02 11:36:06 cepek Exp $
  */
 
 /*************************************************************
@@ -114,7 +114,7 @@ namespace GaMaLib {
             }
           return test_xyz;
         }
-      void ArangeObservations(ObservationList&);
+      void ArrangeObservations(ObservationList&);
       void Reset(PointData*, ObservationList*, const PointID&);
 
 
