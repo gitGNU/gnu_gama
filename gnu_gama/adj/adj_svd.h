@@ -20,53 +20,53 @@
 */
 
 /*
- *  $Id: olssvd.h,v 1.6 2005/03/27 17:43:26 cepek Exp $
+ *  $Id: adj_svd.h,v 1.1 2005/03/28 11:44:24 cepek Exp $
  */
 
-#ifndef GaMa_OLS_svd_h
-#define GaMa_OLS_svd_h
+#ifndef GNU_Gama__gnu_gama__gnu_gama_GaMa_OLS_svd_h
+#define GNU_Gama__gnu_gama__gnu_gama_GaMa_OLS_svd_h
 
-#include <gamalib/ls/baseols.h>
+#include <gnu_gama/adj/adj_base.h>
 #include <cmath>
 
-namespace GaMaLib {
+namespace GNU_gama {
   
 template <typename Float, typename Exc>
-class OLSsvd : virtual public BaseOLS<Float, Exc> {
+class AdjSVD : virtual public AdjBase<Float, Exc> {
 
   GNU_gama::SVD<Float, Exc> svd;
 
 public:
-  OLSsvd() {}
-  OLSsvd(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b)
-    : BaseOLS<Float, Exc>(A, b) {}
-  OLSsvd(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b,
-         const GNU_gama::Vec<Float, Exc>& w) : BaseOLS<Float, Exc>(A, b, w) {}
+  AdjSVD() {}
+  AdjSVD(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b)
+    : AdjBase<Float, Exc>(A, b) {}
+  AdjSVD(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b,
+         const GNU_gama::Vec<Float, Exc>& w) : AdjBase<Float, Exc>(A, b, w) {}
   
   void reset(const GNU_gama::Mat<Float, Exc>& A, 
              const GNU_gama::Vec<Float, Exc>& b)
     {
-      BaseOLS<Float, Exc>::reset(A, b);
+      AdjBase<Float, Exc>::reset(A, b);
       svd.reset(A);
     }
   void reset(const GNU_gama::Mat<Float, Exc>& A, 
              const GNU_gama::Vec<Float, Exc>& b,
              const GNU_gama::Vec<Float, Exc>& w)
     {
-      BaseOLS<Float, Exc>::reset(A, b, w);
+      AdjBase<Float, Exc>::reset(A, b, w);
       svd.reset(A);
     }
   
   const GNU_gama::Vec<Float, Exc>& solve(GNU_gama::Vec<Float, Exc>& x)
     {
-      return x = BaseOLS<Float, Exc>::solve();
+      return x = AdjBase<Float, Exc>::solve();
     }
-  const GNU_gama::Vec<Float, Exc>& solve() { return BaseOLS<Float, Exc>::solve(); }
+  const GNU_gama::Vec<Float, Exc>& solve() { return AdjBase<Float, Exc>::solve(); }
   
   GNU_gama::Index defect() { return svd.nullity(); }
   bool  lindep(GNU_gama::Index i) { return svd.lindep(i); }
   
-  void  q_xx(GNU_gama::Mat<Float, Exc>& C) { BaseOLS<Float, Exc>::q_xx(C); }
+  void  q_xx(GNU_gama::Mat<Float, Exc>& C) { AdjBase<Float, Exc>::q_xx(C); }
   Float q_xx(GNU_gama::Index i, GNU_gama::Index j)
     {
       if(!this->is_solved) solve_me();
@@ -97,7 +97,7 @@ protected:
 // ...................................................................
 
 template <typename Float, typename Exc>
-void OLSsvd<Float, Exc>::solve_me()
+void AdjSVD<Float, Exc>::solve_me()
 {
    using namespace GNU_gama; 
    using namespace std;
@@ -129,7 +129,7 @@ void OLSsvd<Float, Exc>::solve_me()
 }
 
 template <typename Float, typename Exc>
-Float OLSsvd<Float, Exc>::cond()
+Float AdjSVD<Float, Exc>::cond()
 {
   const GNU_gama::Vec<Float, Exc>& W = svd.SVD_W();
 

@@ -20,15 +20,15 @@
 */
 
 /*
- *  $Id: adj.h,v 1.2 2005/03/27 17:43:26 cepek Exp $
+ *  $Id: adj.h,v 1.3 2005/03/28 11:44:24 cepek Exp $
  */
 
 #include <gnu_gama/matvec.h>
 #include <gnu_gama/sparse/smatrix.h>
 #include <gnu_gama/sparse/sbdiagonal.h>
 #include <gnu_gama/sparse/intlist.h>
-#include <gamalib/ls/olssvd.h>
-#include <gamalib/ls/olsgso.h>
+#include <gnu_gama/adj/adj_svd.h>
+#include <gnu_gama/adj/adj_gso.h>
 
 #include <iostream>
 
@@ -61,7 +61,7 @@ namespace GNU_gama {
   private:
     
     const AdjInputData *data;
-    GaMaLib::BaseOLS<double, Exception::matvec> *least_squares;
+    GNU_gama::AdjBase<double, Exception::matvec> *least_squares;
 
     bool      solved;
     algorithm algorithm_;

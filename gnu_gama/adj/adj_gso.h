@@ -20,54 +20,54 @@
 */
 
 /*
- *  $Id: olsgso.h,v 1.4 2005/03/27 17:43:26 cepek Exp $
+ *  $Id: adj_gso.h,v 1.1 2005/03/28 11:44:24 cepek Exp $
  */
 
-#ifndef GaMa_OLS_gso_h
-#define GaMa_OLS_gso_h
+#ifndef GNU_Gama_gnu_gama_gnugama_GaMa_OLS_gso_h
+#define GNU_Gama_gnu_gama_gnugama_GaMa_OLS_gso_h
 
 #include <gmatvec/gso.h>
-#include <gamalib/ls/baseols.h>
+#include <gnu_gama/adj/adj_base.h>
 #include <cmath>
 
-namespace GaMaLib {
+namespace GNU_gama {
   
 template <typename Float, typename Exc>
-class OLSgso : public virtual BaseOLS<Float, Exc> {
+class AdjGSO : public virtual AdjBase<Float, Exc> {
 
 public:
 
-  OLSgso() {}
-  OLSgso(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b)
-    : BaseOLS<Float, Exc>(A, b) {}
-  OLSgso(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b,
-         const GNU_gama::Vec<Float, Exc>& w) : BaseOLS<Float, Exc>(A, b, w) {}
+  AdjGSO() {}
+  AdjGSO(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b)
+    : AdjBase<Float, Exc>(A, b) {}
+  AdjGSO(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b,
+         const GNU_gama::Vec<Float, Exc>& w) : AdjBase<Float, Exc>(A, b, w) {}
   
   void reset(const GNU_gama::Mat<Float, Exc>& A, 
              const GNU_gama::Vec<Float, Exc>& b)
     {
-      BaseOLS<Float, Exc>::reset(A, b);
+      AdjBase<Float, Exc>::reset(A, b);
     }
   void reset(const GNU_gama::Mat<Float, Exc>& A, 
              const GNU_gama::Vec<Float, Exc>& b,
              const GNU_gama::Vec<Float, Exc>& w)
     {
-      BaseOLS<Float, Exc>::reset(A, b, w);
+      AdjBase<Float, Exc>::reset(A, b, w);
     }
   
   const GNU_gama::Vec<Float, Exc>& solve(GNU_gama::Vec<Float, Exc>& x)
     {
-      return x = BaseOLS<Float, Exc>::solve();
+      return x = AdjBase<Float, Exc>::solve();
     }
   const GNU_gama::Vec<Float, Exc>& solve() 
     { 
-      return BaseOLS<Float, Exc>::solve(); 
+      return AdjBase<Float, Exc>::solve(); 
     }
   
   GNU_gama::Index defect() { return gso.defect(); }
   bool  lindep(GNU_gama::Index i) { return gso.lindep(i); }
   
-  void  q_xx(GNU_gama::Mat<Float, Exc>& C) { BaseOLS<Float, Exc>::q_xx(C); }
+  void  q_xx(GNU_gama::Mat<Float, Exc>& C) { AdjBase<Float, Exc>::q_xx(C); }
   Float q_xx(GNU_gama::Index i, GNU_gama::Index j);
   Float q_bb(GNU_gama::Index i, GNU_gama::Index j);
   Float q_bx(GNU_gama::Index i, GNU_gama::Index j);
@@ -92,7 +92,7 @@ private:
 
 
 template <typename Float, typename Exc>
-void OLSgso<Float, Exc>::solve_me()
+void AdjGSO<Float, Exc>::solve_me()
 {
   if (this->is_solved) return;
 
@@ -146,7 +146,7 @@ void OLSgso<Float, Exc>::solve_me()
 
 
 template <typename Float, typename Exc>
-Float OLSgso<Float, Exc>::q_xx(GNU_gama::Index i, GNU_gama::Index j)
+Float AdjGSO<Float, Exc>::q_xx(GNU_gama::Index i, GNU_gama::Index j)
   {
     if(!this->is_solved) solve_me();
     const GNU_gama::Index M = this->pA->rows();
@@ -161,7 +161,7 @@ Float OLSgso<Float, Exc>::q_xx(GNU_gama::Index i, GNU_gama::Index j)
 
 
 template <typename Float, typename Exc>
-Float OLSgso<Float, Exc>::q_bb(GNU_gama::Index i, GNU_gama::Index j)
+Float AdjGSO<Float, Exc>::q_bb(GNU_gama::Index i, GNU_gama::Index j)
   {
     if(!this->is_solved) solve_me();
 
@@ -174,7 +174,7 @@ Float OLSgso<Float, Exc>::q_bb(GNU_gama::Index i, GNU_gama::Index j)
 
 
 template <typename Float, typename Exc>
-Float OLSgso<Float, Exc>::q_bx(GNU_gama::Index i, GNU_gama::Index j)
+Float AdjGSO<Float, Exc>::q_bx(GNU_gama::Index i, GNU_gama::Index j)
   {
     if(!this->is_solved) solve_me();
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network_gso.h,v 1.1 2001/12/07 12:38:37 cepek Exp $
+ *  $Id: network_gso.h,v 1.2 2005/03/28 11:44:24 cepek Exp $
  */
 
 
@@ -28,16 +28,16 @@
 #define GaMaLib_LocalNetwork_gso_h
 
 #include <gamalib/local/network.h>
-#include <gamalib/ls/olsgso.h>
+#include <gnu_gama/adj/adj_gso.h>
 
 namespace GaMaLib 
 {
   class LocalNetwork_gso 
     : 
     public LocalNetwork, 
-    OLSgso<Double, GaMaLib::MatVecException>  
+    GNU_gama::AdjGSO<Double, GaMaLib::MatVecException>  
     {
-      typedef OLSgso<Double, GaMaLib::MatVecException> OLS_gso;
+      typedef GNU_gama::AdjGSO<Double, GaMaLib::MatVecException> OLS_gso;
 
       bool   lindep(Index i) { return OLS_gso::lindep(i); }
       Double cond()          { return OLS_gso::cond();    } 

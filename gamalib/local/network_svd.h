@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network_svd.h,v 1.1 2001/12/07 12:38:37 cepek Exp $
+ *  $Id: network_svd.h,v 1.2 2005/03/28 11:44:24 cepek Exp $
  */
 
 
@@ -28,16 +28,16 @@
 #define GaMaLib_LocalNetwork_svd_h
 
 #include <gamalib/local/network.h>
-#include <gamalib/ls/olssvd.h>
+#include <gnu_gama/adj/adj_svd.h>
 
 namespace GaMaLib 
 {
   class LocalNetwork_svd 
     : 
     public LocalNetwork, 
-    OLSsvd<Double, GaMaLib::MatVecException>  
+    GNU_gama::AdjSVD<Double, GaMaLib::MatVecException>  
     {
-      typedef OLSsvd<Double, GaMaLib::MatVecException> OLS_svd;
+      typedef GNU_gama::AdjSVD<Double, GaMaLib::MatVecException> OLS_svd;
 
       bool   lindep(Index i) { return OLS_svd::lindep(i); }
       Double cond()          { return OLS_svd::cond();    } 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.4 2005/03/27 17:43:26 cepek Exp $
+ *  $Id: adj.cpp,v 1.5 2005/03/28 11:44:24 cepek Exp $
  */
 
 #include <gnu_gama/adj/adj.h>
@@ -278,10 +278,10 @@ void Adj::init_least_squares()
   switch (algorithm_) 
     {
     case svd: 
-      least_squares = new GaMaLib::OLSsvd<double, Exception::matvec>;
+      least_squares = new GNU_gama::AdjSVD<double, Exception::matvec>;
       break;
     case gso: 
-      least_squares = new GaMaLib::OLSgso<double, Exception::matvec>;
+      least_squares = new GNU_gama::AdjGSO<double, Exception::matvec>;
       break;
     default:
       throw Exception::adjustment("### unknown algorithm");

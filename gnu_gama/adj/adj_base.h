@@ -20,28 +20,28 @@
 */
 
 /*
- *  $Id: baseols.h,v 1.3 2005/03/27 17:43:26 cepek Exp $
+ *  $Id: adj_base.h,v 1.1 2005/03/28 11:44:24 cepek Exp $
  */
 
-#ifndef GaMa_BaseOLS_h
-#define GaMa_BaseOLS_h
+#ifndef GNU_Gama_gnu_gama_gnugama_GaMa_AdjBase_h
+#define GNU_Gama_gnu_gama_gnugama_GaMa_AdjBase_h
 
 #include <gamalib/matvec.h>
 
-namespace GaMaLib {
+namespace GNU_gama {
 
 
 template <typename Float, typename Exc>
-class BaseOLS {
+class AdjBase {
 
 public:
-  BaseOLS() {}
-  BaseOLS(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b)
+  AdjBase() {}
+  AdjBase(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b)
     : pA(&A), pb(&b), pw(0), is_solved(false) {}
-  BaseOLS(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b,
+  AdjBase(const GNU_gama::Mat<Float, Exc>& A, const GNU_gama::Vec<Float, Exc>& b,
           const GNU_gama::Vec<Float, Exc>& w)
     : pA(&A), pb(&b), pw(&w), is_solved(false) {}
-  virtual ~BaseOLS() {}
+  virtual ~AdjBase() {}
 
   virtual void reset(const GNU_gama::Mat<Float, Exc>& A, 
              const GNU_gama::Vec<Float, Exc>& b) {
@@ -62,7 +62,7 @@ public:
 
   const GNU_gama::Vec<Float, Exc>& solve(GNU_gama::Vec<Float, Exc>& x) 
     { 
-      solve_me(); return x = BaseOLS::x; 
+      solve_me(); return x = AdjBase::x; 
     }
   const GNU_gama::Vec<Float, Exc>& solve() { solve_me(); return x; }
   const GNU_gama::Vec<Float, Exc>& residuals(GNU_gama::Vec<Float, Exc>& res) 
@@ -104,7 +104,7 @@ protected:
 // ................................................................
 
 template <typename Float, typename Exc>
-Float BaseOLS<Float, Exc>::trwr()
+Float AdjBase<Float, Exc>::trwr()
 {
   if (!is_solved) solve_me();
 
@@ -118,7 +118,7 @@ Float BaseOLS<Float, Exc>::trwr()
 }
 
 template <typename Float, typename Exc>
-void BaseOLS<Float, Exc>::q_xx(GNU_gama::Mat<Float, Exc>& cxx)
+void AdjBase<Float, Exc>::q_xx(GNU_gama::Mat<Float, Exc>& cxx)
 {
   if (!is_solved) solve_me();
 
