@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gso.h,v 1.14 2004/08/30 18:18:55 cepek Exp $
+ *  $Id: gso.h,v 1.15 2004/10/26 19:58:07 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -77,7 +77,10 @@ public:
   GSO(): pA(0), M(0), N(0), sc(true), tol_(0),
     minx_n(0), minx(0), clist(0), rlist(0) {}
   ~GSO() { delete[] minx; delete[] clist; delete[] rlist; }
-  GSO(Mat<Float, Exc>& a, Index m, Index n) : sc(true), tol_(0) { 
+  GSO(Mat<Float, Exc>& a, Index m, Index n)
+    : pA(0), M(0), N(0), sc(true), tol_(0),
+    minx_n(0), minx(0), clist(0), rlist(0) 
+  { 
     reset(a, m, n); 
   }
   void reset(Mat<Float, Exc>& a, Index m, Index n);
@@ -116,6 +119,10 @@ private:
   Index *clist;
   Index *rlist;
 
+  template <typename T> inline const T ABS(const T& x)
+    {
+      return (x >= T(0)) ? x : -x ;
+    }
 };
 
 
