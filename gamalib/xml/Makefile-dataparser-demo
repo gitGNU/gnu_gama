@@ -1,8 +1,17 @@
 CXXFLAGS += -I../.. 
 
-demo-dataparser : dataparser.h dataparser.cpp
+all: gamalib demo-dataparser
+
+gamalib: 
+	(cd ../..; make gamalib)
+
+demo-dataparser : dataparser.o ../../gamaprog/linux/lib/gamalib.a
 	$(CXX) $(CXXFLAGS) -DGaMaLib_DataParser_demo -o demo-dataparser \
-                dataparser.cpp ../../gamaprog/linux/lib/gamalib.a
+		dataparser.o ../../gamaprog/linux/lib/gamalib.a
+
+dataparser.o : dataparser.h dataparser.cpp Makefile-dataparser-demo
+	$(CXX) $(CXXFLAGS) -DGaMaLib_DataParser_demo -c dataparser.cpp
+
 
 clean:
 	rm -f *.o *~ demo*

@@ -1,9 +1,9 @@
-# $Id: Makefile,v 1.10 2002/12/15 20:19:33 cepek Exp $
+# $Id: Makefile,v 1.11 2003/01/06 17:44:12 cepek Exp $
 #
 # this Makefile and all files in ./scripts were tested on Debian GNU/Linux 2.2
 #
 
-.PHONY : archive
+.PHONY : archive gamalib
 
 
 all:
@@ -37,6 +37,9 @@ help:
 build:
 #	make clean
 	./scripts/Build_GaMa
+
+gamalib:
+	( cd gamaprog/linux/lib;   make; make -f Makefile-expat )
 
 make-project:
 	@if [ ! -f gamaprog/linux/gama-local/Makefile ]; then make build; fi

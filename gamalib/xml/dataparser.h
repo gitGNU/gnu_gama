@@ -1,4 +1,4 @@
-/*  
+/*
     Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
     Copyright (C) 2002  Ales Cepek <cepek@fsv.cvut.cz>
 
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.7 2003/01/05 18:02:33 cepek Exp $
+ *  $Id: dataparser.h,v 1.8 2003/01/06 17:44:12 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -43,23 +43,17 @@ namespace GaMaLib {
       ~DataParser()
         {
         } 
-      int characterDataHandler(const char* s, int len)
-        {
-          return (this->*data[state])(s, len);
-        }
       int startElement(const char *name, const char **atts)
         {
-          data_tag t = tag(name);
-          int s = state;
-          stack.push(state);
-          state = next[state][t];
-          return (this->*func[s][t])(name, atts);
-        }
-      int endElement(const char * /*name*/)
+          return (this->*stag[state][tag(name)])(name, atts);
+        }  
+      int characterDataHandler(const char *s, int len)
+        { 
+          return (this->*data[state])(s, len);
+        } 
+      int endElement(const char *name)
         {
-          if (Ende e = ende[state]) (this->*e)();
-          if (state) state = stack.pop();
-          return state;
+          return (this->*etag[state])(name);
         }
       
     private: 
@@ -73,13 +67,18 @@ namespace GaMaLib {
           s_gama_data,
           s_text,
           s_adj_input_data,
-          s_sparse_mat,
+          s_sparse_mat_1,
           s_sparse_mat_rows,
+          s_sparse_mat_2,
           s_sparse_mat_cols,
+          s_sparse_mat_3,
           s_sparse_mat_nonz,
-          s_sparse_mat_row,
+          s_sparse_mat_4,
+          s_sparse_mat_row_1,
           s_sparse_mat_row_n,
+          s_sparse_mat_row_2,
           s_sparse_mat_row_i,
+          s_sparse_mat_row_3,
           s_sparse_mat_row_f,
           s_stop       
         }; 
@@ -99,56 +98,48 @@ namespace GaMaLib {
           t_unknown
         };
       
-      data_tag tag(const char* cname);
+      data_tag tag(const char* name);
       
-      class Stack {
-        int N;
-        int buf[s_stop];
-      public:
-        Stack() : N(0) {}
-        void push(int s) { buf[N++] = s;    }
-        int  pop ()      { return buf[--N]; }
-      };
-      Stack stack;
+      typedef int (DataParser::*Stag)(const char *name, const char **atts);
+      typedef int (DataParser::*Data)(const char *s, int len);
+      typedef int (DataParser::*Etag)(const char *name);
+
+      Stag stag[s_stop+1][t_unknown+1];
+      Data data[s_stop+1];                 
+      Etag etag[s_stop+1];
+
+      int next [s_stop+1][t_unknown+1];
+      int after[s_stop+1]; 
+
+      int gama_data       (const char *name, const char **atts);
+      int text            (const char* s);
+      int adj_input_data  (const char *name, const char **atts);
+      int adj_input_data  (const char *name);
+      int sparse_mat      (const char *name);
+      int sparse_mat_nonz (const char *name);
+      int sparse_mat_row  (const char *name, const char **atts);
+      int sparse_mat_row  (const char *name);
+      int sparse_mat_row_n(const char *name);
+      int sparse_mat_row_f(const char *name);
       
-      typedef int (DataParser::*Func)(const char *cname, const char **atts);
-      Func func[s_stop+1][t_unknown+1];
-      int  next[s_stop+1][t_unknown+1];
-      
-      typedef int (DataParser::*Data)(const char* s, int len);
-      Data data[s_stop+1];
-      
-      typedef int (DataParser::*Ende)();
-      Ende ende[s_stop+1];
-      
-      int parser_error (const char *cname, const char **atts);
-      int no_attributes(const char *cname, const char **atts);
-      int white_spaces (const char* s, int len);
+
       int add_text     (const char* s, int len);
-      int add_space    ();
+      int end_tag      (const char *name);
+      int no_attributes(const char *name, const char **atts);
+      int parser_error (const char *name, const char **atts);
+      int start_tag    (const char *name, const char **atts);
+      int white_spaces (const char* s, int len);
+      int append_sp    (const char *name);
+
       
-      int gama_data(const char *cname, const char **atts);
-      
-      int text(const char *cname, const char **atts);
-      int text(const char* s, int len);
-      int text();
-      
-      int adj_input_data(const char *cname, const char **atts);
-      int adj_input_data();
-      
-      int sparse_mat      ();
-      int sparse_mat_nonz ();
-      int sparse_mat_row  (const char *cname, const char **atts);
-      int sparse_mat_row_n();
-      int sparse_mat_row_f();
       
       std::string      text_buffer;
-      SparseMatrix <> *tmp_sparse_mat;
-      BlockDiagonal<> *tmp_block_diagonal;
-      Vec              tmp_vector;  
-      IntegerList<>   *tmp_array;
-      std::size_t      tmp_sparse_mat_nonz;
-      std::size_t      tmp_sparse_mat_row_nonz;
+      SparseMatrix <> *adj_sparse_mat;
+      BlockDiagonal<> *adj_block_diagonal;
+      Vec              adj_vector;  
+      IntegerList<>   *adj_array;
+      std::size_t      adj_sparse_mat_nonz;
+      std::size_t      adj_sparse_mat_row_nonz;
       
     };
 }
