@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.h,v 1.11 2004/03/18 17:07:01 cepek Exp $
+ *  $Id: gkfparser.h,v 1.12 2004/03/30 19:43:07 cepek Exp $
  */
 
 #ifndef GaMaLib_GKF__XML__parser__h_
@@ -68,6 +68,7 @@ namespace GaMaLib {
       std::string   TXT, STX, OPR;      // file names from gkf specification
       double m0_apr, konf_pr, tol_abs;  // implicitly 10, 0.95, 1000
       bool   typ_m0_apriorni;           // implicitly false
+      bool   update_constr;             // implicitly false
       
       double implicit_stdev_direction() const { return smer_str; }
       double implicit_stdev_angle() const { return uhel_str; }

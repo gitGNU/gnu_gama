@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.12 2004/03/18 17:07:01 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.13 2004/03/30 19:43:07 cepek Exp $
  */
 
 
@@ -359,6 +359,7 @@ namespace GaMaLib {
     konf_pr         = 0.95;
     tol_abs         = 1000;
     typ_m0_apriorni = false;
+    update_constr   = false;
 
     state       = state_start;
     standpoint  = 0;
@@ -497,6 +498,14 @@ namespace GaMaLib {
             else if (hodnota == "apriori"    ) typ_m0_apriorni = true;
             else 
               return error(T_GKF_wrong_type_of_standard_deviation);
+          }
+        else if (jmeno == "update-constrained-coordinates")
+          {
+            if      (hodnota == "yes") update_constr = true;
+            else if (hodnota == "no" ) update_constr = false;
+            else
+            return error(T_GKF_bad_network_configuration_unknown_parameter
+                         + jmeno + " = " + hodnota);
           }
         else
           {

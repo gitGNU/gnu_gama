@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.h,v 1.8 2004/03/29 12:06:51 cepek Exp $
+ *  $Id: network.h,v 1.9 2004/03/30 19:43:07 cepek Exp $
  */
 
 // LocalNetwork - Network Informations class (Informace o siti)
@@ -190,6 +190,15 @@ namespace GaMaLib
       void   apriori_m_0(Double m)  { m_0_apr_ = m; }
       void   tol_abs(Double m)      { tol_abs_ = m; }
       Double tol_abs() const        { return tol_abs_; }
+
+      void   update_constrained_coordinates(bool par)
+      {
+        update_constrained_coordinates_ = par;
+      }
+      bool   update_constrained_coordinates() const
+      {
+        return update_constrained_coordinates_;
+      }
       
       Double stdev_obs(int i) { return sigma_L(i); }
       Double wcoef_res(int i) { return vahkopr(i); }
@@ -268,12 +277,13 @@ namespace GaMaLib
       Double m_0_apr_;         // a priori reference standard deviation
       Double konf_pr_;         // (confidence) probability
       Double tol_abs_;         // tollerance for testing absolute terms
+      bool update_constrained_coordinates_;
       enum ApEm_ { apriorni_, empiricka_ };
       ApEm_ typ_m_0_;          // type of reference standard deviation
       
       bool tst_rov_opr_;       // project equations
       bool vybocujici_abscl_;  // outlying abs. terms in project equations
-      
+
       int pocet_neznamych_;
       
       enum Update { Points, Observations, Residuals, Adjustment };

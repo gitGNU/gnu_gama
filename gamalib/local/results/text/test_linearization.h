@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: test_linearization.h,v 1.6 2003/08/07 20:38:20 cepek Exp $
+ *  $Id: test_linearization.h,v 1.7 2004/03/30 19:43:07 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Test_Chyby_z_Linearizace_h_
@@ -294,14 +294,14 @@ TestLinearization(GaMaLib::LocalNetwork* IS, OutStream& out,
       }     
   }
   
-  if (test)
+  if (test && !(IS->update_constrained_coordinates()))
     { 
       out << "\n\n";
       out.flush();
       
 
       // if all adjusted points are constrained, adjustment is never
-      // repeated
+      // repeated (unless explicitly asked for)
       // ------------------------------------------------------
       
       test = false;

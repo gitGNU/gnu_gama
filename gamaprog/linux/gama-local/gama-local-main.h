@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.14 2004/03/22 19:52:54 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.15 2004/03/30 19:43:07 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -283,7 +283,10 @@ int GaMa_Main(int argc, char **argv)
           IS->apriori_m_0(gkf.m0_apr );
           IS->conf_pr    (gkf.konf_pr);
           IS->tol_abs    (gkf.tol_abs);
-          
+
+          // added in 1.7.09
+          IS->update_constrained_coordinates(gkf.update_constr);
+ 
           if (gkf.typ_m0_apriorni)
             IS->set_m_0_apriori();
           else

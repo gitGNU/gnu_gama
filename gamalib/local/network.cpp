@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.12 2004/03/15 18:58:33 cepek Exp $
+ *  $Id: network.cpp,v 1.13 2004/03/30 19:43:07 cepek Exp $
  */
 
 #include <fstream>
@@ -47,7 +47,8 @@ typedef GNU_gama::Cluster<Observation>                  Cluster;
 
 LocalNetwork::LocalNetwork()        
   : pocbod_(0), tst_redbod_(false), pocmer_(0), tst_redmer_(false),
-    m_0_apr_(10), konf_pr_(0.95), tol_abs_(1000), typ_m_0_(empiricka_),
+    m_0_apr_(10), konf_pr_(0.95), tol_abs_(1000), 
+    update_constrained_coordinates_(false), typ_m_0_(empiricka_),
     tst_rov_opr_(false), tst_vyrovnani_(false), min_n_(0), min_x_(0),
     gons_(true)
 {
@@ -645,6 +646,9 @@ void LocalNetwork::std_error_ellipse(const PointID& cb,
   if (alfa < 0) alfa += M_PI;
 }
 
+// 1.7.09 added optional update of constrained coordinates; inspired
+// by adjustment of photographic observation by Jim Sutherland
+
 void LocalNetwork::refine_approx()
 {
   for (int i=1; i<=sum_unknowns(); i++)
@@ -652,14 +656,14 @@ void LocalNetwork::refine_approx()
       {
         const PointID& cb = unknown_pointid(i);
         LocalPoint& b = PD[cb];
-        if (!b.constrained_xy())
-          b.set_xy(b.x() + x(i)/1000, b.y() + x(i+1)/1000);
+        if (!b.constrained_xy() || update_constrained_coordinates())
+            b.set_xy(b.x() + x(i)/1000, b.y() + x(i+1)/1000);
       }
     else if (unknown_type(i) == 'Z')
       {
         const PointID& cb = unknown_pointid(i);
         LocalPoint& b = PD[cb];
-        if (!b.constrained_z())
+        if (!b.constrained_z() || update_constrained_coordinates())
           b.set_z(b.z() + x(i)/1000);
       }
     else if (unknown_type(i) == 'R')

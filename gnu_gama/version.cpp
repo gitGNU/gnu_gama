@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.27 2004/03/29 12:06:51 cepek Exp $
+ *  $Id: version.cpp,v 1.28 2004/03/30 19:43:07 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.09-pre-c";
+const char* GNU_gama_version  = "1.7.09-pre-d";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -63,6 +63,10 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.09-pre 2004-.....
+
+    - added new parameter update-constrained-coordinates="yes | no"
+      into XML tag <parameters ... /> (input data for gama-local)
+      and all related changes in network.{h|cpp} and gkfparser.{h|cpp}
 
     - added static data member 'bool gons' in GaMaLib::Observation
       class to enable simple selection of output format in virtual

@@ -1,4 +1,4 @@
-@comment $Id: gama-local-adj.texi,v 1.3 2003/02/20 18:32:45 cepek Exp $
+@comment $Id: gama-local-adj.texi,v 1.4 2004/03/30 19:43:07 cepek Exp $
 
 @c @setfilename gama-local-adj.info
 
@@ -1505,14 +1505,17 @@ Diffs in adj. obs from residuals and from adjusted coordinates
 
 
 
-From the practical point of view it might seem that the tolerance 0.0005
-mm for detecting poor linearization is too strict.  Its exceeding in
-program @code{gama-local} results in repeated adjustment with substitute adjusted
-coordinates for approximate (coordinates of constrained points are not
-changed). Given tolerance was chosen so strict to guarantee that listed
-output results would never be influenced by linearization and could
-serve for verification and testing of numerical solutions produced by
-other programs.
+From the practical point of view it might seem that the tolerance
+0.0005 mm for detecting poor linearization is too strict.  Its
+exceeding in program @code{gama-local} results in repeated adjustment
+with substitute adjusted coordinates for approximate. Given tolerance
+was chosen so strict to guarantee that listed output results would
+never be influenced by linearization and could serve for verification
+and testing of numerical solutions produced by other programs.
+
+Implicitly coordinates of constrained points are not changed in
+iterative adjustments. This feature can be changed in XML input data
+by setting @code{<parameters update-constrained-coordinates="yes" />}.
 
 
 Iterated adjustement with successive improvement of approximate
