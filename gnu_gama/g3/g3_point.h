@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.5 2003/03/22 13:34:51 cepek Exp $
+ *  $Id: g3_point.h,v 1.6 2003/03/22 18:07:39 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_parameter.h>
@@ -54,18 +54,19 @@ namespace GNU_gama {  namespace g3 {
   class Point {
   public:
   
-    Point();
-    Point(const Point&);
-    Point& operator=(const Point&);
-    ~Point();
-
-    // -----------------------------
-
     typedef GaMaLib::PointID Name;
     typedef Model            Common;
 
     Name                 name;
     Common*              common; 
+
+    Point();
+    Point(const Point::Name& nm);
+    Point(const Point&);
+    Point& operator=(const Point&);
+    ~Point();
+
+    // -----------------------------
 
     Parameter_position*  B;
     Parameter_position*  L;

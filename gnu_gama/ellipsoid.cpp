@@ -20,19 +20,17 @@
 */
 
 /*
- *  $Id: ellipsoid.cpp,v 1.1 2003/03/22 13:34:51 cepek Exp $
+ *  $Id: ellipsoid.cpp,v 1.2 2003/03/22 18:07:39 cepek Exp $
  */
 
-#include <gnu_gama/ellipsoid.h>
 #include <cmath>
+#include <gnu_gama/ellipsoid.h>
 #include <gamalib/float.h>
 
-#ifdef _MSC_VER
-namespace std {}
-#endif
 
 using namespace std;
 using namespace GNU_gama;
+
 
 double Ellipsoid::M(double b) const 
 { 
@@ -93,6 +91,8 @@ void Ellipsoid::blh2xyz(double  b, double  l, double  h,
 void Ellipsoid::xyz2blh(double  x, double  y, double  z, 
                         double& b, double& l, double& h) const
 {
+
+
   /* ****************************************************************
    * B. R. Bowring: Transformation from spatial to geographical     *
    * coordinates, Survey Review XXIII, 181, July 1976, pp. 323--327 *
@@ -102,8 +102,8 @@ void Ellipsoid::xyz2blh(double  x, double  y, double  z,
 
   l = atan2(y, x);
 
-  x = abs(x);
-  y = abs(y);
+  x = fabs(x);
+  y = fabs(y);
   if (x > y)
     {
       t = y/x;
@@ -150,10 +150,8 @@ void Ellipsoid::xyz2blh(double  x, double  y, double  z,
 
   */
 
-  if (x > abs(z))
+  if (x > fabs(z))
     h = x/cos(b) - N(b);
   else
     h = z/sin(b) - Ime2*N(b);
 }
-
-
