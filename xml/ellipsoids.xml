@@ -1,0 +1,300 @@
+<?xml version="1.0" ?> 
+
+<!--  Revision 0.06  http://www.gnu.org/software/gama/xml/ellipsoids.xml -->
+
+<!DOCTYPE ellipsoids [
+  <!ELEMENT ellipsoids (ellipsoid)* >
+  <!ELEMENT ellipsoid  EMPTY >
+  <!ATTLIST ellipsoid
+    id      CDATA      #REQUIRED
+    caption CDATA      #REQUIRED
+    a       NMTOKEN    #IMPLIED
+    b       NMTOKEN    #IMPLIED
+    f       NMTOKEN    #IMPLIED
+    f1      NMTOKEN    #IMPLIED
+  >
+]>
+
+<!--
+
+Basic parameters and functions of the ellipsoid of revolution (spheroid)
+========================================================================
+
+a  semi-major axis
+b  semi-minor axis
+f  flattening (first)          f   = (a - b)/a
+f1 inverse flattening          f1  = 1/f
+n  flattening (second)         n   = (a - b)/(a + b)
+e  eccentricity (first)        e2  = (a^2 - b^2)/a^2
+e2 eccentricity (second)       e22 = (a^2 - b^2)/b^2
+c  polar radius of curvature   c   = a^2/b
+
+M = a*(1 - e2)/W^3             radius of curvature in the meridian   
+N = a/W                        radius of curvature in the prime vertical
+R = sqrt(M*N)                  mean radius of curvature
+W = sqrt(1 - e2*sin(B)^2) 
+V = sqrt(1 + e22*cos(B)^2)
+F = sqrt(1 + n*cos(2*B) + n^2)
+
+
+
+References:
+===========
+
+[1] Cimbalnik, M. - Mervart, L.: Vyssi geodezie 1, 1997, Vydavatelstvi
+      CVUT, Praha
+
+[2] Cimbalnik, M.: Derived Geometrical Constants of the Geodetic Reference
+      System 1980, Studia geoph. et geod. 35 (1991), pp. 133-144,
+      NCSAV, Praha
+
+[3] Glossary of the Mapping Sciences, Prepared by a Joint Committe of
+      the American Society of Civil Engineers, American Congress on
+      Surveying and Mapping and American Society for Photogrammetry
+      and Remote Sensing (1994), USA, ISBN 1-57083-011-8, ISBN
+      0-7844-0050-4
+
+
+Bug reports: 
+===========
+
+If you are missing an ellipsoid entry or if you find a bug, please
+write to 
+                        bug-gama@gnu.org
+
+-->
+
+
+<ellipsoids>
+
+<ellipsoid id="airy"  a="6377563.541"  b="6356257.053"
+                      caption="Airy ellipsoid 1830" />
+<!--
+   semi-major axis  20 923 713 feet (6 377 563.541m)
+   semi-minor axis  20 853 810 feet (6 356 257.053m)
+   flattening (derived) 1/299.325
+
+   The factor for converting from feet to meters is 0.304 800 756
+
+   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+-->
+
+
+
+<ellipsoid id="australian"  a="6378160"  f1="298.25"
+                            caption="Australian National 1965" />
+<!--
+   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+-->
+
+
+
+<ellipsoid id="bessel"  a="6377397.15508"  b="6356078.96290"
+                        caption="Bessel ellipsoid 1841" />
+<!--
+   Defined by Helmert (1886) as: log a = 6.804 6434 637
+                                 log b = 6.803 1892 839
+   
+   a = 6 377 397.15508  (a+b)/2 = 6 366 738.05899  e2  = 0.00667 43722 30622
+   b = 6 356 078.96290  f = 0.00334 27731 81583    e22 = 0.00671 92187 97978
+   c = 6 398 786.84815  1/f = 299.152 812 853      n   = 0.00167 41848 00818
+                        q = 10 000 855.76456
+   
+   Entry written by Ales Cepek (2002-06-05), based on the data of [1]
+-->
+
+
+
+<ellipsoid id="clarke1858a"  a="6378361"  b="6356685"
+                             caption="Clarke ellipsoid 1858 1st" />
+<!--
+   semi-major axis  20 926 348 feet (6 378 361 m)
+   semi-minor axis  20 855 233 feet (6 356 685 m)
+   flattening (derived) 1/294.26
+
+   The factor for converting from feet to meters is 0.30480047
+
+   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+-->
+
+
+
+<ellipsoid id="clarke1858b"  a="6378558"  b="6355810"
+                             caption="Clarke ellipsoid 1858 2nd" />
+<!--
+   semi-major axis  20 927 005 feet (6 378 558 m)
+   semi-minor axis  20 852 372 feet (6 355 810 m)
+   flattening (derived) 1/280.40
+
+   The factor for converting from feet to meters is 0.30480047
+
+   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+-->
+
+
+
+<ellipsoid id="clarke1866"  a="6378206.4"  b="6356583.8"
+                            caption="Clarke ellipsoid 1866" />
+<!--
+   semi-major axis  20 926 062 feet (6 378 206.4 m)
+   semi-minor axis  20 855 121 feet (6 356 583.8 m)
+   flattening (derived) 1/294.978
+
+   The factor for converting from feet to meters is 0.30480047
+
+   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+-->
+
+
+
+<ellipsoid id="clarke1880"  a="6378316"  b="6356582"
+                            caption="Clarke ellipsoid 1880" />
+<!--
+   semi-major axis  20 926 202 feet (6 378 316 m)
+   semi-minor axis  20 854 895 feet (6 356 582 m)
+   flattening (derived) 1/293.465
+
+   The factor for converting from feet to meters is 0.30480047
+
+   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+-->
+
+
+
+<ellipsoid id="clarke1880m"  a="6378249.145"  f1="293.465"
+                             caption="Clarke ellipsoid 1880 (modified)" />
+<!--
+   
+   20 926 202 feet * (1/3.28086933) = 6 378 249.145 meters
+
+   [3]: The Clarke 1880 spheroid modified by taking the flattening and
+        the length, in feet, of the semi-major axis as given and
+        converting the length to meters (6 378 249.145 m) using the
+        factor 1/3.28086933.
+
+   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+-->
+
+
+
+<ellipsoid id="everest"  a="6377276.348"  b="6356075.416"
+                         caption="Everest ellipsoid 1830" />
+<!--
+   semi-major axis  20 922 931.810 feet (6 377 276.348 m)
+   semi-minor axis  20 853 374.584 feet (6 356 075.416 m)
+   flattening (derived) 1/300.80
+
+   The factor for converting from feet to meters is 0.30479841
+
+   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+-->
+
+
+
+<ellipsoid id="fisher1960a"  a="6378166.0"  f1="298.3"
+                             caption="Fisher 1960 spheroid 1st" />
+<!--
+   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+-->
+
+
+
+<ellipsoid id="fisher1960b"  a="6278155.0"  f1="298.3"
+                             caption="Fisher 1960 spheroid 2nd" />
+<!--
+   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+-->
+
+
+
+<ellipsoid id="grs80"  a="6378137"  f="0.003352810681182"
+                       caption="Geodetic Reference System 1980" /> 
+<!--
+   a = 6 378 137        (a+b)/2 = 6 367 444.65707  e2  = 0.00669 43800 22901
+   b = 6 356 752.31414  f = 0.00335 28106 81182    e22 = 0.00673 94967 75479
+   c = 6 399 593.62586  1/f = 298.257 222 101      n   = 0.00167 92203 94629
+                        q = 10 001 965.72923
+   
+   Entry written by Ales Cepek (2002-06-05), based on the data of [1]
+-->
+
+
+
+<ellipsoid id="helmert"  a="6378200"  f1="298.3"
+                         caption="Helmert ellipsoid 1906" />
+<!--
+   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+-->
+
+
+
+<ellipsoid id="international"  a="6378388"  f1="297"
+                               caption="International 1924 (Hayford 1909)" />
+<!--
+   [3]: A rotational ellipsoid adopted by the International
+        Association of Geodesy (IAG) in 1924 for international use.
+
+   a = 6 378 388        (a+b)/2 = 6 367 649.97306  e2  = 0.00672 26700 22333
+   b = 6 356 911.94613  f = 0.00336 70033 67003    e22 = 0.00676 81701 97224
+   c = 6 399 936.60811  1/f = 297                  n   = 0.00168 63406 40809
+                        q = 10 002 288.29899
+   
+   Entry written by Ales Cepek (2002-06-05), based on the data of [1,3]
+-->
+
+
+
+<ellipsoid id="krassovski"  a="6378245"  f1="298.3"
+                            caption="Krassovski ellipsoid 1940" />
+<!--
+   
+   a = 6 378 245        (a+b)/2 = 6 367 554.00939  e2  = 0.00669 34216 22966
+   b = 6 356 863.01877  f = 0.00335 23298 69259    e22 = 0.00673 85254 14683
+   c = 6 399 698.90178  1/f = 298.3                n   = 0.00167 89791 80658
+                        q = 10 002 137.49754
+   
+   Entry written by Ales Cepek (2002-06-05), based on the data of [1]
+-->
+
+
+
+<ellipsoid id="mercury"  a="6378166"  f1="298.3"
+                         caption="Mercury spheroid 1960" />
+<!--
+   [3]: Also called the Fisher 1960 spheroid.
+
+   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+-->
+
+
+
+<ellipsoid id="schott"  a="6378157"  f1="304.5"
+                        caption="Schott 1900 spheroid" />
+<!--
+   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+-->
+
+
+
+<ellipsoid id="sa1969"  a="6378160"  f1="298.25"
+                        caption="South American Spheroid 1969" />
+<!--
+   Entry written by Ales Cepek (2002-06-05), based on the data of [3]   
+-->
+
+
+
+<ellipsoid id="wgs84"  a="6378137"  f="0.003352810664747"
+                       caption="World Geodetic System 1984" /> 
+<!--
+   a = 6 378 137        (a+b)/2 = 6 367 444.65712  e2  = 0.00669 43799 90141
+   b = 6 356 752.31425  f = 0.00335 28106 64747    e22 = 0.00673 94967 42276
+   c = 6 399 593.62576  1/f = 298.257 223 563      n   = 0.00167 92203 86384
+                        q = 10 001 965.72931
+   
+   Entry written by Ales Cepek (2002-06-05), based on the data of [1]
+-->
+
+</ellipsoids>
+
+

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# $Id: build-gamalib-Makefile,v 1.4 2002/06/04 20:19:58 cepek Exp $
+# $Id: build-gamalib-Makefile,v 1.5 2002/06/11 16:51:26 cepek Exp $
 
 # If we are in the subdirectory ./scripts, we have to go one level up
 if pwd | grep /scripts$; then cd ..; fi
@@ -24,8 +24,7 @@ echo Creating Makefile for GaMaLib
 echo 
 
 
-for s in $(find ../../../gamalib | grep .cpp$ | grep -v \# | grep -v \~ | \
-           grep -v g3 )
+for s in $(find ../../../gamalib | grep .cpp$ | grep -v \# | grep -v \~ )
 do
 	  CPPFILES="$CPPFILES $s";
 done

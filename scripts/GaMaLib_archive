@@ -3,7 +3,7 @@
 # gamalib tarball: script is run in the parent directory of scripts
 # ###############
 #
-# $Id: GaMaLib_archive,v 1.5 2002/06/09 11:03:09 cepek Exp $
+# $Id: GaMaLib_archive,v 1.6 2002/06/11 16:51:26 cepek Exp $
 
 if pwd | grep scripts$; then cd ..; fi
 
@@ -61,7 +61,6 @@ echo
 echo tar czvf $TAR
 echo 
 tar czvf $TAR $MD5 $ADD --exclude=*.o --exclude=*.a --exclude=*~ \
-              --exclude=$VERSION/gamalib/g3 \
               --exclude=$VERSION/$VERSION \
               --exclude=CVS \
               --exclude-from=/tmp/gamalib-$VERSION-exclude
