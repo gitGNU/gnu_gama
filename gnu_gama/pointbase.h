@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: pointbase.h,v 1.5 2003/03/19 10:58:57 cepek Exp $
+ *  $Id: pointbase.h,v 1.6 2003/03/21 13:12:16 cepek Exp $
  */
 
 #include <map>
@@ -51,8 +51,8 @@ namespace GNU_gama {
       
       PointBase& operator=(const PointBase& cod);
 
-      // void put(const Point&);
-      void put(Point*);
+      void put(const Point&);
+      void put(Point*&);
 
       Point*       find(const typename Point::Name&);
       const Point* find(const typename Point::Name&) const;
@@ -185,39 +185,47 @@ namespace GNU_gama {
     }
 
 
-  // template <class Point>
-  //   void PointBase<Point>::put(const Point& point)
-  //   {
-  //     Point* ptr = find(point.name);
-  //     
-  //     if (ptr)
-  //       {
-  //         *ptr = point;
-  //       }
-  //     else
-  //       {
-  //         ptr = new Point(point);
-  //         points[ptr->name] = ptr;
-  //       }
-  // 
-  //     ptr->common = common;
-  //   }
-
   template <class Point>
-    void PointBase<Point>::put(Point* point_ptr)
+    void PointBase<Point>::put(const Point& point)
     {
-      point_ptr->common = common;
-
-      Point* ptr = find(point_ptr->name);
+      Point* ptr = find(point.name);
+      
       if (ptr)
         {
-          if (ptr == point_ptr) 
-            return;
-          else
-            delete ptr;
+          *ptr = point;
         }
+      else
+        {
+          ptr = new Point(point);
+          points[ptr->name] = ptr;
+        }
+  
+      ptr->common = common;
+    }
 
-      points[point_ptr->name] = point_ptr;
+
+  template <class Point>
+    void PointBase<Point>::put(Point*& point_ptr)
+    {
+      typename Points::iterator t = points.find(point_ptr->name);
+
+      if (t != points.end())
+        {
+          Point* ptr = (*t).second;
+
+          if (ptr != point_ptr) 
+            {
+              *ptr = *point_ptr;
+              delete  point_ptr;
+              point_ptr = ptr;
+            }
+        }
+      else
+        {
+          points[point_ptr->name] = point_ptr;
+        }
+      
+      point_ptr->common = common;
     }
 
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.3 2003/03/19 10:58:57 cepek Exp $
+ *  $Id: g3_point.h,v 1.4 2003/03/21 13:12:16 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_parameter.h>
@@ -64,14 +64,11 @@ namespace GNU_gama {  namespace g3 {
 
 
     Point();
-    ~Point();
-
-
-
-  private:
-
     Point(const Point&);
     Point& operator=(const Point&);
+    ~Point();
+
+  private:
 
   };
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.3 2003/03/19 10:58:57 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.4 2003/03/21 13:12:16 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -49,3 +49,49 @@ Point::Point() : parlist(3)
   *p++ = L;
   *p++ = H;
 }
+
+
+
+Point::Point(const Point& point) : parlist(3)
+{
+  name   = point.name;
+  common = point.common;
+
+  B = new Parameter_position;
+  L = new Parameter_position;
+  H = new Parameter_height;
+
+  Parameter** p = parlist.begin();
+  *p++ = B;
+  *p++ = L;
+  *p++ = H;
+}
+
+
+
+
+Point& Point::operator=(const Point& point)
+{
+  if (this != &point)
+    {
+      delete B;
+      delete L;
+      delete H;
+
+      name   = point.name;
+      common = point.common;
+      
+      B = new Parameter_position;
+      L = new Parameter_position;
+      H = new Parameter_height;
+      
+      Parameter** p = parlist.begin();
+      *p++ = B;
+      *p++ = L;
+      *p++ = H;
+    }
+
+  return *this;
+}
+
+
