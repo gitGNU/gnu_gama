@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: error_ellipses.h,v 1.2 2003/02/28 17:36:56 cepek Exp $
+ *  $Id: error_ellipses.h,v 1.3 2003/03/01 18:16:18 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Elipsy_Chyb_h_
@@ -192,10 +192,10 @@ void ErrorEllipses(GaMaLib::LocalNetwork* IS, OutStream& out)
      if (pocbod >= 5) 
        {
          out.precision(1);
-         out << endl
+         out << '\n'
              << T_GaMa_adjunk_mean_position_error_maximal << mp_max
              << T_GaMa_adjunk_mean_position_error_on_point 
-             << mp_max_cb << endl
+             << mp_max_cb << '\n'
              << T_GaMa_adjunk_mean_position_error_average << mp_prum/pocbod
              << " mm\n";
        }

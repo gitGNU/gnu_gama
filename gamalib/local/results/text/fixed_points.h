@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: fixed_points.h,v 1.3 2003/02/28 17:36:56 cepek Exp $
+ *  $Id: fixed_points.h,v 1.4 2003/03/01 18:16:18 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Pevne_Body_h_
@@ -76,7 +76,7 @@ void FixedPoints(GaMaLib::LocalNetwork* IS, OutStream& out)
       out << "z   ";
       table += 13;
     }
-  out << endl;
+  out << '\n';
   {
     for (int i=0; i<IS->maxw_id()+table; i++) out << '=';
   }

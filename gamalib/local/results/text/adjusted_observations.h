@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adjusted_observations.h,v 1.2 2002/05/24 19:30:51 cepek Exp $
+ *  $Id: adjusted_observations.h,v 1.3 2003/03/01 18:16:18 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vyrovnana_Pozorovani_h_
@@ -133,7 +133,7 @@ void AdjustedObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
           }
         else if (Angle* u = dynamic_cast<Angle*>(pm))
           {
-            out << endl;
+            out << '\n';
             out.width(IS->maxw_obs() + 2 + 2*(IS->maxw_id()));
             out << (u->fs()).c_str();
             out << T_GaMa_angle;
@@ -260,7 +260,7 @@ void AdjustedObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
       out.width(7);
       out << ml*kki;
 
-      out << endl;
+      out << '\n';
       out.flush();
 
       predcs = cs;  // previous standpoint ID

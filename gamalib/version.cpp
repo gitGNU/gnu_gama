@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.55 2003/02/28 17:36:56 cepek Exp $
+ *  $Id: version.cpp,v 1.56 2003/03/01 18:16:18 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.7.01";
+const char* GaMaLib_version  = "1.7.02-pre";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
@@ -58,6 +58,11 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.7.02-pre .....
+
+   - added missing 'typenames' into gnu_gama/obsdata.h
+
 
 1.7.01 2003-02-28 
 

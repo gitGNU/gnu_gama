@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: outlying_abs_terms.h,v 1.2 2002/05/24 19:30:51 cepek Exp $
+ *  $Id: outlying_abs_terms.h,v 1.3 2003/03/01 18:16:18 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vybocujici_Absolutni_Cleny_h_
@@ -98,7 +98,7 @@ void OutlyingAbsoluteTerms(GaMaLib::LocalNetwork* IS, OutStream& out)
               }
             else if (Angle* u = dynamic_cast<Angle*>(pm))
               {
-                out << endl;
+                out << '\n';
                 out.width(IS->maxw_obs() + 2 + 2*(IS->maxw_id()));
                 out << (u->fs()).c_str();
                 out << T_GaMa_angle;
@@ -138,13 +138,13 @@ void OutlyingAbsoluteTerms(GaMaLib::LocalNetwork* IS, OutStream& out)
 
                 throw GaMaLib::Exception(
                    "GaMa internal error - unknown observation\n"
-                   "$Id: outlying_abs_terms.h,v 1.2 2002/05/24 19:30:51 cepek Exp $");
+                   "$Id: outlying_abs_terms.h,v 1.3 2003/03/01 18:16:18 cepek Exp $");
               }
           }   // ************************************************
           
           out << setiosflags(ios::scientific) << setprecision(5);
           out << setw(13) << IS->rhs(i);       // 1.1.56 << pm->rhs();
-          out << endl;
+          out << '\n';
           out.flush();
         }
     }

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: general_parameters.h,v 1.3 2003/02/16 00:14:41 cepek Exp $
+ *  $Id: general_parameters.h,v 1.4 2003/03/01 18:16:18 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Zakladni_Parametry_h_
@@ -75,7 +75,7 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
               default:
                 ;  
               }
-            out << endl;
+            out << '\n';
           }
         out << "\n\n";
       }
@@ -134,21 +134,21 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
     out << setw(w_)  << a_xyz 
         << setw(w_)  << a_xy
         << setw(w_)  << a_z
-        << endl;
+        << '\n';
     out.setf(ios::left,  ios::adjustfield);
     out << setw(w1) << T_GaMa_gpar1_constrained_coordinates << ":";
     out.setf(ios::right, ios::adjustfield);
     out << setw(w_)  << c_xyz 
         << setw(w_)  << c_xy
         << setw(w_)  << c_z
-        << endl;
+        << '\n';
     out.setf(ios::left,  ios::adjustfield);
     out << setw(w1) << T_GaMa_gpar1_fixed_coordinates << ":";
     out.setf(ios::right, ios::adjustfield);
     out << setw(w_)  << f_xyz 
         << setw(w_)  << f_xy
         << setw(w_)  << f_z
-        << endl;
+        << '\n';
 
     for (int ii=0; ii<w1+1+3*w_+1; ii++) out << '-'; out << "\n";
 
@@ -216,37 +216,37 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
       out << set_width(T_GaMa_gpar1_directions, w1) << ":"
           << setw(6) << pocsmer << tab_sep
           << set_width(T_GaMa_gpar2_bearings, w2) << ":" 
-          << setw(6) << pocosn << endl;
+          << setw(6) << pocosn << '\n';
     }
   if (pocuhl)
     {
       out << set_width(T_GaMa_gpar1_angles, w1) << ":"
-          << setw(6) << pocuhl << endl;
+          << setw(6) << pocuhl << '\n';
     }
   if (pocdel)
     {
       out << set_width(T_GaMa_gpar1_distances, w1) << ":"
-          << setw(6) << pocdel << endl;
+          << setw(6) << pocdel << '\n';
     }
   if (pocsour)
     {
       out << set_width(T_GaMa_gpar1_observed_coords, w1) << ":"
-          << setw(6) << pocsour << endl;
+          << setw(6) << pocsour << '\n';
     }
   if (pocnivp && (pocnivp != IS->sum_observations()))
     {
       out << set_width(T_GaMa_gpar1_levelling_diffs, w1) << ":"
-          << setw(6) << pocnivp << endl;
+          << setw(6) << pocnivp << '\n';
     }
   if (poczeni)
     {
       out << set_width(T_GaMa_gpar1_z_angles, w1) << ":"
-          << setw(6) << poczeni << endl;
+          << setw(6) << poczeni << '\n';
     }
   if (pocsikm)
     {
       out << set_width(T_GaMa_gpar1_s_dists, w1) << ":"
-          << setw(6) << pocsikm << endl;
+          << setw(6) << pocsikm << '\n';
     }
   int types = 0;
   if (pocsmer) types++;
@@ -259,7 +259,7 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
   if (types != 1)
     out << set_width(T_GaMa_gpar1_obs_total, w1) << ":"
         << setw(6) << IS->sum_observations() << "\n";
-  out << endl;
+  out << '\n';
   out.flush();
 
   // *********  here we handle singular free networks  *********
@@ -293,7 +293,7 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
           if (IS->lindep(i)) 
             {
               out << setw(6) << i << "   " << IS->unknown_type(i)
-                  <<  "   "  << IS->unknown_pointid(i) << endl;
+                  <<  "   "  << IS->unknown_pointid(i) << '\n';
             }
         out << "\n";
         
@@ -305,17 +305,17 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
       << setw(6) << IS->sum_observations()      << tab_sep
       << set_width(T_GaMa_gpar2_number_of_unknowns, w2) << ":"
       << setw(6) << IS->sum_unknowns()
-      << endl
+      << '\n'
       << set_width(T_GaMa_gpar1_redundancy, w1) << ":"
       << setw(6) << IS->degrees_of_freedom() << tab_sep
       << set_width(T_GaMa_gpar2_network_defect, w2) << ":"
       << setw(6) << IS->null_space()
-      << endl;
+      << '\n';
   out.setf(ios::fixed, ios::floatfield);
   
   out << "\n"
       << T_GaMa_m0_apriori << ":"
-      << setprecision(2) << setw(9) << IS->apriori_m_0() << endl;
+      << setprecision(2) << setw(9) << IS->apriori_m_0() << '\n';
   out << T_GaMa_m0_empirical << ":"
       << setprecision(2) << setw(9) 
       << (IS->degrees_of_freedom() > 0 ? 
@@ -324,7 +324,7 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
   out << "         "
       << "[pvv] : "
       << setprecision(5)<< IS->trans_VWV()
-      << endl;
+      << '\n';
   out.flush();
   
   out.setf(ios::fixed, ios::floatfield);
@@ -349,7 +349,7 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
           float horni = sqrt(GaMaLib::Chi_square(  alfa_pul,nadb)/nadb);
           
           out << T_GaMa_Ratio_empirical_to_apriori << setprecision(3)
-              << testm0 << endl
+              << testm0 << '\n'
               << setprecision(0) << IS->conf_pr()*100 
               << " % " << T_GaMa_interval << " ("
               << setprecision(3) << dolni
@@ -403,10 +403,10 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
                   }
                   out << m0s/ma;
                 }
-              out << endl;
+              out << '\n';
             }
           
-          out << endl;
+          out << '\n';
         }
       
       Observation* ptr;

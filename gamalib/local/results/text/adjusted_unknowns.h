@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adjusted_unknowns.h,v 1.4 2003/02/28 17:36:56 cepek Exp $
+ *  $Id: adjusted_unknowns.h,v 1.5 2003/03/01 18:16:18 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vyrovnane_Nezname_h_
@@ -91,7 +91,7 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
               Double mx = IS->unknown_stdev(i);
               Double my = IS->unknown_stdev(i+1);
               mp = sqrt(my*my+mx*mx);
-              out << endl;
+              out << '\n';
               
               out.width(IS->maxw_unk());
               out << i << " ";
@@ -151,7 +151,7 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
                     out << point_id.c_str();
                   else
                     out << " ";
-                  out << endl;
+                  out << '\n';
                 }
               prev_id = point_id;
               
@@ -180,7 +180,7 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
             }
 
           if ((b.free_xy() && b.index_x()) ||
-              (b.free_z()  && b.index_z()) ) out << endl;
+              (b.free_z()  && b.index_z()) ) out << '\n';
         }
       
       if (pocbod >= 5) 
@@ -188,12 +188,12 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
           out.precision(1);
           out << T_GaMa_adjunk_mean_position_error_maximal << mp_max
               << T_GaMa_adjunk_mean_position_error_on_point 
-              << mp_max_cb << endl
+              << mp_max_cb << '\n'
               << T_GaMa_adjunk_mean_position_error_average << mp_prum/pocbod
               << " mm\n\n";
         }
 
-      out << endl;
+      out << '\n';
     }
 
   bool orp = false;
@@ -247,12 +247,12 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
               out << mz << " ";
               out.width(7);
               out << mz*kki;
-              out << endl;
+              out << '\n';
               out.flush();
             }
       }   // for ...
       
-      out << endl << endl;
+      out << '\n' << '\n';
     }
   
 
@@ -307,7 +307,7 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
             out << mv << " ";
             out.width(7);
             out << mv*kki;
-            out << endl;
+            out << '\n';
           }
 
       out << "\n\n";

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: residuals_observations.h,v 1.3 2002/12/18 12:24:28 cepek Exp $
+ *  $Id: residuals_observations.h,v 1.4 2003/03/01 18:16:18 cepek Exp $
  */
 
 
@@ -159,7 +159,7 @@ void ResidualsObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
             }
           else if (Angle* u = dynamic_cast<Angle*>(pm))
             {
-              out << endl;
+              out << '\n';
               out.width(IS->maxw_obs() + 2 + 2*(IS->maxw_id()));
               out << (u->fs()).c_str();
               out << T_GaMa_angle;
@@ -249,7 +249,7 @@ void ResidualsObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
                 }
             }
           
-          out << endl;
+          out << '\n';
           out.flush();
           
           predcs = cs;  // previous standpoint ID
