@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: vecbase.h,v 1.6 2002/07/11 20:54:15 cepek Exp $
+ *  $Id: vecbase.h,v 1.7 2002/07/14 09:55:05 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -61,26 +61,11 @@ public:
 
   Float dot(const VecBase<Float, Exc> &B) const;
 
-  Float length_sq() const;
-  Float length()    const { return length_sq(); }
   Float norm_L1()   const;
-  Float norm_L2()   const { return length_sq(); }
+  Float norm_L2()   const { using namespace std; return sqrt(dot(*this)); }
   Float norm_Linf() const;
 
 };
-
-
-template <class Float, class Exc>
-Float VecBase<Float, Exc>::length_sq() const
-  {
-    const_iterator a = begin();
-    const_iterator e = end();
-    
-    Float sum = 0, x;
-    while (a != e) { x = *a++; sum += x*x; }
-    
-    return sum;
-  }
 
 
 template <class Float, class Exc>

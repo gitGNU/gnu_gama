@@ -32,6 +32,8 @@
          This insidious bug was detected thanks to the thorough testing 
          and analysis by Christopher T. Fallen <ctfallen@math.ukans.edu>
 
+       - removed unused functions VecBase::length() and VecBase::length_sq()
+
 0.9.18 2002-04-10
 
        - Added new class Jacobian. Template class Jacobian computes
