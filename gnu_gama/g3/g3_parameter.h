@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.1 2003/03/16 10:40:27 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.2 2003/03/19 10:58:57 cepek Exp $  */
 
 #include <cstddef>
 
@@ -36,17 +36,23 @@ namespace GNU_gama { namespace g3 {
   class ParameterList {
   public:
 
-    ParameterList() : begin_(0), end_(0) {}
+    ParameterList() : begin_(0), end_(0)   {}
+    ParameterList(int n);
     ~ParameterList();
 
-    Parameter* begin() const { return begin_; }
-    Parameter* end  () const { return end_;   }
+    Parameter** begin() const { return begin_; }
+    Parameter** end  () const { return end_;   }
 
   protected:
 
-    Parameter* begin_;
-    Parameter* end_;
+    Parameter** begin_;
+    Parameter** end_;
     
+  private:
+
+    ParameterList(const ParameterList& pl);
+    ParameterList& operator=(const ParameterList&);
+
   };
 
 
@@ -76,8 +82,18 @@ namespace GNU_gama { namespace g3 {
 
   };
 
-  inline ParameterList::~ParameterList() { delete[] begin_; }
-  
-}}
 
+  inline ParameterList::ParameterList(int n) 
+    : begin_(new Parameter*[n]), end_(begin_+n) 
+    {
+    }
+
+  inline ParameterList::~ParameterList() 
+    { 
+      delete[] begin_; 
+    }
+
+
+}}
+  
 #endif

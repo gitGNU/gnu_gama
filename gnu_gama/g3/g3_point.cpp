@@ -20,15 +20,32 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.2 2003/03/16 17:56:47 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.3 2003/03/19 10:58:57 cepek Exp $
  */
 
-#include <gnu_gama/g3/g3_model.h>
+#include <gnu_gama/g3/g3_point.h>
 
 
 using namespace GNU_gama::g3;
 
 
-Model::~Model()
+Point::~Point()
 {
+  delete B;
+  delete L;
+  delete H;
+}
+
+
+
+Point::Point() : parlist(3)
+{
+  B = new Parameter_position;
+  L = new Parameter_position;
+  H = new Parameter_height;
+
+  Parameter** p = parlist.begin();
+  *p++ = B;
+  *p++ = L;
+  *p++ = H;
 }

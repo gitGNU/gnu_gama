@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: pointbase.h,v 1.4 2003/03/11 20:53:07 cepek Exp $
+ *  $Id: pointbase.h,v 1.5 2003/03/19 10:58:57 cepek Exp $
  */
 
 #include <map>
@@ -51,7 +51,7 @@ namespace GNU_gama {
       
       PointBase& operator=(const PointBase& cod);
 
-      void put(const Point&);
+      // void put(const Point&);
       void put(Point*);
 
       Point*       find(const typename Point::Name&);
@@ -185,23 +185,23 @@ namespace GNU_gama {
     }
 
 
-  template <class Point>
-    void PointBase<Point>::put(const Point& point)
-    {
-      Point* ptr = find(point.name);
-
-      if (ptr)
-        {
-          *ptr = point;
-        }
-      else
-        {
-          ptr = new Point(point);
-          points[ptr->name] = ptr;
-        }
-
-      ptr->common = common;
-    }
+  // template <class Point>
+  //   void PointBase<Point>::put(const Point& point)
+  //   {
+  //     Point* ptr = find(point.name);
+  //     
+  //     if (ptr)
+  //       {
+  //         *ptr = point;
+  //       }
+  //     else
+  //       {
+  //         ptr = new Point(point);
+  //         points[ptr->name] = ptr;
+  //       }
+  // 
+  //     ptr->common = common;
+  //   }
 
   template <class Point>
     void PointBase<Point>::put(Point* point_ptr)

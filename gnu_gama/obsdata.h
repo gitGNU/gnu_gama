@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: obsdata.h,v 1.3 2003/03/13 20:23:19 cepek Exp $
+ *  $Id: obsdata.h,v 1.4 2003/03/19 10:58:57 cepek Exp $
  */
 
 
@@ -101,7 +101,19 @@ namespace GNU_gama {
             {
               const Cluster<Observation>* cluster = (*c);
               std::for_each(cluster->observation_list.begin(),
-                            cluster->observation_list.end(), p);
+                            cluster->observation_list.end(),  p);
+            }
+        }
+
+      template <class P> void transform(P& p)
+        {
+          for (typename List<Cluster<Observation>*>::iterator 
+                 c=CL.begin(); c!=CL.end(); ++c)
+            {
+              Cluster<Observation>* cluster = (*c);
+              std::transform(cluster->observation_list.begin(),
+                             cluster->observation_list.end(), 
+                             cluster->observation_list.begin(),  p);
             }
         }
       
