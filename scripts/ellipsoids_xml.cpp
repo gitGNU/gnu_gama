@@ -2,7 +2,7 @@
  * input file into ellipsoids.[h|cpp|html] output.
  * ==========================================================================
  * 
- * $Id: ellipsoids_xml.cpp,v 1.1 2002/06/11 16:48:32 cepek Exp $
+ * $Id: ellipsoids_xml.cpp,v 1.2 2002/06/12 11:57:55 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
@@ -302,10 +302,8 @@ void Parser::xml2html(ostream& out)
       "    <title>GNU GaMa ellipsoids</title>\n"
       "  </head>\n"
       "<body>\n\n"
-      "<h1><a href=\"http://www.gnu.org/software/gama/\">"
-      "GNU GaMa</a> "
-      "<a href=\"http://www.gnu.org/software/gama/xml/ellipsoids.xml\">"
-      "ellipsoids</a></h1>\n\n"
+      "<h1><a href=\"http://www.gnu.org/software/gama/xml/ellipsoids.xml\">"
+      "GNU GaMa ellipsoids</a></h1>\n\n"
       "<table border=\"1\">\n\n";
 
     for (list<Entry>::iterator i=elist.begin(); i!=elist.end(); ++i)

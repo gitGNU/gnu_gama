@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# $Id: build-gamalib-Makefile-expat,v 1.4 2002/06/11 19:57:37 cepek Exp $
+# $Id: build-gamalib-Makefile-expat,v 1.5 2002/06/12 11:57:55 cepek Exp $
 # 
-if pwd | grep /script$; then cd ..; fi
+if pwd | grep /scripts$; then cd ..; fi
 export SCRIPTS=`pwd`/scripts
 
 

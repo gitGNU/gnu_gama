@@ -1,10 +1,10 @@
 #
 # builds dictionaris for GaMaLib
 # 
-# $Id: build-dictionaries,v 1.1 2001/12/07 11:45:44 cepek Exp $
+# $Id: build-dictionaries,v 1.2 2002/06/12 11:57:55 cepek Exp $
 
 
-if pwd | grep /script$; then cd ..; fi
+if pwd | grep /scripts$; then cd ..; fi
 
 echo
 echo "Building dictionaries"
