@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.17 2003/05/29 16:04:14 cepek Exp $
+ *  $Id: g3_point.h,v 1.18 2003/11/25 22:17:14 cepek Exp $
  */
 
 #include <gamalib/pointid.h>
@@ -32,7 +32,7 @@
 
 namespace GNU_gama {  namespace g3 {
 
-  class Model;
+  class g3_Model;
   class Point;
   class Distance;
   class HeightDiff;
@@ -87,7 +87,7 @@ namespace GNU_gama {  namespace g3 {
   public:
   
     typedef GaMaLib::PointID Name;
-    typedef Model            Common;
+    typedef g3_Model         Common;
 
     Name    name;
     Common* common; 

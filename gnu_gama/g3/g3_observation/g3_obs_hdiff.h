@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_hdiff.h,v 1.5 2003/03/29 13:33:57 cepek Exp $
+ *  $Id: g3_obs_hdiff.h,v 1.6 2003/11/25 22:17:14 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_obs_base.h>
@@ -41,7 +41,7 @@ namespace GNU_gama {  namespace g3 {
     HeightDiff() : Observation(2) {}
 
     double parlist_value() const;
-    void   parlist_init (Model*);
+    void   parlist_init (g3_Model*);
     double derivative   (Parameter*);
   };
 

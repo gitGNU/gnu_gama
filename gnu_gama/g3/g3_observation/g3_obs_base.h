@@ -20,9 +20,10 @@
 */
 
 /*
- *  $Id: g3_obs_base.h,v 1.13 2003/11/23 14:40:27 cepek Exp $
+ *  $Id: g3_obs_base.h,v 1.14 2003/11/25 22:17:14 cepek Exp $
  */
 
+#include <gnu_gama/model.h>
 #include <gnu_gama/g3/g3_parameter.h>
 #include <gnu_gama/sparse/svector.h>
 #include <gnu_gama/ellipsoid.h>
@@ -48,7 +49,7 @@ namespace GNU_gama {  namespace g3 {
     virtual double obs() const { return 0; }
 
     virtual double parlist_value() const     = 0;      
-    virtual void   parlist_init (Model*)     = 0;
+    virtual void   parlist_init (g3_Model*)     = 0;
     virtual double derivative   (Parameter*) = 0;
     virtual void   linearization(GNU_gama::SparseVector<>&);
 
@@ -61,7 +62,7 @@ namespace GNU_gama {  namespace g3 {
 
   protected:  
 
-    Model*  model;
+    g3_Model*  model;
     double  time;
 
     virtual void prepare_to_linearization() {}

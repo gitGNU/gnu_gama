@@ -20,37 +20,24 @@
 */
 
 /*
- *  $Id: g3_obs_dist.h,v 1.4 2003/11/25 22:17:14 cepek Exp $
+ *  $Id: parameter.h,v 1.1 2003/11/25 22:17:14 cepek Exp $
  */
 
-#include <gnu_gama/g3/g3_observation/g3_obs_base.h>
+
+#ifndef GNU_gama_parameter_h_gnugamaparametertraits___gnu_gama_gparameter___h
+#define GNU_gama_parameter_h_gnugamaparametertraits___gnu_gama_gparameter___h
 
 
-#ifndef GNU_gama__g3_obs_distance_h_gnugamag3obs_distanceh___gnu_gama_g3obs
-#define GNU_gama__g3_obs_distance_h_gnugamag3obs_distanceh___gnu_gama_g3obs
+namespace GNU_gama {
 
 
-namespace GNU_gama {  namespace g3 {
+  class Parameter 
+    {
+    public:
 
-
-  class Distance : public Observation {
-  public:  
-
-    Point::Name name[2];
-
-    Distance() : Observation(6) {}
-
-    double parlist_value() const;
-    void   parlist_init (g3_Model*);
-    double derivative   (Parameter*);
-
-  protected:
-
-    void prepare_to_linearization();
-  };
-
-
-}}
-
+      virtual ~Parameter() {}
+    };
+    
+}
 
 #endif

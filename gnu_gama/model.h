@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: model.h,v 1.1 2003/11/23 19:22:31 cepek Exp $
+ *  $Id: model.h,v 1.2 2003/11/25 22:17:14 cepek Exp $
  */
 
 
@@ -46,6 +46,14 @@ namespace GNU_gama {
     public:
       
       virtual double derivative(Observation*) = 0;
+    };
+
+
+  class Model 
+    {
+    public:
+
+      virtual ~Model() {}
     };
     
 }

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_dist.cpp,v 1.5 2003/05/17 17:07:08 cepek Exp $
+ *  $Id: g3_obs_dist.cpp,v 1.6 2003/11/25 22:17:14 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -73,7 +73,7 @@ double Distance::parlist_value() const
 }
 
 
-void Distance::parlist_init(Model* m)
+void Distance::parlist_init(g3_Model* m)
 {
   model = m; 
 

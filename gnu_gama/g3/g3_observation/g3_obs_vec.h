@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_vec.h,v 1.5 2003/11/06 17:58:59 cepek Exp $
+ *  $Id: g3_obs_vec.h,v 1.6 2003/11/25 22:17:15 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_obs_base.h>
@@ -62,7 +62,7 @@ namespace GNU_gama {  namespace g3 {
     double dy() const { return dxyz_[1]; }
     double dz() const { return dxyz_[2]; }
 
-    void   parlist_init (Model*);
+    void   parlist_init (g3_Model*);
 
   private:
 
@@ -94,7 +94,7 @@ namespace GNU_gama {  namespace g3 {
     { 
       return vec->dxyz_[sel]; 
     }
-    void   parlist_init (Model*);
+    void   parlist_init (g3_Model*);
     double parlist_value() const 
     { 
       vec->select = sel;   return vec->parlist_value();

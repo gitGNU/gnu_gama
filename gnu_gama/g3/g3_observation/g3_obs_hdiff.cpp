@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_hdiff.cpp,v 1.10 2003/05/17 17:07:08 cepek Exp $
+ *  $Id: g3_obs_hdiff.cpp,v 1.11 2003/11/25 22:17:14 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -39,7 +39,7 @@ double HeightDiff::parlist_value() const
 }
 
 
-void HeightDiff::parlist_init(Model* m)
+void HeightDiff::parlist_init(g3_Model* m)
 {
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // !!! this is not a real solution; used here just for testing !!! 

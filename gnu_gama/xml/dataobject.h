@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataobject.h,v 1.3 2003/05/15 18:53:15 cepek Exp $
+ *  $Id: dataobject.h,v 1.4 2003/11/25 22:17:15 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa_XML_Data_Object__object___h_
@@ -96,12 +96,12 @@ namespace GNU_gama { namespace DataObject {
   class g3_model : public Base {
   public:
   
-    GNU_gama::g3::Model *model;
+    GNU_gama::g3::g3_Model *model;
   
     g3_model() : model(0)
       {
       }    
-    g3_model(GNU_gama::g3::Model *m) : model(m)
+    g3_model(GNU_gama::g3::g3_Model *m) : model(m)
       {
       }    
     std::string xml() const 
