@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.22 2004/05/20 16:16:45 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.23 2004/05/20 20:09:23 cepek Exp $
  */
 
 
@@ -149,6 +149,7 @@ DataParser::data_tag DataParser::tag(const char* c)
     case 'a':
       if (!strcmp(c, "adj-input-data" )) return t_adj_input_data;
       if (!strcmp(c, "array"          )) return t_array;
+      if (!strcmp(c, "azimuth"        )) return t_azimuth;
       break;
     case 'b':
       if (!strcmp(c, "b"              )) return t_b;
