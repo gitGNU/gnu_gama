@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_vector.cpp,v 1.5 2004/03/24 19:27:07 cepek Exp $
+ *  $Id: g3_model_vector.cpp,v 1.6 2004/03/26 22:34:26 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -106,9 +106,9 @@ void Model::linearization_visit(Vector* v)
      double dy = to->Y_dh(v->to_dh) - from->Y_dh(v->from_dh);
      double dz = to->Z_dh(v->to_dh) - from->Z_dh(v->from_dh);
  
-     rhs(++rhs_ind) = dx - v->dx();
-     rhs(++rhs_ind) = dy - v->dy();
-     rhs(++rhs_ind) = dz - v->dz();
+     rhs(++rhs_ind) = v->dx() - dx;
+     rhs(++rhs_ind) = v->dy() - dy;
+     rhs(++rhs_ind) = v->dz() - dz;
    }
 }
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.21 2004/03/24 19:27:07 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.22 2004/03/26 22:34:26 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -232,20 +232,24 @@ void Point::set_height(double h)
   height_.set_init_value(h);
 }
 
+//  R is the transformation matrix NEU --> XYZ      dx        dn
+//  R is orthogonal => inv(R) == trans(R)           dy =  R * de     
+//                                                  dz        du
+
 void Point::transformation_matrix(double b, double l)
 {
   using namespace std;
 
-  r11 = -sin(l);
-  r12 = -sin(b)*cos(l);
+  r11 = -sin(b)*cos(l);
+  r12 = -sin(l);
   r13 =  cos(b)*cos(l);
   
-  r21 =  cos(l);
-  r22 = -sin(b)*sin(l);
+  r21 = -sin(b)*sin(l);
+  r22 =  cos(l);
   r23 =  cos(b)*sin(l);
 
-  r31 = 0.0;
-  r32 = cos(b);
+  r31 = cos(b);
+  r32 = 0.0;
   r33 = sin(b);
 }
 
@@ -291,9 +295,9 @@ void Point::write_xml(std::ostream& ostr)
   const double e = E();
   const double u = U();
 
-  X_.set_correction(- x_transform(n, e, u)); /* !!!!! check the sign  !!!!! */
-  Y_.set_correction(- y_transform(n, e, u)); /* !!!!! check the sign  !!!!! */
-  Z_.set_correction(- z_transform(n, e, u)); /* !!!!! check the sign  !!!!! */ 
+  X_.set_correction(x_transform(n, e, u));
+  Y_.set_correction(y_transform(n, e, u));
+  Z_.set_correction(z_transform(n, e, u));
 
   ostr << "\n<point> ";
   ostr << "<id> " << name << " </id>\n\n";
