@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.45 2002/12/15 16:12:44 cepek Exp $
+ *  $Id: version.cpp,v 1.46 2002/12/18 14:23:27 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.5.07-pre";
+const char* GaMaLib_version  = "1.5.07";
 
 const char* GaMaLib_compiler =
               #if   defined (__GNUC__)
@@ -59,8 +59,14 @@ const char* GaMaLib_compiler =
 
 =============================================================================
 
-1.5.07 ????
+1.5.07 2002-12-18
 
+    - added missing declarations "using namespace std;" in various files
+      (apart from g++ 2.95.4 tested with bcc32 5.6 and cl 13.00.9466).
+
+         Note: Makefiles for win platform are not converted using unix2dos
+
+    - call to std:fmod() in g2d_helper.h replaced with expresion "x%2"
 
 
 1.5.06 2002-12-14

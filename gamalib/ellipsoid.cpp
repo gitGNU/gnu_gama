@@ -21,11 +21,12 @@
 */
 
 /*
- *  $Id: ellipsoid.cpp,v 1.2 2002/06/17 19:08:53 cepek Exp $
+ *  $Id: ellipsoid.cpp,v 1.3 2002/12/18 14:23:27 cepek Exp $
  */
 
 #include "ellipsoid.h"
 #include <cmath>
+#include <gamalib/float.h>
 
 #ifdef _MSC_VER
 namespace std {}

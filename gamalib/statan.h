@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: statan.h,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: statan.h,v 1.2 2002/12/18 14:23:27 cepek Exp $
  */
 
 #ifndef GaMaLib_StatAn_h
@@ -82,7 +82,9 @@ void KStest(Float Data[], int n, FloatF (*Func)(FloatF),
    prob   significance level
 */
 {
-   std::sort(Data, Data+n);
+   using namespace std;
+
+   sort(Data, Data+n);
 
    const float  float_n = n;
    float Fa = 0, Fb, Fi, dl, du, dt;
