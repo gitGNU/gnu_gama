@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.19 2004/04/21 16:49:39 cepek Exp $
+ *  $Id: dataparser.h,v 1.20 2004/05/12 18:29:23 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -120,6 +120,18 @@ namespace GNU_gama {
           s_g3_obs_dist_opt_variance,
           s_g3_obs_dist_opt_from_dh,
           s_g3_obs_dist_opt_to_dh,
+
+          s_g3_obs_zenith,
+          s_g3_obs_zenith_from,
+          s_g3_obs_zenith_after_from,
+          s_g3_obs_zenith_to,
+          s_g3_obs_zenith_after_to,
+          s_g3_obs_zenith_val,
+          s_g3_obs_zenith_opt,
+          s_g3_obs_zenith_opt_stdev,
+          s_g3_obs_zenith_opt_variance,
+          s_g3_obs_zenith_opt_from_dh,
+          s_g3_obs_zenith_opt_to_dh,
 
           s_g3_obs_vector,
           s_g3_obs_vector_from,
@@ -246,6 +258,7 @@ namespace GNU_gama {
           t_xyz,
           t_y,
           t_z,
+          t_zenith,
           t_unused
         };
       
@@ -290,6 +303,7 @@ namespace GNU_gama {
       int g3_obs                (const char *name);
       int g3_obs_cov            (const char *name);
       int g3_obs_dist           (const char *name);
+      int g3_obs_zenith         (const char *name);
       int g3_obs_vector         (const char *name);
       int g3_obs_xyz            (const char *name);
 

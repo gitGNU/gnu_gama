@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: gama-g3.cpp,v 1.12 2004/03/24 19:27:06 cepek Exp $
+ * $Id: gama-g3.cpp,v 1.13 2004/05/12 18:29:17 cepek Exp $
  */
 
 #include <fstream>
@@ -162,6 +162,23 @@ int main_g3()
       if (Distance *d = dynamic_cast<Distance*>(*i))
         {
           cerr << " distance : from = "
+               << d->from
+               << "  to = "
+               << d->to
+               << "  val = "
+               << d->obs();
+          
+          if (d->from_dh || d->to_dh)
+            {
+              cerr << " ( ";
+              cerr << d->from_dh << " ";
+              cerr << d->to_dh << " ";
+              cerr << ")";
+            }              
+        }
+      if (ZenithAngle *d = dynamic_cast<ZenithAngle*>(*i))
+        {
+          cerr << " zenith   : from = "
                << d->from
                << "  to = "
                << d->to

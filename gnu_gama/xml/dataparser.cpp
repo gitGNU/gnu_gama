@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.20 2004/04/21 16:49:39 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.21 2004/05/12 18:29:23 cepek Exp $
  */
 
 
@@ -252,6 +252,40 @@ DataParser::DataParser(List<DataObject::Base*>& obs) : objects(obs)
  
   init(s_g3_obs_dist_opt, t_to_dh,
        s_g3_obs_dist_opt_to_dh, 0, 0,
+       0, &DataParser::optional_to_dh, 0);
+
+  // .....  <g3-model> <obs> <zenith>  ...............................
+
+  init(s_g3_obs, t_zenith,
+       s_g3_obs_zenith, s_g3_obs_zenith_opt, 0,
+       0, 0, &DataParser::g3_obs_zenith);
+
+  init(s_g3_obs_zenith, t_from,
+       s_g3_obs_zenith_from, 0, s_g3_obs_zenith_after_from,
+       0, &DataParser::add_text, 0);
+
+  init(s_g3_obs_zenith_after_from, t_to,
+       s_g3_obs_zenith_to, 0, s_g3_obs_zenith_after_to,
+       0, &DataParser::add_text, 0);
+
+  init(s_g3_obs_zenith_after_to, t_val,
+       s_g3_obs_zenith_val, 0, s_g3_obs_zenith_opt,
+       0, &DataParser::add_text, 0);
+
+  init(s_g3_obs_zenith_opt, t_stdev,
+       s_g3_obs_zenith_opt_stdev, 0, 0,
+       0, &DataParser::optional_stdev, 0);
+ 
+  init(s_g3_obs_zenith_opt, t_variance,
+       s_g3_obs_zenith_opt_variance, 0, 0,
+       0, &DataParser::optional_variance, 0);
+ 
+  init(s_g3_obs_zenith_opt, t_from_dh,
+       s_g3_obs_zenith_opt_from_dh, 0, 0,
+       0, &DataParser::optional_from_dh, 0);
+ 
+  init(s_g3_obs_zenith_opt, t_to_dh,
+       s_g3_obs_zenith_opt_to_dh, 0, 0,
        0, &DataParser::optional_to_dh, 0);
 
   // .....  <g3-model> <obs> <vector>  ...............................
@@ -550,6 +584,7 @@ DataParser::data_tag DataParser::tag(const char* c)
       break;
     case 'z' :
       if (!strcmp(c, "z"              )) return t_z;
+      if (!strcmp(c, "zenith"         )) return t_zenith;
       break;
     default:
       break;
@@ -1280,6 +1315,39 @@ int DataParser::g3_obs_dist(const char *name)
     }
 
   return error("### bad <distance>");
+}
+
+int DataParser::g3_obs_zenith(const char *name)
+{
+  using namespace g3;  
+  stringstream istr(text_buffer);
+  string       from, to;
+  string       sval;
+  double       val; 
+
+  if (pure_data(istr >> from >> to >> sval))
+    {
+      text_buffer.clear();
+
+      double val;
+      if (!deg2gon(sval, val))
+        {
+          istringstream istr(sval);
+          istr >> val;
+        }
+
+      ZenithAngle* zenith = new ZenithAngle;
+      zenith->from = from;
+      zenith->to   = to;
+      zenith->set(val);
+      zenith->from_dh = optional(from_dh);
+      zenith->to_dh   = optional(to_dh);
+      g3obs_cluster->observation_list.push_back(zenith);  
+
+      return  end_tag(name);
+    }
+
+  return error("### bad <zenith>");
 }
 
 int DataParser::g3_obs_vector(const char *name)
