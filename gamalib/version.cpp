@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.33 2002/09/30 11:40:24 cepek Exp $
+ *  $Id: version.cpp,v 1.34 2002/09/30 16:26:01 cepek Exp $
  */
 
 
@@ -58,6 +58,11 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.5.03 2002...
+
+    -
+
 
 1.5.02 2002-09-29
 
