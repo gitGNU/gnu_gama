@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: residuals_observations.h,v 1.2 2002/05/24 19:30:51 cepek Exp $
+ *  $Id: residuals_observations.h,v 1.3 2002/12/18 12:24:28 cepek Exp $
  */
 
 
@@ -54,6 +54,7 @@ public:
   StOpSort(GaMaLib::LocalNetwork* is) : IS(is) {}
   bool operator()(int a, int b) 
     {
+      using namespace std;
       GaMaLib::Double sa = fabs(IS->studentized_residual(a));
       GaMaLib::Double sb = fabs(IS->studentized_residual(b));
       return sa > sb; 
@@ -79,6 +80,7 @@ void ResidualsObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
   Double kki = IS->conf_int_coef();
   int imax = 1;         // index of maximal studentized residual
   {
+    using namespace std;
     Double maxno = 0;
     for (int i=1; i<=pocmer; i++)
       {
@@ -221,6 +223,7 @@ void ResidualsObservations(GaMaLib::LocalNetwork* IS, OutStream& out)
 
           if (f >= 0.1)
             {
+              using namespace std;
               Double no = fabs(IS->studentized_residual(i));
               out << no;
               
