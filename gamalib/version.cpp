@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.16 2002/05/31 11:19:35 cepek Exp $
+ *  $Id: version.cpp,v 1.17 2002/06/04 18:51:26 cepek Exp $
  */
 
 
@@ -32,7 +32,7 @@ const char* GaMaLib_version  = "1.3.39";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
-              "GNU g++"             // g++ 2.95.2
+              "GNU g++"             // g++ 2.95.2, g++ 3.0.4
               #elif defined __BORLANDC__
               "win32-borland"       // 5.5
               #elif defined _MSC_VER
@@ -60,7 +60,7 @@ const char* GaMaLib_compiler =
 1.3.39 ?????????? not yet released (available from CVS only)
 
    - various bugs reported by g++ 3.0.4 (pointed out by Jan Pytel);
-     files observation.h, g2d_coordinates.cpp, statan.cpp.
+     files observation.h, g2d_coordinates.cpp, statan.cpp, write.cpp.
 
      All the changes are backward compatible with g++ 2.95.2
 
