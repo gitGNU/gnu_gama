@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: model.h,v 1.10 2004/01/06 21:26:30 cepek Exp $
+ *  $Id: model.h,v 1.11 2004/01/06 21:31:39 cepek Exp $
  */
 
 
@@ -94,7 +94,8 @@ namespace GNU_gama {
   class Model : public ObservationVisitor
   {
   public:
-    typedef typename ObservationData<Observation>::ClusterList       ClusterList;
+    typedef typename 
+          ObservationData<Observation>::ClusterList   ClusterList;
     typedef Observation                               ObservationType;
     typedef ObservationData<Observation>              ObsData;
 
