@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: sbdiagonal.h,v 1.2 2002/09/13 16:21:45 cepek Exp $
+ *  $Id: sbdiagonal.h,v 1.3 2002/09/14 17:36:06 cepek Exp $
  */
 
 #ifndef GaMaLib_Symmetric_Block_Diagonal____GaMaLib_Symmetric_Block_Diagonal__
@@ -133,11 +133,12 @@ template <class Float=double, class Index=std::size_t>
               return block;                // not positive-definite
 
             k = min(W, N-row);             // number of of-diagonal elements
-            p = B+k+1;                     // first element of next submatrix
+            p = B+k;                       // next row address -1
             for (n=1; n<=k; n++)
               {
                 q = B[n]/pivot;
-                for (l=n; l<=k; l++) *p++ -= q*B[l];
+                for (l=n; l<=k; l++) p[l] -= q*B[l];
+                p += min(W, N-row-n);
               }
             *B++ = pivot = sqrt(pivot);    // scaling pivot row 
             for (; k; k--) *B++ /= pivot;
@@ -185,16 +186,16 @@ int main()
       
   double b1[] = {1.1, 1.2, 1.3};
   double b2[] = {44.2, 5.2, 66.2, 7.2, 88.2};
-  double b3[] = {111.3, 12.3, 13.3, 114.3, 15.3, 116.3};
-  double b4[] = {19, 1, 2, 3, 18, 1, 2, 17, 1, 16};
-  double b5[] = {19, 1, 2, 18, 1, 2, 17, 1, 2, 16, 1, 5};
+  double b3[] = {19, 1, 2, 3, 18, 1, 2, 17, 1, 16};
+  double b4[] = {81, 81, 81, 81, 145, 145, 145, 64, 194, 194, 113, 49,
+                 230, 149, 85, 36, 174, 110, 61, 25, 126, 77, 41, 16, 86, 
+                 50, 25, 54, 29, 30};
 
   BlockDiagonal<>* m1 = new BlockDiagonal<>(20, 5000);
   m1->add_block(3, 0, b1);
   m1->add_block(3, 1, b2);
-  m1->add_block(3, 2, b3);
-  m1->add_block(4, 3, b4);
-  m1->add_block(5, 2, b5);
+  m1->add_block(4, 3, b3);
+  m1->add_block(9, 3, b4);
   write(cout, m1);
   
   BlockDiagonal<>* m2 = m1->replicate();
