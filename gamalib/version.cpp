@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.23 2002/06/11 11:53:31 cepek Exp $
+ *  $Id: version.cpp,v 1.24 2002/06/11 12:12:58 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.4.00";
+const char* GaMaLib_version  = "1.5.00";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
@@ -57,11 +57,24 @@ const char* GaMaLib_compiler =
 
 =============================================================================
 
+1.5.00 2002-06-11
+
+     #####################################################################
+     #                                                                   #
+     #  unstable version 1.5 (main trunk at CVS savannah.gnu.org)        #
+     #                                                                   #
+     #####################################################################
+
+   - unstable version 1.5 is aimed at adjustment of geodetic network
+     in geocentric coordinate system. Apart from this comment, version
+     1.5.00 is identical to 1.4.00.
+
+
 1.4.00 2002-06-11
 
      #####################################################################
      #                                                                   #
-     #  stable version 1.4 (branch gama-1-4) at CVS savannah.gnu.org)    #
+     #  stable version 1.4 (branch gama-1-4 at CVS savannah.gnu.org)     #
      #                                                                   #
      #####################################################################
 
