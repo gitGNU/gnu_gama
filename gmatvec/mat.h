@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.15)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.16)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: mat.h,v 1.2 2001/12/20 19:49:43 cepek Exp $
+ *  $Id: mat.h,v 1.3 2002/02/22 18:57:25 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -41,14 +41,17 @@ class Mat : public MatBase<Float, Exc> {
 
 public:
 
+  typedef MatBase<Float, Exc>::iterator       iterator;
+  typedef MatBase<Float, Exc>::const_iterator const_iterator;
+
   Mat() {}
   Mat(Index r, Index c) : MatBase<Float, Exc>(r, c, r*c) {}
   Mat(const TransMat<Float, Exc>&);
   Mat(Index r, Index c, Float m11 ...) : MatBase<Float, Exc>(r, c, r*c)
     {
       using namespace std;
-      MemRep<Float, Exc>::iterator p=begin();
-      MemRep<Float, Exc>::iterator e=end();
+      iterator p=begin();
+      iterator e=end();
       if (p == e)
         throw Exc(BadRank, "Mat::Mat(Index, Float ...)");
       *p = m11;  
@@ -123,7 +126,7 @@ operator* (const MatBase<Float, Exc> &A, const MatBase<Float, Exc> &B)
       throw Exc(BadRank, "Mat operator* (const MatBase&, const MatBase&)");
 
     Mat<Float, Exc> C(A.rows(), B.cols());
-    MemRep<Float, Exc>::iterator c = C.begin();
+    Mat<Float, Exc>::iterator c = C.begin();
     Float s;
     for (Index i=1; i<=C.rows(); i++)
       for (Index j=1; j<=C.cols(); j++)
@@ -179,11 +182,11 @@ operator*(const Mat<Float, Exc> &A, const Mat<Float, Exc> &B)
       throw Exc(BadRank, "Mat operator*(const Mat&, const Mat&)");
 
     Mat<Float, Exc> C(A.rows(), B.cols());
-    MemRep<Float, Exc>::iterator c = C.begin();
-    MemRep<Float, Exc>::const_iterator ab = A.begin();
-    MemRep<Float, Exc>::const_iterator a;
-    MemRep<Float, Exc>::const_iterator bb = B.begin();
-    MemRep<Float, Exc>::const_iterator b;
+    Mat<Float, Exc>::iterator c = C.begin();
+    Mat<Float, Exc>::const_iterator ab = A.begin();
+    Mat<Float, Exc>::const_iterator a;
+    Mat<Float, Exc>::const_iterator bb = B.begin();
+    Mat<Float, Exc>::const_iterator b;
     Float s;
     
     for (Index i=1; i<=C.rows(); i++, ab += A.cols())

@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.15)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.16)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: transmat.h,v 1.2 2001/12/20 19:49:43 cepek Exp $
+ *  $Id: transmat.h,v 1.3 2002/02/22 18:57:25 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -40,6 +40,9 @@ template <class Float, class Exc>
 class TransMat : public MatBase<Float, Exc> {
 
 public:
+
+  typedef MatBase<Float, Exc>::iterator       iterator;
+  typedef MatBase<Float, Exc>::const_iterator const_iterator;
 
   TransMat() {}
   TransMat(Index r, Index c) : MatBase<Float, Exc>(c, r, r*c) {}
@@ -94,7 +97,7 @@ template <class Float, class Exc>
 Mat<Float, Exc>::Mat(const TransMat<Float, Exc>& M)
   : MatBase<Float, Exc>(M.rows(), M.cols(), M.rows()*M.cols()) 
 {
-  MemRep<Float, Exc>::iterator p=begin();
+  iterator p=begin();
   const Index R = M.rows();
   const Index C = M.cols();
   Index i, j;
@@ -114,7 +117,7 @@ template <class Float, class Exc>
 Mat<Float, Exc> trans(const TransMat<Float, Exc> &M) 
 {
   Mat<Float, Exc> T(M.cols(), M.rows());
-  MemRep<Float, Exc>::iterator p=T.begin();
+  Mat<Float, Exc>::iterator p=T.begin();
   const Index R = M.rows();
   const Index C = M.cols();
   Index i, j;
@@ -133,9 +136,9 @@ operator+(const Mat<Float, Exc> &A, const TransMat<Float, Exc> &B)
       throw Exc(BadRank, "Mat operator+(const Mat&, const TransMat&)");
 
     Mat<Float, Exc> T(B);
-    MemRep<Float, Exc>::iterator t=T.begin();
-    MemRep<Float, Exc>::const_iterator b=A.begin();
-    MemRep<Float, Exc>::const_iterator e=A.end();
+    Mat<Float, Exc>::iterator t=T.begin();
+    Mat<Float, Exc>::const_iterator b=A.begin();
+    Mat<Float, Exc>::const_iterator e=A.end();
 
     while (b != e)  *t++ += *b++;
 
@@ -151,9 +154,9 @@ operator-(const Mat<Float, Exc> &A, const TransMat<Float, Exc> &B)
       throw Exc(BadRank, "Mat operator-(const Mat&, const TransMat&)");
 
     Mat<Float, Exc> T(B);
-    MemRep<Float, Exc>::iterator t=T.begin();
-    MemRep<Float, Exc>::const_iterator b=A.begin();
-    MemRep<Float, Exc>::const_iterator e=A.end();
+    Mat<Float, Exc>::iterator t=T.begin();
+    Mat<Float, Exc>::const_iterator b=A.begin();
+    Mat<Float, Exc>::const_iterator e=A.end();
 
     while (b != e)  *t = *b++ - *t++;
 
@@ -169,9 +172,9 @@ operator+(const TransMat<Float, Exc> &A, const Mat<Float, Exc> &B)
       throw Exc(BadRank, "Mat operator+(const TransMat&, const Mat&)");
 
     Mat<Float, Exc> T(A);
-    MemRep<Float, Exc>::iterator t=T.begin();
-    MemRep<Float, Exc>::const_iterator b=B.begin();
-    MemRep<Float, Exc>::const_iterator e=B.end();
+    Mat<Float, Exc>::iterator t=T.begin();
+    Mat<Float, Exc>::const_iterator b=B.begin();
+    Mat<Float, Exc>::const_iterator e=B.end();
 
     while (b != e)  *t++ += *b++;
 
@@ -187,9 +190,9 @@ operator-(const TransMat<Float, Exc> &A, const Mat<Float, Exc> &B)
       throw Exc(BadRank, "Mat operator-(const TransMat&, const Mat&)");
 
     Mat<Float, Exc> T(A);
-    MemRep<Float, Exc>::iterator t=T.begin();
-    MemRep<Float, Exc>::const_iterator b=B.begin();
-    MemRep<Float, Exc>::const_iterator e=B.end();
+    Mat<Float, Exc>::iterator t=T.begin();
+    Mat<Float, Exc>::const_iterator b=B.begin();
+    Mat<Float, Exc>::const_iterator e=B.end();
 
     while (b != e)  *t++ -= *b++;
 
@@ -205,11 +208,11 @@ operator*(const TransMat<Float, Exc> &A, const Vec<Float, Exc> &b)
       throw Exc(BadRank, "Vec operator*(const TransMat&, const Vec&)");
 
     Vec<Float, Exc> t(A.rows());
-    MemRep<Float, Exc>::iterator ti = t.begin();
-    MemRep<Float, Exc>::const_iterator bb = b.begin();
-    MemRep<Float, Exc>::const_iterator bi;
-    MemRep<Float, Exc>::const_iterator ab = A.begin();
-    MemRep<Float, Exc>::const_iterator ai;
+    Vec<Float, Exc>::iterator ti = t.begin();
+    Vec<Float, Exc>::const_iterator bb = b.begin();
+    Vec<Float, Exc>::const_iterator bi;
+    TransMat<Float, Exc>::const_iterator ab = A.begin();
+    TransMat<Float, Exc>::const_iterator ai;
     Float s;
     for (Index i=1; i<=A.rows(); i++)
       {
@@ -234,11 +237,11 @@ operator*(const Vec<Float, Exc> &b, const TransMat<Float, Exc> &A)
       throw Exc(BadRank, "TransVec operator*(const TransMat&, const Vec&)");
 
     TransVec<Float, Exc> t(A.rows());
-    MemRep<Float, Exc>::iterator ti = t.begin();
-    MemRep<Float, Exc>::const_iterator bb = b.begin();
-    MemRep<Float, Exc>::const_iterator bi;
-    MemRep<Float, Exc>::const_iterator ab = A.begin();
-    MemRep<Float, Exc>::const_iterator ai;
+    TransVec<Float, Exc>::iterator ti = t.begin();
+    Vec<Float, Exc>::const_iterator bb = b.begin();
+    Vec<Float, Exc>::const_iterator bi;
+    TransMat<Float, Exc>::const_iterator ab = A.begin();
+    TransMat<Float, Exc>::const_iterator ai;
     const Index a_cols = A.cols();
     Float s;
     for (Index i=1; i<=A.rows(); i++)
@@ -264,11 +267,11 @@ operator*(const TransMat<Float, Exc> &A, const Mat<Float, Exc> &B)
       throw Exc(BadRank, "Mat operator*(const TransMat&, const Mat&)");
 
     Mat<Float, Exc> C(A.rows(), B.cols());
-    MemRep<Float, Exc>::iterator c = C.begin();
-    MemRep<Float, Exc>::const_iterator ab = A.begin();
-    MemRep<Float, Exc>::const_iterator a;
-    MemRep<Float, Exc>::const_iterator bb = B.begin();
-    MemRep<Float, Exc>::const_iterator b;
+    Mat<Float, Exc>::iterator c = C.begin();
+    TransMat<Float, Exc>::const_iterator ab = A.begin();
+    TransMat<Float, Exc>::const_iterator a;
+    Mat<Float, Exc>::const_iterator bb = B.begin();
+    Mat<Float, Exc>::const_iterator b;
     Float s;
     
     for (Index i=1; i<=C.rows(); i++, ab++)
@@ -294,11 +297,11 @@ operator*(const Mat<Float, Exc> &A, const TransMat<Float, Exc> &B)
       throw Exc(BadRank, "Mat operator*(const Mat&, const TransMat&)");
 
     Mat<Float, Exc> C(A.rows(), B.cols());
-    MemRep<Float, Exc>::iterator c = C.begin();
-    MemRep<Float, Exc>::const_iterator ab = A.begin();
-    MemRep<Float, Exc>::const_iterator a;
-    MemRep<Float, Exc>::const_iterator bb = B.begin();
-    MemRep<Float, Exc>::const_iterator b;
+    Mat<Float, Exc>::iterator c = C.begin();
+    Mat<Float, Exc>::const_iterator ab = A.begin();
+    Mat<Float, Exc>::const_iterator a;
+    TransMat<Float, Exc>::const_iterator bb = B.begin();
+    TransMat<Float, Exc>::const_iterator b;
     Float s;
 
     for (Index i=1; i<=C.rows(); i++, ab += A.cols())
@@ -324,11 +327,11 @@ operator*(const TransMat<Float, Exc> &A, const TransMat<Float, Exc> &B)
       throw Exc(BadRank, "Mat operator*(const TransMat&, const TransMat&)");
 
     Mat<Float, Exc> C(A.rows(), B.cols());
-    MemRep<Float, Exc>::iterator c = C.begin();
-    MemRep<Float, Exc>::const_iterator ab = A.begin();
-    MemRep<Float, Exc>::const_iterator a;
-    MemRep<Float, Exc>::const_iterator bb = B.begin();
-    MemRep<Float, Exc>::const_iterator b;
+    Mat<Float, Exc>::iterator c = C.begin();
+    TransMat<Float, Exc>::const_iterator ab = A.begin();
+    TransMat<Float, Exc>::const_iterator a;
+    TransMat<Float, Exc>::const_iterator bb = B.begin();
+    TransMat<Float, Exc>::const_iterator b;
     Float s;
     
     for (Index i=1; i<=C.rows(); i++, ab++)

@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.15)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.16)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: transvec.h,v 1.2 2001/12/20 19:49:43 cepek Exp $
+ *  $Id: transvec.h,v 1.3 2002/02/22 18:57:25 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -39,6 +39,9 @@ template <class Float=double, class Exc=Exception>
 class TransVec : public VecBase<Float, Exc> {
 
 public:
+
+  typedef VecBase<Float, Exc>::iterator       iterator;
+  typedef VecBase<Float, Exc>::const_iterator const_iterator;
 
   TransVec() {}
   TransVec(Index nsz) : VecBase<Float, Exc>(nsz) {}
@@ -79,8 +82,8 @@ std::ostream& operator<<(std::ostream& out, const Vec<Float, Exc>& v)
     out.width(fw);
     out << size << "\n\n";
     
-    MemRep<Float, Exc>::const_iterator b = v.begin();
-    MemRep<Float, Exc>::const_iterator e = v.end();
+    Vec<Float, Exc>::const_iterator b = v.begin();
+    Vec<Float, Exc>::const_iterator e = v.end();
     while (b != e)
       {
         out.width(fw);
@@ -102,8 +105,8 @@ std::ostream& operator<<(std::ostream& out, const TransVec<Float, Exc>& v)
     out.width(fw);
     out << size << "  ";
     
-    MemRep<Float, Exc>::const_iterator b = v.begin();
-    MemRep<Float, Exc>::const_iterator e = v.end();
+    TransVec<Float, Exc>::const_iterator b = v.begin();
+    TransVec<Float, Exc>::const_iterator e = v.end();
     while (b != e)
       {
         out.width(fw);
@@ -160,11 +163,11 @@ operator*(const TransVec<Float, Exc> &b, const Mat<Float, Exc> &A)
       throw Exc(BadRank, "TransVec operator*(const TransVec&, const Mat&)");
 
     TransVec<Float, Exc> t(A.cols());
-    MemRep<Float, Exc>::iterator ti =t.begin();
-    MemRep<Float, Exc>::const_iterator bb = b.begin();
-    MemRep<Float, Exc>::const_iterator bi;
-    MemRep<Float, Exc>::const_iterator aj = A.begin();
-    MemRep<Float, Exc>::const_iterator ai;
+    TransVec<Float, Exc>::iterator ti =t.begin();
+    TransVec<Float, Exc>::const_iterator bb = b.begin();
+    TransVec<Float, Exc>::const_iterator bi;
+    Mat<Float, Exc>::const_iterator aj = A.begin();
+    Mat<Float, Exc>::const_iterator ai;
     const Index a_cols = A.cols();
     const Index a_rows = A.rows();
     Float s;
@@ -186,3 +189,11 @@ operator*(const TransVec<Float, Exc> &b, const Mat<Float, Exc> &A)
 }   // namespace gMatVec
 
 #endif
+
+
+
+
+
+
+
+

@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.15)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.16)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: vecbase.h,v 1.2 2001/12/20 19:49:43 cepek Exp $
+ *  $Id: vecbase.h,v 1.3 2002/02/22 18:57:25 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -44,6 +44,9 @@ protected:
   VecBase(Index nsz) :  MatVecBase<Float, Exc>(nsz) {}
 
 public:
+
+  typedef MatVecBase<Float, Exc>::iterator       iterator;
+  typedef MatVecBase<Float, Exc>::const_iterator const_iterator;
 
   Index dim() const { return size(); }
 
@@ -70,8 +73,8 @@ public:
 template <class Float, class Exc>
 Float VecBase<Float, Exc>::length_sq() const
   {
-    MemRep<Float, Exc>::const_iterator a = begin();
-    MemRep<Float, Exc>::const_iterator e = end();
+    const_iterator a = begin();
+    const_iterator e = end();
     
     Float sum = 0, x;
     while (a != e) { x = *a++; sum += x*x; }
@@ -86,9 +89,9 @@ Float VecBase<Float, Exc>::dot(const VecBase<Float, Exc> &B) const
     if (dim() != B.dim())
       throw Exc(BadRank, "Float VecBase::dot(const VecBase&) const");
     
-    MemRep<Float, Exc>::const_iterator a = begin();
-    MemRep<Float, Exc>::const_iterator e = end();
-    MemRep<Float, Exc>::const_iterator b = B.begin();
+    const_iterator a = begin();
+    const_iterator e = end();
+    const_iterator b = B.begin();
     
     Float sum = 0;
     while (a != e) sum += *a++ * *b++;
@@ -100,8 +103,8 @@ Float VecBase<Float, Exc>::dot(const VecBase<Float, Exc> &B) const
 template <class Float, class Exc>
 Float VecBase<Float, Exc>::norm_L1() const
   {
-    MemRep<Float, Exc>::const_iterator a = begin();
-    MemRep<Float, Exc>::const_iterator e = end();
+    const_iterator a = begin();
+    const_iterator e = end();
     
     Float sum = 0;
     while (a != e) { sum += *a >= 0 ? *a : -(*a); ++a; }
@@ -113,8 +116,8 @@ Float VecBase<Float, Exc>::norm_L1() const
 template <class Float, class Exc>
 Float VecBase<Float, Exc>::norm_Linf() const
   {
-    MemRep<Float, Exc>::const_iterator a = begin();
-    MemRep<Float, Exc>::const_iterator e = end();
+    const_iterator a = begin();
+    const_iterator e = end();
     
     Float norm = 0, x;
     while (a != e) 
@@ -137,8 +140,8 @@ std::istream& operator>>(std::istream& inp, VecBase<Float, Exc>& v)
     if (size != v.dim())
       v.reset(size);
     
-    MemRep<Float, Exc>::iterator b = v.begin();
-    MemRep<Float, Exc>::iterator e = v.end();
+    MatVecBase<Float, Exc>::iterator b = v.begin();
+    MatVecBase<Float, Exc>::iterator e = v.end();
     while (b != e)
       {
         inp >> *b;

@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.15)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.16)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: vec.h,v 1.2 2001/12/20 19:49:43 cepek Exp $
+ *  $Id: vec.h,v 1.3 2002/02/22 18:57:25 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -40,14 +40,17 @@ class Vec : public VecBase<Float, Exc> {
 
 public:
 
+  typedef VecBase<Float, Exc>::iterator       iterator;
+  typedef VecBase<Float, Exc>::const_iterator const_iterator;
+
   Vec() {}
   Vec(Index nsz) : VecBase<Float, Exc>(nsz) {}
   Vec(const VecBase<Float, Exc>& v) : VecBase<Float, Exc>(v) {}
   Vec(Index nsz, Float m11 ...) : VecBase<Float, Exc>(nsz)
     {
          using namespace std;
-         MemRep<Float, Exc>::iterator p=begin();
-         MemRep<Float, Exc>::iterator e=end();
+         iterator p=begin();
+         iterator e=end();
          if (p == e)
             throw Exc(BadRank, "Vec::Vec(Index, Float ...)");
          *p = m11;  
@@ -121,10 +124,10 @@ operator*(const Mat<Float, Exc> &A, const Vec<Float, Exc> &b)
       throw Exc(BadRank, "Vec operator*(const Mat&, const Vec&)");
 
     Vec<Float, Exc> t(A.rows());
-    MemRep<Float, Exc>::iterator ti = t.begin();
-    MemRep<Float, Exc>::const_iterator bb = b.begin();
-    MemRep<Float, Exc>::const_iterator bi;
-    MemRep<Float, Exc>::const_iterator ai = A.begin();
+    Vec<Float, Exc>::iterator ti = t.begin();
+    Vec<Float, Exc>::const_iterator bb = b.begin();
+    Vec<Float, Exc>::const_iterator bi;
+    Vec<Float, Exc>::const_iterator ai = A.begin();
     Float s;
     for (Index i=1; i<=A.rows(); i++)
       {

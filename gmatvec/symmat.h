@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.15)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.16)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: symmat.h,v 1.2 2001/12/20 19:49:43 cepek Exp $
+ *  $Id: symmat.h,v 1.3 2002/02/22 18:57:25 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -41,6 +41,9 @@ class SymMat : public MatBase<Float, Exc>, public CholDec<Float, Exc> {
 
 public:
 
+  typedef MatBase<Float, Exc>::iterator       iterator;
+  typedef MatBase<Float, Exc>::const_iterator const_iterator;
+
   SymMat(Index d=0) : MatBase<Float, Exc>(d, d, d*(d+1)/2), 
     dim_(d), idf_(0) {}
   SymMat(Index r, Index c) : MatBase<Float, Exc>(r, c, r*(r+1)/2), 
@@ -52,8 +55,8 @@ public:
     : MatBase<Float, Exc>(d, d, d*(d+1)/2), dim_(d), idf_(0)
     {
       using namespace std;
-      MemRep<Float, Exc>::iterator a = begin();
-      MemRep<Float, Exc>::iterator e = end();
+      iterator a = begin();
+      iterator e = end();
       *a = m11;
       a++;        
       va_list  ap;
@@ -161,11 +164,11 @@ operator+(const SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
     if (A.dim() != B.dim())
       throw Exc(BadRank, "operator+(const SymMat&, const SymMat&)");
 
-    MemRep<Float, Exc>::const_iterator a = A.begin();
-    MemRep<Float, Exc>::const_iterator b = B.begin();
-    MemRep<Float, Exc>::const_iterator e = A.end();
+    SymMat<Float, Exc>::const_iterator a = A.begin();
+    SymMat<Float, Exc>::const_iterator b = B.begin();
+    SymMat<Float, Exc>::const_iterator e = A.end();
     SymMat<Float, Exc> M(A.dim());
-    MemRep<Float, Exc>::iterator m = M.begin();
+    SymMat<Float, Exc>::iterator m = M.begin();
 
     while (a != e) *m++ = *a++ + *b++;
 
@@ -179,11 +182,11 @@ operator-(const SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
     if (A.dim() != B.dim())
       throw Exc(BadRank, "operator-(const SymMat&, const SymMat&)");
 
-    MemRep<Float, Exc>::const_iterator a = A.begin();
-    MemRep<Float, Exc>::const_iterator b = B.begin();
-    MemRep<Float, Exc>::const_iterator e = A.end();
+    SymMat<Float, Exc>::const_iterator a = A.begin();
+    SymMat<Float, Exc>::const_iterator b = B.begin();
+    SymMat<Float, Exc>::const_iterator e = A.end();
     SymMat<Float, Exc> M(A.dim());
-    MemRep<Float, Exc>::iterator m = M.begin();
+    SymMat<Float, Exc>::iterator m = M.begin();
 
     while (a != e) *m++ = *a++ - *b++;
 
@@ -197,9 +200,9 @@ operator+=(SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
     if (A.dim() != B.dim())
       throw Exc(BadRank, "operator+=(const SymMat&, const SymMat&)");
 
-    MemRep<Float, Exc>::iterator a = A.begin();
-    MemRep<Float, Exc>::iterator e = A.end();
-    MemRep<Float, Exc>::const_iterator b = B.begin();
+    SymMat<Float, Exc>::iterator a = A.begin();
+    SymMat<Float, Exc>::iterator e = A.end();
+    SymMat<Float, Exc>::const_iterator b = B.begin();
 
     while (a != e) *a++ += *b++;
 
@@ -213,9 +216,9 @@ operator-=(SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
     if (A.dim() != B.dim())
       throw Exc(BadRank, "operator-=(const SymMat&, const SymMat&)");
 
-    MemRep<Float, Exc>::iterator a = A.begin();
-    MemRep<Float, Exc>::iterator e = A.end();
-    MemRep<Float, Exc>::const_iterator b = B.begin();
+    SymMat<Float, Exc>::iterator a = A.begin();
+    SymMat<Float, Exc>::iterator e = A.end();
+    SymMat<Float, Exc>::const_iterator b = B.begin();
 
     while (a != e) *a++ -= *b++;
 
@@ -236,7 +239,7 @@ Mat<Float, Exc>
 Square(const SymMat<Float, Exc>& A)
   {
     Mat<Float, Exc> M(A.dim(), A.dim());
-    MemRep<Float, Exc>::const_iterator m = A.begin();
+    Mat<Float, Exc>::const_iterator m = A.begin();
     
     for (Index i=1; i<=A.dim(); i++)
       for (Index j=1; j<=i; j++)
@@ -250,7 +253,7 @@ Mat<Float, Exc>
 Lower(const SymMat<Float, Exc>& A)
   {
     Mat<Float, Exc> M(A.dim(), A.dim());
-    MemRep<Float, Exc>::const_iterator m = A.begin();
+    Mat<Float, Exc>::const_iterator m = A.begin();
     
     for (Index i=1; i<=A.dim(); i++)
       for (Index j=1; j<=i; j++)
@@ -267,7 +270,7 @@ Mat<Float, Exc>
 Upper(const SymMat<Float, Exc>& A)
   {
     Mat<Float, Exc> M(A.dim(), A.dim());
-    MemRep<Float, Exc>::const_iterator m = A.begin();
+    Mat<Float, Exc>::const_iterator m = A.begin();
     
     for (Index i=1; i<=A.dim(); i++)
       for (Index j=1; j<=i; j++)
@@ -287,7 +290,7 @@ Lower(const Mat<Float, Exc>& A)
       throw Exc(BadRank, "SymMat<Float, Exc> Lower(const Mat<Float, Exc>& A)");
 
     SymMat<Float, Exc> M(A.rows());
-    MemRep<Float, Exc>::iterator m = M.begin();
+    SymMat<Float, Exc>::iterator m = M.begin();
     
     for (Index i=1; i<=M.dim(); i++)
       for (Index j=1; j<=i; j++)
@@ -304,7 +307,7 @@ Upper(const Mat<Float, Exc>& A)
       throw Exc(BadRank, "SymMat<Float, Exc> Upper(const Mat<Float, Exc>& A)");
 
     SymMat<Float, Exc> M(A.rows());
-    MemRep<Float, Exc>::iterator m = M.begin();
+    SymMat<Float, Exc>::iterator m = M.begin();
     
     for (Index i=1; i<=M.dim(); i++)
       for (Index j=1; j<=i; j++)
@@ -368,8 +371,8 @@ void SymMat<Float, Exc>::cholDec()
 template <class Float, class Exc>
 void SymMat<Float, Exc>::solve(Vec<Float, Exc>& rhs) const
   {
-    MemRep<Float, Exc>::const_iterator a = begin();
-    MemRep<Float, Exc>::iterator b;
+    const_iterator a = begin();
+    Vec<Float, Exc>::iterator b;
     const Index N = dim();
     Float sum;
     Index i, j;
@@ -407,7 +410,7 @@ template <class Float, class Exc>
 void SymMat<Float, Exc>::invert()
   {
     const Index n = dim();
-    MemRep<Float, Exc>::iterator a = begin()-1;
+    iterator a = begin()-1;
     Vec<Float, Exc> w(n);
     Float p, q;
     Index i, ii, ij, k, m;
@@ -473,7 +476,7 @@ operator*(const SymMat<Float, Exc>& A, const SymMat<Float, Exc>& B)
     const Float *b = B.begin() - 1;
 
     SymMat<Float, Exc> C(A.dim());
-    MemRep<Float, Exc>::iterator c = C.begin();
+    SymMat<Float, Exc>::iterator c = C.begin();
     const Index n = C.dim();
 
     Float cij;
@@ -508,11 +511,11 @@ operator*(const Mat<Float, Exc>& A, const SymMat<Float, Exc>& B)
 
     const Index m  = A.rows();
     const Index n  = A.cols();
-    MemRep<Float, Exc>::const_iterator a  = A.begin();
-    MemRep<Float, Exc>::const_iterator aj;
+    Mat<Float, Exc>::const_iterator a  = A.begin();
+    Mat<Float, Exc>::const_iterator aj;
     const Float *b = B.begin() - 1;
     Mat<Float, Exc> C(m,n);
-    MemRep<Float, Exc>::iterator c = C.begin();
+    Mat<Float, Exc>::iterator c = C.begin();
 
     Index i, j, k, l;
     Float sum;

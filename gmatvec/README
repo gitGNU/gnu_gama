@@ -1,3 +1,7 @@
+0.9.16 2002-02-22
+
+       - added Mat<> / Vec<> iterators
+
 0.9.15 2001-12-20
 
        - removed a bug in void SymMat::invert() [missing return statement 

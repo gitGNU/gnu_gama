@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.4 2001/12/21 10:25:48 cepek Exp $
+ *  $Id: version.cpp,v 1.5 2002/02/22 18:57:25 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.3.31";
+const char* GaMaLib_version  = "1.3.31-a";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
@@ -56,6 +56,11 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.3.21 2002-xx-xx
+
+   - gmatvec 0.9.16 (added iterators to Mat<> / Vec<> classes)
+
 
 1.3.31 2001-12-21
 

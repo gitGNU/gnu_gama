@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.15)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.16)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: matvecbase.h,v 1.2 2001/12/20 19:49:43 cepek Exp $
+ *  $Id: matvecbase.h,v 1.3 2002/02/22 18:57:25 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -35,6 +35,30 @@ namespace gMatVec {
 template <class Float=double, class Exc=Exception>
 class MatVecBase : public MemRep<Float, Exc> {
 
+public:
+
+  typedef MemRep<Float, Exc>::iterator       iterator;
+  typedef MemRep<Float, Exc>::const_iterator const_iterator;
+
+  void operator*=(Float f)
+  {
+    iterator b = begin();
+    iterator e = end();
+    while (b != e)
+    *b++ *= f;
+  }
+  void operator/=(Float f) { operator*=(1/f); }
+
+  void set_all(Float f)
+  {
+    iterator b = begin();
+    iterator e = end();
+    while (b != e)
+      *b++ = f;
+  }
+
+  void set_zero() { set_all(0.0); }
+
 protected:
 
   MatVecBase() {}
@@ -46,9 +70,9 @@ protected:
       if (size() != X.size())
         throw Exc(BadRank, "MatVecBase::mul(Float f, MatVecBase& X)");
 
-      MemRep<Float, Exc>::const_iterator a = begin();
-      MemRep<Float, Exc>::iterator x = X.begin();
-      MemRep<Float, Exc>::iterator e = X.end();
+      const_iterator a = begin();
+      iterator x = X.begin();
+      iterator e = X.end();
       while (x != e)
         *x++ = *a++ * f;
     }
@@ -58,10 +82,10 @@ protected:
       if (size() != B.size() || size() != X.size())
         throw Exc(BadRank, "MatVecBase::add(const MatVecBase&, MatVecBase&)");
 
-      MemRep<Float, Exc>::const_iterator a = begin();
-      MemRep<Float, Exc>::const_iterator b = B.begin();
-      MemRep<Float, Exc>::iterator x = X.begin();
-      MemRep<Float, Exc>::iterator e = X.end();
+      const_iterator a = begin();
+      const_iterator b = B.begin();
+      iterator x = X.begin();
+      iterator e = X.end();
       while (x != e)
         *x++ = *a++ + *b++;
     }
@@ -71,10 +95,10 @@ protected:
       if (size() != B.size() || size() != X.size())
         throw Exc(BadRank, "MatVecBase::sub(const MatVecBase&, MatVecBase&)");
 
-      MemRep<Float, Exc>::const_iterator a = begin();
-      MemRep<Float, Exc>::const_iterator b = B.begin();
-      MemRep<Float, Exc>::iterator x = X.begin();
-      MemRep<Float, Exc>::iterator e = X.end();
+      const_iterator a = begin();
+      const_iterator b = B.begin();
+      iterator x = X.begin();
+      iterator e = X.end();
       while (x != e)
         *x++ = *a++ - *b++;
     }
@@ -83,12 +107,12 @@ protected:
 
   class ListInitialiser {
 
-    MemRep<Float, Exc>::iterator x, e, first;
+    iterator x, e, first;
 
   public:
 
-  ListInitialiser(MemRep<Float, Exc>::iterator begin, 
-                  MemRep<Float, Exc>::iterator end) : x(begin), e(end) 
+  ListInitialiser(iterator begin, 
+                  iterator end) : x(begin), e(end) 
     {
       first = x;
       if (x != e) ++first;
@@ -123,27 +147,6 @@ protected:
       return linit;
     }
  
-public:
-
-  void operator*=(Float f)
-  {
-    MemRep<Float, Exc>::iterator b = begin();
-    MemRep<Float, Exc>::iterator e = end();
-    while (b != e)
-    *b++ *= f;
-  }
-  void operator/=(Float f) { operator*=(1/f); }
-
-  void set_all(Float f)
-  {
-    MemRep<Float, Exc>::iterator b = begin();
-    MemRep<Float, Exc>::iterator e = end();
-    while (b != e)
-      *b++ = f;
-  }
-
-  void set_zero() { set_all(0.0); }
-
 };
 
 }   // namespace gMatVec

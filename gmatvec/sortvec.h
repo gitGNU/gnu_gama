@@ -1,5 +1,5 @@
 /*  
-    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.15)
+    C++ Matrix/Vector templates (GNU GaMa / gMatVec 0.9.16)
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
 
     This file is part of the gMatVec C++ Matrix/Vector template library.
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: sortvec.h,v 1.2 2001/12/20 19:49:43 cepek Exp $
+ *  $Id: sortvec.h,v 1.3 2002/02/22 18:57:25 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -36,8 +36,8 @@ namespace gMatVec {
 template <class Float, class Exc>
 inline void sort(Vec<Float, Exc>& v)
   {
-    MemRep<Float, Exc>::iterator b = v.begin();
-    MemRep<Float, Exc>::iterator e = v.end();
+    Vec<Float, Exc>::iterator b = v.begin();
+    Vec<Float, Exc>::iterator e = v.end();
     std::sort(b, e);
   }
 
