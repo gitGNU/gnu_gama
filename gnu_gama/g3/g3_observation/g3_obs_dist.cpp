@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_dist.cpp,v 1.2 2003/04/08 16:41:51 cepek Exp $
+ *  $Id: g3_obs_dist.cpp,v 1.3 2003/04/10 16:12:03 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -57,25 +57,26 @@ double Distance::parlist_value() const
   double y2 = to->Y.value(0);
   double z2 = to->Z.value(0);
 
-  x1 += from->r11*n1 + from->r12*e1 + from->r13*u1;
-  y1 += from->r21*n1 + from->r22*e1 + from->r23*u1;
-  z1 += from->r31*n1 + from->r32*e1 + from->r33*u1;
+  x1 += from->x_transform(n1, e1, u1);
+  y1 += from->y_transform(n1, e1, u1);
+  z1 += from->z_transform(n1, e1, u1);
 
-  x2 += to->r11*n2 + to->r12*e2 + to->r13*u2;
-  y2 += to->r21*n2 + to->r22*e2 + to->r23*u2;
-  z2 += to->r31*n2 + to->r32*e2 + to->r33*u2;
+  x2 += to->x_transform(n2, e2, u2);
+  y2 += to->y_transform(n2, e2, u2);
+  z2 += to->z_transform(n2, e2, u2);
 
   x2 -= x1;
-  y2 -= y2;
+  y2 -= y1;
   z2 -= z1;
 
   return sqrt(x2*x2 + y2*y2 + z2*z2);
 }
 
 
-void Distance::parlist_init(Model* model)
+void Distance::parlist_init(Model* m)
 {
-  ellipsoid = &model->ellipsoid;
+  model = m; 
+  GNU_gama::Ellipsoid* ellipsoid = &model->ellipsoid;
 
   if (!active())  return;
  
@@ -119,4 +120,24 @@ double Distance::derivative(Parameter* p)
     return ad->analytical_derivative(this);
   else
     return numerical_derivative(p);
+}
+
+
+void Distance::prepare_to_linearization()
+{
+  Point* from = model->get_point(name[0]);
+  Point* to   = model->get_point(name[1]);
+  double dx = to->X.value(time) - from->X.value(time);
+  double dy = to->Y.value(time) - from->Y.value(time);
+  double dz = to->Z.value(time) - from->Z.value(time);
+  double dd = sqrt(dx*dx + dy*dy + dz*dz);
+
+  // if (dd == 0) throw ...
+
+  dx /= dd;
+  dy /= dd;
+  dz /= dd;
+
+  from->set_diff_XYZ(-dx, -dy, -dz);
+  to  ->set_diff_XYZ( dx,  dy,  dz);
 }

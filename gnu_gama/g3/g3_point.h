@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.14 2003/04/08 16:41:51 cepek Exp $
+ *  $Id: g3_point.h,v 1.15 2003/04/10 16:12:03 cepek Exp $
  */
 
 #include <gamalib/pointid.h>
@@ -49,26 +49,34 @@ namespace GNU_gama {  namespace g3 {
       void   set_point(Point* p) { pt = p; }
     };
 
-  class Parameter_N : public Parameter_LocalPosition
+  class Parameter_N : 
+    public Parameter_LocalPosition,
+    public DistanceAnalyticalDerivative
     {
     public:
       Parameter_N(Point* p) : Parameter_LocalPosition(p) {}
+
+      double analytical_derivative(Distance*);
     };
   
-  class Parameter_E : public Parameter_LocalPosition
+  class Parameter_E : 
+    public Parameter_LocalPosition,
+    public DistanceAnalyticalDerivative
     {
     public:
       Parameter_E(Point* p) : Parameter_LocalPosition(p) {}
+
+      double analytical_derivative(Distance*);
     };
   
   class Parameter_U : 
-    public Parameter_LocalPosition
-    // public HeightDiffAnalyticalDerivative
+    public Parameter_LocalPosition,
+    public DistanceAnalyticalDerivative
     {
     public:
       Parameter_U(Point* p) : Parameter_LocalPosition(p) {}
 
-      // double analytical_derivative(HeightDiff*);
+      double analytical_derivative(Distance*);
     };
 
 
@@ -123,10 +131,15 @@ namespace GNU_gama {  namespace g3 {
     void set_blh(double, double, double);
     void set_xyz(double, double, double);
 
-    // rotation matrix of transformation from local to global
-    // Cartesian coordinates (NEU --> XYZ)
 
-    double   r11, r12, r13,   r21, r22, r23,   r31, r32, r33;
+    double x_transform(double n, double e, double u);
+    double y_transform(double n, double e, double u);
+    double z_transform(double n, double e, double u);
+
+    void   set_diff_XYZ(double dx, double dy, double dz);
+    double diff_N() const;
+    double diff_E() const;
+    double diff_U() const;
 
   private:
 
@@ -148,7 +161,14 @@ namespace GNU_gama {  namespace g3 {
 
 
     void     transformation_matrix(double b, double l);
-      
+
+    // rotation matrix of transformation from local to global
+    // Cartesian coordinates (NEU --> XYZ)
+
+    double   r11, r12, r13,   r21, r22, r23,   r31, r32, r33;
+
+  private:
+    double   dX, dY, dZ ; 
   };
 
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_dist.h,v 1.2 2003/03/29 13:33:57 cepek Exp $
+ *  $Id: g3_obs_dist.h,v 1.3 2003/04/10 16:12:03 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_obs_base.h>
@@ -43,6 +43,10 @@ namespace GNU_gama {  namespace g3 {
     double parlist_value() const;
     void   parlist_init (Model*);
     double derivative   (Parameter*);
+
+  protected:
+
+    void prepare_to_linearization();
   };
 
 

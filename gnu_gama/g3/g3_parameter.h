@@ -19,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* $Id: g3_parameter.h,v 1.9 2003/04/08 16:41:51 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.10 2003/04/10 16:12:03 cepek Exp $  */
 
 #include <cstddef>
 #include <gnu_gama/list.h>
@@ -61,7 +61,7 @@ namespace GNU_gama { namespace g3 {
   class Parameter {
   public:
     
-    Parameter() {}
+    Parameter() : val(0), cor(0) {}
     Parameter(const Parameter&);
     virtual ~Parameter() {}
     

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_base.cpp,v 1.7 2003/04/08 16:41:51 cepek Exp $
+ *  $Id: g3_obs_base.cpp,v 1.8 2003/04/10 16:12:03 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -32,18 +32,23 @@ using std::size_t;
 
 void Observation::linearization(GNU_gama::SparseVector<>& row)
 {
+  prepare_to_linearization();
+  
   row.reset();
   ParameterTree tree(parlist);
   ParameterTree::iterator b=tree.begin(), e=tree.end();
 
   double     d; 
+  Parameter* p;
+
   while (b != e)
     {
-      d = derivative(*b);
-      if (d)
-      {
-        row.add((*b)->index(), d);
-      }
+      p = *b;
+      if (p->free())
+        {
+          d = derivative(p);
+          if (d) row.add(p->index(), d);
+        }
       ++b;
     }
 }

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.13 2003/04/08 16:41:51 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.14 2003/04/10 16:12:03 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -255,7 +255,59 @@ void Point::transformation_matrix(double b, double l)
 }
 
 
+double Point::x_transform(double n, double e, double u)
+{
+  return r11*n + r12*e + r13*u;
+}
+
+double Point::y_transform(double n, double e, double u)
+{
+  return r21*n + r22*e + r23*u;
+}
+
+double Point::z_transform(double n, double e, double u)
+{
+  return r31*n + r32*e + r33*u;
+}
+
+
+void Point::set_diff_XYZ(double dx, double dy, double dz)
+{
+  dX = dx;  dY = dy;  dZ = dz;
+}
+
+double Point::diff_N() const
+{
+  return r11*dX + r21*dY + r31*dZ;
+}
+
+double Point::diff_E() const
+{
+  return r12*dX + r22*dY + r32*dZ;
+}
+
+double Point::diff_U() const
+{
+  return r13*dX + r23*dY + r33*dZ;
+}
+
+
 // ----------------------------------------------------------------------
+
+double Parameter_N::analytical_derivative(Distance*)
+{
+  return point()->diff_N();
+}
+
+double Parameter_E::analytical_derivative(Distance*)
+{
+  return point()->diff_E();
+}
+
+double Parameter_U::analytical_derivative(Distance*)
+{
+  return point()->diff_U();
+}
 
 // double Parameter_U::analytical_derivative(HeightDiff* hd)
 // {

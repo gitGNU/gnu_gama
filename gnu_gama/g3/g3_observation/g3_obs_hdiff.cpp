@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_hdiff.cpp,v 1.7 2003/04/08 16:41:51 cepek Exp $
+ *  $Id: g3_obs_hdiff.cpp,v 1.8 2003/04/10 16:12:03 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation.h>
@@ -40,13 +40,14 @@ double HeightDiff::parlist_value() const
 }
 
 
-void HeightDiff::parlist_init(Model* model)
+void HeightDiff::parlist_init(Model* m)
 {
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // !!! this is not a real solution. used here just for testing !!! 
+  // !!! this is not a real solution; used here just for testing !!! 
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-  ellipsoid = &model->ellipsoid;
+  model = m;
+  // GNU_gama::Ellipsoid* ellipsoid = &model->ellipsoid;
   
   if (!active())  return;
   

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_obs_base.h,v 1.6 2003/03/29 13:33:57 cepek Exp $
+ *  $Id: g3_obs_base.h,v 1.7 2003/04/10 16:12:03 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_parameter.h>
@@ -40,7 +40,7 @@ namespace GNU_gama {  namespace g3 {
   class Observation {
   public:
 
-    Observation(int n) : parlist(n), ellipsoid(0), time(0) {}
+    Observation(int n) : parlist(n), model(0), time(0) {}
     virtual ~Observation() {}
 
     double  obs() const { return 0; }
@@ -59,13 +59,15 @@ namespace GNU_gama {  namespace g3 {
 
   protected:  
 
-    GNU_gama::Ellipsoid* ellipsoid;
+    //GNU_gama::Ellipsoid* ellipsoid;
+    GNU_gama::g3::Model* model;
     double  time;
+
+    virtual void prepare_to_linearization() {}
 
   private:
 
     bool active_;
-
   };
 
 }}
