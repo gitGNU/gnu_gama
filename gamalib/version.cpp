@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: version.cpp,v 1.2 2001/12/07 14:33:05 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GaMaLib {
 
-const char* GaMaLib_version  = "1.3.29";
+const char* GaMaLib_version  = "1.3.30";
 
 const char* GaMaLib_compiler =
               #ifdef __GNUC__
@@ -56,6 +56,16 @@ const char* GaMaLib_compiler =
  * Expat library to be in the same directory as GaMaLib
 
 =============================================================================
+
+1.3.20  2001-12-07
+
+   - a bug in ObservationData::deepCopy found by Jan Pytel (covariance
+     matrices were not copied)
+
+       diff -r1.1 gamadata.cpp
+       59a60
+       >       current->covariance_matrix = (*ci)->covariance_matrix;
+
 
 1.3.29  2001-12-02
 

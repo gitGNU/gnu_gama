@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gamadata.cpp,v 1.1 2001/12/07 12:38:37 cepek Exp $
+ *  $Id: gamadata.cpp,v 1.2 2001/12/07 14:33:05 cepek Exp $
  */
 
 #include <gamalib/local/gamadata.h>
@@ -57,8 +57,9 @@ void ObservationData::deepCopy(const ObservationData& cod)
           current->observation_list.push_back( (*m)->clone() );
         }
       
+      current->covariance_matrix = (*ci)->covariance_matrix;
       current->update();
-      CL.push_back( current);
+      CL.push_back( current );
     }
   
 }
