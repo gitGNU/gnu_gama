@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.25 2004/03/18 17:07:02 cepek Exp $
+ *  $Id: version.cpp,v 1.26 2004/03/28 16:52:11 cepek Exp $
  */
 
 
@@ -63,6 +63,13 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.09-pre 2004-.....
+
+    - three bugs removed by Jan Pytel (approx. coordinates and new 360
+      degrees output):
+
+         * accord.cpp 
+         * outlying_abs_terms.h 
+           reduced_observations.h (reported by Zoltan Faludi)
 
     - a bug in "active covariance matrix" in obsdata.h
 

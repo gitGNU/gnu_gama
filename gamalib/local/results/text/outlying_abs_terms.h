@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: outlying_abs_terms.h,v 1.4 2003/06/14 15:00:22 cepek Exp $
+ *  $Id: outlying_abs_terms.h,v 1.5 2004/03/28 16:52:11 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vybocujici_Absolutni_Cleny_h_
@@ -30,6 +30,7 @@
 #include <gamalib/local/network.h>
 #include <gamalib/local/pobs/format.h>
 #include <gamalib/statan.h>
+#include <gnu_gama/gon2deg.h>
 
 namespace GaMaLib {
 
@@ -94,7 +95,10 @@ void OutlyingAbsoluteTerms(GaMaLib::LocalNetwork* IS, OutStream& out)
                 out.precision(6);
                 out.width(12);
                 Double m = R2G*(s->value());
-                out << m << " ";
+		if (IS->gons())
+		    out << m << " ";
+		else
+		    out << GNU_gama::gon2deg(m, 0, 2) << " ";
               }
             else if (Angle* u = dynamic_cast<Angle*>(pm))
               {
@@ -105,7 +109,10 @@ void OutlyingAbsoluteTerms(GaMaLib::LocalNetwork* IS, OutStream& out)
                 out.precision(6);
                 out.width(12);
                 Double m = R2G*(u->value());
-                out << m << " ";
+		if (IS->gons())
+		    out << m << " ";
+		else
+		    out << GNU_gama::gon2deg(m, 0, 2) << " ";
               }
             else if (Z_Angle* z = dynamic_cast<Z_Angle*>(pm))
               {
@@ -113,7 +120,10 @@ void OutlyingAbsoluteTerms(GaMaLib::LocalNetwork* IS, OutStream& out)
                 out.precision(6);
                 out.width(12);
                 Double m = R2G*(z->value());
-                out << m << " ";
+		if (IS->gons())
+		    out << m << " ";
+		else
+		    out << GNU_gama::gon2deg(m, 0, 2) << " ";
               }
             else if (S_Distance* p = dynamic_cast<S_Distance*>(pm))
               {
@@ -138,7 +148,7 @@ void OutlyingAbsoluteTerms(GaMaLib::LocalNetwork* IS, OutStream& out)
 
                 throw GaMaLib::Exception(
                    "GaMa internal error - unknown observation\n"
-                   "$Id: outlying_abs_terms.h,v 1.4 2003/06/14 15:00:22 cepek Exp $");
+                   "$Id: outlying_abs_terms.h,v 1.5 2004/03/28 16:52:11 cepek Exp $");
               }
           }   // ************************************************
           

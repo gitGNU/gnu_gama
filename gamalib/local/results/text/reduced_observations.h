@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: reduced_observations.h,v 1.3 2003/06/14 15:00:22 cepek Exp $
+ *  $Id: reduced_observations.h,v 1.4 2004/03/28 16:52:11 cepek Exp $
  */
 
 #ifndef GaMaLib_local_results_text_reduced_observations_h
@@ -30,6 +30,7 @@
 #include <gamalib/local/results/text/underline.h>
 #include <gamalib/local/network.h>
 #include <gamalib/local/acord.h>
+#include <gnu_gama/gon2deg.h>
 #include <cctype>
 #include <iomanip>
 
@@ -129,7 +130,10 @@ void ReducedObservationsText(GaMaLib::LocalNetwork* IS,
      for (int i=0; i < kk; i++) out << "=";
    }  
 
-   out << "==== [m/g] ";
+   if (IS->gons())
+       out << "==== [m|g] ";
+   else
+       out << "==== [m|d] ";   
 
    {
        int kk = maxval_dh - minval_dh;
@@ -182,11 +186,19 @@ void ReducedObservationsText(GaMaLib::LocalNetwork* IS,
           {
 	    out << T_GaMa_z_angle;
             out.precision(6); 
-            out.width(maxval_obs); 
-            out << R2G*(it->orig_value()) << " ";
+            out.width(maxval_obs);
+	    if (IS->gons())
+		out << R2G*(it->orig_value()) << " ";
+	    else
+		out << GNU_gama::gon2deg(R2G*it->orig_value(), 0, 2) << " ";
             out.width(maxval_obs);
 	    if ( it->reduced() )
-		out << R2G*pm->value();
+	    {
+		if (IS->gons())
+		    out << R2G*pm->value();
+		else
+		    out << GNU_gama::gon2deg(R2G*pm->value(), 0, 2);
+	    }
 	    else
 		out << str_nonexist.c_str();
 	    out << " ";

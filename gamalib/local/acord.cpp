@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.cpp,v 1.13 2003/11/06 17:58:57 cepek Exp $
+ *  $Id: acord.cpp,v 1.14 2004/03/28 16:52:11 cepek Exp $
  */
 
  
@@ -136,7 +136,7 @@ void Acord::execute()
                   if (from == z->from() && to == z->to())
                     {
                       // ... and fake a horizontal distance
-                      standpoint->observation_list.push_back(new Distance(from, to, s->value()*sin(z->value())));
+                      standpoint->observation_list.push_back(new Distance(from, to, s->value()*fabs(sin(z->value()))));
                       continue;
                     }
 
