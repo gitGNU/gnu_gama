@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: observation.h,v 1.1 2001/12/07 12:22:42 cepek Exp $
+ *  $Id: observation.h,v 1.2 2001/12/21 10:25:48 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_Mereni_H
@@ -185,7 +185,11 @@ namespace GaMaLib {
       Angle(const PointID& s, const PointID& c,  const PointID& c2,
             Double d) : Observation(s, c, d), rs_(c2) 
         { 
-          if (s == c2 || c == c2) 
+          /* was: if (s == c2 || c == c2) ...; from 1.3.31 we allow
+           * left and right targets to be identical, surely this is
+           * not an realistic case but it's useful in g2d_point.h:67
+           * and should not cause a trouble elsewhere */
+          if (s == c2) 
             throw GaMaLib::Exception(T_GaMa_from_equals_to);
           norm_rad_val(); 
         }

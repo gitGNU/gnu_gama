@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.3 2001/12/20 19:49:43 cepek Exp $
+ *  $Id: version.cpp,v 1.4 2001/12/21 10:25:48 cepek Exp $
  */
 
 
@@ -57,7 +57,7 @@ const char* GaMaLib_compiler =
 
 =============================================================================
 
-1.3.31 2001-12-20
+1.3.31 2001-12-21
 
    - in scripts/make-linux2borland.sed added parameters needed by
      Rosinante and a minor change in scripts/Build_GaMa (Jan Pytel)
@@ -65,6 +65,15 @@ const char* GaMaLib_compiler =
    - gmatvec 0.9.15: a bug in SymMat::invert() reported by Leos Mervart;
      in the case of dimension==1 inversion was computed twice
      and thus nothing happened (missing return statement)
+
+   - a bug in computation of approximate coordinates reported by Jiri
+     Vesely; if there were two neighbouring directions with identical
+     targets, gama reported exception and stopped (the exception was
+     thrown by the Angle constructor).
+
+     From 1.3.31 we allow for angles left and right targets to be
+     identical, surely this is not an realistic case but it's useful
+     in g2d_point.h:67 and should not cause a trouble elsewhere
 
 
 1.3.30  2001-12-07
