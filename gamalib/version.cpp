@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.34 2002/09/30 16:26:01 cepek Exp $
+ *  $Id: version.cpp,v 1.35 2002/10/01 13:27:26 cepek Exp $
  */
 
 
@@ -61,7 +61,8 @@ const char* GaMaLib_compiler =
 
 1.5.03 2002...
 
-    -
+    - added a test if dos2unix utility is available into
+      scripts/Build_GaMa (Jan Pytel)
 
 
 1.5.02 2002-09-29
