@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.1 2001/12/07 11:26:18 cepek Exp $
+# $Id: Makefile,v 1.2 2002/04/02 21:44:30 cepek Exp $
 #
 # this Makefile and all files in ./scripts were tested on Debian GNU/Linux 2.2
 #
@@ -24,7 +24,7 @@ help:
 	"\t#" creates all Makefiles, builds GaMaLib and program GaMa
 	@echo
 	@echo "     aditional" \
-	options can be passed to g++ with export GaMaLib_CXX=\"...\"
+	options can be passed to g++ with export CXXFLAGS=\"...\"
 	@echo
 	@echo -e make example \
 	"\t#" runs program gama on an example input data
@@ -42,7 +42,8 @@ make-project:
 	@if [ ! -f gamaprog/linux/gama/Makefile      ]; then make build; fi
 	@if [ ! -f gamaprog/linux/lib/Makefile       ]; then make build; fi
 	@if [ ! -f gamaprog/linux/lib/Makefile-expat ]; then make build; fi
-	./scripts/Make_GaMa $(GaMaLib_CXX)
+	( cd gamaprog/linux/lib;   make; make -f Makefile-expat )
+	( cd gamaprog/linux/gama ; make )
 
 example:
 	@if [ ! -x  gamaprog/linux/gama/gama ]; then make make; fi
