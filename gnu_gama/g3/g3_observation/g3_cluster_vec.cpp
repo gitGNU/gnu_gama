@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_cluster_vec.cpp,v 1.2 2003/05/28 16:06:04 cepek Exp $
+ *  $Id: g3_cluster_vec.cpp,v 1.3 2003/06/01 17:03:21 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_observation/g3_cluster_vec.h>
@@ -28,6 +28,16 @@
 
 using namespace GNU_gama::g3;
 using namespace std;
+
+
+Vectors::~Vectors()
+{
+  for (GNU_gama::List<Vector*>::iterator 
+         b=vectors.begin(), e=vectors.end(); b != e;  ++b)
+    {
+      delete *b;
+    }
+}
 
 void Vectors::add(Vector* v)
 {
