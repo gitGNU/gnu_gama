@@ -16,11 +16,11 @@
 
     You should have received a copy of the GNU General Public License
     along with this library; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 /*
- *  $Id: adjusted_observations.h,v 1.9 2004/08/29 18:01:52 cepek Exp $
+ *  $Id: adjusted_observations.h,v 1.10 2005/05/07 18:06:20 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vyrovnana_Pozorovani_h_

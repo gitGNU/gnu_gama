@@ -16,11 +16,11 @@
 
     You should have received a copy of the GNU General Public License
     along with this library; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 /*
- *  $Id: version.cpp,v 1.60 2005/04/01 14:34:45 cepek Exp $
+ *  $Id: version.cpp,v 1.61 2005/05/07 18:06:20 cepek Exp $
  */
 
 
@@ -96,9 +96,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.60 2005/04/01 14:34:45 cepek Exp $
+        <  *  $Id: version.cpp,v 1.61 2005/05/07 18:06:20 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.60 2005/04/01 14:34:45 cepek Exp $
+        >  *  $Id: version.cpp,v 1.61 2005/05/07 18:06:20 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),

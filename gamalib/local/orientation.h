@@ -16,11 +16,11 @@
 
     You should have received a copy of the GNU General Public License
     along with this library; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 /*
- *  $Id: orientation.h,v 1.1 2001/12/07 12:38:37 cepek Exp $
+ *  $Id: orientation.h,v 1.2 2005/05/07 18:06:19 cepek Exp $
  */
 
 #ifndef GaMaLib_Bod_Mer_VYPORPOS_H

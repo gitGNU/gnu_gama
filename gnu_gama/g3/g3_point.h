@@ -16,11 +16,11 @@
 
     You should have received a copy of the GNU General Public License
     along with this library; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 /*
- *  $Id: g3_point.h,v 1.26 2004/04/23 22:01:31 cepek Exp $
+ *  $Id: g3_point.h,v 1.27 2005/05/07 18:06:20 cepek Exp $
  */
 
 #include <string>

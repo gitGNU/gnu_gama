@@ -16,11 +16,11 @@
 
     You should have received a copy of the GNU General Public License
     along with this library; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 /*
- *  $Id: capi_locnet.h,v 1.1 2001/12/07 12:33:41 cepek Exp $
+ *  $Id: capi_locnet.h,v 1.2 2005/05/07 18:06:19 cepek Exp $
  */
 
 #ifndef GNU__GaMa__C_API_Cgama_local_network_handling_functions_header_file____

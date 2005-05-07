@@ -16,11 +16,11 @@
 
     You should have received a copy of the GNU General Public License
     along with this library; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 /*
- *  $Id: svector.h,v 1.4 2004/06/20 20:54:52 cepek Exp $
+ *  $Id: svector.h,v 1.5 2005/05/07 18:06:20 cepek Exp $
  */
 
 
