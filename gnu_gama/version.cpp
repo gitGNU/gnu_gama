@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.62 2005/05/07 18:16:09 cepek Exp $
+ *  $Id: version.cpp,v 1.63 2005/05/08 08:28:10 cepek Exp $
  */
 
 
@@ -66,6 +66,9 @@ const char* GNU_gama_compiler =
 
     - FSF's new address
 
+      find . -type f -exec sed -ie 's/59 Temple Place, Suite 330/51 Franklin
+      Street, Fifth Floor/;s/02111-1307/02110-1301/;' {} ';'
+
     - three classes BaseOLS, OLSsvd and OLSgso (namespace GaMaLib,
       directory gamalib/ls) renamed to AdjBase, AdjSVD and AdjGSO and
       placed into the namespace GNU_gama (directory gnu_gama/adj).
@@ -98,9 +101,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.62 2005/05/07 18:16:09 cepek Exp $
+        <  *  $Id: version.cpp,v 1.63 2005/05/08 08:28:10 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.62 2005/05/07 18:16:09 cepek Exp $
+        >  *  $Id: version.cpp,v 1.63 2005/05/08 08:28:10 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),
