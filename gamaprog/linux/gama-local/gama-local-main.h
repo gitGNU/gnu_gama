@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.21 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.22 2005/05/17 16:00:42 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -36,6 +36,7 @@
 #include <gamalib/xml/gkfparser.h>
 #include <gamalib/local/network_svd.h>
 #include <gamalib/local/network_gso.h>
+#include <gamalib/local/network_chol.h>
 #include <gamalib/local/acord.h>
 
 #include <gamalib/xml/adjusted/coordinates.h>
@@ -204,8 +205,9 @@ int GaMa_Main(int argc, char **argv)
           IS = new LocalNetwork_svd;        // implicit algorithm
         }
       else {
-        if (     !strcmp("svd", argv_algo)) IS = new LocalNetwork_svd;
-        else if (!strcmp("gso", argv_algo)) IS = new LocalNetwork_gso;
+        if (     !strcmp("svd",  argv_algo)) IS = new LocalNetwork_svd;
+        else if (!strcmp("gso",  argv_algo)) IS = new LocalNetwork_gso;
+        else if (!strcmp("chol", argv_algo)) IS = new LocalNetwork_chol;
         else return help();
       }
 

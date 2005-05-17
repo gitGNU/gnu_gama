@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.63 2005/05/08 08:28:10 cepek Exp $
+ *  $Id: version.cpp,v 1.64 2005/05/17 16:04:13 cepek Exp $
  */
 
 
@@ -64,6 +64,9 @@ const char* GNU_gama_compiler =
 
 1.7.13 ....
 
+    - added files for Cholesky decomposition adjustement algorithm
+      (alpha version of template class AdjCholDec)
+
     - FSF's new address
 
       find . -type f -exec sed -ie 's/59 Temple Place, Suite 330/51 Franklin
@@ -101,9 +104,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.63 2005/05/08 08:28:10 cepek Exp $
+        <  *  $Id: version.cpp,v 1.64 2005/05/17 16:04:13 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.63 2005/05/08 08:28:10 cepek Exp $
+        >  *  $Id: version.cpp,v 1.64 2005/05/17 16:04:13 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),
