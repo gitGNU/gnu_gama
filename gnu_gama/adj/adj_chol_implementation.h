@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.3 2005/05/18 12:10:36 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.4 2005/05/18 12:13:54 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -178,7 +178,7 @@ namespace GNU_gama {
 
         Float pivot = mat(perm(column), perm(column));
         Index ipvt  = 0;
-        cout << "########## zakazan vyber pivotu ###############\n";
+        std::cout << "########## zakazan vyber pivotu ###############\n";
         if (false)
         for (Index i=column+1; i<=N; i++)
           {
@@ -356,7 +356,7 @@ namespace GNU_gama {
             Q0(i,j) = zij;
           }
       }
-    cout << "Q0 = " << Q0 << "--- konec Q0\n\n";
+    std::cout << "Q0 = " << Q0 << "--- konec Q0\n\n";
 
     is_solved = true;
   }
