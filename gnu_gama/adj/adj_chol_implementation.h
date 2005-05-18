@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.2 2005/05/18 09:53:41 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.3 2005/05/18 12:10:36 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -71,10 +71,10 @@ namespace GNU_gama {
 
   template <typename Float, typename Exc> 
   bool 
-  AdjCholDec<Float, Exc>::lindep(Index)
+  AdjCholDec<Float, Exc>::lindep(Index n)
   {
-    throw Exception::adjustment("AdjCholDec::lindep() NOT implemented");
-    return false;
+    solve_me();
+    return nullity && perm(n) > N0;
   }
 
 
@@ -154,13 +154,13 @@ namespace GNU_gama {
 
 
     //###########################################################//
-    //Mat<> Q(mat.dim(), mat.dim());                             //
-    //for (Index i=1; i<=mat.dim(); i++)                         //
-    //  for (Index j=1; j<=mat.dim(); j++)                       //
-    //    {                                                      //
-    //      Q(i,j) = Q(j,i) = mat(i,j);                          //
-    //    }                                                      //
-    //cout << "#########  Q  = " << Q;                           //
+    /**/Mat<> Q(mat.dim(), mat.dim());                             //
+    /**/for (Index i=1; i<=mat.dim(); i++)                         //
+    /**/  for (Index j=1; j<=mat.dim(); j++)                       //
+    /**/    {                                                      //
+    /**/      Q(i,j) = Q(j,i) = mat(i,j);                          //
+    /**/    }                                                      //
+    /**/cout << "#########  Q  = " << Q;                           //
     //-----------------------------------------------------------//
 
 
@@ -178,7 +178,8 @@ namespace GNU_gama {
 
         Float pivot = mat(perm(column), perm(column));
         Index ipvt  = 0;
-        if (false) /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  */
+        cout << "########## zakazan vyber pivotu ###############\n";
+        if (false)
         for (Index i=column+1; i<=N; i++)
           {
             const Float t = mat(perm(i),perm(i));
@@ -279,29 +280,29 @@ namespace GNU_gama {
 
 
     //###########################################################//
-    //Mat<> L(mat.dim(), mat.dim());   L.set_zero();             //
-    //Mat<> D(mat.dim(), mat.dim());   D.set_zero();             //
-    //Mat<> R(mat.dim(), mat.dim());                             //
-    //for (Index i=1; i<=mat.dim(); i++)                         //
-    //  {                                                        //
-    //    for (Index j=i; j<=mat.dim(); j++)                     //
-    //      {                                                    //
-    //        Index p = invp(j);                                 // 
-    //        Index q = invp(i);                                 //
-    //        if (p < q) std::swap(p,q);                         //
-    //        L(p,q) = mat(j,i);                                 //
-    //                                                           // 
-    //        R(p,q) = R(q,p) = Q(i,j);                          // 
-    //      }                                                    //
-    //                                                           //
-    //    L(invp(i),invp(i)) = 1;                                //
-    //    D(invp(i),invp(i)) = mat(i,i);                         //
-    //  }                                                        //
-    //                                                           //
-    //                                                           //
-    //cout << "#########  L  = " <<L                             //
-    //     << "#########  D  = " <<D                             //
-    //     << "######### err = " <<L*D*trans(L) - R;             //
+    /**/Mat<> L(mat.dim(), mat.dim());   L.set_zero();             //
+    /**/Mat<> D(mat.dim(), mat.dim());   D.set_zero();             //
+    /**/Mat<> R(mat.dim(), mat.dim());                             //
+    /**/for (Index i=1; i<=mat.dim(); i++)                         //
+    /**/  {                                                        //
+    /**/    for (Index j=i; j<=mat.dim(); j++)                     //
+    /**/      {                                                    //
+    /**/        Index p = invp(j);                                 // 
+    /**/        Index q = invp(i);                                 //
+    /**/        if (p < q) std::swap(p,q);                         //
+    /**/        L(p,q) = mat(j,i);                                 //
+    /**/                                                           // 
+    /**/        R(p,q) = R(q,p) = Q(i,j);                          // 
+    /**/      }                                                    //
+    /**/                                                           //
+    /**/    L(invp(i),invp(i)) = 1;                                //
+    /**/    D(invp(i),invp(i)) = mat(i,i);                         //
+    /**/  }                                                        //
+    /**/                                                           //
+    /**/                                                           //
+    /**/cout << "#########  L  = " <<L                             //
+    /**/     << "#########  D  = " <<D                             //
+    /**/     << "######### err = " <<L*D*trans(L) - R;             //
     //-----------------------------------------------------------//
 
 
@@ -326,11 +327,40 @@ namespace GNU_gama {
     // Z = inv(D)inv(L) - (I - L')Z
 
     Q0.reset(N0);
-    for (Index ii=N0; ii>=1; ii--)
+    Q0.set_zero();
+    for (Index column=N0; column>=1; column--)
       {
-      }
+        const Index j = perm(column);
 
+        // the diagonal element 
+
+        Float zii = Float(1)/mat(j,j);
+        for (Index kk=column+1; kk<=N0; kk++)
+          {
+            const Index k = perm(kk);
+            zii -= mat(j,k)*Q0(k,j);        // z_ii -= u_jk*z_kj
+          }
+        Q0(j,j) = zii;
+
+        // elements above the diagonal
+
+        for (Index row=column-1; row>=1; row--)
+          {
+            const Index i=perm(row);
+            Float zij = Float();
+            for (Index kk=row+1; kk<=N0; kk++)
+              {
+                const Index k = perm(kk);
+                zij -= mat(i,k)*Q0(k,j);    // z_ij -= u_ik*z_kj
+              }
+            Q0(i,j) = zij;
+          }
+      }
+    cout << "Q0 = " << Q0 << "--- konec Q0\n\n";
+
+    is_solved = true;
   }
+
 }  // namespace GNU_gama
 
 #endif
