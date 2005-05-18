@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.5 2005/05/18 19:05:18 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.6 2005/05/18 19:08:06 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -376,7 +376,6 @@ if(false)        for (Index i=column+1; i<=N; i++)
           }
       }
 
-    cout << "?????? " << N << endl;
     is_solved = true;
   }
 
