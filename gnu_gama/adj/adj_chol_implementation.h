@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.6 2005/05/18 19:08:06 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.7 2005/05/18 19:11:38 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -55,6 +55,7 @@ namespace GNU_gama {
   {
     if (!this->is_solved) solve_me();
 
+    const Mat<Float, Exc>& A = *pA;
     Vec<Float, Exc> aq(N0);
     
     for (Index kk=1; kk<=N0; kk++)
