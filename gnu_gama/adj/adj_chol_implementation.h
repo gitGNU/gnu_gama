@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.1 2005/05/17 15:50:37 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.2 2005/05/18 09:53:41 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -318,8 +318,19 @@ namespace GNU_gama {
             r(i) += A(i,j)*x0(j);
           }
       }
-  }
 
+    // inverse matrix (cofactors)
+    // **************
+
+    // for A = LDL', and Z = inv(A), we can compute Z recursively from
+    // Z = inv(D)inv(L) - (I - L')Z
+
+    Q0.reset(N0);
+    for (Index ii=N0; ii>=1; ii--)
+      {
+      }
+
+  }
 }  // namespace GNU_gama
 
 #endif

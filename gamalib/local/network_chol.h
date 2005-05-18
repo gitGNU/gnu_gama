@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network_chol.h,v 1.1 2005/05/17 15:58:19 cepek Exp $
+ *  $Id: network_chol.h,v 1.2 2005/05/18 09:53:41 cepek Exp $
  */
 
 
@@ -35,9 +35,9 @@ namespace GaMaLib
   class LocalNetwork_chol 
     : 
     public LocalNetwork, 
-    GNU_gama::AdjChol<Double, GaMaLib::MatVecException>  
+    GNU_gama::AdjCholDec<Double, GaMaLib::MatVecException>  
     {
-      typedef GNU_gama::AdjChol<Double, GaMaLib::MatVecException> OLS_chol;
+      typedef GNU_gama::AdjCholDec<Double, GaMaLib::MatVecException> OLS_chol;
 
       bool   lindep(Index i) { return OLS_chol::lindep(i); }
       Double cond()          { return OLS_chol::cond();    } 

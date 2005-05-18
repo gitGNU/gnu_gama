@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol.h,v 1.1 2005/05/17 15:50:36 cepek Exp $
+ * $Id: adj_chol.h,v 1.2 2005/05/18 09:53:41 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_gnu_gama_adj_chol__h
@@ -67,6 +67,7 @@ namespace GNU_gama {
     Index               nullity; 
     Index               N0;      // last linearly independent column
     Vec   <Float, Exc>  x0;      // a particular solution 'x0'
+    SymMat<Float, Exc>  Q0;      // cofactor matrix (inverse of mat(:N0,:N0))
 
     void init()
     {
