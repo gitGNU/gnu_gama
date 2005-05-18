@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.4 2005/05/18 12:13:54 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.5 2005/05/18 19:05:18 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -51,10 +51,32 @@ namespace GNU_gama {
 
   template <typename Float, typename Exc> 
   Float 
-  AdjCholDec<Float, Exc>::q_bb(Index, Index)
+  AdjCholDec<Float, Exc>::q_bb(Index i, Index j)
   {
-    throw Exception::adjustment("AdjCholDec::q_bb() NOT implemented");
-    return 0;
+    if (!this->is_solved) solve_me();
+
+    Vec<Float, Exc> aq(N0);
+    
+    for (Index kk=1; kk<=N0; kk++)
+      {
+        const Index k = perm(kk);
+        Float s = Float();        
+        for (Index ll=1; ll<=N0; ll++)
+          {
+            const Index l=perm(ll);
+            s += A(i,l)*Q0(l,k);
+          }
+        aq(k) = s;
+      }
+    
+    Float s = Float();
+    for (Index cc=1; cc<=N0; cc++)
+      {
+        const Index c = perm(cc);
+        s += aq(c)*A(j,c);
+      }
+    
+    return s;
   }
 
 
@@ -117,7 +139,6 @@ namespace GNU_gama {
     const Index M = this->pA->rows();
     const Index N = A.cols();    
 
-
     // permutation vector (used in pivoting during cholesky decomposition)
 
     perm.reset(N);
@@ -154,13 +175,13 @@ namespace GNU_gama {
 
 
     //###########################################################//
-    /**/Mat<> Q(mat.dim(), mat.dim());                             //
-    /**/for (Index i=1; i<=mat.dim(); i++)                         //
-    /**/  for (Index j=1; j<=mat.dim(); j++)                       //
-    /**/    {                                                      //
-    /**/      Q(i,j) = Q(j,i) = mat(i,j);                          //
-    /**/    }                                                      //
-    /**/cout << "#########  Q  = " << Q;                           //
+    //Mat<> Q(mat.dim(), mat.dim());                             //
+    //for (Index i=1; i<=mat.dim(); i++)                         //
+    //  for (Index j=1; j<=mat.dim(); j++)                       //
+    //    {                                                      //
+    //      Q(i,j) = Q(j,i) = mat(i,j);                          //
+    //    }                                                      //
+    //cout << "#########  Q  = " << Q;                           //
     //-----------------------------------------------------------//
 
 
@@ -178,9 +199,7 @@ namespace GNU_gama {
 
         Float pivot = mat(perm(column), perm(column));
         Index ipvt  = 0;
-        std::cout << "########## zakazan vyber pivotu ###############\n";
-        if (false)
-        for (Index i=column+1; i<=N; i++)
+if(false)        for (Index i=column+1; i<=N; i++)
           {
             const Float t = mat(perm(i),perm(i));
 
@@ -280,29 +299,29 @@ namespace GNU_gama {
 
 
     //###########################################################//
-    /**/Mat<> L(mat.dim(), mat.dim());   L.set_zero();             //
-    /**/Mat<> D(mat.dim(), mat.dim());   D.set_zero();             //
-    /**/Mat<> R(mat.dim(), mat.dim());                             //
-    /**/for (Index i=1; i<=mat.dim(); i++)                         //
-    /**/  {                                                        //
-    /**/    for (Index j=i; j<=mat.dim(); j++)                     //
-    /**/      {                                                    //
-    /**/        Index p = invp(j);                                 // 
-    /**/        Index q = invp(i);                                 //
-    /**/        if (p < q) std::swap(p,q);                         //
-    /**/        L(p,q) = mat(j,i);                                 //
-    /**/                                                           // 
-    /**/        R(p,q) = R(q,p) = Q(i,j);                          // 
-    /**/      }                                                    //
-    /**/                                                           //
-    /**/    L(invp(i),invp(i)) = 1;                                //
-    /**/    D(invp(i),invp(i)) = mat(i,i);                         //
-    /**/  }                                                        //
-    /**/                                                           //
-    /**/                                                           //
-    /**/cout << "#########  L  = " <<L                             //
-    /**/     << "#########  D  = " <<D                             //
-    /**/     << "######### err = " <<L*D*trans(L) - R;             //
+    //Mat<> L(mat.dim(), mat.dim());   L.set_zero();             //
+    //Mat<> D(mat.dim(), mat.dim());   D.set_zero();             //
+    //Mat<> R(mat.dim(), mat.dim());                             //
+    //for (Index i=1; i<=mat.dim(); i++)                         //
+    //  {                                                        //
+    //    for (Index j=i; j<=mat.dim(); j++)                     //
+    //      {                                                    //
+    //        Index p = invp(j);                                 // 
+    //        Index q = invp(i);                                 //
+    //        if (p < q) std::swap(p,q);                         //
+    //        L(p,q) = mat(j,i);                                 //
+    //                                                           // 
+    //        R(p,q) = R(q,p) = Q(i,j);                          // 
+    //      }                                                    //
+    //                                                           //
+    //    L(invp(i),invp(i)) = 1;                                //
+    //    D(invp(i),invp(i)) = mat(i,i);                         //
+    //  }                                                        //
+    //                                                           //
+    //                                                           //
+    //cout << "#########  L  = " <<L                             //
+    //     << "#########  D  = " <<D                             //
+    //     << "######### err = " <<L*D*trans(L) - R;             //
     //-----------------------------------------------------------//
 
 
@@ -356,8 +375,8 @@ namespace GNU_gama {
             Q0(i,j) = zij;
           }
       }
-    std::cout << "Q0 = " << Q0 << "--- konec Q0\n\n";
 
+    cout << "?????? " << N << endl;
     is_solved = true;
   }
 
