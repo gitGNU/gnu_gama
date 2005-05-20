@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.7 2005/05/18 19:11:38 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.8 2005/05/20 20:34:17 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -57,6 +57,8 @@ namespace GNU_gama {
 
     const Mat<Float, Exc>& A = *pA;
     Vec<Float, Exc> aq(N0);
+
+    // aq = A_row(i) * Q0,  linearly dependent columns are ignored    
     
     for (Index kk=1; kk<=N0; kk++)
       {
@@ -70,6 +72,8 @@ namespace GNU_gama {
         aq(k) = s;
       }
     
+    // s = aq * trans(A)_column(i) 
+
     Float s = Float();
     for (Index cc=1; cc<=N0; cc++)
       {
