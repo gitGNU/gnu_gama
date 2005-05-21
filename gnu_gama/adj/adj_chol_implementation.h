@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.8 2005/05/20 20:34:17 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.9 2005/05/21 20:15:30 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -145,6 +145,15 @@ namespace GNU_gama {
     const Index N = A.cols();    
 
     // permutation vector (used in pivoting during cholesky decomposition)
+    //
+    // perm(i) = k       means that the original node 'k' is the i-th
+    //                   node in the new ordering
+    //
+    // inv(perm(i)) = i  inverse permutation; invp(k) gives the position
+    //                   in perm where the originnally numberd 'k' resides
+    //
+    // see George & Liu: Computer Solution of Large Sparse Positive
+    // Definite Systems, Prentice-Hall, Inc., Englewood Cliffs, 1981
 
     perm.reset(N);
     for (Index i=1; i<=N; i++)
@@ -180,13 +189,13 @@ namespace GNU_gama {
 
 
     //###########################################################//
-    //Mat<> Q(mat.dim(), mat.dim());                             //
-    //for (Index i=1; i<=mat.dim(); i++)                         //
-    //  for (Index j=1; j<=mat.dim(); j++)                       //
-    //    {                                                      //
-    //      Q(i,j) = Q(j,i) = mat(i,j);                          //
-    //    }                                                      //
-    //cout << "#########  Q  = " << Q;                           //
+    /**/Mat<> Q(mat.dim(), mat.dim());                             //
+    /**/for (Index i=1; i<=mat.dim(); i++)                         //
+    /**/  for (Index j=1; j<=mat.dim(); j++)                       //
+    /**/    {                                                      //
+    /**/      Q(i,j) = Q(j,i) = mat(i,j);                          //
+    /**/    }                                                      //
+    /**/cout << "#########  Q  = " << Q;                           //
     //-----------------------------------------------------------//
 
 
@@ -204,7 +213,7 @@ namespace GNU_gama {
 
         Float pivot = mat(perm(column), perm(column));
         Index ipvt  = 0;
-if(false)        for (Index i=column+1; i<=N; i++)
+        for (Index i=column+1; i<=N; i++)
           {
             const Float t = mat(perm(i),perm(i));
 
@@ -230,7 +239,7 @@ if(false)        for (Index i=column+1; i<=N; i++)
           }
 
 
-        // update pivot's submatrix [p, v'; v S]; S -= v*v'
+        // update pivot's submatrix [pivot, v'; v S]; S -= v*v'
 
         for (Index j=column+1; j<=N; j++)
           {
@@ -258,13 +267,42 @@ if(false)        for (Index i=column+1; i<=N; i++)
     for (Index i=1; i<=N; i++) invp(perm(i)) = i;
 
 
+
+    //###########################################################//
+    /**/Mat<> L(mat.dim(), mat.dim());   L.set_zero();             //
+    /**/Mat<> D(mat.dim(), mat.dim());   D.set_zero();             //
+    /**/Mat<> R(mat.dim(), mat.dim());                             //
+    /**/for (Index i=1; i<=mat.dim(); i++)                         //
+    /**/  {                                                        //
+    /**/    for (Index j=i; j<=mat.dim(); j++)                     //
+    /**/      {                                                    //
+    /**/        Index p = invp(j);                                 // 
+    /**/        Index q = invp(i);                                 //
+    /**/        if (p < q) std::swap(p,q);                         //
+    /**/        L(p,q) = mat(j,i);                                 //
+    /**/                                                           // 
+    /**/        R(p,q) = R(q,p) = Q(i,j);                          // 
+    /**/      }                                                    //
+    /**/                                                           //
+    /**/    L(invp(i),invp(i)) = 1;                                //
+    /**/    D(invp(i),invp(i)) = mat(i,i);                         //
+    /**/  }                                                        //
+    /**/                                                           //
+    /**/                                                           //
+    /**/cout << "#########  R  = " <<R                             //
+    /**/     << "#########  L  = " <<L                             //
+    /**/     << "#########  D  = " <<D                             //
+    /**/     << "######### err = " <<L*D*trans(L) - R;             //
+    //-----------------------------------------------------------//
+
+
+
     // the particular solution 'x0' with all parameters corresponding
     // to linearly dependent colunms set to zero
     // **************************************************************
 
     N0 = N-nullity;                     // last independent column
     x0 = rhs;
-
     for (Index i=N0+1; i<=N; i++)
       {
         x0(perm(i)) = Float();
@@ -273,7 +311,7 @@ if(false)        for (Index i=column+1; i<=N; i++)
 
     // forward substitution
 
-    for (Index ii=2; ii<=N0; ii++)      // mat(i,i) == 1, nothing to do
+    for (Index ii=2; ii<=N0; ii++)      // mat(1,1) == 1, nothing to do
       {
         const Index i = perm(ii);
         for (Index jj=1; jj<ii; jj++)
@@ -283,6 +321,7 @@ if(false)        for (Index i=column+1; i<=N; i++)
           }
       }
 
+
     for (Index ii=1; ii<=N0; ii++)
       {
         const Index i = perm(ii);
@@ -290,44 +329,19 @@ if(false)        for (Index i=column+1; i<=N; i++)
       }
 
 
+
     // backward substitution
     
     for (Index ii=N0-1; ii>=1; ii--)
       {
         const Index i=perm(ii);
-        for (Index jj=i+1; jj<=N0; jj++)
+        for (Index jj=ii+1; jj<=N0; jj++)
           {
             const Index j=perm(jj);
             x0(i) -= mat(i,j)*x0(j);
           }
       }
 
-
-    //###########################################################//
-    //Mat<> L(mat.dim(), mat.dim());   L.set_zero();             //
-    //Mat<> D(mat.dim(), mat.dim());   D.set_zero();             //
-    //Mat<> R(mat.dim(), mat.dim());                             //
-    //for (Index i=1; i<=mat.dim(); i++)                         //
-    //  {                                                        //
-    //    for (Index j=i; j<=mat.dim(); j++)                     //
-    //      {                                                    //
-    //        Index p = invp(j);                                 // 
-    //        Index q = invp(i);                                 //
-    //        if (p < q) std::swap(p,q);                         //
-    //        L(p,q) = mat(j,i);                                 //
-    //                                                           // 
-    //        R(p,q) = R(q,p) = Q(i,j);                          // 
-    //      }                                                    //
-    //                                                           //
-    //    L(invp(i),invp(i)) = 1;                                //
-    //    D(invp(i),invp(i)) = mat(i,i);                         //
-    //  }                                                        //
-    //                                                           //
-    //                                                           //
-    //cout << "#########  L  = " <<L                             //
-    //     << "#########  D  = " <<D                             //
-    //     << "######### err = " <<L*D*trans(L) - R;             //
-    //-----------------------------------------------------------//
 
 
     // vector of residuals
@@ -379,6 +393,27 @@ if(false)        for (Index i=column+1; i<=N; i++)
               }
             Q0(i,j) = zij;
           }
+      }
+
+
+    // vector of unknown parameters
+    // ****************************
+
+    x = x0;
+    if (nullity)
+      {
+      //  cout << "\n"
+      //       << "======================================================\n"
+      //       << "=====  singularni soustava  ==========================\n"
+      //       << "======================================================\n";
+      //
+      //  cout << x;
+      //  cout << mat;
+      //
+      //  cout << "\n"
+      //       << "======================================================\n"
+      //       << "======================================================\n"
+      //       << "======================================================\n";
       }
 
     is_solved = true;

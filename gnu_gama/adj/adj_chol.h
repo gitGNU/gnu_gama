@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol.h,v 1.2 2005/05/18 09:53:41 cepek Exp $
+ * $Id: adj_chol.h,v 1.3 2005/05/21 20:17:11 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_gnu_gama_adj_chol__h
@@ -74,7 +74,7 @@ namespace GNU_gama {
       s_tol   = Float();
       nullity = Index();
     }
-    
+
   };
 
 }
