@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol.h,v 1.3 2005/05/21 20:17:11 cepek Exp $
+ * $Id: adj_chol.h,v 1.4 2005/05/28 17:13:25 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_gnu_gama_adj_chol__h
@@ -41,7 +41,8 @@ namespace GNU_gama {
   {
   public:
     
-    AdjCholDec() { init(); }
+    AdjCholDec()  { init();          }
+    ~AdjCholDec() { delete[] minx_i; }
     
     
     Index defect  ();
@@ -58,6 +59,7 @@ namespace GNU_gama {
     
   private:
     
+    Index               M, N;    // number of observations, parameters
     Vec   <Index>       perm;
     Vec   <Index>       invp;    // inverse permutation : invp(perm(i)) = i
     SymMat<Float, Exc>  mat;
@@ -69,11 +71,19 @@ namespace GNU_gama {
     Vec   <Float, Exc>  x0;      // a particular solution 'x0'
     SymMat<Float, Exc>  Q0;      // cofactor matrix (inverse of mat(:N0,:N0))
 
+    enum {ALL, SUBSET}  minx_t;  // parameters of regularization
+    Index               minx_n;
+    Index*              minx_i;
+
     void init()
     {
       s_tol   = Float();
       nullity = Index();
+      minx_t  = ALL;
+      minx_i  = 0;
     }
+
+    Float dot(const Mat<Float,Exc>& M, Index i, Index j);
 
   };
 

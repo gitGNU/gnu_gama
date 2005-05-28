@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.10 2005/05/28 17:13:25 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.11 2005/05/28 17:15:41 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -376,7 +376,6 @@ namespace GNU_gama {
             Q0(i,j) = zij;
           }
       }
-    cout << "??????????????????? " << N0 << " / " << Q0;
 
     // vector of unknown parameters
     // ****************************
@@ -483,8 +482,6 @@ namespace GNU_gama {
       }
     
     is_solved = true;
-    cout << "perm = " << trans(perm) 
-         << "invp = " << trans(invp);
   }
 
 
