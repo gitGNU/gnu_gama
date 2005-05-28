@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.9 2005/05/21 20:15:30 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.10 2005/05/28 17:13:25 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -56,17 +56,17 @@ namespace GNU_gama {
     if (!this->is_solved) solve_me();
 
     const Mat<Float, Exc>& A = *pA;
-    Vec<Float, Exc> aq(N0);
+    Vec<Float, Exc> aq(N);
+    Float s;
+
 
     // aq = A_row(i) * Q0,  linearly dependent columns are ignored    
     
-    for (Index kk=1; kk<=N0; kk++)
+    for (Index k=1; k<=N; k++)
       {
-        const Index k = perm(kk);
-        Float s = Float();        
-        for (Index ll=1; ll<=N0; ll++)
+        s = Float();        
+        for (Index l=1; l<=N; l++)
           {
-            const Index l=perm(ll);
             s += A(i,l)*Q0(l,k);
           }
         aq(k) = s;
@@ -74,10 +74,9 @@ namespace GNU_gama {
     
     // s = aq * trans(A)_column(i) 
 
-    Float s = Float();
-    for (Index cc=1; cc<=N0; cc++)
+    s = Float();
+    for (Index c=1; c<=N; c++)
       {
-        const Index c = perm(cc);
         s += aq(c)*A(j,c);
       }
     
@@ -110,17 +109,40 @@ namespace GNU_gama {
   void 
   AdjCholDec<Float, Exc>::min_x()
   {
-    throw Exception::adjustment("AdjCholDec::min_x() NOT implemented");
+    delete[] minx_i;
+    minx_t = ALL;
+    minx_n = 0;
   }
 
 
 
   template <typename Float, typename Exc> 
   void 
-  AdjCholDec<Float, Exc>::min_x(Index, Index[])
+  AdjCholDec<Float, Exc>::min_x(Index n, Index minx[])
   {
-    throw Exception::adjustment("AdjCholDec::min_x(...) NOT implemented");
+    delete[] minx_i;
+    minx_t = SUBSET;
+    minx_n = n;
+    minx_i = new Index[n];
+    for (Index i=0; i<n; i++) minx_i[i] = minx[i];
   }
+
+
+
+  template <typename Float, typename Exc> 
+  Float 
+  AdjCholDec<Float, Exc>::dot(const Mat<Float,Exc>& M, Index i, Index j)
+    {
+      Float s = Float();
+
+      for (Index r, k=0; k<minx_n; k++) 
+        {
+          r = minx_i[k];
+          s += M(r,i)*M(r,j);
+        }
+
+      return s;
+    }
 
 
 
@@ -141,8 +163,8 @@ namespace GNU_gama {
     const Mat<Float, Exc>& A = *pA;
     const Vec<Float, Exc>& b = *pb;
   
-    const Index M = this->pA->rows();
-    const Index N = A.cols();    
+    M = A.rows();
+    N = A.cols();    
 
     // permutation vector (used in pivoting during cholesky decomposition)
     //
@@ -188,19 +210,7 @@ namespace GNU_gama {
       }
 
 
-    //###########################################################//
-    /**/Mat<> Q(mat.dim(), mat.dim());                             //
-    /**/for (Index i=1; i<=mat.dim(); i++)                         //
-    /**/  for (Index j=1; j<=mat.dim(); j++)                       //
-    /**/    {                                                      //
-    /**/      Q(i,j) = Q(j,i) = mat(i,j);                          //
-    /**/    }                                                      //
-    /**/cout << "#########  Q  = " << Q;                           //
-    //-----------------------------------------------------------//
-
-
-
-    if (s_tol == Float()) 
+    if (s_tol <= Float()) 
       {
         s_tol = 1000*std::numeric_limits<Float>::epsilon();
       }
@@ -233,6 +243,7 @@ namespace GNU_gama {
             for (Index i=column; i<=N; i++)   // remove junk
               for (Index j=i; j<=N; j++)  
                 mat(perm(j),perm(i)) = 0;
+
 
             nullity = N - column + 1;
             break;
@@ -268,35 +279,6 @@ namespace GNU_gama {
 
 
 
-    //###########################################################//
-    /**/Mat<> L(mat.dim(), mat.dim());   L.set_zero();             //
-    /**/Mat<> D(mat.dim(), mat.dim());   D.set_zero();             //
-    /**/Mat<> R(mat.dim(), mat.dim());                             //
-    /**/for (Index i=1; i<=mat.dim(); i++)                         //
-    /**/  {                                                        //
-    /**/    for (Index j=i; j<=mat.dim(); j++)                     //
-    /**/      {                                                    //
-    /**/        Index p = invp(j);                                 // 
-    /**/        Index q = invp(i);                                 //
-    /**/        if (p < q) std::swap(p,q);                         //
-    /**/        L(p,q) = mat(j,i);                                 //
-    /**/                                                           // 
-    /**/        R(p,q) = R(q,p) = Q(i,j);                          // 
-    /**/      }                                                    //
-    /**/                                                           //
-    /**/    L(invp(i),invp(i)) = 1;                                //
-    /**/    D(invp(i),invp(i)) = mat(i,i);                         //
-    /**/  }                                                        //
-    /**/                                                           //
-    /**/                                                           //
-    /**/cout << "#########  R  = " <<R                             //
-    /**/     << "#########  L  = " <<L                             //
-    /**/     << "#########  D  = " <<D                             //
-    /**/     << "######### err = " <<L*D*trans(L) - R;             //
-    //-----------------------------------------------------------//
-
-
-
     // the particular solution 'x0' with all parameters corresponding
     // to linearly dependent colunms set to zero
     // **************************************************************
@@ -311,7 +293,7 @@ namespace GNU_gama {
 
     // forward substitution
 
-    for (Index ii=2; ii<=N0; ii++)      // mat(1,1) == 1, nothing to do
+    for (Index ii=2; ii<=N0; ii++)      // mat(1,1) == 1
       {
         const Index i = perm(ii);
         for (Index jj=1; jj<ii; jj++)
@@ -364,7 +346,7 @@ namespace GNU_gama {
     // for A = LDL', and Z = inv(A), we can compute Z recursively from
     // Z = inv(D)inv(L) - (I - L')Z
 
-    Q0.reset(N0);
+    Q0.reset(N);
     Q0.set_zero();
     for (Index column=N0; column>=1; column--)
       {
@@ -394,30 +376,117 @@ namespace GNU_gama {
             Q0(i,j) = zij;
           }
       }
-
+    cout << "??????????????????? " << N0 << " / " << Q0;
 
     // vector of unknown parameters
     // ****************************
 
-    x = x0;
-    if (nullity)
+    if (nullity == 0)
       {
-      //  cout << "\n"
-      //       << "======================================================\n"
-      //       << "=====  singularni soustava  ==========================\n"
-      //       << "======================================================\n";
-      //
-      //  cout << x;
-      //  cout << mat;
-      //
-      //  cout << "\n"
-      //       << "======================================================\n"
-      //       << "======================================================\n"
-      //       << "======================================================\n";
+        x = x0;
       }
+    else
+      {
+        const Index N1 = nullity + 1;
+        Mat<Float, Exc> G(N, N1);
+        
+        // matrix of linear combinations
 
+        for (Index i=1; i<=N0; i++)
+          for (Index j=1; j<=nullity; j++)
+            { 
+              G(perm(i),j) = mat(perm(i),perm(N0+j));
+            }
+                
+        // backward substitution for each column
+
+        for (Index column=1; column<=nullity; column++)  
+          for (Index ii=N0-1; ii>=1; ii--)  
+            {
+              const Index i=perm(ii);
+              for (Index jj=ii+1; jj<=N0; jj++)
+                {
+                  const Index j=perm(jj);
+                  G(i,column) -= mat(i,j)*G(j,column);
+                }
+            }
+        
+        // negative identity matrix corresponding to fixed paramaters in x0
+
+        for (Index i=1; i<=nullity; i++)
+          for (Index j=1; j<=nullity; j++)
+            {
+              G(perm(N0+i), j) = (i==j ? -1 : 0);
+            }
+
+        // particular solution x0
+
+        for (Index i=1; i<=N; i++)
+          {
+            G(i,N1) = x0(i);
+          }
+
+
+
+        // the particular solution minimizing subvector defined in min_x()
+        // ***************************************************************
+
+        Vec<Index, Exc> gperm(N1);
+        for (Index i=1; i<=N1; i++) gperm(i) = i;
+
+
+        if (minx_t == ALL && minx_n != N)
+          {
+            delete[] minx_i;
+            minx_n = N;
+            minx_i = new Index[N];
+            for (Index i=1; i<=N; i++) minx_i[i-1] = i;
+          }
+
+
+        // Gramm-Schmidt orthogonalization
+
+        for (Index column=1; column<=nullity; column++)
+          {
+            Float pivot = dot(G,gperm(column),gperm(column));
+            if (pivot < s_tol) 
+              throw Exception::adjustment("AdjCholDec::solve_me() --- "
+                                          "bad regularization"); 
+            Index ipvt  = 0;
+            for (Index i=column+1; i<=nullity; i++)
+              {
+                const Float t = dot(G,gperm(i),gperm(i));
+                
+                if (t > pivot)
+                  {
+                    pivot = t;
+                    ipvt  = i;
+                  }
+              }
+            if (ipvt) std::swap(gperm(column),gperm(ipvt));
+
+            const Index pc = gperm(column);
+            pivot = std::sqrt(pivot);
+            for (Index i=1; i<=N; i++) G(i,pc) /= pivot;            
+
+            for (Index col=column+1; col<=N1; col++)
+              {
+                const Index c = gperm(col);
+                Float dp = dot(G, pc, c);
+                for (Index i=1; i<=N; i++) G(i,c) -= dp*G(i,pc);
+              }
+          }
+
+
+        x.reset(N);
+        for (Index i=1; i<=N; i++) x(i) = G(i,N1);
+      }
+    
     is_solved = true;
+    cout << "perm = " << trans(perm) 
+         << "invp = " << trans(invp);
   }
+
 
 }  // namespace GNU_gama
 
