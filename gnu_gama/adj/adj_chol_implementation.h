@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.13 2005/05/29 11:14:33 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.14 2005/05/29 18:10:10 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -39,12 +39,22 @@ namespace GNU_gama {
   }
 
 
+  // Qxx = T*Q0*T'
 
   template <typename Float, typename Exc> 
-  Float AdjCholDec<Float, Exc>::q_xx(Index, Index)
+  Float 
+  AdjCholDec<Float, Exc>::q_xx(Index i, Index j)
   {
-    throw Exception::adjustment("AdjCholDec::q_xx() NOT implemented"); 
-    return 0;
+    Float s = Float();
+
+    for (Index k=1; k<=N; k++)
+      {
+        Float q = Float();
+        for (Index n=1; n<=N; n++) q += T(i,n)*Q0(n,k);
+        s += q * T(j,k);
+      }
+
+    return s;
   }
 
 
@@ -131,7 +141,7 @@ namespace GNU_gama {
 
   template <typename Float, typename Exc> 
   Float 
-  AdjCholDec<Float, Exc>::dot(const Mat<Float,Exc>& M, Index i, Index j)
+  AdjCholDec<Float, Exc>::dot(const Mat<Float,Exc>& M, Index i, Index j) const
     {
       Float s = Float();
 
@@ -143,6 +153,24 @@ namespace GNU_gama {
 
       return s;
     }
+
+
+  // T = eye(N) - alfa*inv(alfa'*P*alfa)*alfa'*P
+
+  template <typename Float, typename Exc> 
+  Float 
+  AdjCholDec<Float, Exc>::T(Index i, Index j) const 
+  {
+    Float t = (i == j) ? Float(1) : Float();
+    for (Index k=0; k<minx_n; k++) 
+      if (minx_i[k] == j) 
+        {
+          for (Index c=1; c<=nullity; c++) t -= G(i,c)*G(j,c);
+          break;
+        }
+
+    return t;
+  }
 
 
 
@@ -387,7 +415,7 @@ namespace GNU_gama {
     else
       {
         const Index N1 = nullity + 1;
-        Mat<Float, Exc> G(N, N1);
+        G.reset(N, N1);
         
         // matrix of linear combinations
 

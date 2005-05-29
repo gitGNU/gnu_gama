@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol.h,v 1.4 2005/05/28 17:13:25 cepek Exp $
+ * $Id: adj_chol.h,v 1.5 2005/05/29 18:10:10 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_gnu_gama_adj_chol__h
@@ -83,7 +83,9 @@ namespace GNU_gama {
       minx_i  = 0;
     }
 
-    Float dot(const Mat<Float,Exc>& M, Index i, Index j);
+    Mat<Float, Exc> G;
+    Float dot(const Mat<Float,Exc>& M, Index i, Index j) const;
+    Float T(Index, Index) const;
 
   };
 
