@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.12 2005/05/29 11:12:32 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.13 2005/05/29 11:14:33 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -425,7 +425,6 @@ namespace GNU_gama {
             G(i,N1) = x0(i);
           }
 
-        cout << x0;
 
         // the particular solution minimizing subvector defined in min_x()
         // ***************************************************************
