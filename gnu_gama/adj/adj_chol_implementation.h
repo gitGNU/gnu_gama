@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.11 2005/05/28 17:15:41 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.12 2005/05/29 11:12:32 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -425,13 +425,13 @@ namespace GNU_gama {
             G(i,N1) = x0(i);
           }
 
-
+        cout << x0;
 
         // the particular solution minimizing subvector defined in min_x()
         // ***************************************************************
 
-        Vec<Index, Exc> gperm(N1);
-        for (Index i=1; i<=N1; i++) gperm(i) = i;
+        Vec<Index, Exc> g_perm(N1);
+        for (Index i=1; i<=N1; i++) g_perm(i) = i;
 
 
         if (minx_t == ALL && minx_n != N)
@@ -447,14 +447,14 @@ namespace GNU_gama {
 
         for (Index column=1; column<=nullity; column++)
           {
-            Float pivot = dot(G,gperm(column),gperm(column));
+            Float pivot = dot(G,g_perm(column),g_perm(column));
             if (pivot < s_tol) 
               throw Exception::adjustment("AdjCholDec::solve_me() --- "
                                           "bad regularization"); 
             Index ipvt  = 0;
             for (Index i=column+1; i<=nullity; i++)
               {
-                const Float t = dot(G,gperm(i),gperm(i));
+                const Float t = dot(G,g_perm(i),g_perm(i));
                 
                 if (t > pivot)
                   {
@@ -462,15 +462,15 @@ namespace GNU_gama {
                     ipvt  = i;
                   }
               }
-            if (ipvt) std::swap(gperm(column),gperm(ipvt));
+            if (ipvt) std::swap(g_perm(column),g_perm(ipvt));
 
-            const Index pc = gperm(column);
+            const Index pc = g_perm(column);
             pivot = std::sqrt(pivot);
             for (Index i=1; i<=N; i++) G(i,pc) /= pivot;            
 
             for (Index col=column+1; col<=N1; col++)
               {
-                const Index c = gperm(col);
+                const Index c = g_perm(col);
                 Float dp = dot(G, pc, c);
                 for (Index i=1; i<=N; i++) G(i,c) -= dp*G(i,pc);
               }
