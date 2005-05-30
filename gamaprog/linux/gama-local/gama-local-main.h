@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.22 2005/05/17 16:00:42 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.23 2005/05/30 16:59:49 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -80,7 +80,7 @@ int help()
        << " [ output. ]\n\n";
   cerr << "Options:\n"
        << "\n";
-  cerr << "--algorithm  svd | gso\n" 
+  cerr << "--algorithm  svd | gso | chol\n" 
        << "--language   en | ca | cz | du | fi | hu\n"
        << "--encoding   utf-8 | iso-8859-2 | iso-8859-2-flat | cp-1250\n"
        << "--angles     400 | 360\n"  
