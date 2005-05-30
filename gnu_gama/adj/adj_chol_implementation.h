@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.14 2005/05/29 18:10:10 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.15 2005/05/30 19:15:45 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -65,7 +65,7 @@ namespace GNU_gama {
   {
     if (!this->is_solved) solve_me();
 
-    const Mat<Float, Exc>& A = *pA;
+    const Mat<Float, Exc>& A = *this->pA;
     Vec<Float, Exc> aq(N);
     Float s;
 
@@ -99,7 +99,7 @@ namespace GNU_gama {
   Float 
   AdjCholDec<Float, Exc>::q_bx(Index, Index)
   {
-    throw Exception::adjustment("AdjCholDec::q_bx() NOT implemented");
+    //throw Exception::adjustment("AdjCholDec::q_bx() NOT implemented");
     return 0;
   }
 
@@ -109,7 +109,7 @@ namespace GNU_gama {
   bool 
   AdjCholDec<Float, Exc>::lindep(Index n)
   {
-    solve_me();
+    this->solve_me();
     return nullity && perm(n) > N0;
   }
 
@@ -188,8 +188,8 @@ namespace GNU_gama {
 
     // project equations Ax = b 
 
-    const Mat<Float, Exc>& A = *pA;
-    const Vec<Float, Exc>& b = *pb;
+    const Mat<Float, Exc>& A = *this->pA;
+    const Vec<Float, Exc>& b = *this->pb;
   
     M = A.rows();
     N = A.cols();    
@@ -357,14 +357,14 @@ namespace GNU_gama {
     // vector of residuals
     // *******************
 
-    r.reset(b.dim());
+    this->r.reset(b.dim());
     for (Index i=1; i<=M; i++)
       {
-        r(i) = -b(i);
+        this->r(i) = -b(i);
         for (Index jj=1; jj<=N0; jj++)
           {
             const Index j = perm(jj);
-            r(i) += A(i,j)*x0(j);
+            this->r(i) += A(i,j)*x0(j);
           }
       }
 
@@ -410,7 +410,7 @@ namespace GNU_gama {
 
     if (nullity == 0)
       {
-        x = x0;
+        this->x = x0;
       }
     else
       {
@@ -504,11 +504,11 @@ namespace GNU_gama {
           }
 
 
-        x.reset(N);
-        for (Index i=1; i<=N; i++) x(i) = G(i,N1);
+        this->x.reset(N);
+        for (Index i=1; i<=N; i++) this->x(i) = G(i,N1);
       }
     
-    is_solved = true;
+    this->is_solved = true;
   }
 
 
