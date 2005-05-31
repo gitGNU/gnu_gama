@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network_chol.h,v 1.2 2005/05/18 09:53:41 cepek Exp $
+ *  $Id: network_chol.h,v 1.3 2005/05/31 18:54:52 cepek Exp $
  */
 
 
@@ -42,7 +42,7 @@ namespace GaMaLib
       bool   lindep(Index i) { return OLS_chol::lindep(i); }
       Double cond()          { return OLS_chol::cond();    } 
 
-      const char* const algorithm() const { return "chol"; }
+      const char* const algorithm() const { return "cholesky"; }
     };
 }
 

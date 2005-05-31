@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.23 2005/05/30 16:59:49 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.24 2005/05/31 18:54:52 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -80,7 +80,7 @@ int help()
        << " [ output. ]\n\n";
   cerr << "Options:\n"
        << "\n";
-  cerr << "--algorithm  svd | gso | chol\n" 
+  cerr << "--algorithm  svd | gso | cholesky\n" 
        << "--language   en | ca | cz | du | fi | hu\n"
        << "--encoding   utf-8 | iso-8859-2 | iso-8859-2-flat | cp-1250\n"
        << "--angles     400 | 360\n"  
@@ -205,9 +205,9 @@ int GaMa_Main(int argc, char **argv)
           IS = new LocalNetwork_svd;        // implicit algorithm
         }
       else {
-        if (     !strcmp("svd",  argv_algo)) IS = new LocalNetwork_svd;
-        else if (!strcmp("gso",  argv_algo)) IS = new LocalNetwork_gso;
-        else if (!strcmp("chol", argv_algo)) IS = new LocalNetwork_chol;
+        if (     !strcmp("svd",      argv_algo)) IS = new LocalNetwork_svd;
+        else if (!strcmp("gso",      argv_algo)) IS = new LocalNetwork_gso;
+        else if (!strcmp("cholesky", argv_algo)) IS = new LocalNetwork_chol;
         else return help();
       }
 
