@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.15 2005/05/30 19:15:45 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.16 2005/06/01 12:14:53 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -45,8 +45,9 @@ namespace GNU_gama {
   Float 
   AdjCholDec<Float, Exc>::q_xx(Index i, Index j)
   {
-    Float s = Float();
+    if (!this->is_solved) solve_me();
 
+    Float s = Float();
     for (Index k=1; k<=N; k++)
       {
         Float q = Float();
