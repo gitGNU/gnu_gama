@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj_svd.h,v 1.3 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: adj_svd.h,v 1.4 2005/06/02 15:20:46 cepek Exp $
  */
 
 #ifndef GNU_Gama__gnu_gama__gnu_gama_GaMa_OLS_svd_h
@@ -35,6 +35,7 @@ template <typename Float, typename Exc>
 class AdjSVD : virtual public AdjBase<Float, Exc> {
 
   SVD<Float, Exc> svd;
+  Vec<Float, Exc> sqrt_w;
 
 public:
   AdjSVD() {}

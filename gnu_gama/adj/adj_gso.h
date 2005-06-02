@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj_gso.h,v 1.4 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: adj_gso.h,v 1.5 2005/06/02 15:20:46 cepek Exp $
  */
 
 #ifndef GNU_Gama_gnu_gama_gnugama_GaMa_OLS_gso_h
@@ -84,6 +84,7 @@ private:
 
    Mat<Float, Exc> A_;
    GSO<Float, Exc> gso;
+   Vec<Float, Exc> sqrt_w;
 
    void init_gso_();
 };
