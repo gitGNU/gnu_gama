@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.16 2005/06/01 12:14:53 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.17 2005/06/02 13:23:41 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -241,7 +241,7 @@ namespace GNU_gama {
 
     if (s_tol <= Float()) 
       {
-        s_tol = 1000*std::numeric_limits<Float>::epsilon();
+        s_tol = std::sqrt( std::numeric_limits<Float>::epsilon() );
       }
     nullity = Index();
 

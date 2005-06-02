@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj_base.h,v 1.4 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: adj_base.h,v 1.5 2005/06/02 13:23:41 cepek Exp $
  */
 
 #ifndef GNU_Gama_gnu_gama_gnugama_GaMa_AdjBase_h
@@ -75,7 +75,7 @@ public:
     }
   const Vec<Float, Exc>& residuals() { solve_me(); return r; }
 
-  Float trwr();   // trans(r)*w*r
+  //---  Float trwr();   // trans(r)*w*r
   virtual Index defect() = 0;
 
 
@@ -107,19 +107,19 @@ protected:
 
 // ................................................................
 
-template <typename Float, typename Exc>
-Float AdjBase<Float, Exc>::trwr()
-{
-  if (!is_solved) solve_me();
-
-  Float s = 0, p;
-  for (Index i = 1; i <= r.dim(); i++) {
-      p = sqrt_w(i) * r(i);
-      s += p*p;
-  }
-
-  return s;
-}
+//---  template <typename Float, typename Exc>
+//---  Float AdjBase<Float, Exc>::trwr()
+//---  {
+//---    if (!is_solved) solve_me();
+//---  
+//---    Float s = 0, p;
+//---    for (Index i = 1; i <= r.dim(); i++) {
+//---        p = sqrt_w(i) * r(i);
+//---        s += p*p;
+//---    }
+//---  
+//---    return s;
+//---  }
 
 template <typename Float, typename Exc>
 void AdjBase<Float, Exc>::q_xx(Mat<Float, Exc>& cxx)

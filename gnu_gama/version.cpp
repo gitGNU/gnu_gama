@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.65 2005/05/30 16:59:49 cepek Exp $
+ *  $Id: version.cpp,v 1.66 2005/06/02 13:23:41 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.13-c";
+const char* GNU_gama_version  = "1.7.13-d";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -62,10 +62,12 @@ const char* GNU_gama_compiler =
 
 =============================================================================
 
-1.7.13 ....
+1.7.13 2005-06-02
 
     - added Cholesky decomposition as another adjustement algorithm
       (template class AdjCholDec)
+
+    - removed unused method AdjBase<>::trwr()
 
     - FSF's new address
 
@@ -104,9 +106,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.65 2005/05/30 16:59:49 cepek Exp $
+        <  *  $Id: version.cpp,v 1.66 2005/06/02 13:23:41 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.65 2005/05/30 16:59:49 cepek Exp $
+        >  *  $Id: version.cpp,v 1.66 2005/06/02 13:23:41 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),
