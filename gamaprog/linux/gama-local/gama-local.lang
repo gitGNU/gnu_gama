@@ -11,7 +11,7 @@
    en="Error during creation of InfoSit object" />
 
 <e id="T_GaMa_exception_2a"
-   en="GaMa - error on reading XML input configuration file!" />
+   en="GNU Gama - error on reading XML input configuration file!" />
 
 <e id="T_GaMa_exception_2b"
    en="On line number " />
@@ -38,10 +38,10 @@
    en="Approximate coordinates of computed points replaced by adjusted" />
 
 <e id="T_GaMa_solution_ended_with_error"
-   en="GaMa - solution ended with error!" />
+   en="GNU Gama - solution ended with error!" />
 
 <e id="T_GaMa_internal_program_error"
-   en="GaMa - internal program error!" />
+   en="GNU Gama - internal program error!" />
   
 </entries>   
 
