@@ -1,6 +1,6 @@
 /*  
     GNU Gama C++ library
-    Copyright (C) 1999, 2002, 2003  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 1999, 2002, 2003  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.25 2005/06/04 17:55:10 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.26 2005/06/04 21:06:43 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___

@@ -1,6 +1,6 @@
 /*
   GNU Gama is a package for adjustment and analysis of geodetic observations
-  Copyright (C) 2005  Ales Cepek
+  Copyright (C) 2005  Ales Cepek <cepek@gnu.org>
 
   This file is part of the GNU Gama C++ library.
   
@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.17 2005/06/02 13:23:41 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.18 2005/06/04 21:02:04 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h

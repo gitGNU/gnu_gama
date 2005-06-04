@@ -1,6 +1,6 @@
 /*  
     GNU GaMa / C++ GaMaLib Library
-    Copyright (C) 1999, 2002  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 1999, 2002  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU GaMa / C++ GaMaLib library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local.cpp,v 1.4 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: gama-local.cpp,v 1.5 2005/06/04 21:06:43 cepek Exp $
  */
 
 
