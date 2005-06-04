@@ -14,8 +14,8 @@
    fi="Virhe InfoSit-objektia luotaessa"  />
 
 <e id="T_GaMa_exception_2a"
-   EN="GaMa - error on reading XML input configuration file!"
-   fi="GaMa - virhe XML-konfiguraatiotiedosotoa luettaessa!" />
+   EN="GNU Gama - error on reading XML input configuration file!"
+   fi="GNU Gama - virhe XML-konfiguraatiotiedosotoa luettaessa!" />
 
 <e id="T_GaMa_exception_2b"
    EN="On line number "
@@ -50,12 +50,12 @@
    fi="Laskettujen pisteiden likiarvoiset koordinaatit on korvattu tasoitetuilla" />
 
 <e id="T_GaMa_solution_ended_with_error"
-   EN="GaMa - solution ended with error!"
-   fi="GaMa - ratkaisu päättyi virheeseen!" />
+   EN="GNU Gama - solution ended with error!"
+   fi="GNU Gama - ratkaisu päättyi virheeseen!" />
 
 <e id="T_GaMa_internal_program_error"
-   EN="GaMa - internal program error!"
-   fi="GaMa - ohjelman sisäinen virhe!" />
+   EN="GNU Gama - internal program error!"
+   fi="GNU Gama - ohjelman sisäinen virhe!" />
   
 </entries>   
 

@@ -14,8 +14,8 @@
    hu="Hiba az InfoSit objektum létrehozása közben"  />
 
 <e id="T_GaMa_exception_2a"
-   EN="GaMa - error on reading XML input configuration file!"
-   hu="GaMa - hiba az XML input fájl olvasása közben" />
+   EN="GNU Gama - error on reading XML input configuration file!"
+   hu="GNU Gama - hiba az XML input fájl olvasása közben" />
 
 <e id="T_GaMa_exception_2b"
    EN="On line number "
@@ -50,12 +50,12 @@
    hu="A számított pontok elõzetes koordinátái cserélve a kiegyenlítettre" />
 
 <e id="T_GaMa_solution_ended_with_error"
-   EN="GaMa - solution ended with error!"
-   hu="GaMa - hibás megoldás!" />
+   EN="GNU Gama - solution ended with error!"
+   hu="GNU Gama - hibás megoldás!" />
 
 <e id="T_GaMa_internal_program_error"
-   EN="GaMa - internal program error!"
-   hu="GaMa - belsõ programhiba!" />
+   EN="GNU Gama - internal program error!"
+   hu="GNU Gama - belsõ programhiba!" />
   
 </entries>   
 

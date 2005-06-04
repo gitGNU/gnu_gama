@@ -14,7 +14,7 @@
    du="Fout tijdens creëren van InfoSit object" />
 
 <e id="T_GaMa_exception_2a"
-   EN="GaMa - error on reading XML input configuration file!"
+   EN="GNU Gama - error on reading XML input configuration file!"
    du="Fout bij lezen van XML input configuratie bestand!" />
 
 <e id="T_GaMa_exception_2b"
@@ -50,12 +50,12 @@
    du="Benaderende coördinaten van berekende punten vervangen door vereffende" />
 
 <e id="T_GaMa_solution_ended_with_error"
-   EN="GaMa - solution ended with error!"
-   du="GaMa - oplossing beëindigd met fouten!" />
+   EN="GNU Gama - solution ended with error!"
+   du="GNU Gama - oplossing beëindigd met fouten!" />
 
 <e id="T_GaMa_internal_program_error"
-   EN="GaMa - internal program error!"
-   du="GaMa - interne programmafout!" />
+   EN="GNU Gama - internal program error!"
+   du="GNU Gama - interne programmafout!" />
   
 </entries>   
 

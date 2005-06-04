@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.24 2005/05/31 18:54:52 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.25 2005/06/04 17:55:10 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -499,10 +499,14 @@ int GaMa_Main(int argc, char **argv)
       cout << "\n" << T_GaMa_solution_ended_with_error << "\n\n"
            << "****** " << V.text << "\n\n";
     }
+  catch(const GNU_gama::Exception::adjustment& choldec)
+    {
+      cout << "\n" << T_GaMa_solution_ended_with_error << "\n\n"
+           << "****** " << choldec.str << "\n\n";
+    }
   catch(...)
     {
       cout << "\n" << T_GaMa_internal_program_error << "\n\n";
-      throw;
     }
   
   return 1;

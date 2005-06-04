@@ -14,8 +14,8 @@
    ca="Error durant la creació d\'objecte InfoSit" />
 
 <e id="T_GaMa_exception_2a"
-   EN="GaMa - error on reading XML input configuration file!"
-   ca="GaMa - error en llegir arxiu XML de configuració!" />
+   EN="GNU Gama - error on reading XML input configuration file!"
+   ca="GNU Gama - error en llegir arxiu XML de configuració!" />
 
 <e id="T_GaMa_exception_2b"
    EN="On line number "
@@ -50,12 +50,12 @@
    ca="Les coordenades aproximades dels punts calculats han estat remplaçades per coordenades ajustades" />
 
 <e id="T_GaMa_solution_ended_with_error"
-   EN="GaMa - solution ended with error!"
-   ca="GaMa - la solució ha acabat amb errors" />
+   EN="GNU Gama - solution ended with error!"
+   ca="GNU Gama - la solució ha acabat amb errors" />
 
 <e id="T_GaMa_internal_program_error"
-   EN="GaMa - internal program error!"
-   ca="GaMa - error intern al programa!" />
+   EN="GNU Gama - internal program error!"
+   ca="GNU Gama - error intern al programa!" />
   
 </entries>   
 

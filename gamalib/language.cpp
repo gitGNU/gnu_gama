@@ -587,7 +587,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_errell_header2="== [mm] == [mm] ==== a [mm] b   alfa[g] ==== a' [mm] b' ========";
 	T_GaMa_errell_review_of_mean_errors_and_error_ellipses="Střední chyby a parametry elips chyb";
 	T_GaMa_exception_1="Chyba při vytváření objektu InfoSit";
-	T_GaMa_exception_2a="GaMa - chyba při čtení XML konfiguračního souboru!";
+	T_GaMa_exception_2a="GNU Gama - chyba při čtení XML konfiguračního souboru!";
 	T_GaMa_exception_2b="Na řádku číslo ";
 	T_GaMa_from_equals_to="stanovisko je totožné s cílem";
 	T_GaMa_genpar_Maximal_studentized_residual="Maximální studentizovaná oprava ";
@@ -623,7 +623,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_gpar2_number_of_unknowns="Počet neznámých";
 	T_GaMa_inconsistent_coordinates_and_angles="Nekonzistentní souřadnice a úhly: \ninterní změna znaménka všech souřadnic Y";
 	T_GaMa_index_type_point="  index typ  bod";
-	T_GaMa_internal_program_error="GaMa - interní chyba programu!";
+	T_GaMa_internal_program_error="GNU Gama - interní chyba programu!";
 	T_GaMa_interval="interval";
 	T_GaMa_interval_contains="obsahuje hodnotu m0\'/m0";
 	T_GaMa_interval_doesnt_contain="neobsahuje hodnotu m0\'/m0";
@@ -656,7 +656,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_resobs_normality_test="Oveření normálního rozdělení homogenizovaných oprav";
 	T_GaMa_resobs_weak_control=" s";
 	T_GaMa_s_distance=" šikmá ";
-	T_GaMa_solution_ended_with_error="GaMa - výpočet skončil chybou!";
+	T_GaMa_solution_ended_with_error="GNU Gama - výpočet skončil chybou!";
 	T_GaMa_standpoint="stanovisko";
 	T_GaMa_statan_with_apriori_standard_deviation="- s apriorní jednotkovou střední chybou ";
 	T_GaMa_statan_with_confidence_level="- s konfidenční pravděpodobností ";
@@ -815,7 +815,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_errell_header2="== [mm] == [mm] ==== a [mm] b  alpha[g] ==== a' [mm] b' ========";
 	T_GaMa_errell_review_of_mean_errors_and_error_ellipses="Keskivirheet ja virhe-ellipsien parametrit";
 	T_GaMa_exception_1="Virhe InfoSit-objektia luotaessa";
-	T_GaMa_exception_2a="GaMa - virhe XML-konfiguraatiotiedosotoa luettaessa!";
+	T_GaMa_exception_2a="GNU Gama - virhe XML-konfiguraatiotiedosotoa luettaessa!";
 	T_GaMa_exception_2b="Rivillä numero ";
 	T_GaMa_from_equals_to="havainto- ja kohdepiste ovat yhtäläiset";
 	T_GaMa_genpar_Maximal_studentized_residual="Studentin t-jakauman mukainen maksimiresiduaali ";
@@ -851,7 +851,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_gpar2_number_of_unknowns="Tuntemattomien lukumäärä";
 	T_GaMa_inconsistent_coordinates_and_angles="Ristiriitaisia koordinaatteja ja kulmia: kaikkien Y-koordinaattien merkit vaihdetaan";
 	T_GaMa_index_type_point="  indexityyppinen piste";
-	T_GaMa_internal_program_error="GaMa - ohjelman sisäinen virhe!";
+	T_GaMa_internal_program_error="GNU Gama - ohjelman sisäinen virhe!";
 	T_GaMa_interval="luottamusväli";
 	T_GaMa_interval_contains="sisältää arvon m0\'/m0";
 	T_GaMa_interval_doesnt_contain="ei sisällä arvoa m0\'/m0";
@@ -884,7 +884,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_resobs_normality_test="Homogenisoitujen residuaalien normaalisuustesti";
 	T_GaMa_resobs_weak_control=" h";
 	T_GaMa_s_distance=" etäisyys ";
-	T_GaMa_solution_ended_with_error="GaMa - ratkaisu päättyi virheeseen!";
+	T_GaMa_solution_ended_with_error="GNU Gama - ratkaisu päättyi virheeseen!";
 	T_GaMa_standpoint="asemapiste";
 	T_GaMa_statan_with_apriori_standard_deviation="- apriori keskihajontaa ";
 	T_GaMa_statan_with_confidence_level="- luottamustasolla ";
@@ -1079,7 +1079,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_gpar2_number_of_unknowns="Aantal onbekenden";
 	T_GaMa_inconsistent_coordinates_and_angles="Inconsistente coördinaten en hoeken: \nwijziging teken van alle XY coördinaten";
 	T_GaMa_index_type_point="  index type punt";
-	T_GaMa_internal_program_error="GaMa - interne programmafout!";
+	T_GaMa_internal_program_error="GNU Gama - interne programmafout!";
 	T_GaMa_interval="interval";
 	T_GaMa_interval_contains="bevat m0\'/m0 waarde ";
 	T_GaMa_interval_doesnt_contain="bevat de  m0\'/m0 waarde niet";
@@ -1112,7 +1112,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_resobs_normality_test="Test van de homogene residus";
 	T_GaMa_resobs_weak_control=" w";
 	T_GaMa_s_distance=" slope ";
-	T_GaMa_solution_ended_with_error="GaMa - oplossing beëindigd met fouten!";
+	T_GaMa_solution_ended_with_error="GNU Gama - oplossing beëindigd met fouten!";
 	T_GaMa_standpoint="standpunt";
 	T_GaMa_statan_with_apriori_standard_deviation="- met a priori standaardafwijking ";
 	T_GaMa_statan_with_confidence_level="- met betrouwbaarheidsniveau ";
@@ -1271,7 +1271,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_errell_header2="== [mm] == [mm] ==== a [mm] b   alfa[g] ==== a' [mm] b' ========";
 	T_GaMa_errell_review_of_mean_errors_and_error_ellipses="Hibaellipszisek középhibái és paraméterei";
 	T_GaMa_exception_1="Hiba az InfoSit objektum létrehozása közben";
-	T_GaMa_exception_2a="GaMa - hiba az XML input fájl olvasása közben";
+	T_GaMa_exception_2a="GNU Gama - hiba az XML input fájl olvasása közben";
 	T_GaMa_exception_2b="A következő sornál ";
 	T_GaMa_from_equals_to="az állás és az irányzott pont megegyezik";
 	T_GaMa_genpar_Maximal_studentized_residual="Maximális eredő ";
@@ -1307,7 +1307,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_gpar2_number_of_unknowns="Ismeretlenek száma";
 	T_GaMa_inconsistent_coordinates_and_angles="Nem konzisztens koordináták és szögek: minden Y koordináta előjele megváltoztatva";
 	T_GaMa_index_type_point="  index típusú pont";
-	T_GaMa_internal_program_error="GaMa - belső programhiba!";
+	T_GaMa_internal_program_error="GNU Gama - belső programhiba!";
 	T_GaMa_interval="intervallum";
 	T_GaMa_interval_contains="m0\'/m0 értket tartalmaz";
 	T_GaMa_interval_doesnt_contain="nem tartalmaz m0\'/m0 értéket";
@@ -1340,7 +1340,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_resobs_normality_test="Homogenizált eredők normalitásának vizsgálata";
 	T_GaMa_resobs_weak_control=" g";
 	T_GaMa_s_distance=" ferde ";
-	T_GaMa_solution_ended_with_error="GaMa - hibás megoldás!";
+	T_GaMa_solution_ended_with_error="GNU Gama - hibás megoldás!";
 	T_GaMa_standpoint="álláspont";
 	T_GaMa_statan_with_apriori_standard_deviation="- apriori középhiba ";
 	T_GaMa_statan_with_confidence_level="- konfidencia szint ";
@@ -1499,7 +1499,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_errell_header2="== [mm] == [mm] ==== a [mm] b  alpha[g] ==== a' [mm] b' ========";
 	T_GaMa_errell_review_of_mean_errors_and_error_ellipses="Errors mitjans i paràmetres de les el·lipses d'error";
 	T_GaMa_exception_1="Error durant la creació d\'objecte InfoSit";
-	T_GaMa_exception_2a="GaMa - error en llegir arxiu XML de configuració!";
+	T_GaMa_exception_2a="GNU Gama - error en llegir arxiu XML de configuració!";
 	T_GaMa_exception_2b="A la línia ";
 	T_GaMa_from_equals_to="l\'estació i el punt observat són el mateix";
 	T_GaMa_genpar_Maximal_studentized_residual="Residual màxim \'studentitzat\' ";
@@ -1535,7 +1535,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_gpar2_number_of_unknowns="Nombre d'incògnites";
 	T_GaMa_inconsistent_coordinates_and_angles="Coordenades i angles inconsistents entre si: \ncanviant el signe de totes les coordenades Y";
 	T_GaMa_index_type_point="  punt de tipus índex";
-	T_GaMa_internal_program_error="GaMa - error intern al programa!";
+	T_GaMa_internal_program_error="GNU Gama - error intern al programa!";
 	T_GaMa_interval="interval";
 	T_GaMa_interval_contains="conté el valor m0\'/m0";
 	T_GaMa_interval_doesnt_contain="no conté pas el valor m0\'/m0";
@@ -1568,7 +1568,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_resobs_normality_test="Test de normalitat dels residuals homogeneisats";
 	T_GaMa_resobs_weak_control=" w";
 	T_GaMa_s_distance=" incl. ";
-	T_GaMa_solution_ended_with_error="GaMa - la solució ha acabat amb errors";
+	T_GaMa_solution_ended_with_error="GNU Gama - la solució ha acabat amb errors";
 	T_GaMa_standpoint="estació";
 	T_GaMa_statan_with_apriori_standard_deviation="- amb desviació estàndard a priori ";
 	T_GaMa_statan_with_confidence_level="- amb nivell de confiança ";

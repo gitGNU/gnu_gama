@@ -14,8 +14,8 @@
    cz="Chyba pøi vytváøení objektu InfoSit"  />
 
 <e id="T_GaMa_exception_2a"
-   EN="GaMa - error on reading XML input configuration file!"
-   cz="GaMa - chyba pøi ètení XML konfiguraèního souboru!" />
+   EN="GNU Gama - error on reading XML input configuration file!"
+   cz="GNU Gama - chyba pøi ètení XML konfiguraèního souboru!" />
 
 <e id="T_GaMa_exception_2b"
    EN="On line number "
@@ -50,12 +50,12 @@
    cz="Pøibli¾né souøadnice urèovaných bodù nahrazeny vyrovnanými" />
 
 <e id="T_GaMa_solution_ended_with_error"
-   EN="GaMa - solution ended with error!"
-   cz="GaMa - výpoèet skonèil chybou!" />
+   EN="GNU Gama - solution ended with error!"
+   cz="GNU Gama - výpoèet skonèil chybou!" />
 
 <e id="T_GaMa_internal_program_error"
-   EN="GaMa - internal program error!"
-   cz="GaMa - interní chyba programu!" />
+   EN="GNU Gama - internal program error!"
+   cz="GNU Gama - interní chyba programu!" />
   
 </entries>   
 
