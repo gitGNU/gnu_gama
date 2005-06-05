@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.h,v 1.13 2005/05/07 18:06:19 cepek Exp $
+ *  $Id: network.h,v 1.14 2005/06/05 15:36:20 cepek Exp $
  */
 
 // LocalNetwork - Network Informations class (Informace o siti)
@@ -182,6 +182,7 @@ namespace GaMaLib
       Double apriori_m_0() const   { return m_0_apr_; }
       
       Double qxx(Index i, Index j) { return q_xx(i,j); } 
+      Double qbb(Index i, Index j) { return q_bb(i,j); } 
 
       virtual Double cond() = 0;
       virtual bool lindep(Index i) = 0;
