@@ -1,6 +1,6 @@
 /*  
     C++ Matrix/Vector templates (GNU Gama / matvec 0.9.25)
-    Copyright (C) 1999, 2001  Ales Cepek <cepek@gnu.org>
+    Copyright (C) 1999, 2001, 2005  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ Matrix/Vector template library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: svd.h,v 1.2 2005/05/07 18:06:21 cepek Exp $
+ *  $Id: svd.h,v 1.3 2005/06/07 15:34:38 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -177,7 +177,7 @@ namespace GNU_gama {
           Float  eps, eps_1, eps_min, eps_max, sum;
           const Float one = 1;
 
-          eps_min = 0;
+          eps_min = Float();
           eps_max = eps = 1e-5;
           do
             {
@@ -192,7 +192,7 @@ namespace GNU_gama {
           W_tol = 1000*eps;
         }
 
-      Float vmax = 0;
+      Float vmax = Float();
       for (Index k = 1; k <= W_.dim(); k++) if (W[k] > vmax) vmax = W[k];
       const Float vmin = W_tol * vmax;
       defect = 0;
@@ -201,7 +201,7 @@ namespace GNU_gama {
           inv_W[i] = 1/W[i];
         else
           {
-            inv_W[i] = 0;
+            inv_W[i] = Float();
             defect++;
           }
 
@@ -562,8 +562,8 @@ namespace GNU_gama {
         throw Exc(Exception::BadRank, "Float SVD::q_xx(Index, Index)");
       // A = U*W*trans(V)
       // Covariance = V * inv_W * trans(inv_W) * trans(V);
-      svd();
-      Float c = 0;
+      if (!decomposed) svd();
+      Float c = Float();
       for (Index k = 1; k <= n; k++)
         c += V[i][k] * inv_W[k] * inv_W[k] * V[j][k];
       return c;
@@ -577,8 +577,8 @@ namespace GNU_gama {
         throw Exc(Exception::BadRank, "Float SVD::q_bb(Index, Index)");
       // A = U*W*trans(V)
       // Covariance = U * trans(U);
-      svd();
-      Float c = 0;
+      if (!decomposed) svd();
+      Float c = Float();
       for (Index k = 1; k <= n; k++)
         if (inv_W[k] != 0)
           c += U[i][k] * U[j][k];
@@ -593,8 +593,8 @@ namespace GNU_gama {
         throw Exc(Exception::BadRank, "Float SVD::q_bx(Index, Index)");
       // A = U*W*trans(V)
       // Covariance = U * trans(V);
-      svd();
-      Float c = 0;
+      if (!decomposed) svd();
+      Float c = Float();
       for (Index k = 1; k <= n; k++)
         c += U[i][k] * inv_W[k] * V[j][k];
       return c;
@@ -654,7 +654,7 @@ namespace GNU_gama {
         if (inv_W[k] == 0)
           {
             Float Vimk;
-            s = 0;
+            s = Float();
             for (Index i = 0; i < n_min; i++) {
               im = list_min[i];
               Vimk = V[im][k];
@@ -668,7 +668,7 @@ namespace GNU_gama {
             for (Index j = 1; j <= n; j++)
               if (j != k)
                 {
-                  s = 0;
+                  s = Float();
                   for (Index i = 0; i < n_min; i++) {
                     im = list_min[i];
                     s += V[im][j] * V[im][k];
@@ -695,7 +695,7 @@ namespace GNU_gama {
       {   // for ...
         for (Index i=1; i<=n; ++i, ++t)
           {
-            s = 0;
+            s = Float();
             b = rhs.begin();
             for (Index k=1; k<=m; k++, ++b) s += U[k][i] * (*b);
             *t = s * inv_W[i];
@@ -706,7 +706,7 @@ namespace GNU_gama {
       typename Vec<Float, Exc>::iterator x = x_.begin();
       for (Index i=1; i<=n; ++i, ++x)
         {
-          s = 0;
+          s = Float();
           t = t_.begin();
           for (Index j=1; j<=n; ++j, ++t) s += V[i][j] * (*t);
           *x = s;
