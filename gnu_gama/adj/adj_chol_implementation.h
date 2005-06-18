@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.19 2005/06/18 16:12:14 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.20 2005/06/18 19:32:30 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -100,7 +100,8 @@ namespace GNU_gama {
   Float 
   AdjCholDec<Float, Exc>::q_bx(Index, Index)
   {
-    //throw Exception::adjustment("AdjCholDec::q_bx() NOT implemented");
+    throw Exc(Exception::NotImplemented, 
+              "AdjCholDec::q_bx() NOT implemented");
     return 0;
   }
 
@@ -182,9 +183,8 @@ namespace GNU_gama {
     if (this->is_solved) return;
 
     if (this->pw)
-      throw 
-        Exception::adjustment("AdjCholDec::reset(Mat<>, Vec<>, Vec<>) "
-                              " NOT implemented");
+      throw Exc(Exception::NotImplemented, 
+                "AdjCholDec::reset(Mat<>, Vec<>, Vec<>) NOT implemented");
 
 
     // project equations Ax = b 
@@ -477,8 +477,8 @@ namespace GNU_gama {
           {
             Float pivot = dot(G,g_perm(column),g_perm(column));
             if (pivot < s_tol) 
-              throw Exception::adjustment("AdjCholDec::solve_me() --- "
-                                          "bad regularization"); 
+              throw Exc(Exception::BadRegularization,
+                        "AdjCholDec::solve_me() --- bad regularization"); 
             Index ipvt  = 0;
             for (Index i=column+1; i<=nullity; i++)
               {
