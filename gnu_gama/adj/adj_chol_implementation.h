@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.18 2005/06/04 21:02:04 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.19 2005/06/18 16:12:14 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -111,7 +111,7 @@ namespace GNU_gama {
   AdjCholDec<Float, Exc>::lindep(Index n)
   {
     this->solve_me();
-    return nullity && perm(n) > N0;
+    return nullity && invp(n) > N0;
   }
 
 
