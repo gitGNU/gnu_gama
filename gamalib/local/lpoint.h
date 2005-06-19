@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: lpoint.h,v 1.2 2005/05/07 18:06:19 cepek Exp $
+ *  $Id: lpoint.h,v 1.3 2005/06/19 10:58:21 cepek Exp $
  */
 
 #ifndef GaMaLib___class__LocalPoint_h
@@ -112,28 +112,6 @@ public:
   bool constrained_z()  const { return pst_ & z_constrained_;  }
   bool active_z()       const { return pst_ & active_z_;       }
   bool active()         const { return pst_ & active_;         }
-
-  /*
-  void set_fixed_point()        { pst_ &= ~active_xy_; pst_ |= xy_fixed_;     }
-  void set_free_point()         { pst_ &= ~active_xy_; pst_ |= xy_adjusted_;  }
-  void set_constrained_point()  { pst_ &= ~active_xy_; 
-                                  pst_ |= (xy_adjusted_ | xy_constrained_);   }
-  void set_fixed_height()       { pst_ &= ~active_z_;  pst_ |= z_fixed_;      }
-  void set_free_height()        { pst_ &= ~active_z_;  pst_ |= z_adjusted_;   }
-  void set_constrained_height() { pst_ &= ~active_z_;  pst_ |= z_constrained_;}
-  void unset_network_point()    { pst_ &= ~active_xy_;                        }
-  void unset_height_point()     { pst_ &= ~active_z_;                         }
-  void unused_point()           { pst_ = unused_;                             }
-  
-  bool network_point()      const { return pst_ & active_xy_;      }
-  bool fixed_point()        const { return pst_ & xy_fixed_;       }
-  bool free_point()         const { return pst_ & xy_adjusted_;    }
-  bool constrained_point()  const { return pst_ & xy_constrained_; }
-  bool fixed_height()       const { return pst_ & z_fixed_;        }
-  bool free_height()        const { return pst_ & z_adjusted_;     }
-  bool constrained_height() const { return pst_ & z_constrained_;  }
-  bool height_point()       const { return pst_ & active_z_;       }
-  */
 
 
   // initial values of coordinates used in the first adjustment iteration
