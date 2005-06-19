@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.20 2005/06/18 19:32:30 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.21 2005/06/19 11:28:00 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -477,8 +477,13 @@ namespace GNU_gama {
           {
             Float pivot = dot(G,g_perm(column),g_perm(column));
             if (pivot < s_tol) 
-              throw Exc(Exception::BadRegularization,
+              {
+                nullity =  0;   // return particular solution x0
+                this->x = x0;
+                this->is_solved = true;
+                throw Exc(Exception::BadRegularization,
                         "AdjCholDec::solve_me() --- bad regularization"); 
+              }
             Index ipvt  = 0;
             for (Index i=column+1; i<=nullity; i++)
               {

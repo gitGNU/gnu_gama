@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.70 2005/06/18 16:12:14 cepek Exp $
+ *  $Id: version.cpp,v 1.71 2005/06/19 11:28:00 cepek Exp $
  */
 
 
@@ -63,6 +63,36 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.14-a 2005-...
+
+    - fixed a bug in local network linearization (possible impact of
+      this bug used to be adjusted by various data checks in 'gama-local')
+
+      Index: gamalib/local/linearization/xyzdiff.h
+      ===================================================================
+      RCS file: /cvsroot/gama/gama/gamalib/local/linearization/xyzdiff.h,v
+      retrieving revision 1.3
+      diff -u -r1.3 xyzdiff.h
+      --- gamalib/local/linearization/xyzdiff.h	7 May 2005 18:06:20 -0000 1.3
+      +++ gamalib/local/linearization/xyzdiff.h	19 Jun 2005 11:11:03 -0000
+      @@ -96,14 +96,14 @@
+         rhs = (obs->value() - df)*1e3;
+       
+         size = 0;
+      -  if (spoint.free_xy())
+      +  if (spoint.free_z())
+           {
+             if (!spoint.index_z()) spoint.index_z() = ++maxn;
+             index[ size ] =  spoint.index_z();
+             coeff[ size ] = -1;
+             size++;
+           }
+      -  if (tpoint.free_xy())
+      +  if (tpoint.free_z())
+           {
+             if (!tpoint.index_z()) tpoint.index_z() = ++maxn;
+             index[ size ] =  tpoint.index_z();
+
+
 
 1.7.13 2005-06-13
 
@@ -108,9 +138,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.70 2005/06/18 16:12:14 cepek Exp $
+        <  *  $Id: version.cpp,v 1.71 2005/06/19 11:28:00 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.70 2005/06/18 16:12:14 cepek Exp $
+        >  *  $Id: version.cpp,v 1.71 2005/06/19 11:28:00 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),

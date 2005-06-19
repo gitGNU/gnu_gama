@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: xyzdiff.h,v 1.3 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: xyzdiff.h,v 1.4 2005/06/19 11:28:00 cepek Exp $
  */
 
 #include <gamalib/local/linearization.h>
@@ -96,14 +96,14 @@ void LocalLinearization::zdiff(const Zdiff* obs) const
   rhs = (obs->value() - df)*1e3;
 
   size = 0;
-  if (spoint.free_xy())
+  if (spoint.free_z())
     {
       if (!spoint.index_z()) spoint.index_z() = ++maxn;
       index[ size ] =  spoint.index_z();
       coeff[ size ] = -1;
       size++;
     }
-  if (tpoint.free_xy())
+  if (tpoint.free_z())
     {
       if (!tpoint.index_z()) tpoint.index_z() = ++maxn;
       index[ size ] =  tpoint.index_z();
