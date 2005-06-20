@@ -224,6 +224,7 @@ extern const char* T_LN_rm_missing_xyz;
 extern const char* T_LN_rm_missing_z;
 extern const char* T_LN_rm_removed_points;
 extern const char* T_LN_rm_singular_xy;
+extern const char* T_LN_rm_singular_z;
 extern const char* T_LN_undefined_confidence_level;
 extern const char* T_LN_undefined_type_of_actual_sigma;
 extern const char* T_POBS_bad_data;

@@ -224,6 +224,7 @@ const char* T_LN_rm_missing_xyz = T_language_cpp_internal_error;
 const char* T_LN_rm_missing_z = T_language_cpp_internal_error;
 const char* T_LN_rm_removed_points = T_language_cpp_internal_error;
 const char* T_LN_rm_singular_xy = T_language_cpp_internal_error;
+const char* T_LN_rm_singular_z = T_language_cpp_internal_error;
 const char* T_LN_undefined_confidence_level = T_language_cpp_internal_error;
 const char* T_LN_undefined_type_of_actual_sigma = T_language_cpp_internal_error;
 const char* T_POBS_bad_data = T_language_cpp_internal_error;
@@ -359,7 +360,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_errell_header2="== [mm] == [mm] ==== a [mm] b  alpha[g] ==== a' [mm] b' ========";
 	T_GaMa_errell_review_of_mean_errors_and_error_ellipses="Mean errors and parameters of error ellipses";
 	T_GaMa_exception_1="Error during creation of InfoSit object";
-	T_GaMa_exception_2a="GaMa - error on reading XML input configuration file!";
+	T_GaMa_exception_2a="GNU Gama - error on reading XML input configuration file!";
 	T_GaMa_exception_2b="On line number ";
 	T_GaMa_from_equals_to="station and target are identical";
 	T_GaMa_genpar_Maximal_studentized_residual="Maximal studentized residual ";
@@ -395,7 +396,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_gpar2_number_of_unknowns="Number of unknowns";
 	T_GaMa_inconsistent_coordinates_and_angles="Inconsistent coordinates and angles: \nchanging internally sign of all Y coordinates";
 	T_GaMa_index_type_point="  index type point";
-	T_GaMa_internal_program_error="GaMa - internal program error!";
+	T_GaMa_internal_program_error="GNU Gama - internal program error!";
 	T_GaMa_interval="interval";
 	T_GaMa_interval_contains="contains value m0\'/m0";
 	T_GaMa_interval_doesnt_contain="does not contain value m0\'/m0";
@@ -428,7 +429,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_resobs_normality_test="Test of normality of homogenised residuals";
 	T_GaMa_resobs_weak_control=" w";
 	T_GaMa_s_distance=" slope ";
-	T_GaMa_solution_ended_with_error="GaMa - solution ended with error!";
+	T_GaMa_solution_ended_with_error="GNU Gama - solution ended with error!";
 	T_GaMa_standpoint="standpoint";
 	T_GaMa_statan_with_apriori_standard_deviation="- with apriori standard deviation ";
 	T_GaMa_statan_with_confidence_level="- with confidence level ";
@@ -456,6 +457,7 @@ void set_gama_language(gama_language lang)
 	T_LN_rm_missing_z="missing coordiantes z";
 	T_LN_rm_removed_points="Removed points and coordinates";
 	T_LN_rm_singular_xy="singular coordiantes xy";
+	T_LN_rm_singular_z="singular coordiante z";
 	T_LN_undefined_confidence_level="undefined confidence level";
 	T_LN_undefined_type_of_actual_sigma="Type of actual sigma is not defined (apriori / aposteriori)";
 	T_POBS_bad_data="bad data";
@@ -684,6 +686,7 @@ void set_gama_language(gama_language lang)
 	T_LN_rm_missing_z="chybí souřadnice z";
 	T_LN_rm_removed_points="Vyloučené body a suřadnice";
 	T_LN_rm_singular_xy="singulární souřadnice xy";
+	T_LN_rm_singular_z="singulární souřadnice z";
 	T_LN_undefined_confidence_level="nedefinovaná hodnota pravděpodobnosti";
 	T_LN_undefined_type_of_actual_sigma="Není definován typ aktuální jednotkové střední chyby (apriorní / aposteriorní)";
 	T_POBS_bad_data="chybný údaj";
@@ -912,6 +915,7 @@ void set_gama_language(gama_language lang)
 	T_LN_rm_missing_z="z-koordinaatteja puuttuu";
 	T_LN_rm_removed_points="Poistettuja pisteitä ja koordinaatteja";
 	T_LN_rm_singular_xy="singulaarisia xy-koordinaatteja";
+	T_LN_rm_singular_z="singular coordiante z";
 	T_LN_undefined_confidence_level="määrittelemätön luottamusväli";
 	T_LN_undefined_type_of_actual_sigma="Sigman tyyppi on määrittelemätön (apriori / aposteriori)";
 	T_POBS_bad_data="epäkelpoa dataa";
@@ -1140,6 +1144,7 @@ void set_gama_language(gama_language lang)
 	T_LN_rm_missing_z="ontbrekende z coördinaat";
 	T_LN_rm_removed_points="Verworpen punten en coördinaten";
 	T_LN_rm_singular_xy="singulaire xy coördinaten";
+	T_LN_rm_singular_z="singular coordiante z";
 	T_LN_undefined_confidence_level="onbepaald betrouwbaarheidsniveau";
 	T_LN_undefined_type_of_actual_sigma="Type sigma is niet gedefinieerd (a priori / a posteriori)";
 	T_POBS_bad_data="foutieve data";
@@ -1368,6 +1373,7 @@ void set_gama_language(gama_language lang)
 	T_LN_rm_missing_z="hiányzó 1D koordináták";
 	T_LN_rm_removed_points="Eltávolított pontok és koordináták";
 	T_LN_rm_singular_xy="Egyedülálló 2D koordináták";
+	T_LN_rm_singular_z="singular coordiante z";
 	T_LN_undefined_confidence_level="nem definiált konfidencia szint";
 	T_LN_undefined_type_of_actual_sigma="A középhiba fajtája nem definiált  (apriori / aposteriori)";
 	T_POBS_bad_data="hibás adat";
@@ -1596,6 +1602,7 @@ void set_gama_language(gama_language lang)
 	T_LN_rm_missing_z="manca la coordenada z";
 	T_LN_rm_removed_points="Punts i coordenades eliminats";
 	T_LN_rm_singular_xy="coordenades xy singulars";
+	T_LN_rm_singular_z="singular coordiante z";
 	T_LN_undefined_confidence_level="nivell de confiança no definit";
 	T_LN_undefined_type_of_actual_sigma="Tipus de sigma no definit (apriori / aposteriori)";
 	T_POBS_bad_data="dades errònies";
