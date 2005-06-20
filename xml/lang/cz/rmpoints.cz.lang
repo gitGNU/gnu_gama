@@ -21,6 +21,10 @@
    EN="singular coordiantes xy"
    cz="singulární souøadnice xy" />
 
+<e id="T_LN_rm_singular_z"
+   EN="singular coordiante z"
+   cz="singulární souøadnice z" />
+
 <e id="T_LN_rm_huge_cov_xyz"
    EN="indeterminable coordinates xyz"
    cz="neurèitelné souøadnice xyz" />

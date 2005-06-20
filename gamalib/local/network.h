@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.h,v 1.14 2005/06/05 15:36:20 cepek Exp $
+ *  $Id: network.h,v 1.15 2005/06/20 19:02:17 cepek Exp $
  */
 
 // LocalNetwork - Network Informations class (Informace o siti)
@@ -61,7 +61,8 @@ namespace GaMaLib
       
       enum rm_points {
         rm_missing_xyz, rm_missing_xy,   rm_missing_z,
-        rm_singular_xy, rm_huge_cov_xyz, rm_huge_cov_xy, rm_huge_cov_z
+        rm_singular_xy, rm_singular_z,
+        rm_huge_cov_xyz, rm_huge_cov_xy, rm_huge_cov_z
       };
       
       GaMaLib::PointIDList  removed_points;

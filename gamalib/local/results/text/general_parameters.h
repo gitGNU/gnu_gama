@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: general_parameters.h,v 1.10 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: general_parameters.h,v 1.11 2005/06/20 19:05:40 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Zakladni_Parametry_h_
@@ -66,6 +66,8 @@ bool GeneralParameters(GaMaLib::LocalNetwork* IS, OutStream& out)
                 out << T_LN_rm_missing_z;       break;
               case LocalNetwork::rm_singular_xy :
                 out << T_LN_rm_singular_xy;     break;
+              case LocalNetwork::rm_singular_z  :
+                out << T_LN_rm_singular_z;      break;
               case LocalNetwork::rm_huge_cov_xyz:
                 out << T_LN_rm_huge_cov_xyz;    break;
               case LocalNetwork::rm_huge_cov_xy :

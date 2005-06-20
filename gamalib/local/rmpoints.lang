@@ -16,6 +16,9 @@
 <e id="T_LN_rm_singular_xy"
    en="singular coordiantes xy" />
 
+<e id="T_LN_rm_singular_z"
+   en="singular coordiante z" />
+
 <e id="T_LN_rm_huge_cov_xyz"
    en="indeterminable coordinates xyz" />
 
