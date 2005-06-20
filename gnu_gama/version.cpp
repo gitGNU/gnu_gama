@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.71 2005/06/19 11:28:00 cepek Exp $
+ *  $Id: version.cpp,v 1.72 2005/06/20 20:34:06 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.14-a";
+const char* GNU_gama_version  = "1.7.14-b";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -64,6 +64,60 @@ const char* GNU_gama_compiler =
 
 1.7.14-a 2005-...
 
+    - fixed possible undefined behavior of bad regularization during
+      revision of points
+
+      Index: gamalib/local/network.cpp
+      ===================================================================
+      RCS file: /cvsroot/gama/gama/gamalib/local/network.cpp,v
+      retrieving revision 1.20
+      diff -u -r1.20 network.cpp
+      --- gamalib/local/network.cpp	7 May 2005 18:06:19 -0000	1.20
+      +++ gamalib/local/network.cpp	20 Jun 2005 20:31:00 -0000
+      @@ -610,15 +610,40 @@
+       
+       int LocalNetwork::null_space()
+       {
+      -  try { 
+      -    vyrovnani_(); 
+      -  } 
+      -  catch(const MatVecException& vs) {
+      -    if (vs.error != GNU_gama::Exception::BadRegularization) throw;
+      -  } 
+      +  try 
+      +    { 
+      +      vyrovnani_(); 
+      +    } 
+      +  catch(const MatVecException& vs) 
+      +    {
+      +      if (vs.error != GNU_gama::Exception::BadRegularization) throw;
+      +      
+      +      for (Index i=1; i<=sum_unknowns(); i++)
+      +        if (lindep(i))
+      +          {
+      +            const char    type = unknown_type(i);
+      +            const PointID id   = unknown_pointid(i);
+      +            
+      +            LocalPoint& p = PD[id];
+      +            if (type == 'X' || type == 'Y' || type == 'R' )
+      +              {
+      +                p.unused_xy();
+      +                removed(id, rm_singular_xy );
+      +              }
+      +            else if (type == 'Z' )
+      +              {
+      +                p.unused_z();
+      +                removed(id, rm_missing_z );
+      +              }
+      +            
+      +            return null_space();
+      +          }
+      +    } 
+      +  
+         return defect();
+       }
+
+       
     - fixed a bug in local network linearization (possible impact of
       this bug used to be adjusted by various data checks in 'gama-local')
 
@@ -138,9 +192,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.71 2005/06/19 11:28:00 cepek Exp $
+        <  *  $Id: version.cpp,v 1.72 2005/06/20 20:34:06 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.71 2005/06/19 11:28:00 cepek Exp $
+        >  *  $Id: version.cpp,v 1.72 2005/06/20 20:34:06 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),

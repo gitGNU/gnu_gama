@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.20 2005/05/07 18:06:19 cepek Exp $
+ *  $Id: network.cpp,v 1.21 2005/06/20 20:34:06 cepek Exp $
  */
 
 #include <fstream>
@@ -610,14 +610,39 @@ void LocalNetwork::remove_huge_abs_terms()
 
 int LocalNetwork::null_space()
 {
-  try { 
-    vyrovnani_(); 
-  } 
-  catch(const MatVecException& vs) {
-    if (vs.error != GNU_gama::Exception::BadRegularization) throw;
-  } 
+  try 
+    { 
+      vyrovnani_(); 
+    } 
+  catch(const MatVecException& vs) 
+    {
+      if (vs.error != GNU_gama::Exception::BadRegularization) throw;
+      
+      for (Index i=1; i<=sum_unknowns(); i++)
+        if (lindep(i))
+          {
+            const char    type = unknown_type(i);
+            const PointID id   = unknown_pointid(i);
+            
+            LocalPoint& p = PD[id];
+            if (type == 'X' || type == 'Y' || type == 'R' )
+              {
+                p.unused_xy();
+                removed(id, rm_singular_xy );
+              }
+            else if (type == 'Z' )
+              {
+                p.unused_z();
+                removed(id, rm_missing_z );
+              }
+            
+            return null_space();
+          }
+    } 
+  
   return defect();
 }
+
 
 void LocalNetwork::std_error_ellipse(const PointID& cb, 
                                      Double& a, Double& b, Double& alfa)
