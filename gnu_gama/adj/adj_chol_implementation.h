@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: adj_chol_implementation.h,v 1.22 2005/06/19 16:04:55 cepek Exp $
+ * $Id: adj_chol_implementation.h,v 1.23 2005/06/24 12:50:16 cepek Exp $
  */
 
 #ifndef GNU_gama_adjustment_cholesky_decomposition_implementation__h
@@ -46,6 +46,8 @@ namespace GNU_gama {
   AdjCholDec<Float, Exc>::q_xx(Index i, Index j)
   {
     if (!this->is_solved) solve_me();
+
+    if (nullity == 0)  return Q0(i,j);
 
     Float s = Float();
     for (Index k=1; k<=N; k++)
@@ -96,13 +98,43 @@ namespace GNU_gama {
 
 
 
+  // Qbx = A*Q0*T'
+
   template <typename Float, typename Exc> 
   Float 
-  AdjCholDec<Float, Exc>::q_bx(Index, Index)
+  AdjCholDec<Float, Exc>::q_bx(Index i, Index j)
   {
-    throw Exc(Exception::NotImplemented, 
-              "AdjCholDec::q_bx() NOT implemented");
-    return 0;
+    const Mat<Float, Exc>& A = *this->pA;
+    Float s;
+
+    if (nullity == 0) 
+      {
+        Float s = Float();
+        for (Index k=1; k<=N; k++) s += A(i, k)*Q0(k,j);
+
+        return s;
+      }
+
+
+    // aq = A_row(i) * Q0
+    
+    Vec<Float, Exc> aq(N);
+    for (Index k=1; k<=N; k++)
+      {
+        s = Float();        
+        for (Index l=1; l<=N; l++)
+          {
+            s += A(i,l)*Q0(l,k);
+          }
+        aq(k) = s;
+      }
+    
+    // s = aq * trans(T)_column(j)
+
+    s = Float();
+    for (Index k=1; k<=N; k++) s += aq(k)*T(j,k);
+
+    return s;
   }
 
 
