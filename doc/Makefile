@@ -14,13 +14,17 @@ html:
 	cp *.png gama
 
 dvi:
+	rm -f gama.aux                 # ??? texinfo ???
 	tex gama.texi
+	sed -i s/@code\ //g gama.aux   # ??? texinfo ???
 	texindex gama.??
 	tex gama.texi
 	dvips gama
 
 pdf:
+	rm -f gama.aux                 # ??? texinfo ???
 	pdftex gama.texi
+	sed -i s/@code\ //g gama.aux   # ??? texinfo ???
 	texindex gama.??
 	pdftex gama.texi
 
