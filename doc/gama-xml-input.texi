@@ -1,4 +1,4 @@
-@comment $Id: gama-xml-input.texi,v 1.8 2004/04/07 17:43:36 cepek Exp $
+@comment $Id: gama-xml-input.texi,v 1.9 2005/07/18 19:09:13 cepek Exp $
 
 @comment setfilename gama-xml-inp.info
 
@@ -958,6 +958,7 @@ elevations in the set.
 </height-differences>
 @end example
 
+@page
 
 @node     Control coordinates
 @section  Control coordinates
@@ -1045,6 +1046,8 @@ instrument and/or target height are
 </vectors>
 @end example
 
+
+@page
 
 @node     Example
 @section  Example of local geodetic network
