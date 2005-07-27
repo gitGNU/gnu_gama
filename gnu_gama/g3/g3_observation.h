@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.14 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: g3_observation.h,v 1.15 2005/07/27 14:42:52 cepek Exp $
  */
 
 
@@ -245,6 +245,37 @@ namespace GNU_gama {  namespace g3 {
   private:    
     double x_, y_, z_;
   };
+
+
+  class HeightDiff : public Observation, public FromTo, public Value {
+  public:  
+
+    HeightDiff() {}
+    HeightDiff(double d) : Value(d) {}
+
+    int dimension() const { return 1; }
+
+    bool revision_accept(ObservationVisitor* visitor)
+    {
+      if (Revision<HeightDiff>* 
+          rv = dynamic_cast<Revision<HeightDiff>*>(visitor))
+        {          
+          return rv->revision_visit(this);
+        }
+      else
+        return  set_active(false);
+    }
+  
+    void linearization_accept(ObservationVisitor* visitor)
+    {
+      if (Linearization<HeightDiff>* 
+          lv = dynamic_cast<Linearization<HeightDiff>*>(visitor))
+        {
+          lv->linearization_visit(this);
+        }
+    }
+  };
+
 
 }}
 
