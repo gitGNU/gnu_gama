@@ -1,8 +1,8 @@
 /*  
     Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
-    Copyright (C) 2002  Ales Cepek <cepek@gnu.org>
+    Copyright (C) 2002, 2005  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the GNU GaMa / GaMaLib C++ Library.
+    This file is part of the GNU Gama C++ library
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser_g3.cpp,v 1.7 2005/07/27 15:20:34 cepek Exp $
+ *  $Id: dataparser_g3.cpp,v 1.8 2005/07/27 20:42:38 cepek Exp $
  */
 
 
@@ -354,6 +354,40 @@ void DataParser::init_g3()
    init(s_g3_obs_xyz_after_y, t_z,
         s_g3_obs_xyz_z, 0, s_g3_obs_xyz_after_z,
         0, &DataParser::add_text, 0);
+
+  // .....  <g3-model> <obs> <hdiff>  ................................
+
+   init(s_g3_obs, t_hdiff,
+        s_g3_obs_hdiff, s_g3_obs_hdiff_opt, 0,
+        0, 0, &DataParser::g3_obs_hdiff);
+   
+   init(s_g3_obs_hdiff, t_from,
+        s_g3_obs_hdiff_from, 0, s_g3_obs_hdiff_after_from,
+        0, &DataParser::add_text, 0);
+
+   init(s_g3_obs_hdiff_after_from, t_to,
+        s_g3_obs_hdiff_to, 0, s_g3_obs_hdiff_after_to,
+        0, &DataParser::add_text, 0);
+   
+   init(s_g3_obs_hdiff_after_to, t_val,
+        s_g3_obs_hdiff_val, 0, s_g3_obs_hdiff_opt,
+        0, &DataParser::add_text, 0);
+   
+   init(s_g3_obs_hdiff_opt, t_stdev,
+        s_g3_obs_hdiff_opt_stdev, 0, 0,
+        0, &DataParser::optional_stdev, 0);
+   
+   init(s_g3_obs_hdiff_opt, t_variance,
+        s_g3_obs_hdiff_opt_variance, 0, 0,
+        0, &DataParser::optional_variance, 0);
+ 
+//  init(s_g3_obs_hdiff_opt, t_from_dh,
+//       s_g3_obs_hdiff_opt_from_dh, 0, 0,
+//       0, &DataParser::optional_from_dh, 0);
+// 
+//  init(s_g3_obs_hdiff_opt, t_to_dh,
+//       s_g3_obs_hdiff_opt_to_dh, 0, 0,
+//       0, &DataParser::optional_to_dh, 0);
 }
 
 int DataParser::g3_model(const char *name, const char **atts)
@@ -842,4 +876,29 @@ int DataParser::g3_obs_xyz(const char *name)
     }
   
   return error("### bad <xyz>");
+}
+
+int DataParser::g3_obs_hdiff(const char *name)
+{
+  using namespace g3;  
+  stringstream istr(text_buffer);
+  string       from, to;
+  double       val;
+
+  if (pure_data(istr >> from >> to >> val))
+   {
+     text_buffer.clear();
+     
+     HeightDiff* hdiff = new HeightDiff;
+     hdiff->from = from;
+     hdiff->to   = to;
+     hdiff->set(val);
+     hdiff->from_dh = optional(g3->from_dh);
+     hdiff->to_dh   = optional(g3->to_dh);
+     g3->obs_cluster->observation_list.push_back(hdiff);  
+
+     return  end_tag(name);
+    }
+
+  return error("### bad <distance>");
 }

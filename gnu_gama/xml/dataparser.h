@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.24 2005/07/27 15:15:44 cepek Exp $
+ *  $Id: dataparser.h,v 1.25 2005/07/27 20:42:38 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -336,6 +336,7 @@ namespace GNU_gama {
       int g3_obs_azimuth        (const char *name);
       int g3_obs_vector         (const char *name);
       int g3_obs_xyz            (const char *name);
+      int g3_obs_hdiff          (const char *name);
 
       int text                  (const char *name);
 
