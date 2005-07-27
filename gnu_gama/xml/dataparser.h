@@ -1,6 +1,6 @@
 /*
     Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
-    Copyright (C) 2002  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 2002, 2005  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU GaMa / GaMaLib C++ Library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.23 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: dataparser.h,v 1.24 2005/07/27 15:15:44 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -123,6 +123,18 @@ namespace GNU_gama {
           s_g3_obs_dist_opt_variance,
           s_g3_obs_dist_opt_from_dh,
           s_g3_obs_dist_opt_to_dh,
+
+          s_g3_obs_hdiff,
+          s_g3_obs_hdiff_from,
+          s_g3_obs_hdiff_after_from,
+          s_g3_obs_hdiff_to,
+          s_g3_obs_hdiff_after_to,
+          s_g3_obs_hdiff_val,
+          s_g3_obs_hdiff_opt,
+          s_g3_obs_hdiff_opt_stdev,
+          s_g3_obs_hdiff_opt_variance,
+          s_g3_obs_hdiff_opt_from_dh,
+          s_g3_obs_hdiff_opt_to_dh,
 
           s_g3_obs_zenith,
           s_g3_obs_zenith_from,
@@ -249,6 +261,7 @@ namespace GNU_gama {
           t_g3_model,
           t_gama_data,
           t_h,
+          t_hdiff,
           t_height,
           t_id,
           t_int,

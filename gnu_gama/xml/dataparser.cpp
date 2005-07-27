@@ -1,6 +1,6 @@
 /*  
     Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
-    Copyright (C) 2002  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 2002, 2005  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU GaMa / GaMaLib C++ Library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.24 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.25 2005/07/27 15:15:44 cepek Exp $
  */
 
 
@@ -186,6 +186,7 @@ DataParser::data_tag DataParser::tag(const char* c)
       break;
     case 'h':
       if (!strcmp(c, "h"              )) return t_h;
+      if (!strcmp(c, "hdiff"          )) return t_hdiff;
       if (!strcmp(c, "height"         )) return t_height;
       break;
     case 'i':

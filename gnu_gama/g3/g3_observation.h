@@ -1,6 +1,6 @@
 /*  
     GNU Gama -- adjustment of geodetic networks
-    Copyright (C) 2003  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 2003  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.15 2005/07/27 14:42:52 cepek Exp $
+ *  $Id: g3_observation.h,v 1.16 2005/07/27 15:13:27 cepek Exp $
  */
 
 

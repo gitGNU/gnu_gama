@@ -1,6 +1,6 @@
 /*  
     Geodesy and Mapping C++ Library (GNU Gama)
-    Copyright (C) 2004  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 2004  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ Library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gon2deg.h,v 1.4 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: gon2deg.h,v 1.5 2005/07/27 15:15:43 cepek Exp $
  */
 
 #include <string>

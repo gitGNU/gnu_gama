@@ -1,6 +1,6 @@
 /*  
     GNU Gama -- adjustment of geodetic networks
-    Copyright (C) 2003  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 2003  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.29 2005/07/27 14:42:52 cepek Exp $
+ *  $Id: g3_model.h,v 1.30 2005/07/27 15:13:27 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model

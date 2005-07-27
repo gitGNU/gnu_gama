@@ -1,6 +1,6 @@
 /*  
     GNU Gama -- adjustment of geodetic networks
-    Copyright (C) 2000  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 2000  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ Library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: intfloat.h,v 1.3 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: intfloat.h,v 1.4 2005/07/27 15:15:43 cepek Exp $
  */
 
 #ifndef GNU_gama_CheckNum_IntFloat__h_

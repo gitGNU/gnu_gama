@@ -1,6 +1,6 @@
 /*  
     GNU Gama -- adjustment of geodetic networks
-    Copyright (C) 2002  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 2002  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ Library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: baseparser.h,v 1.8 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: baseparser.h,v 1.9 2005/07/27 15:20:34 cepek Exp $
  */
 
 #ifndef GaMaLib_GaMa__XML__BASE_Base_base__PARSER_Parser_parser__h_

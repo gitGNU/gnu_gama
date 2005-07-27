@@ -1,6 +1,6 @@
 /*  
     GNU Gama -- adjustment of geodetic networks
-    Copyright (C) 2002  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 2002  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: intlist.h,v 1.5 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: intlist.h,v 1.6 2005/07/27 15:17:57 cepek Exp $
  */
 
 #ifndef GNU_gama___GaMaLib_Integer_list____GaMaLib_Integer_list

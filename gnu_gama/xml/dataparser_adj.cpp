@@ -1,6 +1,6 @@
 /*  
     Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
-    Copyright (C) 2002  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 2002  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU GaMa / GaMaLib C++ Library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser_adj.cpp,v 1.2 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: dataparser_adj.cpp,v 1.3 2005/07/27 15:20:34 cepek Exp $
  */
 
 
