@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.73 2005/07/27 15:15:43 cepek Exp $
+ *  $Id: version.cpp,v 1.74 2005/08/06 20:27:29 cepek Exp $
  */
 
 
@@ -63,6 +63,10 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.14-a 2005-...
+
+    - scripts/gnu_gama_dep.cpp: updated parameters for projects build
+      under MS Visual C++ 2005
+
 
     - fixed possible undefined behavior of bad regularization during
       revision of points
@@ -192,9 +196,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.73 2005/07/27 15:15:43 cepek Exp $
+        <  *  $Id: version.cpp,v 1.74 2005/08/06 20:27:29 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.73 2005/07/27 15:15:43 cepek Exp $
+        >  *  $Id: version.cpp,v 1.74 2005/08/06 20:27:29 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),

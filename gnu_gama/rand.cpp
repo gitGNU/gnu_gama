@@ -2,7 +2,7 @@
     Geodesy and Mapping C++ Library (GNU GaMa / GaMaLib)
     Copyright (C) 1999  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the GNU GaMa / GaMaLib C++ Library.
+    This file is part of the GNU Gama C++ Library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: rand.cpp,v 1.3 2005/07/27 15:15:43 cepek Exp $
+ *  $Id: rand.cpp,v 1.4 2005/08/06 20:27:29 cepek Exp $
  */
 
 #include <gnu_gama/rand.h>

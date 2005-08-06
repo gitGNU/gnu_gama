@@ -2,7 +2,7 @@
     GNU Gama -- program 'gnu_gama_dep' for genering project makefiles
     Copyright (C) 2003  Ales Cepek <cepek@fsv.cvut.cz>
 
-    This file is part of the GNU Gama library.
+    This file is part of the GNU Gama C++ library.
     
     This library is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gnu_gama_dep.cpp,v 1.9 2005/05/07 18:06:21 cepek Exp $
+ *  $Id: gnu_gama_dep.cpp,v 1.10 2005/08/06 20:27:29 cepek Exp $
  */
 
 #include <iostream>
@@ -29,10 +29,11 @@
 #include <string>
 #include <set>
 
-const char* version = "1.02";
+const char* version = "1.03";
 
 /**************************************************************************
  * 
+ * 1.03  - updated parameters for MS Visual C++ 2005
  * 1.02  - brief messages (compiler + filename) when building libgama 
  *         for GNU platform
  * 1.01  - conditional usage of compilere option '-pipe' for GNU compilers
@@ -132,16 +133,14 @@ const char* platform_pars[] = {
   "CC         = cl\n"
   "CFLAGS     =\n"
   "CXX        = cl\n"
-  "CXXFLAGS   = -DGNU_gama_expat_1_1 -I../../.. /nologo /W1 /GX /O2 /D \"WIN32\" \\\n"
+  "CXXFLAGS   = -DGNU_gama_expat_1_1 -I../../.. /nologo /W1 /EHsc /O2 /D \"WIN32\" \\\n"
   "             /D \"NDEBUG\" /D \"_MBCS\" /D \"_LIB\" /Zp1 /MT /GR\n"
   "OBJ        = obj\n"
   "LIBR       = rem link -lib libgama.lib\n"
   "RANLIB     = link -lib /out:libgama.lib *.obj\n"
   "LINK       = link\n"
   "LFLAGS     = /out:\n"
-  "LIBS       = kernel32.lib user32.lib gdi32.lib winspool.lib  \\\n"
-  "             comdlg32.lib advapi32.lib shell32.lib ole32.lib \\\n"
-  "             oleaut32.lib uuid.lib odbc32.lib odbccp32.lib   \\\n"
+  "LIBS       = kernel32.lib \\\n"
   "             /nodefaultlib:libc /nologo /subsystem:console   \\\n"
   "             /incremental:no /machine:I386\n"
   "MAKE       = nmake\n"
