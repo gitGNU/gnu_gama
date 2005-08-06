@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: reduce_to_ellipsoid.h,v 1.2 2005/05/07 18:06:19 cepek Exp $
+ *  $Id: reduce_to_ellipsoid.h,v 1.3 2005/08/06 18:34:02 cepek Exp $
  */
 
  
@@ -41,7 +41,7 @@ namespace GaMaLib {
         public:
             EllipsoidFunction(GNU_gama::Ellipsoid EL, double lat);
             
-            double setCentralPoint(const LocalPoint& cp);
+            void setCentralPoint(const LocalPoint& cp);
             const LocalPoint& getCentralPoint() const;
             double central_angle12(const LocalPoint& p2) const;
             double central_angle23(const LocalPoint& p2, const LocalPoint& p3) const;    

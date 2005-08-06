@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: reduce_to_ellipsoid.cpp,v 1.2 2005/05/07 18:06:19 cepek Exp $
+ *  $Id: reduce_to_ellipsoid.cpp,v 1.3 2005/08/06 18:34:02 cepek Exp $
  */
 
 #include <gamalib/local/acord/reduce_to_ellipsoid.h>
@@ -37,7 +37,7 @@ ReduceToEllipsoid::EllipsoidFunction::EllipsoidFunction(GNU_gama::Ellipsoid EL, 
     r = R();
 }
 
-double ReduceToEllipsoid::EllipsoidFunction::setCentralPoint(const LocalPoint& cp)
+void ReduceToEllipsoid::EllipsoidFunction::setCentralPoint(const LocalPoint& cp)
 {
     centralPoint = cp;
     
