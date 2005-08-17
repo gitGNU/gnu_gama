@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.34 2005/07/27 15:13:27 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.35 2005/08/17 18:07:53 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -333,6 +333,7 @@ void Model::update_adjustment()
   if (!check_linearization()) update_linearization();
 
   cerr << "x() = " << adj->x();
+  cerr << "r() = " << adj->r();
   for (ParameterList::iterator 
          i=par_list->begin(), e=par_list->end(); i!=e; ++i)
     {

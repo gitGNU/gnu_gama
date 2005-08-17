@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.9 2005/06/04 21:02:04 cepek Exp $
+ *  $Id: adj.cpp,v 1.10 2005/08/17 18:07:53 cepek Exp $
  */
 
 #include <gnu_gama/adj/adj.h>
@@ -324,6 +324,10 @@ void Adj::init_least_squares()
     }
 
   least_squares->reset(A_dot, b_dot);
+
+  x_ = least_squares->solve();
+  r_ = least_squares->residuals();
+
   solved = true;
 }
 
@@ -348,13 +352,18 @@ void Adj::preferred_algorithm(Adj::algorithm alg)
 
 Vec<> Adj::x()
 {
-  if (!solved) 
-    {
-      init_least_squares();
-      x_ = least_squares->solve();
-    }
+  if (!solved) init_least_squares();
 
   return x_;
+}
+
+
+
+Vec<> Adj::r()
+{
+  if (!solved) init_least_squares();
+
+  return r_;
 }
 
 

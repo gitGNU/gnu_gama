@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.h,v 1.8 2005/06/04 21:02:04 cepek Exp $
+ *  $Id: adj.h,v 1.9 2005/08/17 18:07:53 cepek Exp $
  */
 
 #include <matvec/covmat.h>
@@ -57,6 +57,7 @@ namespace GNU_gama {
     void preferred_algorithm(Adj::algorithm);
   
     Vec<> x();
+    Vec<> r();
   
   private:
     
@@ -69,6 +70,7 @@ namespace GNU_gama {
     Mat <>    A_dot;
     Vec <>    b_dot;
     Vec <>    x_;
+    Vec <>    r_;
   
     void init(const AdjInputData*);
     void init_least_squares();
