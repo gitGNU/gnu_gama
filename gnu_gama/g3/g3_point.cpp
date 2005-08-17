@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.27 2005/07/27 15:13:27 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.28 2005/08/17 20:53:44 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -316,10 +316,10 @@ void Point::write_xml(std::ostream& ostr)
   ostr << "        <n> ";
   if (N.fixed())
     ostr << "<fixed/>  ";
-  else if (N.free())
-    ostr << "<free/>   ";
   else if (N.constr())
     ostr << "<constr/> ";
+  else if (N.free())
+    ostr << "<free/>   ";
   else
     ostr << "<unused/> ";
   if (N.index())
@@ -332,10 +332,10 @@ void Point::write_xml(std::ostream& ostr)
   ostr << "        <e> ";
   if (E.fixed())
     ostr << "<fixed/>  ";
-  else if (E.free())
-    ostr << "<free/>   ";
   else if (E.constr())
     ostr << "<constr/> ";
+  else if (E.free())
+    ostr << "<free/>   ";
   else
     ostr << "<unused/> ";
   if (E.index())
@@ -348,10 +348,10 @@ void Point::write_xml(std::ostream& ostr)
   ostr << "        <u> ";
   if (U.fixed())
     ostr << "<fixed/>  ";
-  else if (U.free())
-    ostr << "<free/>   ";
   else if (U.constr())
     ostr << "<constr/> ";
+  else if (U.free())
+    ostr << "<free/>   ";
   else
     ostr << "<unused/> ";
   if (U.index())
