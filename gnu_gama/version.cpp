@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.75 2005/08/06 21:19:24 cepek Exp $
+ *  $Id: version.cpp,v 1.76 2005/08/19 10:14:00 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.14-b";
+const char* GNU_gama_version  = "1.7.14-c";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -63,6 +63,22 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.14-a 2005-...
+
+    - fixed bug in dataparser_adj.cpp
+
+      Index: dataparser_adj.cpp
+      ===================================================================
+      RCS file: /cvsroot/gama/gama/gnu_gama/xml/dataparser_adj.cpp,v
+      retrieving revision 1.3
+      diff -r1.3 dataparser_adj.cpp
+      60a61,67
+      >   // .....  <adj-input-data>  ........................................
+      > 
+      >   init(s_gama_data, t_adj_input_data, 
+      >        s_adj_input_data_1, s_adj_input_data_5, 0,
+      >        &DataParser::adj_input_data, 0, &DataParser::adj_input_data,
+      >        s_adj_input_data_4);
+      >
 
     - scripts/gnu_gama_dep.cpp: updated parameters for projects build
       under MS Visual C++ 2005 Express Edition
@@ -196,9 +212,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.75 2005/08/06 21:19:24 cepek Exp $
+        <  *  $Id: version.cpp,v 1.76 2005/08/19 10:14:00 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.75 2005/08/06 21:19:24 cepek Exp $
+        >  *  $Id: version.cpp,v 1.76 2005/08/19 10:14:00 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),

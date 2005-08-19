@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser_adj.cpp,v 1.3 2005/07/27 15:20:34 cepek Exp $
+ *  $Id: dataparser_adj.cpp,v 1.4 2005/08/19 10:14:00 cepek Exp $
  */
 
 
@@ -58,6 +58,13 @@ void DataParser::init_adj()
 
   point = 0;
 
+  // .....  <adj-input-data>  ........................................
+
+  init(s_gama_data, t_adj_input_data, 
+       s_adj_input_data_1, s_adj_input_data_5, 0,
+       &DataParser::adj_input_data, 0, &DataParser::adj_input_data,
+       s_adj_input_data_4);
+  
   // .....  <sparse-mat>  ............................................
 
   init(s_adj_input_data_1, t_sparse_mat,
