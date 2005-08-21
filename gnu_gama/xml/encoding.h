@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: encoding.h,v 1.3 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: encoding.h,v 1.4 2005/08/21 20:36:01 cepek Exp $
  */
 
 #include <gnu_gama/xml_expat.h>
@@ -34,9 +34,11 @@ namespace GNU_gama {
 #endif
 
 int   cp1250_unicode(int* tab);
+int   cp1251_unicode(int* tab);
 int   iso_8859_2_unicode(int* tab);
 int   ascii(int* tab);
 char* utf8_cp1250(char *buf);
+char* utf8_cp1251(char *buf);
 char* utf8_iso_8859_2(char *buf);
 char* utf8_ascii(char *buf);
 int   Utf8Decode(int& u, unsigned char *buf);

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: outstream.h,v 1.12 2005/07/27 15:15:43 cepek Exp $
+ *  $Id: outstream.h,v 1.13 2005/08/21 20:36:01 cepek Exp $
  */
 
 #include <iostream>
@@ -36,7 +36,7 @@ namespace GNU_gama {
   class OutStream {
   public:
     
-    enum { utf_8, iso_8859_2, iso_8859_2_flat, cp_1250 }; 
+    enum { utf_8, iso_8859_2, iso_8859_2_flat, cp_1250, cp_1251 }; 
     
     OutStream(std::ostream& str);
     

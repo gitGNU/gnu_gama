@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.27 2005/08/21 13:15:02 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.28 2005/08/21 20:36:01 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -82,7 +82,8 @@ int help()
        << "\n";
   cerr << "--algorithm  svd | gso | cholesky\n" 
        << "--language   en | ca | cz | du | fi | hu | ru \n"
-       << "--encoding   utf-8 | iso-8859-2 | iso-8859-2-flat | cp-1250\n"
+       << "--encoding   utf-8 | iso-8859-2 | iso-8859-2-flat | cp-1250 "
+       << "| cp-1251\n"
        << "--angles     400 | 360\n"  
        << "--latitude   <latitude>\n"
        << "--ellipsoid  <ellipsoid name>\n"
@@ -192,6 +193,8 @@ int GaMa_Main(int argc, char **argv)
         cout.set_encoding(OutStream::iso_8859_2_flat);
       else if (!strcmp("cp-1250", argv_enc)) 
         cout.set_encoding(OutStream::cp_1250);
+      else if (!strcmp("cp-1251", argv_enc)) 
+        cout.set_encoding(OutStream::cp_1251);
       else
         return help();
     }
