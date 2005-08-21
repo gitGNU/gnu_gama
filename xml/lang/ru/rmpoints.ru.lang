@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<entries>
+
+<!-- $Id: rmpoints.ru.lang,v 1.1 2005/08/21 12:44:37 cepek Exp $ -->
+
+<e id="T_LN_rm_removed_points"
+   EN="Removed points and coordinates"
+   ru="Vyloucene body a suradnice" />
+
+<e id="T_LN_rm_missing_xyz"
+   EN="missing coordiantes xyz"
+   ru="chybi souradnice xyz" />
+
+<e id="T_LN_rm_missing_xy"
+   EN="missing coordiantes xy"
+   ru="chybi souradnice xy" />
+
+<e id="T_LN_rm_missing_z"
+   EN="missing coordiantes z"
+   ru="chybi souradnice z" />
+
+<e id="T_LN_rm_singular_xy"
+   EN="singular coordiantes xy"
+   ru="singularni souradnice xy" />
+
+<e id="T_LN_rm_singular_z"
+   EN="singular coordiante z"
+   ru="singularni souradnice z" />
+
+<e id="T_LN_rm_huge_cov_xyz"
+   EN="indeterminable coordinates xyz"
+   ru="neurcitelne souradnice xyz" />
+
+<e id="T_LN_rm_huge_cov_xy"
+   EN="indeterminable coordinates xy"
+   ru="neurcitelne souradnice xy" />
+
+<e id="T_LN_rm_huge_cov_z"
+   EN="indeterminable coordinate z"
+   ru="neurcitelna souradnice z" />
+
+</entries>

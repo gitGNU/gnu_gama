@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?> 
+<entries>
+
+<!-- $Id: gamalib.ru.lang,v 1.1 2005/08/21 12:44:37 cepek Exp $ -->
+
+<e id="T_IE_internal_error"
+   EN="internal error"
+   ru="interni chyba" />
+
+<e id="T_GaMa_from_equals_to"
+   EN="station and target are identical"
+   ru="stanovisko je totozne s cilem" />
+
+</entries>   
+
+
+
+
+
+

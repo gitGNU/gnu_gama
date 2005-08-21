@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?> 
+<entries>
+
+<!-- $Id: gama-local.ru.lang,v 1.1 2005/08/21 12:44:37 cepek Exp $ -->
+
+<e id="T_GaMa_Adjustment_of_geodetic_network"   
+   EN="Adjustment of local geodetic network"
+   ru="Vyrovnani mistni geodeticke site"  /> 
+
+<e id="T_GaMa_version"
+   EN="version: "
+   ru="verze: " />
+
+<e id="T_GaMa_exception_1"
+   EN="Error during creation of InfoSit object"
+   ru="Chyba pri vytvareni objektu InfoSit"  />
+
+<e id="T_GaMa_exception_2a"
+   EN="GNU Gama - error on reading XML input configuration file!"
+   ru="GNU Gama - chyba pri cteni XML konfiguracniho souboru!" />
+
+<e id="T_GaMa_exception_2b"
+   EN="On line number "
+   ru="Na radku cislo " />
+
+<e id="T_GaMa_No_points_available"
+   EN="No points available"
+   ru="Nebyly zadany zadne body" />
+
+<e id="T_GaMa_No_observations_available"
+   EN="No observations available"
+   ru="Nebyla zadana zadna mereni" />
+
+<e id="T_GaMa_No_network_points_defined"
+   EN="No network points defined"
+   ru="Nebyly zadany zadne body site" />
+
+<e id="T_GaMa_No_unknowns_defined"
+   EN="No unknowns have been defined"
+   ru="Nejsou definovany zadne nezname" />
+
+<e id="T_GaMa_Observatios_with_outlying_absolute_terms_removed"
+   EN="Observations with outlying absolute terms removed"
+   ru="Mereni s vybocujicimi absolutnimi cleny vyloucena" />
+
+<e id="T_GaMa_adjustment_iteration"
+   EN=" - adjustment iteration"
+   ru=". opakovane vyrovnani" />
+
+<e id="T_GaMa_Approximate_coordinates_replaced"
+   EN="Approximate coordinates of computed points replaced by adjusted"
+   ru="Priblizne souradnice urcovanych bodu nahrazeny vyrovnanymi" />
+
+<e id="T_GaMa_solution_ended_with_error"
+   EN="GNU Gama - solution ended with error!"
+   ru="GNU Gama - vypocet skoncil chybou!" />
+
+<e id="T_GaMa_internal_program_error"
+   EN="GNU Gama - internal program error!"
+   ru="GNU Gama - interni chyba programu!" />
+  
+</entries>   
+
+
+
+
+

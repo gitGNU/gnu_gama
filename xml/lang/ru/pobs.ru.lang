@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?> 
+<entries>
+
+<!-- $Id: pobs.ru.lang,v 1.1 2005/08/21 12:44:37 cepek Exp $ -->
+
+<e id="T_POBS_computation_of_bearing_for_identical_points"
+   EN="Computation of bearing for identical points"
+   ru="Vypocet smerniku pro identicke body" />
+
+<e id="T_POBS_bad_data"
+   EN="bad data"
+   ru="chybny udaj" />
+
+<e id="T_POBS_zero_or_negative_distance"
+   EN="zero or negative distance"
+   ru="nulova nebo zaporna delka" />
+
+<e id="T_POBS_zero_or_negative_slope_distance"
+   EN="zero or negative slope distance"
+   ru="nulova nebo zaporna sikma delka" />
+
+<e id="T_POBS_zero_or_negative_zenith_angle"
+   EN="zero or negative zenith angle"
+   ru="nulova nebo zaporna zenitova vzdalenost" />
+
+</entries>
