@@ -20,16 +20,21 @@
  * available.  Attribute EN is ignored on input and serves as a kind
  * of comment.
  * 
- * $Id: slovnikar.cpp,v 1.10 2004/05/01 13:56:42 cepek Exp $
+ * $Id: slovnikar.cpp,v 1.11 2005/08/21 13:15:02 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
-         const int    N = 6;
-         const char* language[N] = { "en", "cz", "fi", "du", "hu", "ca" };
+         const int    N = 7;
+         const char* language[N] = { "en", "cz", "fi", "du", "hu", "ca", 
+                                     "ru" };
 
-         const char* version = "1.05";
+         const char* version = "1.06";
 
 /* ---------------------------------------------------------------------------
+ *
+ * 1.06  2005-08-21
+ *
+ *       - added Russin (switch "ru")
  *
  * 1.05  2004-05-01
  *
