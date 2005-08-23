@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.76 2005/08/19 10:14:00 cepek Exp $
+ *  $Id: version.cpp,v 1.77 2005/08/23 17:53:12 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.14-c";
+const char* GNU_gama_version  = "1.7.14-d";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -63,6 +63,9 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.14-a 2005-...
+
+    - Boris Pihtin <cyb@bendery.md> translated gama-local *lang.files
+      into Russian
 
     - fixed bug in dataparser_adj.cpp
 
@@ -212,9 +215,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.76 2005/08/19 10:14:00 cepek Exp $
+        <  *  $Id: version.cpp,v 1.77 2005/08/23 17:53:12 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.76 2005/08/19 10:14:00 cepek Exp $
+        >  *  $Id: version.cpp,v 1.77 2005/08/23 17:53:12 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),
