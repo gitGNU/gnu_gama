@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: outstream.cpp,v 1.5 2005/07/27 15:15:43 cepek Exp $
+ *  $Id: outstream.cpp,v 1.6 2005/08/23 19:50:29 cepek Exp $
  */
 
 
@@ -175,11 +175,13 @@ const char* OutStream::recode(const char* s)
     case cp_1250: 
       utf8_cp1250((char*)text.c_str());
       break;
+    case cp_1251: 
+      utf8_cp1251((char*)text.c_str());
+      break;
     default:
       break;
     }
   
   return text.c_str();
 }
-
 
