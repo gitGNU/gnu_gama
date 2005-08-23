@@ -1,284 +1,276 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?> 
+<?xml version="1.0" encoding="cp-1251" standalone="yes" ?> 
 <entries>
-
-<!-- $Id: gkfparser.ru.lang,v 1.1 2005/08/21 12:44:37 cepek Exp $ -->
 
 <e id="T_GKF_illegal_text"
    EN="illegal text"
-   ru="nepovoleny text" />
+   ru="неправильный текст" />
 
 <e id="T_GKF_must_start_with_gama_xml"
    EN="document must start with tag &lt;gama-xml&gt;"
-   ru="davka musi zacinat znackou &lt;gama-xml&gt;" />
+   ru="документ должен начинаться тэгом &lt;gama-xml&gt;" />
 
 <e id="T_GKF_undefined_value_of_attribute"
    EN="illegal value of the attribute: "
-   ru="nepovolena hodnota atributu: " />
+   ru="неправильное значение атрибута: " />
 
 <e id="T_GKF_illegal_value_of_gama_xml_version"
    EN="illegal value of attribue 'version' of tag &lt;gama-xml&gt;: "
-   ru="nepovolena hodnota atributu 'version' znacky &lt;gama-xml&gt;: " />
+   ru="неправильное значение атрибута 'version' тэга &lt;gama-xml&gt;: " />
 
 <e id="T_GKF_undefined_attribute_of_gama_xml"
    EN="undefined attribute of tag &lt;gama-xml&gt;: "
-   ru="nedefinovany atribut znacky &lt;gama-xml&gt;: " />
+   ru="неопределенный атрибут тэга &lt;gama-xml&gt;: " />
 
 <e id="T_GKF_undefined_attribute_of_vectors"
    EN="undefined attribute of tag &lt;vectors&gt;: "
-   ru="nedefinovany atribut znacky &lt;vectors&gt;: " />
+   ru="неопределенный атрибут тэга &lt;vectors&gt;: " />
 
 <e id ="T_GKF_missing_tag_network"
    EN="missing tag &lt;network&gt;"
-   ru="chybi znacka &lt;network&gt;" />
+   ru="отсутсвует тэг &lt;network&gt;" />
 
 <e id="T_GKF_e01a_illegal_tag"
    EN="illegal_tag &lt;"
-   ru="nepovolena znacka &lt;" />
+   ru="неверный тэг &lt;" />
 
 <e id="T_GKF_e01b_after_tag"
    EN="&gt; after tag"
-   ru="&gt; za znackou" />
+   ru="&gt; после тэга" />
 
 <e id="T_GKF_error_on_reading_of_standard_deviation"
    EN="error on reading of standard deviation"
-   ru="chyba pri cteni apriorni jednotkove stredni chyby" />
+   ru="ошибка при чтении среднего квадратического отклонения" />
 
 <e id="T_GKF_error_on_reading_of_confidence_probability"
    EN="error on reading of confidence probability"
-   ru="chyba pri cteni konfidencni pravdepodobnosti" />
+   ru="ошибка при чтении доверительной вероятности" />
 
 <e id="T_GKF_error_on_reading_of_absolute_terms_tolerance"
    EN="error on reading of tolerance for identification of outlying absolute terms"
-   ru="chyba pri cteni tolerance pro identifikaci vybocujicich absolutnich clenu" />
+   ru="ошибка при чтении tol-abs для определения грубых абсолютных ошибок" />
 
 <e id="T_GKF_wrong_type_of_standard_deviation"
    EN="wrong type of standard deviation" 
-   ru="chybny typ empiricke jednotkove stredni chyby" />
+   ru="неправильный тип среднего квадратического отклонения" />
 
 <e id="T_GKF_bad_network_configuration_unknown_parameter"
    EN="bad network configuration - unknown parameter: "
-   ru="chybna konfigurace site - neznamy parametr: " />
+   ru="плохая конфигурация сети - неизвестный параметр: " />
 
 <e id="T_GKF_bad_attribute_distance_dev"
    EN="bad attribute distance-stdev: "
-   ru="chybny atribut distance-stdev: " />
+   ru="плохой атрибут расстояния-stdev: " />
 
 <e id="T_GKF_bad_attribute_direction_dev"
    EN="bad attribute direction-stdev: "
-   ru="chybny atribut direction-stdev: " />
+   ru="плохой атрибут направления-stdev: " />
 
 <e id="T_GKF_bad_attribute_angle_dev"
    EN="bad attribute angle-stdev: "
-   ru="chybny atribut angle-stdev: " />
+   ru="плохой атрибут угла-stdev: " />
 
 <e id="T_GKF_undefined_attribute_of_points_observations"
    EN="undefined attribute of &lt;points-observations&gt;: " 
-   ru="nedefinovany atribut znacky &lt;points-observations&gt;: " />
+   ru="неопределенный атрибут &lt;points-observations&gt;: " />
 
 <e id="T_GKF_undefined_attribute_of_points"
    EN="undefined attribute of &lt;point&gt;: " 
-   ru="nedefinovany atribut znacky &lt;point&gt;: " />
+   ru="неопределенный атрибут &lt;point&gt;: " />
 
 <e id="T_GKF_missing_point_ID"
    EN="missing point ID"
-   ru="chybi cislo bodu" />
+   ru="отсутствует ID точки" />
 
 <e id="T_GKF_missing_from_ID"
    EN="missing point ID (attribute from=\&quot;...\&quot;)"
-   ru="chybi cislo bodu (atribut from=\&quot;...\&quot;)" />
+   ru="отсутствует ID точки (attribute from=\&quot;...\&quot;)" />
 
 <e id="T_GKF_missing_to_ID"
    EN="missing point ID (attribute to=\&quot;...\&quot;)"
-   ru="chybi cislo bodu (atribut to=\&quot;...\&quot;)" />
+   ru="отсутствует ID точки (attribute to=\&quot;...\&quot;)" />
 
 <e id="T_GKF_multiple_definition_of_xy_in_tag_point"
    EN="multiple dexinition of coordinates xy in tag &lt;point&gt;"
-   ru="vicenasobna definice souradnic xy ve znacce &lt;point&gt;" />
+   ru="многократное уменьшение координат xy в тэге &lt;point&gt" />
 
 <e id="T_GKF_multiple_definition_of_z_in_tag_point"
    EN="multiple definition of coordinate z in tag &lt;point&gt;"
-   ru="vicenasobna definice souradnice z ve znacce &lt;point&gt;" /> 
+   ru="многократное определение координаты z в тэге &lt;point&gt;" /> 
 
 <e id="T_GKF_point_must_define_xy_andor_z_inside_tag_coordinates"
    EN="tag &lt;point /&gt; must define coordinates xy and/or z inside tag &lt;coordinates&gt;"
-   ru="znacka &lt;point /&gt; musi definovat souradnice xy anebo z uvnitr znacky &lt;coordinates&gt;" />
+   ru="тэг &lt;point /&gt; должен определять координаты xy и/или z внутри тэга &lt;coordinates&gt;" />
 
 <e id="T_GKF_coordinate_x_is_not_defined"
    EN="coordinate x is not defined"
-   ru="neni definovana souradnice x" />
+   ru="координата x не определена" />
 
 <e id="T_GKF_coordinate_y_is_not_defined"
    EN="coordinate y is not defined"
-   ru="neni definovana souradnice y" />
+   ru="координата y не определена" />
 
 <e id="T_GKF_bad_coordinate_x"
    EN="bad coordinate x: "
-   ru="chybna souradnice x:" />
+   ru="неправильная координата x: " />
 
 <e id="T_GKF_bad_coordinate_y"
    EN="bad coordinate y: "
-   ru="chybna souradnice y:" />
+   ru="неправильная координата y: " />
 
 <e id="T_GKF_bad_height"
    EN="bad height: "
-   ru="chybna vyska: " />
+   ru="неправильная высота: " />
 
 <e id="T_GKF_undefined_point_type"
    EN="undefined point type: "
-   ru="nedefinovany typ bodu: " />
+   ru="неопределен тип точки: " />
 
 <e id="T_GKF_undefined_height_type"
    EN="undefined height type: "
-   ru="nedefinovany typ vysky: " />
+   ru="неопределен тип высоты: " />
 
 <e id="T_GKF_undefined_attribute_of_distance"
    EN="undefined attribute of &lt;distance&gt;: " 
-   ru="nedefinovany atribut znacky &lt;distance&gt;: " />
+   ru="неопределена атрибута &lt;distance&gt;: " />
 
 <e id="T_GKF_undefined_attribute_of_slopedist"
    EN="undefined attribute of &lt;s-distance&gt;: " 
-   ru="nedefinovany atribut znacky &lt;s-distance&gt;: " />
+   ru="неопределена атрибута &lt;s-distance&gt;: " />
 
 <e id="T_GKF_undefined_attribute_of_zangle"
    EN="undefined attribute of &lt;z-angle&gt;: " 
-   ru="nedefinovany atribut znacky &lt;z-angle&gt;: " />
+   ru="неопределена атрибута &lt;z-angle&gt;: " />
 
 <e id="T_GKF_missing_standpoint_id"
    EN="missing standpoint ID"
-   ru="chybi cislo stanoviska" />
+   ru="отсутствует ID точки стояния" />
 
 <e id="T_GKF_missing_forepoint_id"
    EN="missing forepoint ID"
-   ru="chybi cislo cile" />
+   ru="отсутствует ID точки наведения" />
 
 <e id="T_GKF_missing_observed_value"
    EN="missing observed value"
-   ru="chybi merena hodnota" />
+   ru="отсутствие значения наблюдения" />
 
 <e id="T_GKF_bad_distance"
    EN="bad distance: "
-   ru="chybna delka: " />
+   ru="неправильное расстояние: " />
 
 <e id="T_GKF_bad_zangle"
    EN="bad zenith angle: "
-   ru="chybna zenitova vzdalenost: " />
+   ru="неправильный зенитный угол: " />
 
 <e id="T_GKF_illegal_standard_deviation"
    EN="illegal standard deviation"
-   ru="neplatna stredni chyba" />
+   ru="неправильное среднее квадратическое отклонение" />
 
 <e id="T_GKF_undefined_attribute_of_angle"
    EN="undefined attribute of &lt;angle&gt;: " 
-   ru="nedefinovany atribut znacky &lt;angle&gt;: " />
+   ru="неопределен атрибут &lt;angle&gt;: " />
 
 <e id="T_GKF_missing_left_forepoint_id"
    EN="missing left forepoint ID"
-   ru="chybi cislo cile vlevo" />
+   ru="отсутствие ID левой точки наведения" />
 
 <e id="T_GKF_missing_right_forepoint_id"
    EN="missing right forepoint ID"
-   ru="chybi cislo cile vpravo" />
+   ru="отсутствие ID правой точки наведения" />
 
 <e id="T_GKF_bad_angle"
    EN="bad angle: "
-   ru="chybny uhel: " />
+   ru="неправильный угол: " />
 
 <e id="T_GKF_undefined_attribute_of_obs"
    EN="undefined attribute of &lt;obs&gt;: " 
-   ru="nedefinovany atribut znacky &lt;obs&gt;: " />
+   ru="неопределен атрибут &lt;obs&gt;: " />
 
 <e id="T_GKF_bad_instrument_reflector_height"
    EN="bad instrument/reflector height: "
-   ru="chybna vyska pristroje/zamery: " />
+   ru="неправильная высота прибора/отражателя: " />
 
 <e id="T_GKF_bad_orientation_angle"
    EN="bad orientation angle: "
-   ru="chybny orientacni posun: " />
+   ru="неправильная ориентация угла: " />
 
 <e id="T_GKF_undefined_attribute_of_direction"
    EN="undefined attribute of &lt;direction&gt;: " 
-   ru="nedefinovany atribut znacky &lt;direction&gt;: " />
+   ru="неопределен атрибут &lt;direction&gt;: " />
 
 <e id="T_GKF_bad_direction"
    EN="bad direction: "
-   ru="chybny smer: " />
+   ru="неправильное направление: " />
 
 <e id="T_GKF_bad_height_diff"
    EN="bad height difference: "
-   ru="chybne prevyseni: " />
+   ru="неправильная разность высот: " />
 
 <e id="T_GKF_undefined_attribute_of_cov_mat"
    EN="undefined attribute of &lt;cov-mat&gt;: " 
-   ru="nedefinovany atribut znacky &lt;cov-mat&gt;: " />
+   ru="неопределен атрибут &lt;cov-mat&gt;: " />
 
 <e id="T_GKF_undefined_attribute_of_coordinates"
    EN="undefined attribute of &lt;coordinates&gt;: " 
-   ru="nedefinovany atribut znacky &lt;coordinates&gt;: " />
+   ru="неопределен атрибут &lt;coordinates&gt;: " />
 
 <e id="T_GKF_undefined_attribute_of_height_differences"
    EN="undefined attribute of &lt;height-differences&gt;: " 
-   ru="nedefinovany atribut znacky &lt;height-differences&gt;: " />
+   ru="неопределен атрибут &lt;height-differences&gt;: " />
 
 <e id="T_GKF_cov_mat_missing_dim"
    EN="missing dimension of covariance matrix"
-   ru="chybi dimenze kovariancni matice" />
+   ru="отсутствие размерности ковариационной матрицы" />
 
 <e id="T_GKF_cov_mat_missing_band_width"
    EN="missing band-width of covariance matrix"
-   ru="chybi sirka pasu kovariancni matice" />
+   ru="отсутствие бэнда-ширины ковариационной матрицы" />
 
 <e id="T_GKF_covariance_matrix_is_not_positive_definite"
    EN="variance-covariance matrix is not positive definite"
-   ru="variancni-kovariancni matice neni positivne definitni" />
+   ru="матрица вариаций-ковариаций отрицательно определена" />
 
 <e id="T_GKF_cov_mat_bad_dim"
    EN="bad dimension of covariance matrix: "
-   ru="chybna dimenze kovariancni matice: " />
+   ru="неправильная размерность ковариационной матрицы: " />
 
 <e id="T_GKF_cov_mat_bad_band_width"
    EN="missing band-width of covariance matrix: "
-   ru="chybna sirka pasu kovariancni matice: " />
+   ru="отсутствие бэнда-ширины ковариационной матрицы: " />
 
 <e id="T_GKF_cov_mat_bad_dim_too_many_elements"
    EN="bad dimension of covariance matrix - too many elements"
-   ru="chybna dimenze kovariancni matice - prilis mnoho prvku" />
+   ru="неправильная размерность ковариационной матрицы - слишком много элементов" />
 
 <e id="T_GKF_cov_mat_bad_dim_not_enough_elements"
    EN="bad dimension of covariance matrix - not enough elements"
-   ru="chybna dimenze kovariancni matice - nedostatecny pocet prvku" />
+   ru="неправильная размерность ковариационной матрицы - недостаточно элементов" />
 
 <e id="T_GKF_cov_mat_bad_element"
    EN="bad covariance matrix element: "
-   ru="chybny prvek kovariancni matice: " />
+   ru="неправильный элемент матрицы: " />
 
 <e id="T_GKF_no_observations_after_cov_mat"
    EN="observations can not come after covariance matrix"
-   ru="mereni nesmi nasledovat za kovariancni matici" />
+   ru="наблюдения не могут идти после ковариационной матрицы" />
 
 <e id="T_GKF_coordinates_without_covariance_matrix"
    EN="coordinates without covariance matrix"
-   ru="souradnice bez kovariancni matice" />
+   ru="координаты без ковариационной матрицы" />
 
 <e id="T_GKF_cov_dim_differs_from_number_of_coordinates"
    EN="covariance matrix dimension differs from the number of coordinates"
-   ru="dimenze kovariancni matice se neshoduje s poctem souradnic" />
+   ru="размерность ковариационной матрицы не равна числу координат" />
 
 <e id="T_GKF_vectors_without_covariance_matrix"
    EN="vectors without covariance matrix"
-   ru="vektory bez kovariancni matice" />
+   ru="векторы без ковариационной матрицы" />
 
 <e id="T_GKF_cov_dim_differs_from_number_of_vectors"
    EN="covariance matrix dimension differs from the number of vectors"
-   ru="dimenze kovariancni matice se neshoduje s poctem vektoru" />
+   ru="размерность ковариационной матрицы не равна числу векторов" />
 
 <e id="T_GKF_bad_vector_data"
    EN="bad vector data"
-   ru="chybny vektor" />
+   ru="неправильный вектор данных" />
 
-</entries>   
-
-
-
-
-
-
+</entries>
