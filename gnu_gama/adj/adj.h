@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.h,v 1.9 2005/08/17 18:07:53 cepek Exp $
+ *  $Id: adj.h,v 1.10 2005/08/24 21:02:15 cepek Exp $
  */
 
 #include <matvec/covmat.h>
@@ -29,6 +29,7 @@
 #include <gnu_gama/sparse/intlist.h>
 #include <gnu_gama/adj/adj_svd.h>
 #include <gnu_gama/adj/adj_gso.h>
+#include <gnu_gama/adj/adj_chol.h>
 
 #include <iostream>
 
@@ -45,7 +46,7 @@ namespace GNU_gama {
   {
   public:
     
-    enum algorithm {gso, svd};
+    enum algorithm {gso, svd, cholesky};
     
     Adj () : data(0), algorithm_(gso) { init(0); }
     virtual ~Adj();
@@ -54,8 +55,12 @@ namespace GNU_gama {
     int n_par() const { return n_par_; }
     
     void set(const AdjInputData* inp) { init(inp); }
-    void preferred_algorithm(Adj::algorithm);
+
+    void set_algorithm(Adj::algorithm);
+    Adj::algorithm get_algorithm() const { return algorithm_; }
   
+    int defect() const { return least_squares->defect(); }
+
     Vec<> x();
     Vec<> r();
   
@@ -74,7 +79,7 @@ namespace GNU_gama {
   
     void init(const AdjInputData*);
     void init_least_squares();
-    void cholesky(CovMat<>& chol);                            // move it away!
+    void choldec (CovMat<>& chol);                            // move it away!
     void forwardSubstitution(const CovMat<>& chol, Vec<>& v); // move it away!
 
   };

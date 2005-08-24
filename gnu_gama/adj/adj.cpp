@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.10 2005/08/17 18:07:53 cepek Exp $
+ *  $Id: adj.cpp,v 1.11 2005/08/24 21:02:15 cepek Exp $
  */
 
 #include <gnu_gama/adj/adj.h>
@@ -283,6 +283,9 @@ void Adj::init_least_squares()
     case gso: 
       least_squares = new AdjGSO<double, Exception::matvec>;
       break;
+    case cholesky: 
+      least_squares = new AdjCholDec<double, Exception::matvec>;
+      break;
     default:
       throw Exception::adjustment("### unknown algorithm");
     }
@@ -308,7 +311,7 @@ void Adj::init_least_squares()
       const double *p = data->pcov->begin(b), *e = data->pcov->end(b);
       CovMat<>::iterator c = C.begin();
       while (p != e) *c++ = *p++;
-      cholesky(C);
+      choldec(C);
 
       Vec<> t(dim);
       for (i=1; i<=dim; i++) t(i) = data->prhs(r+i);
@@ -333,12 +336,13 @@ void Adj::init_least_squares()
 
 
 
-void Adj::preferred_algorithm(Adj::algorithm alg)
+void Adj::set_algorithm(Adj::algorithm alg)
 {
   switch (alg)
     {
     case svd:
     case gso:
+    case cholesky:
       solved = false;
       algorithm_ = alg;
       break;
@@ -372,7 +376,7 @@ Vec<> Adj::r()
  * in LocalNetwork and shall be moved to a single class
  * ###################################################################### */
 
-void Adj::cholesky(CovMat<>& chol)
+void Adj::choldec(CovMat<>& chol)
 {
   chol.cholDec();
 

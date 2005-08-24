@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: gama-g3.cpp,v 1.14 2005/05/07 18:06:20 cepek Exp $
+ * $Id: gama-g3.cpp,v 1.15 2005/08/24 21:02:14 cepek Exp $
  */
 
 #include <fstream>
@@ -31,9 +31,12 @@
 
 namespace 
 {
-  const char* input  = 0;
-  const char* output = 0;
-  const char* projeq = 0;
+  const char* arg_input     = 0;
+  const char* arg_output    = 0;
+  const char* arg_algorithm = 0;
+  const char* arg_projeq    = 0;
+
+  GNU_gama::Adj::algorithm algorithm;
 
   int error(const char* s) { std::cerr << s << "\n"; return 1; } 
 
@@ -41,20 +44,38 @@ namespace
   {
     bool ok = argc > 1;
 
-    for (int n=0, i=1; i<argc; i++)
+    for (int n=0, i=1; ok && i<argc; i++)
       {
-        const std::string a = argv[i];
+        // '-arg' is equivalent to '--arg' in gama-g3
+        const std::string a = 
+          (*argv[i] == '-' && *(argv[i]+1) == '-') ? argv[i]+1 : argv[i];
 
-        if (a == "-h" || a == "-help" || a == "--help")  
+
+        if (a == "-h" || a == "-help")  
           { 
             ok = false;
             continue;
           }
-        if (a == "-project-equations" || a == "--project-equations")
+        if (a == "-algorithm")
           {
-            ++i;
-            if (i < argc) 
-              projeq = argv[i];
+            if (++i < argc)
+              arg_algorithm = argv[i];
+            else
+              ok = false;
+
+            const std::string arg = arg_algorithm;
+            if      (arg == "gso"     ) algorithm = GNU_gama::Adj::gso;
+            else if (arg == "svd"     ) algorithm = GNU_gama::Adj::svd;
+            else if (arg == "cholesky") algorithm = GNU_gama::Adj::cholesky;
+            else
+              ok = false;
+
+            continue;
+          }
+        if (a == "-project-equations")
+          {
+            if (++i < argc) 
+              arg_projeq = argv[i];
             else
               ok = false;
 
@@ -62,8 +83,8 @@ namespace
           }
         
         ++n;
-        if      (n == 1) input  = argv[i];
-        else if (n == 2) output = argv[i];
+        if      (n == 1) arg_input  = argv[i];
+        else if (n == 2) arg_output = argv[i];
         else 
           {
             ok = false;
@@ -79,7 +100,9 @@ namespace
       " input      xml data file name\n"
       " output     optional output data file name\n\n"
 
-      " -project-equations file"
+      " --algorithm  gso | svd | cholesky\n"
+
+      " --project-equations file"
       "     optional output of project equations in XML\n"
 
       "\n"
@@ -150,8 +173,10 @@ int main_g3()
   using namespace std;
   using namespace GNU_gama::g3;
 
-  Model* model = get_xml_input(input);
+  Model* model = get_xml_input(arg_input);
   if (model == 0) return error("error on reading XML input data");
+
+  if (arg_algorithm) model->set_algorithm(algorithm);
   
   cerr.precision(12);
   Model::ObservationData::iterator i = model->obsdata.begin();
@@ -231,9 +256,9 @@ int main_g3()
   
   model->update_linearization();
   
-  if (projeq) 
+  if (arg_projeq) 
     {
-      std::ofstream out(projeq);
+      std::ofstream out(arg_projeq);
       out.precision(16);
       out << GNU_gama::DataParser::xml_start;
       model->write_xml_adjustment_input_data(out);
@@ -242,13 +267,13 @@ int main_g3()
 
   model->update_adjustment();
 
-  if (output)
+  if (arg_output)
     {
-      ofstream file(output);
+      ofstream file(arg_output);
       if (file) 
         model->write_xml_adjustment_results(file);
       else
-        std::cerr << "\n****** error on opening file " << output << "\n\n";
+        std::cerr << "\n****** error on opening file " << arg_output << "\n\n";
     }
   else
     {

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.35 2005/08/17 18:07:53 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.36 2005/08/24 21:02:15 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -360,6 +360,27 @@ void Model::write_xml_adjustment_input_data(std::ostream& out)
 void Model::write_xml_adjustment_results(std::ostream& out)
 {
   if (!check_adjustment()) update_adjustment();
+
+  out << "\n<adjustmen-statistics>\n\n";
+
+  Adj::algorithm alg = adj->get_algorithm();
+  out << "<algorithm>";
+  if      (alg == Adj::gso)      cout << "gso";
+  else if (alg == Adj::svd)      cout << "svd";
+  else if (alg == Adj::cholesky) cout << "cholesky";
+  else                           cout << "unknown";
+  out << "</algorithm>\n\n";
+
+  out << "<parameters>" << dm_cols       << "</parameters>\n";
+  out << "<equations>"  << dm_rows       << "</equations>\n";
+  out << "<defect>"     << adj->defect() << "</defect>\n";
+  out << "<redundancy>" << dm_rows - dm_cols + adj->defect()
+      << "</redundancy\n\n";
+
+
+  out << "\n</adjustmen-statistics>\n\n";
+
+  // -----------------------------------------------------------------------
 
   out << 
     "\n<!-- adjustment results  :"
