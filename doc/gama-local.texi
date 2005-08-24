@@ -21,7 +21,7 @@ file name with extension@code{.txt} is used.  If run without arguments
 
 $ ./gama-local 
 
-Adjustment of local geodetic network        version: 1.7.09 / GNU g++
+Adjustment of local geodetic network        version: 1.7.14 / GNU g++
 ************************************
 http://www.gnu.org/software/gama/
 
@@ -29,13 +29,14 @@ Usage: gama-local [options] xml_input_file.gkf  [ output. ]
 
 Options:
 
---algorithm  svd | gso
---language   en | ca | cz | du | fi | hu
---encoding   utf-8 | iso-8859-2 | iso-8859-2-flat | cp-1250
+--algorithm  svd | gso | cholesky
+--language   en | ca | cz | du | fi | hu | ru
+--encoding   utf-8 | iso-8859-2 | iso-8859-2-flat | cp-1250 | cp-1251
 --angles     400 | 360
+--latitude   <latitude>
+--ellipsoid  <ellipsoid name>
 --version
 --help
-
 @end example
 
 @noindent
@@ -50,8 +51,10 @@ Option @code{--algorithm} enables to select numerical method used for
 solution of the adjustment. Implicitly is used Singular Value
 Decomposition (@code{svd}), alternatively user can decide for block
 matrix algorithm GSO by Frantisek Charamza, based on Gram-Schmidt
-ortogonalization. In either case project equations are solved directly
-without forming @emph{normal equations}.
+ortogonalization. In both these cases, project equations are solved directly
+without forming @emph{normal equations}.  Third possibility is to
+select Cholesky decomposition of semidefinite matrix of normal
+equations (@code{cholesky}).
 
 Option @code{--language} selects language used in output protocol. For
 example, if run with option @code{--language cz}, @code{gama-local}
@@ -60,6 +63,6 @@ encoding. Implicit value is @code{en} for output in English.
 
 Option @code{--encoding} enables to change inplicit UTF-8 output
 encoding to iso-8859-2 (latin-2), iso-8859-2-flat (latin-2 without
-diacritics) or cp-1250 (MS-EE encoding).
+diacritics), cp-1250 (MS-EE encoding) cp-12251 (Russian encoding).
 
 Option @code{--angles} selects angular units to be used in output.
