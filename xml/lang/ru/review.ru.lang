@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="cp-1251" standalone="yes" ?>
 <entries>
 
-<!-- $Id: review.ru.lang,v 1.4 2005/08/26 16:28:00 cepek Exp $ -->
+<!-- $Id: review.ru.lang,v 1.5 2005/08/26 17:05:49 cepek Exp $ -->
 
 <e id="T_GaMa_inconsistent_coordinates_and_angles"
    EN="Inconsistent coordinates and angles: \ninternally changing sign of all Y coordinates"
-   ru="Ќесовместимые координаты и углы: \nвнутренн€€ замена знак¬а всех Y координат" />
+   ru="Ќесовместимые координаты и углы: \внутренн€€ замена знака всех Y координат" />
 
 <e id="T_GaMa_point"
    EN="point"
-   ru="точк¬а" />
+   ru="точка" />
 
 <e id="T_GaMa_standpoint"
    EN="standpoint"
-   ru="точк¬а сто€ни€" />
+   ru="точка сто€ни€" />
 
 <e id="T_GaMa_target"
    EN="target"
-   ru="точк¬а визировани¬€" />
+   ru="точка визировани€" />
 
 <e id="T_GaMa_network_description"
    EN="Network description"
-   ru="ќписани¬е сети" />
+   ru="ќписание сети" />
 
 <e id="T_GaMa_General_solution_parameters"
    EN="General parameters of the adjustment"
-   ru="√лавные параметры уравнивани¬€" />
+   ru="√лавные параметры уравнивани€" />
 
 <e id="T_GaMa_gpar1_coordinates"
    EN="Coordinates"
@@ -45,23 +45,23 @@
 
 <e id="T_GaMa_gpar1_total"
    EN="Total"
-   ru="»тог¬о" />
+   ru="»того" />
 
 <e id="T_GaMa_gpar1_computed_points"
    EN="Total of adjusted points"
-   ru="»тог¬о уравненных точе¬к" />
+   ru="»того уравненных точек" />
 
 <e id="T_GaMa_gpar2_constrained_points"
    EN="Constrained points"
-   ru="Ќежесткие точк¬и" />
+   ru="Ќежесткие точки" />
 
 <e id="T_GaMa_gpar1_fixed_points"
    EN="Number of fixed points"
-   ru=" оличество жестких точе¬к" />
+   ru=" оличество жестких точек" />
 
 <e id="T_GaMa_gpar1_computed_heights"
    EN="Number of computed heights"
-   ru=" оличество вычисленны¬х высо¬т" />
+   ru=" оличество вычисленных высот" />
 
 <e id="T_GaMa_gpar2_constrained_heights"
    EN="Constrained heights"
@@ -69,15 +69,15 @@
 
 <e id="T_GaMa_gpar1_fixed_heights"
    EN="Number of fixed heights"
-   ru=" оличество жестких высо¬т" />
+   ru=" оличество жестких высот" />
 
 <e id="T_GaMa_gpar1_points_total"
    EN="Total of points"
-   ru="»тог¬о точе¬к" />
+   ru="»того точек" />
 
 <e id="T_GaMa_gpar1_directions"
    EN="Number of directions"
-   ru=" оличество направлени¬й" />
+   ru=" оличество направлений" />
 
 <e id="T_GaMa_gpar2_bearings"
    EN="Number of bearings"
@@ -85,7 +85,7 @@
 
 <e id="T_GaMa_gpar1_angles"
    EN="Number of angles"
-   ru=" оличество угло¬в" />
+   ru=" оличество углов" />
 
 <e id="T_GaMa_gpar1_distances"
    EN="Number of distances"
@@ -101,7 +101,7 @@
 
 <e id="T_GaMa_gpar1_z_angles"
    EN="Zenith angles"
-   ru="«енитны¬й угол" />
+   ru="«енитный угол" />
 
 <e id="T_GaMa_gpar1_s_dists"
    EN="Slope distances"
@@ -109,15 +109,15 @@
 
 <e id="T_GaMa_gpar1_obs_total"
    EN="Total of observations"
-   ru="»тог¬о наблюдений" />
+   ru="»того наблюдений" />
 
 <e id="T_GaMa_gpar1_equations"
    EN="Number of project equations"
-   ru="„исл¬о уравнений" />
+   ru="„исло уравнений" />
 
 <e id="T_GaMa_gpar2_number_of_unknowns"
    EN="Number of unknowns"
-   ru="„исл¬о неизвестны¬х" />
+   ru="„исло неизвестных" />
 
 <e id="T_GaMa_gpar1_redundancy"
    EN="Degrees of freedom"
@@ -129,7 +129,7 @@
 
 <e id="T_GaMa_not_enough_constrained_points"
    EN="Not enough constrained points defined"
-   ru="ќпределено недостаточно нежестких точе¬к" />
+   ru="ќпределено недостаточно нежестких точек" />
 
 <e id="T_GaMa_Free_network"
    EN="Free network"
@@ -141,15 +141,15 @@
 
 <e id="T_GaMa_Given_network_configuration_can_not_be_adjusted"
    EN="Given network configuration can not be adjusted"
-   ru="√еодезическа€ сеть в данной конфигурации н¬е може¬т быть уравненна" />
+   ru="√еодезическа€ сеть в данной конфигурации не может быть уравненна" />
 
 <e id="T_GaMa_detected_singular_variables"
    EN="The following unknowns have been detected as linearly dependent"
-   ru="Ќижеупом€нуты¬е неизвестны¬е €вл€ютс¬€ линейно зависимыми" />
+   ru="Ќижеупом€нутые неизвестные €вл€ютс€ линейно зависимыми" />
 
 <e id="T_GaMa_index_type_point"
    EN="  index type point"
-   ru="  индекс тип точк¬а" />
+   ru="  индекс тип точка" />
 
 <e id="T_GaMa_m0_apriori"
    EN="m0  apriori    "
@@ -161,15 +161,15 @@
 
 <e id="T_GaMa_During_statistical_analysis_we_work"
    EN="During statistical analysis we work"
-   ru="¬¬о врем¬€ статистического анализа м¬ы работае¬м" />
+   ru="¬о врем€ статистического анализа мы работаем" />
 
 <e id="T_GaMa_statan_with_empirical_standard_deviation"
    EN="- with aposteriori standard deviation "
-   ru="- с aposteriori стандартом (средним квадратически¬м отклонение¬м) " />
+   ru="- с aposteriori стандартом (средним квадратическим отклонением) " />
 
 <e id="T_GaMa_statan_with_apriori_standard_deviation"
    EN="- with apriori standard deviation "
-   ru="- с apriori стандартом (средним квадратически¬м отклонение¬м) " />
+   ru="- с apriori стандартом (средним квадратическим отклонением) " />
 
 <e id="T_GaMa_statan_with_confidence_level"
    EN="- with confidence level "
@@ -181,15 +181,15 @@
 
 <e id="T_GaMa_interval"
    EN="interval"
-   ru="интерва¬л" />
+   ru="интервал" />
 
 <e id="T_GaMa_interval_contains"
    EN="contains value m0\'/m0"
-   ru="содержи¬т значени¬е m0\'/m0" />
+   ru="содержит значение m0\'/m0" />
 
 <e id="T_GaMa_interval_doesnt_contain"
    EN="does not contain value m0\'/m0" 
-   ru="н¬е содержи¬т значени¬е m0\'/m0" />
+   ru="не содержит значение m0\'/m0" />
 
 <e id="T_GaMa_m0_distances"
    EN="m0\'/m0 (distances): "
@@ -197,7 +197,7 @@
 
 <e id="T_GaMa_m0_directions"
    EN="m0\'/m0 (directions): "
-   ru="m0\'/m0 (направлени¬€): " />
+   ru="m0\'/m0 (направлени€): " />
 
 <e id="T_GaMa_m0_angles"
    EN="m0\'/m0 (angles): "
@@ -205,19 +205,19 @@
 
 <e id="T_GaMa_m0_dirs_angs"
    EN="m0\'/m0 (directions/angles): "
-   ru="m0\'/m0 (направлени¬€/углы): " />
+   ru="m0\'/m0 (направлени€/углы): " />
 
 <e id="T_GaMa_Maximal_decrease_of_m0"
    EN="Maximal decrease of m0\'\'/m0 on elimination of one observation: "
-   ru="Ќаибольшее уменьшение m0\'\'/m0 н¬а устранение одного наблюдени€ : " />
+   ru="Ќаибольшее уменьшение m0\'\'/m0 на устранение одного наблюдени€ : " />
 
 <e id="T_GaMa_Maximal_normalized_residual"
    EN="Maximal normalized residual "
-   ru="ћаксимальные нормированные поправк¬и " />
+   ru="ћаксимальные нормированные поправки " />
 
 <e id="T_GaMa_genpar_Maximal_studentized_residual"
    EN="Maximal studentized residual "
-   ru="ћаксимальные стьюдентизированные поправк¬и " />
+   ru="ћаксимальные стьюдентизированные поправки " />
 
 <e id="T_GaMa_genpar_exceeds"
    EN=" exceeds"
@@ -225,11 +225,11 @@
 
 <e id="T_GaMa_genpar_doesnt_exceed"
    EN=" does not exceed"
-   ru=" н¬е превышает" />
+   ru=" не превышает" />
 
 <e id="T_GaMa_genpar_critical_value"
    EN=" critical value "
-   ru=" критического значени¬€ " />
+   ru=" критического значени€ " />
 
 <e id="T_GaMa_genpar_on_significance_level"
    EN="on significance level "
@@ -241,11 +241,11 @@
 
 <e id="T_GaMa_Review_of_fixed_points"
    EN="Fixed points"
-   ru="∆есткие точк¬и" />
+   ru="∆есткие точки" />
 
 <e id="T_GaMa_point"
    EN="point"
-   ru="точк¬а" />
+   ru="точка" />
 
 <e id="T_GaMa_adjunk_Review_of_unknowns_coordidantes"
    EN="Adjusted coordinates"
@@ -253,23 +253,23 @@
 
 <e id="T_GaMa_adjunk_mean_position_error_maximal"
    EN="Maximal mean position error is "
-   ru="ћаксимальное значени¬е ошибки " />
+   ru="ћаксимальное значение ошибки " />
 
 <e id="T_GaMa_adjunk_mean_position_error_on_point"
    EN=" mm on point "
-   ru=" mm у точк¬и " />
+   ru=" mm у точки " />
 
 <e id="T_GaMa_adjunk_mean_position_error_average"
    EN="Average mean position error is "
-   ru="—реднее значени¬е ошибки " />
+   ru="—реднее значение ошибки " />
 
 <e id="T_GaMa_adjunk_header1"
    EN="    approximate  correction  adjusted    std.dev conf.i.\n"
-   ru="    приближены¬е    попрвки   уравненные   с.к.о  дов.инт\n" />
+   ru="    приближеные    попрвки   уравненные   с.к.о  дов.инт\n" />
 
 <e id="T_GaMa_adjunk_header2"
    EN="====== value ====== [m] ====== value ========== [mm] ===\n\n"
-   ru="====== з¬н-и¬е ====== [m] ====== з¬н-и¬е ========== [mm] ===\n\n" />
+   ru="====== зн-ие ====== [m] ====== зн-ие ========== [mm] ===\n\n" />
 
 <e id="T_GaMa_adjunk_constrained"
    EN="constrained"
@@ -281,11 +281,11 @@
 
 <e id="T_GaMa_adjunk_header3"
    EN="   approximate  correction  adjusted   std.dev conf.i.\n"
-   ru="   приближены¬е   поправк¬и   уравненные  с.к.о  дов.инт\n" />
+   ru="   приближеные   поправки   уравненные  с.к.о  дов.инт\n" />
 
 <e id="T_GaMa_adjunk_header4"
    EN="==== value [g] ==== [g] === value [g] ======= [cc] ===\n\n"
-   ru="==== з¬н-и¬е [g] ==== [g] === з¬н-и¬е [g] ======= [cc] ===\n\n" />
+   ru="==== зн-ие [g] ==== [g] === зн-ие [g] ======= [cc] ===\n\n" />
 
 <e id="T_GaMa_adjunk_Review_of_unknowns_heights"
    EN="Adjusted heights"
@@ -293,36 +293,36 @@
 
 <e id="T_GaMa_adjunk_header5"
    EN="     approximate  correction  adjusted    std.dev conf.i.\n"
-   ru="     приближены¬е   поправк¬и   уравненные  с.к.о   дов.инт\n" />
+   ru="     приближеные   поправки   уравненные  с.к.о   дов.инт\n" />
 
 <e id="T_GaMa_adjunk_header6"
    EN="======= value ====== [m] ====== value ========== [mm] ===\n\n"
-   ru="======= з¬н-и¬е======= [m] ====== з¬н-и¬е ========== [mm] ===\n\n" />
+   ru="======= зн-ие======= [m] ====== зн-ие ========== [mm] ===\n\n" />
 
 <e id="T_GaMa_tstlin_header_value"
    EN="======= value "
-   ru="======= з¬н-и¬е " />
+   ru="======= зн-ие " />
 
 <e id="T_GaMa_tstlin_Test_of_linearization_error"
    EN="Test of linearization error"
-   ru="“ест н¬а линейность ошибки" />
+   ru="“ест на линейность ошибки" />
 
 <e id="T_GaMa_tstlin_Differences"
    EN="Diffs in adj. observations from residuals and from adjusted coordinates"
-   ru="–азност¬и в уравненных наблюдени€¬х межд¬у остатками и уравненным¬и координатами"
+   ru="–азности в уравненных наблюдени€х между остатками и уравненными координатами"
    />
 
 <e id="T_GaMa_tstlin_obs_r_diff"
    EN="      observed     r        difference"
-   ru="      наблюдаемо¬е  r        разница" />
+   ru="      наблюдаемое  r        разница" />
 
 <e id="T_GaMa_tstlin_header1"
    EN="====== value == [mm|cc] == [cc] == [mm] =\n\n"
-   ru="====== з¬н-и¬е == [mm|cc] == [cc] == [mm] =\n\n" />
+   ru="====== зн-ие == [mm|cc] == [cc] == [mm] =\n\n" />
 
 <e id="T_GaMa_distance"
    EN=" dist. "
-   ru=" расс¬т. " />
+   ru=" расст. " />
 
 <e id="T_GaMa_direction"
    EN=" dir.  "
@@ -338,7 +338,7 @@
 
 <e id="T_GaMa_z_angle"
    EN=" zenit "
-   ru=" зени¬т " />
+   ru=" зенит " />
    
 <e id="T_GaMa_x"
    EN=" x     "
@@ -370,15 +370,15 @@
 
 <e id="T_GaMa_errell_review_of_mean_errors_and_error_ellipses"
    EN="Mean errors and parameters of error ellipses"
-   ru="«начени¬€ ошибок и параметров эллипса ошибок" />
+   ru="«начени€ ошибок и параметров эллипса ошибок" />
 
 <e id="T_GaMa_errell_header1"
    EN="    mp      mxy      mean error ellipse  conf.err. ellipse   g\n"
-   ru="    mp      mxy      з-и¬€ пар-в эллипса  дове¬р-ы¬е  знач-и¬€   g\n" />
+   ru="    mp      mxy      з-и€ пар-в эллипса  довер-ые  знач-и€   g\n" />
 
 <e id="T_GaMa_errell_header2"
    EN="== [mm] == [mm] ==== a [mm] b  alpha[g] ==== a' [mm] b' ========"
-   ru="== [mm] == [mm] ==== a [mm] b  альф¬а[g] ==== a' [mm] b' ========" />
+   ru="== [mm] == [mm] ==== a [mm] b  альфа[g] ==== a' [mm] b' ========" />
 
 <e id="T_GaMa_adjobs_Adjusted_observations"
    EN="Adjusted observations"
@@ -386,7 +386,7 @@
 
 <e id="T_GaMa_adjobs_observed"
    EN="observed"
-   ru="наблюдаемо¬е" />
+   ru="наблюдаемое" />
 
 <e id="T_GaMa_adjobs_adjusted"
    EN="adjusted"
@@ -398,19 +398,19 @@
 
 <e id="T_GaMa_adjobs_value"
    EN="== value "
-   ru="== з¬н-и¬е " />
+   ru="== зн-ие " />
 
 <e id="T_GaMa_resobs_Review_of_residuals_analysis_obs"
    EN="Residuals and analysis of observations"
-   ru="ѕоправк¬и и анализ наблюдений" />
+   ru="ѕоправки и анализ наблюдений" />
 
 <e id="T_GaMa_resobs_Outlying_observations"
    EN="Outlying observations"
-   ru="–езк¬о отклон€ющиес€ результаты наблюдений" />
+   ru="–езко отклон€ющиес€ результаты наблюдений" />
 
 <e id="T_GaMa_resobs_header1"
    EN="        f[%]        v    |v'|     e-obs.  e-adj.\n"
-   ru="        f[%]        v    |v'|     e-набл. e-у¬р.\n" />
+   ru="        f[%]        v    |v'|     e-набл. e-ур.\n" />
 
 <!-- removed in 1.7.09 : e id="T_GaMa_resobs_header2"
    EN="======== [mm|cc] =========== [mm|cc] ===\n\n"
@@ -426,7 +426,7 @@
 
 <e id="T_GaMa_resobs_mc_max_critical"
    EN=" mc"
-   ru=" м¬к" />
+   ru=" мк" />
 
 <e id="T_GaMa_resobs_mc_max"
    EN=" m "
@@ -438,11 +438,11 @@
 
 <e id="T_GaMa_resobs_normality_test"
    EN="Test of normality of homogenised residuals"
-   ru="“ест о нормальности вектора поправо¬к" />
+   ru="“ест о нормальности вектора поправок" />
 
 <e id="T_GaMa_resobs_condition_number"
    EN="Condition number        : "
-   ru="”словие номе¬р           : " />
+   ru="”словие номер           : " />
 
 <e id="T_GaMa_reduced_Review_of_reduced_observations"
    en="Reduced observations" 
@@ -450,7 +450,7 @@
 
 <e id="T_GaMa_reduced_observed"
    en="observed" 
-   ru="наблюдаемы¬е" />
+   ru="наблюдаемые" />
 
 <e id="T_GaMa_reduced_reduced" 
    en="reduced" 
@@ -462,7 +462,7 @@
 
 <e id="T_GaMa_reduced_value"
    en="== value " 
-   ru="== з¬н-и¬е " />
+   ru="== зн-ие " />
 
 
 <e id="T_GaMa_approx_Review_of_approximate_coordinates"
@@ -487,7 +487,7 @@
 
 <e id="T_GaMa_approx_total"
    EN="total       : "
-   ru="всег¬о       : " />
+   ru="всего       : " />
 
 <e id="T_GaMa_approx_separator"
    EN="---------------------------------------------"
@@ -495,18 +495,19 @@
 
 <e id="T_GaMa_missing_coordinates"
    EN="Missing coordinates"
-   ru="ќтсутствую¬т координаты" />
+   ru="ќтсутствуют координаты" />
 
 <e id="T_GaMa_abstrm_Review_of_outlying_abs_terms"
    EN="Outlying absolute terms in project equations"
-   ru="–езк¬о отклон€ющиес€ абсолютные ошибки в уравнени€х" />
+   ru="–езко отклон€ющиес€ абсолютные ошибки в уравнени€х" />
 
 <e id="T_GaMa_abstrm_header1"
    EN="           observed     absolute\n"
-   ru="           наблюдаемы¬е  абсолютные\n" />
+   ru="           наблюдаемые  абсолютные\n" />
 
 <e id="T_GaMa_abstrm_header2"
    EN="== value ===== term ==\n\n"
-   ru="== з¬н-и¬е =====  ош  ==\n\n" />
+   ru="== зн-ие =====  ош  ==\n\n" />
 
 </entries>
+
