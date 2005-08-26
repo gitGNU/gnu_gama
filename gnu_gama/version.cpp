@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.77 2005/08/23 17:53:12 cepek Exp $
+ *  $Id: version.cpp,v 1.78 2005/08/26 20:32:25 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.14-d";
+const char* GNU_gama_version  = "1.7.14-e";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -215,9 +215,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.77 2005/08/23 17:53:12 cepek Exp $
+        <  *  $Id: version.cpp,v 1.78 2005/08/26 20:32:25 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.77 2005/08/23 17:53:12 cepek Exp $
+        >  *  $Id: version.cpp,v 1.78 2005/08/26 20:32:25 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),
