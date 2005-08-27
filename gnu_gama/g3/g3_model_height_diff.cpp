@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_height_diff.cpp,v 1.2 2005/07/27 15:11:08 cepek Exp $
+ *  $Id: g3_model_height_diff.cpp,v 1.3 2005/08/27 17:07:09 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -42,11 +42,7 @@ bool Model::revision_visit(HeightDiff* dh)
 
   active_obs->push_back(dh);
 
-  update_index(from->N);
-  update_index(from->E);
   update_index(from->U);
-  update_index(to  ->N);
-  update_index(to  ->E);
   update_index(to  ->U);
   
   dm_rows += dh->dimension();            // design matrix
@@ -72,7 +68,6 @@ void Model::linearization_visit(HeightDiff* dh)
   // right hand site
  
   double h = to->height() - from->height();  
-  // *** add here : correction for vertical deflections
 
   rhs(++rhs_ind) = dh->obs() - h;
 }
