@@ -3,7 +3,7 @@
 
 <e id="T_LN_rm_removed_points"
    EN="Removed points and coordinates"
-   ru="€сключенные точки и координаты" />
+   ru="Исключенные точки и координаты" />
 
 <e id="T_LN_rm_missing_xyz"
    EN="missing coordiantes xyz"

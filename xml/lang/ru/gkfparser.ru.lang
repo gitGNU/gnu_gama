@@ -47,7 +47,7 @@
 
 <e id="T_GKF_error_on_reading_of_absolute_terms_tolerance"
    EN="error on reading of tolerance for identification of outlying absolute terms"
-   ru="ошибка при чтении tol-abs для определения грубых абсолютных ошибок" />
+   ru="ошибка при чтении tol-abs для определения грубых  абсолютных ошибок" />
 
 <e id="T_GKF_wrong_type_of_standard_deviation"
    EN="wrong type of standard deviation" 
@@ -55,7 +55,7 @@
 
 <e id="T_GKF_bad_network_configuration_unknown_parameter"
    EN="bad network configuration - unknown parameter: "
-   ru="плохая конфигурация сети - неизвестный параметр: " />
+   ru="плохая конфигурация сети-неизвестный параметр: " />
 
 <e id="T_GKF_bad_attribute_distance_dev"
    EN="bad attribute distance-stdev: "
@@ -247,7 +247,7 @@
 
 <e id="T_GKF_cov_mat_bad_element"
    EN="bad covariance matrix element: "
-   ru="неправильный элемент матрицы: " />
+   ru="неправильный элемент матрицы : " />
 
 <e id="T_GKF_no_observations_after_cov_mat"
    EN="observations can not come after covariance matrix"
@@ -273,4 +273,10 @@
    EN="bad vector data"
    ru="неправильный вектор данных" />
 
-</entries>
+</entries>   
+
+
+
+
+
+
