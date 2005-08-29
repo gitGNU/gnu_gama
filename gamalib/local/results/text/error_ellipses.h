@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: error_ellipses.h,v 1.11 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: error_ellipses.h,v 1.12 2005/08/29 18:02:44 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Prehled_Elipsy_Chyb_h_
@@ -98,14 +98,15 @@ void ErrorEllipses(GaMaLib::LocalNetwork* IS, OutStream& out)
        for (PointData::const_iterator 
               point=IS->PD.begin(); point!=IS->PD.end(); ++point)
          if ((*point).second.free_xy())
-           if (int i = (*point).second.index_x())
+           if ((*point).second.index_x())
              {
                const PointID point_id  = (*point).first;	     
                out.width(IS->maxw_id());
                out << point_id.c_str() << ' ';
                
-               Double my = IS->unknown_stdev(i);
-               Double mx = IS->unknown_stdev(i+1);
+               const LocalPoint& p = (*point).second; 
+               Double my = IS->unknown_stdev(p.index_y());
+               Double mx = IS->unknown_stdev(p.index_x());
                
                Double mp = sqrt(my*my+mx*mx);
                if (mp < 1000)     
@@ -172,8 +173,8 @@ void ErrorEllipses(GaMaLib::LocalNetwork* IS, OutStream& out)
                    out << bk << ' ';
                    
                    Double g  = 0;
-                   Double dx = x( i );
-                   Double dy = y_sign*x(i+1);
+                   Double dx = x( p.index_x() );
+                   Double dy = y_sign*x( p.index_y() );
                    Double p1 = (dx*cos(alfa) + dy*sin(alfa));
                    Double p2 = (dy*cos(alfa) - dx*sin(alfa));
                    if (ak > 0 && bk > 0 && bk > ak*1e-4) 

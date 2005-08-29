@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adjusted_unknowns.h,v 1.10 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: adjusted_unknowns.h,v 1.11 2005/08/29 18:02:44 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vyrovnane_Nezname_h_
@@ -78,8 +78,6 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
 
           if (b.free_xy() && b.index_x())
             {
-              int i = b.index_x();
-              
               out.width(IS->maxw_unk());
               out << " " << " ";
               out.width(IS->maxw_id());
@@ -88,13 +86,13 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
               else
                 out << " ";
               prev_id = point_id;
-              Double mx = IS->unknown_stdev(i);
-              Double my = IS->unknown_stdev(i+1);
+              Double mx = IS->unknown_stdev(b.index_x());
+              Double my = IS->unknown_stdev(b.index_y());
               mp = sqrt(my*my+mx*mx);
               out << '\n';
               
               out.width(IS->maxw_unk());
-              out << i << " ";
+              out << b.index_x() << " ";
               out.width(IS->maxw_id());
               if (b.constrained_xy())
                 out << "X" << " * ";
@@ -102,7 +100,7 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
                 out << "x" << "   ";
               out.precision(5);
               out.width(13);
-              Double adj_x = b.x()+x(i)/1000;
+              Double adj_x = b.x()+x(b.index_x())/1000;
               out << b.x_0() << " ";
               out.width(9);
               out << (adj_x - b.x_0()) << " ";
@@ -117,7 +115,7 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
               
               out.flush();
               out.width(IS->maxw_unk());
-              out << (i+1) << " ";
+              out << b.index_y() << " ";
               out.width(IS->maxw_id());
               if (b.constrained_xy())
                 out << "Y" << " * ";
@@ -125,7 +123,7 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
                 out << "y" << "   ";
               out.precision(5);
               out.width(13);
-              Double adj_y = y_sign*(b.y()+x(i+1)/1000);
+              Double adj_y = y_sign*(b.y()+x(b.index_y())/1000);
               out << y_sign*b.y_0() << " ";
               out.width(9);
               out << (adj_y - y_sign*b.y_0()) << " ";
@@ -140,8 +138,6 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
             }
           if (b.free_z() && b.index_z())
             {
-              int i = b.index_z();
-
               if (!b.free_xy())
                 {
                   out.width(IS->maxw_unk());
@@ -156,7 +152,7 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
               prev_id = point_id;
               
               out.width(IS->maxw_unk());
-              out << i << " ";
+              out << b.index_z() << " ";
               out.width(IS->maxw_id());
               if (b.constrained_z())
                 out << "Z" << " * ";
@@ -164,18 +160,18 @@ void AdjustedUnknowns(GaMaLib::LocalNetwork* IS, OutStream& out)
                 out << "z" << "   ";
               out.precision(5);
               out.width(13);
-              Double adj_z = b.z()+x(i)/1000;
+              Double adj_z = b.z()+x(b.index_z())/1000;
               out << b.z_0() << " ";
               out.width(9);
               out << (adj_z - b.z_0()) << " ";
               out.width(13);
               out << adj_z << " ";
-              double mv = IS->unknown_stdev(i);
+              double mz = IS->unknown_stdev(b.index_z());
               out.precision(1);
               out.width(7);
-              out << mv << " ";
+              out << mz << " ";
               out.width(7);
-              out << mv*kki;
+              out << mz*kki;
               out << "\n";
             }
 
