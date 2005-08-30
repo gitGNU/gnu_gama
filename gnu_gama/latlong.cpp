@@ -20,6 +20,70 @@
 */
 
 /*
- *  $Id: latlong.cpp,v 1.1 2005/08/30 17:42:46 cepek Exp $
+ *  $Id: latlong.cpp,v 1.2 2005/08/30 18:33:29 cepek Exp $
  */
 
+#include <sstream>
+#include <gnu_gama/latlong.h>
+#include <gnu_gama/radian.h>
+
+namespace 
+{
+  std::string latlong(double rad, int prec)
+  {
+    int d, m;
+    rad *= RAD_TO_DEG;
+    d    = int(rad);   
+
+    rad -= d;
+    rad *= 60.0;
+    m    = int(rad);
+    rad -= m;
+
+    rad *= 60.0;
+
+    std::ostringstream ostr;
+    ostr.width(3);
+    ostr << d << "-";
+    ostr.fill('0');
+    ostr.width(2);
+    ostr << m << "-";
+    ostr.width(3+prec);
+    ostr.setf(std::ios_base::fixed, std::ios_base::floatfield);
+    ostr.precision(prec);
+    ostr << rad;
+
+    return ostr.str();
+  }
+}
+
+
+namespace GNU_gama {
+
+
+std::string latitude (double rad, int prec)
+{
+  std::string EW = "W ";
+  if (rad < 0)
+    {
+      rad = -rad;
+      EW = "E ";
+    }
+  
+  return EW + latlong(rad, prec);
+}
+
+
+std::string longitude(double rad, int prec)
+{
+  std::string NS = "N ";
+  if (rad < 0)
+    {
+      rad = -rad;
+      NS = "S ";
+    }
+  
+  return NS + latlong(rad, prec);
+}
+
+}

@@ -20,18 +20,19 @@
 */
 
 /*
- *  $Id: latlong.h,v 1.1 2005/08/30 17:42:46 cepek Exp $
+ *  $Id: latlong.h,v 1.2 2005/08/30 18:33:29 cepek Exp $
  */
 
 
 #ifndef GNU_gama__latitude__longitude__latitudelongitude____latlong_h
 #define GNU_gama__latitude__longitude__latitudelongitude____latlong_h
 
-#include <gnu_gama/float.h>
 #include <string>
 
 namespace GNU_gama {
 
+  std::string latitude (double rad, int prec=5);
+  std::string longitude(double rad, int prec=5);
 
 }
 

@@ -20,18 +20,21 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.30 2005/08/30 17:42:46 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.31 2005/08/30 18:33:29 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
 #include <gnu_gama/g3/g3_observation.h>
 #include <gnu_gama/g3/g3_model.h>
+#include <gnu_gama/latlong.h>
 #include <cmath>
 #include <iomanip>
 
 
 using namespace GNU_gama::g3;
 
+using GNU_gama::latitude;
+using GNU_gama::longitude;
 
 Point::Point() 
   : B(B_), L(L_), H(H_), X(X_), Y(Y_), Z(Z_)
@@ -413,7 +416,7 @@ void Point::write_xml(std::ostream& ostr)
                                 B0, L0, H0);
 
       ostr << "\n";
-      ostr << B0 << " " << L0 << " " << H0 << "\n";
+      ostr << latitude(B0) << " " << longitude(L0) << " " << H0 << "\n";
 
       if (free_position())
         {

@@ -5,6 +5,7 @@ gnu_gama/adj/adj.cpp
 gnu_gama/e3.cpp
 gnu_gama/ellipsoid.cpp
 gnu_gama/ellipsoids.cpp
+gnu_gama/latlong.cpp
 gnu_gama/g3/g3_model.cpp
 gnu_gama/g3/g3_model_azimuth.cpp
 gnu_gama/g3/g3_model_distance.cpp

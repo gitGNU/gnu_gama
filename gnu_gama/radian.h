@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: radian.h,v 1.3 2005/07/27 15:15:43 cepek Exp $
+ *  $Id: radian.h,v 1.4 2005/08/30 18:33:29 cepek Exp $
  */
 
 
@@ -48,6 +48,22 @@ namespace GNU_gama {
 
 #ifndef CC_TO_RAD
 #define CC_TO_RAD     M_PI/200.0e4
+#endif
+
+#ifndef RAD_TO_DEG
+#define RAD_TO_DEG    180.0/M_PI
+#endif
+
+#ifndef DEG_TO_RAD
+#define DEG_TO_RAD    M_PI/180.0
+#endif
+
+#ifndef RAD_TO_SS
+#define RAD_TO_SS     648000.0/M_PI
+#endif
+
+#ifndef SS_TO_RAD
+#define SS_TO_RAD     M_PI/648000.0
 #endif
 
 }
