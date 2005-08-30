@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.29 2005/08/30 14:54:47 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.30 2005/08/30 17:42:46 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -403,6 +403,23 @@ void Point::write_xml(std::ostream& ostr)
           ostr << std::setw(15) << Z();
           ostr << " </z-adjusted>\n";
         }
+    }
+
+
+  if (has_position())
+    {
+      double B0, L0, H0;
+      common->ellipsoid.xyz2blh(Y.init_value(), X.init_value(), Z.init_value(),
+                                B0, L0, H0);
+
+      ostr << "\n";
+      ostr << B0 << " " << L0 << " " << H0 << "\n";
+
+      if (free_position())
+        {
+        }
+
+      ostr << "\n";
     }
 
   if (has_height())
