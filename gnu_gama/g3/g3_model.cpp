@@ -20,13 +20,14 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.36 2005/08/24 21:02:15 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.37 2005/08/30 14:54:47 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
 #include <gnu_gama/g3/g3_cluster.h>
 #include <gnu_gama/outstream.h>
 #include <gnu_gama/adj/adj.h>
+#include <iomanip>
 
 
 using namespace std;
@@ -329,11 +330,29 @@ void Model::update_linearization()
 
 void Model::update_adjustment()
 {
-  cerr << "\n************ void Model::update_adjustment()\n\n";
   if (!check_linearization()) update_linearization();
 
-  cerr << "x() = " << adj->x();
-  cerr << "r() = " << adj->r();
+  // parameters 'height' are linked to corresponding parameters 'U'
+
+  for (Model::PointBase::iterator 
+         i=points->begin(), e=points->end(); i!=e; ++i)
+    {
+      Parameter& U      = (*i)->U;
+      Parameter& height = (*i)->height;
+
+      if      (U.fixed() ) height.set_fixed();
+      else if (U.constr()) height.set_constr();
+      else if (U.free()  ) height.set_free();
+      else                 height.set_unused();
+
+      if (height.free())
+        {
+          int k = U.index();
+          height.set_index(k);
+          height.set_correction(adj->x()(k));
+        }
+    }
+
   for (ParameterList::iterator 
          i=par_list->begin(), e=par_list->end(); i!=e; ++i)
     {
@@ -341,8 +360,6 @@ void Model::update_adjustment()
       if (int k = p->index()) p->set_correction(adj->x()(k));
     }
   
-
-  cerr << "\n------------ void Model::update_adjustment()\n\n";
   return next_state_(adjust_);
 }
 
@@ -361,21 +378,27 @@ void Model::write_xml_adjustment_results(std::ostream& out)
 {
   if (!check_adjustment()) update_adjustment();
 
+  out << "<!-- \n\nx() = ";
+  out << adj->x();
+  out << "\nr() = ";
+  out << adj->r();
+  out << "-->\n";
+
   out << "\n<adjustmen-statistics>\n\n";
 
   Adj::algorithm alg = adj->get_algorithm();
-  out << "<algorithm>";
+  out << "<algorithm> ";
   if      (alg == Adj::gso)      cout << "gso";
   else if (alg == Adj::svd)      cout << "svd";
   else if (alg == Adj::cholesky) cout << "cholesky";
   else                           cout << "unknown";
-  out << "</algorithm>\n\n";
+  out << " </algorithm>\n\n";
 
-  out << "<parameters>" << dm_cols       << "</parameters>\n";
-  out << "<equations>"  << dm_rows       << "</equations>\n";
-  out << "<defect>"     << adj->defect() << "</defect>\n";
-  out << "<redundancy>" << dm_rows - dm_cols + adj->defect()
-      << "</redundancy\n\n";
+  out << "<parameters>" << setw(5) << dm_cols       << " </parameters>\n";
+  out << "<equations> " << setw(5) << dm_rows       << " </equations>\n";
+  out << "<defect>    " << setw(5) << adj->defect() << " </defect>\n";
+  out << "<redundancy>" << setw(5) << dm_rows - dm_cols + adj->defect()
+      << " </redundancy\n\n";
 
 
   out << "\n</adjustmen-statistics>\n\n";

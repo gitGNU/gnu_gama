@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.28 2005/08/17 20:53:44 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.29 2005/08/30 14:54:47 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -361,48 +361,66 @@ void Point::write_xml(std::ostream& ostr)
     }
   ostr << "</u>\n";
 
-  ostr.precision(5);
-  ostr << "\n";
-  ostr << "        <x-given     >";
-  ostr << std::setw(15) << X.init_value();
-  ostr << " </x-given>\n";
-  if (free_position())
+  if (has_position())
     {
-      ostr << "        <x-correction>";
-      ostr << std::setw(15) << X.correction();
-      ostr << " </x-correction>\n";
-      ostr << "        <x-adjusted  >";
-      ostr << std::setw(15) << X();
-      ostr << " </x-adjusted>\n";
+      ostr.precision(5);
       ostr << "\n";
-    }
-  ostr << "        <y-given     >";
-  ostr << std::setw(15) << Y.init_value();
-  ostr << " </y-given>\n";
-  if (free_position())
-    {
-      ostr << "        <y-correction>";
-      ostr << std::setw(15) << Y.correction();
-      ostr << " </y-correction>\n";
-      ostr << "        <y-adjusted  >";
-      ostr << std::setw(15) << Y();
-      ostr << " </y-adjusted>\n";
-      ostr << "\n";
-    }
-  ostr << "        <z-given     >";
-  ostr << std::setw(15) << Z.init_value();
-  ostr << " </z-given>\n";
-  if (free_position())
-    {
-      ostr << "        <z-correction>";
-      ostr << std::setw(15) << Z.correction();
-      ostr << " </z-correction>\n";
-      ostr << "        <z-adjusted  >";
-      ostr << std::setw(15) << Z();
-      ostr << " </z-adjusted>\n";
-      //ostr << "\n";
+      ostr << "        <x-given          >";
+      ostr << std::setw(15) << X.init_value();
+      ostr << " </x-given>\n";
+      if (free_position())
+        {
+          ostr << "        <x-correction     >";
+          ostr << std::setw(15) << X.correction();
+          ostr << " </x-correction>\n";
+          ostr << "        <x-adjusted       >";
+          ostr << std::setw(15) << X();
+          ostr << " </x-adjusted>\n";
+          ostr << "\n";
+        }
+      ostr << "        <y-given          >";
+      ostr << std::setw(15) << Y.init_value();
+      ostr << " </y-given>\n";
+      if (free_position())
+        {
+          ostr << "        <y-correction     >";
+          ostr << std::setw(15) << Y.correction();
+          ostr << " </y-correction>\n";
+          ostr << "        <y-adjusted       >";
+          ostr << std::setw(15) << Y();
+          ostr << " </y-adjusted>\n";
+          ostr << "\n";
+        }
+      ostr << "        <z-given          >";
+      ostr << std::setw(15) << Z.init_value();
+      ostr << " </z-given>\n";
+      if (free_position())
+        {
+          ostr << "        <z-correction     >";
+          ostr << std::setw(15) << Z.correction();
+          ostr << " </z-correction>\n";
+          ostr << "        <z-adjusted       >";
+          ostr << std::setw(15) << Z();
+          ostr << " </z-adjusted>\n";
+        }
     }
 
+  if (has_height())
+    {
+      ostr.precision(5);
+      ostr << "\n        <height-given     >";
+      ostr << std::setw(15) << height.init_value();
+      ostr << " </height-given>\n";
+      if (free_height())
+        {
+          ostr << "        <height-correction>";
+          ostr << std::setw(15) << height.correction();
+          ostr << " </height-correction>\n";
+          ostr << "        <height-adjusted  >";
+          ostr << std::setw(15) << height();
+          ostr << " </height-adjusted>\n";
+        }
+    }
 
   ostr << "\n        </point>\n";
 

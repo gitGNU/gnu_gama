@@ -19,7 +19,7 @@
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/* $Id: g3_parameter.h,v 1.22 2005/07/27 15:13:27 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.23 2005/08/30 14:54:47 cepek Exp $  */
 
 #include <cstddef>
 #include <gnu_gama/model.h>
@@ -58,7 +58,7 @@ namespace GNU_gama { namespace g3 {
   class Parameter : public ParXML {
   public:
     
-    Parameter() : val(0), cor(0), dif(0.05) {}
+    Parameter() : val(0), cor(0), dif(0.05), state_(unused_) {}
     // ~Parameter() {}
     
     double operator()() const { return val + cor; }

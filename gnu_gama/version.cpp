@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.78 2005/08/26 20:32:25 cepek Exp $
+ *  $Id: version.cpp,v 1.79 2005/08/30 14:54:47 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.14-e";
+const char* GNU_gama_version  = "1.7.14-f";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -62,10 +62,152 @@ const char* GNU_gama_compiler =
 
 =============================================================================
 
-1.7.14-a 2005-...
+1.7.14-f 2005-...
 
     - Boris Pihtin <cyb@bendery.md> translated gama-local *lang.files
       into Russian
+
+    - fixed bugs in printing adjustment results in gama-local
+
+      Index: adjusted_unknowns.h
+      ===================================================================
+      RCS file: /cvsroot/gama/gama/gamalib/local/results/text/adjusted_unknowns.h,v
+      retrieving revision 1.10
+      diff -u -r1.10 adjusted_unknowns.h
+      --- adjusted_unknowns.h	7 May 2005 18:06:20 -0000	1.10
+      +++ adjusted_unknowns.h	29 Aug 2005 17:40:04 -0000
+      @@ -78,8 +78,6 @@
+       
+                 if (b.free_xy() && b.index_x())
+                   {
+      -              int i = b.index_x();
+      -              
+                     out.width(IS->maxw_unk());
+                     out << " " << " ";
+                     out.width(IS->maxw_id());
+      @@ -88,13 +86,13 @@
+                     else
+                       out << " ";
+                     prev_id = point_id;
+      -              Double mx = IS->unknown_stdev(i);
+      -              Double my = IS->unknown_stdev(i+1);
+      +              Double mx = IS->unknown_stdev(b.index_x());
+      +              Double my = IS->unknown_stdev(b.index_y());
+                     mp = sqrt(my*my+mx*mx);
+                     out << '\n';
+                     
+                     out.width(IS->maxw_unk());
+      -              out << i << " ";
+      +              out << b.index_x() << " ";
+                     out.width(IS->maxw_id());
+                     if (b.constrained_xy())
+                       out << "X" << " * ";
+      @@ -102,7 +100,7 @@
+                       out << "x" << "   ";
+                     out.precision(5);
+                     out.width(13);
+      -              Double adj_x = b.x()+x(i)/1000;
+      +              Double adj_x = b.x()+x(b.index_x())/1000;
+                     out << b.x_0() << " ";
+                     out.width(9);
+                     out << (adj_x - b.x_0()) << " ";
+      @@ -117,7 +115,7 @@
+                     
+                     out.flush();
+                     out.width(IS->maxw_unk());
+      -              out << (i+1) << " ";
+      +              out << b.index_y() << " ";
+                     out.width(IS->maxw_id());
+                     if (b.constrained_xy())
+                       out << "Y" << " * ";
+      @@ -125,7 +123,7 @@
+                       out << "y" << "   ";
+                     out.precision(5);
+                     out.width(13);
+      -              Double adj_y = y_sign*(b.y()+x(i+1)/1000);
+      +              Double adj_y = y_sign*(b.y()+x(b.index_y())/1000);
+                     out << y_sign*b.y_0() << " ";
+                     out.width(9);
+                     out << (adj_y - y_sign*b.y_0()) << " ";
+      @@ -140,8 +138,6 @@
+                   }
+                 if (b.free_z() && b.index_z())
+                   {
+      -              int i = b.index_z();
+      -
+                     if (!b.free_xy())
+                       {
+                         out.width(IS->maxw_unk());
+      @@ -156,7 +152,7 @@
+                     prev_id = point_id;
+                     
+                     out.width(IS->maxw_unk());
+      -              out << i << " ";
+      +              out << b.index_z() << " ";
+                     out.width(IS->maxw_id());
+                     if (b.constrained_z())
+                       out << "Z" << " * ";
+      @@ -164,18 +160,18 @@
+                       out << "z" << "   ";
+                     out.precision(5);
+                     out.width(13);
+      -              Double adj_z = b.z()+x(i)/1000;
+      +              Double adj_z = b.z()+x(b.index_z())/1000;
+                     out << b.z_0() << " ";
+                     out.width(9);
+                     out << (adj_z - b.z_0()) << " ";
+                     out.width(13);
+                     out << adj_z << " ";
+      -              double mv = IS->unknown_stdev(i);
+      +              double mz = IS->unknown_stdev(b.index_z());
+                     out.precision(1);
+                     out.width(7);
+      -              out << mv << " ";
+      +              out << mz << " ";
+                     out.width(7);
+      -              out << mv*kki;
+      +              out << mz*kki;
+                     out << "\n";
+                   }
+       
+      Index: error_ellipses.h
+      ===================================================================
+      RCS file: /cvsroot/gama/gama/gamalib/local/results/text/error_ellipses.h,v
+      retrieving revision 1.11
+      diff -u -r1.11 error_ellipses.h
+      --- error_ellipses.h	7 May 2005 18:06:20 -0000	1.11
+      +++ error_ellipses.h	29 Aug 2005 17:40:05 -0000
+      @@ -98,14 +98,15 @@
+              for (PointData::const_iterator 
+                     point=IS->PD.begin(); point!=IS->PD.end(); ++point)
+                if ((*point).second.free_xy())
+      -           if (int i = (*point).second.index_x())
+      +           if ((*point).second.index_x())
+                    {
+                      const PointID point_id  = (*point).first;	     
+                      out.width(IS->maxw_id());
+                      out << point_id.c_str() << ' ';
+                      
+      -               Double my = IS->unknown_stdev(i);
+      -               Double mx = IS->unknown_stdev(i+1);
+      +               const LocalPoint& p = (*point).second; 
+      +               Double my = IS->unknown_stdev(p.index_y());
+      +               Double mx = IS->unknown_stdev(p.index_x());
+                      
+                      Double mp = sqrt(my*my+mx*mx);
+                      if (mp < 1000)     
+      @@ -172,8 +173,8 @@
+                          out << bk << ' ';
+                          
+                          Double g  = 0;
+      -                   Double dx = x( i );
+      -                   Double dy = y_sign*x(i+1);
+      +                   Double dx = x( p.index_x() );
+      +                   Double dy = y_sign*x( p.index_y() );
+                          Double p1 = (dx*cos(alfa) + dy*sin(alfa));
+                          Double p2 = (dy*cos(alfa) - dx*sin(alfa));
+                          if (ak > 0 && bk > 0 && bk > ak*1e-4) 
+
 
     - fixed bug in dataparser_adj.cpp
 
@@ -215,9 +357,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.78 2005/08/26 20:32:25 cepek Exp $
+        <  *  $Id: version.cpp,v 1.79 2005/08/30 14:54:47 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.78 2005/08/26 20:32:25 cepek Exp $
+        >  *  $Id: version.cpp,v 1.79 2005/08/30 14:54:47 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),
