@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="cp-1251" standalone="yes" ?>
+
+<!-- $Id: -->
 <entries>
 
-<!-- $Id: review.ru.lang,v 1.8 2005/08/30 14:00:06 cepek Exp $ -->
+<!-- $Id: review.ru.lang,v 1.9 2005/08/30 14:27:59 cepek Exp $ -->
 
 <e id="T_GaMa_inconsistent_coordinates_and_angles"
    EN="Inconsistent coordinates and angles: \ninternally changing sign of all Y coordinates"
-   ru="Несовместимые координаты и углы: \внутренняя замена знака всех Y координат" />
+   ru="Несовместимые координаты и углы: \nвнутренняя замена знака всех Y координат" />
 
 <e id="T_GaMa_point"
    EN="point"
