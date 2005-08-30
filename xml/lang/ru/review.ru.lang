@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="cp-1251" standalone="yes" ?>
 <entries>
 
-<!-- $Id: review.ru.lang,v 1.7 2005/08/29 21:15:52 cepek Exp $ -->
+<!-- $Id: review.ru.lang,v 1.8 2005/08/30 14:00:06 cepek Exp $ -->
 
 <e id="T_GaMa_inconsistent_coordinates_and_angles"
    EN="Inconsistent coordinates and angles: \ninternally changing sign of all Y coordinates"
@@ -287,7 +287,7 @@
    EN="==== value [g] ==== [g] === value [g] ======= [cc] ===\n\n"
    ru="==== зн-ие [g] ==== [g] === зн-ие [g] ======= [cc] ===\n\n" />
 
-<e id="T_GяaMa_adjunk_Review_of_unknowns_heights"
+<e id="T_GaMa_adjunk_Review_of_unknowns_heights"
    EN="Adjusted heights"
    ru="Уравненные высоты" />
 
