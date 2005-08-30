@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="cp-1251" standalone="yes" ?>
 
-<!-- $Id: -->
+<!-- $Id: review.ru.lang,v 1.10 2005/08/30 14:46:07 cepek Exp $ -->
 <entries>
-
-<!-- $Id: review.ru.lang,v 1.9 2005/08/30 14:27:59 cepek Exp $ -->
 
 <e id="T_GaMa_inconsistent_coordinates_and_angles"
    EN="Inconsistent coordinates and angles: \ninternally changing sign of all Y coordinates"
@@ -414,7 +412,7 @@
    EN="        f[%]        v    |v'|     e-obs.  e-adj.\n"
    ru="        f[%]        v    |v'|       e-набл.  e-ур.\n" />
 
-<!-- removed in 1.7.09 : e id="T_GaMa_resobs_header2"
+<!-- removed in 1.7.09 :$ e id="T_GaMa_resobs_header2"
    EN="======== [mm|cc] =========== [mm|cc] ===\n\n"
    ru="========= [mm|cc] ======== [mm|cc] ===\n\n" / -->
 
