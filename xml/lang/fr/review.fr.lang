@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+<!-- $Id: review.fr.lang,v 1.1 2005/08/31 20:37:06 cepek Exp $ -->
+<entries>
+
+<e id="T_GaMa_inconsistent_coordinates_and_angles"
+   EN="Inconsistent coordinates and angles: \nchanging sign of all Y coordinates"
+   fr="Coordonnées et angles incompatibles: \ninversion du signes de toutes les coordonnées Y" />
+
+<e id="T_GaMa_point"
+   EN="point"
+   fr="point" />
+
+<e id="T_GaMa_standpoint"
+   EN="standpoint"
+   fr="station" />
+
+<e id="T_GaMa_target"
+   EN="target"
+   fr="cible" />
+
+<e id="T_GaMa_network_description"
+   EN="Network description"
+   fr="Description du réseau" />
+
+<e id="T_GaMa_General_solution_parameters"
+   EN="General parameters of the adjustment"
+   fr="Paramètres généraux de l'ajustement" />
+
+<e id="T_GaMa_gpar1_coordinates"
+   EN="Coordinates"
+   fr="Coordonnées" />
+
+<e id="T_GaMa_gpar1_adjusted_coordinates"
+   EN="Adjusted"
+   fr="Ajustées" />
+
+<e id="T_GaMa_gpar1_constrained_coordinates"
+   EN="Constrained  * "
+   fr="Contraintes" />
+
+<e id="T_GaMa_gpar1_fixed_coordinates"
+   EN="Fixed"
+   fr="Fixées" />
+
+<e id="T_GaMa_gpar1_total"
+   EN="Total"
+   fr="Total" />
+
+<e id="T_GaMa_gpar1_computed_points"
+   EN="Total of adjusted points"
+   fr="Total des points ajustés" />
+
+<e id="T_GaMa_gpar2_constrained_points"
+   EN="Constrained points"
+   fr="Points contraints" />
+
+<e id="T_GaMa_gpar1_fixed_points"
+   EN="Number of fixed points"
+   fr="Nombre de points fixés" />
+
+<e id="T_GaMa_gpar1_computed_heights"
+   EN="Number of computed heights"
+   fr="Nombre de hauteurs calculées" />
+
+<e id="T_GaMa_gpar2_constrained_heights"
+   EN="Constrained heights"
+   fr="Hauteurs contraintes" />
+
+<e id="T_GaMa_gpar1_fixed_heights"
+   EN="Number of fixed heights"
+   fr="Nombre de hauteurs fixées" />
+
+<e id="T_GaMa_gpar1_points_total"
+   EN="Total of points"
+   fr="Total des points" />
+
+<e id="T_GaMa_gpar1_directions"
+   EN="Number of directions"
+   fr="Nombre de directions" />
+
+<e id="T_GaMa_gpar2_bearings"
+   EN="Number of bearings"
+   fr="Nombre de gisements" />
+
+<e id="T_GaMa_gpar1_angles"
+   EN="Number of angles"
+   fr="Nombre d'angles" />
+
+<e id="T_GaMa_gpar1_distances"
+   EN="Number of distances"
+   fr="Nombre de distances" />
+
+<e id="T_GaMa_gpar1_observed_coords"
+   EN="Coordinates"
+   fr="Coordonnées" />
+
+<e id="T_GaMa_gpar1_levelling_diffs"
+   EN="Levelling differences"
+   fr="Dénivelées" />
+
+<e id="T_GaMa_gpar1_z_angles"
+   EN="Zenith angles"
+   fr="Angles zénithaux" />
+
+<e id="T_GaMa_gpar1_s_dists"
+   EN="Slope distances"
+   fr="Distances suivant la pente" />
+
+<e id="T_GaMa_gpar1_obs_total"
+   EN="Total of observations"
+   fr="Total des observations" />
+
+<e id="T_GaMa_gpar1_equations"
+   EN="Number of project equations"
+   fr="Nombre d'équations" />
+
+<e id="T_GaMa_gpar2_number_of_unknowns"
+   EN="Number of unknowns"
+   fr="Nombre d'inconnues" />
+
+<e id="T_GaMa_gpar1_redundancy"
+   EN="Degrees of freedom"
+   fr="Degrés de liberté" />
+
+<e id="T_GaMa_gpar2_network_defect"
+   EN="Network defect"
+   fr="AREPRENDRE Défaut du réseau" />
+
+<e id="T_GaMa_not_enough_constrained_points"
+   EN="Not enough constrained points defined"
+   fr="Pas assez de points contraints" />
+
+<e id="T_GaMa_Free_network"
+   EN="Free network"
+   fr="Réseau libre" />
+
+<e id="T_GaMa_Free_network_defect_is"
+   EN="Free network defect is "
+   fr="Le défaut du réseau libre est" />
+
+<e id="T_GaMa_Given_network_configuration_can_not_be_adjusted"
+   EN="Given network configuration can not be adjusted"
+   fr="La configuration de ce réseau ne permet pas d'ajustement" />
+
+<e id="T_GaMa_detected_singular_variables"
+   EN="The following unknowns have been detected as linearly dependent"
+   fr="Les inconnues suivantes ont été diagnostiquées comme linéairement dépendantes" />
+
+<e id="T_GaMa_index_type_point"
+   EN="  index type point"
+   fr="  point de type index" />
+
+<e id="T_GaMa_m0_apriori"
+   EN="m0  apriori    "
+   fr="m0  à priori    " />
+
+<e id="T_GaMa_m0_empirical"
+   EN="m0\' aposteriori"
+   fr="m0\' à postériori" />
+
+<e id="T_GaMa_During_statistical_analysis_we_work"
+   EN="During statistical analysis we work"
+   fr="Pendant l'analyse statistique on travaille" />
+
+<e id="T_GaMa_statan_with_empirical_standard_deviation"
+   EN="- with aposteriori standard deviation "
+   fr="- avec un écart-type à postériori de " />
+
+<e id="T_GaMa_statan_with_apriori_standard_deviation"
+   EN="- with apriori standard deviation "
+   fr="- avect un écart-type à priori de " />
+
+<e id="T_GaMa_statan_with_confidence_level"
+   EN="- with confidence level "
+   fr="- avec comme seuil de confiance " />
+
+<e id="T_GaMa_Ratio_empirical_to_apriori"
+   EN="Ratio m0\' aposteriori / m0 apriori: "
+   fr="Rapport m0\' à postériori / m0 à priori: " />
+
+<e id="T_GaMa_interval"
+   EN="interval"
+   fr="étant le seuil de confiance, l\'intervalle" />
+
+<e id="T_GaMa_interval_contains"
+   EN="contains value m0\'/m0"
+   fr="contient la valeur m0\'/m0" />
+
+<e id="T_GaMa_interval_doesnt_contain"
+   EN="does not contain value m0\'/m0" 
+   fr="ne contient pas la valeur m0\'/m0" />
+
+<e id="T_GaMa_m0_distances"
+   EN="m0\'/m0 (distances): "
+   fr="m0\'/m0 (distances): " />
+
+<e id="T_GaMa_m0_directions"
+   EN="m0\'/m0 (directions): "
+   fr="m0\'/m0 (directions): " />
+
+<e id="T_GaMa_m0_angles"
+   EN="m0\'/m0 (angles): "
+   fr="m0\'/m0  (angles): " />
+
+<e id="T_GaMa_m0_dirs_angs"
+   EN="m0\'/m0 (directions/angles): "
+   fr="m0\'/m0 (directions/angles): " />
+
+<e id="T_GaMa_Maximal_decrease_of_m0"
+   EN="Maximal decrease of m0\'\'/m0 on elimination of one observation: "
+   fr="Décroissance maximale de m0\'\'/m0 lors de l'élimination d'une observation: " />
+
+<e id="T_GaMa_Maximal_normalized_residual"
+   EN="Maximal normalized residual "
+   fr="Résidu normalisé maximum " />
+
+<e id="T_GaMa_genpar_Maximal_studentized_residual"
+   EN="Maximal studentized residual "
+   fr="Le résidu studentisé maximum " />
+
+<e id="T_GaMa_genpar_exceeds"
+   EN=" exceeds"
+   fr=" dépasse" />
+
+<e id="T_GaMa_genpar_doesnt_exceed"
+   EN=" does not exceed"
+   fr=" ne dépasse pas" />
+
+<e id="T_GaMa_genpar_critical_value"
+   EN=" critical value "
+   fr=" valeur critique " />
+
+<e id="T_GaMa_genpar_on_significance_level"
+   EN="on significance level "
+   fr="au niveau de signification " />
+
+<e id="T_GaMa_genpar_for_observation_ind"
+   EN=" % for observation #"
+   fr=" % pour l\'observation numéro " />
+
+<e id="T_GaMa_Review_of_fixed_points"
+   EN="Fixed points"
+   fr="Points fixes" />
+
+<e id="T_GaMa_point"
+   EN="point"
+   fr="point" />
+
+<e id="T_GaMa_adjunk_Review_of_unknowns_coordidantes"
+   EN="Adjusted coordinates"
+   fr="Coordonnées ajustées" />
+
+<e id="T_GaMa_adjunk_mean_position_error_maximal"
+   EN="Maximal mean position error is "
+   fr="AREPRENDRE L\'erreur de position moyenne maximale est de " />
+
+<e id="T_GaMa_adjunk_mean_position_error_on_point"
+   EN=" mm on point "
+   fr=" mm sur le point " />
+
+<e id="T_GaMa_adjunk_mean_position_error_average"
+   EN="Average mean position error is "
+   fr="AREPRENDRE L\'erreur moyenne de position moyenne est de " />
+
+<e id="T_GaMa_adjunk_header1"
+   EN="    approximate  correction  adjusted    std.dev conf.i.\n"
+   fr="    approché     correction  ajusté      éc.typ  interv.conf.\n" />
+
+<e id="T_GaMa_adjunk_header2"
+   EN="====== value ====== [m] ====== value ========== [mm] ===\n\n"
+   fr="====== valeur ====== [m] ====== valeur ========== [mm] ===\n\n" />
+
+<e id="T_GaMa_adjunk_constrained"
+   EN="constrained"
+   fr="contraint" />
+
+<e id="T_GaMa_adjunk_Review_of_unknowns_bearings"
+   EN="Adjusted orientation unknowns"
+   fr="Inconnues d\'orientation ajustées" />
+
+<e id="T_GaMa_adjunk_header3"
+   EN="   approximate  correction  adjusted   std.dev conf.i.\n"
+   fr="   approché     correction  ajusté     éc.typ. interv.conf.\n" />
+
+<e id="T_GaMa_adjunk_header4"
+   EN="==== value [g] ==== [g] === value [g] ======= [cc] ===\n\n"
+   fr="==== valeur [g] ==== [g] === valeur [g] ======= [cc] ===\n\n" />
+
+<e id="T_GaMa_adjunk_Review_of_unknowns_heights"
+   EN="Adjusted heights"
+   fr="Hauteurs ajustées" />
+
+<e id="T_GaMa_adjunk_header5"
+   EN="     approximate  correction  adjusted    std.dev conf.i.\n"
+   fr="     approché     correction  ajusté      éc.typ. interv.conf.\n" />
+
+<e id="T_GaMa_adjunk_header6"
+   EN="======= value ====== [m] ====== value ========== [mm] ===\n\n"
+   fr="======= valeur ====== [m] ====== valeur ========== [mm] ===\n\n" />
+
+<e id="T_GaMa_tstlin_header_value"
+   EN="======= value "
+   fr="======= valeur " />
+
+<e id="T_GaMa_tstlin_Test_of_linearization_error"
+   EN="Test of linearization error"
+   fr="Erreur de test de linéarisation" />
+
+<e id="T_GaMa_tstlin_Differences"
+   EN="Diffs in adj. observations from residuals and from adjusted coordinates"
+   fr="AREPRENDRE Différences entre les observations ajustées, les résidus et les coordonnées ajustées" />
+
+<e id="T_GaMa_tstlin_obs_r_diff"
+   EN="      observed     r        difference"
+   fr="      observé      r        différence" />
+
+<e id="T_GaMa_tstlin_header1"
+   EN="====== value == [mm|cc] == [cc] == [mm] =\n\n"
+   fr="====== valeur == [mm|cc] == [cc] == [mm] =\n\n" />
+
+<e id="T_GaMa_distance"
+   EN=" dist. "
+   fr=" dist. " />
+
+<e id="T_GaMa_direction"
+   EN=" dir.  "
+   fr=" dir.  " />
+
+<e id="T_GaMa_angle"
+   EN=" angle "
+   fr=" angle " />
+
+<e id="T_GaMa_s_distance"
+   EN=" slope "
+   fr=" incl. " />
+
+<e id="T_GaMa_z_angle"
+   EN=" zenit "
+   fr=" zenit " />
+   
+<e id="T_GaMa_x"
+   EN=" x     "
+   fr=" x     " />
+
+<e id="T_GaMa_y"
+   EN=" y     "
+   fr=" y     " />
+
+<e id="T_GaMa_z"
+   EN=" z     "
+   fr=" z     " />
+
+<e id="T_GaMa_levell"
+   EN=" h dif "
+   fr=" dif h " />
+
+<e id="T_GaMa_xdiff"
+   EN=" x dif "
+   fr=" dif x " />
+
+<e id="T_GaMa_ydiff"
+   EN=" y dif "
+   fr=" dif y " />
+
+<e id="T_GaMa_zdiff"
+   EN=" z dif "
+   fr=" dif z " />
+
+<e id="T_GaMa_errell_review_of_mean_errors_and_error_ellipses"
+   EN="Mean errors and parameters of error ellipses"
+   fr="AREPRENDRE Erreurs moyennes et paramètres des ellipsoïdes d'erreur" />
+
+<e id="T_GaMa_errell_header1"
+   EN="    mp      mxy      mean error ellipse  conf.err. ellipse   g\n"
+   fr="AREPRENDRE    mp      mxy      mean error ellipse  conf.err. ellipse   g\n" />
+
+<e id="T_GaMa_errell_header2"
+   EN="== [mm] == [mm] ==== a [mm] b  alpha[g] ==== a' [mm] b' ========"
+   fr="== [mm] == [mm] ==== a [mm] b  alpha[g] ==== a' [mm] b' ========" />
+
+<e id="T_GaMa_adjobs_Adjusted_observations"
+   EN="Adjusted observations"
+   fr="Observations ajustées" />
+
+<e id="T_GaMa_adjobs_observed"
+   EN="observed"
+   fr="observé" />
+
+<e id="T_GaMa_adjobs_adjusted"
+   EN="adjusted"
+   fr="ajusté" />
+
+<e id="T_GaMa_adjobs_header1"
+   EN=" std.dev conf.i.\n"
+   fr=" éc.typ. interv.conf.\n" />
+
+<e id="T_GaMa_adjobs_value"
+   EN="== value "
+   fr="== valeur " />
+
+<e id="T_GaMa_resobs_Review_of_residuals_analysis_obs"
+   EN="Residuals and analysis of observations"
+   fr="Residus et analyse des observations" />
+
+<e id="T_GaMa_resobs_Outlying_observations"
+   EN="Outlying observations"
+   fr="AREPRENDRE Fautes" />
+
+<e id="T_GaMa_resobs_header1"
+   EN="        f[%]        v    |v'|     e-obs.  e-adj.\n"
+   fr="        f[%]        v    |v'|     e-obs.  e-adj.\n" />
+
+<!-- removed in 1.7.09 : e id="T_GaMa_resobs_header2"
+   EN="======== [mm|cc] =========== [mm|cc] ===\n\n"
+   fr="" / -->
+
+<e id="T_GaMa_resobs_no_control"
+   EN=" u"
+   fr=" u" />
+
+<e id="T_GaMa_resobs_weak_control"
+   EN=" w"
+   fr=" w" />
+
+<e id="T_GaMa_resobs_mc_max_critical"
+   EN=" mc"
+   fr=" mc" />
+
+<e id="T_GaMa_resobs_mc_max"
+   EN=" m "
+   fr=" m " />
+
+<e id="T_GaMa_resobs_mc_critical"
+   EN=" c "
+   fr=" c " />
+
+<e id="T_GaMa_resobs_normality_test"
+   EN="Test of normality of homogenised residuals"
+   fr="AREPRENDRE Test de normalité des résidus homogènes" />
+
+<e id="T_GaMa_resobs_condition_number"
+   EN="Condition number        : "
+   fr="AREPRENDRE facteur de conditionnement         : " />
+
+<e id="T_GaMa_approx_Review_of_approximate_coordinates"
+   EN="Approximate coordinates"
+   fr="Coordonnées approchées" />
+
+<e id="T_GaMa_approx_observations"
+   EN="observations: "
+   fr="observations: " />
+
+<e id="T_GaMa_approx_header1"
+   EN="coordinates   "
+   fr="coordonnées   " />
+
+<e id="T_GaMa_approx_given_coordinates"
+   EN="given       : "
+   fr="données     : " />
+
+<e id="T_GaMa_approx_computed_coordinates"
+   EN="computed    : "
+   fr="calculées   : " />
+
+<e id="T_GaMa_approx_total"
+   EN="total       : "
+   fr="total       : " />
+
+<e id="T_GaMa_approx_separator"
+   EN="---------------------------------------------"
+   fr="---------------------------------------------" />
+
+<e id="T_GaMa_missing_coordinates"
+   EN="Missing coordinates"
+   fr="Coordonnées absentes" />
+
+<e id="T_GaMa_abstrm_Review_of_outlying_abs_terms"
+   EN="Outlying absolute terms in project equations"
+   fr="Termes absolus erronés dans les équations du projet" />
+
+<e id="T_GaMa_abstrm_header1"
+   EN="           observed     absolute\n"
+   fr="           observé      absolu\n" />
+
+<e id="T_GaMa_abstrm_header2"
+   EN="== value ===== term ==\n\n"
+   fr="== valeur ===== terme =\n\n" />
+
+</entries>
+
+
+
+
+
+
+
+

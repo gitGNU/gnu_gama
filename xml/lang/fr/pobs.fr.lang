@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?> 
+
+<!-- $Id: pobs.fr.lang,v 1.1 2005/08/31 20:37:06 cepek Exp $ -->
+<entries>
+
+<e id="T_POBS_computation_of_bearing_for_identical_points"
+   EN="Computation of bearing for identical points"
+   fr="Calcul de gisement entre deux points identiques" />
+
+<e id="T_POBS_bad_data"
+   EN="bad data"
+   fr="données erronées" />
+
+<e id="T_POBS_zero_or_negative_distance"
+   EN="zero or negative distance"
+   fr="distance négative ou nulle" />
+
+<e id="T_POBS_zero_or_negative_slope_distance"
+   EN="zero or negative slope distance"
+   fr="distance suivant la pente négative ou nulle" />
+
+<e id="T_POBS_zero_or_negative_zenith_angle"
+   EN="zero or negative zenith angle"
+   fr="angle zénithal négatif ou nul" />
+
+</entries>

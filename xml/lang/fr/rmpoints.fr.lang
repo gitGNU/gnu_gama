@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+<!-- $Id: rmpoints.fr.lang,v 1.1 2005/08/31 20:37:06 cepek Exp $ -->
+<entries>
+
+<e id="T_LN_rm_removed_points"
+   EN="Removed points and coordinates"
+   fr="Points et coordonnées éliminés" />
+
+<e id="T_LN_rm_missing_xyz"
+   EN="missing coordiantes xyz"
+   fr="coordonnées xyz manquantes" />
+
+<e id="T_LN_rm_missing_xy"
+   EN="missing coordiantes xy"
+   fr="coordonnées xy manquantes" />
+
+<e id="T_LN_rm_missing_z"
+   EN="missing coordiantes z"
+   fr="coordonnée z manquante" />
+
+<e id="T_LN_rm_singular_xy"
+   EN="singular coordiantes xy"
+   fr="coordonnées xy singulières" />
+
+<e id="T_LN_rm_huge_cov_xyz"
+   EN="indeterminable coordinates xyz"
+   fr="coordonnées xyz indeterminables" />
+
+<e id="T_LN_rm_huge_cov_xy"
+   EN="indeterminable coordinates xy"
+   fr="coordonnées xy indeterminables" />
+
+<e id="T_LN_rm_huge_cov_z"
+   EN="indeterminable coordinate z"
+   fr="coordonnée z indeterminable" />
+
+</entries>
