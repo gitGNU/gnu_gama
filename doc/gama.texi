@@ -1,5 +1,5 @@
 \input texinfo   @c -*-texinfo-*-
-@comment $Id: gama.texi,v 1.14 2005/08/24 14:45:13 cepek Exp $
+@comment $Id: gama.texi,v 1.15 2005/08/31 21:19:23 cepek Exp $
 
 @comment Part 1 : Header
 
@@ -130,7 +130,7 @@ to GNU Gama project:
 @c
 Ales Cepek, Jiri Vesely, Petr Doubrava, Jan Pytel, Chuck Ghilani, Dan
 Haggman, Mauri Vaisanen, John Dedrum, Jim Sutherland, Zoltan Faludi,
-Diego Berge and Boris Pihtin.
+Diego Berge, Boris Pihtin and Stephane Kaloustian.
 
 
 @c @itemize @bullet
@@ -165,6 +165,10 @@ Diego Berge and Boris Pihtin.
 @c @item 
 @c Boris Pihtin @code{<cyb@@bendera.md>}(Russian translation for
 @c              @code{gama-local})
+@c 
+@c @item 
+@c Stephane Kaloustian @code{<stephane.kaloustian@laposte.ne>}
+@c (French translation for @code{gama-local})
 @c 
 @c @end itemize
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.79 2005/08/30 14:54:47 cepek Exp $
+ *  $Id: version.cpp,v 1.80 2005/08/31 21:19:23 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.14-f";
+const char* GNU_gama_version  = "1.7.14-g";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -62,10 +62,13 @@ const char* GNU_gama_compiler =
 
 =============================================================================
 
-1.7.14-f 2005-...
+1.7.14-g 2005-...
 
-    - Boris Pihtin <cyb@bendery.md> translated gama-local *lang.files
-      into Russian
+    - Stephane Kaloustian <stephane.kaloustian@laposte.net> translated
+      *.lang files to French
+
+    - Boris Pihtin <cyb@bendery.md> translated gama-local *.lang files
+      to Russian
 
     - fixed bugs in printing adjustment results in gama-local
 
@@ -357,9 +360,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.79 2005/08/30 14:54:47 cepek Exp $
+        <  *  $Id: version.cpp,v 1.80 2005/08/31 21:19:23 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.79 2005/08/30 14:54:47 cepek Exp $
+        >  *  $Id: version.cpp,v 1.80 2005/08/31 21:19:23 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),
