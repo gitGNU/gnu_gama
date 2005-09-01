@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: latlong.h,v 1.2 2005/08/30 18:33:29 cepek Exp $
+ *  $Id: latlong.h,v 1.3 2005/09/01 18:30:45 cepek Exp $
  */
 
 
@@ -31,8 +31,8 @@
 
 namespace GNU_gama {
 
-  std::string latitude (double rad, int prec=5);
-  std::string longitude(double rad, int prec=5);
+  std::string latitude (double rad, int prec=7);
+  std::string longitude(double rad, int prec=7);
 
 }
 

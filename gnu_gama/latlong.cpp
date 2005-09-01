@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: latlong.cpp,v 1.2 2005/08/30 18:33:29 cepek Exp $
+ *  $Id: latlong.cpp,v 1.3 2005/09/01 18:30:45 cepek Exp $
  */
 
 #include <sstream>
@@ -31,6 +31,9 @@ namespace
 {
   std::string latlong(double rad, int prec)
   {
+    bool neg = rad < 0;
+    if (neg) rad = -rad;
+
     int d, m;
     rad *= RAD_TO_DEG;
     d    = int(rad);   
@@ -43,7 +46,7 @@ namespace
     rad *= 60.0;
 
     std::ostringstream ostr;
-    ostr.width(3);
+    ostr.width(4);
     ostr << d << "-";
     ostr.fill('0');
     ostr.width(2);
@@ -53,7 +56,15 @@ namespace
     ostr.precision(prec);
     ostr << rad;
 
-    return ostr.str();
+    std::string s = ostr.str();
+    if (neg)
+      {
+        if      (s[2] == ' ') s[2] = '-';
+        else if (s[1] == ' ') s[1] = '-';
+        else                  s[0] = '-';
+      }
+
+    return s;
   }
 }
 
@@ -63,27 +74,14 @@ namespace GNU_gama {
 
 std::string latitude (double rad, int prec)
 {
-  std::string EW = "W ";
-  if (rad < 0)
-    {
-      rad = -rad;
-      EW = "E ";
-    }
-  
-  return EW + latlong(rad, prec);
+  return latlong(rad, prec);
 }
 
 
 std::string longitude(double rad, int prec)
 {
-  std::string NS = "N ";
-  if (rad < 0)
-    {
-      rad = -rad;
-      NS = "S ";
-    }
-  
-  return NS + latlong(rad, prec);
+  return latlong(rad, prec);
 }
 
 }
+

@@ -20,13 +20,14 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.31 2005/08/30 18:33:29 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.32 2005/09/01 18:30:45 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
 #include <gnu_gama/g3/g3_observation.h>
 #include <gnu_gama/g3/g3_model.h>
 #include <gnu_gama/latlong.h>
+#include <gnu_gama/radian.h>
 #include <cmath>
 #include <iomanip>
 
@@ -35,6 +36,8 @@ using namespace GNU_gama::g3;
 
 using GNU_gama::latitude;
 using GNU_gama::longitude;
+
+using std::setw;
 
 Point::Point() 
   : B(B_), L(L_), H(H_), X(X_), Y(Y_), Z(Z_)
@@ -327,7 +330,7 @@ void Point::write_xml(std::ostream& ostr)
     ostr << "<unused/> ";
   if (N.index())
     {
-      ostr << "<dn>"  << std::setw(8) << N()*1000  << " </dn> "
+      ostr << "<dn>"  << setw(8) << N()*1000  << " </dn> "
            << "<ind>" << N.index() << "</ind> ";
     }
   ostr << "</n>\n";
@@ -343,7 +346,7 @@ void Point::write_xml(std::ostream& ostr)
     ostr << "<unused/> ";
   if (E.index())
     {
-      ostr << "<de>"  << std::setw(8) << E()*1000  << " </de> "
+      ostr << "<de>"  << setw(8) << E()*1000  << " </de> "
            << "<ind>" << E.index() << "</ind> ";
     }
   ostr << "</e>\n";
@@ -359,7 +362,7 @@ void Point::write_xml(std::ostream& ostr)
     ostr << "<unused/> ";
   if (U.index())
     {
-      ostr << "<du>"  << std::setw(8) << U()*1000  << " </du> "
+      ostr << "<du>"  << setw(8) << U()*1000  << " </du> "
            << "<ind>" << U.index() << "</ind> ";
     }
   ostr << "</u>\n";
@@ -368,76 +371,117 @@ void Point::write_xml(std::ostream& ostr)
     {
       ostr.precision(5);
       ostr << "\n";
-      ostr << "        <x-given          >";
-      ostr << std::setw(15) << X.init_value();
+      ostr << "        <x-given     >";
+      ostr << setw(19) << X.init_value();
       ostr << " </x-given>\n";
-      if (free_position())
+      if (!fixed_position())
         {
-          ostr << "        <x-correction     >";
-          ostr << std::setw(15) << X.correction();
+          ostr << "        <x-correction>";
+          ostr << setw(19) << X.correction();
           ostr << " </x-correction>\n";
-          ostr << "        <x-adjusted       >";
-          ostr << std::setw(15) << X();
+          ostr << "        <x-adjusted  >";
+          ostr << setw(19) << X();
           ostr << " </x-adjusted>\n";
           ostr << "\n";
         }
-      ostr << "        <y-given          >";
-      ostr << std::setw(15) << Y.init_value();
+      ostr << "        <y-given     >";
+      ostr << setw(19) << Y.init_value();
       ostr << " </y-given>\n";
-      if (free_position())
+      if (!fixed_position())
         {
-          ostr << "        <y-correction     >";
-          ostr << std::setw(15) << Y.correction();
+          ostr << "        <y-correction>";
+          ostr << setw(19) << Y.correction();
           ostr << " </y-correction>\n";
-          ostr << "        <y-adjusted       >";
-          ostr << std::setw(15) << Y();
+          ostr << "        <y-adjusted  >";
+          ostr << setw(19) << Y();
           ostr << " </y-adjusted>\n";
           ostr << "\n";
         }
-      ostr << "        <z-given          >";
-      ostr << std::setw(15) << Z.init_value();
+      ostr << "        <z-given     >";
+      ostr << setw(19) << Z.init_value();
       ostr << " </z-given>\n";
-      if (free_position())
+      if (!fixed_position())
         {
-          ostr << "        <z-correction     >";
-          ostr << std::setw(15) << Z.correction();
+          ostr << "        <z-correction>";
+          ostr << setw(19) << Z.correction();
           ostr << " </z-correction>\n";
-          ostr << "        <z-adjusted       >";
-          ostr << std::setw(15) << Z();
+          ostr << "        <z-adjusted  >";
+          ostr << setw(19) << Z();
           ostr << " </z-adjusted>\n";
         }
     }
 
 
   if (has_position())
-    {
-      double B0, L0, H0;
-      common->ellipsoid.xyz2blh(Y.init_value(), X.init_value(), Z.init_value(),
-                                B0, L0, H0);
-
-      ostr << "\n";
-      ostr << latitude(B0) << " " << longitude(L0) << " " << H0 << "\n";
-
-      if (free_position())
-        {
-        }
-
-      ostr << "\n";
-    }
+     {
+       double B0, L0, H0, dB, dL, dH, BB, LL, HH;
+   
+       common->ellipsoid.xyz2blh(X.init_value(), Y.init_value(), Z.init_value(),
+                                 B0, L0, H0);
+       if (!fixed_position())
+         {
+           common->ellipsoid.xyz2blh(X(), Y(), Z(), BB, LL, HH);
+           dB = BB - B0;
+           dL = LL - L0;
+           dH = HH - H0;
+         }
+    
+       ostr << "\n";
+       ostr << "        <b-given     > ";
+       ostr << latitude(B0);
+       ostr << " </b-given>\n";      
+       if (!fixed_position())
+         {
+           ostr << "        <b-correction> ";
+           ostr.precision(7);
+           ostr << setw(18) << dB*RAD_TO_SS;
+           ostr << " </b-correction>\n";
+           ostr << "        <b-adjusted  > ";
+           ostr << latitude(BB);
+           ostr << " </b-adjusted>\n";
+           ostr << "\n";
+         }
+       ostr << "        <l-given     > ";
+       ostr << longitude(L0);
+       ostr << " </l-given>\n";      
+       if (!fixed_position())
+         {
+           ostr << "        <l-correction> ";
+           ostr << setw(18) << dL*RAD_TO_SS;
+           ostr << " </l-correction>\n";
+           ostr << "        <l-adjusted  > ";
+           ostr << longitude(LL);
+           ostr << " </l-adjusted>\n";
+           ostr << "\n";
+         }
+       ostr << "        <h-given     > ";
+       ostr << setw(18) << H0;
+       ostr << " </h-given>\n";      
+       if (!fixed_position())
+         {
+           ostr << "        <h-correction> ";
+           ostr.precision(5);
+           ostr << setw(18) << dH;
+           ostr << " </h-correction>\n";
+           ostr << "        <h-adjusted  > ";
+           ostr << setw(18) << HH;
+           ostr << " </h-adjusted>\n";
+         }       
+     }
 
   if (has_height())
     {
       ostr.precision(5);
-      ostr << "\n        <height-given     >";
-      ostr << std::setw(15) << height.init_value();
+      ostr << "\n        <height-given>";
+      ostr << setw(19) << height.init_value();
       ostr << " </height-given>\n";
       if (free_height())
         {
           ostr << "        <height-correction>";
-          ostr << std::setw(15) << height.correction();
+          ostr << setw(14) << height.correction();
           ostr << " </height-correction>\n";
           ostr << "        <height-adjusted  >";
-          ostr << std::setw(15) << height();
+          ostr << setw(14) << height();
           ostr << " </height-adjusted>\n";
         }
     }
