@@ -304,7 +304,7 @@ int set(Ellipsoid* E, gama_ellipsoid T)
       E->id = ellipsoid_wgs84;
       break;
    default :
-      E->id = 0;
+      E->id = ellipsoid_unknown;
       return 1;
    }
 

@@ -2,7 +2,7 @@
  * input file into ellipsoids.[h|cpp|html|texi] output.
  * ==========================================================================
  * 
- * $Id: ellipsoids_xml.cpp,v 1.13 2005/09/04 13:14:05 cepek Exp $
+ * $Id: ellipsoids_xml.cpp,v 1.14 2005/09/04 13:26:19 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
@@ -364,7 +364,7 @@ void Parser::xml2cpp(ostream& out)
   }    
   out << 
     "   default :\n"
-    "      E->id = 0;\n"
+    "      E->id = ellipsoid_unknown;\n"
     "      return 1;\n   }\n\n   return 0;\n}\n\n";
   
   out << "gama_ellipsoid ellipsoid(const char* s)\n"
