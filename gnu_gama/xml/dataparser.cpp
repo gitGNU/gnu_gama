@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.25 2005/07/27 15:15:44 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.26 2005/09/04 16:14:30 cepek Exp $
  */
 
 
@@ -164,8 +164,10 @@ DataParser::data_tag DataParser::tag(const char* c)
       if (!strcmp(c, "cov-mat"        )) return t_covmat;
       break;
     case 'd' :
+      if (!strcmp(c, "db"             )) return t_db;
       if (!strcmp(c, "dim"            )) return t_dim;
       if (!strcmp(c, "distance"       )) return t_dist;
+      if (!strcmp(c, "dl"             )) return t_dl;
       if (!strcmp(c, "dx"             )) return t_dx;
       if (!strcmp(c, "dy"             )) return t_dy;
       if (!strcmp(c, "dz"             )) return t_dz;

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser_g3.cpp,v 1.8 2005/07/27 20:42:38 cepek Exp $
+ *  $Id: dataparser_g3.cpp,v 1.9 2005/09/04 16:14:30 cepek Exp $
  */
 
 
@@ -172,6 +172,14 @@ void DataParser::init_g3()
   init(s_g3_point_param, t_u,
        s_g3_point_param_u, 0, 0,
        0, 0, &DataParser::g3_point_param_u);
+
+  init(s_g3_point_2, t_db,
+       s_g3_point_db, 0, s_g3_point_after_db,
+       0, &DataParser::add_text, 0);
+
+  init(s_g3_point_after_db, t_dl,
+       s_g3_point_dl, 0, s_g3_point_2,
+       0, &DataParser::add_text, &DataParser::g3_point_dl);
 
   // .....  <g3-model> <obs>  ........................................
   
@@ -598,6 +606,23 @@ int DataParser::g3_point_height(const char *name)
   text_buffer.erase();
 
   point->set_height(h);
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_point_dl(const char *name)
+{
+  stringstream istr(text_buffer);
+  double db, dl;
+
+  if (!(istr >> db >> dl))
+    {
+      return error("### bad format of numerical data in <point> db dl ");
+    }
+  text_buffer.erase();
+
+  point->dB.set_init_value(db*SS_TO_RAD);
+  point->dL.set_init_value(dl*SS_TO_RAD);
 
   return  end_tag(name);
 }

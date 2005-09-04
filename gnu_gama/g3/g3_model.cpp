@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.38 2005/09/04 13:14:05 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.39 2005/09/04 16:14:30 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -251,7 +251,6 @@ void Model::update_linearization()
 {
   if (!check_observations()) update_observations();
 
-  cerr << "- - - - - - - - - - - - - - - - - - - - - - - .\n";
   adj_input_data = new AdjInputData;
 
   A = new SparseMatrix<>(dm_floats, dm_rows, dm_cols);
@@ -390,6 +389,21 @@ void Model::write_xml_adjustment_results(std::ostream& out)
   else                           cout << "unknown";
   out << " </algorithm>\n\n";
 
+  {
+    gama_ellipsoid id = gama_ellipsoid(ellipsoid.id);
+    
+    out.setf(ios_base::fixed, ios_base::floatfield);
+    out << "<ellipsoid> "
+        << "<caption> " << gama_ellipsoid_caption[id] << " </caption>\n";
+    out << "            <id>      " << gama_ellipsoid_id[id] 
+        << "         </id>\n";
+    out.precision(5);
+    out << "            <a >      " << ellipsoid.a() << " </a >\n"; 
+    out.precision(9);
+    out << "            <f1>      " << 1.0/ellipsoid.f() << " </f1>\n"; 
+    out << "            </ellipsoid>\n\n"; 
+  }
+
   out << "<parameters>" << setw(5) << dm_cols       << " </parameters>\n";
   out << "<equations> " << setw(5) << dm_rows       << " </equations>\n";
   out << "<defect>    " << setw(5) << adj->defect() << " </defect>\n";
@@ -412,9 +426,9 @@ void Model::write_xml_adjustment_results(std::ostream& out)
 
   // -----------------------------------------------------------------------
 
-  out << 
-    "\n<!-- adjustment results  :"
-    " dn / de / du  are in millimeters -->\n\n";
+  out << "\n"
+    "<!-- adjustment results    : dn / de / du  are in millimeters -->\n"
+    "<!-- deflection of vertical: db / dl       are in arc seconds -->\n\n";
   
   out << "<adjustment-results>\n";
 

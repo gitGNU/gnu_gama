@@ -20,7 +20,7 @@
 */
 
 /*
- * $Id: gama-g3.cpp,v 1.15 2005/08/24 21:02:14 cepek Exp $
+ * $Id: gama-g3.cpp,v 1.16 2005/09/04 16:14:30 cepek Exp $
  */
 
 #include <fstream>
@@ -177,82 +177,6 @@ int main_g3()
   if (model == 0) return error("error on reading XML input data");
 
   if (arg_algorithm) model->set_algorithm(algorithm);
-  
-  cerr.precision(12);
-  Model::ObservationData::iterator i = model->obsdata.begin();
-  Model::ObservationData::iterator e = model->obsdata.end();
-  while (i != e)
-    {
-      cerr << "* ";
-      if (Distance *d = dynamic_cast<Distance*>(*i))
-        {
-          cerr << " distance : from = "
-               << d->from
-               << "  to = "
-               << d->to
-               << "  val = "
-               << d->obs();
-          
-          if (d->from_dh || d->to_dh)
-            {
-              cerr << " ( ";
-              cerr << d->from_dh << " ";
-              cerr << d->to_dh << " ";
-              cerr << ")";
-            }              
-        }
-      if (ZenithAngle *d = dynamic_cast<ZenithAngle*>(*i))
-        {
-          cerr << " zenith   : from = "
-               << d->from
-               << "  to = "
-               << d->to
-               << "  val = "
-               << d->obs();
-          
-          if (d->from_dh || d->to_dh)
-            {
-              cerr << " ( ";
-              cerr << d->from_dh << " ";
-              cerr << d->to_dh << " ";
-              cerr << ")";
-            }              
-        }
-      if (Vector* v = dynamic_cast<Vector*>(*i))
-        {
-          cerr << " vector   : from = "
-               << v->from
-               << "  to = " 
-               << v->to
-               << "  dx = "
-               << v->dx()
-               << "  dy = "
-               << v->dy()
-               << "  dz = "
-               << v->dz();
-          
-          if (v->from_dh || v->to_dh)
-            {
-              cerr << " ( ";
-              cerr << v->from_dh << " ";
-              cerr << v->to_dh << " ";
-              cerr << ")";
-            }              
-        }
-      if (XYZ* x = dynamic_cast<XYZ*>(*i))
-        {
-          cerr << " xyz      : id  = "
-               << x->id
-               << "  x = "
-               << x->x()
-               << "  y = "
-               << x->y()
-               << "  z = "
-               << x->z();
-        }
-      cerr << "\n";
-      ++i;
-    }
   
   model->update_linearization();
   

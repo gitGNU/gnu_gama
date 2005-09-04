@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.25 2005/07/27 20:42:38 cepek Exp $
+ *  $Id: dataparser.h,v 1.26 2005/09/04 16:14:30 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -101,6 +101,9 @@ namespace GNU_gama {
           s_g3_point_param_n,
           s_g3_point_param_e,
           s_g3_point_param_u,
+          s_g3_point_db,
+          s_g3_point_after_db,
+          s_g3_point_dl,
 
           // ..................................................
 
@@ -247,6 +250,8 @@ namespace GNU_gama {
           t_cols,
           t_constr,
           t_covmat,
+          t_db,
+          t_dl,
           t_dim,
           t_dist,
           t_dx,
@@ -327,6 +332,7 @@ namespace GNU_gama {
       int g3_point_param_n      (const char *name);
       int g3_point_param_e      (const char *name);
       int g3_point_param_u      (const char *name);
+      int g3_point_dl           (const char *name);
 
       int g3_obs                (const char *name, const char **atts);
       int g3_obs                (const char *name);

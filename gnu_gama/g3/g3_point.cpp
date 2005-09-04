@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.32 2005/09/01 18:30:45 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.33 2005/09/04 16:14:30 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -414,10 +414,11 @@ void Point::write_xml(std::ostream& ostr)
 
   if (has_position())
      {
-       double B0, L0, H0, dB, dL, dH, BB, LL, HH;
-   
-       common->ellipsoid.xyz2blh(X.init_value(), Y.init_value(), Z.init_value(),
-                                 B0, L0, H0);
+       double dB, dL, dH, BB, LL, HH;   
+       double B0 = B.init_value();
+       double L0 = L.init_value();
+       double H0 = H.init_value();
+       
        if (!fixed_position())
          {
            common->ellipsoid.xyz2blh(X(), Y(), Z(), BB, LL, HH);
@@ -485,6 +486,18 @@ void Point::write_xml(std::ostream& ostr)
           ostr << " </height-adjusted>\n";
         }
     }
+
+
+  double db = dB(), dl =dL();
+  if (db*db + dl*dl)
+    {
+      db *= RAD_TO_SS;
+      dl *= RAD_TO_SS;
+      ostr.precision(5);
+      ostr << "\n        "
+           << "<db> " << db << " </db>   <dl> " << dl << " </dl>\n\n";
+    }
+
 
   ostr << "\n        </point>\n";
 
