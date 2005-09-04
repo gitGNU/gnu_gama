@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="cp-1251" standalone="yes" ?>
 
-<!-- $Id: review.ru.lang,v 1.10 2005/08/30 14:46:07 cepek Exp $ -->
+<!-- $Id: review.ru.lang,v 1.11 2005/09/04 20:10:13 cepek Exp $ -->
 <entries>
 
 <e id="T_GaMa_inconsistent_coordinates_and_angles"
    EN="Inconsistent coordinates and angles: \ninternally changing sign of all Y coordinates"
-   ru="Ќесовместимые координаты и углы: \nвнутренн€€ замена знака всех Y координат" />
+   ru="Ќесовместимые координаты и углы: \nвнутренн€€ замена знака всех Y координат         " />
 
 <e id="T_GaMa_point"
    EN="point"
@@ -29,7 +29,7 @@
 
 <e id="T_GaMa_gpar1_coordinates"
    EN="Coordinates"
-   ru=" оординаты" />
+   ru=" оординаты " />
 
 <e id="T_GaMa_gpar1_adjusted_coordinates"
    EN="Adjusted"
@@ -201,11 +201,11 @@
 
 <e id="T_GaMa_m0_angles"
    EN="m0\'/m0 (angles): "
-   ru="m0\'/m0 (углы): " />
+   ru="m0\'/m0 (углы)  : " />
 
 <e id="T_GaMa_m0_dirs_angs"
    EN="m0\'/m0 (directions/angles): "
-   ru="m0\'/m0 (направлени€/углы): " />
+   ru="m0\'/m0 (направлени€/углы) : " />
 
 <e id="T_GaMa_Maximal_decrease_of_m0"
    EN="Maximal decrease of m0\'\'/m0 on elimination of one observation: "
@@ -229,7 +229,7 @@
 
 <e id="T_GaMa_genpar_critical_value"
    EN=" critical value "
-   ru=" критического значени€ " />
+   ru=" критическое значение " />
 
 <e id="T_GaMa_genpar_on_significance_level"
    EN="on significance level "
@@ -237,7 +237,7 @@
 
 <e id="T_GaMa_genpar_for_observation_ind"
    EN=" % for observation #"
-   ru=" % дл€ наблюдени€  #" />
+   ru=" % дл€ наблюдени€ #" />
 
 <e id="T_GaMa_Review_of_fixed_points"
    EN="Fixed points"
@@ -277,7 +277,7 @@
 
 <e id="T_GaMa_adjunk_Review_of_unknowns_bearings"
    EN="Adjusted orientation unknowns"
-   ru="”равненное координирование неизвестно" />
+   ru="”равненное координирование неизвестных направлений" />
 
 <e id="T_GaMa_adjunk_header3"
    EN="   approximate  correction  adjusted   std.dev conf.i.\n"
@@ -309,7 +309,7 @@
 
 <e id="T_GaMa_tstlin_Differences"
    EN="Diffs in adj. observations from residuals and from adjusted coordinates"
-   ru="–азница между поправками уравненных наблюденийи и уравненными координатами"
+   ru="–азница между поправками уравненных наблюдений и уравненными координатами"
    />
 
 <e id="T_GaMa_tstlin_obs_r_diff"
@@ -471,11 +471,11 @@
 
 <e id="T_GaMa_approx_observations"
    EN="observations: "
-   ru="наблюдений: " />
+   ru="наблюдений  : " />
 
 <e id="T_GaMa_approx_header1"
    EN="coordinates   "
-   ru="координаты   " />
+   ru="координаты    " />
 
 <e id="T_GaMa_approx_given_coordinates"
    EN="given       : "

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="cp-1251" standalone="yes" ?> 
+<?xml version="1.0" encoding="cp-1251" standalone="yes" ?>
 
-<!-- $Id: gkfparser.ru.lang,v 1.8 2005/08/30 14:46:07 cepek Exp $ -->
+<!-- $Id: gkfparser.ru.lang,v 1.9 2005/09/04 20:10:13 cepek Exp $ -->
 <entries>
 
 <e id="T_GKF_illegal_text"

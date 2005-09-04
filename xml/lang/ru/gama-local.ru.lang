@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="cp-1251" standalone="yes" ?> 
+<?xml version="1.0" encoding="cp-1251" standalone="yes" ?>
 
-<!-- $Id: gama-local.ru.lang,v 1.5 2005/08/30 14:46:07 cepek Exp $ -->
+<!-- $Id: gama-local.ru.lang,v 1.6 2005/09/04 20:10:13 cepek Exp $ -->
 <entries>
 
 <e id="T_GaMa_Adjustment_of_geodetic_network"   
@@ -49,7 +49,7 @@
 
 <e id="T_GaMa_Approximate_coordinates_replaced"
    EN="Approximate coordinates of computed points replaced by adjusted"
-   ru="Приближенные координаты вычисленных точек заменены на уравнинные" />
+   ru="Приближенные координаты вычисленных точек заменены на уравненные" />
 
 <e id="T_GaMa_solution_ended_with_error"
    EN="GNU Gama - solution ended with error!"
