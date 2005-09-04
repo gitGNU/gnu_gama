@@ -2,13 +2,19 @@
  * input file into ellipsoids.[h|cpp|html|texi] output.
  * ==========================================================================
  * 
- * $Id: ellipsoids_xml.cpp,v 1.12 2005/05/07 18:06:21 cepek Exp $
+ * $Id: ellipsoids_xml.cpp,v 1.13 2005/09/04 13:14:05 cepek Exp $
  *
  * ------------------------------------------------------------------------ */
 
-const char* version = "0.04";
+const char* version = "0.05";
 
 /* ---------------------------------------------------------------------------
+ *
+ * 0.05  2005-09-04
+ *
+ *       - public data member 'id' was added into class Ellipsoid,
+ *       - added table gama_ellipsoid_id a and setting of
+ *         Ellipsoid::id in function set(Ellipsoid*, gama_ellipsoid)
  *
  * 0.04  2002-03-22
  *
@@ -297,9 +303,10 @@ void Parser::xml2h(ostream& out)
     }
   
   out << "\n};\n\n"
-      << "extern const char * const gama_ellipsoid_caption[];\n\n"
+      << "extern const char * const gama_ellipsoid_caption[];\n"
+      << "extern const char * const gama_ellipsoid_id     [];\n\n"
       << "gama_ellipsoid ellipsoid(const char*);\n"
-      << "int            set(Ellipsoid*, gama_ellipsoid);\n"
+      << "int            set      (Ellipsoid*, gama_ellipsoid);\n"
       << "\n}\n\n"
       << "#endif\n";
 }
@@ -324,6 +331,17 @@ void Parser::xml2cpp(ostream& out)
       }
   }
   out << "};\n\n";
+  out << "const char * const gama_ellipsoid_id[] = { \"\",\n";
+  {
+    for (list<Entry>::iterator i=elist.begin(); i!=elist.end(); )
+      {
+        Entry e = *i;
+        out << "   \"" << e.id << "\"";
+        if (++i != elist.end()) out << ",";
+        out << "\n";
+      }
+  }
+  out << "};\n\n";
   
   out << "int set(Ellipsoid* E, gama_ellipsoid T)\n"
       << "{\n"
@@ -340,10 +358,14 @@ void Parser::xml2cpp(ostream& out)
           out << "f( " << e.a << ", " << e.f  << " );\n";
         else if (!e.f1.empty()) 
           out << "f1( " << e.a << ", " << e.f1 << " );\n";
+        out << "      E->id = ellipsoid_" << e.id << ";\n";
         out << "      break;\n";
       }
   }    
-  out << "   default :\n      return 1;\n   }\n\n   return 0;\n}\n\n";
+  out << 
+    "   default :\n"
+    "      E->id = 0;\n"
+    "      return 1;\n   }\n\n   return 0;\n}\n\n";
   
   out << "gama_ellipsoid ellipsoid(const char* s)\n"
       << "{\n"

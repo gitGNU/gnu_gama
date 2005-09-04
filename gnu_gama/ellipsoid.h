@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: ellipsoid.h,v 1.3 2005/07/27 15:15:43 cepek Exp $
+ *  $Id: ellipsoid.h,v 1.4 2005/09/04 13:14:05 cepek Exp $
  */
 
 #ifndef GNU_gama__gamalib____ellipsoid_H___________ELLIPSOID_H________
@@ -47,6 +47,8 @@ namespace GNU_gama {
     void set_ab (double pa, double pb) { set_abff1( pa, pb,  0,  0); }
     void set_af (double pa, double pf) { set_abff1( pa,  0, pf,  0); }
     void set_af1(double pa, double pf) { set_abff1( pa,  0,  0, pf); }
+
+    int id;
 
   private:
 

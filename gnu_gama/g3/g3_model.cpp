@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.37 2005/08/30 14:54:47 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.38 2005/09/04 13:14:05 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -378,11 +378,7 @@ void Model::write_xml_adjustment_results(std::ostream& out)
 {
   if (!check_adjustment()) update_adjustment();
 
-  out << "<!-- \n\nx() = ";
-  out << adj->x();
-  out << "\nr() = ";
-  out << adj->r();
-  out << "-->\n";
+  const Vec<>& r = adj->r();
 
   out << "\n<adjustmen-statistics>\n\n";
 
@@ -397,10 +393,21 @@ void Model::write_xml_adjustment_results(std::ostream& out)
   out << "<parameters>" << setw(5) << dm_cols       << " </parameters>\n";
   out << "<equations> " << setw(5) << dm_rows       << " </equations>\n";
   out << "<defect>    " << setw(5) << adj->defect() << " </defect>\n";
-  out << "<redundancy>" << setw(5) << dm_rows - dm_cols + adj->defect()
-      << " </redundancy\n\n";
 
+  int redundancy = dm_rows - dm_cols + adj->defect();
+  out << "<redundancy>" << setw(5) << redundancy    << " </redundancy\n\n";
 
+  out.setf(ios_base::scientific, ios_base::floatfield);
+  out.precision(5);
+  double rtr = trans(r)*r;
+  out << "<sum-of-squares>    " << rtr << " </sum-of-squares>\n";
+
+  double sigma_apriori = 1.0;
+  out << "<sigma-apriori>     " << sigma_apriori << " </sigma-apriori>\n";
+
+  double sigma_aposteriori = rtr/redundancy * 1e6;  // scaled to millimeters
+  out << "<sigma-aposteriori> "<<sigma_aposteriori<<" </sigma-aposteriori>\n";
+  
   out << "\n</adjustmen-statistics>\n\n";
 
   // -----------------------------------------------------------------------

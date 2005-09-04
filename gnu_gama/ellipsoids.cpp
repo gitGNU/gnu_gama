@@ -57,154 +57,254 @@ const char * const gama_ellipsoid_caption[] = { "",
    "World Geodetic System 1984"
 };
 
+const char * const gama_ellipsoid_id[] = { "",
+   "airy",
+   "airy_mod",
+   "apl1965",
+   "andrae1876",
+   "australian",
+   "bessel",
+   "bessel_nam",
+   "clarke1858a",
+   "clarke1858b",
+   "clarke1866",
+   "clarke1880",
+   "clarke1880m",
+   "cpm1799",
+   "delambre",
+   "engelis",
+   "everest1830",
+   "everest1848",
+   "everest1856",
+   "everest1869",
+   "everest_ss",
+   "fisher1960",
+   "fisher1960m",
+   "fischer1968",
+   "grs67",
+   "grs80",
+   "hayford",
+   "helmert",
+   "hough",
+   "iau76",
+   "international",
+   "kaula",
+   "krassovski",
+   "lerch",
+   "mprts",
+   "mercury",
+   "merit",
+   "new_intl",
+   "nwl1965",
+   "plessis",
+   "se_asia",
+   "sgs85",
+   "schott",
+   "sa1969",
+   "walbeck",
+   "wgs60",
+   "wgs66",
+   "wgs72",
+   "wgs84"
+};
+
 int set(Ellipsoid* E, gama_ellipsoid T)
 {
    switch(T) {
    case ellipsoid_airy :
       E->set_ab( 6377563.396, 6356256.910 );
+      E->id = ellipsoid_airy;
       break;
    case ellipsoid_airy_mod :
       E->set_ab( 6377340.189, 6356034.446 );
+      E->id = ellipsoid_airy_mod;
       break;
    case ellipsoid_apl1965 :
       E->set_af1( 6378137, 298.25 );
+      E->id = ellipsoid_apl1965;
       break;
    case ellipsoid_andrae1876 :
       E->set_af1( 6377104.43, 300.0 );
+      E->id = ellipsoid_andrae1876;
       break;
    case ellipsoid_australian :
       E->set_af1( 6378160, 298.25 );
+      E->id = ellipsoid_australian;
       break;
    case ellipsoid_bessel :
       E->set_ab( 6377397.15508, 6356078.96290 );
+      E->id = ellipsoid_bessel;
       break;
    case ellipsoid_bessel_nam :
       E->set_af1( 6377483.865, 299.1528128 );
+      E->id = ellipsoid_bessel_nam;
       break;
    case ellipsoid_clarke1858a :
       E->set_ab( 6378361, 6356685 );
+      E->id = ellipsoid_clarke1858a;
       break;
    case ellipsoid_clarke1858b :
       E->set_ab( 6378558, 6355810 );
+      E->id = ellipsoid_clarke1858b;
       break;
    case ellipsoid_clarke1866 :
       E->set_ab( 6378206.4, 6356583.8 );
+      E->id = ellipsoid_clarke1866;
       break;
    case ellipsoid_clarke1880 :
       E->set_ab( 6378316, 6356582 );
+      E->id = ellipsoid_clarke1880;
       break;
    case ellipsoid_clarke1880m :
       E->set_af1( 6378249.145, 293.4663 );
+      E->id = ellipsoid_clarke1880m;
       break;
    case ellipsoid_cpm1799 :
       E->set_af1( 6375738.7, 334.29 );
+      E->id = ellipsoid_cpm1799;
       break;
    case ellipsoid_delambre :
       E->set_af1( 6376428, 311.5 );
+      E->id = ellipsoid_delambre;
       break;
    case ellipsoid_engelis :
       E->set_af1( 6378136.05, 298.2566 );
+      E->id = ellipsoid_engelis;
       break;
    case ellipsoid_everest1830 :
       E->set_af1( 6377276.345, 300.8017 );
+      E->id = ellipsoid_everest1830;
       break;
    case ellipsoid_everest1848 :
       E->set_af1( 6377304.063, 300.8017 );
+      E->id = ellipsoid_everest1848;
       break;
    case ellipsoid_everest1856 :
       E->set_af1( 6377301.243, 300.8017 );
+      E->id = ellipsoid_everest1856;
       break;
    case ellipsoid_everest1869 :
       E->set_af1( 6377295.664, 300.8017 );
+      E->id = ellipsoid_everest1869;
       break;
    case ellipsoid_everest_ss :
       E->set_af1( 6377298.556, 300.8017 );
+      E->id = ellipsoid_everest_ss;
       break;
    case ellipsoid_fisher1960 :
       E->set_af1( 6378166, 298.3 );
+      E->id = ellipsoid_fisher1960;
       break;
    case ellipsoid_fisher1960m :
       E->set_af1( 6378155, 298.3 );
+      E->id = ellipsoid_fisher1960m;
       break;
    case ellipsoid_fischer1968 :
       E->set_af1( 6378150, 298.3 );
+      E->id = ellipsoid_fischer1968;
       break;
    case ellipsoid_grs67 :
       E->set_af1( 6378160, 298.2471674270 );
+      E->id = ellipsoid_grs67;
       break;
    case ellipsoid_grs80 :
       E->set_af1( 6378137, 298.257222101 );
+      E->id = ellipsoid_grs80;
       break;
    case ellipsoid_hayford :
       E->set_af1( 6378388, 297 );
+      E->id = ellipsoid_hayford;
       break;
    case ellipsoid_helmert :
       E->set_af1( 6378200, 298.3 );
+      E->id = ellipsoid_helmert;
       break;
    case ellipsoid_hough :
       E->set_af1( 6378270, 297 );
+      E->id = ellipsoid_hough;
       break;
    case ellipsoid_iau76 :
       E->set_af1( 6378140, 298.257 );
+      E->id = ellipsoid_iau76;
       break;
    case ellipsoid_international :
       E->set_af1( 6378388, 297 );
+      E->id = ellipsoid_international;
       break;
    case ellipsoid_kaula :
       E->set_af1( 6378163, 298.24 );
+      E->id = ellipsoid_kaula;
       break;
    case ellipsoid_krassovski :
       E->set_af1( 6378245, 298.3 );
+      E->id = ellipsoid_krassovski;
       break;
    case ellipsoid_lerch :
       E->set_af1( 6378139, 298.257 );
+      E->id = ellipsoid_lerch;
       break;
    case ellipsoid_mprts :
       E->set_af1( 6397300, 191.0 );
+      E->id = ellipsoid_mprts;
       break;
    case ellipsoid_mercury :
       E->set_af1( 6378166, 298.3 );
+      E->id = ellipsoid_mercury;
       break;
    case ellipsoid_merit :
       E->set_af1( 6378137, 298.257 );
+      E->id = ellipsoid_merit;
       break;
    case ellipsoid_new_intl :
       E->set_ab( 6378157.5, 6356772.2 );
+      E->id = ellipsoid_new_intl;
       break;
    case ellipsoid_nwl1965 :
       E->set_af1( 6378145, 298.25 );
+      E->id = ellipsoid_nwl1965;
       break;
    case ellipsoid_plessis :
       E->set_ab( 6376523, 6355863 );
+      E->id = ellipsoid_plessis;
       break;
    case ellipsoid_se_asia :
       E->set_ab( 6378155, 6356773.3205 );
+      E->id = ellipsoid_se_asia;
       break;
    case ellipsoid_sgs85 :
       E->set_af1( 6378136, 298.257 );
+      E->id = ellipsoid_sgs85;
       break;
    case ellipsoid_schott :
       E->set_af1( 6378157, 304.5 );
+      E->id = ellipsoid_schott;
       break;
    case ellipsoid_sa1969 :
       E->set_af1( 6378160, 298.25 );
+      E->id = ellipsoid_sa1969;
       break;
    case ellipsoid_walbeck :
       E->set_ab( 6376896, 6355834.8467 );
+      E->id = ellipsoid_walbeck;
       break;
    case ellipsoid_wgs60 :
       E->set_af1( 6378165, 298.3 );
+      E->id = ellipsoid_wgs60;
       break;
    case ellipsoid_wgs66 :
       E->set_af1( 6378145, 298.25 );
+      E->id = ellipsoid_wgs66;
       break;
    case ellipsoid_wgs72 :
       E->set_af1( 6378135, 298.26 );
+      E->id = ellipsoid_wgs72;
       break;
    case ellipsoid_wgs84 :
       E->set_af1( 6378137, 298.257223563 );
+      E->id = ellipsoid_wgs84;
       break;
    default :
+      E->id = 0;
       return 1;
    }
 

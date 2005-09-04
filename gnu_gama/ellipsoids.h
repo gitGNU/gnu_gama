@@ -63,9 +63,10 @@ ellipsoid_wgs84		// 6378137   298.257223563
 };
 
 extern const char * const gama_ellipsoid_caption[];
+extern const char * const gama_ellipsoid_id     [];
 
 gama_ellipsoid ellipsoid(const char*);
-int            set(Ellipsoid*, gama_ellipsoid);
+int            set      (Ellipsoid*, gama_ellipsoid);
 
 }
 
