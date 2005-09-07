@@ -9,6 +9,7 @@ gnu_gama/latlong.cpp
 gnu_gama/g3/g3_model.cpp
 gnu_gama/g3/g3_model_azimuth.cpp
 gnu_gama/g3/g3_model_distance.cpp
+gnu_gama/g3/g3_model_height.cpp
 gnu_gama/g3/g3_model_height_diff.cpp
 gnu_gama/g3/g3_model_vector.cpp
 gnu_gama/g3/g3_model_xyz.cpp
