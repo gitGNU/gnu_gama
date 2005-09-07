@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.26 2005/09/04 16:14:30 cepek Exp $
+ *  $Id: dataparser.h,v 1.27 2005/09/07 12:55:47 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -187,6 +187,14 @@ namespace GNU_gama {
           s_g3_obs_xyz_z,
           s_g3_obs_xyz_after_z,
 
+          s_g3_obs_height,
+          s_g3_obs_height_id,
+          s_g3_obs_height_after_id,
+          s_g3_obs_height_val,
+          s_g3_obs_height_opt,
+          s_g3_obs_height_opt_stdev,
+          s_g3_obs_height_opt_variance,
+          
           // ..................................................
 
           s_text,
@@ -343,6 +351,7 @@ namespace GNU_gama {
       int g3_obs_vector         (const char *name);
       int g3_obs_xyz            (const char *name);
       int g3_obs_hdiff          (const char *name);
+      int g3_obs_height         (const char *name);
 
       int text                  (const char *name);
 

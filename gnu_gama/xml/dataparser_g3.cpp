@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser_g3.cpp,v 1.9 2005/09/04 16:14:30 cepek Exp $
+ *  $Id: dataparser_g3.cpp,v 1.10 2005/09/07 12:55:47 cepek Exp $
  */
 
 
@@ -341,7 +341,7 @@ void DataParser::init_g3()
         s_g3_obs_vector_opt_to_dh, 0, 0,
         0, &DataParser::optional_to_dh, 0);
 
-  // .....  <g3-model> <obs> <xyz>  ..................................
+   // .....  <g3-model> <obs> <xyz>  ..................................
 
    init(s_g3_obs, t_xyz,
         s_g3_obs_xyz, s_g3_obs_xyz_after_z, 0,
@@ -363,7 +363,7 @@ void DataParser::init_g3()
         s_g3_obs_xyz_z, 0, s_g3_obs_xyz_after_z,
         0, &DataParser::add_text, 0);
 
-  // .....  <g3-model> <obs> <hdiff>  ................................
+   // .....  <g3-model> <obs> <hdiff>  ................................
 
    init(s_g3_obs, t_hdiff,
         s_g3_obs_hdiff, s_g3_obs_hdiff_opt, 0,
@@ -396,6 +396,28 @@ void DataParser::init_g3()
 //  init(s_g3_obs_hdiff_opt, t_to_dh,
 //       s_g3_obs_hdiff_opt_to_dh, 0, 0,
 //       0, &DataParser::optional_to_dh, 0);
+
+   // ..... <g3-model> <obs> <height> ................................... 
+
+   init(s_g3_obs, t_height,
+        s_g3_obs_height, s_g3_obs_height_opt, 0,
+        0, 0, &DataParser::g3_obs_height);
+   
+   init(s_g3_obs_height, t_id,
+        s_g3_obs_height_id, 0, s_g3_obs_height_after_id,
+        0, &DataParser::add_text, 0);
+
+   init(s_g3_obs_height_after_id, t_val,
+        s_g3_obs_height_val, 0, s_g3_obs_height_opt,
+        0, &DataParser::add_text, 0);
+   
+   init(s_g3_obs_height_opt, t_stdev,
+        s_g3_obs_height_opt_stdev, 0, 0,
+        0, &DataParser::optional_stdev, 0);
+   
+   init(s_g3_obs_height_opt, t_variance,
+        s_g3_obs_height_opt_variance, 0, 0,
+        0, &DataParser::optional_variance, 0);
 }
 
 int DataParser::g3_model(const char *name, const char **atts)
@@ -925,5 +947,28 @@ int DataParser::g3_obs_hdiff(const char *name)
      return  end_tag(name);
     }
 
-  return error("### bad <distance>");
+  return error("### bad <hdiff>");
 }
+
+int DataParser::g3_obs_height(const char *name)
+{
+  using namespace g3;  
+  stringstream istr(text_buffer);
+  string       id;
+  double       val;
+
+  if (pure_data(istr >> id >> val))
+   {
+     text_buffer.clear();
+     
+     Height* height = new Height;
+     height->id = id;
+     height->set(val);
+     g3->obs_cluster->observation_list.push_back(height);  
+
+     return  end_tag(name);
+    }
+
+  return error("### bad <height>");
+}
+
