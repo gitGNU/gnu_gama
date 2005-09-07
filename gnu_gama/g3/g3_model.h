@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.31 2005/08/24 21:02:15 cepek Exp $
+ *  $Id: g3_model.h,v 1.32 2005/09/07 12:45:35 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -53,7 +53,9 @@ namespace GNU_gama {  namespace g3 {
     public Revision     <Azimuth>,
     public Linearization<Azimuth>,
     public Revision     <HeightDiff>,
-    public Linearization<HeightDiff>
+    public Linearization<HeightDiff>,
+    public Revision     <Height>,
+    public Linearization<Height>
   {
   public:
     
@@ -102,6 +104,8 @@ namespace GNU_gama {  namespace g3 {
     void linearization_visit(Azimuth*    );
     bool revision_visit     (HeightDiff* );
     void linearization_visit(HeightDiff* );
+    bool revision_visit     (Height*     );
+    void linearization_visit(Height*     );
 
     void set_algorithm(Adj::algorithm a) { adj->set_algorithm(a); }
 
