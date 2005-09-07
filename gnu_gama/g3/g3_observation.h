@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.16 2005/07/27 15:13:27 cepek Exp $
+ *  $Id: g3_observation.h,v 1.17 2005/09/07 12:22:06 cepek Exp $
  */
 
 
@@ -270,6 +270,38 @@ namespace GNU_gama {  namespace g3 {
     {
       if (Linearization<HeightDiff>* 
           lv = dynamic_cast<Linearization<HeightDiff>*>(visitor))
+        {
+          lv->linearization_visit(this);
+        }
+    }
+  };
+
+
+  class Height : public Observation, public Value {
+  public:  
+
+    Point::Name id;
+
+    Height() {}
+    Height(double d) : Value(d) {}
+
+    int dimension() const { return 1; }
+
+    bool revision_accept(ObservationVisitor* visitor)
+    {
+      if (Revision<Height>* 
+          rv = dynamic_cast<Revision<Height>*>(visitor))
+        {          
+          return rv->revision_visit(this);
+        }
+      else
+        return  set_active(false);
+    }
+  
+    void linearization_accept(ObservationVisitor* visitor)
+    {
+      if (Linearization<Height>* 
+          lv = dynamic_cast<Linearization<Height>*>(visitor))
         {
           lv->linearization_visit(this);
         }
