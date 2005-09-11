@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.33 2005/09/04 16:14:30 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.34 2005/09/11 13:24:17 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -302,6 +302,29 @@ double Point::diff_U() const
   return r13*dX + r23*dY + r33*dZ;
 }
 
+void Point::set_cov_neu()
+{
+  cnn = cne = cnu = cee = ceu = cuu = 0;
+  Index n = N.index();
+  Index e = E.index();
+  Index u = U.index();
+  double q = 1;
+  if (n)
+    {
+      cnn = q * common->q_xx(n,n);
+      if (e) cne = q * common->adj->q_xx(n,e);
+      if (u) cne = q * common->adj->q_xx(n,u);
+    }
+  if (e)
+    {
+      cee = q * common->adj->q_xx(e,e);
+      if (u) ceu = q * common->adj->q_xx(e,u);
+    }
+  if (u)
+    {
+      cuu = q * common->adj->q_xx(u,u);
+    }
+}
 
 void Point::write_xml(std::ostream& ostr)
 {
@@ -367,8 +390,28 @@ void Point::write_xml(std::ostream& ostr)
     }
   ostr << "</u>\n";
 
+  if (!fixed_position())
+    {
+      set_cov_neu();
+
+      ostr.setf(std::ios_base::scientific, std::ios_base::floatfield);
+      ostr.precision(7);
+      ostr << "\n        <cov-mat> <dim>3</dim> <band>2</band>\n";
+      ostr << "        ";
+      ostr << "<flt> " << cnn << " </flt> ";
+      ostr << "<flt> " << cne << " </flt> ";
+      ostr << "<flt> " << cnu << " </flt>\n";
+      ostr << "        ";
+      ostr << "<flt> " << cee << " </flt> ";
+      ostr << "<flt> " << ceu << " </flt>\n";
+      ostr << "        ";
+      ostr << "<flt> " << cuu << " </ftl>\n";
+      ostr << "        </cov-mat>\n";
+    }
+
   if (has_position())
     {
+      ostr.setf(std::ios_base::fixed, std::ios_base::floatfield);
       ostr.precision(5);
       ostr << "\n";
       ostr << "        <x-given     >";

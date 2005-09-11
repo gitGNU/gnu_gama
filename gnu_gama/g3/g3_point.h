@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.28 2005/07/27 15:13:27 cepek Exp $
+ *  $Id: g3_point.h,v 1.29 2005/09/11 13:24:17 cepek Exp $
  */
 
 #include <string>
@@ -140,6 +140,8 @@ namespace GNU_gama {  namespace g3 {
     double   dX, dY, dZ ; 
     bool     has_xyz_, has_blh_, has_height_;
 
+    double   cnn, cne, cnu, cee, ceu, cuu;
+    void     set_cov_neu();
   };
 
 

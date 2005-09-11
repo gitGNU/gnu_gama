@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.32 2005/09/07 12:45:35 cepek Exp $
+ *  $Id: g3_model.h,v 1.33 2005/09/11 13:24:17 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -65,6 +65,7 @@ namespace GNU_gama {  namespace g3 {
     typedef GNU_gama::List<Parameter*>                  ParameterList;
     typedef GNU_gama::Adj                               Adj;
 
+
     PointBase           *points;    
     GNU_gama::Ellipsoid  ellipsoid;
     
@@ -108,6 +109,8 @@ namespace GNU_gama {  namespace g3 {
     void linearization_visit(Height*     );
 
     void set_algorithm(Adj::algorithm a) { adj->set_algorithm(a); }
+
+    double q_xx(Index i, Index j) { return adj->q_xx(i,j); }
 
     void write_xml_adjustment_input_data(std::ostream&);
     void write_xml_adjustment_results   (std::ostream&);

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.h,v 1.10 2005/08/24 21:02:15 cepek Exp $
+ *  $Id: adj.h,v 1.11 2005/09/11 13:24:17 cepek Exp $
  */
 
 #include <matvec/covmat.h>
@@ -63,6 +63,8 @@ namespace GNU_gama {
 
     Vec<> x();
     Vec<> r();
+
+    double q_xx(Index i, Index j) { return least_squares->q_xx(i,j); }
   
   private:
     
