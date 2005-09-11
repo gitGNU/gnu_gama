@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.h,v 1.11 2005/09/11 13:24:17 cepek Exp $
+ *  $Id: adj.h,v 1.12 2005/09/11 14:35:09 cepek Exp $
  */
 
 #include <matvec/covmat.h>
@@ -48,7 +48,7 @@ namespace GNU_gama {
     
     enum algorithm {gso, svd, cholesky};
     
-    Adj () : data(0), algorithm_(gso) { init(0); }
+    Adj () : data(0), algorithm_(gso), minx_dim(0), minx(0) { init(0); }
     virtual ~Adj();
     
     int n_obs() const { return n_obs_; }
@@ -84,6 +84,8 @@ namespace GNU_gama {
     void choldec (CovMat<>& chol);                            // move it away!
     void forwardSubstitution(const CovMat<>& chol, Vec<>& v); // move it away!
 
+    Index  minx_dim;
+    Index* minx;
   };
   
 

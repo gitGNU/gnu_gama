@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.34 2005/09/11 13:24:17 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.35 2005/09/11 14:35:09 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -312,17 +312,17 @@ void Point::set_cov_neu()
   if (n)
     {
       cnn = q * common->q_xx(n,n);
-      if (e) cne = q * common->adj->q_xx(n,e);
-      if (u) cne = q * common->adj->q_xx(n,u);
+      if (e) cne = q * common->q_xx(n,e);
+      if (u) cne = q * common->q_xx(n,u);
     }
   if (e)
     {
-      cee = q * common->adj->q_xx(e,e);
-      if (u) ceu = q * common->adj->q_xx(e,u);
+      cee = q * common->q_xx(e,e);
+      if (u) ceu = q * common->q_xx(e,u);
     }
   if (u)
     {
-      cuu = q * common->adj->q_xx(u,u);
+      cuu = q * common->q_xx(u,u);
     }
 }
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.11 2005/08/24 21:02:15 cepek Exp $
+ *  $Id: adj.cpp,v 1.12 2005/09/11 14:35:09 cepek Exp $
  */
 
 #include <gnu_gama/adj/adj.h>
@@ -250,6 +250,7 @@ Adj::~Adj()
 { 
   delete data; 
   delete least_squares;
+  delete minx;
 }
 
 
@@ -288,6 +289,35 @@ void Adj::init_least_squares()
       break;
     default:
       throw Exception::adjustment("### unknown algorithm");
+    }
+
+  if (const IntegerList<>* p = data->minx())
+    {
+      delete minx;
+      minx_dim = 0;
+
+      if (Index N = p->dim())
+        {
+          minx_dim = N;
+          Index* q = minx = new Index[N];
+          for (IntegerList<>::const_iterator 
+                 i=p->begin(), e=p->end(); i!=e; i++)
+            {
+              *q++ = *i;
+            }
+        }
+
+      switch (algorithm_) 
+        {
+        case svd: 
+        case gso: 
+        case cholesky: 
+          least_squares->min_x(minx_dim, minx);
+          break;
+        default:
+          throw Exception::adjustment("### unknown algorithm");
+    }
+      
     }
 
   A_dot.reset(data->A->rows(), data->A->columns());
