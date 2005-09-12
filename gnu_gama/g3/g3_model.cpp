@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.39 2005/09/04 16:14:30 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.40 2005/09/12 14:03:46 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -419,7 +419,8 @@ void Model::write_xml_adjustment_results(std::ostream& out)
   double sigma_apriori = 1.0;
   out << "<sigma-apriori>     " << sigma_apriori << " </sigma-apriori>\n";
 
-  double sigma_aposteriori = rtr/redundancy * 1e6;  // scaled to millimeters
+  double sigma_aposteriori = 0;
+  if (redundancy) sigma_aposteriori = rtr/redundancy * 1e6;  // scaled to mm
   out << "<sigma-aposteriori> "<<sigma_aposteriori<<" </sigma-aposteriori>\n";
   
   out << "\n</adjustmen-statistics>\n\n";
