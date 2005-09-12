@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gnu_gama_dep.cpp,v 1.10 2005/08/06 20:27:29 cepek Exp $
+ *  $Id: gnu_gama_dep.cpp,v 1.11 2005/09/12 15:58:13 cepek Exp $
  */
 
 #include <iostream>
@@ -29,10 +29,11 @@
 #include <string>
 #include <set>
 
-const char* version = "1.03";
+const char* version = "1.04";
 
 /**************************************************************************
  * 
+ * 1.04  - added directory <matvec/ ... > for building dependencies
  * 1.03  - updated parameters for MS Visual C++ 2005
  * 1.02  - brief messages (compiler + filename) when building libgama 
  *         for GNU platform
@@ -201,14 +202,6 @@ void add_dep(string file, set<string>& dep)
       
       if (name.size() < 9) continue;
       if ((name[0] != 'g'  ||
-           name[1] != 'a'  ||
-           name[2] != 'm'  ||
-           name[3] != 'a'  ||
-           name[4] != 'l'  ||
-           name[5] != 'i'  ||
-           name[6] != 'b'  ||
-           name[7] != '/') && 
-          (name[0] != 'g'  ||
            name[1] != 'n'  ||
            name[2] != 'u'  ||
            name[3] != '_'  ||
@@ -216,7 +209,22 @@ void add_dep(string file, set<string>& dep)
            name[5] != 'a'  ||
            name[6] != 'm'  ||
            name[7] != 'a'  ||
-           name[8] != '/') ) continue;
+           name[8] != '/') &&
+          (name[0] != 'm'  ||
+           name[1] != 'a'  ||
+           name[2] != 't'  ||
+           name[3] != 'v'  ||
+           name[4] != 'e'  ||
+           name[5] != 'c'  ||
+           name[6] != '/') &&
+          (name[0] != 'g'  ||
+           name[1] != 'a'  ||
+           name[2] != 'm'  ||
+           name[3] != 'a'  ||
+           name[4] != 'l'  ||
+           name[5] != 'i'  ||
+           name[6] != 'b'  ||
+           name[7] != '/') ) continue;
 
       if (dep.find(name) == dep.end())
         {
