@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.26 2005/09/04 16:14:30 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.27 2005/09/13 18:15:59 cepek Exp $
  */
 
 
@@ -184,6 +184,7 @@ DataParser::data_tag DataParser::tag(const char* c)
       break;
     case 'g' :
       if (!strcmp(c, "g3-model"       )) return t_g3_model;
+      if (!strcmp(c, "geoid"          )) return t_geoid;
       if (!strcmp(c, "gnu-gama-data"  )) return t_gama_data;
       break;
     case 'h':

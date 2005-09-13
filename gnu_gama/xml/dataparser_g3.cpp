@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser_g3.cpp,v 1.10 2005/09/07 12:55:47 cepek Exp $
+ *  $Id: dataparser_g3.cpp,v 1.11 2005/09/13 18:15:59 cepek Exp $
  */
 
 
@@ -144,6 +144,10 @@ void DataParser::init_g3()
   init(s_g3_point_2, t_height,
        s_g3_point_height, 0, s_g3_point_2,
        0, &DataParser::add_text, &DataParser::g3_point_height);
+
+  init(s_g3_point_2, t_geoid,
+       s_g3_point_geoid, 0, s_g3_point_2,
+       0, &DataParser::add_text, &DataParser::g3_point_geoid);
 
   init(s_g3_point_2, t_unused,
        s_g3_point_param, 0, s_g3_point_2,
@@ -628,6 +632,23 @@ int DataParser::g3_point_height(const char *name)
   text_buffer.erase();
 
   point->set_height(h);
+
+  return  end_tag(name);
+}
+
+int DataParser::g3_point_geoid(const char *name)
+{
+  stringstream istr(text_buffer);
+  double g;
+
+  if (!(istr >> g))
+    {
+      return error("### bad format of numerical data in <point> geoid ");
+    }
+
+  text_buffer.erase();
+
+  point->set_geoid(g);
 
   return  end_tag(name);
 }

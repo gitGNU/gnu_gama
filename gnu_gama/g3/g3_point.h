@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.29 2005/09/11 13:24:17 cepek Exp $
+ *  $Id: g3_point.h,v 1.30 2005/09/13 18:15:59 cepek Exp $
  */
 
 #include <string>
@@ -88,11 +88,13 @@ namespace GNU_gama {  namespace g3 {
     void set_blh(double, double, double);
     void set_xyz(double, double, double);
     void set_height(double);
+    void set_geoid(double);
 
     bool has_position() const { return has_xyz_ || has_blh_; }
     bool has_xyz()      const { return has_xyz_;    } 
     bool has_blh()      const { return has_blh_;    } 
     bool has_height()   const { return has_height_; }
+    bool has_geoid()    const { return has_geoid_;  }
 
     double X_dh(double dh) const { return X() + r13*dh; }
     double Y_dh(double dh) const { return Y() + r23*dh; }
@@ -138,7 +140,7 @@ namespace GNU_gama {  namespace g3 {
 
     double   r11, r12, r13,   r21, r22, r23,   r31, r32, r33;
     double   dX, dY, dZ ; 
-    bool     has_xyz_, has_blh_, has_height_;
+    bool     has_xyz_, has_blh_, has_height_, has_geoid_;
 
     double   cnn, cne, cnu, cee, ceu, cuu;
     void     set_cov_neu();

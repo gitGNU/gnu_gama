@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.35 2005/09/11 14:35:09 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.36 2005/09/13 18:15:59 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -44,7 +44,7 @@ Point::Point()
 {
   set_unused();
 
-  has_xyz_ = has_blh_ = has_height_ = false;
+  has_xyz_ = has_blh_ = has_height_ = has_geoid_ = false;
 
   N     .set_owner(this);
   E     .set_owner(this);
@@ -245,6 +245,13 @@ void Point::set_height(double h)
 {
   has_height_ = true;
   height.set_init_value(h);
+}
+
+void Point::set_geoid(double h)
+{
+  has_geoid_ = true;
+  geoid.set_init_value(h);
+  geoid.set_fixed();
 }
 
 //  R is the transformation matrix  NEU --> XYZ  (XYZ = R * NEU)
@@ -528,6 +535,14 @@ void Point::write_xml(std::ostream& ostr)
           ostr << setw(14) << height();
           ostr << " </height-adjusted>\n";
         }
+    }
+
+  if (has_geoid())
+    {
+      ostr.precision(5);
+      ostr << "\n        <geoid>       ";
+      ostr << setw(19) << geoid.init_value();
+      ostr << " </geoid>\n";      
     }
 
 
