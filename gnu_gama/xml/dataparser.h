@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.28 2005/09/13 18:15:59 cepek Exp $
+ *  $Id: dataparser.h,v 1.29 2005/09/17 15:39:10 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -73,6 +73,18 @@ namespace GNU_gama {
           s_start,
           s_gama_data,
           s_g3_model,
+
+          // ..................................................
+
+          s_g3_const,
+          s_g3_const_apriori_sd,
+          s_g3_const_conf_level,
+          s_g3_const_ellipsoid,
+          s_g3_const_ellipsoid2,
+          s_g3_const_ellipsoid_id,
+          s_g3_const_ellipsoid_a,
+          s_g3_const_ellipsoid_b,
+          s_g3_const_ellipsoid_inv_f,
 
           // ..................................................
 
@@ -248,7 +260,9 @@ namespace GNU_gama {
       
       enum data_tag 
         {
+          t_a,
           t_adj_input_data,
+          t_apriori_sd,
           t_array,
           t_azimuth,
           t_b,
@@ -257,6 +271,8 @@ namespace GNU_gama {
           t_block_diagonal,
           t_blocks,
           t_cols,
+          t_conf_level,
+          t_constants,
           t_constr,
           t_covmat,
           t_db,
@@ -267,6 +283,7 @@ namespace GNU_gama {
           t_dy,
           t_dz,
           t_e,
+          t_ellipsoid,
           t_flt,
           t_fixed,
           t_free,
@@ -280,6 +297,7 @@ namespace GNU_gama {
           t_height,
           t_id,
           t_int,
+          t_inv_f,
           t_l,
           t_n,
           t_nonz,
@@ -319,64 +337,70 @@ namespace GNU_gama {
       int next [s_stop+1][t_unknown+1];
       int after[s_stop+1]; 
 
-      int gama_data             (const char *name, const char **atts);
-      int g3_model              (const char *name, const char **atts);
-      int g3_model              (const char *name);
+      int gama_data               (const char *name, const char **atts);
+      int g3_model                (const char *name, const char **atts);
+      int g3_model                (const char *name);
 
-      int g3_param_unused       (const char *name, const char **atts);
-      int g3_param_fixed        (const char *name, const char **atts);
-      int g3_param_free         (const char *name, const char **atts);
-      int g3_param_constr       (const char *name, const char **atts);
+      int g3_const_apriori_sd     (const char *name);
+      int g3_const_conf_level     (const char *name);
+      int g3_const_ellipsoid_id   (const char *name);
+      int g3_const_ellipsoid_b    (const char *name);
+      int g3_const_ellipsoid_inv_f(const char *name);
 
-      int g3_param_n            (const char *name);
-      int g3_param_e            (const char *name);
-      int g3_param_u            (const char *name);
-
-      int g3_point              (const char *name);
-      int g3_point_id           (const char *name);
-      int g3_point_b            (const char *name);
-      int g3_point_l            (const char *name);
-      int g3_point_h            (const char *name);
-      int g3_point_z            (const char *name);
-      int g3_point_height       (const char *name);
-      int g3_point_geoid        (const char *name);
-      int g3_point_param_n      (const char *name);
-      int g3_point_param_e      (const char *name);
-      int g3_point_param_u      (const char *name);
-      int g3_point_dl           (const char *name);
-
-      int g3_obs                (const char *name, const char **atts);
-      int g3_obs                (const char *name);
-      int g3_obs_cov            (const char *name);
-      int g3_obs_dist           (const char *name);
-      int g3_obs_zenith         (const char *name);
-      int g3_obs_azimuth        (const char *name);
-      int g3_obs_vector         (const char *name);
-      int g3_obs_xyz            (const char *name);
-      int g3_obs_hdiff          (const char *name);
-      int g3_obs_height         (const char *name);
-
-      int text                  (const char *name);
-
-      int adj_input_data        (const char *name, const char **atts);
-      int adj_input_data        (const char *name);
-      int sparse_mat            (const char *name);
-      int sparse_mat_nonz       (const char *name);
-      int sparse_mat_row        (const char *name, const char **atts);
-      int sparse_mat_row        (const char *name);
-      int sparse_mat_row_n      (const char *name);
-      int sparse_mat_row_f      (const char *name);
-      int block_diagonal        (const char *name);
-      int block_diagonal_nonz   (const char *name);
-      int block_diagonal_block_w(const char *name);
-      int block_diagonal_vec_flt(const char *name);
-      int block_diagonal_block  (const char *name);
-      int vector                (const char *name);
-      int vector_dim            (const char *name);
-      int vector_flt            (const char *name);
-      int array                 (const char *name);
-      int array_dim             (const char *name);
-      int array_int             (const char *name);
+      int g3_param_unused         (const char *name, const char **atts);
+      int g3_param_fixed          (const char *name, const char **atts);
+      int g3_param_free           (const char *name, const char **atts);
+      int g3_param_constr         (const char *name, const char **atts);
+                                  
+      int g3_param_n              (const char *name);
+      int g3_param_e              (const char *name);
+      int g3_param_u              (const char *name);
+                                  
+      int g3_point                (const char *name);
+      int g3_point_id             (const char *name);
+      int g3_point_b              (const char *name);
+      int g3_point_l              (const char *name);
+      int g3_point_h              (const char *name);
+      int g3_point_z              (const char *name);
+      int g3_point_height         (const char *name);
+      int g3_point_geoid          (const char *name);
+      int g3_point_param_n        (const char *name);
+      int g3_point_param_e        (const char *name);
+      int g3_point_param_u        (const char *name);
+      int g3_point_dl             (const char *name);
+                                  
+      int g3_obs                  (const char *name, const char **atts);
+      int g3_obs                  (const char *name);
+      int g3_obs_cov              (const char *name);
+      int g3_obs_dist             (const char *name);
+      int g3_obs_zenith           (const char *name);
+      int g3_obs_azimuth          (const char *name);
+      int g3_obs_vector           (const char *name);
+      int g3_obs_xyz              (const char *name);
+      int g3_obs_hdiff            (const char *name);
+      int g3_obs_height           (const char *name);
+                                  
+      int text                    (const char *name);
+                                  
+      int adj_input_data          (const char *name, const char **atts);
+      int adj_input_data          (const char *name);
+      int sparse_mat              (const char *name);
+      int sparse_mat_nonz         (const char *name);
+      int sparse_mat_row          (const char *name, const char **atts);
+      int sparse_mat_row          (const char *name);
+      int sparse_mat_row_n        (const char *name);
+      int sparse_mat_row_f        (const char *name);
+      int block_diagonal          (const char *name);
+      int block_diagonal_nonz     (const char *name);
+      int block_diagonal_block_w  (const char *name);
+      int block_diagonal_vec_flt  (const char *name);
+      int block_diagonal_block    (const char *name);
+      int vector                  (const char *name);
+      int vector_dim              (const char *name);
+      int vector_flt              (const char *name);
+      int array                   (const char *name);
+      int array_dim               (const char *name);
+      int array_int               (const char *name);
       
       int add_text     (const char *name, int len);
       int end_tag      (const char *name);

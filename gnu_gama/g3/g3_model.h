@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.33 2005/09/11 13:24:17 cepek Exp $
+ *  $Id: g3_model.h,v 1.34 2005/09/17 15:39:10 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -110,6 +110,11 @@ namespace GNU_gama {  namespace g3 {
 
     void set_algorithm(Adj::algorithm a) { adj->set_algorithm(a); }
 
+    void   set_apriori_sd(double s) { apriori_sd = s;          }
+    double get_apriori_sd() const   { return apriori_sd;       } 
+    void   set_conf_level(double c) { confidence_level = c;    }
+    double get_conf_level() const   { return confidence_level; } 
+
     double q_xx(Index i, Index j) { return adj->q_xx(i,j); }
 
     void write_xml_adjustment_input_data(std::ostream&);
@@ -150,6 +155,10 @@ namespace GNU_gama {  namespace g3 {
 
     // adjustment
     Adj*              adj;
+
+    // constants
+    double apriori_sd;
+    double confidence_level;
   };
   
 }}

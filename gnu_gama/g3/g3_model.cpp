@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.40 2005/09/12 14:03:46 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.41 2005/09/17 15:39:10 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -45,6 +45,9 @@ Model::Model()
 
   points->set_common_data(this); 
   set(&ellipsoid, ellipsoid_wgs84);
+
+  apriori_sd       = 1.00;
+  confidence_level = 0.95;
 
   reset();
 }
@@ -416,7 +419,7 @@ void Model::write_xml_adjustment_results(std::ostream& out)
   double rtr = trans(r)*r;
   out << "<sum-of-squares>    " << rtr << " </sum-of-squares>\n";
 
-  double sigma_apriori = 1.0;
+  double sigma_apriori = apriori_sd*apriori_sd;
   out << "<sigma-apriori>     " << sigma_apriori << " </sigma-apriori>\n";
 
   double sigma_aposteriori = 0;

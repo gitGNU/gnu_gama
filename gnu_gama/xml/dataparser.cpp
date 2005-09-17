@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.27 2005/09/13 18:15:59 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.28 2005/09/17 15:39:10 cepek Exp $
  */
 
 
@@ -147,103 +147,109 @@ DataParser::data_tag DataParser::tag(const char* c)
   switch (*c)
     {
     case 'a':
-      if (!strcmp(c, "adj-input-data" )) return t_adj_input_data;
-      if (!strcmp(c, "array"          )) return t_array;
-      if (!strcmp(c, "azimuth"        )) return t_azimuth;
-      break;
-    case 'b':
-      if (!strcmp(c, "b"              )) return t_b;
-      if (!strcmp(c, "band"           )) return t_band;
-      if (!strcmp(c, "block-diagonal" )) return t_block_diagonal;
-      if (!strcmp(c, "blocks"         )) return t_blocks;
-      if (!strcmp(c, "block"          )) return t_block;
-      break;
-    case 'c' :
-      if (!strcmp(c, "cols"           )) return t_cols;
-      if (!strcmp(c, "constr"         )) return t_constr;
-      if (!strcmp(c, "cov-mat"        )) return t_covmat;
-      break;
-    case 'd' :
-      if (!strcmp(c, "db"             )) return t_db;
-      if (!strcmp(c, "dim"            )) return t_dim;
-      if (!strcmp(c, "distance"       )) return t_dist;
-      if (!strcmp(c, "dl"             )) return t_dl;
-      if (!strcmp(c, "dx"             )) return t_dx;
-      if (!strcmp(c, "dy"             )) return t_dy;
-      if (!strcmp(c, "dz"             )) return t_dz;
-      break;
-    case 'e':
-      if (!strcmp(c, "e"              )) return t_e;
-      break;
-    case 'f' :
-      if (!strcmp(c, "fixed"          )) return t_fixed;
-      if (!strcmp(c, "flt"            )) return t_flt;
-      if (!strcmp(c, "from"           )) return t_from;
-      if (!strcmp(c, "from-dh"        )) return t_from_dh;
-      if (!strcmp(c, "free"           )) return t_free;
-      break;
-    case 'g' :
-      if (!strcmp(c, "g3-model"       )) return t_g3_model;
-      if (!strcmp(c, "geoid"          )) return t_geoid;
-      if (!strcmp(c, "gnu-gama-data"  )) return t_gama_data;
-      break;
-    case 'h':
-      if (!strcmp(c, "h"              )) return t_h;
-      if (!strcmp(c, "hdiff"          )) return t_hdiff;
-      if (!strcmp(c, "height"         )) return t_height;
-      break;
-    case 'i':
-      if (!strcmp(c, "id"             )) return t_id;
-      if (!strcmp(c, "int"            )) return t_int;
-      break;
-    case 'l':
-      if (!strcmp(c, "l"              )) return t_l;
-      break;
-    case 'n':
-      if (!strcmp(c, "n"              )) return t_n;
-      if (!strcmp(c, "nonz"           )) return t_nonz;
-      break;
-    case 'o':
-      if (!strcmp(c, "obs"            )) return t_obs;
-      break;
-    case 'p':
-      if (!strcmp(c, "point"          )) return t_point;
-      break;
-    case 'r':
-      if (!strcmp(c, "row"            )) return t_row;  // more frequent
-      if (!strcmp(c, "rows"           )) return t_rows;
-      break;
-    case 's':
-      if (!strcmp(c, "stdev"          )) return t_stdev;
-      if (!strcmp(c, "sparse-mat"     )) return t_sparse_mat;
-      break;
-    case 't' :
-      if (!strcmp(c, "text"           )) return t_text;
-      if (!strcmp(c, "to"             )) return t_to;
-      if (!strcmp(c, "to-dh"          )) return t_to_dh;
-      break;
-    case 'u' :
-      if (!strcmp(c, "u"              )) return t_u;
-      if (!strcmp(c, "unused"         )) return t_unused;
-      break;
-    case 'v' :
-      if (!strcmp(c, "val"            )) return t_val;
-      if (!strcmp(c, "variance"       )) return t_variance;
-      if (!strcmp(c, "vector"         )) return t_vector;
-      break;
-    case 'w' :
-      if (!strcmp(c, "width"          )) return t_width;
-      break;
-    case 'x' :
-      if (!strcmp(c, "x"              )) return t_x;
-      if (!strcmp(c, "xyz"            )) return t_xyz;
-      break;
-    case 'y' :
-      if (!strcmp(c, "y"              )) return t_y;
-      break;
-    case 'z' :
-      if (!strcmp(c, "z"              )) return t_z;
-      if (!strcmp(c, "zenith"         )) return t_zenith;
+      if (!strcmp(c, "a"                         )) return t_a;
+      if (!strcmp(c, "adj-input-data"            )) return t_adj_input_data;
+      if (!strcmp(c, "apriori-standard-deviation")) return t_apriori_sd;
+      if (!strcmp(c, "array"                     )) return t_array;
+      if (!strcmp(c, "azimuth"                   )) return t_azimuth;
+      break;                                     
+    case 'b':                                    
+      if (!strcmp(c, "b"                         )) return t_b;
+      if (!strcmp(c, "band"                      )) return t_band;
+      if (!strcmp(c, "block-diagonal"            )) return t_block_diagonal;
+      if (!strcmp(c, "blocks"                    )) return t_blocks;
+      if (!strcmp(c, "block"                     )) return t_block;
+      break;                                     
+    case 'c' :                                   
+      if (!strcmp(c, "confidence-level"          )) return t_conf_level;
+      if (!strcmp(c, "cols"                      )) return t_cols;
+      if (!strcmp(c, "constants"                 )) return t_constants;
+      if (!strcmp(c, "constr"                    )) return t_constr;
+      if (!strcmp(c, "cov-mat"                   )) return t_covmat;
+      break;                                     
+    case 'd' :                                   
+      if (!strcmp(c, "db"                        )) return t_db;
+      if (!strcmp(c, "dim"                       )) return t_dim;
+      if (!strcmp(c, "distance"                  )) return t_dist;
+      if (!strcmp(c, "dl"                        )) return t_dl;
+      if (!strcmp(c, "dx"                        )) return t_dx;
+      if (!strcmp(c, "dy"                        )) return t_dy;
+      if (!strcmp(c, "dz"                        )) return t_dz;
+      break;                                     
+    case 'e':                                    
+      if (!strcmp(c, "e"                         )) return t_e;
+      if (!strcmp(c, "ellipsoid"                 )) return t_ellipsoid;
+      break;                                     
+    case 'f' :                                   
+      if (!strcmp(c, "fixed"                     )) return t_fixed;
+      if (!strcmp(c, "flt"                       )) return t_flt;
+      if (!strcmp(c, "from"                      )) return t_from;
+      if (!strcmp(c, "from-dh"                   )) return t_from_dh;
+      if (!strcmp(c, "free"                      )) return t_free;
+      break;                                     
+    case 'g' :                                   
+      if (!strcmp(c, "g3-model"                  )) return t_g3_model;
+      if (!strcmp(c, "geoid"                     )) return t_geoid;
+      if (!strcmp(c, "gnu-gama-data"             )) return t_gama_data;
+      break;                                     
+    case 'h':                                    
+      if (!strcmp(c, "h"                         )) return t_h;
+      if (!strcmp(c, "hdiff"                     )) return t_hdiff;
+      if (!strcmp(c, "height"                    )) return t_height;
+      break;                                     
+    case 'i':                                    
+      if (!strcmp(c, "id"                        )) return t_id;
+      if (!strcmp(c, "int"                       )) return t_int;
+      if (!strcmp(c, "inv-f"                     )) return t_inv_f;
+      break;                                     
+    case 'l':                                    
+      if (!strcmp(c, "l"                         )) return t_l;
+      break;                                     
+    case 'n':                                    
+      if (!strcmp(c, "n"                         )) return t_n;
+      if (!strcmp(c, "nonz"                      )) return t_nonz;
+      break;                                     
+    case 'o':                                    
+      if (!strcmp(c, "obs"                       )) return t_obs;
+      break;                                     
+    case 'p':                                    
+      if (!strcmp(c, "point"                     )) return t_point;
+      break;                                     
+    case 'r':                                    
+      if (!strcmp(c, "row"                       )) return t_row;
+      if (!strcmp(c, "rows"                      )) return t_rows;
+      break;                                     
+    case 's':                                    
+      if (!strcmp(c, "stdev"                     )) return t_stdev;
+      if (!strcmp(c, "sparse-mat"                )) return t_sparse_mat;
+      break;                                     
+    case 't' :                                   
+      if (!strcmp(c, "text"                      )) return t_text;
+      if (!strcmp(c, "to"                        )) return t_to;
+      if (!strcmp(c, "to-dh"                     )) return t_to_dh;
+      break;                                     
+    case 'u' :                                   
+      if (!strcmp(c, "u"                         )) return t_u;
+      if (!strcmp(c, "unused"                    )) return t_unused;
+      break;                                     
+    case 'v' :                                   
+      if (!strcmp(c, "val"                       )) return t_val;
+      if (!strcmp(c, "variance"                  )) return t_variance;
+      if (!strcmp(c, "vector"                    )) return t_vector;
+      break;                                     
+    case 'w' :                                   
+      if (!strcmp(c, "width"                     )) return t_width;
+      break;                                     
+    case 'x' :                                   
+      if (!strcmp(c, "x"                         )) return t_x;
+      if (!strcmp(c, "xyz"                       )) return t_xyz;
+      break;                                     
+    case 'y' :                                   
+      if (!strcmp(c, "y"                         )) return t_y;
+      break;                                     
+    case 'z' :                                   
+      if (!strcmp(c, "z"                         )) return t_z;
+      if (!strcmp(c, "zenith"                    )) return t_zenith;
       break;
     default:
       break;

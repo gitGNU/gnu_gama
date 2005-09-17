@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser_g3.cpp,v 1.11 2005/09/13 18:15:59 cepek Exp $
+ *  $Id: dataparser_g3.cpp,v 1.12 2005/09/17 15:39:10 cepek Exp $
  */
 
 
@@ -75,6 +75,42 @@ void DataParser::init_g3()
   init(s_gama_data, t_g3_model,
        s_g3_model, 0, 0,
        &DataParser::g3_model, 0, &DataParser::g3_model);
+
+  // .....  <g3-model>  <constants>  .................................
+
+  init(s_g3_model, t_constants,
+       s_g3_const, 0, s_g3_model,
+       0, 0, 0);
+
+  init(s_g3_const, t_apriori_sd,
+       s_g3_const_apriori_sd, 0, s_g3_const,
+       0, &DataParser::add_text, &DataParser::g3_const_apriori_sd);
+
+  init(s_g3_const, t_conf_level,
+       s_g3_const_conf_level, 0, s_g3_const,
+       0, &DataParser::add_text, &DataParser::g3_const_conf_level);
+
+  // .....  <g3-model>  <constants>  <ellipsoid>  ....................
+
+  init(s_g3_const, t_ellipsoid,
+       s_g3_const_ellipsoid, s_g3_const_ellipsoid2, s_g3_const,
+       0, 0, 0);
+
+  init(s_g3_const_ellipsoid, t_id,
+       s_g3_const_ellipsoid_id, 0, s_g3_const_ellipsoid2,
+       0, &DataParser::add_text, &DataParser::g3_const_ellipsoid_id);
+
+  init(s_g3_const_ellipsoid, t_a,
+       0, 0, s_g3_const_ellipsoid_a,
+       0, &DataParser::add_text, 0);
+  
+  init(s_g3_const_ellipsoid_a, t_b,
+       s_g3_const_ellipsoid_b, 0, s_g3_const_ellipsoid2,
+       0, &DataParser::add_text, &DataParser::g3_const_ellipsoid_b);
+
+  init(s_g3_const_ellipsoid_a, t_inv_f,
+       s_g3_const_ellipsoid_inv_f, 0, s_g3_const_ellipsoid2,
+       0, &DataParser::add_text, &DataParser::g3_const_ellipsoid_inv_f);
 
   // .....  <g3-model> <unused | fixed | free | constr>  .............
 
@@ -929,11 +965,11 @@ int DataParser::g3_obs_xyz(const char *name)
   stringstream istr(text_buffer);
   string id;
   double x, y, z;
-
+  
   if (pure_data(istr >> id >> x >> y >> z))
     {
       text_buffer.clear();
-
+      
       XYZ* xyz = new XYZ;
       xyz->id  = id;
       xyz->set_xyz(x, y, z);
@@ -966,7 +1002,7 @@ int DataParser::g3_obs_hdiff(const char *name)
      g3->obs_cluster->observation_list.push_back(hdiff);  
 
      return  end_tag(name);
-    }
+   }
 
   return error("### bad <hdiff>");
 }
@@ -988,8 +1024,102 @@ int DataParser::g3_obs_height(const char *name)
      g3->obs_cluster->observation_list.push_back(height);  
 
      return  end_tag(name);
-    }
+   }
 
   return error("### bad <height>");
+}
+
+int DataParser::g3_const_apriori_sd(const char *name)
+{
+  using namespace g3;  
+  stringstream istr(text_buffer);
+  double       sd;
+
+  if (pure_data(istr >> sd))
+   {
+     text_buffer.clear();
+ 
+     g3->model->set_apriori_sd(sd);
+     
+     return  end_tag(name);
+   }
+
+  return error("### bad <height>");
+}
+
+int DataParser::g3_const_conf_level(const char *name)
+{
+  using namespace g3;  
+  stringstream istr(text_buffer);
+  double       cl;
+
+  if (pure_data(istr >> cl))
+   {
+     text_buffer.clear();
+ 
+     g3->model->set_conf_level(cl);
+     
+     return  end_tag(name);
+   }
+
+  return error("### bad <confidence-level>");
+}
+
+int DataParser::g3_const_ellipsoid_id(const char *name)
+{
+  using namespace g3;  
+  stringstream istr(text_buffer);
+  string       s;
+
+  if (pure_data(istr >> s))
+   {
+     text_buffer.clear();
+     const char* const name = s.c_str();
+     gama_ellipsoid id = ellipsoid(name);
+
+     set(&g3->model->ellipsoid, id);
+
+     if (id != ellipsoid_unknown) return end_tag(name);
+   }
+
+  return error("### bad <ellipsoid> <id>");
+}
+
+int DataParser::g3_const_ellipsoid_b(const char *name)
+{
+  using namespace g3;  
+  stringstream istr(text_buffer);
+  double       a, b;
+
+  if (pure_data(istr >> a >> b))
+   {
+     text_buffer.clear();
+
+     set(&g3->model->ellipsoid, ellipsoid_unknown);
+     g3->model->ellipsoid.set_ab(a, b);
+
+     return end_tag(name);
+   }
+
+  return error("### bad <ellipsoid> <a> <b>");
+}
+
+int DataParser::g3_const_ellipsoid_inv_f(const char *name)
+{
+  using namespace g3;  
+  stringstream istr(text_buffer);
+  double       a, inv_f;
+
+  if (pure_data(istr >> a >> inv_f))
+   {
+     text_buffer.clear();
+
+     set(&g3->model->ellipsoid, ellipsoid_unknown);
+     g3->model->ellipsoid.set_af1(a, inv_f);
+
+     return end_tag(name);
+   }
+
+  return error("### bad <ellipsoid> <a> <inv-f>");
 }
 
