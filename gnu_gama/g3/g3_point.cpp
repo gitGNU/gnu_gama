@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.36 2005/09/13 18:15:59 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.37 2005/09/18 17:19:37 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -311,16 +311,17 @@ double Point::diff_U() const
 
 void Point::set_cov_neu()
 {
-  cnn = cne = cnu = cee = ceu = cuu = 0;
+  cnn = cne = cnu = cee = ceu = cuu = 123;
   Index n = N.index();
   Index e = E.index();
   Index u = U.index();
-  double q = 1;
+  double s = common->standard_deviation();
+  double q = s*s;
   if (n)
     {
       cnn = q * common->q_xx(n,n);
       if (e) cne = q * common->q_xx(n,e);
-      if (u) cne = q * common->q_xx(n,u);
+      if (u) cnu = q * common->q_xx(n,u);
     }
   if (e)
     {
@@ -331,6 +332,21 @@ void Point::set_cov_neu()
     {
       cuu = q * common->q_xx(u,u);
     }
+}
+
+void Point::set_cov_xyz()
+{
+  Mat<> R(3,3);
+  Mat<> C(3,3);
+
+  R = r11, r12, r13, r21, r22, r23, r31, r32, r33;
+  C = cnn, cne, cnu, cne, cee, ceu, cnu, ceu, cuu;
+
+  Mat<> T = R*C*trans(R);
+
+  cxx = T(1,1);  cxy = T(1,2); cxz = T(1,3);
+  cyy = T(2,2);  cyz = T(2,3);
+  czz = T(3,3);
 }
 
 void Point::write_xml(std::ostream& ostr)
@@ -461,6 +477,24 @@ void Point::write_xml(std::ostream& ostr)
         }
     }
 
+  if (!fixed_position())
+    {
+      set_cov_xyz();
+
+      ostr.setf(std::ios_base::scientific, std::ios_base::floatfield);
+      ostr.precision(7);
+      ostr << "\n        <cov-mat> <dim>3</dim> <band>2</band>\n";
+      ostr << "        ";
+      ostr << "<flt> " << cxx << " </flt> ";
+      ostr << "<flt> " << cxy << " </flt> ";
+      ostr << "<flt> " << cxz << " </flt>\n";
+      ostr << "        ";
+      ostr << "<flt> " << cyy << " </flt> ";
+      ostr << "<flt> " << cyz << " </flt>\n";
+      ostr << "        ";
+      ostr << "<flt> " << czz << " </ftl>\n";
+      ostr << "        </cov-mat>\n";
+    }
 
   if (has_position())
      {
@@ -565,6 +599,4 @@ void Point::write_xml(std::ostream& ostr)
 }
 
 // ----------------------------------------------------------------------
-
-
 

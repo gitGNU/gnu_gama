@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.41 2005/09/17 15:39:10 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.42 2005/09/18 17:19:37 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -48,6 +48,8 @@ Model::Model()
 
   apriori_sd       = 1.00;
   confidence_level = 0.95;
+
+  actual_sd = aposteriori;
 
   reset();
 }
@@ -361,6 +363,23 @@ void Model::update_adjustment()
       Parameter* p = *i;
       if (int k = p->index()) p->set_correction(adj->x()(k));
     }
+
+  // ..........................................................
+
+  redundancy = dm_rows - dm_cols + adj->defect();
+
+  aposteriori_sd = 0;
+  if (redundancy) 
+    {
+      const Vec<>& r = adj->r();
+      aposteriori_sd = sqrt(trans(r)*r/redundancy)*1e3;
+    }
+
+  if (actual_sd == apriori)
+    std_deviation = apriori_sd;
+  else
+    std_deviation = aposteriori_sd;
+
   
   return next_state_(adjust_);
 }
@@ -401,9 +420,9 @@ void Model::write_xml_adjustment_results(std::ostream& out)
     out << "            <id>      " << gama_ellipsoid_id[id] 
         << "         </id>\n";
     out.precision(5);
-    out << "            <a >      " << ellipsoid.a() << " </a >\n"; 
-    out.precision(9);
-    out << "            <f1>      " << 1.0/ellipsoid.f() << " </f1>\n"; 
+    out << "            <a>       " << ellipsoid.a() << " </a>\n"; 
+    out.precision(5);
+    out << "            <b>       " << ellipsoid.b() << " </b>\n"; 
     out << "            </ellipsoid>\n\n"; 
   }
 
@@ -411,7 +430,6 @@ void Model::write_xml_adjustment_results(std::ostream& out)
   out << "<equations> " << setw(5) << dm_rows       << " </equations>\n";
   out << "<defect>    " << setw(5) << adj->defect() << " </defect>\n";
 
-  int redundancy = dm_rows - dm_cols + adj->defect();
   out << "<redundancy>" << setw(5) << redundancy    << " </redundancy\n\n";
 
   out.setf(ios_base::scientific, ios_base::floatfield);
@@ -422,8 +440,7 @@ void Model::write_xml_adjustment_results(std::ostream& out)
   double sigma_apriori = apriori_sd*apriori_sd;
   out << "<sigma-apriori>     " << sigma_apriori << " </sigma-apriori>\n";
 
-  double sigma_aposteriori = 0;
-  if (redundancy) sigma_aposteriori = rtr/redundancy * 1e6;  // scaled to mm
+  double sigma_aposteriori = aposteriori_sd*aposteriori_sd;
   out << "<sigma-aposteriori> "<<sigma_aposteriori<<" </sigma-aposteriori>\n";
   
   out << "\n</adjustmen-statistics>\n\n";

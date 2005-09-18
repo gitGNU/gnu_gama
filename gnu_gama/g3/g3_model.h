@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.34 2005/09/17 15:39:10 cepek Exp $
+ *  $Id: g3_model.h,v 1.35 2005/09/18 17:19:37 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -115,6 +115,7 @@ namespace GNU_gama {  namespace g3 {
     void   set_conf_level(double c) { confidence_level = c;    }
     double get_conf_level() const   { return confidence_level; } 
 
+    double standard_deviation() const { return std_deviation; }
     double q_xx(Index i, Index j) { return adj->q_xx(i,j); }
 
     void write_xml_adjustment_input_data(std::ostream&);
@@ -155,6 +156,12 @@ namespace GNU_gama {  namespace g3 {
 
     // adjustment
     Adj*              adj;
+
+    int    redundancy;
+    enum { apriori, aposteriori } actual_sd;
+    double aposteriori_sd;
+    double std_deviation;
+    
 
     // constants
     double apriori_sd;

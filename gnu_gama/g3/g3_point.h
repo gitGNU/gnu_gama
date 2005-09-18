@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.30 2005/09/13 18:15:59 cepek Exp $
+ *  $Id: g3_point.h,v 1.31 2005/09/18 17:19:37 cepek Exp $
  */
 
 #include <string>
@@ -144,6 +144,9 @@ namespace GNU_gama {  namespace g3 {
 
     double   cnn, cne, cnu, cee, ceu, cuu;
     void     set_cov_neu();
+
+    double   cxx, cxy, cxz, cyy, cyz, czz;
+    void     set_cov_xyz();
   };
 
 
