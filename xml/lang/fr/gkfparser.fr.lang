@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?> 
-
-<!-- $Id: gkfparser.fr.lang,v 1.1 2005/08/31 20:37:06 cepek Exp $ -->
 <entries>
 
 <e id="T_GKF_illegal_text"
@@ -159,6 +157,10 @@
    EN="bad distance: "
    fr="distance erronée: " />
 
+<e id="T_GKF_bad_zangle"
+   EN="bad zenith angle: "
+   fr="angle zénithal erroné: " />
+
 <e id="T_GKF_illegal_standard_deviation"
    EN="illegal standard deviation"
    fr="écart-type illégal" />
@@ -221,7 +223,7 @@
 
 <e id="T_GKF_cov_mat_missing_band_width"
    EN="missing band-width of covariance matrix"
-   fr="AREPRENDRE il manque la bande passante de la matrice de covarianve" />
+   fr="il manque la largeur de bande de la matrice de covariance" />
 
 <e id="T_GKF_covariance_matrix_is_not_positive_definite"
    EN="variance-covariance matrix is not positive definite"
@@ -233,7 +235,7 @@
 
 <e id="T_GKF_cov_mat_bad_band_width"
    EN="missing band-width of covariance matrix: "
-   fr="AREPRENDRE mauvaise bande passante de la matrice de covariance: " />
+   fr="mauvaise largeur de bande de la matrice de covariance: " />
 
 <e id="T_GKF_cov_mat_bad_dim_too_many_elements"
    EN="bad dimension of covariance matrix - too many elements"

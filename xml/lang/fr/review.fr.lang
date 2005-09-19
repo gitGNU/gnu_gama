@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
-
-<!-- $Id: review.fr.lang,v 1.1 2005/08/31 20:37:06 cepek Exp $ -->
 <entries>
+
+<!-- $Id: review.fr.lang,v 1.2 2005/09/19 18:11:00 cepek Exp $ -->
 
 <e id="T_GaMa_inconsistent_coordinates_and_angles"
    EN="Inconsistent coordinates and angles: \nchanging sign of all Y coordinates"
@@ -125,7 +125,7 @@
 
 <e id="T_GaMa_gpar2_network_defect"
    EN="Network defect"
-   fr="AREPRENDRE Défaut du réseau" />
+   fr="Défaut du réseau" />
 
 <e id="T_GaMa_not_enough_constrained_points"
    EN="Not enough constrained points defined"
@@ -137,7 +137,7 @@
 
 <e id="T_GaMa_Free_network_defect_is"
    EN="Free network defect is "
-   fr="Le défaut du réseau libre est" />
+   fr="Le défaut du réseau libre est " />
 
 <e id="T_GaMa_Given_network_configuration_can_not_be_adjusted"
    EN="Given network configuration can not be adjusted"
@@ -213,7 +213,7 @@
 
 <e id="T_GaMa_Maximal_normalized_residual"
    EN="Maximal normalized residual "
-   fr="Résidu normalisé maximum " />
+   fr="Le résidu normalisé maximum " />
 
 <e id="T_GaMa_genpar_Maximal_studentized_residual"
    EN="Maximal studentized residual "
@@ -229,7 +229,7 @@
 
 <e id="T_GaMa_genpar_critical_value"
    EN=" critical value "
-   fr=" valeur critique " />
+   fr=" la valeur critique " />
 
 <e id="T_GaMa_genpar_on_significance_level"
    EN="on significance level "
@@ -241,7 +241,7 @@
 
 <e id="T_GaMa_Review_of_fixed_points"
    EN="Fixed points"
-   fr="Points fixes" />
+   fr="Points fixés" />
 
 <e id="T_GaMa_point"
    EN="point"
@@ -253,7 +253,7 @@
 
 <e id="T_GaMa_adjunk_mean_position_error_maximal"
    EN="Maximal mean position error is "
-   fr="AREPRENDRE L\'erreur de position moyenne maximale est de " />
+   fr="L'erreur moyenne de position maximum est de " />
 
 <e id="T_GaMa_adjunk_mean_position_error_on_point"
    EN=" mm on point "
@@ -261,7 +261,7 @@
 
 <e id="T_GaMa_adjunk_mean_position_error_average"
    EN="Average mean position error is "
-   fr="AREPRENDRE L\'erreur moyenne de position moyenne est de " />
+   fr="Valeur moyenne de l'erreur moyenne de position: " />
 
 <e id="T_GaMa_adjunk_header1"
    EN="    approximate  correction  adjusted    std.dev conf.i.\n"
@@ -309,7 +309,7 @@
 
 <e id="T_GaMa_tstlin_Differences"
    EN="Diffs in adj. observations from residuals and from adjusted coordinates"
-   fr="AREPRENDRE Différences entre les observations ajustées, les résidus et les coordonnées ajustées" />
+   fr="Différences entre les observations ajustées issues des résidus et des coordonnées ajustées" />
 
 <e id="T_GaMa_tstlin_obs_r_diff"
    EN="      observed     r        difference"
@@ -369,11 +369,11 @@
 
 <e id="T_GaMa_errell_review_of_mean_errors_and_error_ellipses"
    EN="Mean errors and parameters of error ellipses"
-   fr="AREPRENDRE Erreurs moyennes et paramètres des ellipsoïdes d'erreur" />
+   fr="Erreurs moyennes et paramètres des ellipsoïdes d'erreur" />
 
 <e id="T_GaMa_errell_header1"
    EN="    mp      mxy      mean error ellipse  conf.err. ellipse   g\n"
-   fr="AREPRENDRE    mp      mxy      mean error ellipse  conf.err. ellipse   g\n" />
+   fr="    mp      mxy      ellipse d'err. moy. ellipse conf.err.   g\n" />
 
 <e id="T_GaMa_errell_header2"
    EN="== [mm] == [mm] ==== a [mm] b  alpha[g] ==== a' [mm] b' ========"
@@ -393,7 +393,7 @@
 
 <e id="T_GaMa_adjobs_header1"
    EN=" std.dev conf.i.\n"
-   fr=" éc.typ. interv.conf.\n" />
+   fr=" éc.typ. int.conf.\n" />
 
 <e id="T_GaMa_adjobs_value"
    EN="== value "
@@ -401,11 +401,11 @@
 
 <e id="T_GaMa_resobs_Review_of_residuals_analysis_obs"
    EN="Residuals and analysis of observations"
-   fr="Residus et analyse des observations" />
+   fr="Résidus et analyse des observations" />
 
 <e id="T_GaMa_resobs_Outlying_observations"
    EN="Outlying observations"
-   fr="AREPRENDRE Fautes" />
+   fr="Fautes" />
 
 <e id="T_GaMa_resobs_header1"
    EN="        f[%]        v    |v'|     e-obs.  e-adj.\n"
@@ -437,11 +437,31 @@
 
 <e id="T_GaMa_resobs_normality_test"
    EN="Test of normality of homogenised residuals"
-   fr="AREPRENDRE Test de normalité des résidus homogènes" />
+   fr="Test de normalité des résidus homogènes" />
 
 <e id="T_GaMa_resobs_condition_number"
    EN="Condition number        : "
-   fr="AREPRENDRE facteur de conditionnement         : " />
+   fr="Facteur de conditionnement         : " />
+
+<e id="T_GaMa_reduced_Review_of_reduced_observations"
+   en="Reduced observations" 
+   fr="Observations réduites" />
+
+<e id="T_GaMa_reduced_observed"
+   en="observed" 
+   fr="observé" />
+
+<e id="T_GaMa_reduced_reduced" 
+   en="reduced" 
+   fr="réduit" />
+
+<e id="T_GaMa_reduced_header1"
+   en="  diff dh\n" 
+   fr="  diff dh\n" />
+
+<e id="T_GaMa_reduced_value"
+   en="== value " 
+   fr="= valeur " />
 
 <e id="T_GaMa_approx_Review_of_approximate_coordinates"
    EN="Approximate coordinates"

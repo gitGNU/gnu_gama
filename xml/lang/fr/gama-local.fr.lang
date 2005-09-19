@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?> 
-
-<!-- $Id: gama-local.fr.lang,v 1.1 2005/08/31 20:37:06 cepek Exp $ -->
 <entries>
 
 <e id="T_GaMa_Adjustment_of_geodetic_network"   
@@ -41,7 +39,7 @@
 
 <e id="T_GaMa_Observatios_with_outlying_absolute_terms_removed"
    EN="Observations with outlying absolute terms removed"
-   fr="AREPRENDRE Observations comportant des termes absolus excessifs enlevées" />
+   fr="Les observations comportant des termes absolus trop éloignés ont été supprimées" />
 
 <e id="T_GaMa_adjustment_iteration"
    EN=" - adjustment iteration"

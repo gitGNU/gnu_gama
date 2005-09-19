@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
-
-<!-- $Id: rmpoints.fr.lang,v 1.1 2005/08/31 20:37:06 cepek Exp $ -->
 <entries>
 
 <e id="T_LN_rm_removed_points"
    EN="Removed points and coordinates"
-   fr="Points et coordonnÃ©es Ã©liminÃ©s" />
+   fr="Points et coordonnées éliminés" />
 
 <e id="T_LN_rm_missing_xyz"
    EN="missing coordiantes xyz"
-   fr="coordonnÃ©es xyz manquantes" />
+   fr="coordonnées xyz manquantes" />
 
 <e id="T_LN_rm_missing_xy"
    EN="missing coordiantes xy"
-   fr="coordonnÃ©es xy manquantes" />
+   fr="coordonnées xy manquantes" />
 
 <e id="T_LN_rm_missing_z"
    EN="missing coordiantes z"
-   fr="coordonnÃ©e z manquante" />
+   fr="coordonnée z manquante" />
 
 <e id="T_LN_rm_singular_xy"
    EN="singular coordiantes xy"
-   fr="coordonnÃ©es xy singuliÃ¨res" />
+   fr="coordonnées xy singulières" />
 
 <e id="T_LN_rm_huge_cov_xyz"
    EN="indeterminable coordinates xyz"
-   fr="coordonnÃ©es xyz indeterminables" />
+   fr="coordonnées xyz indéterminables" />
 
 <e id="T_LN_rm_huge_cov_xy"
    EN="indeterminable coordinates xy"
-   fr="coordonnÃ©es xy indeterminables" />
+   fr="coordonnées xy indéterminables" />
 
 <e id="T_LN_rm_huge_cov_z"
    EN="indeterminable coordinate z"
-   fr="coordonnÃ©e z indeterminable" />
+   fr="coordonnée z indéterminable" />
 
 </entries>
