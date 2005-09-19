@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.37 2005/09/18 17:19:37 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.38 2005/09/19 19:15:52 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -336,17 +336,26 @@ void Point::set_cov_neu()
 
 void Point::set_cov_xyz()
 {
-  Mat<> R(3,3);
-  Mat<> C(3,3);
+  const double t11 = r11*cnn + r12*cne + r13*cnu;
+  const double t12 = r11*cne + r12*cee + r13*ceu;
+  const double t13 = r11*cnu + r12*ceu + r13*cuu;
 
-  R = r11, r12, r13, r21, r22, r23, r31, r32, r33;
-  C = cnn, cne, cnu, cne, cee, ceu, cnu, ceu, cuu;
+  const double t21 = r21*cnn + r22*cne + r23*cnu;
+  const double t22 = r21*cne + r22*cee + r23*ceu;
+  const double t23 = r21*cnu + r22*ceu + r23*cuu;
 
-  Mat<> T = R*C*trans(R);
+  const double t31 = r31*cnn + r32*cne + r33*cnu;
+  const double t32 = r31*cne + r32*cee + r33*ceu;
+  const double t33 = r31*cnu + r32*ceu + r33*cuu;
 
-  cxx = T(1,1);  cxy = T(1,2); cxz = T(1,3);
-  cyy = T(2,2);  cyz = T(2,3);
-  czz = T(3,3);
+  cxx = t11*r11 + t12*r12 + t13*r13;
+  cxy = t11*r21 + t12*r22 + t13*r23;
+  cxz = t11*r31 + t12*r32 + t13*r33;
+
+  cyy = t21*r21 + t22*r22 + t23*r23;
+  cyz = t21*r31 + t22*r32 + t23*r33;
+
+  czz = t31*r31 + t32*r32 + t33*r33;
 }
 
 void Point::write_xml(std::ostream& ostr)
