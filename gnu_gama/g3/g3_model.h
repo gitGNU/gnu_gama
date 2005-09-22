@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.35 2005/09/18 17:19:37 cepek Exp $
+ *  $Id: g3_model.h,v 1.36 2005/09/22 18:20:39 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -59,6 +59,9 @@ namespace GNU_gama {  namespace g3 {
   {
   public:
     
+    Model();
+    virtual ~Model();    
+    
     typedef GNU_gama::ObservationData<g3::Observation>  ObservationData;
     typedef GNU_gama::List<Observation*>                ObservationList; 
     typedef GNU_gama::PointBase<g3::Point>              PointBase;
@@ -68,11 +71,6 @@ namespace GNU_gama {  namespace g3 {
 
     PointBase           *points;    
     GNU_gama::Ellipsoid  ellipsoid;
-    
-    
-    Model();
-    virtual ~Model();
-    
     
     Point* get_point(const Point::Name&);
     void   write_xml(std::ostream& out) const;
@@ -121,6 +119,11 @@ namespace GNU_gama {  namespace g3 {
     void write_xml_adjustment_input_data(std::ostream&);
     void write_xml_adjustment_results   (std::ostream&);
 
+    bool angular_units_degrees() const { return !gons_; }
+    bool angular_units_gons   () const { return  gons_; }
+    void set_angular_units_degrees()   { gons_ = false; }
+    void set_angular_units_gons()      { gons_ = true; }
+    
     GNU_gama::E_3 vector  (const Point* from, const Point* to) const;
     GNU_gama::E_3 normal  (const Point* p) const;
     GNU_gama::E_3 vertical(const Point* p) const;
@@ -130,7 +133,6 @@ namespace GNU_gama {  namespace g3 {
     Model(const Model&);
     Model& operator=(const Model&);
     
-
     // active observations list (active observations used in the adjustment)
     ObservationList*  active_obs;
 
@@ -166,6 +168,8 @@ namespace GNU_gama {  namespace g3 {
     // constants
     double apriori_sd;
     double confidence_level;
+
+    bool   gons_;
   };
   
 }}

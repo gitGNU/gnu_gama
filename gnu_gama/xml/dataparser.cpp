@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.28 2005/09/17 15:39:10 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.29 2005/09/22 18:20:39 cepek Exp $
  */
 
 
@@ -149,6 +149,8 @@ DataParser::data_tag DataParser::tag(const char* c)
     case 'a':
       if (!strcmp(c, "a"                         )) return t_a;
       if (!strcmp(c, "adj-input-data"            )) return t_adj_input_data;
+      if (!strcmp(c, "angular-units-degrees"     )) return t_ang_degrees;
+      if (!strcmp(c, "angular-units-gons"        )) return t_ang_gons;
       if (!strcmp(c, "apriori-standard-deviation")) return t_apriori_sd;
       if (!strcmp(c, "array"                     )) return t_array;
       if (!strcmp(c, "azimuth"                   )) return t_azimuth;

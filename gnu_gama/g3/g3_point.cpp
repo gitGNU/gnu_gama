@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.38 2005/09/19 19:15:52 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.39 2005/09/22 18:20:39 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -431,12 +431,13 @@ void Point::write_xml(std::ostream& ostr)
       ostr << "\n        <cov-mat> <dim>3</dim> <band>2</band>\n";
       ostr << "        ";
       ostr << "<flt> " << cnn << " </flt> ";
-      ostr << "<flt> " << cne << " </flt> ";
-      ostr << "<flt> " << cnu << " </flt>\n";
-      ostr << "        ";
+      ostr << "<flt> " << setw(14) << cne << " </flt> ";
+      ostr << "\n                                   ";
+      ostr << "<flt> " << setw(14) << cnu << " </flt>\n";
+      ostr << "        "; 
       ostr << "<flt> " << cee << " </flt> ";
-      ostr << "<flt> " << ceu << " </flt>\n";
-      ostr << "        ";
+      ostr << "<flt> " << setw(14) << ceu << " </flt>\n";
+      ostr << "        "; 
       ostr << "<flt> " << cuu << " </ftl>\n";
       ostr << "        </cov-mat>\n";
     }
@@ -495,11 +496,12 @@ void Point::write_xml(std::ostream& ostr)
       ostr << "\n        <cov-mat> <dim>3</dim> <band>2</band>\n";
       ostr << "        ";
       ostr << "<flt> " << cxx << " </flt> ";
-      ostr << "<flt> " << cxy << " </flt> ";
-      ostr << "<flt> " << cxz << " </flt>\n";
+      ostr << "<flt> " << setw(14) << cxy << " </flt> ";
+      ostr << "\n                                   ";
+      ostr << "<flt> " << setw(14) << cxz << " </flt>\n";
       ostr << "        ";
       ostr << "<flt> " << cyy << " </flt> ";
-      ostr << "<flt> " << cyz << " </flt>\n";
+      ostr << "<flt> " << setw(14) << cyz << " </flt>\n";
       ostr << "        ";
       ostr << "<flt> " << czz << " </ftl>\n";
       ostr << "        </cov-mat>\n";
@@ -507,6 +509,8 @@ void Point::write_xml(std::ostream& ostr)
 
   if (has_position())
      {
+       ostr.setf(std::ios_base::fixed, std::ios_base::floatfield);
+       
        double dB, dL, dH, BB, LL, HH;   
        double B0 = B.init_value();
        double L0 = L.init_value();
@@ -548,13 +552,13 @@ void Point::write_xml(std::ostream& ostr)
            ostr << " </l-adjusted>\n";
            ostr << "\n";
          }
+       ostr.precision(5);
        ostr << "        <h-given     > ";
        ostr << setw(18) << H0;
        ostr << " </h-given>\n";      
        if (!fixed_position())
          {
            ostr << "        <h-correction> ";
-           ostr.precision(5);
            ostr << setw(18) << dH;
            ostr << " </h-correction>\n";
            ostr << "        <h-adjusted  > ";
@@ -565,6 +569,7 @@ void Point::write_xml(std::ostream& ostr)
 
   if (has_height())
     {
+      ostr.setf(std::ios_base::fixed, std::ios_base::floatfield);
       ostr.precision(5);
       ostr << "\n        <height-given>";
       ostr << setw(19) << height.init_value();

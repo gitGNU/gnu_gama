@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.42 2005/09/18 17:19:37 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.43 2005/09/22 18:20:39 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -34,7 +34,7 @@ using namespace std;
 using namespace GNU_gama::g3;
 
 
-Model::Model() 
+Model::Model()
 { 
   using namespace GNU_gama;
 
@@ -45,6 +45,8 @@ Model::Model()
 
   points->set_common_data(this); 
   set(&ellipsoid, ellipsoid_wgs84);
+
+  set_angular_units_gons();
 
   apriori_sd       = 1.00;
   confidence_level = 0.95;

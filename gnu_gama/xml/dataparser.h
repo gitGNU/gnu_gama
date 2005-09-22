@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.29 2005/09/17 15:39:10 cepek Exp $
+ *  $Id: dataparser.h,v 1.30 2005/09/22 18:20:39 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -85,6 +85,7 @@ namespace GNU_gama {
           s_g3_const_ellipsoid_a,
           s_g3_const_ellipsoid_b,
           s_g3_const_ellipsoid_inv_f,
+          s_g3_const_ang,
 
           // ..................................................
 
@@ -262,6 +263,8 @@ namespace GNU_gama {
         {
           t_a,
           t_adj_input_data,
+          t_ang_degrees,
+          t_ang_gons,
           t_apriori_sd,
           t_array,
           t_azimuth,
@@ -346,6 +349,8 @@ namespace GNU_gama {
       int g3_const_ellipsoid_id   (const char *name);
       int g3_const_ellipsoid_b    (const char *name);
       int g3_const_ellipsoid_inv_f(const char *name);
+      int g3_const_ang_degrees    (const char *name);
+      int g3_const_ang_gons       (const char *name);
 
       int g3_param_unused         (const char *name, const char **atts);
       int g3_param_fixed          (const char *name, const char **atts);

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser_g3.cpp,v 1.12 2005/09/17 15:39:10 cepek Exp $
+ *  $Id: dataparser_g3.cpp,v 1.13 2005/09/22 18:20:39 cepek Exp $
  */
 
 
@@ -44,6 +44,10 @@ namespace GNU_gama {
     {  
       delete model;
     }
+
+    typedef std::list<double> Scale;
+    Scale              scale;
+
 
     typedef g3::Model::ObservationType::CovarianceMatrix Cov;
 
@@ -89,6 +93,14 @@ void DataParser::init_g3()
   init(s_g3_const, t_conf_level,
        s_g3_const_conf_level, 0, s_g3_const,
        0, &DataParser::add_text, &DataParser::g3_const_conf_level);
+
+  init(s_g3_const, t_ang_degrees,
+       s_g3_const_ang, 0, s_g3_const,
+       0, 0, &DataParser::g3_const_ang_degrees);
+
+  init(s_g3_const, t_ang_gons,
+       s_g3_const_ang, 0, s_g3_const,
+       0, 0, &DataParser::g3_const_ang_gons);
 
   // .....  <g3-model>  <constants>  <ellipsoid>  ....................
 
@@ -712,6 +724,7 @@ int DataParser::g3_obs(const char *name, const char **atts)
   state = next[state][tag(name)];
 
   g3->obs_cluster = new g3::ObsCluster(&g3->model->obsdata);
+  g3->scale.clear();
 
   return 0;
 }
@@ -727,6 +740,11 @@ int DataParser::g3_obs(const char *name)
     {
       obs_dim += (*i)->dimension();
     }
+
+  if (obs_dim != g3->scale.size()) 
+    return error("### INTERNAL ERROR IN "
+                 "int DataParser::g3_obs(const char *name)");
+
 
   int cov_dim  = 0;
   int cov_band = 0; 
@@ -761,6 +779,19 @@ int DataParser::g3_obs(const char *name)
   for (int N=g3->obs_cluster->covariance_matrix.dim(), i=1; i<=N; i++)
     if(g3->obs_cluster->covariance_matrix(i,i) <= 0)
       return error("### zero or negative variance");
+
+
+  // here we scale covariance matrix so that all its elements have the
+  // same units as their corresponding internal representation of
+  // observables (linear data are stored in meters, angular values in
+  // radians)
+
+  DataParser_g3::Scale::const_iterator s = g3->scale.begin();
+  for (int i=1; i<=obs_dim; i++, s++)
+    {
+      g3->obs_cluster->scaleCov(i, *s);
+    }
+  g3->scale.clear();
 
   g3->obs_cluster->update();
   g3->model->obsdata.clusters.push_back(g3->obs_cluster);
@@ -862,6 +893,7 @@ int DataParser::g3_obs_dist(const char *name)
       distance->from_dh = optional(g3->from_dh);
       distance->to_dh   = optional(g3->to_dh);
       g3->obs_cluster->observation_list.push_back(distance);  
+      g3->scale.push_back(1e-3);   // scaling mm --> meters
 
       return  end_tag(name);
     }
@@ -881,16 +913,22 @@ int DataParser::g3_obs_zenith(const char *name)
       text_buffer.clear();
 
       double val;
-      if (!deg2gon(sval, val))
+      if (deg2gon(sval, val))
+        {
+          g3->scale.push_back(SS_TO_RAD);
+        }
+      else
         {
           istringstream istr(sval);
           istr >> val;
+
+          g3->scale.push_back(CC_TO_RAD);
         }
 
       ZenithAngle* zenith = new ZenithAngle;
       zenith->from = from;
       zenith->to   = to;
-      zenith->set(val);
+      zenith->set(val*GON_TO_RAD);
       zenith->from_dh = optional(g3->from_dh);
       zenith->to_dh   = optional(g3->to_dh);
       g3->obs_cluster->observation_list.push_back(zenith);  
@@ -952,6 +990,9 @@ int DataParser::g3_obs_vector(const char *name)
       vector->to_dh   = optional(g3->to_dh);
 
       g3->obs_cluster->observation_list.push_back(vector);
+      g3->scale.push_back(1e-3);
+      g3->scale.push_back(1e-3);
+      g3->scale.push_back(1e-3);
 
       return end_tag(name);
     }
@@ -975,6 +1016,9 @@ int DataParser::g3_obs_xyz(const char *name)
       xyz->set_xyz(x, y, z);
 
       g3->obs_cluster->observation_list.push_back(xyz);
+      g3->scale.push_back(1e-3);
+      g3->scale.push_back(1e-3);
+      g3->scale.push_back(1e-3);
 
       return end_tag(name);
     }
@@ -1121,5 +1165,21 @@ int DataParser::g3_const_ellipsoid_inv_f(const char *name)
    }
 
   return error("### bad <ellipsoid> <a> <inv-f>");
+}
+
+int DataParser::g3_const_ang_degrees(const char *name)
+{
+  text_buffer.clear();
+  g3->model->set_angular_units_degrees();
+  
+  return end_tag(name);
+}
+
+int DataParser::g3_const_ang_gons(const char *name)
+{
+  text_buffer.clear();
+  g3->model->set_angular_units_gons();
+  
+  return end_tag(name);
 }
 
