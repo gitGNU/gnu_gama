@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_distance.cpp,v 1.10 2005/07/27 15:13:27 cepek Exp $
+ *  $Id: g3_model_distance.cpp,v 1.11 2005/09/23 17:17:29 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -111,7 +111,7 @@ void Model::linearization_visit(Distance* d)
     double dz = to->Z_dh(d->to_dh) - from->Z_dh(d->from_dh);
     double D  = std::sqrt(dx*dx + dy*dy + dz*dz);
 
-    rhs(++rhs_ind) = d->obs() - D;
+    rhs(++rhs_ind) = (d->obs() - D)*Linear().scale();
   }
 }
 

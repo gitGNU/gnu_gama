@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_zenith_angle.cpp,v 1.8 2005/09/22 18:20:39 cepek Exp $
+ *  $Id: g3_model_zenith_angle.cpp,v 1.9 2005/09/23 17:17:29 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -92,16 +92,22 @@ void Model::linearization_visit(ZenithAngle* z)
   // pd - partial derivatives for the occupied station
   E_3 pd( -local.e1*q, -local.e2*q, r/s); 
 
+
+  const double sca = Angular().scale();
+  const double scl = Linear ().scale();
+  const double sc  = sca / scl;
+
+
   // nonzero derivatives in project equations
   A->new_row();
   if (from->free_horizontal_position())
     {
-      A->add_element(pd.e1, from->N.index());
-      A->add_element(pd.e2, from->E.index());
+      A->add_element(pd.e1*sc, from->N.index());
+      A->add_element(pd.e2*sc, from->E.index());
     }
   if (from->free_height())
     {
-      A->add_element(pd.e3, from->U.index());
+      A->add_element(pd.e3*sc, from->U.index());
     }
 
   E_3 tmp;
@@ -113,12 +119,12 @@ void Model::linearization_visit(ZenithAngle* z)
 
   if (to->free_horizontal_position())
     {
-      A->add_element(pd.e1, to->N.index());
-      A->add_element(pd.e2, to->E.index());
+      A->add_element(pd.e1*sc, to->N.index());
+      A->add_element(pd.e2*sc, to->E.index());
     }
   if (to->free_height())
     {
-      A->add_element(pd.e3, to->U.index());
+      A->add_element(pd.e3*sc, to->U.index());
     }
 
 
@@ -130,6 +136,6 @@ void Model::linearization_visit(ZenithAngle* z)
   /*          !!! add refraction correction here !!!          */
   /************************************************************/
 
-  rhs(++rhs_ind) = z->obs() - za;
+  rhs(++rhs_ind) = (z->obs() - za)*sca;
 }
 

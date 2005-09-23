@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser_g3.cpp,v 1.13 2005/09/22 18:20:39 cepek Exp $
+ *  $Id: dataparser_g3.cpp,v 1.14 2005/09/23 17:17:29 cepek Exp $
  */
 
 
@@ -789,7 +789,7 @@ int DataParser::g3_obs(const char *name)
   DataParser_g3::Scale::const_iterator s = g3->scale.begin();
   for (int i=1; i<=obs_dim; i++, s++)
     {
-      g3->obs_cluster->scaleCov(i, *s);
+      if (*s != 1.0) g3->obs_cluster->scaleCov(i, *s);
     }
   g3->scale.clear();
 
@@ -893,7 +893,7 @@ int DataParser::g3_obs_dist(const char *name)
       distance->from_dh = optional(g3->from_dh);
       distance->to_dh   = optional(g3->to_dh);
       g3->obs_cluster->observation_list.push_back(distance);  
-      g3->scale.push_back(1e-3);   // scaling mm --> meters
+      g3->scale.push_back(1.0);
 
       return  end_tag(name);
     }
@@ -915,14 +915,14 @@ int DataParser::g3_obs_zenith(const char *name)
       double val;
       if (deg2gon(sval, val))
         {
-          g3->scale.push_back(SS_TO_RAD);
+          g3->scale.push_back(3.0864); // SS --> CC
         }
       else
         {
           istringstream istr(sval);
           istr >> val;
 
-          g3->scale.push_back(CC_TO_RAD);
+          g3->scale.push_back(1.0);
         }
 
       ZenithAngle* zenith = new ZenithAngle;
@@ -990,9 +990,9 @@ int DataParser::g3_obs_vector(const char *name)
       vector->to_dh   = optional(g3->to_dh);
 
       g3->obs_cluster->observation_list.push_back(vector);
-      g3->scale.push_back(1e-3);
-      g3->scale.push_back(1e-3);
-      g3->scale.push_back(1e-3);
+      g3->scale.push_back(1.0);
+      g3->scale.push_back(1.0);
+      g3->scale.push_back(1.0);
 
       return end_tag(name);
     }
@@ -1016,9 +1016,9 @@ int DataParser::g3_obs_xyz(const char *name)
       xyz->set_xyz(x, y, z);
 
       g3->obs_cluster->observation_list.push_back(xyz);
-      g3->scale.push_back(1e-3);
-      g3->scale.push_back(1e-3);
-      g3->scale.push_back(1e-3);
+      g3->scale.push_back(1.0);
+      g3->scale.push_back(1.0);
+      g3->scale.push_back(1.0);
 
       return end_tag(name);
     }

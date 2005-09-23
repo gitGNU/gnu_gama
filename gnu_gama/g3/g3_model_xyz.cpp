@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_xyz.cpp,v 1.6 2005/07/27 15:13:27 cepek Exp $
+ *  $Id: g3_model_xyz.cpp,v 1.7 2005/09/23 17:17:29 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -85,10 +85,12 @@ void Model::linearization_visit(XYZ* xyz)
      double x = point->X();
      double y = point->Y();
      double z = point->Z();
-   
-     rhs(++rhs_ind) = xyz->x() - x;
-     rhs(++rhs_ind) = xyz->y() - y;
-     rhs(++rhs_ind) = xyz->z() - z;
+
+     const double s = Linear().scale();
+
+     rhs(++rhs_ind) = (xyz->x() - x)*s;
+     rhs(++rhs_ind) = (xyz->y() - y)*s;
+     rhs(++rhs_ind) = (xyz->z() - z)*s;
    }
 }
 

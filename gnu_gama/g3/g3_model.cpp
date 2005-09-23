@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.43 2005/09/22 18:20:39 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.44 2005/09/23 17:17:29 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -355,7 +355,7 @@ void Model::update_adjustment()
         {
           int k = U.index();
           height.set_index(k);
-          height.set_correction(adj->x()(k));
+          height.add_correction(adj->x()(k));
         }
     }
 
@@ -363,7 +363,7 @@ void Model::update_adjustment()
          i=par_list->begin(), e=par_list->end(); i!=e; ++i)
     {
       Parameter* p = *i;
-      if (int k = p->index()) p->set_correction(adj->x()(k));
+      if (int k = p->index()) p->add_correction(adj->x()(k));
     }
 
   // ..........................................................

@@ -19,15 +19,16 @@
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/* $Id: g3_parameter.h,v 1.23 2005/08/30 14:54:47 cepek Exp $  */
+/* $Id: g3_parameter.h,v 1.24 2005/09/23 17:17:29 cepek Exp $  */
+
+#ifndef GNU_gama_____g3______parameter______h__________GNUgamag3parameterh
+#define GNU_gama_____g3______parameter______h__________GNUgamag3parameterh
+
 
 #include <cstddef>
 #include <gnu_gama/model.h>
 #include <gnu_gama/list.h>
-
-
-#ifndef GNU_gama_____g3______parameter______h__________GNUgamag3parameterh
-#define GNU_gama_____g3______parameter______h__________GNUgamag3parameterh
+#include <gnu_gama/radian.h>
 
 
 namespace GNU_gama { namespace g3 {
@@ -59,7 +60,7 @@ namespace GNU_gama { namespace g3 {
   public:
     
     Parameter() : val(0), cor(0), dif(0.05), state_(unused_) {}
-    // ~Parameter() {}
+    virtual ~Parameter() {}
     
     double operator()() const { return val + cor; }
 
@@ -73,6 +74,9 @@ namespace GNU_gama { namespace g3 {
     void set_correction(double p) { cor = p; }
     void set_step_size (double p) { dif = p; }
     void set_index(std::size_t t) { ind = t; }
+
+    void add_correction(double p) { cor += p/scale(); }
+    virtual double scale() const  { return 1.0; }
 
     void set_unused() { state_ = unused_; }
     void set_fixed () { state_ = fixed_;  }
@@ -103,6 +107,18 @@ namespace GNU_gama { namespace g3 {
         constr_ = 4 + free_
       } state_;
 
+  };
+
+
+  class Angular : public Parameter {
+  public:
+    double scale() const { return RAD_TO_CC; }
+  };
+  
+
+  class Linear  : public Parameter {
+  public:
+    double scale() const { return 1e3; }
   };
   
 }}

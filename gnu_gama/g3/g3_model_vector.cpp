@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_vector.cpp,v 1.9 2005/07/27 15:13:27 cepek Exp $
+ *  $Id: g3_model_vector.cpp,v 1.10 2005/09/23 17:17:29 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -105,10 +105,12 @@ void Model::linearization_visit(Vector* v)
      double dx = to->X_dh(v->to_dh) - from->X_dh(v->from_dh);
      double dy = to->Y_dh(v->to_dh) - from->Y_dh(v->from_dh);
      double dz = to->Z_dh(v->to_dh) - from->Z_dh(v->from_dh);
+
+     const double s = Linear().scale();
  
-     rhs(++rhs_ind) = v->dx() - dx;
-     rhs(++rhs_ind) = v->dy() - dy;
-     rhs(++rhs_ind) = v->dz() - dz;
+     rhs(++rhs_ind) = (v->dx() - dx)*s;
+     rhs(++rhs_ind) = (v->dy() - dy)*s;
+     rhs(++rhs_ind) = (v->dz() - dz)*s;
    }
 }
 
