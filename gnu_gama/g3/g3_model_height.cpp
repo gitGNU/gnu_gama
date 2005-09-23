@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_height.cpp,v 1.2 2005/09/18 13:59:06 cepek Exp $
+ *  $Id: g3_model_height.cpp,v 1.3 2005/09/23 17:37:30 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -63,6 +63,6 @@ void Model::linearization_visit(Height* height)
   // right hand site
   double h = point->H() - point->geoid();
 
-  rhs(++rhs_ind) = height->obs() - h;
+  rhs(++rhs_ind) = (height->obs() - h)*Linear().scale();
 }
 

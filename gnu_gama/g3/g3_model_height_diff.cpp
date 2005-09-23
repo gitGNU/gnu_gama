@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_height_diff.cpp,v 1.3 2005/08/27 17:07:09 cepek Exp $
+ *  $Id: g3_model_height_diff.cpp,v 1.4 2005/09/23 17:37:31 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -69,6 +69,6 @@ void Model::linearization_visit(HeightDiff* dh)
  
   double h = to->height() - from->height();  
 
-  rhs(++rhs_ind) = dh->obs() - h;
+  rhs(++rhs_ind) = (dh->obs() - h)*Linear().scale();
 }
 
