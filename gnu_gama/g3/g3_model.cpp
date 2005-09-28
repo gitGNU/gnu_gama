@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.44 2005/09/23 17:17:29 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.45 2005/09/28 14:35:59 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -500,5 +500,17 @@ GNU_gama::E_3 Model::vertical(const Point* p) const
   return GNU_gama::E_3(std::cos(B)*std::cos(L),
                        std::cos(B)*std::sin(L),
                        std::sin(B)            );
+}
+
+GNU_gama::E_3 Model::instrument(const Point* p, double dh) const
+{
+  using GNU_gama::E_3;
+
+  E_3 s (p->X(), p->Y(), p->Z());
+  E_3 v = vertical(p);
+  v *= dh;
+  s += v;
+
+  return s;
 }
 

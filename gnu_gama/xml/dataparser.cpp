@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.cpp,v 1.29 2005/09/22 18:20:39 cepek Exp $
+ *  $Id: dataparser.cpp,v 1.30 2005/09/28 14:35:59 cepek Exp $
  */
 
 
@@ -148,6 +148,7 @@ DataParser::data_tag DataParser::tag(const char* c)
     {
     case 'a':
       if (!strcmp(c, "a"                         )) return t_a;
+      if (!strcmp(c, "angle"                     )) return t_angle;
       if (!strcmp(c, "adj-input-data"            )) return t_adj_input_data;
       if (!strcmp(c, "angular-units-degrees"     )) return t_ang_degrees;
       if (!strcmp(c, "angular-units-gons"        )) return t_ang_gons;
@@ -206,6 +207,8 @@ DataParser::data_tag DataParser::tag(const char* c)
       break;                                     
     case 'l':                                    
       if (!strcmp(c, "l"                         )) return t_l;
+      if (!strcmp(c, "left"                      )) return t_left;
+      if (!strcmp(c, "left-dh"                   )) return t_left_dh;
       break;                                     
     case 'n':                                    
       if (!strcmp(c, "n"                         )) return t_n;
@@ -218,6 +221,8 @@ DataParser::data_tag DataParser::tag(const char* c)
       if (!strcmp(c, "point"                     )) return t_point;
       break;                                     
     case 'r':                                    
+      if (!strcmp(c, "right"                     )) return t_right;
+      if (!strcmp(c, "right-dh"                  )) return t_right_dh;
       if (!strcmp(c, "row"                       )) return t_row;
       if (!strcmp(c, "rows"                      )) return t_rows;
       break;                                     

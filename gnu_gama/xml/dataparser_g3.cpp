@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser_g3.cpp,v 1.14 2005/09/23 17:17:29 cepek Exp $
+ *  $Id: dataparser_g3.cpp,v 1.15 2005/09/28 14:35:59 cepek Exp $
  */
 
 
@@ -56,6 +56,8 @@ namespace GNU_gama {
     std::list<Cov>     cov_list;
     double             from_dh;
     double             to_dh;
+    double             left_dh;
+    double             right_dh;
   };
 
 }
@@ -470,6 +472,48 @@ void DataParser::init_g3()
    init(s_g3_obs_height_opt, t_variance,
         s_g3_obs_height_opt_variance, 0, 0,
         0, &DataParser::optional_variance, 0);
+
+   // ..... <g3-model> <obs> <angle> ................................... 
+
+   init(s_g3_obs, t_angle,
+        s_g3_obs_angle, s_g3_obs_angle_opt, 0,
+        0, 0, &DataParser::g3_obs_angle);
+
+   init(s_g3_obs_angle, t_from,
+        s_g3_obs_angle_from, 0, s_g3_obs_angle_after_from,
+        0, &DataParser::add_text, 0);
+
+   init(s_g3_obs_angle_after_from, t_left,
+        s_g3_obs_angle_left, 0, s_g3_obs_angle_after_left,
+        0, &DataParser::add_text, 0);
+
+   init(s_g3_obs_angle_after_left, t_right,
+        s_g3_obs_angle_right, 0, s_g3_obs_angle_after_right,
+        0, &DataParser::add_text, 0);
+
+   init(s_g3_obs_angle_after_right, t_val,
+        s_g3_obs_angle_val, 0, s_g3_obs_angle_opt,
+        0, &DataParser::add_text, 0);
+
+   init(s_g3_obs_angle_opt, t_stdev,
+        s_g3_obs_angle_opt_stdev, 0, 0,
+        0, &DataParser::optional_stdev, 0);
+   
+   init(s_g3_obs_angle_opt, t_variance,
+        s_g3_obs_angle_opt_variance, 0, 0,
+        0, &DataParser::optional_variance, 0);
+   
+   init(s_g3_obs_angle_opt, t_from_dh,
+        s_g3_obs_angle_opt_from_dh, 0, 0,
+        0, &DataParser::optional_from_dh, 0);
+   
+   init(s_g3_obs_angle_opt, t_left_dh,
+        s_g3_obs_angle_opt_left_dh, 0, 0,
+        0, &DataParser::optional_left_dh, 0);
+
+   init(s_g3_obs_angle_opt, t_right_dh,
+        s_g3_obs_angle_opt_right_dh, 0, 0,
+        0, &DataParser::optional_right_dh, 0);
 }
 
 int DataParser::g3_model(const char *name, const char **atts)
@@ -875,6 +919,26 @@ int DataParser::optional_to_dh(const char *s, int len)
   return error("### bad data in <to-dh>");
 }
 
+int DataParser::optional_left_dh(const char *s, int len)
+{
+  using namespace g3;
+  stringstream istr(string(s,len));
+
+  if (pure_data(istr >> g3->left_dh)) return 0;
+
+  return error("### bad data in <left-dh>");
+}
+
+int DataParser::optional_right_dh(const char *s, int len)
+{
+  using namespace g3;
+  stringstream istr(string(s,len));
+
+  if (pure_data(istr >> g3->right_dh)) return 0;
+
+  return error("### bad data in <right-dh>");
+}
+
 int DataParser::g3_obs_dist(const char *name)
 {
   using namespace g3;  
@@ -915,7 +979,7 @@ int DataParser::g3_obs_zenith(const char *name)
       double val;
       if (deg2gon(sval, val))
         {
-          g3->scale.push_back(3.0864); // SS --> CC
+          g3->scale.push_back(3.0864); // ss --> cc
         }
       else
         {
@@ -1181,5 +1245,45 @@ int DataParser::g3_const_ang_gons(const char *name)
   g3->model->set_angular_units_gons();
   
   return end_tag(name);
+}
+
+int DataParser::g3_obs_angle(const char *name)
+{
+  using namespace g3;  
+  stringstream istr(text_buffer);
+  string       from, left, right;
+  string       sval;
+
+  if (pure_data(istr >> from >> left >> right >> sval))
+   {
+     text_buffer.clear();
+     
+     double val;
+     if (deg2gon(sval, val))
+       {
+         g3->scale.push_back(3.0864);   // ss --> cc
+       }
+     else
+       {
+          istringstream istr(sval);
+          istr >> val;
+
+          g3->scale.push_back(1.0);
+       }
+
+     Angle* angle = new Angle;
+     angle->from  = from;
+     angle->left  = left;
+     angle->right = right;
+     angle->set(val*GON_TO_RAD);
+     angle->from_dh  = optional(g3->from_dh);
+     angle->left_dh  = optional(g3->to_dh);
+     angle->right_dh = optional(g3->to_dh);
+     g3->obs_cluster->observation_list.push_back(angle);  
+
+     return  end_tag(name);
+   }
+
+  return error("### bad <angle>");
 }
 

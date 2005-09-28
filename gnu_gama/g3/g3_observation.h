@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.17 2005/09/07 12:22:06 cepek Exp $
+ *  $Id: g3_observation.h,v 1.18 2005/09/28 14:35:59 cepek Exp $
  */
 
 
@@ -308,6 +308,41 @@ namespace GNU_gama {  namespace g3 {
     }
   };
 
+
+  class Angle : public Observation, public Value {
+  public:
+
+    Point::Name from;
+    Point::Name left;
+    Point::Name right;
+
+    double from_dh, left_dh, right_dh;
+
+    Angle() {}
+    Angle(double d) : Value(d) {}
+
+    int dimension() const { return 1; }
+
+    bool revision_accept(ObservationVisitor* visitor)
+    {
+      if (Revision<Angle>* 
+          rv = dynamic_cast<Revision<Angle>*>(visitor))
+        {          
+          return rv->revision_visit(this);
+        }
+      else
+        return  set_active(false);
+    }
+  
+    void linearization_accept(ObservationVisitor* visitor)
+    {
+      if (Linearization<Angle>* 
+          lv = dynamic_cast<Linearization<Angle>*>(visitor))
+        {
+          lv->linearization_visit(this);
+        }
+    }
+  };
 
 }}
 

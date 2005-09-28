@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.36 2005/09/22 18:20:39 cepek Exp $
+ *  $Id: g3_model.h,v 1.37 2005/09/28 14:35:59 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -55,7 +55,9 @@ namespace GNU_gama {  namespace g3 {
     public Revision     <HeightDiff>,
     public Linearization<HeightDiff>,
     public Revision     <Height>,
-    public Linearization<Height>
+    public Linearization<Height>,
+    public Revision     <Angle>,
+    public Linearization<Angle>
   {
   public:
     
@@ -105,6 +107,8 @@ namespace GNU_gama {  namespace g3 {
     void linearization_visit(HeightDiff* );
     bool revision_visit     (Height*     );
     void linearization_visit(Height*     );
+    bool revision_visit     (Angle*      );
+    void linearization_visit(Angle*      );
 
     void set_algorithm(Adj::algorithm a) { adj->set_algorithm(a); }
 
@@ -124,9 +128,10 @@ namespace GNU_gama {  namespace g3 {
     void set_angular_units_degrees()   { gons_ = false; }
     void set_angular_units_gons()      { gons_ = true; }
     
-    GNU_gama::E_3 vector  (const Point* from, const Point* to) const;
-    GNU_gama::E_3 normal  (const Point* p) const;
-    GNU_gama::E_3 vertical(const Point* p) const;
+    GNU_gama::E_3 vector    (const Point* from, const Point* to) const;
+    GNU_gama::E_3 normal    (const Point* p) const;
+    GNU_gama::E_3 vertical  (const Point* p) const;
+    GNU_gama::E_3 instrument(const Point* p, double dh) const;
 
   private:   /*-----------------------------------------------------------*/
       

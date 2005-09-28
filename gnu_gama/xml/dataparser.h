@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser.h,v 1.30 2005/09/22 18:20:39 cepek Exp $
+ *  $Id: dataparser.h,v 1.31 2005/09/28 14:35:59 cepek Exp $
  */
 
 #ifndef GNU_Gama_GaMa_XML_DataParser__data_parser__dataparser___h_
@@ -208,6 +208,21 @@ namespace GNU_gama {
           s_g3_obs_height_opt,
           s_g3_obs_height_opt_stdev,
           s_g3_obs_height_opt_variance,
+
+          s_g3_obs_angle,
+          s_g3_obs_angle_from,
+          s_g3_obs_angle_after_from,
+          s_g3_obs_angle_left,
+          s_g3_obs_angle_after_left,
+          s_g3_obs_angle_right,
+          s_g3_obs_angle_after_right,
+          s_g3_obs_angle_val,
+          s_g3_obs_angle_opt,
+          s_g3_obs_angle_opt_stdev,
+          s_g3_obs_angle_opt_variance,
+          s_g3_obs_angle_opt_from_dh,
+          s_g3_obs_angle_opt_left_dh,
+          s_g3_obs_angle_opt_right_dh,
           
           // ..................................................
 
@@ -265,6 +280,7 @@ namespace GNU_gama {
           t_adj_input_data,
           t_ang_degrees,
           t_ang_gons,
+          t_angle,
           t_apriori_sd,
           t_array,
           t_azimuth,
@@ -302,10 +318,14 @@ namespace GNU_gama {
           t_int,
           t_inv_f,
           t_l,
+          t_left,
+          t_left_dh,
           t_n,
           t_nonz,
           t_obs,
           t_point,
+          t_right,
+          t_right_dh,
           t_rows,
           t_row,
           t_sparse_mat,
@@ -384,6 +404,7 @@ namespace GNU_gama {
       int g3_obs_xyz              (const char *name);
       int g3_obs_hdiff            (const char *name);
       int g3_obs_height           (const char *name);
+      int g3_obs_angle            (const char *name);
                                   
       int text                    (const char *name);
                                   
@@ -418,6 +439,8 @@ namespace GNU_gama {
       int optional_variance(const char *name, int len);
       int optional_from_dh (const char *name, int len);
       int optional_to_dh   (const char *name, int len);
+      int optional_left_dh (const char *name, int len);
+      int optional_right_dh(const char *name, int len);
 
       void init(int state, int tag, 
                 int next_state, int end_state, int after_state,
