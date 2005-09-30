@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.82 2005/09/30 08:28:52 cepek Exp $
+ *  $Id: version.cpp,v 1.83 2005/09/30 11:52:02 cepek Exp $
  */
 
 
@@ -63,6 +63,25 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.14 2005-09-30
+
+    - fixed bug reported by Zoltan Faludi
+
+      Index: gamalib/local/median/g2d_coordinates.cpp
+      ===================================================================
+      RCS file: /cvsroot/gama/gama/gamalib/local/median/g2d_coordinates.cpp,v
+      retrieving revision 1.10
+      diff -u -r1.10 g2d_coordinates.cpp
+      --- g2d_coordinates.cpp    7 May 2005 18:06:20 -0000      1.10
+      +++ g2d_coordinates.cpp    30 Sep 2005 08:36:29 -0000
+      @@ -212,7 +212,7 @@
+       bool ApproximateCoordinates::Solve_insertion()
+       {
+      
+      -  const int max_depth = 100;
+      +  const int max_depth = 5;
+         if(selected.empty() || (depth >= max_depth)) return false;
+      
+         // building a point list in local coordinate system.  during loop
 
     - Stephane Kaloustian <stephane.kaloustian@laposte.net> translated
       *.lang files to French
@@ -360,9 +379,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.82 2005/09/30 08:28:52 cepek Exp $
+        <  *  $Id: version.cpp,v 1.83 2005/09/30 11:52:02 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.82 2005/09/30 08:28:52 cepek Exp $
+        >  *  $Id: version.cpp,v 1.83 2005/09/30 11:52:02 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj_gso.h,v 1.6 2005/06/04 21:02:04 cepek Exp $
+ *  $Id: adj_gso.h,v 1.7 2005/09/30 11:52:02 cepek Exp $
  */
 
 #ifndef GNU_Gama_gnu_gama_gnugama_GaMa_OLS_gso_h
@@ -117,18 +117,15 @@ void AdjGSO<Float, Exc>::solve_me()
   const Mat<Float, Exc>& A1 = *this->pA;
   const Vec<Float, Exc>& b1 = *this->pb;
 
-  {  // redundant curly braces needed by MS VC++ 
   for (Index i=1; i<=M; i++)
     {
       A_(i, N+1) = -b1(i)*this->sqrt_w(i);
       for (Index j=1; j<=N; j++) A_(i, j) = A1(i, j)*this->sqrt_w(i);
     }
-  }
-  {
+
   for (Index i=1; i<=N; i++) 
     for (Index j=1; j<=N+1; j++)
       A_(M+i, j) = (i==j) ? 1 : 0;
-  }
 
   gso.reset(A_, M, N);
   gso.gso1(); 

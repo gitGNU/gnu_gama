@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: acord.cpp,v 1.16 2005/05/07 18:06:19 cepek Exp $
+ *  $Id: acord.cpp,v 1.17 2005/09/30 11:52:00 cepek Exp $
  */
 
  
@@ -147,7 +147,7 @@ void Acord::execute()
           OD.clusters.push_back(standpoint);
           
           ApproximateCoordinates ps(PD, OD);
-          ps.Calculation();
+          ps.calculation();
           
           OD.clusters.pop_back();
           delete standpoint;
