@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_cogo.cpp,v 1.7 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: g2d_cogo.cpp,v 1.8 2005/09/30 11:49:31 cepek Exp $
  */
 
  /**************************************************************
@@ -29,10 +29,10 @@
   **************************************************************/
   
  /*
-  * In Median in all methods "Calculation" was added try / catch
+  * In Median in all methods "calculation" was added try / catch
   * block. Exceptions g2d_exc are sent by command throw for next
   * processing, for all other exceptions is returned state =
-  * no_solution or number_of_solutions = -1. This change was motivated
+  * no_solution or number_of_solutions_ = -1. This change was motivated
   * by a bug, when in Median computaion of bearing for two identical
   * points failed.
   *
@@ -51,7 +51,7 @@ namespace GaMaLib {
 
   // ************** Distance_distance *********************
 
-  void Distance_distance::Observation_check(Observation* m1, Observation* m2)
+  void Distance_distance::observation_check(Observation* m1, Observation* m2)
   {
     h1 = dynamic_cast<Distance*>(m1);
     h2 = dynamic_cast<Distance*>(m2);
@@ -61,11 +61,11 @@ namespace GaMaLib {
 
   // ** computation: CHARAMZA, pp.127-130 **
 
-  void Distance_distance::Calculation()
+  void Distance_distance::calculation()
   {
     try {
 
-      number_of_solutions = 0;             // -1 when computation not done
+      number_of_solutions_ = 0;             // -1 when computation not done
       if(r1 == -1)
         {
           PointID CB1 = h1->to();
@@ -89,11 +89,11 @@ namespace GaMaLib {
       if(sqrt(g) < (0.15*s1*s2))    // intersection angle < 10 gon
         return;
       point1->set_xy(B1.x()+dx*f-dy*sqrt(g), B1.y()+dy*f+dx*sqrt(g));
-      number_of_solutions = 1;
+      number_of_solutions_ = 1;
       if(g > 0)
         {
           point2->set_xy(B1.x()+dx*f+dy*sqrt(g), B1.y()+dy*f-dx*sqrt(g));
-          number_of_solutions = 2;
+          number_of_solutions_ = 2;
         };
       return;
 
@@ -104,17 +104,17 @@ namespace GaMaLib {
       }
     catch (...) 
       {
-        number_of_solutions = -1;
+        number_of_solutions_ = -1;
         return;
       }
   
-  }  // void Distance_distance::Calculation
+  }  // void Distance_distance::calculation
 
 
   //----------------------------------------------------------------
   // ************** Direction_direction *********************
 
-  void Direction_direction::Observation_check(Observation* m1, Observation* m2)
+  void Direction_direction::observation_check(Observation* m1, Observation* m2)
   {
     h1 = dynamic_cast<Direction*>(m1);
     h2 = dynamic_cast<Direction*>(m2);
@@ -125,11 +125,11 @@ namespace GaMaLib {
 
   // ** computation: CHARAMZA, pp.131-133 **
 
-  void Direction_direction::Calculation()
+  void Direction_direction::calculation()
   {
     try {
 
-      number_of_solutions = 0;           // -1 when computation not done
+      number_of_solutions_ = 0;           // -1 when computation not done
       if(fabs(sin(h2->value())) < fabs(sin(h1->value())))
         {
           Direction* h = h1;
@@ -160,7 +160,7 @@ namespace GaMaLib {
       if ((s_1 != s_2) || (s_3 != s_4)) return;
 
       point1->set_xy(B2.x()+(dy*cos(h2->value()))/sin(h2->value()), B2.y()+dy);
-      number_of_solutions = 1;
+      number_of_solutions_ = 1;
       return;
 
     }
@@ -170,17 +170,17 @@ namespace GaMaLib {
       }
     catch (...) 
       {
-        number_of_solutions = -1;
+        number_of_solutions_ = -1;
         return;
       }
   
-  }  // void Direction_direction::Calculation
+  }  // void Direction_direction::calculation
 
 
   // -----------------------------------------------------------------
   // ************** Direction_distance *********************
 
-  void Direction_distance::Observation_check(Observation* m1, Observation* m2)
+  void Direction_distance::observation_check(Observation* m1, Observation* m2)
   {
     if((h1 = dynamic_cast<Direction*>(m1)) != 0)
       h2 = dynamic_cast<Distance*>(m2);
@@ -195,11 +195,11 @@ namespace GaMaLib {
 
 
   // ** computation: CHARAMZA, pp.115-118 **
-  void Direction_distance::Calculation()
+  void Direction_distance::calculation()
   {
     try {
 
-      number_of_solutions = 0;    // -1 when computation not done
+      number_of_solutions_ = 0;    // -1 when computation not done
       const LocalPoint B1 = (*(SB->find(h1->from()))).second;
       LocalPoint B2;
       if(r == -1)                 // input Direction*, Distance*
@@ -227,12 +227,12 @@ namespace GaMaLib {
         return;
       point1->set_xy(B2.x()+x1*cos(h1->value())-yp*sin(h1->value()),
                      B2.y()+yp*cos(h1->value())+x1*sin(h1->value()));
-      number_of_solutions = 1;
+      number_of_solutions_ = 1;
       if((-x1) <= (xp+1e-6)) // only one solution; 1e-6 ==> roundoff
         return;
       point2->set_xy(B2.x()-x1*cos(h1->value())-yp*sin(h1->value()),
                      B2.y()+yp*cos(h1->value())-x1*sin(h1->value()));
-      number_of_solutions = 2;
+      number_of_solutions_ = 2;
       return;
 
     }
@@ -242,17 +242,17 @@ namespace GaMaLib {
       }
     catch (...) 
       {
-        number_of_solutions = -1;
+        number_of_solutions_ = -1;
         return;
       }
   
-  }  // void Direction_distance::Calculation()
+  }  // void Direction_distance::calculation()
 
 
   //----------------------------------------------------------------
   // ************** Direction_angle *********************
 
-  void Direction_angle::Observation_check(Observation* m1, Observation* m2)
+  void Direction_angle::observation_check(Observation* m1, Observation* m2)
   {
     if((h1 = dynamic_cast<Direction*>(m1)) != 0)
       h2 = dynamic_cast<Angle*>(m2);
@@ -268,44 +268,44 @@ namespace GaMaLib {
 
   // ** computation: CHARAMZA, p.142 **
 
-  void Direction_angle::Calculation()
+  void Direction_angle::calculation()
   {
     try {
 
-      number_of_solutions = 0;           // -1 when computation not done
+      number_of_solutions_ = 0;           // -1 when computation not done
       Circle K(h2,SB);
-      K.Calculation();
-      if(K.Number_of_solutions() < 1)    // circle parameters not solved
+      K.calculation();
+      if(K.number_of_solutions() < 1)    // circle parameters not solved
         return;
-      Direction_distance SD(h1,K.radius(),K.Solution_1(),SB);
-      SD.Calculation();
-      if(SD.Number_of_solutions() < 1)   // no intersection exist
+      Direction_distance SD(h1,K.radius(),K.solution_1(),SB);
+      SD.calculation();
+      if(SD.number_of_solutions() < 1)   // no intersection exist
         return;
       LocalPoint B1 = (*(SB->find(h2->bs()))).second;
       LocalPoint B2 = (*(SB->find(h2->fs()))).second;
-      Double uu = bearing(SD.Solution_1(),B2) - bearing(SD.Solution_1(),B1);
+      Double uu = bearing(SD.solution_1(),B2) - bearing(SD.solution_1(),B1);
       uu += (uu < 0 ? 2*M_PI : 0);
       // uu should be equal to h2->value(), but ...  uu is either
       // value() or value()+-PI
       if((uu < (h2->value()+0.1)) && (uu > (h2->value()-0.1)))
         {
-          point1->set_xy(SD.Solution_1().x(), SD.Solution_1().y());
-          number_of_solutions = 1;
+          point1->set_xy(SD.solution_1().x(), SD.solution_1().y());
+          number_of_solutions_ = 1;
         };
-      if(SD.Number_of_solutions() > 1)
+      if(SD.number_of_solutions() > 1)
         {
-          uu = bearing(SD.Solution_2(),B2) - bearing(SD.Solution_2(),B1);
+          uu = bearing(SD.solution_2(),B2) - bearing(SD.solution_2(),B1);
           uu += (uu < 0 ? 2*M_PI : 0);
           if((uu < (h2->value()+0.1)) && (uu > (h2->value()-0.1)))
-            if(number_of_solutions == 1)
+            if(number_of_solutions_ == 1)
               {
-                point2->set_xy(SD.Solution_2().x(), SD.Solution_2().y());
-                number_of_solutions = 2;
+                point2->set_xy(SD.solution_2().x(), SD.solution_2().y());
+                number_of_solutions_ = 2;
               }
             else
               {
-                point1->set_xy(SD.Solution_2().x(), SD.Solution_2().y());
-                number_of_solutions = 1;
+                point1->set_xy(SD.solution_2().x(), SD.solution_2().y());
+                number_of_solutions_ = 1;
               };
         };
       return;
@@ -317,17 +317,17 @@ namespace GaMaLib {
       }
     catch (...) 
       {
-        number_of_solutions = -1;
+        number_of_solutions_ = -1;
         return;
       }
   
-  }  // void Direction_angle::Calculation()
+  }  // void Direction_angle::calculation()
 
 
   //----------------------------------------------------------------
   // ************** Distance_angle *********************
 
-  void Distance_angle::Observation_check(Observation* m1, Observation* m2)
+  void Distance_angle::observation_check(Observation* m1, Observation* m2)
   {
     if((h1 = dynamic_cast<Distance*>(m1)) != 0)
       h2 = dynamic_cast<Angle*>(m2);
@@ -343,48 +343,48 @@ namespace GaMaLib {
 
   // ** computiong: CHARAMZA, p.143 **
 
-  void Distance_angle::Calculation()
+  void Distance_angle::calculation()
   {
     try {
 
-      number_of_solutions = 0;           // -1 when computation not done
+      number_of_solutions_ = 0;           // -1 when computation not done
       Circle K(h2,SB);
-      K.Calculation();
-      if(K.Number_of_solutions() < 1)    // computation of circle falied
+      K.calculation();
+      if(K.number_of_solutions() < 1)    // computation of circle falied
         return;
       PointID CBB = (h1->from() == h2->from() ? h1->to() : h1->from());
       LocalPoint BB = (*(SB->find(CBB))).second;
       Double dd1 = h1->value();
       Double dd2 = K.radius();
-      Distance_distance DD(dd1,dd2,BB,K.Solution_1(),SB);
-      DD.Calculation();
-      if(DD.Number_of_solutions() < 1)   // intersection doesn't exist
+      Distance_distance DD(dd1,dd2,BB,K.solution_1(),SB);
+      DD.calculation();
+      if(DD.number_of_solutions() < 1)   // intersection doesn't exist
         return;
       LocalPoint B1 = (*(SB->find(h2->bs()))).second;
       LocalPoint B2 = (*(SB->find(h2->fs()))).second;
-      Double uu = bearing(DD.Solution_1(),B2) - bearing(DD.Solution_1(),B1);
+      Double uu = bearing(DD.solution_1(),B2) - bearing(DD.solution_1(),B1);
       uu += (uu < 0 ? 2*M_PI : 0);
       // uu should be equalto h2->value(), but ...  uu is either
       // value() or value()+-PI
       if((uu < (h2->value()+0.1)) && (uu > (h2->value()-0.1)))
         {
-          point1->set_xy(DD.Solution_1().x(), DD.Solution_1().y());
-          number_of_solutions = 1;
+          point1->set_xy(DD.solution_1().x(), DD.solution_1().y());
+          number_of_solutions_ = 1;
         };
-      if(DD.Number_of_solutions() > 1)
+      if(DD.number_of_solutions() > 1)
         {
-          uu = bearing(DD.Solution_2(),B2) - bearing(DD.Solution_2(),B1);
+          uu = bearing(DD.solution_2(),B2) - bearing(DD.solution_2(),B1);
           uu += (uu < 0 ? 2*M_PI : 0);
           if((uu < (h2->value()+0.1)) && (uu > (h2->value()-0.1)))
-            if(number_of_solutions == 1)
+            if(number_of_solutions_ == 1)
               {
-                point2->set_xy(DD.Solution_2().x(), DD.Solution_2().y());
-                number_of_solutions = 2;
+                point2->set_xy(DD.solution_2().x(), DD.solution_2().y());
+                number_of_solutions_ = 2;
               }
             else
               {
-                point1->set_xy(DD.Solution_2().x(), DD.Solution_2().y());
-                number_of_solutions = 1;
+                point1->set_xy(DD.solution_2().x(), DD.solution_2().y());
+                number_of_solutions_ = 1;
               };
         };
       return;  
@@ -396,17 +396,17 @@ namespace GaMaLib {
       }
     catch (...) 
       {
-        number_of_solutions = -1;
+        number_of_solutions_ = -1;
         return;
       }
   
-  }  // void Distance_angle::Calculation()
+  }  // void Distance_angle::calculation()
 
 
   //-----------------------------------------------------------
   // ************** Angle_angle *********************
 
-  void Angle_angle::Observation_check(Observation* m1, Observation* m2)
+  void Angle_angle::observation_check(Observation* m1, Observation* m2)
   {
     h1 = dynamic_cast<Angle*>(m1);
     h2 = dynamic_cast<Angle*>(m2);
@@ -417,23 +417,23 @@ namespace GaMaLib {
 
   // ** computation: CHARAMZA, p.143 **
 
-  void Angle_angle::Calculation()
+  void Angle_angle::calculation()
   {
     try {
 
-      number_of_solutions = 0;           // -1 when computation not done
+      number_of_solutions_ = 0;           // -1 when computation not done
       Circle K1(h1,SB);
-      K1.Calculation();
+      K1.calculation();
       Circle K2(h2,SB);
-      K2.Calculation();
+      K2.calculation();
       // circle parameters were not solved ?
-      if((K1.Number_of_solutions() < 1) || (K2.Number_of_solutions() < 1))    
+      if((K1.number_of_solutions() < 1) || (K2.number_of_solutions() < 1))    
         return;
       Double rr1 = K1.radius();
       Double rr2 = K2.radius();
-      Distance_distance DD(rr1,rr2,K1.Solution_1(),K2.Solution_1(),SB);
-      DD.Calculation();
-      if(DD.Number_of_solutions() < 1)   // intersection doesn't exist
+      Distance_distance DD(rr1,rr2,K1.solution_1(),K2.solution_1(),SB);
+      DD.calculation();
+      if(DD.number_of_solutions() < 1)   // intersection doesn't exist
         return;
       LocalPoint B1 = (*(SB->find(h1->bs()))).second;
       LocalPoint B2 = (*(SB->find(h1->fs()))).second;
@@ -443,11 +443,11 @@ namespace GaMaLib {
       Double uu1, uu2;
       // in the case of common point at both angles is one of
       // intersections this point
-      if(!(((B1.x()==DD.Solution_1().x()) && (B1.y()==DD.Solution_1().y())) ||
-           ((B2.x()==DD.Solution_1().x()) && (B2.y()==DD.Solution_1().y()))))
+      if(!(((B1.x()==DD.solution_1().x()) && (B1.y()==DD.solution_1().y())) ||
+           ((B2.x()==DD.solution_1().x()) && (B2.y()==DD.solution_1().y()))))
         {
-          uu1 = bearing(DD.Solution_1(),B2) - bearing(DD.Solution_1(),B1);
-          uu2 = bearing(DD.Solution_1(),B4) - bearing(DD.Solution_1(),B3);
+          uu1 = bearing(DD.solution_1(),B2) - bearing(DD.solution_1(),B1);
+          uu2 = bearing(DD.solution_1(),B4) - bearing(DD.solution_1(),B3);
           uu1 += (uu1 < 0 ? 2*M_PI : 0);
           uu2 += (uu2 < 0 ? 2*M_PI : 0);
           // uu should be equal to h2->value(), but ...  uu is either
@@ -456,32 +456,32 @@ namespace GaMaLib {
           Vyhovuje2 = (uu2 < (h2->value()+0.1)) && (uu2 > (h2->value()-0.1));
           if(Vyhovuje1 && Vyhovuje2)
             {
-              point1->set_xy(DD.Solution_1().x(), DD.Solution_1().y());
-              number_of_solutions = 1;
+              point1->set_xy(DD.solution_1().x(), DD.solution_1().y());
+              number_of_solutions_ = 1;
             };
         };
-      if(DD.Number_of_solutions() > 1)
-        if(!(((B1.x()==DD.Solution_2().x()) && 
-              (B1.y()==DD.Solution_2().y())) ||
-             ((B2.x()==DD.Solution_2().x()) && 
-              (B2.y()==DD.Solution_2().y()))))
+      if(DD.number_of_solutions() > 1)
+        if(!(((B1.x()==DD.solution_2().x()) && 
+              (B1.y()==DD.solution_2().y())) ||
+             ((B2.x()==DD.solution_2().x()) && 
+              (B2.y()==DD.solution_2().y()))))
           {
-            uu1 = bearing(DD.Solution_2(),B2) - bearing(DD.Solution_2(),B1);
-            uu2 = bearing(DD.Solution_2(),B4) - bearing(DD.Solution_2(),B3);
+            uu1 = bearing(DD.solution_2(),B2) - bearing(DD.solution_2(),B1);
+            uu2 = bearing(DD.solution_2(),B4) - bearing(DD.solution_2(),B3);
             uu1 += (uu1 < 0 ? 2*M_PI : 0);
             uu2 += (uu2 < 0 ? 2*M_PI : 0);
             Vyhovuje1 = (uu1 < (h1->value()+0.1)) && (uu1 > (h1->value()-0.1));
             Vyhovuje2 = (uu2 < (h2->value()+0.1)) && (uu2 > (h2->value()-0.1));
             if(Vyhovuje1 && Vyhovuje2)
-              if(number_of_solutions == 1)
+              if(number_of_solutions_ == 1)
                 {
-                  point2->set_xy(DD.Solution_2().x(), DD.Solution_2().y());
-                  number_of_solutions = 2;
+                  point2->set_xy(DD.solution_2().x(), DD.solution_2().y());
+                  number_of_solutions_ = 2;
                 }
               else
                 {
-                  point1->set_xy(DD.Solution_2().x(), DD.Solution_2().y());
-                  number_of_solutions = 1;
+                  point1->set_xy(DD.solution_2().x(), DD.solution_2().y());
+                  number_of_solutions_ = 1;
                 };
           };
       return;
@@ -493,11 +493,11 @@ namespace GaMaLib {
       }
     catch (...) 
       {
-        number_of_solutions = -1;
+        number_of_solutions_ = -1;
         return;
       }
   
-  }  // void Angle_angle::Calculation()
+  }  // void Angle_angle::calculation()
 
 
   //------------------------------------------------------------
@@ -505,11 +505,11 @@ namespace GaMaLib {
 
   // ** computation: CHARAMZA, pp.107-109 **
 
-  void Circle::Calculation()
+  void Circle::calculation()
   {
     try {
 
-      number_of_solutions = 0;       // -1 when computation not done
+      number_of_solutions_ = 0;       // -1 when computation not done
       Double u = h1->value();	     // just to spare typing h1->value()
       if(fabs(sin(u)) < 0.15)        // small angle
         return;
@@ -522,7 +522,7 @@ namespace GaMaLib {
       Double rr = d/sin(u)/2;
       R = fabs(rr);
       point1->set_xy(B1.x()-rr*sin(sm - u), B1.y()+rr*cos(sm - u));
-      number_of_solutions = 1;
+      number_of_solutions_ = 1;
       return;
 
     }
@@ -532,11 +532,11 @@ namespace GaMaLib {
       }
     catch (...) 
       {
-        number_of_solutions = -1;
+        number_of_solutions_ = -1;
         return;
       }
   
-  }  // void Circle::Calculation()
+  }  // void Circle::calculation()
 
 } // namespace GaMaLib
 

@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_cogo.h,v 1.3 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: g2d_cogo.h,v 1.4 2005/09/30 11:49:32 cepek Exp $
  */
 
 /*************************************************************
@@ -49,14 +49,14 @@ namespace GaMaLib {
     {
       
     protected:
-      int number_of_solutions;
+      int number_of_solutions_;
       LocalPoint*  point1;
       LocalPoint*  point2;
       PointData*   SB;
-      virtual void Observation_check(Observation*, Observation*) = 0;
+      virtual void observation_check(Observation*, Observation*) = 0;
       
     public:
-      CoordinateGeometry2D(PointData* sb) : number_of_solutions(-1), SB(sb)
+      CoordinateGeometry2D(PointData* sb) : number_of_solutions_(-1), SB(sb)
         { 
           point1 = new LocalPoint; 
           point2 = new LocalPoint; 
@@ -66,24 +66,24 @@ namespace GaMaLib {
           delete point1; 
           delete point2; 
         }
-      virtual void Calculation() = 0;
-      int Number_of_solutions() const 
+      virtual void calculation() = 0;
+      int number_of_solutions() const 
         { 
-          return number_of_solutions; 
+          return number_of_solutions_; 
         }
-      LocalPoint Solution_1() const
+      LocalPoint solution_1() const
         {
-          if(number_of_solutions == -1)
+          if(number_of_solutions_ == -1)
             throw g2d_exc("CoordinateGeometry2D: calculation not done");
-          if(number_of_solutions < 1)
+          if(number_of_solutions_ < 1)
             throw g2d_exc("CoordinateGeometry2D: no solution");
           return *point1;
         }
-      LocalPoint Solution_2() const
+      LocalPoint solution_2() const
         {
-          if(number_of_solutions == -1)
+          if(number_of_solutions_ == -1)
             throw g2d_exc("CoordinateGeometry2D: calculation not done");
-          if(number_of_solutions < 2)
+          if(number_of_solutions_ < 2)
             throw g2d_exc("CoordinateGeometry2D: two solutions");
           return *point2;
         }
@@ -102,7 +102,7 @@ namespace GaMaLib {
       Double      r1, r2;
       LocalPoint  B1;
       LocalPoint  B2;
-      void Observation_check(Observation*, Observation*);
+      void observation_check(Observation*, Observation*);
       
     public:
       Distance_distance() : CoordinateGeometry2D(0), h1(0), h2(0), r1(-1) 
@@ -112,7 +112,7 @@ namespace GaMaLib {
                         PointData* sb, PointID cb)
         : CoordinateGeometry2D(sb), CB(cb), r1(-1)
         {
-          Observation_check(m1, m2);
+          observation_check(m1, m2);
         }
       Distance_distance(Double& m1, Double& m2, 
                         LocalPoint b1, LocalPoint b2, PointData* sb)
@@ -122,16 +122,16 @@ namespace GaMaLib {
       ~Distance_distance() 
         {
         }
-      void Calculation();
-      void New_calculation(Observation* m1, Observation* m2, 
+      void calculation();
+      void new_calculation(Observation* m1, Observation* m2, 
                            PointData* sb, PointID cb)
         {
           point1 = point2 = 0;
           SB = sb;
           CB = cb;
           r1 = -1;
-          Observation_check(m1, m2);
-          Calculation();
+          observation_check(m1, m2);
+          calculation();
         }
     };
   
@@ -144,7 +144,7 @@ namespace GaMaLib {
     private:
       Direction* h1;
       Direction* h2;
-      void Observation_check(Observation*, Observation*);
+      void observation_check(Observation*, Observation*);
       
     public:
       Direction_direction() : CoordinateGeometry2D(0), h1(0), h2(0) 
@@ -153,18 +153,18 @@ namespace GaMaLib {
       Direction_direction(Observation* m1, Observation* m2, PointData* sb)
         : CoordinateGeometry2D(sb)
         {
-          Observation_check(m1, m2);
+          observation_check(m1, m2);
         }
       ~Direction_direction() 
         {
         }
-      void Calculation();
-      void New_calculation(Observation* m1, Observation* m2, PointData* sb)
+      void calculation();
+      void new_calculation(Observation* m1, Observation* m2, PointData* sb)
         {
           point1 = point2 = 0;
           SB = sb;
-          Observation_check(m1, m2);
-          Calculation();
+          observation_check(m1, m2);
+          calculation();
         }
     };
   
@@ -180,7 +180,7 @@ namespace GaMaLib {
       Distance*   h2;
       LocalPoint  B;
       Double r;
-      void Observation_check(Observation*, Observation*);
+      void observation_check(Observation*, Observation*);
       
     public:
       
@@ -190,7 +190,7 @@ namespace GaMaLib {
       Direction_distance(Observation* m1, Observation* m2, PointData* sb) 
         : CoordinateGeometry2D(sb), r(-1)
         {
-          Observation_check(m1, m2);
+          observation_check(m1, m2);
         }
       Direction_distance(Direction* m1, Double m2, LocalPoint b, PointData* sb)
         : CoordinateGeometry2D(sb), h1(m1), B(b), r(m2) 
@@ -199,14 +199,14 @@ namespace GaMaLib {
       ~Direction_distance() 
         {
         }
-      void Calculation();
-      void New_calculation(Observation* m1, Observation* m2, PointData* sb)
+      void calculation();
+      void new_calculation(Observation* m1, Observation* m2, PointData* sb)
         {
           point1 = point2 = 0;
           SB = sb;
           r = -1;
-          Observation_check(m1, m2);
-          Calculation();
+          observation_check(m1, m2);
+          calculation();
         }
     };
 
@@ -219,7 +219,7 @@ namespace GaMaLib {
     private:
       Direction* h1;
       Angle* h2;
-      void Observation_check(Observation*, Observation*);
+      void observation_check(Observation*, Observation*);
       
     public:
       Direction_angle() : CoordinateGeometry2D(0), h1(0), h2(0) 
@@ -228,18 +228,18 @@ namespace GaMaLib {
       Direction_angle(Observation* m1, Observation* m2, PointData* sb)
         : CoordinateGeometry2D(sb)
         {
-          Observation_check(m1, m2);
+          observation_check(m1, m2);
         }
       ~Direction_angle() 
         {
         }
-      void Calculation();
-      void New_calculation(Observation* m1, Observation* m2, PointData* sb)
+      void calculation();
+      void new_calculation(Observation* m1, Observation* m2, PointData* sb)
         {
           point1 = point2 = 0;
           SB = sb;
-          Observation_check(m1, m2);
-          Calculation();
+          observation_check(m1, m2);
+          calculation();
         }
     };
   
@@ -252,7 +252,7 @@ namespace GaMaLib {
     private:
       Distance* h1;
       Angle* h2;
-      void Observation_check(Observation*, Observation*);
+      void observation_check(Observation*, Observation*);
 
     public:
       Distance_angle() : CoordinateGeometry2D(0), h1(0), h2(0) 
@@ -261,18 +261,18 @@ namespace GaMaLib {
       Distance_angle(Observation* m1, Observation* m2, PointData* sb)
         : CoordinateGeometry2D(sb)
         {
-          Observation_check(m1, m2);
+          observation_check(m1, m2);
         }
       ~Distance_angle() 
         {
         }
-      void Calculation();
-      void New_calculation(Observation* m1, Observation* m2, PointData* sb)
+      void calculation();
+      void new_calculation(Observation* m1, Observation* m2, PointData* sb)
         {
           point1 = point2 = 0;
           SB = sb;
-          Observation_check(m1, m2);
-          Calculation();
+          observation_check(m1, m2);
+          calculation();
         }
     };
   
@@ -285,7 +285,7 @@ namespace GaMaLib {
     private:
       Angle* h1;
       Angle* h2;
-      void Observation_check(Observation*, Observation*);
+      void observation_check(Observation*, Observation*);
 
     public:
       Angle_angle() : CoordinateGeometry2D(0), h1(0), h2(0) 
@@ -294,18 +294,18 @@ namespace GaMaLib {
       Angle_angle(Observation* m1, Observation* m2, PointData* sb)
         : CoordinateGeometry2D(sb)
         {
-          Observation_check(m1, m2);
+          observation_check(m1, m2);
         }
       ~Angle_angle() 
         {
         }
-      void Calculation();
-      void New_calculation(Observation* m1, Observation* m2, PointData* sb)
+      void calculation();
+      void new_calculation(Observation* m1, Observation* m2, PointData* sb)
         {
           point1 = point2 = 0;
           SB = sb;
-          Observation_check(m1, m2);
-          Calculation();
+          observation_check(m1, m2);
+          calculation();
         }
     };
   
@@ -320,7 +320,7 @@ namespace GaMaLib {
       Angle*      h1;
       LocalPoint  B1, B2;
       Double      R;
-      void Observation_check(Observation*, Observation*) {}
+      void observation_check(Observation*, Observation*) {}
 
     public:
       Circle() : CoordinateGeometry2D(0), h1(0) 
@@ -332,19 +332,19 @@ namespace GaMaLib {
       ~Circle() 
         {
         }
-      void Calculation();
-      void New_calculation(Angle* u,PointData* sb)
+      void calculation();
+      void new_calculation(Angle* u,PointData* sb)
         {
           point1 = point2 = 0;
           SB = sb;
           h1 = u;
-          Calculation();
+          calculation();
         }
       Double radius() const
         {
-          if(number_of_solutions == -1)
+          if(number_of_solutions_ == -1)
             throw g2d_exc("Circle: computation not done");
-          if(number_of_solutions < 1)
+          if(number_of_solutions_ < 1)
             throw g2d_exc("Circle: two solutions");
           return R;
         }

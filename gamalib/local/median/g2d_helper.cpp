@@ -21,17 +21,17 @@
 */
 
 /*
- *  $Id: g2d_helper.cpp,v 1.8 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: g2d_helper.cpp,v 1.9 2005/09/30 11:49:32 cepek Exp $
  */
 
 /*************************************************************
  * helper functions and classes                              *
  *************************************************************/
 
-/* try /catch block was added in all methods "Calculation()" in
+/* try /catch block was added in all methods "calculation()" in
  * Median.  Exceptions Median::g2d_exc are sent by throw command for
  * next processing, for all other exceptions is returned state =
- * no_solution or number_of_solutions = -1. This change was motivated
+ * no_solution or number_of_solutions_ = -1. This change was motivated
  * by a bug, when in Median failed computation of bearing for two
  * identical points.
  *
@@ -51,14 +51,14 @@ namespace GaMaLib
 // ** direction : 1/distance [rad]
 // ** angle     : 1/average distance [rad]
 
-void Select_solution_g2d::Calculation()
+void Select_solution_g2d::calculation()
 {
   /* ***********************************************************************
 
      Change  median-0.7.4  / gamalib-0.9.35  AC                  1999.12.30
      ------------------------------------------
 
-     I think, that Calculation() didn't do exactly, what describes
+     I think, that calculation() didn't do exactly, what describes
      Charamza on p. 153 Geolib/PC, ie. that there was missing the test
      |delta_i| < tol_i, i=1,2.
 
@@ -69,7 +69,7 @@ void Select_solution_g2d::Calculation()
  
   try {
     
-    state = no_solution;
+    state_ = no_solution;
     Double delta1, delta2, tol1, tol2;
     LocalPoint PB1, PB2;
     for(ObservationList::const_iterator i = SM->begin(); i != SM->end(); i++)
@@ -124,12 +124,12 @@ void Select_solution_g2d::Calculation()
         if(delta1 > 10*delta2)
           {
             B1 = B2;		        // second solution selected
-            state = unique_solution;
+            state_ = unique_solution;
             break;
           }
         if(delta1 < 0.1*delta2)
           {
-            state = unique_solution;    // first solution selected
+            state_ = unique_solution;    // first solution selected
             break;
           }
       }
@@ -142,19 +142,19 @@ void Select_solution_g2d::Calculation()
     }
   catch (...) 
     {
-      state = no_solution;
+      state_ = no_solution;
       return;
     }
   
-}  // void Select_solution_g2d::Calculation()
+}  // void Select_solution_g2d::calculation()
 
 
 // ----------------------------------------------------------
 
-void Statistics_g2d::Calculation()
+void Statistics_g2d::calculation()
 {
   try {
-    state = unique_solution;
+    state_ = unique_solution;
     if(PS->empty())
       throw g2d_exc("Statistics_g2d: empty list");
     Helper_list::size_type n = PS->size();
@@ -185,18 +185,18 @@ void Statistics_g2d::Calculation()
     }
   catch (...) 
     {
-      state = no_solution;
+      state_ = no_solution;
       return;
     }
   
-}	// void Statistics_g2d::Calculation()
+}	// void Statistics_g2d::calculation()
 
 
 // ----------------------------------------------------------
 
-void SimilarityTr2D::Reset()
+void SimilarityTr2D::reset()
 {
-  transf_key.erase(transf_key.begin(), transf_key.end());
+  transf_key_.erase(transf_key_.begin(), transf_key_.end());
   // clear  test_xy() = false from local
   // the checj for needed number of identical points
   PointData pom_sb;
@@ -205,11 +205,11 @@ void SimilarityTr2D::Reset()
     if(Given_point((*j).first) && (*j).second.test_xy())
       pocet_identickych++;
   if(pocet_identickych < 2)
-    state = no_solution;
+    state_ = no_solution;
   // nothing to transform
   if(computed.empty())
-    state = no_solution;
-}  //  void SimilarityTr2D::Reset()
+    state_ = no_solution;
+}  //  void SimilarityTr2D::reset()
 
 // the best pair - transformed points are close to circle around the
 // set of identical points
@@ -249,7 +249,7 @@ void SimilarityTr2D::Identical_points(PointData::iterator& b1,
 }
 
 
-void SimilarityTr2D::Transformation_key(PointData::iterator& b1, 
+void SimilarityTr2D::transformation_key(PointData::iterator& b1, 
                                         PointData::iterator& b2)
 {
   LocalPoint odkud1, odkud2, kam1, kam2;
@@ -271,24 +271,24 @@ void SimilarityTr2D::Transformation_key(PointData::iterator& b1,
   dx1 = odkud2.x() - odkud1.x();
   dy2 = kam2.y() - kam1.y();
   dx2 = kam2.x() - kam1.x();
-  transf_key.push_back((dy2*dx1-dx2*dy1)/(g2d_sqr(dx1)+g2d_sqr(dy1)));
-  transf_key.push_back((dy1*dy2+dx1*dx2)/(g2d_sqr(dx1)+g2d_sqr(dy1)));
-  transf_key.push_back(kam1.y()-transf_key[1]*odkud1.y()-
-                        transf_key[0]*odkud1.x());
-  transf_key.push_back(kam1.x()-transf_key[1]*odkud1.x()+
-                        transf_key[0]*odkud1.y());
+  transf_key_.push_back((dy2*dx1-dx2*dy1)/(g2d_sqr(dx1)+g2d_sqr(dy1)));
+  transf_key_.push_back((dy1*dy2+dx1*dx2)/(g2d_sqr(dx1)+g2d_sqr(dy1)));
+  transf_key_.push_back(kam1.y()-transf_key_[1]*odkud1.y()-
+                        transf_key_[0]*odkud1.x());
+  transf_key_.push_back(kam1.x()-transf_key_[1]*odkud1.x()+
+                        transf_key_[0]*odkud1.y());
 }
 
-void SimilarityTr2D::Calculation()
+void SimilarityTr2D::calculation()
 {
 
   try {
     // not enough identical points
-    if(state == no_solution)
+    if(state_ == no_solution)
       return;
     PointData::iterator identicky1, identicky2;
     Identical_points(identicky1, identicky2);
-    Transformation_key(identicky1, identicky2);
+    transformation_key(identicky1, identicky2);
     LocalPoint pom;
     PointData::iterator pom_i;
     for(PointIDList::iterator cb=computed.begin(); cb!=computed.end(); cb++)
@@ -300,17 +300,17 @@ void SimilarityTr2D::Calculation()
         pom = (*pom_i).second;
         if(pom.test_xy())
           {
-            transf_points[(*cb)] = 
+            transf_points_[(*cb)] = 
               LocalPoint::XY(
-                        transf_key[3] + transf_key[1]*pom.x() - 
-                                        transf_key[0]*pom.y(),
-                        transf_key[2] + transf_key[1]*pom.y() + 
-                                        transf_key[0]*pom.x()
+                        transf_key_[3] + transf_key_[1]*pom.x() - 
+                                         transf_key_[0]*pom.y(),
+                        transf_key_[2] + transf_key_[1]*pom.y() + 
+                                         transf_key_[0]*pom.x()
                         );
             
           }
       }
-    state = calculation_done;
+    state_ = calculation_done;
     return;
 
   } 
@@ -320,11 +320,11 @@ void SimilarityTr2D::Calculation()
     }
   catch (...) 
     {
-      state = no_solution;
+      state_ = no_solution;
       return;
     }
   
-}  // void SimilarityTr2D::Calculation()
+}  // void SimilarityTr2D::calculation()
 
 } // namespace GaMaLib
 

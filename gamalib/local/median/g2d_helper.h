@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_helper.h,v 1.8 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: g2d_helper.h,v 1.9 2005/09/30 11:49:32 cepek Exp $
  */
 
 /*********************************************************************
@@ -130,39 +130,39 @@ namespace GaMaLib {
     {
     private:
       
-      Solution_state_tag state;
+      Solution_state_tag state_;
       LocalPoint   B1, B2;
       PointData* SB;
       ObservationList* SM;
       
     public:    
       Select_solution_g2d(PointData* sb, ObservationList* sm) 
-        : state(calculation_not_done), SB(sb), SM(sm) 
+        : state_(calculation_not_done), SB(sb), SM(sm) 
         {
         }
       Select_solution_g2d(LocalPoint& b1, LocalPoint& b2, PointData* sb, 
                           ObservationList* sm) :
-        state(calculation_not_done), B1(b1), B2(b2), SB(sb), SM(sm) 
+        state_(calculation_not_done), B1(b1), B2(b2), SB(sb), SM(sm) 
         {
         }
-      void Calculation();
-      void Calculation(LocalPoint b1, LocalPoint b2)
+      void calculation();
+      void calculation(LocalPoint b1, LocalPoint b2)
         {
-          state = calculation_not_done;
+          state_ = calculation_not_done;
           B1 = b1; B2 = b2;
-          Calculation();
+          calculation();
         }
       LocalPoint Solution()
         {
-          if(state == calculation_not_done)
+          if(state_ == calculation_not_done)
             throw g2d_exc("Select_solution_g2d: calculation not done");
-          if(state == no_solution)
+          if(state_ == no_solution)
             throw g2d_exc("Select_solution_g2d: ambiguous solution");
           return B1;
         }
-      int State() const 
+      int state() const 
         { 
-          return (state > no_solution ? unique_solution : state); 
+          return (state_ > no_solution ? unique_solution : state_); 
         }
       
     };  // class Select_solution_g2d
@@ -177,30 +177,30 @@ namespace GaMaLib {
 
       Helper_list* PS;
       LocalPoint median;
-      Solution_state_tag state;
+      Solution_state_tag state_;
       
     public:
-      Statistics_g2d() : state(missing_init) 
+      Statistics_g2d() : state_(missing_init) 
         {
         }
       Statistics_g2d(Helper_list* ps) 
-        : PS(ps), state(calculation_not_done) 
+        : PS(ps), state_(calculation_not_done) 
         {
         }
-      void Calculation();
-      void Calculation(Helper_list* ps)
+      void calculation();
+      void calculation(Helper_list* ps)
         {
-          state = calculation_not_done;
+          state_ = calculation_not_done;
           PS = ps;
-          Calculation();
+          calculation();
         }
-      Solution_state_tag State() const 
+      Solution_state_tag state() const 
         { 
-          return state; 
+          return state_; 
         }
       LocalPoint Median()       // resulting coordinate
         {
-          if(state < no_solution)
+          if(state_ < no_solution)
             throw g2d_exc("Statistics_g2d: calculation not done");
           
           return median;
@@ -219,44 +219,44 @@ namespace GaMaLib {
       PointData& SB;              // point list in target syste
       PointData& local;           // point list in local system
       PointIDList& computed;      // list of computed points
-      PointData transf_points;    // points transformed into target system
-      virtual void Reset() = 0;
+      PointData transf_points_;   // points transformed into target system
+      virtual void reset() = 0;
       
-      Solution_state_tag state;
+      Solution_state_tag state_;
       
     public:
       Transformation_g2d(PointData& sb, PointData& locl, 
                          PointIDList& comp)
-        : SB(sb), local(locl), computed(comp), state(calculation_not_done) 
+        : SB(sb), local(locl), computed(comp), state_(calculation_not_done) 
         {
         }
       virtual ~Transformation_g2d()
         {
-          transf_points.erase(transf_points.begin(), transf_points.end());
+          transf_points_.erase(transf_points_.begin(), transf_points_.end());
         }
-      void Reset(PointData& sb, PointData& locl, PointIDList& comp)
+      void reset(PointData& sb, PointData& locl, PointIDList& comp)
         {
           SB = sb;
           local = locl;
           computed = comp;
-          state = calculation_not_done;
-          transf_points.erase(transf_points.begin(), transf_points.end());
-          Reset();
+          state_ = calculation_not_done;
+          transf_points_.erase(transf_points_.begin(), transf_points_.end());
+          reset();
         }
-      virtual void Calculation() = 0;
-      Solution_state_tag State() const 
+      virtual void calculation() = 0;
+      Solution_state_tag state() const 
         { 
-          return state; 
+          return state_; 
         }
-      PointData Transf_points() const
+      PointData transf_points() const
         {
-          if(state == calculation_not_done)
+          if(state_ == calculation_not_done)
             throw g2d_exc("Transformation_g2d: calculation not done");
-          if(state == no_solution)
+          if(state_ == no_solution)
             throw 
               g2d_exc("Transformation_g2d: not enough of identical points");
           
-          return transf_points;
+          return transf_points_;
         }
 
     };  // class Transformation_g2d
@@ -283,8 +283,8 @@ namespace GaMaLib {
     {
     private:
 
-      std::vector<Double> transf_key;
-      void Reset();
+      std::vector<Double> transf_key_;
+      void reset();
       bool Given_point(const PointID& cb)
         {
           return (std::find(computed.begin(), computed.end(), cb) == 
@@ -292,23 +292,23 @@ namespace GaMaLib {
         }
       void Identical_points(PointData::iterator& b1, 
                             PointData::iterator& b2);
-      void Transformation_key(PointData::iterator& b1, 
+      void transformation_key(PointData::iterator& b1, 
                               PointData::iterator& b2);
 
     public:
       SimilarityTr2D(PointData& sb, PointData& locl, PointIDList& comp)
         : Transformation_g2d(sb, locl, comp) 
         { 
-          Reset(); 
+          reset(); 
         }
-      void Calculation();
-      std::vector<Double> Transf_key() const
+      void calculation();
+      std::vector<Double> transf_key() const
         {
-          if(state == calculation_not_done)
+          if(state_ == calculation_not_done)
             throw g2d_exc("SimilarityTr2D: calculation not done");
-          if(state == no_solution)
+          if(state_ == no_solution)
             throw g2d_exc("SimilarityTr2D: not enough of identical poinst");
-          return transf_key;
+          return transf_key_;
         }
 
     };  // class SimilarityTr2D

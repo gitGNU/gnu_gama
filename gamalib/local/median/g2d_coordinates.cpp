@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_coordinates.cpp,v 1.10 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: g2d_coordinates.cpp,v 1.11 2005/09/30 11:49:32 cepek Exp $
  */
 
 /*************************************************************
@@ -50,12 +50,12 @@ copy_horizontal(const ObservationData& from, ObservationList& to)
     }
 }
 
-void ApproximateCoordinates::Reset()
+void ApproximateCoordinates::reset()
 {
 
   state = calculation_not_done;
   selected.erase(selected.begin(), selected.end());
-  solved.erase(solved.begin(), solved.end());
+  solved_pd.erase(solved_pd.begin(), solved_pd.end());
   
   known_coordinates_ = 0;
   for (PointData::const_iterator i=SB.begin(); i!=SB.end(); ++i)
@@ -67,28 +67,29 @@ void ApproximateCoordinates::Reset()
 
 // to be solvable, at least 2 points with known coordinates must exist
 
-bool ApproximateCoordinates::Solvable_data(PointData& b)
+bool ApproximateCoordinates::solvable_data(PointData& b)
 {
 
   bool first = false, second = false;
   bool tmp;
   PointData::iterator i = b.begin();
+  if (i == b.end()) return false;
   do
     {
-      tmp = (*i).second.test_xy() && Absent((*i).first);
+      tmp = (*i).second.test_xy() && absent((*i).first);
       if(first)
         second = tmp;
       else
         first = tmp;
       i++;
     }
-  while(!(second || i == SB.end()));
+  while(!(second || i == b.end()));
   return second;
 
-}  // bool ApproximateCoordinates::Solvable_data(PointData& b)
+}  // bool ApproximateCoordinates::solvable_data(PointData& b)
 
 
-bool ApproximateCoordinates::Necessary_observations(PointID id)
+bool ApproximateCoordinates::necessary_observations(PointID id)
 {
 
   // for coordinates to be solvable, at least 2 observations are needed
@@ -97,6 +98,7 @@ bool ApproximateCoordinates::Necessary_observations(PointID id)
   bool first = false, second = false;
   bool tmp;
   ObservationList::iterator i = SM.begin();
+  if (i == SM.end()) return false;
   do
     {
       tmp = (((*i)->from() == id) || ((*i)->to() == id));
@@ -116,10 +118,10 @@ bool ApproximateCoordinates::Necessary_observations(PointID id)
   while(!(second || i == SM.end()));
   return second;
 
-}	// bool ApproximateCoordinates::Necessary_observations()
+}	// bool ApproximateCoordinates::necessary_observations()
 
 
-void ApproximateCoordinates::Find_missing_coordinates()
+void ApproximateCoordinates::find_missing_coordinates()
 {
 
   selected.erase(selected.begin(), selected.end());
@@ -127,31 +129,29 @@ void ApproximateCoordinates::Find_missing_coordinates()
   // from observation list points we fetch points that are not in SB
   for(ObservationList::iterator i = SM.begin(); i != SM.end(); i++)
     {
-      if((SB.find((*i)->from()) == SB.end()) && Absent((*i)->from()))
+      if((SB.find((*i)->from()) == SB.end()) && absent((*i)->from()))
         selected.push_back((*i)->from());
-      if((SB.find((*i)->to()) == SB.end()) && Absent((*i)->to()))
+      if((SB.find((*i)->to()) == SB.end()) && absent((*i)->to()))
         selected.push_back((*i)->to());
       // is second target available?
       Angle*u = dynamic_cast<Angle*>(*i);
-      if(u && (SB.find(u->fs()) == SB.end()) && Absent(u->fs()))
+      if(u && (SB.find(u->fs()) == SB.end()) && absent(u->fs()))
         selected.push_back(u->fs());
     }
 
   // from point list we fetch the points with test_xy() == false
-  {  // VC++ {}
-    for(PointData::iterator i = SB.begin(); i != SB.end(); i++)
-      if((!(*i).second.test_xy()) && Absent((*i).first))
-        selected.push_back((*i).first);
-  }
+  for(PointData::iterator i = SB.begin(); i != SB.end(); i++)
+    if((!(*i).second.test_xy()) && absent((*i).first))
+      selected.push_back((*i).first);
 
   // final sort and removal of duplicities in the list of seleted points
   selected.sort();
   selected.unique();
 
-}	// void ApproximateCoordinates::Find_missing_coordinates()
+}	// void ApproximateCoordinates::find_missing_coordinates()
 
 
-void ApproximateCoordinates::Move_point(PointData& from, PointData& to, 
+void ApproximateCoordinates::move_point(PointData& from, PointData& to, 
                                         PointID& what)
 {
 
@@ -163,10 +163,10 @@ void ApproximateCoordinates::Move_point(PointData& from, PointData& to,
     else
       to[what] = LocalPoint::XY((*i).second.x(), (*i).second.y());
 
-}    // ApproximateCoordinates::Move_point(PointData&, PointData&, PointID&)
+}    // ApproximateCoordinates::move_point(PointData&, PointData&, PointID&)
 
 
-bool ApproximateCoordinates::Solve_intersection(PointData& points, 
+bool ApproximateCoordinates::solve_intersection(PointData& points, 
                                                 PointIDList& what)
 {
   if(what.empty()) return false;
@@ -183,8 +183,8 @@ bool ApproximateCoordinates::Solve_intersection(PointData& points,
       i = what.begin();
       while(i != what.end())
         {
-          PB.Calculation(*i);
-          if(PB.State() == unique_solution)
+          PB.calculation(*i);
+          if(PB.state() == unique_solution)
             {
               finished = false;
               success = true;
@@ -194,7 +194,7 @@ bool ApproximateCoordinates::Solve_intersection(PointData& points,
                 (*j).second.set_xy(bb.x(), bb.y());
               else
                 points[*i] = LocalPoint::XY(bb.x(), bb.y());
-              solved[*i] = bb;
+              solved_pd[*i] = bb;
               i = what.erase(i);
             }
           else
@@ -204,15 +204,15 @@ bool ApproximateCoordinates::Solve_intersection(PointData& points,
 
   return success;
 
-}  // ApproximateCoordinates::Solve_intersection(PointData&, PointIDList&)
+}  // ApproximateCoordinates::solve_intersection(PointData&, PointIDList&)
 
 
 // points that cannot be solved by intersections - eg inserted traverse
 
-bool ApproximateCoordinates::Solve_insertion()
+bool ApproximateCoordinates::solve_insertion()
 {
   
-  const int max_depth = 100;
+  const int max_depth = 5;
   if(selected.empty() || (depth >= max_depth)) return false;
 
   // building a point list in local coordinate system.  during loop
@@ -224,63 +224,58 @@ bool ApproximateCoordinates::Solve_insertion()
   bool prv_observation = true;
   ObservationList::iterator first_distance = SM.end();
   ObservationList::iterator first_observation = SM.end();
-  {  // VC++ {}
-    for(PointIDList::iterator i = selected.begin(); i != selected.end(); i++)
-      for(ObservationList::iterator j = SM.begin(); j != SM.end(); j++)
-        if(Observation_hasID(j,i))
-          // all point IDs are stored and then duplicities are removed
-          // - it's faster
-          {
-            if(Angle *u = dynamic_cast<Angle*>(*j))
-              {
-                obs_points.push_back((*j)->from());
-                obs_points.push_back((*j)->to());
-                obs_points.push_back(u->fs());
+  for(PointIDList::iterator i = selected.begin(); i != selected.end(); i++)
+    for(ObservationList::iterator j = SM.begin(); j != SM.end(); j++)
+      if(observation_hasID(j,i))
+        // all point IDs are stored and then duplicities are removed
+        // - it's faster
+        {
+          if(Angle *u = dynamic_cast<Angle*>(*j))
+            {
+              obs_points.push_back((*j)->from());
+              obs_points.push_back((*j)->to());
+              obs_points.push_back(u->fs());
+              if(prv_observation)
+                {
+                  first_observation = j;
+                  prv_observation = false;
+                }
+            }
+          else
+            {
+              if(dynamic_cast<Distance*>(*j) && prv_distance)
+                {
+                  first_distance = j;
+                  prv_distance = false;
+                }
+              else
                 if(prv_observation)
                   {
                     first_observation = j;
                     prv_observation = false;
                   }
-              }
-            else
-              {
-                if(dynamic_cast<Distance*>(*j) && prv_distance)
-                  {
-                    first_distance = j;
-                    prv_distance = false;
-                  }
-                else
-                  if(prv_observation)
-                    {
-                      first_observation = j;
-                      prv_observation = false;
-                    }
-                obs_points.push_back((*j)->from());
-                obs_points.push_back((*j)->to());
-              }
-          }
-  }  // VC++ {}
+              obs_points.push_back((*j)->from());
+              obs_points.push_back((*j)->to());
+            }
+        }
+  
   obs_points.sort();
   obs_points.unique();
   /*
    * // removing selected with less the 2 observations - is it correct ???
-   * {  // VC++ {}
    * for(PointIDList::iterator i = selected.begin(); i != selected.end(); i++)
-   * if(!Necessary_observations(*i))
+   * if(!necessary_observations(*i))
    * {
    * PointIDList::iterator pozice = find(obs_points.begin(), 
    *                                     obs_points.end(), *i);
    * obs_points.erase(pozice);    
    * }; 
-   * }  // VC++ {}
    */
   
   int number_of_given = 0;
-  {  // VC++ {}
-    for(PointIDList::iterator i = obs_points.begin(); i != obs_points.end(); i++)
-      if(Absent(*i))
-        number_of_given++;
-  }  // VC++ {}
+  for(PointIDList::iterator i = obs_points.begin(); i != obs_points.end(); i++)
+    if(absent(*i))
+      number_of_given++;
 
   // not enough given points needed for transformation from local
   // coordinate system (cs)
@@ -288,19 +283,15 @@ bool ApproximateCoordinates::Solve_insertion()
     return false;
 
   PointData local_s;
-  {  // VC++ {}
-    for(PointIDList::iterator i = obs_points.begin(); 
-        i != obs_points.end(); i++)
-      local_s[*i] = LocalPoint();
-  }  // VC++ {}
+  // removed in 1.7.14   for(PointIDList::iterator i = obs_points.begin(); 
+  // removed in 1.7.14       i != obs_points.end(); i++)
+  // removed in 1.7.14     local_s[*i] = LocalPoint();
 
   ObservationData OD_local = OD;                // ... deep copy
   /* ObservationList& SM_local(OD_local.OL);   // gamalib-1.1.13 (AC)
-   * {  // VC++ {}
    *   for(ObservationList::iterator i = SM.begin(); i != SM.end(); i++)
    *     if(Local_observation(i, obs_points))
    *       SM_local.push_back(*i);  
-   * }  // VC++ {}
    */
 
   // local coordinate system (cs) must be defined now
@@ -325,10 +316,10 @@ bool ApproximateCoordinates::Solve_insertion()
   obs_points.remove(local_cs_1);
   obs_points.remove(local_cs_2);
 
-  // Calculation of coordinates in local coordinate system
+  // calculation of coordinates in local coordinate system
   ApproximateCoordinates local_solution(local_s, OD_local, depth + 1);
-  local_solution.Calculation();
-  if(local_solution.Solved().empty())
+  local_solution.calculation();
+  if(local_solution.solved().empty())
     return false;
 
   // computing in local coordinate system is done, now follows
@@ -348,10 +339,10 @@ bool ApproximateCoordinates::Solve_insertion()
       local_s_yx[(*sb_it).first] = (*sb_it).second;
   
   SimilarityTr2D transf(SB, local_s_yx, vypoctene_urc);
-  transf.Calculation();
-  if(transf.State() < unique_solution)
+  transf.calculation();
+  if(transf.state() < unique_solution)
     return false;
-  PointData vysledek = transf.Transf_points();
+  PointData vysledek = transf.transf_points();
   if(vysledek.empty())
     return false;
 
@@ -362,22 +353,20 @@ bool ApproximateCoordinates::Solve_insertion()
         SB[(*bod).first] = (*bod).second;
       else
         (*i).second.set_xy((*bod).second.x(), (*bod).second.y());
-      solved[(*bod).first] = (*bod).second;
+      solved_pd[(*bod).first] = (*bod).second;
     }
 
   // removing solved points from "selected" list
-  {  // VC++ {}
-    for(PointIDList::iterator id = vypoctene_urc.begin(); 
-        id != vypoctene_urc.end(); id++)
-      selected.remove(*id);
-  }  // VC++ {}
+  for(PointIDList::iterator id = vypoctene_urc.begin(); 
+      id != vypoctene_urc.end(); id++)
+    selected.remove(*id);
 
   return true;
 
-}  // ApproximateCoordinates::Solve_insertion()
+}  // ApproximateCoordinates::solve_insertion()
 
 
-void ApproximateCoordinates::Computational_loop()
+void ApproximateCoordinates::computational_loop()
 {
 
   PointIDList unsolvable;
@@ -385,7 +374,7 @@ void ApproximateCoordinates::Computational_loop()
   if (i==selected.end()) return;
   do
     {
-      if(!Necessary_observations(*i))
+      if(!necessary_observations(*i))
         unsolvable.push_back(*i);
       i++;
     }
@@ -400,17 +389,17 @@ void ApproximateCoordinates::Computational_loop()
   bool finished = false;
   while(!finished)
     {
-      finished = !Solve_intersection(SB, selected);
+      finished = !solve_intersection(SB, selected);
       // compute insertion
       if(!selected.empty())
-        finished = finished && (!Solve_insertion());
+        finished = finished && (!solve_insertion());
     }
 
   // return unsolvable points back
   selected.insert(selected.end(), unsolvable.begin(), unsolvable.end());
   unsolvable.erase(unsolvable.begin(), unsolvable.end());
 
-}	// ApproximateCoordinates::Computational_loop()
+}	// ApproximateCoordinates::computational_loop()
 
 
 // public
@@ -418,27 +407,27 @@ void ApproximateCoordinates::Computational_loop()
 
 // single point (even if it has coordinates already)
 
-bool ApproximateCoordinates::Calculation(PointID id)
+bool ApproximateCoordinates::calculation(PointID id)
 {
 
   state = calculation_done;
   selected.erase(selected.begin(), selected.end());
   selected.push_back(id);
-  if(!Necessary_observations(id) || !Solvable_data(SB))
+  if(!necessary_observations(id) || !solvable_data(SB))
     return false;
-  Solve_intersection(SB, selected);
-  Solve_insertion();
+  solve_intersection(SB, selected);
+  solve_insertion();
   if(!selected.empty())
     {
-      Find_missing_coordinates();
+      find_missing_coordinates();
       // id already has coordinates
       if(std::find(selected.begin(), selected.end(), id) == selected.end())
         selected.push_back(id);
       PointData SB_puv = SB;
-      Computational_loop();
+      computational_loop();
       if(std::find(selected.begin(), selected.end(), id) == selected.end())
         {
-          Move_point(SB, SB_puv, id);
+          move_point(SB, SB_puv, id);
           selected.erase(selected.begin(), selected.end());
         }
       else
@@ -449,14 +438,14 @@ bool ApproximateCoordinates::Calculation(PointID id)
       SB = SB_puv;
     }
 
-  return All_is_solved();
+  return all_is_solved();
 
-}	// bool ApproximateCoordinates::Calculation(PointID id)
+}	// bool ApproximateCoordinates::calculation(PointID id)
 
 
 // point list (even the points with coordinates)
 
-bool ApproximateCoordinates::Calculation(PointIDList id)
+bool ApproximateCoordinates::calculation(PointIDList id)
 {
 
   state = calculation_done;
@@ -466,13 +455,13 @@ bool ApproximateCoordinates::Calculation(PointIDList id)
   selected.unique();
   if(selected.empty())
     return true;
-  if(!Solvable_data(SB))
+  if(!solvable_data(SB))
     return false;
   PointIDList unsolvable;
   PointIDList::iterator i = selected.begin();
   do
     {
-      if(!Necessary_observations(*i))
+      if(!necessary_observations(*i))
         {
           unsolvable.push_back(*i);
           i = selected.erase(i);
@@ -481,22 +470,22 @@ bool ApproximateCoordinates::Calculation(PointIDList id)
         i++;
     }
   while(i != selected.end());
-  Computational_loop();
+  computational_loop();
   if(!selected.empty())
     {
       PointIDList selected_puv = selected;
-      Find_missing_coordinates();
+      find_missing_coordinates();
       // id already has coordinates
       for(i = selected_puv.begin(); i != selected_puv.end(); i++)
         if(std::find(selected.begin(), selected.end(), (*i)) == selected.end())
           selected.push_back(*i);
       PointData SB_puv = SB;
-      Computational_loop();
+      computational_loop();
       i = selected_puv.begin();
       do
         if(std::find(selected.begin(), selected.end(), (*i)) == selected.end())
           {
-            Move_point(SB, SB_puv, *i);
+            move_point(SB, SB_puv, *i);
             i = selected_puv.erase(i);
           }
         else
@@ -509,9 +498,9 @@ bool ApproximateCoordinates::Calculation(PointIDList id)
   // return unsolvable points back
   selected.insert(selected.end(), unsolvable.begin(), unsolvable.end());
 
-  return All_is_solved();
+  return all_is_solved();
 
-}	// bool ProblSour::Calculation(PointIDList id)
+}	// bool ProblSour::calculation(PointIDList id)
 
 
 

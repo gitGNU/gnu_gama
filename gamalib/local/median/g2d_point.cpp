@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_point.cpp,v 1.10 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: g2d_point.cpp,v 1.11 2005/09/30 11:49:32 cepek Exp $
  */
 
 /*************************************************************
@@ -45,15 +45,15 @@ namespace GaMaLib {
     for(ObservationList::iterator i = SM.begin(); i != SM.end(); i++)
       delete(*i);
     SM.clear();
-    Solved_points.clear();
+    solved_points.clear();
   }
 
   
 
-  void ApproxPoint::Reset(PointData* sb, ObservationList* sm, 
+  void ApproxPoint::reset(PointData* sb, ObservationList* sm, 
                           const PointID& cb)
   {
-    state = calculation_not_done;
+    state_ = calculation_not_done;
     ClearLists();  // clearin lists (if a distance is used more then once)
     SB = *sb;
     CB = cb;
@@ -73,30 +73,28 @@ namespace GaMaLib {
           else
             sm_pom.push_back(*i);
         else
-          if(KnownStandpoint(i))
+          if(knownStandpoint(i))
             if(Angle* u = dynamic_cast<Angle*>(*i))
               {
                 if((u->to() == CB && KnownTarget2(u)) ||
                    (u->fs() == CB && KnownTarget1(i)))
-                  SM_S.push_back(MakeBearing(u,CB));
+                  SM_S.push_back(makeBearing(u,CB));
               }
             else
               if((*i)->to() == CB)
                 if(Direction* s = dynamic_cast<Direction*>(*i))
-                  SM_S.push_back(MakeBearing(s,CB));
+                  SM_S.push_back(makeBearing(s,CB));
                 else
                   sm_pom.push_back(*i);
       }
 
     // transforming directions on the computed standpoint to inner angels
-    { // VC++ {} ...... here and elsewhere curly braces are added to
-      // enable processing of standard C++ code with MS compiler
-      for(ObservationList::iterator j, i = sm_s.begin(); i != sm_s.end(); i++)
-        for(j=i, ++j; j != sm_s.end(); j++)
-          if ((*i)->ptr_cluster() == (*j)->ptr_cluster())
-            SM_U.push_back(MakeAngle(i,j));
-      sm_s.clear();
-    }  // VC++ {}
+    // enable processing of standard C++ code with MS compiler
+    for(ObservationList::iterator j, i = sm_s.begin(); i != sm_s.end(); i++)
+      for(j=i, ++j; j != sm_s.end(); j++)
+        if ((*i)->ptr_cluster() == (*j)->ptr_cluster())
+          SM_U.push_back(makeAngle(i,j));
+    sm_s.clear();
 
     // now putting selected observations in good order - both distances
     // from and to the stanpoint, identical angles, ... etc.
@@ -108,7 +106,7 @@ namespace GaMaLib {
 
   // public
 
-  void ApproxPoint::Calculation()
+  void ApproxPoint::calculation()
   {
     CoordinateGeometry2D* GU;
     Select_solution_g2d* VR = new Select_solution_g2d(&SB,&SM);
@@ -122,67 +120,67 @@ namespace GaMaLib {
             case 2*is_Distance :
               {
                 Distance_distance* V = new Distance_distance(*i, *j, &SB, CB);
-                V->Calculation();
+                V->calculation();
                 GU = V;
               }
               break;
             case is_Distance + is_Direction :
               {
                 Direction_distance* V = new Direction_distance(*i, *j, &SB);
-                V->Calculation();
+                V->calculation();
                 GU = V;
               }
               break;
             case is_Distance + is_Angle :
               {
                 Distance_angle* V = new Distance_angle(*i, *j, &SB);
-                V->Calculation();
+                V->calculation();
                 GU = V;
               }
               break;
             case 2*is_Direction :
               {
                 Direction_direction* V = new Direction_direction(*i, *j, &SB);
-                V->Calculation();
+                V->calculation();
                 GU = V;
               }
               break;
             case is_Direction + is_Angle :
               {
                 Direction_angle* V = new Direction_angle(*i, *j, &SB);
-                V->Calculation();
+                V->calculation();
                 GU = V;
               }
               break;
             case 2*is_Angle :
               {
                 Angle_angle* V = new Angle_angle(*i, *j, &SB);
-                V->Calculation();
+                V->calculation();
                 GU = V;
               }
               break;
             }
-          switch (GU->Number_of_solutions())
+          switch (GU->number_of_solutions())
             {
             case 2 :
               {
-                VR->Calculation(GU->Solution_1(),GU->Solution_2());
-                if(VR->State() == 1)         // unique solution selection
+                VR->calculation(GU->solution_1(),GU->solution_2());
+                if(VR->state() == 1)         // unique solution selection
                   {
-                    Solved_points.push_back(VR->Solution());
+                    solved_points.push_back(VR->Solution());
                   }
-                if(Solved_points.empty() && 
-                   (VR -> State() == 0)  &&  (!two_solutions))
+                if(solved_points.empty() && 
+                   (VR -> state() == 0)  &&  (!two_solutions))
                   {
-                    prv = GU->Solution_1();
-                    dru = GU->Solution_2();
+                    prv = GU->solution_1();
+                    dru = GU->solution_2();
                     two_solutions = true;
                   }
               }
               break;
             case 1 :
               {
-                Solved_points.push_back(GU->Solution_1());
+                solved_points.push_back(GU->solution_1());
               }
               break;
             default : // void solution remains - nothing else could be done
@@ -191,23 +189,23 @@ namespace GaMaLib {
           delete GU;
         }
     // making final coordinates
-    if(Solved_points.size() > 0)
+    if(solved_points.size() > 0)
       {
-        state = unique_solution;
-        Statistics_g2d* ST = new Statistics_g2d(&Solved_points);
-        ST->Calculation();
+        state_ = unique_solution;
+        Statistics_g2d* ST = new Statistics_g2d(&solved_points);
+        ST->calculation();
         v_point = ST->Median();
       }
     else
-      state = no_solution;
-    if(two_solutions && Solved_points.empty())
+      state_ = no_solution;
+    if(two_solutions && solved_points.empty())
       {
         v_point = prv;
         v_point2 = dru;
-        state = ambiguous_solution;   // two solutions
+        state_ = ambiguous_solution;   // two solutions
       }
 
-  }      // void ApproxPoint::Calculation()
+  }      // void ApproxPoint::calculation()
 
 
 

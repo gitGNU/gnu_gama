@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_coordinates.h,v 1.5 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: g2d_coordinates.h,v 1.6 2005/09/30 11:49:32 cepek Exp $
  */
 
 /*************************************************************
@@ -57,19 +57,19 @@ namespace GaMaLib {
       PointIDList selected;
       
       // list of solved points
-      PointData solved;
+      PointData solved_pd;
       int depth;
 
       // number of points with known coordinates
       int known_coordinates_;
       
-      bool Absent(PointID cb)
+      bool absent(PointID cb)
         {
           return 
             (std::find(selected.begin(),selected.end(),cb) == selected.end());
         }
 
-      bool Local_observations(ObservationList::iterator sm, PointIDList sb)
+      bool local_observations(ObservationList::iterator sm, PointIDList sb)
         {
           bool pom = false;
           pom = (std::find(sb.begin(), sb.end(), (*sm)->from()) != sb.end()) &&
@@ -82,9 +82,9 @@ namespace GaMaLib {
           return pom;
         }
 
-      void Reset();
+      void reset();
 
-      bool Observation_hasID(ObservationList::iterator m, 
+      bool observation_hasID(ObservationList::iterator m, 
                              PointIDList::iterator cb)
         {
           bool pom = (((*m)->from() == (*cb)) || ((*m)->to() == (*cb)));
@@ -97,66 +97,66 @@ namespace GaMaLib {
         }
 
       // true - at least two points exist with known coordinates
-      bool Solvable_data(PointData& b);
+      bool solvable_data(PointData& b);
 
       // true - at least 2 observations with point ID exist
-      bool Necessary_observations(PointID ID);
+      bool necessary_observations(PointID ID);
 
       // in lists SM and SB finds points without coordinates and
       // stores their IDs in "selected" list
-      void Find_missing_coordinates();
+      void find_missing_coordinates();
 
       // move point with ID from list From to list To
-      void Move_point(PointData& From, PointData& To, PointID& ID);
+      void move_point(PointData& From, PointData& To, PointID& ID);
 
       // solution by simple intersection; true - at least one point solved
-      bool Solve_intersection(PointData& body, PointIDList& co);
+      bool solve_intersection(PointData& body, PointIDList& co);
 
       // computation of points that cannot be solved by a simple
       // intersection, eg polygonal traverse inserted between two
       // known points; true - coordinates of at least one point solved
-      bool Solve_insertion();
+      bool solve_insertion();
 
       // combines both previous methods
-      void Computational_loop();
+      void computational_loop();
 
       void copy_horizontal(const ObservationData& from, ObservationList& to);
 
+      ApproximateCoordinates(PointData& b, ObservationData& m, int vn)   
+        : SB(b), OD(m), depth(vn)
+        {
+          copy_horizontal(OD, SM);
+          reset();
+        }
+      
+      void reset(PointData& b, ObservationList& m)
+        {
+          SB = b;
+          SM = m;
+          depth = 0;
+          reset();
+        }
+      
     public:
       
       ApproximateCoordinates(PointData& b, ObservationData& m) 
         : SB(b), OD(m),  depth(0)
         {
           copy_horizontal(OD, SM);
-          Reset();
-        }
-      
-      ApproximateCoordinates(PointData& b, ObservationData& m, int vn)   
-        : SB(b), OD(m), depth(vn)
-        {
-          copy_horizontal(OD, SM);
-          Reset();
-        }
-      
-      void Reset(PointData& b, ObservationList& m)
-        {
-          SB = b;
-          SM = m;
-          depth = 0;
-          Reset();
+          reset();
         }
       
       // one point (even if already solved); true - succeeded to get
       // coordinates
-      bool Calculation(PointID cb);
+      bool calculation(PointID cb);
       
       // poinst in PointIDList (even those already solved); true -
       // succeded to get all coordinates
-      bool Calculation(PointIDList cb);
+      bool calculation(PointIDList cb);
       
       // all points without coordinates; true - succeeded to get all
       // coordinates
-      bool Calculation()
+      bool calculation()
         {
           // looking for all points not placed in the point list (ie
           // found only in observation list) and points without
@@ -167,35 +167,35 @@ namespace GaMaLib {
           // gamalib-1.1.51 (AC) ... the test moved where it belongs ;-)
           if (SB.empty() || SM.empty()) return true;
 
-          Find_missing_coordinates();
-          if(!Solvable_data(SB))
+          find_missing_coordinates();
+          if(!solvable_data(SB))
             return false;
-          Computational_loop();
-          return All_is_solved();
+          computational_loop();
+          return all_is_solved();
         }
 
-      bool All_is_solved() const
+      bool all_is_solved() const
         {
           if(state <= calculation_not_done)
             throw g2d_exc("ApproximateCoordinates::"
-                          "All_is_solved - nothing to do");
+                          "all_is_solved - nothing to do");
           return selected.empty();
         }
 
-      PointIDList Unsolved() const
+      PointIDList unsolved() const
         {
           if(state <= calculation_not_done)
             throw g2d_exc("ApproximateCoordinates::"
-                          "Unsolved - calculation not done");
+                          "unsolved - calculation not done");
           return selected;
         }
 
-      PointData Solved() const
+      PointData solved() const
         {
           if(state <= calculation_not_done)
             throw g2d_exc("ApproximateCoordinates::"
-                          "Solved - calculation not done");
-          return solved;
+                          "solved - calculation not done");
+          return solved_pd;
         }  
 
       int Total_points () const
@@ -208,7 +208,7 @@ namespace GaMaLib {
           return SM.size();
         }
 
-      // number of points with known coordinates (see Reset)
+      // number of points with known coordinates (see reset)
       int Known_coordinates() const
         { 
           return known_coordinates_; 

@@ -21,7 +21,7 @@
 */
 
 /*
- *  $Id: g2d_point.h,v 1.7 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: g2d_point.h,v 1.8 2005/09/30 11:49:32 cepek Exp $
  */
 
 /*************************************************************
@@ -43,7 +43,7 @@ namespace GaMaLib {
     {
 
     private:
-      Helper_list Solved_points;
+      Helper_list solved_points;
       PointData SB;
       PointID   CB;
       ObservationList SM;
@@ -53,21 +53,21 @@ namespace GaMaLib {
       LocalPoint v_point2;          //             - ambiguous solutions (two)
       PointData* SB_puv;            // repeating calc. with another Point ID 
       ObservationList* SM_puv;
-      Solution_state_tag state;     // Solution_state_tag -> see g2d_helper.h
+      Solution_state_tag state_;    // Solution_state_tag -> see g2d_helper.h
       void ClearLists();  	    // empty helper lists
 
-      Angle* MakeAngle(const ObservationList::iterator i, 
+      Angle* makeAngle(const ObservationList::iterator i, 
                        const ObservationList::iterator j)
         {
           Direction* s1 = dynamic_cast<Direction*>(*i);
           Direction* s2 = dynamic_cast<Direction*>(*j);
           if(!(s1 && s2))
-            throw g2d_exc("ApproxPoint::MakeAngle : missing direction");
+            throw g2d_exc("ApproxPoint::makeAngle : missing direction");
           Double angle = s2->value() - s1->value();
           return new Angle(s1->from(),s1->to(),s2->to(),
                            (angle < 0 ? angle+2*M_PI : angle));
         }
-      Direction* MakeBearing(const Angle* u, const PointID& cb)
+      Direction* makeBearing(const Angle* u, const PointID& cb)
         {
           PointID point = (u->to() == cb ? u->fs() : u->to());
           Double sm = bearing(SB[u->from()],SB[point]);
@@ -76,7 +76,7 @@ namespace GaMaLib {
           sm -= (sm >= 2*M_PI ? 2*M_PI : 0);
           return new Direction(u->from(),cb,sm);
         }
-      Direction* MakeBearing(const Direction* s, const PointID& cb)
+      Direction* makeBearing(const Direction* s, const PointID& cb)
         {
           Double sm = s->value() + s->orientation();
           sm -= (sm >= 2*M_PI ? 2*M_PI : 0);
@@ -97,7 +97,7 @@ namespace GaMaLib {
           // true: target coordinates of agle's right site are known
           return SB[u->fs()].test_xy();
         }
-      bool KnownStandpoint(ObservationList::const_iterator i)
+      bool knownStandpoint(ObservationList::const_iterator i)
         {
           // true: standpoint coordinates and orientation shift are known
           // 1999.07.06 - AC
@@ -115,55 +115,55 @@ namespace GaMaLib {
           return test_xyz;
         }
       void ArrangeObservations(ObservationList&);
-      void Reset(PointData*, ObservationList*, const PointID&);
+      void reset(PointData*, ObservationList*, const PointID&);
 
 
     public:
       ApproxPoint(PointData* sb, ObservationList* sm, const PointID& cb)
-        : SB_puv(sb), SM_puv(sm), state(missing_init)
+        : SB_puv(sb), SM_puv(sm), state_(missing_init)
         {
-          Reset(sb,sm,cb);
+          reset(sb,sm,cb);
         }
       ApproxPoint(PointData* sb, ObservationList* sm) 
-        : SB_puv(sb), SM_puv(sm), state(missing_init) 
+        : SB_puv(sb), SM_puv(sm), state_(missing_init) 
         {
         }
       ~ApproxPoint()
         {
           ClearLists();
         } 
-      void Calculation(PointData* sb, ObservationList* sm, const PointID& cb)
+      void calculation(PointData* sb, ObservationList* sm, const PointID& cb)
         {
           SB_puv = sb;
           SM_puv = sm;
-          Reset(sb,sm,cb);
-          Calculation();
+          reset(sb,sm,cb);
+          calculation();
         }
-      void Calculation(const PointID& cb)
+      void calculation(const PointID& cb)
         {
-          Reset(SB_puv, SM_puv, cb);
-          Calculation();
+          reset(SB_puv, SM_puv, cb);
+          calculation();
         }
-      void Calculation();
-      Solution_state_tag State() const 
+      void calculation();
+      Solution_state_tag state() const 
         { 
-          return state; 
+          return state_; 
         }
       LocalPoint Solution()
         {
-          if(state == calculation_not_done)
+          if(state_ == calculation_not_done)
             throw g2d_exc("ApproxPoint: computation not done");
-          if(state == no_solution)
+          if(state_ == no_solution)
             throw g2d_exc("ApproxPoint: no solution");
           return v_point;
         }
-      LocalPoint Solution_2()
+      LocalPoint solution_2()
         {
-          if(state == calculation_not_done)
+          if(state_ == calculation_not_done)
             throw g2d_exc("ApproxPoint: computation not done");
-          if(state == no_solution)
+          if(state_ == no_solution)
             throw g2d_exc("ApproxPoint: no solution");
-          if(state == unique_solution)
+          if(state_ == unique_solution)
             throw g2d_exc("ApproxPoint: only unique solution");
           return v_point2;
         }
