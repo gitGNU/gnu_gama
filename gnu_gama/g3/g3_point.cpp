@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.39 2005/09/22 18:20:39 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.40 2005/10/02 13:31:55 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -311,7 +311,7 @@ double Point::diff_U() const
 
 void Point::set_cov_neu()
 {
-  cnn = cne = cnu = cee = ceu = cuu = 123;
+  cnn = cne = cnu = cee = ceu = cuu = 0.0;
   Index n = N.index();
   Index e = E.index();
   Index u = U.index();
