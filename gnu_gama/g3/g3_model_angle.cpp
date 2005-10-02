@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_angle.cpp,v 1.1 2005/09/28 14:35:59 cepek Exp $
+ *  $Id: g3_model_angle.cpp,v 1.2 2005/10/02 16:00:27 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -124,10 +124,10 @@ void Model::linearization_visit(Angle* pangle)
   const double psr = sin(sr)/dr;
   const double pcr = cos(sr)/dr;
 
-  E_3 Lcoef( psl, -pcl, 0.0);
+  E_3 Lcoef(-psl,  pcl, 0.0);
   E_3 Rcoef(-psr,  pcr, 0.0);
 
-  E_3 Fcoef( Rcoef );  Fcoef -= Lcoef;
+  E_3 Fcoef( Rcoef );  Fcoef -= Lcoef;  Fcoef *= -1.0;
 
   tran.rotation(Lcoef, Lxyz);
   tran.rotation(Rcoef, Rxyz);
@@ -144,13 +144,13 @@ void Model::linearization_visit(Angle* pangle)
   if (from->E.free()) A->add_element(Fcoef.e2*sc, from->E.index());
   if (from->U.free()) A->add_element(Fcoef.e3*sc, from->U.index());
 
-  if (left->N.free()) A->add_element(Fcoef.e1*sc, left->N.index());
-  if (left->E.free()) A->add_element(Fcoef.e2*sc, left->E.index());
-  if (left->U.free()) A->add_element(Fcoef.e3*sc, left->U.index());
+  if (left->N.free()) A->add_element(Lcoef.e1*sc, left->N.index());
+  if (left->E.free()) A->add_element(Lcoef.e2*sc, left->E.index());
+  if (left->U.free()) A->add_element(Lcoef.e3*sc, left->U.index());
 
-  if (right->N.free()) A->add_element(Fcoef.e1*sc, right->N.index());
-  if (right->E.free()) A->add_element(Fcoef.e2*sc, right->E.index());
-  if (right->U.free()) A->add_element(Fcoef.e3*sc, right->U.index());
+  if (right->N.free()) A->add_element(Rcoef.e1*sc, right->N.index());
+  if (right->E.free()) A->add_element(Rcoef.e2*sc, right->E.index());
+  if (right->U.free()) A->add_element(Rcoef.e3*sc, right->U.index());
 
 
   // right hand site
