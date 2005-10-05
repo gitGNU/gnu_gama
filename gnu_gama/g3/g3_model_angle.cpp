@@ -20,12 +20,12 @@
 */
 
 /*
- *  $Id: g3_model_angle.cpp,v 1.3 2005/10/05 10:58:28 cepek Exp $
+ *  $Id: g3_model_angle.cpp,v 1.4 2005/10/05 10:59:19 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
 #include <gnu_gama/radian.h>
-#include <math>
+#include <cmath>
 
 using namespace GNU_gama::g3;
 
