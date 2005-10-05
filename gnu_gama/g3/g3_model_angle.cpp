@@ -20,11 +20,12 @@
 */
 
 /*
- *  $Id: g3_model_angle.cpp,v 1.2 2005/10/02 16:00:27 cepek Exp $
+ *  $Id: g3_model_angle.cpp,v 1.3 2005/10/05 10:58:28 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
 #include <gnu_gama/radian.h>
+#include <math>
 
 using namespace GNU_gama::g3;
 
@@ -75,6 +76,8 @@ bool Model::revision_visit(Angle* angle)
 
 void Model::linearization_visit(Angle* pangle)
 {
+  using namespace std;
+
   Point* from  = points->find(pangle->from);
   Point* left  = points->find(pangle->left);
   Point* right = points->find(pangle->right);
