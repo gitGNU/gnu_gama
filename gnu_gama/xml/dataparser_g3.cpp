@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser_g3.cpp,v 1.15 2005/09/28 14:35:59 cepek Exp $
+ *  $Id: dataparser_g3.cpp,v 1.16 2005/10/13 12:43:33 cepek Exp $
  */
 
 
@@ -1130,6 +1130,7 @@ int DataParser::g3_obs_height(const char *name)
      height->id = id;
      height->set(val);
      g3->obs_cluster->observation_list.push_back(height);  
+     g3->scale.push_back(1.0);
 
      return  end_tag(name);
    }
