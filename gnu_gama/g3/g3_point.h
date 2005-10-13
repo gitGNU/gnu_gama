@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.32 2005/09/23 17:17:29 cepek Exp $
+ *  $Id: g3_point.h,v 1.33 2005/10/13 14:00:43 cepek Exp $
  */
 
 #include <string>
@@ -46,7 +46,7 @@ namespace GNU_gama {  namespace g3 {
     Linear    N;
     Linear    E;
     Linear    U;
-    Parameter height;
+    Linear    height;
     Parameter geoid;
     Parameter dB;
     Parameter dL;
