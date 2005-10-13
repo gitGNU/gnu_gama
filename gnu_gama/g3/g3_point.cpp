@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.40 2005/10/02 13:31:55 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.41 2005/10/13 14:26:13 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -428,18 +428,17 @@ void Point::write_xml(std::ostream& ostr)
 
       ostr.setf(std::ios_base::scientific, std::ios_base::floatfield);
       ostr.precision(7);
-      ostr << "\n        <cov-mat> <dim>3</dim> <band>2</band>\n";
+      ostr << "\n";
       ostr << "        ";
-      ostr << "<flt> " << cnn << " </flt> ";
-      ostr << "<flt> " << setw(14) << cne << " </flt> ";
+      ostr << "<cnn> " << cnn << " </cnn> ";
+      ostr << "<cne> " << setw(14) << cne << " </cne> ";
       ostr << "\n                                   ";
-      ostr << "<flt> " << setw(14) << cnu << " </flt>\n";
+      ostr << "<cnu> " << setw(14) << cnu << " </cnu>\n";
       ostr << "        "; 
-      ostr << "<flt> " << cee << " </flt> ";
-      ostr << "<flt> " << setw(14) << ceu << " </flt>\n";
+      ostr << "<cee> " << cee << " </cee> ";
+      ostr << "<ceu> " << setw(14) << ceu << " </ceu>\n";
       ostr << "        "; 
-      ostr << "<flt> " << cuu << " </ftl>\n";
-      ostr << "        </cov-mat>\n";
+      ostr << "<cuu> " << cuu << " </cuu>\n";
     }
 
   if (has_position())
@@ -493,18 +492,17 @@ void Point::write_xml(std::ostream& ostr)
 
       ostr.setf(std::ios_base::scientific, std::ios_base::floatfield);
       ostr.precision(7);
-      ostr << "\n        <cov-mat> <dim>3</dim> <band>2</band>\n";
+      ostr << "\n";
       ostr << "        ";
-      ostr << "<flt> " << cxx << " </flt> ";
-      ostr << "<flt> " << setw(14) << cxy << " </flt> ";
+      ostr << "<cxx> " << cxx << " </cxx> ";
+      ostr << "<cxy> " << setw(14) << cxy << " </cxy> ";
       ostr << "\n                                   ";
-      ostr << "<flt> " << setw(14) << cxz << " </flt>\n";
+      ostr << "<cxz> " << setw(14) << cxz << " </cxz>\n";
       ostr << "        ";
-      ostr << "<flt> " << cyy << " </flt> ";
-      ostr << "<flt> " << setw(14) << cyz << " </flt>\n";
+      ostr << "<cyy> " << cyy << " </cyy> ";
+      ostr << "<cyz> " << setw(14) << cyz << " </cyz>\n";
       ostr << "        ";
-      ostr << "<flt> " << czz << " </ftl>\n";
-      ostr << "        </cov-mat>\n";
+      ostr << "<czz> " << czz << " </czz>\n";
     }
 
   if (has_position())
