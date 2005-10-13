@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_height_diff.cpp,v 1.4 2005/09/23 17:37:31 cepek Exp $
+ *  $Id: g3_model_height_diff.cpp,v 1.5 2005/10/13 18:57:50 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -35,10 +35,10 @@ bool Model::revision_visit(HeightDiff* dh)
   Point* from = points->find(dh->from);
   Point* to   = points->find(dh->to  );
   
-  if ( from == 0      ||  to == 0      ) return dh->set_active(false);
-  if ( from->unused() ||  to->unused() ) return dh->set_active(false);
-  if (!from->has_height()              ) return dh->set_active(false);
-  if (!to  ->has_height()              ) return dh->set_active(false);
+  if ( from == 0      ||  to == 0     ) return dh->set_active(false);
+  if ( from->unused() ||  to->unused()) return dh->set_active(false);
+  if (!from->test_model_height()      ) return dh->set_active(false);
+  if (!to  ->test_model_height()      ) return dh->set_active(false);
 
   active_obs->push_back(dh);
 
@@ -67,8 +67,7 @@ void Model::linearization_visit(HeightDiff* dh)
 
   // right hand site
  
-  double h = to->height() - from->height();  
-
+  const double h = to->model_height() - from->model_height();  
   rhs(++rhs_ind) = (dh->obs() - h)*Linear().scale();
 }
 

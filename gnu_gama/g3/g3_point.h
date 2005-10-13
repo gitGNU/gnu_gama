@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.h,v 1.33 2005/10/13 14:00:43 cepek Exp $
+ *  $Id: g3_point.h,v 1.34 2005/10/13 18:57:50 cepek Exp $
  */
 
 #include <string>
@@ -95,6 +95,9 @@ namespace GNU_gama {  namespace g3 {
     bool has_blh()      const { return has_blh_;    } 
     bool has_height()   const { return has_height_; }
     bool has_geoid()    const { return has_geoid_;  }
+
+    bool   test_model_height() const;
+    double model_height()      const;
 
     double X_dh(double dh) const { return X() + r13*dh; }
     double Y_dh(double dh) const { return Y() + r23*dh; }

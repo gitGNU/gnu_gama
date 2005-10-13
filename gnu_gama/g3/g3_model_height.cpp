@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_height.cpp,v 1.3 2005/09/23 17:37:30 cepek Exp $
+ *  $Id: g3_model_height.cpp,v 1.4 2005/10/13 18:57:50 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -34,10 +34,9 @@ bool Model::revision_visit(Height* height)
   
   Point* point = points->find(height->id);
   
-  if ( point == 0         ) return height->set_active(false);
-  if ( point->unused()    ) return height->set_active(false);
-  if (!point->has_blh()   ) return height->set_active(false);
-  if (!point->has_geoid() ) return height->set_active(false);
+  if ( point == 0                ) return height->set_active(false);
+  if ( point->unused()           ) return height->set_active(false);
+  if (!point->test_model_height()) return height->set_active(false);
 
   active_obs->push_back(height);
 
@@ -61,8 +60,7 @@ void Model::linearization_visit(Height* height)
   if (point->free_height())  A->add_element(1, point->U.index());
 
   // right hand site
-  double h = point->H() - point->geoid();
 
-  rhs(++rhs_ind) = (height->obs() - h)*Linear().scale();
+  rhs(++rhs_ind) = (height->obs() - point->model_height())*Linear().scale();
 }
 

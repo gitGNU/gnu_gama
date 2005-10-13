@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.41 2005/10/13 14:26:13 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.42 2005/10/13 18:57:50 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -356,6 +356,29 @@ void Point::set_cov_xyz()
   cyz = t21*r31 + t22*r32 + t23*r33;
 
   czz = t31*r31 + t32*r32 + t33*r33;
+}
+
+bool Point::test_model_height() const
+{
+  if (1)
+    {
+      if (!has_blh()   ) return false;
+      if (!has_geoid() ) return false;
+    }
+  else
+    {
+      if (!has_height()) return false;
+    }
+  
+  return true;
+}
+
+double Point::model_height() const
+{
+  if (1)
+    return H() - geoid();
+  else
+    return height();
 }
 
 void Point::write_xml(std::ostream& ostr)
