@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.45 2005/09/28 14:35:59 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.46 2005/10/15 15:47:33 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -403,7 +403,7 @@ void Model::write_xml_adjustment_results(std::ostream& out)
 
   const Vec<>& r = adj->r();
 
-  out << "\n<adjustmen-statistics>\n\n";
+  out << "\n<adjustment-statistics>\n\n";
 
   Adj::algorithm alg = adj->get_algorithm();
   out << "<algorithm> ";
@@ -445,7 +445,7 @@ void Model::write_xml_adjustment_results(std::ostream& out)
   double sigma_aposteriori = aposteriori_sd*aposteriori_sd;
   out << "<sigma-aposteriori> "<<sigma_aposteriori<<" </sigma-aposteriori>\n";
   
-  out << "\n</adjustmen-statistics>\n\n";
+  out << "\n</adjustment-statistics>\n\n";
 
   // -----------------------------------------------------------------------
 
