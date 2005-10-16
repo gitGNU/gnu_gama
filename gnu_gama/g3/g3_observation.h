@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.18 2005/09/28 14:35:59 cepek Exp $
+ *  $Id: g3_observation.h,v 1.19 2005/10/16 17:53:36 cepek Exp $
  */
 
 
@@ -39,6 +39,9 @@ namespace GNU_gama {  namespace g3 {
   class Observation :
     public GNU_gama::Observation<Cluster<Observation>, GNU_gama::CovMat<> >
   {
+  public:
+
+    virtual void write_xml_adjusted(Model*) const {}
   };
 
 
@@ -306,6 +309,8 @@ namespace GNU_gama {  namespace g3 {
           lv->linearization_visit(this);
         }
     }
+    
+    void write_xml_adjusted(Model*);
   };
 
 
@@ -347,6 +352,4 @@ namespace GNU_gama {  namespace g3 {
 }}
 
 #endif
-
-
 

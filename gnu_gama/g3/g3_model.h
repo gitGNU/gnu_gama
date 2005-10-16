@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.37 2005/09/28 14:35:59 cepek Exp $
+ *  $Id: g3_model.h,v 1.38 2005/10/16 17:53:36 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -109,6 +109,8 @@ namespace GNU_gama {  namespace g3 {
     void linearization_visit(Height*     );
     bool revision_visit     (Angle*      );
     void linearization_visit(Angle*      );
+
+    void write_xml_adjusted(Height*);
 
     void set_algorithm(Adj::algorithm a) { adj->set_algorithm(a); }
 

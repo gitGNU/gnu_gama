@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.46 2005/10/15 15:47:33 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.47 2005/10/16 17:53:36 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -514,3 +514,6 @@ GNU_gama::E_3 Model::instrument(const Point* p, double dh) const
   return s;
 }
 
+void write_xml_adjusted(Height*)
+{
+}
