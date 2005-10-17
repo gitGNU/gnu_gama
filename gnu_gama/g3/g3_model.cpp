@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.47 2005/10/16 17:53:36 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.48 2005/10/17 17:26:50 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -465,6 +465,17 @@ void Model::write_xml_adjustment_results(std::ostream& out)
     {
       (*i)->write_xml(out);
     }
+
+  out << "\n<!-- adjusted observations -->\n";
+
+  Index index = 1;
+  for (ObservationList::iterator 
+         i=active_obs->begin(), e=active_obs->end(); i!=e; ++i)
+    {
+      (*i)->write_xml_adjusted(out, this, index);
+      index += (*i)->dimension();
+    }
+
   
   out << "\n</adjustment-results>\n";
 }
@@ -514,6 +525,14 @@ GNU_gama::E_3 Model::instrument(const Point* p, double dh) const
   return s;
 }
 
-void write_xml_adjusted(Height*)
+void Model::write_xml_adjusted(std::ostream& out, Vector* h, Index index)
 {
+  out << "<vector> " << index << " " << rhs(index) << " ???\n";
+  out << "</vector>\n";
+}
+
+void Model::write_xml_adjusted(std::ostream& out, Height* h, Index index)
+{
+  out << "<height> " << index << " " << rhs(index) <<  " ???\n";
+  out << "</height>\n";
 }

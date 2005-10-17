@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.42 2005/10/13 18:57:50 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.43 2005/10/17 17:26:50 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -362,8 +362,8 @@ bool Point::test_model_height() const
 {
   if (1)
     {
-      if (!has_blh()   ) return false;
-      if (!has_geoid() ) return false;
+      if (!has_position()) return false;
+      if (!has_geoid()   ) return false;
     }
   else
     {

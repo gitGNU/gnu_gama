@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.19 2005/10/16 17:53:36 cepek Exp $
+ *  $Id: g3_observation.h,v 1.20 2005/10/17 17:26:50 cepek Exp $
  */
 
 
@@ -41,7 +41,7 @@ namespace GNU_gama {  namespace g3 {
   {
   public:
 
-    virtual void write_xml_adjusted(Model*) const {}
+    virtual void write_xml_adjusted(std::ostream&, Model*, Index) {}
   };
 
 
@@ -198,6 +198,8 @@ namespace GNU_gama {  namespace g3 {
         }
     }
     
+    void write_xml_adjusted(std::ostream&, Model*, Index) ;
+
   private:    
     double dx_, dy_, dz_;
   };
@@ -310,7 +312,7 @@ namespace GNU_gama {  namespace g3 {
         }
     }
     
-    void write_xml_adjusted(Model*);
+    void write_xml_adjusted(std::ostream&, Model*, Index);
   };
 
 

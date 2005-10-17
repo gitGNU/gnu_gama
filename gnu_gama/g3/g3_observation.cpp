@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_observation.cpp,v 1.3 2005/10/16 17:53:36 cepek Exp $
+ *  $Id: g3_observation.cpp,v 1.4 2005/10/17 17:26:50 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -29,7 +29,12 @@
 
 using namespace GNU_gama::g3;
 
-void Height::write_xml_adjusted(Model* m)
+void Height::write_xml_adjusted(std::ostream& out, Model* m, Index index)
 {
-  m->write_xml_adjusted(this);
+  m->write_xml_adjusted(out, this, index);
+}
+
+void Vector::write_xml_adjusted(std::ostream& out, Model* m, Index index)
+{
+  m->write_xml_adjusted(out, this, index);
 }
