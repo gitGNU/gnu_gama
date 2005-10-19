@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.40 2005/10/19 16:12:02 cepek Exp $
+ *  $Id: g3_model.h,v 1.41 2005/10/19 18:15:33 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -110,8 +110,14 @@ namespace GNU_gama {  namespace g3 {
     bool revision_visit     (Angle*      );
     void linearization_visit(Angle*      );
 
-    void write_xml_adjusted(std::ostream&, const Vector*, Index);
-    void write_xml_adjusted(std::ostream&, const Height*, Index);
+    void write_xml_adjusted(std::ostream&, const Angle*,      Index);
+    void write_xml_adjusted(std::ostream&, const Azimuth*,    Index);
+    void write_xml_adjusted(std::ostream&, const Distance*,   Index);
+    void write_xml_adjusted(std::ostream&, const Vector*,     Index);
+    void write_xml_adjusted(std::ostream&, const Height*,     Index);
+    void write_xml_adjusted(std::ostream&, const HeightDiff*, Index);
+    void write_xml_adjusted(std::ostream&, const XYZ*,        Index);
+    void write_xml_adjusted(std::ostream&, const ZenithAngle*,Index);
 
     void set_algorithm(Adj::algorithm a) { adj->set_algorithm(a); }
 
@@ -180,6 +186,7 @@ namespace GNU_gama {  namespace g3 {
     bool   gons_;
 
 
+    void write_xml_adjustment_results_statistics  (std::ostream&);
     void write_xml_adjustment_results_points      (std::ostream&);
     void write_xml_adjustment_results_observations(std::ostream&);
 

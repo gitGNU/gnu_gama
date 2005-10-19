@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_observation.cpp,v 1.5 2005/10/19 16:12:02 cepek Exp $
+ *  $Id: g3_observation.cpp,v 1.6 2005/10/19 18:15:33 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -29,7 +29,27 @@
 
 using namespace GNU_gama::g3;
 
+void Angle::write_xml_adjusted(std::ostream& out, Model* m, Index index) const
+{
+  m->write_xml_adjusted(out, this, index);
+}
+
+void Azimuth::write_xml_adjusted(std::ostream& out, Model* m, Index index) const
+{
+  m->write_xml_adjusted(out, this, index);
+}
+
+void Distance::write_xml_adjusted(std::ostream& out, Model* m, Index index) const
+{
+  m->write_xml_adjusted(out, this, index);
+}
+
 void Height::write_xml_adjusted(std::ostream& out, Model* m, Index index) const
+{
+  m->write_xml_adjusted(out, this, index);
+}
+
+void HeightDiff::write_xml_adjusted(std::ostream& out, Model* m, Index index) const
 {
   m->write_xml_adjusted(out, this, index);
 }
@@ -38,3 +58,15 @@ void Vector::write_xml_adjusted(std::ostream& out, Model* m, Index index) const
 {
   m->write_xml_adjusted(out, this, index);
 }
+
+void XYZ::write_xml_adjusted(std::ostream& out, Model* m, Index index) const
+{
+  m->write_xml_adjusted(out, this, index);
+}
+
+void ZenithAngle::write_xml_adjusted(std::ostream& out, Model* m, Index index) const
+{
+  m->write_xml_adjusted(out, this, index);
+}
+
+

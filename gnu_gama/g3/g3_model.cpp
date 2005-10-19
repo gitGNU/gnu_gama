@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.49 2005/10/19 16:12:02 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.50 2005/10/19 18:15:33 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -441,51 +441,3 @@ GNU_gama::E_3 Model::instrument(const Point* p, double dh) const
   return s;
 }
 
-void Model::write_xml_adjusted(std::ostream& out, const Vector* v, Index index)
-{
-  out << "\n<vector> "
-      << "<from>"  << v->from << "</from> "
-      << "<to>"    << v->to   << "</to> " 
-      << "<index>" << index   << "</index>\n";
-
-  double rdx = rhs(index)/Linear().scale();
-  out << "\n        <dx-observed>" << setw(13) << v->dx()      
-      << " </dx-observed>";
-  out << "\n";
-  out << "        <dx-residual>" << setw(13) << rdx          
-      << " </dx-residual>";
-  out << "\n";
-  out << "        <dx-adjusted>" << setw(13) << v->dx()+rdx  
-      << " </dx-adjusted>";
-  out << "\n";
-
-  double rdy = rhs(index+1)/Linear().scale();
-  out << "\n        <dy-observed>" << setw(13) << v->dy()      
-      << " </dy-observed>";
-  out << "\n";
-  out << "        <dy-residual>" << setw(13) << rdy          
-      << " </dy-residual>";
-  out << "\n";
-  out << "        <dy-adjusted>" << setw(13) << v->dy()+rdy  
-      << " </dy-adjusted>";
-  out << "\n";
-
-  double rdz = rhs(index+2)/Linear().scale();
-  out << "\n        <dz-observed>" << setw(13) << v->dz()      
-      << " </dz-observed>";
-  out << "\n";
-  out << "        <dz-residual>" << setw(13) << rdz          
-      << " </dz-residual>";
-  out << "\n";
-  out << "        <dz-adjusted>" << setw(13) << v->dz()+rdz  
-      << " </dz-adjusted>";
-  out << "\n";
-
-  out << "        </vector>\n";
-}
-
-void Model::write_xml_adjusted(std::ostream& out, const Height* h, Index index)
-{
-  out << "<height> " << index << " " << rhs(index) <<  " ???\n";
-  out << "</height>\n";
-}

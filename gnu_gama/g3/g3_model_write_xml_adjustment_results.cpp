@@ -1,6 +1,6 @@
 /*  
     GNU Gama -- adjustment of geodetic networks
-    Copyright (C) 2003  Ales Cepek <cepek@gnu.org>
+    Copyright (C) 2005  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.1 2005/10/19 16:12:02 cepek Exp $
+ *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.2 2005/10/19 18:15:33 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -38,6 +38,15 @@ void Model::write_xml_adjustment_results(std::ostream& out)
 {
   if (!check_adjustment()) update_adjustment();
 
+  write_xml_adjustment_results_statistics  (out);
+  write_xml_adjustment_results_points      (out);
+  write_xml_adjustment_results_observations(out);
+}
+
+
+
+void Model::write_xml_adjustment_results_statistics  (std::ostream& out)
+{
   const Vec<>& r = adj->r();
 
   out << "\n<adjustment-statistics>\n\n";
@@ -83,9 +92,12 @@ void Model::write_xml_adjustment_results(std::ostream& out)
   out << "<sigma-aposteriori> "<<sigma_aposteriori<<" </sigma-aposteriori>\n";
   
   out << "\n</adjustment-statistics>\n\n";
+}
 
-  // -----------------------------------------------------------------------
 
+
+void Model::write_xml_adjustment_results_points      (std::ostream& out)
+{
   out << "\n"
     "<!-- adjustment results    : dn / de / du  are in millimeters -->\n"
     "<!-- deflection of vertical: db / dl       are in arc seconds -->\n\n";
@@ -102,8 +114,15 @@ void Model::write_xml_adjustment_results(std::ostream& out)
     {
       (*i)->write_xml(out);
     }
+  
+  out << "\n</adjustment-results>\n";
+}
 
-  out << "\n<!-- adjusted observations -->\n";
+
+
+void Model::write_xml_adjustment_results_observations(std::ostream& out)
+{
+  out << "\n<adjusted observations>\n";
 
   Index index = 1;
   for (ObservationList::iterator 
@@ -113,16 +132,125 @@ void Model::write_xml_adjustment_results(std::ostream& out)
       index += (*i)->dimension();
     }
 
-  
-  out << "\n</adjustment-results>\n";
+  out << "\n</adjusted observations>\n";
 }
 
 
-void Model::write_xml_adjustment_results_points      (std::ostream& out)
+// ==========================================================================
+
+
+void Model::write_xml_adjusted(std::ostream& out, const Angle* a, Index index)
 {
+  out << "\n<angle> ";
+  out << "        </angle>\n";
 }
 
-void Model::write_xml_adjustment_results_observations(std::ostream& out)
+
+
+void Model::write_xml_adjusted(std::ostream& out, const Azimuth* a, Index index)
 {
+  out << "\n<azimuth> ";
+  out << "        </azimuth>\n";
 }
+
+
+
+void Model::write_xml_adjusted(std::ostream& out, const Distance* d, Index index)
+{
+  out << "\n<distance> ";
+  out << "        </distance>\n";
+}
+
+
+
+void Model::write_xml_adjusted(std::ostream& out, const Vector* v, Index index)
+{
+  out << "\n<vector> "
+      << "<from>"  << v->from << "</from> "
+      << "<to>"    << v->to   << "</to> " 
+      << "<index>" << index   << "</index>\n";
+
+  double rdx = rhs(index)/Linear().scale();
+  out << "\n        <dx-observed>" << setw(13) << v->dx()      
+      << " </dx-observed>";
+  out << "\n";
+  out << "        <dx-residual>" << setw(13) << rdx          
+      << " </dx-residual>";
+  out << "\n";
+  out << "        <dx-adjusted>" << setw(13) << v->dx()+rdx  
+      << " </dx-adjusted>";
+  out << "\n";
+
+  double rdy = rhs(index+1)/Linear().scale();
+  out << "\n        <dy-observed>" << setw(13) << v->dy()      
+      << " </dy-observed>";
+  out << "\n";
+  out << "        <dy-residual>" << setw(13) << rdy          
+      << " </dy-residual>";
+  out << "\n";
+  out << "        <dy-adjusted>" << setw(13) << v->dy()+rdy  
+      << " </dy-adjusted>";
+  out << "\n";
+
+  double rdz = rhs(index+2)/Linear().scale();
+  out << "\n        <dz-observed>" << setw(13) << v->dz()      
+      << " </dz-observed>";
+  out << "\n";
+  out << "        <dz-residual>" << setw(13) << rdz          
+      << " </dz-residual>";
+  out << "\n";
+  out << "        <dz-adjusted>" << setw(13) << v->dz()+rdz  
+      << " </dz-adjusted>";
+  out << "\n";
+
+  out << "        </vector>\n";
+}
+
+
+
+void Model::write_xml_adjusted(std::ostream& out, const Height* h, Index index)
+{
+  out << "\n<height> "
+      << "<id>" << h->id << "</id> "
+      << "<index>" << index   << "</index>\n";
+
+  double rdx = rhs(index)/Linear().scale();
+  out << "\n        <observed>" << setw(13) << h->obs()      
+      << " </observed>";
+  out << "\n";
+  out << "        <residual>" << setw(13) << rdx          
+      << " </residual>";
+  out << "\n";
+  out << "        <adjusted>" << setw(13) << h->obs()+rdx  
+      << " </adjusted>";
+  out << "\n";
+
+  out << "        </height>\n";
+}
+
+
+
+void Model::write_xml_adjusted(std::ostream& out, const HeightDiff* hd, Index index)
+{
+  out << "\n<height-diff> ";
+  out << "        </height-diff>\n";
+}
+
+
+
+void Model::write_xml_adjusted(std::ostream& out, const XYZ* xyz, Index index)
+{
+  out << "\n<xyz> ";
+  out << "        </xyz>\n";
+}
+
+
+
+void Model::write_xml_adjusted(std::ostream& out, const ZenithAngle* za, Index index)
+{
+  out << "\n<zenith-angle> ";
+  out << "        </zenith-angle>\n";
+}
+
+
 

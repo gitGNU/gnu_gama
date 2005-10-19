@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.21 2005/10/19 16:12:02 cepek Exp $
+ *  $Id: g3_observation.h,v 1.22 2005/10/19 18:15:33 cepek Exp $
  */
 
 
@@ -41,7 +41,7 @@ namespace GNU_gama {  namespace g3 {
   {
   public:
 
-    virtual void write_xml_adjusted(std::ostream&, Model*, Index) const {}
+    virtual void write_xml_adjusted(std::ostream&, Model*, Index) const = 0;
   };
 
 
@@ -95,6 +95,8 @@ namespace GNU_gama {  namespace g3 {
           lv->linearization_visit(this);
         }
     }
+
+    void write_xml_adjusted(std::ostream&, Model*, Index) const;
   };
 
 
@@ -125,6 +127,8 @@ namespace GNU_gama {  namespace g3 {
           lv->linearization_visit(this);
         }
     }
+
+    void write_xml_adjusted(std::ostream&, Model*, Index) const;
   };
 
 
@@ -155,6 +159,8 @@ namespace GNU_gama {  namespace g3 {
           lv->linearization_visit(this);
         }
     }
+
+    void write_xml_adjusted(std::ostream&, Model*, Index) const;
   };
 
 
@@ -247,6 +253,8 @@ namespace GNU_gama {  namespace g3 {
         }
     }
     
+    void write_xml_adjusted(std::ostream&, Model*, Index) const;
+
   private:    
     double x_, y_, z_;
   };
@@ -279,6 +287,8 @@ namespace GNU_gama {  namespace g3 {
           lv->linearization_visit(this);
         }
     }
+
+    void write_xml_adjusted(std::ostream&, Model*, Index) const;
   };
 
 
@@ -349,6 +359,8 @@ namespace GNU_gama {  namespace g3 {
           lv->linearization_visit(this);
         }
     }
+
+    void write_xml_adjusted(std::ostream&, Model*, Index) const;
   };
 
 }}
