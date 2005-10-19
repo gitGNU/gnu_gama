@@ -1,6 +1,6 @@
 # GNU Gama C++ library files 
 # -----------------------------------------------------------
-# $Id: gnu_gama_files,v 1.30 2005/10/16 17:53:36 cepek Exp $
+# $Id: gnu_gama_files,v 1.31 2005/10/19 16:11:44 cepek Exp $
 
 gnu_gama/adj/adj.cpp
 gnu_gama/e3.cpp
@@ -16,6 +16,7 @@ gnu_gama/g3/g3_model_height_diff.cpp
 gnu_gama/g3/g3_model_vector.cpp
 gnu_gama/g3/g3_model_xyz.cpp
 gnu_gama/g3/g3_model_zenith_angle.cpp
+gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp
 gnu_gama/g3/g3_observation.cpp
 gnu_gama/g3/g3_point.cpp
 gnu_gama/g3/g3_cluster.cpp
