@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.50 2005/10/19 18:15:33 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.51 2005/10/22 16:16:23 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -374,7 +374,7 @@ void Model::update_adjustment()
   if (redundancy) 
     {
       const Vec<>& r = adj->r();
-      aposteriori_sd = sqrt(trans(r)*r/redundancy)*1e3;
+      aposteriori_sd = sqrt(trans(r)*r/redundancy);
     }
 
   if (actual_sd == apriori)
