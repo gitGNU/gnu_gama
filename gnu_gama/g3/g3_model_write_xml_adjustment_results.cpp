@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.3 2005/10/23 15:08:35 cepek Exp $
+ *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.4 2005/10/23 17:11:07 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -83,14 +83,25 @@ void Model::write_xml_adjustment_results_statistics  (std::ostream& out)
   out.setf(ios_base::scientific, ios_base::floatfield);
   out.precision(5);
   double rtr = trans(r)*r;
-  out << "<sum-of-squares>    " << rtr << " </sum-of-squares>\n";
+  out << "<sum-of-squares>        " << rtr << " </sum-of-squares>\n";
 
   double sigma_apriori = apriori_sd*apriori_sd;
-  out << "<sigma-apriori>     " << sigma_apriori << " </sigma-apriori>\n";
+  out << "<apriori-variance>      " 
+      << sigma_apriori << " </apriori-variance>\n";
 
   double sigma_aposteriori = aposteriori_sd*aposteriori_sd;
-  out << "<sigma-aposteriori> "<<sigma_aposteriori<<" </sigma-aposteriori>\n";
+  out << "<aposteriori-variance>  " 
+      << sigma_aposteriori <<" </aposteriori-variance>\n";
   
+  out << "<variance-factor-used>  ";
+  if (actual_sd == aposteriori)
+    out << "aposteriori";
+  else
+    out << "    apriori";
+  out <<" </variance-factor-used>\n";
+  
+
+
   out << "\n</adjustment-statistics>\n\n";
 }
 
