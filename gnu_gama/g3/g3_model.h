@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.41 2005/10/19 18:15:33 cepek Exp $
+ *  $Id: g3_model.h,v 1.42 2005/10/23 15:08:35 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -127,7 +127,9 @@ namespace GNU_gama {  namespace g3 {
     double get_conf_level() const   { return confidence_level; } 
 
     double standard_deviation() const { return std_deviation; }
-    double q_xx(Index i, Index j) { return adj->q_xx(i,j); }
+    double standard_variance () const { return std_variance; }
+    double cov_xx(Index i, Index j) { return std_variance*adj->q_xx(i,j); }
+    double cov_bb(Index i, Index j) { return std_variance*adj->q_bb(i,j); }
 
     void write_xml_adjustment_input_data(std::ostream&);
     void write_xml_adjustment_results   (std::ostream&);
@@ -177,6 +179,7 @@ namespace GNU_gama {  namespace g3 {
     enum { apriori, aposteriori } actual_sd;
     double aposteriori_sd;
     double std_deviation;
+    double std_variance;
     
 
     // constants
@@ -190,6 +193,9 @@ namespace GNU_gama {  namespace g3 {
     void write_xml_adjustment_results_points      (std::ostream&);
     void write_xml_adjustment_results_observations(std::ostream&);
 
+    void write_xml_adjusted_stdev(const char*, 
+                                  std::ostream&, const Observation*,
+                                  Index, Index);
   };
   
 }}

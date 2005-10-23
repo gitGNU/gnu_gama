@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_point.cpp,v 1.43 2005/10/17 17:26:50 cepek Exp $
+ *  $Id: g3_point.cpp,v 1.44 2005/10/23 15:08:35 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_point.h>
@@ -315,22 +315,20 @@ void Point::set_cov_neu()
   Index n = N.index();
   Index e = E.index();
   Index u = U.index();
-  double s = common->standard_deviation();
-  double q = s*s;
   if (n)
     {
-      cnn = q * common->q_xx(n,n);
-      if (e) cne = q * common->q_xx(n,e);
-      if (u) cnu = q * common->q_xx(n,u);
+      cnn = common->cov_xx(n,n);
+      if (e) cne = common->cov_xx(n,e);
+      if (u) cnu = common->cov_xx(n,u);
     }
   if (e)
     {
-      cee = q * common->q_xx(e,e);
-      if (u) ceu = q * common->q_xx(e,u);
+      cee = common->cov_xx(e,e);
+      if (u) ceu = common->cov_xx(e,u);
     }
   if (u)
     {
-      cuu = q * common->q_xx(u,u);
+      cuu = common->cov_xx(u,u);
     }
 }
 

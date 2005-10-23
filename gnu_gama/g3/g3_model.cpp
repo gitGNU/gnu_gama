@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.51 2005/10/22 16:16:23 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.52 2005/10/23 15:08:35 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -381,6 +381,8 @@ void Model::update_adjustment()
     std_deviation = apriori_sd;
   else
     std_deviation = aposteriori_sd;
+
+  std_variance = std_deviation*std_deviation;
 
   
   return next_state_(adjust_);

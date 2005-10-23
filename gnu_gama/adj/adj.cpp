@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.cpp,v 1.12 2005/09/11 14:35:09 cepek Exp $
+ *  $Id: adj.cpp,v 1.13 2005/10/23 15:08:35 cepek Exp $
  */
 
 #include <gnu_gama/adj/adj.h>
@@ -399,6 +399,36 @@ Vec<> Adj::r()
 
   return r_;
 }
+
+
+
+double Adj::q_bb(Index i, Index j)
+{
+  double* ib;
+  double* ie;
+  Index * in;
+
+  double* jb = data->A->begin(j);
+  double* je = data->A->end(j);
+  Index * jn = data->A->ibegin(j);
+
+  double t, sum = 0;
+  while (jb != je)
+    {
+      ib = data->A->begin(i);
+      ie = data->A->end(i);
+      in = data->A->ibegin(i);
+      t  = 0;
+      while (ib != ie)  t += *ib++ * q_xx(*in++, *jn);
+
+      sum += *jb * t;
+      jb++;
+      jn++;
+    }
+
+  return sum;
+}
+
 
 
 /* ######################################################################

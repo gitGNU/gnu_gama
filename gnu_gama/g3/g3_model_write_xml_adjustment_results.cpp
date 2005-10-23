@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.2 2005/10/19 18:15:33 cepek Exp $
+ *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.3 2005/10/23 15:08:35 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -139,6 +139,39 @@ void Model::write_xml_adjustment_results_observations(std::ostream& out)
 // ==========================================================================
 
 
+void Model::write_xml_adjusted_stdev(const char* prefix, 
+                                     std::ostream& out, 
+                                     const Observation* obs,
+                                     Index obs_dim_index,
+                                     Index index)
+{
+  const char* tab   = "        ";
+  const char* ntab  = "\n        ";
+  const int   prec  = out.precision(3);
+  const int   width = 8;
+
+  Index  cluster_index = obs->cluster_index + obs_dim_index;
+  double obs_stdev     = obs->cluster->stdDev(cluster_index);
+
+  double res_stdev     = -1;
+
+  index += obs_dim_index;
+  double adj_stdev     = sqrt( cov_bb(index, index) );
+
+  out << ntab << "<" << prefix << "stdev-obs>"
+      << setw(width) << obs_stdev  
+      << " </" << prefix << "stdev-obs>\n";
+  //out << tab << "<" << prefix << "stdev-res>"
+  //    << setw(width) << res_stdev  
+  //    << " </" << prefix << "stdev-res>\n";
+  out << tab << "<" << prefix << "stdev-adj>"
+      << setw(width) << adj_stdev  
+      << " </" << prefix << "stdev-adj>\n";
+
+  out.precision(prec);
+}
+
+
 void Model::write_xml_adjusted(std::ostream& out, const Angle* a, Index index)
 {
   out << "\n<angle> ";
@@ -203,6 +236,10 @@ void Model::write_xml_adjusted(std::ostream& out, const Vector* v, Index index)
       << " </dz-adjusted>";
   out << "\n";
 
+  write_xml_adjusted_stdev("dx-", out, v, 0, index);
+  write_xml_adjusted_stdev("dy-", out, v, 1, index);
+  write_xml_adjusted_stdev("dz-", out, v, 2, index);
+
   out << "        </vector>\n";
 }
 
@@ -224,6 +261,8 @@ void Model::write_xml_adjusted(std::ostream& out, const Height* h, Index index)
   out << "        <adjusted>" << setw(13) << h->obs()+rdx  
       << " </adjusted>";
   out << "\n";
+
+  write_xml_adjusted_stdev("", out, h, 0, index);
 
   out << "        </height>\n";
 }
