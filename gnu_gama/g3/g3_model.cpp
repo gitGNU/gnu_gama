@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.52 2005/10/23 15:08:35 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.53 2005/10/28 18:21:49 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -227,110 +227,6 @@ void Model::update_parameters()
     }
 
   return next_state_(params_);
-}
-
-
-void Model::update_observations()
-{
-  if (!check_parameters()) update_parameters();
-
-  par_list->clear();
-  active_obs->clear();
-  dm_rows = dm_cols = dm_floats = 0;   // dimension and size of design matrix
-
-  for (Model::ObservationData::iterator 
-         i=obsdata.begin(), e=obsdata.end(); i!=e; ++i)
-    {
-      (*i)->revision_accept(this);
-    }
-
-  for (Model::ClusterList::iterator ci = obsdata.clusters.begin(), 
-         ce = obsdata.clusters.end(); ci!=ce; ++ci)
-    {
-      (*ci)->update();
-    }
-  
-  return next_state_(obsrvs_);
-}
-
-
-void Model::update_linearization()
-{
-  if (!check_observations()) update_observations();
-
-  adj_input_data = new AdjInputData;
-
-  A = new SparseMatrix<>(dm_floats, dm_rows, dm_cols);
-  rhs.reset(dm_rows);
-  rhs_ind = 0;
-
-  for (ObservationList::iterator 
-         i=active_obs->begin(), e=active_obs->end(); i!=e; ++i)
-    {
-      (*i)->linearization_accept(this);
-    }
-
-  adj_input_data->set_mat(A);
-  adj_input_data->set_rhs(rhs);
-
-  {
-    int minx=0;
-    for (ParameterList::const_iterator 
-           i=par_list->begin(), e=par_list->end(); i!=e; ++i)
-      {
-        if ((*i)->constr()) minx++;
-      }
-    
-    if (minx)
-      {
-        GNU_gama::IntegerList<>* minlist = new GNU_gama::IntegerList<>(minx);
-        GNU_gama::IntegerList<>::iterator m = minlist->begin();
-        for (ParameterList::const_iterator 
-               i=par_list->begin(), e=par_list->end(); i!=e; ++i)
-          {
-            const Parameter* p = *i;
-            if (p->constr())
-              {
-                *m = p->index();
-                ++m;
-              }
-          }
-        
-        adj_input_data->set_minx(minlist);
-      }
-  }
-  
-  {
-    int nonzeroes=0, blocks=0;
-    for (ClusterList::iterator ci = obsdata.clusters.begin(), 
-           ce = obsdata.clusters.end(); ci!=ce; ++ci)
-      {
-        if (int n = (*ci)->activeNonz())
-          {
-            nonzeroes += n;
-            blocks++;
-          }
-      }
-
-    GNU_gama::BlockDiagonal<>* 
-      bd = new GNU_gama::BlockDiagonal<>(blocks, nonzeroes);
-
-    for (ClusterList::const_iterator ci = obsdata.clusters.begin(),
-           ce = obsdata.clusters.end(); ci!=ce; ++ci)
-      {
-        CovMat<> C = (*ci)->activeCov();
-        if (C.dim())
-          {
-            bd->add_block(C.dim(), C.bandWidth(), C.begin());
-          }
-      }
-
-    adj_input_data->set_cov(bd);
-  }
-    
-  adj->set(adj_input_data);
-
-  return next_state_(linear_);
 }
 
 

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: model.h,v 1.19 2005/07/27 15:15:43 cepek Exp $
+ *  $Id: model.h,v 1.20 2005/10/28 18:21:48 cepek Exp $
  */
 
 #ifndef GNU_gama__mathematical_model_h_gnugamamodel___gnu_gama_gmodel___h
@@ -64,8 +64,7 @@ namespace GNU_gama {
     virtual ~Observation() {}
 
     virtual int  dimension() const = 0;
-    virtual bool revision_accept(ObservationVisitor* visitor) = 0;
-    virtual void linearization_accept(ObservationVisitor* visitor) = 0;
+    virtual void accept(ObservationVisitor* visitor) = 0;
 
     bool active() const     { return  active_;      }
     bool set_active(bool b) { return (active_ = b); }
@@ -79,16 +78,11 @@ namespace GNU_gama {
 
   // .....................................................................
     
-  template <typename Observation> class Revision 
+
+  template <typename Observation> class Visitor
   {
   public:
-    virtual bool revision_visit(Observation* observation) = 0;
-  };
-  
-  template <typename Observation> class Linearization 
-  {
-  public:
-    virtual void linearization_visit(Observation* observation) = 0;
+    virtual void visit(Observation* observation) = 0;
   };
     
   template <typename Observation> 

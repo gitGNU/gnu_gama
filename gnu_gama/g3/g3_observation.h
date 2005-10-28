@@ -1,6 +1,6 @@
 /*  
     GNU Gama -- adjustment of geodetic networks
-    Copyright (C) 2003  Ales Cepek <cepek@gnu.org>
+    Copyright (C) 2003, 2005  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library.
     
@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_observation.h,v 1.22 2005/10/19 18:15:33 cepek Exp $
+ *  $Id: g3_observation.h,v 1.23 2005/10/28 18:21:49 cepek Exp $
  */
 
 
@@ -41,7 +41,6 @@ namespace GNU_gama {  namespace g3 {
   {
   public:
 
-    virtual void write_xml_adjusted(std::ostream&, Model*, Index) const = 0;
   };
 
 
@@ -77,26 +76,15 @@ namespace GNU_gama {  namespace g3 {
 
     int dimension() const { return 1; }
 
-    bool revision_accept(ObservationVisitor* visitor)
+    void accept(ObservationVisitor* visitor)
     {
-      if (Revision<Distance>* rv = dynamic_cast<Revision<Distance>*>(visitor))
-        {          
-          return rv->revision_visit(this);
-        }
-      else
-        return  set_active(false);
-    }
-  
-    void linearization_accept(ObservationVisitor* visitor)
-    {
-      if (Linearization<Distance>* 
-          lv = dynamic_cast<Linearization<Distance>*>(visitor))
+      if (Visitor<Distance>* 
+          lv = dynamic_cast<Visitor<Distance>*>(visitor))
         {
-          lv->linearization_visit(this);
+          lv->visit(this);
         }
     }
 
-    void write_xml_adjusted(std::ostream&, Model*, Index) const;
   };
 
 
@@ -108,27 +96,15 @@ namespace GNU_gama {  namespace g3 {
 
     int dimension() const { return 1; }
 
-    bool revision_accept(ObservationVisitor* visitor)
+    void accept(ObservationVisitor* visitor)
     {
-      if (Revision<ZenithAngle>* 
-          rv = dynamic_cast<Revision<ZenithAngle>*>(visitor))
-        {          
-          return rv->revision_visit(this);
-        }
-      else
-        return  set_active(false);
-    }
-  
-    void linearization_accept(ObservationVisitor* visitor)
-    {
-      if (Linearization<ZenithAngle>* 
-          lv = dynamic_cast<Linearization<ZenithAngle>*>(visitor))
+      if (Visitor<ZenithAngle>* 
+          lv = dynamic_cast<Visitor<ZenithAngle>*>(visitor))
         {
-          lv->linearization_visit(this);
+          lv->visit(this);
         }
     }
 
-    void write_xml_adjusted(std::ostream&, Model*, Index) const;
   };
 
 
@@ -140,27 +116,15 @@ namespace GNU_gama {  namespace g3 {
 
     int dimension() const { return 1; }
 
-    bool revision_accept(ObservationVisitor* visitor)
+    void accept(ObservationVisitor* visitor)
     {
-      if (Revision<Azimuth>* 
-          rv = dynamic_cast<Revision<Azimuth>*>(visitor))
-        {          
-          return rv->revision_visit(this);
-        }
-      else
-        return  set_active(false);
-    }
-  
-    void linearization_accept(ObservationVisitor* visitor)
-    {
-      if (Linearization<Azimuth>* 
-          lv = dynamic_cast<Linearization<Azimuth>*>(visitor))
+      if (Visitor<Azimuth>* 
+          lv = dynamic_cast<Visitor<Azimuth>*>(visitor))
         {
-          lv->linearization_visit(this);
+          lv->visit(this);
         }
     }
 
-    void write_xml_adjusted(std::ostream&, Model*, Index) const;
   };
 
 
@@ -185,26 +149,15 @@ namespace GNU_gama {  namespace g3 {
     double dy() const { return dy_; }
     double dz() const { return dz_; }
     
-    bool revision_accept(ObservationVisitor* visitor)
+    void accept(ObservationVisitor* visitor)
     {
-      if (Revision<Vector>* rv = dynamic_cast<Revision<Vector>*>(visitor))
+      if (Visitor<Vector>* 
+          lv = dynamic_cast<Visitor<Vector>*>(visitor))
         {
-          return rv->revision_visit(this);
-        }
-      else
-        return  set_active(false);
-    }
-  
-    void linearization_accept(ObservationVisitor* visitor)
-    {
-      if (Linearization<Vector>* 
-          lv = dynamic_cast<Linearization<Vector>*>(visitor))
-        {
-          lv->linearization_visit(this);
+          lv->visit(this);
         }
     }
     
-    void write_xml_adjusted(std::ostream&, Model*, Index) const;
 
   private:    
     double dx_, dy_, dz_;
@@ -234,26 +187,15 @@ namespace GNU_gama {  namespace g3 {
     double y() const { return y_; }
     double z() const { return z_; }
     
-    bool revision_accept(ObservationVisitor* visitor)
+    void accept(ObservationVisitor* visitor)
     {
-      if (Revision<XYZ>* rv = dynamic_cast<Revision<XYZ>*>(visitor))
+      if (Visitor<XYZ>* 
+          lv = dynamic_cast<Visitor<XYZ>*>(visitor))
         {
-          return rv->revision_visit(this);
-        }
-      else
-        return set_active(false);
-    }
-  
-    void linearization_accept(ObservationVisitor* visitor)
-    {
-      if (Linearization<XYZ>* 
-          lv = dynamic_cast<Linearization<XYZ>*>(visitor))
-        {
-          lv->linearization_visit(this);
+          lv->visit(this);
         }
     }
     
-    void write_xml_adjusted(std::ostream&, Model*, Index) const;
 
   private:    
     double x_, y_, z_;
@@ -268,27 +210,15 @@ namespace GNU_gama {  namespace g3 {
 
     int dimension() const { return 1; }
 
-    bool revision_accept(ObservationVisitor* visitor)
+    void accept(ObservationVisitor* visitor)
     {
-      if (Revision<HeightDiff>* 
-          rv = dynamic_cast<Revision<HeightDiff>*>(visitor))
-        {          
-          return rv->revision_visit(this);
-        }
-      else
-        return  set_active(false);
-    }
-  
-    void linearization_accept(ObservationVisitor* visitor)
-    {
-      if (Linearization<HeightDiff>* 
-          lv = dynamic_cast<Linearization<HeightDiff>*>(visitor))
+      if (Visitor<HeightDiff>* 
+          lv = dynamic_cast<Visitor<HeightDiff>*>(visitor))
         {
-          lv->linearization_visit(this);
+          lv->visit(this);
         }
     }
 
-    void write_xml_adjusted(std::ostream&, Model*, Index) const;
   };
 
 
@@ -302,27 +232,15 @@ namespace GNU_gama {  namespace g3 {
 
     int dimension() const { return 1; }
 
-    bool revision_accept(ObservationVisitor* visitor)
+    void accept(ObservationVisitor* visitor)
     {
-      if (Revision<Height>* 
-          rv = dynamic_cast<Revision<Height>*>(visitor))
-        {          
-          return rv->revision_visit(this);
-        }
-      else
-        return  set_active(false);
-    }
-  
-    void linearization_accept(ObservationVisitor* visitor)
-    {
-      if (Linearization<Height>* 
-          lv = dynamic_cast<Linearization<Height>*>(visitor))
+      if (Visitor<Height>* 
+          lv = dynamic_cast<Visitor<Height>*>(visitor))
         {
-          lv->linearization_visit(this);
+          lv->visit(this);
         }
     }
     
-    void write_xml_adjusted(std::ostream&, Model*, Index) const;
   };
 
 
@@ -340,27 +258,15 @@ namespace GNU_gama {  namespace g3 {
 
     int dimension() const { return 1; }
 
-    bool revision_accept(ObservationVisitor* visitor)
+    void accept(ObservationVisitor* visitor)
     {
-      if (Revision<Angle>* 
-          rv = dynamic_cast<Revision<Angle>*>(visitor))
-        {          
-          return rv->revision_visit(this);
-        }
-      else
-        return  set_active(false);
-    }
-  
-    void linearization_accept(ObservationVisitor* visitor)
-    {
-      if (Linearization<Angle>* 
-          lv = dynamic_cast<Linearization<Angle>*>(visitor))
+      if (Visitor<Angle>* 
+          lv = dynamic_cast<Visitor<Angle>*>(visitor))
         {
-          lv->linearization_visit(this);
+          lv->visit(this);
         }
     }
 
-    void write_xml_adjusted(std::ostream&, Model*, Index) const;
   };
 
 }}

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.42 2005/10/23 15:08:35 cepek Exp $
+ *  $Id: g3_model.h,v 1.43 2005/10/28 18:21:49 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -40,24 +40,7 @@
 
 namespace GNU_gama {  namespace g3 {
 
-    class Model : 
-    public GNU_gama::Model<g3::Observation>,
-    public Revision     <Distance>,
-    public Linearization<Distance>,
-    public Revision     <Vector>,
-    public Linearization<Vector>,
-    public Revision     <XYZ>,
-    public Linearization<XYZ>,
-    public Revision     <ZenithAngle>,
-    public Linearization<ZenithAngle>,
-    public Revision     <Azimuth>,
-    public Linearization<Azimuth>,
-    public Revision     <HeightDiff>,
-    public Linearization<HeightDiff>,
-    public Revision     <Height>,
-    public Linearization<Height>,
-    public Revision     <Angle>,
-    public Linearization<Angle>
+    class Model : public GNU_gama::Model<g3::Observation>
   {
   public:
     
@@ -93,22 +76,23 @@ namespace GNU_gama {  namespace g3 {
     void update_linearization();
     void update_adjustment();
         
-    bool revision_visit     (Distance*   );
-    void linearization_visit(Distance*   );
-    bool revision_visit     (Vector*     );
-    void linearization_visit(Vector*     );
-    bool revision_visit     (XYZ*        );
-    void linearization_visit(XYZ*        );
-    bool revision_visit     (ZenithAngle*);
-    void linearization_visit(ZenithAngle*);
-    bool revision_visit     (Azimuth*    );
-    void linearization_visit(Azimuth*    );
-    bool revision_visit     (HeightDiff* );
-    void linearization_visit(HeightDiff* );
-    bool revision_visit     (Height*     );
-    void linearization_visit(Height*     );
-    bool revision_visit     (Angle*      );
-    void linearization_visit(Angle*      );
+    bool revision(Angle*      );
+    bool revision(Azimuth*    );
+    bool revision(Distance*   );
+    bool revision(Height*     );
+    bool revision(HeightDiff* );
+    bool revision(Vector*     );
+    bool revision(XYZ*        );
+    bool revision(ZenithAngle*);
+
+    void linearization(Angle*      );
+    void linearization(Azimuth*    );
+    void linearization(Distance*   );
+    void linearization(Height*     );
+    void linearization(HeightDiff* );
+    void linearization(Vector*     );
+    void linearization(XYZ*        );
+    void linearization(ZenithAngle*);
 
     void write_xml_adjusted(std::ostream&, const Angle*,      Index);
     void write_xml_adjusted(std::ostream&, const Azimuth*,    Index);
@@ -192,6 +176,8 @@ namespace GNU_gama {  namespace g3 {
     void write_xml_adjustment_results_statistics  (std::ostream&);
     void write_xml_adjustment_results_points      (std::ostream&);
     void write_xml_adjustment_results_observations(std::ostream&);
+
+    bool accepted;
 
     void write_xml_adjusted_stdev(const char*, 
                                   std::ostream&, const Observation*,

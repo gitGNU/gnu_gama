@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.4 2005/10/23 17:11:07 cepek Exp $
+ *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.5 2005/10/28 18:21:49 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -32,6 +32,71 @@
 
 using namespace std;
 using namespace GNU_gama::g3;
+
+using GNU_gama::Index;
+
+namespace 
+{
+  class WriteXML :  
+    public GNU_gama::ObservationVisitor,
+    public GNU_gama::Visitor<Angle>,
+    public GNU_gama::Visitor<Azimuth>,
+    public GNU_gama::Visitor<Distance>,
+    public GNU_gama::Visitor<Height>,
+    public GNU_gama::Visitor<HeightDiff>,
+    public GNU_gama::Visitor<Vector>,
+    public GNU_gama::Visitor<XYZ>,
+    public GNU_gama::Visitor<ZenithAngle>
+  {
+  public:
+
+    WriteXML(GNU_gama::g3::Model* m, std::ostream& o
+             
+             ) : model(m), out(o) {}
+
+    void visit(Angle* p)
+    {
+      model->write_xml_adjusted(out, p, index); 
+    }
+    void visit(Azimuth* p)
+    {
+      model->write_xml_adjusted(out, p, index); 
+    }
+    void visit(Distance* p)
+    {
+      model->write_xml_adjusted(out, p, index); 
+    }
+    void visit(Height* p)
+    {
+      model->write_xml_adjusted(out, p, index); 
+    }
+    void visit(HeightDiff* p)
+    {
+      model->write_xml_adjusted(out, p, index); 
+    }
+    void visit(Vector* p)
+    {
+      model->write_xml_adjusted(out, p, index); 
+    }
+    void visit(XYZ* p)
+    {
+      model->write_xml_adjusted(out, p, index); 
+    }
+    void visit(ZenithAngle* p)
+    {
+      model->write_xml_adjusted(out, p, index); 
+    }
+
+    Index index;
+
+  private:
+
+    GNU_gama::g3::Model* model;
+    std::ostream&        out;
+
+  };
+}
+
 
 
 void Model::write_xml_adjustment_results(std::ostream& out)
@@ -135,11 +200,13 @@ void Model::write_xml_adjustment_results_observations(std::ostream& out)
 {
   out << "\n<adjusted observations>\n";
 
+  WriteXML  write_xml(this, out);
   Index index = 1;
   for (ObservationList::iterator 
          i=active_obs->begin(), e=active_obs->end(); i!=e; ++i)
     {
-      (*i)->write_xml_adjusted(out, this, index);
+      write_xml.index = index;
+      (*i)->accept(&write_xml);
       index += (*i)->dimension();
     }
 
