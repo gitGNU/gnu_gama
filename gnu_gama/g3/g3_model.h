@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.43 2005/10/28 18:21:49 cepek Exp $
+ *  $Id: g3_model.h,v 1.44 2005/10/29 15:00:00 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -40,7 +40,7 @@
 
 namespace GNU_gama {  namespace g3 {
 
-    class Model : public GNU_gama::Model<g3::Observation>
+  class Model : public GNU_gama::Model<g3::Observation>
   {
   public:
     

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: model.h,v 1.20 2005/10/28 18:21:48 cepek Exp $
+ *  $Id: model.h,v 1.21 2005/10/29 15:00:00 cepek Exp $
  */
 
 #ifndef GNU_gama__mathematical_model_h_gnugamamodel___gnu_gama_gmodel___h
@@ -86,7 +86,7 @@ namespace GNU_gama {
   };
     
   template <typename Observation> 
-  class Model : public ObservationVisitor
+  class Model
   {
   public:
     typedef typename 

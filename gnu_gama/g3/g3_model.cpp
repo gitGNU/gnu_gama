@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.cpp,v 1.53 2005/10/28 18:21:49 cepek Exp $
+ *  $Id: g3_model.cpp,v 1.54 2005/10/29 15:00:00 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -163,12 +163,6 @@ void Model::update_index(Parameter& p)
 
       par_list->push_back(&p);
     }
-}
-
-
-void Model::update_init()
-{
-  return next_state_(init_);
 }
 
 

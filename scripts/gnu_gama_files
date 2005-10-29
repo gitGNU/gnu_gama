@@ -1,6 +1,6 @@
 # GNU Gama C++ library files 
 # -----------------------------------------------------------
-# $Id: gnu_gama_files,v 1.32 2005/10/28 18:21:49 cepek Exp $
+# $Id: gnu_gama_files,v 1.33 2005/10/29 15:00:00 cepek Exp $
 
 gnu_gama/adj/adj.cpp
 gnu_gama/e3.cpp
@@ -8,8 +8,9 @@ gnu_gama/ellipsoid.cpp
 gnu_gama/ellipsoids.cpp
 gnu_gama/latlong.cpp
 gnu_gama/g3/g3_model.cpp
-gnu_gama/g3/g3_model_linearization.cpp
+gnu_gama/g3/g3_model_init.cpp
 gnu_gama/g3/g3_model_revision.cpp
+gnu_gama/g3/g3_model_linearization.cpp
 gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp
 gnu_gama/g3/g3_point.cpp
 gnu_gama/g3/g3_cluster.cpp
