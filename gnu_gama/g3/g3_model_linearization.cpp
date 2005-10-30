@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_linearization.cpp,v 1.1 2005/10/28 18:30:57 cepek Exp $
+ *  $Id: g3_model_linearization.cpp,v 1.2 2005/10/30 13:25:23 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -159,6 +159,7 @@ void GNU_gama::g3::Model::update_linearization()
            ce = obsdata.clusters.end(); ci!=ce; ++ci)
       {
         CovMat<> C = (*ci)->activeCov();
+        C /= (apriori_sd*apriori_sd);      // covariances ==> cofactors
         if (C.dim())
           {
             bd->add_block(C.dim(), C.bandWidth(), C.begin());
