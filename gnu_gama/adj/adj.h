@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: adj.h,v 1.13 2005/10/23 15:08:35 cepek Exp $
+ *  $Id: adj.h,v 1.14 2005/10/30 10:43:28 cepek Exp $
  */
 
 #include <matvec/covmat.h>
@@ -59,10 +59,10 @@ namespace GNU_gama {
     void set_algorithm(Adj::algorithm);
     Adj::algorithm get_algorithm() const { return algorithm_; }
   
-    int defect() const { return least_squares->defect(); }
-
-    Vec<> x();
-    Vec<> r();
+    int    defect() const { return least_squares->defect(); }
+    double rtr   () const { return rtr_; }     /* weighted sum of squares */
+    const Vec<>& x();                          /* adjusted parameters     */
+    const Vec<>& r();                          /* adjusted residuals      */
 
     double q_xx(Index i, Index j) { return least_squares->q_xx(i,j); }
     double q_bb(Index i, Index j);
@@ -79,6 +79,7 @@ namespace GNU_gama {
     Vec <>    b_dot;
     Vec <>    x_;
     Vec <>    r_;
+    double    rtr_;
   
     void init(const AdjInputData*);
     void init_least_squares();
@@ -101,7 +102,7 @@ namespace GNU_gama {
 
     const SparseMatrix <> * mat () const { return A;     }
     const BlockDiagonal<> * cov () const { return pcov;  }
-    const Vec          <>   rhs () const { return prhs;  }
+    const Vec          <> & rhs () const { return prhs;  }
     const IntegerList  <> * minx() const { return pminx; } 
 
     void set_mat (SparseMatrix <> * p) { delete A;     A     = p; }

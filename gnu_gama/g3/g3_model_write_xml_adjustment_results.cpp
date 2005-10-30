@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.5 2005/10/28 18:21:49 cepek Exp $
+ *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.6 2005/10/30 10:43:28 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -111,9 +111,7 @@ void Model::write_xml_adjustment_results(std::ostream& out)
 
 
 void Model::write_xml_adjustment_results_statistics  (std::ostream& out)
-{
-  const Vec<>& r = adj->r();
-
+{ 
   out << "\n<adjustment-statistics>\n\n";
 
   Adj::algorithm alg = adj->get_algorithm();
@@ -147,7 +145,7 @@ void Model::write_xml_adjustment_results_statistics  (std::ostream& out)
 
   out.setf(ios_base::scientific, ios_base::floatfield);
   out.precision(5);
-  double rtr = trans(r)*r;
+  double rtr = adj->rtr();
   out << "<sum-of-squares>        " << rtr << " </sum-of-squares>\n";
 
   double sigma_apriori = apriori_sd*apriori_sd;
@@ -281,7 +279,7 @@ void Model::write_xml_adjusted(std::ostream& out, const Vector* v, Index index)
       << "<to>"    << v->to   << "</to> " 
       << "<index>" << index   << "</index>\n";
 
-  double rdx = rhs(index)/Linear().scale();
+  double rdx = adj->r()(index)/Linear().scale();
   out << "\n        <dx-observed>" << setw(13) << v->dx()      
       << " </dx-observed>";
   out << "\n";
@@ -292,7 +290,7 @@ void Model::write_xml_adjusted(std::ostream& out, const Vector* v, Index index)
       << " </dx-adjusted>";
   out << "\n";
 
-  double rdy = rhs(index+1)/Linear().scale();
+  double rdy = adj->r()(index+1)/Linear().scale();
   out << "\n        <dy-observed>" << setw(13) << v->dy()      
       << " </dy-observed>";
   out << "\n";
@@ -303,7 +301,7 @@ void Model::write_xml_adjusted(std::ostream& out, const Vector* v, Index index)
       << " </dy-adjusted>";
   out << "\n";
 
-  double rdz = rhs(index+2)/Linear().scale();
+  double rdz = adj->r()(index+2)/Linear().scale();
   out << "\n        <dz-observed>" << setw(13) << v->dz()      
       << " </dz-observed>";
   out << "\n";
@@ -329,7 +327,7 @@ void Model::write_xml_adjusted(std::ostream& out, const Height* h, Index index)
       << "<id>" << h->id << "</id> "
       << "<index>" << index   << "</index>\n";
 
-  double rdx = rhs(index)/Linear().scale();
+  double rdx = adj->r()(index)/Linear().scale();
   out << "\n        <observed>" << setw(13) << h->obs()      
       << " </observed>";
   out << "\n";
