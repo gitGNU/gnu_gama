@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.7 2005/11/12 14:42:55 cepek Exp $
+ *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.8 2005/11/12 15:34:53 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -248,6 +248,40 @@ void Model::write_xml_adjusted_stdev(const char* prefix,
 }
 
 
+void Model::write_xml_adjusted_cov_xyz(std::ostream& out, 
+                                       const Observation* obs,
+                                       Index index)
+{
+  double cxx = cov_bb(index, index  );
+  double cxy = cov_bb(index, index+1);
+  double cxz = cov_bb(index, index+2);   index++;
+  double cyy = cov_bb(index, index  );
+  double cyz = cov_bb(index, index+1);   index++;
+  double czz = cov_bb(index, index  );
+
+  
+  const std::ios_base::fmtflags format = out.setf(std::ios_base::scientific, 
+                                                  std::ios_base::floatfield);
+  const int prec = out.precision(7);
+  const int width = 14;
+
+  out << "\n";
+  out << "        ";
+  out << "<cxx> " << cxx << " </cxx> ";
+  out << "<cxy> " << setw(width) << cxy << " </cxy> ";
+  out << "\n                                   ";
+  out << "<cxz> " << setw(width) << cxz << " </cxz>\n";
+  out << "        ";
+  out << "<cyy> " << cyy << " </cyy> ";
+  out << "<cyz> " << setw(width) << cyz << " </cyz>\n";
+  out << "        ";
+  out << "<czz> " << czz << " </czz>\n";
+
+  out.precision(prec);
+  out.setf(format);
+}
+
+
 void Model::write_xml_adjusted(std::ostream& out, const Angle* a, Index index)
 {
   out << "\n<angle> ";
@@ -316,6 +350,8 @@ void Model::write_xml_adjusted(std::ostream& out, const Vector* v, Index index)
   write_xml_adjusted_stdev("dy-", out, v, 1, index);
   write_xml_adjusted_stdev("dz-", out, v, 2, index);
 
+  write_xml_adjusted_cov_xyz(out, v, index);
+  
   out << "        </vector>\n";
 }
 
@@ -411,6 +447,8 @@ void Model::write_xml_adjusted(std::ostream& out, const XYZ* xyz, Index index)
   write_xml_adjusted_stdev("x-", out, xyz, 0, index);
   write_xml_adjusted_stdev("y-", out, xyz, 1, index);
   write_xml_adjusted_stdev("z-", out, xyz, 2, index);
+
+  write_xml_adjusted_cov_xyz(out, xyz, index);
   
   out << "        </xyz>\n";
 }
