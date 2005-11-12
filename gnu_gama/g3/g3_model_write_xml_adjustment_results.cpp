@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.6 2005/10/30 10:43:28 cepek Exp $
+ *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.7 2005/11/12 14:42:55 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -327,14 +327,14 @@ void Model::write_xml_adjusted(std::ostream& out, const Height* h, Index index)
       << "<id>" << h->id << "</id> "
       << "<index>" << index   << "</index>\n";
 
-  double rdx = adj->r()(index)/Linear().scale();
+  double rdh = adj->r()(index)/Linear().scale();
   out << "\n        <observed>" << setw(13) << h->obs()      
       << " </observed>";
   out << "\n";
-  out << "        <residual>" << setw(13) << rdx          
+  out << "        <residual>" << setw(13) << rdh          
       << " </residual>";
   out << "\n";
-  out << "        <adjusted>" << setw(13) << h->obs()+rdx  
+  out << "        <adjusted>" << setw(13) << h->obs()+rdh  
       << " </adjusted>";
   out << "\n";
 
@@ -347,7 +347,23 @@ void Model::write_xml_adjusted(std::ostream& out, const Height* h, Index index)
 
 void Model::write_xml_adjusted(std::ostream& out, const HeightDiff* hd, Index index)
 {
-  out << "\n<height-diff> ";
+  out << "\n<height-diff> "
+      << "<from>" << hd->from << "</from> <to>" << hd->to << "</to> "
+      << "<index>" << index << "</index>\n";
+
+  double rdhd = adj->r()(index)/Linear().scale();
+  out << "\n        <observed>" << setw(13) << hd->obs()      
+      << " </observed>";
+  out << "\n";
+  out << "        <residual>" << setw(13) << rdhd          
+      << " </residual>";
+  out << "\n";
+  out << "        <adjusted>" << setw(13) << hd->obs()+rdhd  
+      << " </adjusted>";
+  out << "\n";
+
+  write_xml_adjusted_stdev("", out, hd, 0, index);
+
   out << "        </height-diff>\n";
 }
 
@@ -355,7 +371,47 @@ void Model::write_xml_adjusted(std::ostream& out, const HeightDiff* hd, Index in
 
 void Model::write_xml_adjusted(std::ostream& out, const XYZ* xyz, Index index)
 {
-  out << "\n<xyz> ";
+  out << "\n<xyz> "
+      << "<id>" << xyz->id << "</id> "
+      << "<index>" << index   << "</index>\n";
+
+  double rx = adj->r()(index)/Linear().scale();
+  out << "\n        <dx-observed>" << setw(13) << xyz->x()      
+      << " </dx-observed>";
+  out << "\n";
+  out << "        <dx-residual>" << setw(13) << rx          
+      << " </dx-residual>";
+  out << "\n";
+  out << "        <dx-adjusted>" << setw(13) << xyz->x()+rx  
+      << " </dx-adjusted>";
+  out << "\n";
+
+  double ry = adj->r()(index+1)/Linear().scale();
+  out << "\n        <dy-observed>" << setw(13) << xyz->y()      
+      << " </dy-observed>";
+  out << "\n";
+  out << "        <dy-residual>" << setw(13) << ry          
+      << " </dy-residual>";
+  out << "\n";
+  out << "        <dy-adjusted>" << setw(13) << xyz->y()+ry  
+      << " </dy-adjusted>";
+  out << "\n";
+
+  double rz = adj->r()(index+2)/Linear().scale();
+  out << "\n        <dz-observed>" << setw(13) << xyz->z()      
+      << " </dz-observed>";
+  out << "\n";
+  out << "        <dz-residual>" << setw(13) << rz          
+      << " </dz-residual>";
+  out << "\n";
+  out << "        <dz-adjusted>" << setw(13) << xyz->z()+rz  
+      << " </dz-adjusted>";
+  out << "\n";
+
+  write_xml_adjusted_stdev("x-", out, xyz, 0, index);
+  write_xml_adjusted_stdev("y-", out, xyz, 1, index);
+  write_xml_adjusted_stdev("z-", out, xyz, 2, index);
+  
   out << "        </xyz>\n";
 }
 
