@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: dataparser_g3.cpp,v 1.16 2005/10/13 12:43:33 cepek Exp $
+ *  $Id: dataparser_g3.cpp,v 1.17 2005/11/12 12:33:42 cepek Exp $
  */
 
 
@@ -1108,6 +1108,7 @@ int DataParser::g3_obs_hdiff(const char *name)
      hdiff->from_dh = optional(g3->from_dh);
      hdiff->to_dh   = optional(g3->to_dh);
      g3->obs_cluster->observation_list.push_back(hdiff);  
+     g3->scale.push_back(1.0);
 
      return  end_tag(name);
    }
