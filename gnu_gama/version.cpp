@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.85 2005/10/28 11:37:00 cepek Exp $
+ *  $Id: version.cpp,v 1.86 2005/12/04 20:42:54 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.15-b";
+const char* GNU_gama_version  = "1.7.15-c";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -63,6 +63,24 @@ const char* GNU_gama_compiler =
 =============================================================================
 
 1.7.15 ... pre-release
+
+
+    - fixed matvec/mavecbase,h 
+
+      diff -r1.2 matvecbase.h
+      60c60
+      <   void set_zero() { set_all(0.0); }
+      ---
+      >   void set_zero() { set_all(Float()); }
+      108c108
+      <        return (x >= Float(0)) ? x : -x ;
+      ---
+      >        return (x >= Float()) ? x : -x ;
+      112c112
+      <        return b >= 0.0 ? Abs(a) : -Abs(a);
+      ---
+      >        return b >= Float() ? Abs(a) : -Abs(a);
+
 
 
 1.7.14 2005-09-30
@@ -382,9 +400,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.85 2005/10/28 11:37:00 cepek Exp $
+        <  *  $Id: version.cpp,v 1.86 2005/12/04 20:42:54 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.85 2005/10/28 11:37:00 cepek Exp $
+        >  *  $Id: version.cpp,v 1.86 2005/12/04 20:42:54 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),

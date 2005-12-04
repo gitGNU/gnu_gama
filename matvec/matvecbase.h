@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: matvecbase.h,v 1.2 2005/05/07 18:06:21 cepek Exp $
+ *  $Id: matvecbase.h,v 1.3 2005/12/04 20:42:54 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -57,7 +57,7 @@ public:
       *b++ = f;
   }
 
-  void set_zero() { set_all(0.0); }
+  void set_zero() { set_all(Float()); }
 
 protected:
 
@@ -105,11 +105,11 @@ protected:
 
     const Float Abs(Float x) const 
     { 
-       return (x >= Float(0)) ? x : -x ; 
+       return (x >= Float()) ? x : -x ; 
     }
     const Float Sign(Float a, Float b) const 
     { 
-       return b >= 0.0 ? Abs(a) : -Abs(a); 
+       return b >= Float() ? Abs(a) : -Abs(a); 
     }
 
 
