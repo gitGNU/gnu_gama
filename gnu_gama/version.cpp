@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.86 2005/12/04 20:42:54 cepek Exp $
+ *  $Id: version.cpp,v 1.87 2005/12/05 19:01:45 cepek Exp $
  */
 
 
@@ -64,6 +64,8 @@ const char* GNU_gama_compiler =
 
 1.7.15 ... pre-release
 
+    - added first draft of template class SparseMatrixGraph (this
+      version only tests cennectivity of a given sparse matrix' graph)
 
     - fixed matvec/mavecbase,h 
 
@@ -400,9 +402,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.86 2005/12/04 20:42:54 cepek Exp $
+        <  *  $Id: version.cpp,v 1.87 2005/12/05 19:01:45 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.86 2005/12/04 20:42:54 cepek Exp $
+        >  *  $Id: version.cpp,v 1.87 2005/12/05 19:01:45 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),
