@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.29 2005/08/31 21:08:11 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.30 2005/12/11 19:16:00 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -450,6 +450,9 @@ int GaMa_Main(int argc, char **argv)
             cout << T_GaMa_Observatios_with_outlying_absolute_terms_removed
                  << "\n\n\n";
           }
+
+        if (!IS->connected_network())
+          cout  << T_GaMa_network_not_connected << "\n\n\n";
 
         NetworkDescription(description, cout);
         if (GeneralParameters(IS, cout))

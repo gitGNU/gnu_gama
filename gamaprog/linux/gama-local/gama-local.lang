@@ -43,6 +43,9 @@
 <e id="T_GaMa_internal_program_error"
    en="GNU Gama - internal program error!" />
   
+<e id="T_GaMa_network_not_connected"
+   en="Warning: network is not connected" />
+  
 </entries>   
 
 

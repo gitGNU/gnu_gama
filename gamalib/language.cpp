@@ -176,6 +176,7 @@ const char* T_GaMa_m0_distances = T_language_cpp_internal_error;
 const char* T_GaMa_m0_empirical = T_language_cpp_internal_error;
 const char* T_GaMa_missing_coordinates = T_language_cpp_internal_error;
 const char* T_GaMa_network_description = T_language_cpp_internal_error;
+const char* T_GaMa_network_not_connected = T_language_cpp_internal_error;
 const char* T_GaMa_not_enough_constrained_points = T_language_cpp_internal_error;
 const char* T_GaMa_point = T_language_cpp_internal_error;
 const char* T_GaMa_reduced_Review_of_reduced_observations = T_language_cpp_internal_error;
@@ -409,6 +410,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_m0_empirical="m0\' aposteriori";
 	T_GaMa_missing_coordinates="Missing coordinates";
 	T_GaMa_network_description="Network description";
+	T_GaMa_network_not_connected="Warning: network is not connected";
 	T_GaMa_not_enough_constrained_points="Not enough constrained points defined";
 	T_GaMa_point="point";
 	T_GaMa_reduced_Review_of_reduced_observations="Reduced observations";
@@ -638,6 +640,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_m0_empirical="m0\' a posteriori";
 	T_GaMa_missing_coordinates="Coordenades absents";
 	T_GaMa_network_description="Descripció de la xarxa";
+	T_GaMa_network_not_connected="Warning: network is not connected";
 	T_GaMa_not_enough_constrained_points="No s'han definit suficients punts condicionats";
 	T_GaMa_point="punt";
 	T_GaMa_reduced_Review_of_reduced_observations="Reduced observations";
@@ -867,6 +870,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_m0_empirical="m0\' aposteriorní";
 	T_GaMa_missing_coordinates="Chybějící souřadnice";
 	T_GaMa_network_description="Popis sítě";
+	T_GaMa_network_not_connected="Warning: network is not connected";
 	T_GaMa_not_enough_constrained_points="Nebyl definován dostatečný počet opěrných bodů";
 	T_GaMa_point="bod";
 	T_GaMa_reduced_Review_of_reduced_observations="Redukovaná pozorování";
@@ -1096,6 +1100,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_m0_empirical="m0\' a posteriori";
 	T_GaMa_missing_coordinates="Ontbrekende coördinaten";
 	T_GaMa_network_description="Netwerk omschrijving";
+	T_GaMa_network_not_connected="Warning: network is not connected";
 	T_GaMa_not_enough_constrained_points="Onvoldoende constrained punten gedefinieerd";
 	T_GaMa_point="punt";
 	T_GaMa_reduced_Review_of_reduced_observations="Reduced observations";
@@ -1325,6 +1330,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_m0_empirical="m0\' aposteriori";
 	T_GaMa_missing_coordinates="Puuttuvia koordinaatteja";
 	T_GaMa_network_description="verkon kuvaus";
+	T_GaMa_network_not_connected="Warning: network is not connected";
 	T_GaMa_not_enough_constrained_points="Rajoitettuja pisteitä ei ole määritetty tarpeeksi";
 	T_GaMa_point="piste";
 	T_GaMa_reduced_Review_of_reduced_observations="Reduced observations";
@@ -1554,6 +1560,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_m0_empirical="m0\' à postériori";
 	T_GaMa_missing_coordinates="Coordonnées absentes";
 	T_GaMa_network_description="Description du réseau";
+	T_GaMa_network_not_connected="Warning: network is not connected";
 	T_GaMa_not_enough_constrained_points="Pas assez de points contraints";
 	T_GaMa_point="point";
 	T_GaMa_reduced_Review_of_reduced_observations="Observations réduites";
@@ -1783,6 +1790,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_m0_empirical="m0\' aposteriori";
 	T_GaMa_missing_coordinates="Hiányzó koordináták";
 	T_GaMa_network_description="Hálózat leírás";
+	T_GaMa_network_not_connected="Warning: network is not connected";
 	T_GaMa_not_enough_constrained_points="Nincs elég kényszerített pont";
 	T_GaMa_point="pont";
 	T_GaMa_reduced_Review_of_reduced_observations="Reduced observations";
@@ -2012,6 +2020,7 @@ void set_gama_language(gama_language lang)
 	T_GaMa_m0_empirical="m0\' aposteriori";
 	T_GaMa_missing_coordinates="Отсутствуют координаты";
 	T_GaMa_network_description="Описание сети";
+	T_GaMa_network_not_connected="Warning: network is not connected";
 	T_GaMa_not_enough_constrained_points="Определено недостаточно ограниченных точек";
 	T_GaMa_point="точка";
 	T_GaMa_reduced_Review_of_reduced_observations="Затруднительные наблюдения";
