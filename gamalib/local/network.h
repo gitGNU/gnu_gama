@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.h,v 1.16 2005/06/23 19:57:58 cepek Exp $
+ *  $Id: network.h,v 1.17 2005/12/11 18:53:51 cepek Exp $
  */
 
 // LocalNetwork - Network Informations class (Informace o siti)
@@ -263,6 +263,13 @@ namespace GaMaLib
       void set_gons()      { gons_ = true;  Observation::gons = true;  }
       void set_degrees()   { gons_ = false; Observation::gons = false; }
 
+
+      // ...  connected network  .............................................
+
+      bool connected_network() const { return design_matrix_graph_is_connected; }
+
+
+
       // #####################################################################
 
 
@@ -312,7 +319,9 @@ namespace GaMaLib
       Vec vahkopr;          // weight coefficient of residuals
       Double suma_pvv_;
       GNU_gama::SparseMatrix<Double, Index>*  Asp;
-      
+
+      bool design_matrix_graph_is_connected;
+
       // solution of Least Squares
       
       bool tst_vyrovnani_;

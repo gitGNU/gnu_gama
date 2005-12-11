@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.21 2005/06/20 20:34:06 cepek Exp $
+ *  $Id: network.cpp,v 1.22 2005/12/11 18:53:51 cepek Exp $
  */
 
 #include <fstream>
@@ -33,8 +33,9 @@
 #include <gamalib/local/network.h>
 #include <gamalib/local/linearization.h>
 #include <gamalib/itstream.h>
-#include <gnu_gama/statan.h>
 #include <gamalib/skipcomm.h>
+#include <gnu_gama/statan.h>
+#include <gnu_gama/sparse/smatrix_graph.h>
 #include <gnu_gama/version.h>
 
 using namespace std;
@@ -231,6 +232,12 @@ void LocalNetwork::project_equations()
     delete Asp;
     Asp =  tmp->replicate(tmp->nonzeroes(), pocmer_, pocet_neznamych_ );
     delete tmp;
+
+    {
+      GNU_gama::SparseMatrixGraph<> graph(Asp);
+
+      design_matrix_graph_is_connected = graph.connected();
+    }
 
     Double* a = Asp->begin(1);
     Index*  i = Asp->ibegin(1);
