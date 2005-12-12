@@ -20,13 +20,14 @@
 */
 
 /*
- *  $Id: g3_model_linearization.cpp,v 1.2 2005/10/30 13:25:23 cepek Exp $
+ *  $Id: g3_model_linearization.cpp,v 1.3 2005/12/12 08:09:32 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
 #include <gnu_gama/g3/g3_cluster.h>
 #include <gnu_gama/outstream.h>
 #include <gnu_gama/adj/adj.h>
+#include <gnu_gama/sparse/smatrix_graph.h>
 #include <iomanip>
 
 
@@ -112,6 +113,12 @@ void GNU_gama::g3::Model::update_linearization()
 
   adj_input_data->set_mat(A);
   adj_input_data->set_rhs(rhs);
+
+  {
+    GNU_gama::SparseMatrixGraph<> graph(A);
+
+    dm_graph_is_connected = graph.connected();
+  }
 
   {
     int minx=0;

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.8 2005/11/12 15:34:53 cepek Exp $
+ *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.9 2005/12/12 08:09:32 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -162,6 +162,13 @@ void Model::write_xml_adjustment_results_statistics  (std::ostream& out)
   else
     out << "    apriori";
   out <<" </variance-factor-used>\n";
+  
+  out << "<design-matrix-graph>  ";
+  if (graph_is_connected())
+    out << "   connected";
+  else
+    out << "disconnected";
+  out <<" </design-matrix-graph>\n";
   
 
 
