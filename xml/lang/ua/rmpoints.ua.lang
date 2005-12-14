@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="cp-1251" standalone="yes" ?>
+
+<!-- $Id: rmpoints.ua.lang,v 1.1 2005/12/14 22:57:07 cepek Exp $ -->
+<entries>
+
+<e id="T_LN_rm_removed_points"
+   EN="Removed points and coordinates"
+   ua="¬идален≥ точки та координати" />
+
+<e id="T_LN_rm_missing_xyz"
+   EN="missing coordiantes xyz"
+   ua="в≥дсутн≥ координати xyz" />
+
+<e id="T_LN_rm_missing_xy"
+   EN="missing coordiantes xy"
+   ua="в≥дсутн≥ координати xy" />
+
+<e id="T_LN_rm_missing_z"
+   EN="missing coordiantes z"
+   ua="в≥дсутн≥ координати z" />
+
+<e id="T_LN_rm_singular_xy"
+   EN="singular coordiantes xy"
+   ua="сингул€рн≥ координати xy" />
+
+<e id="T_LN_rm_huge_cov_xyz"
+   EN="indeterminable coordinates xyz"
+   ua="невизначен≥ координати xyz    " />
+
+<e id="T_LN_rm_huge_cov_xy"
+   EN="indeterminable coordinates xy"
+   ua="невизначен≥ координати xy    " />
+
+<e id="T_LN_rm_huge_cov_z"
+   EN="indeterminable coordinate z"
+   ua="невизначен≥ координати z   " />
+
+</entries>

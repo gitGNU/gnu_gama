@@ -1,279 +1,279 @@
 <?xml version="1.0" encoding="cp-1251" standalone="yes" ?>
 
-<!-- $Id: gkfparser.ru.lang,v 1.10 2005/12/14 22:56:49 cepek Exp $ -->
+<!-- $Id: gkfparser.ua.lang,v 1.1 2005/12/14 22:57:07 cepek Exp $ -->
 <entries>
 
 <e id="T_GKF_illegal_text"
    EN="illegal text"
-   ru="неправильный текст" />
+   ua="недопустимий текст" />
 
 <e id="T_GKF_must_start_with_gama_xml"
    EN="document must start with tag &lt;gama-xml&gt;"
-   ru="документ должен начинаться тэгом &lt;gama-xml&gt;" />
+   ua="документ повинен починатися тегом &lt;gama-xml&gt;" />
 
 <e id="T_GKF_undefined_value_of_attribute"
    EN="illegal value of the attribute: "
-   ru="неправильное значение атрибута: " />
+   ua="невірне значення атрибута: " />
 
 <e id="T_GKF_illegal_value_of_gama_xml_version"
    EN="illegal value of attribue 'version' of tag &lt;gama-xml&gt;: "
-   ru="неправильное значение атрибута 'version' тэга &lt;gama-xml&gt;: " />
+   ua="невірне значення атрибута 'version' тега &lt;gama-xml&gt;: " />
 
 <e id="T_GKF_undefined_attribute_of_gama_xml"
    EN="undefined attribute of tag &lt;gama-xml&gt;: "
-   ru="неопределенный атрибут тэга &lt;gama-xml&gt;: " />
+   ua="не вказаний атрибут тега &lt;gama-xml&gt;: " />
 
 <e id="T_GKF_undefined_attribute_of_vectors"
    EN="undefined attribute of tag &lt;vectors&gt;: "
-   ru="неопределенный атрибут тэга &lt;vectors&gt;: " />
+   ua="не вказаний атрибут тега &lt;vectors&gt;: " />
 
 <e id ="T_GKF_missing_tag_network"
    EN="missing tag &lt;network&gt;"
-   ru="отсутсвует тэг &lt;network&gt;" />
+   ua="відсутній тег &lt;network&gt;" />
 
 <e id="T_GKF_e01a_illegal_tag"
    EN="illegal_tag &lt;"
-   ru="неверный тэг &lt;" />
+   ua="невірний тег &lt;" />
 
 <e id="T_GKF_e01b_after_tag"
    EN="&gt; after tag"
-   ru="&gt; после тэга" />
+   ua="&gt; після тега" />
 
 <e id="T_GKF_error_on_reading_of_standard_deviation"
    EN="error on reading of standard deviation"
-   ru="ошибка при чтении среднего квадратического отклонения" />
+   ua="помилка при читанні середнього квадратичного відхилення" />
 
 <e id="T_GKF_error_on_reading_of_confidence_probability"
    EN="error on reading of confidence probability"
-   ru="ошибка при чтении доверительной вероятности" />
+   ua="помилка при читанні довірчої ймовірності" />
 
 <e id="T_GKF_error_on_reading_of_absolute_terms_tolerance"
    EN="error on reading of tolerance for identification of outlying absolute terms"
-   ru="ошибка при чтении tol-abs для определения грубых  абсолютных ошибок" />
+   ua="помилка при читанні tol-abs для визначення грубих абсолютних помилок" />
 
 <e id="T_GKF_wrong_type_of_standard_deviation"
    EN="wrong type of standard deviation" 
-   ru="неправильный тип среднего квадратического отклонения" />
+   ua="невірний тип середнього квадратичного відхилення" />
 
 <e id="T_GKF_bad_network_configuration_unknown_parameter"
    EN="bad network configuration - unknown parameter: "
-   ru="плохая конфигурация сети-неизвестный параметр: " />
+   ua="погана конфігурація мережі-невідомий параметр: " />
 
 <e id="T_GKF_bad_attribute_distance_dev"
    EN="bad attribute distance-stdev: "
-   ru="плохой атрибут расстояния-stdev: " />
+   ua="поганий атрибут відстані-stdev: " />
 
 <e id="T_GKF_bad_attribute_direction_dev"
    EN="bad attribute direction-stdev: "
-   ru="плохой атрибут направления-stdev: " />
+   ua="поганий атрибут напрямку-stdev: " />
 
 <e id="T_GKF_bad_attribute_angle_dev"
    EN="bad attribute angle-stdev: "
-   ru="плохой атрибут угла-stdev: " />
+   ua="поганий атрибут кута-stdev: " />
 
 <e id="T_GKF_undefined_attribute_of_points_observations"
    EN="undefined attribute of &lt;points-observations&gt;: " 
-   ru="неопределенный атрибут &lt;points-observations&gt;: " />
+   ua="не вказаний атрибут &lt;points-observations&gt;: " />
 
 <e id="T_GKF_undefined_attribute_of_points"
    EN="undefined attribute of &lt;point&gt;: " 
-   ru="неопределенный атрибут &lt;point&gt;: " />
+   ua="не вказаний атрибут &lt;point&gt;: " />
 
 <e id="T_GKF_missing_point_ID"
    EN="missing point ID"
-   ru="отсутствует ID точки" />
+   ua="відсутній ID точки" />
 
 <e id="T_GKF_missing_from_ID"
    EN="missing point ID (attribute from=\&quot;...\&quot;)"
-   ru="отсутствует ID точки (attribute from=\&quot;...\&quot;)" />
+   ua="відсутній ID точки (атрибут from=\&quot;...\&quot;)" />
 
 <e id="T_GKF_missing_to_ID"
    EN="missing point ID (attribute to=\&quot;...\&quot;)"
-   ru="отсутствует ID точки (attribute to=\&quot;...\&quot;)" />
+   ua="відсутній ID точки (атрибут to=\&quot;...\&quot;)" />
 
 <e id="T_GKF_multiple_definition_of_xy_in_tag_point"
    EN="multiple dexinition of coordinates xy in tag &lt;point&gt;"
-   ru="многократное определение координат xy в тэге &lt;point&gt;" />
+   ua="повторно вказані координати xy у тезі &lt;point&gt;" />
 
 <e id="T_GKF_multiple_definition_of_z_in_tag_point"
    EN="multiple definition of coordinate z in tag &lt;point&gt;"
-   ru="многократное определение координаты z в тэге &lt;point&gt;" /> 
+   ua="повторно вказана координата z у тезі &lt;point&gt;" /> 
 
 <e id="T_GKF_point_must_define_xy_andor_z_inside_tag_coordinates"
    EN="tag &lt;point /&gt; must define coordinates xy and/or z inside tag &lt;coordinates&gt;"
-   ru="тэг &lt;point /&gt; должен определять координаты xy и/или z внутри тэга &lt;coordinates&gt;" />
+   ua="тег &lt;point /&gt; повинен вказувати координати xy та/або z всередині тега &lt;coordinates&gt;" />
 
 <e id="T_GKF_coordinate_x_is_not_defined"
    EN="coordinate x is not defined"
-   ru="координата x не определена" />
+   ua="координата x не вказана" />
 
 <e id="T_GKF_coordinate_y_is_not_defined"
    EN="coordinate y is not defined"
-   ru="координата y не определена" />
+   ua="координата y не вказана" />
 
 <e id="T_GKF_bad_coordinate_x"
    EN="bad coordinate x: "
-   ru="неправильная координата x: " />
+   ua="погана координата x: " />
 
 <e id="T_GKF_bad_coordinate_y"
    EN="bad coordinate y: "
-   ru="неправильная координата y: " />
+   ua="погана координата y: " />
 
 <e id="T_GKF_bad_height"
    EN="bad height: "
-   ru="неправильная высота: " />
+   ua="погана висота: " />
 
 <e id="T_GKF_undefined_point_type"
    EN="undefined point type: "
-   ru="не определен тип точки: " />
+   ua="не вказаний тип точки: " />
 
 <e id="T_GKF_undefined_height_type"
    EN="undefined height type: "
-   ru="не определен тип высоты: " />
+   ua="не вказаний тип висоти: " />
 
 <e id="T_GKF_undefined_attribute_of_distance"
    EN="undefined attribute of &lt;distance&gt;: " 
-   ru="не определен атрибут &lt;distance&gt;: " />
+   ua="не вказаний атрибут &lt;distance&gt;: " />
 
 <e id="T_GKF_undefined_attribute_of_slopedist"
    EN="undefined attribute of &lt;s-distance&gt;: " 
-   ru="не определен атрибута &lt;s-distance&gt;: " />
+   ua="не вказаний атрибут &lt;s-distance&gt;: " />
 
 <e id="T_GKF_undefined_attribute_of_zangle"
    EN="undefined attribute of &lt;z-angle&gt;: " 
-   ru="не определен атрибут &lt;z-angle&gt;: " />
+   ua="не вказаний атрибут &lt;z-angle&gt;: " />
 
 <e id="T_GKF_missing_standpoint_id"
    EN="missing standpoint ID"
-   ru="отсутствует ID точки стояния" />
+   ua="відсутній ID точки стояння" />
 
 <e id="T_GKF_missing_forepoint_id"
    EN="missing forepoint ID"
-   ru="отсутствует ID точки наведения" />
+   ua="відсутній ID точки наведення" />
 
 <e id="T_GKF_missing_observed_value"
    EN="missing observed value"
-   ru="отсутствие значения наблюдения" />
+   ua="відсутнє значення спостереження" />
 
 <e id="T_GKF_bad_distance"
    EN="bad distance: "
-   ru="неправильное расстояние: " />
+   ua="погана відстань: " />
 
 <e id="T_GKF_bad_zangle"
    EN="bad zenith angle: "
-   ru="неправильный зенитный угол: " />
+   ua="поганий зенітний кут: " />
 
 <e id="T_GKF_illegal_standard_deviation"
    EN="illegal standard deviation"
-   ru="неправильное среднее квадратическое отклонение" />
+   ua="невірне середнє квадратичне відхилення" />
 
 <e id="T_GKF_undefined_attribute_of_angle"
    EN="undefined attribute of &lt;angle&gt;: " 
-   ru="не определен атрибут &lt;angle&gt;: " />
+   ua="не вказаний атрибут &lt;angle&gt;: " />
 
 <e id="T_GKF_missing_left_forepoint_id"
    EN="missing left forepoint ID"
-   ru="отсутствие ID левой точки наведения" />
+   ua="відсутній ID лівої точки наведення" />
 
 <e id="T_GKF_missing_right_forepoint_id"
    EN="missing right forepoint ID"
-   ru="отсутствие ID правой точки наведения" />
+   ua="відсутній ID правої точки наведення" />
 
 <e id="T_GKF_bad_angle"
    EN="bad angle: "
-   ru="неправильный угол: " />
+   ua="невірний кут: " />
 
 <e id="T_GKF_undefined_attribute_of_obs"
    EN="undefined attribute of &lt;obs&gt;: " 
-   ru="не определен атрибут &lt;obs&gt;: " />
+   ua="не вказаний атрибут &lt;obs&gt;: " />
 
-<e id="T_GKF_bad_instrument_reflector_height"
-   EN="bad instrument/reflector height: "
-   ru="неправильная высота прибора/отражателя: " />
+<e id="T_GKF_bad_instuament_reflector_height"
+   EN="bad instuament/reflector height: "
+   ua="погана висота приладу/відбивача: " />
 
 <e id="T_GKF_bad_orientation_angle"
    EN="bad orientation angle: "
-   ru="неправильная ориентация угла: " />
+   ua="не вірна орієнтація кута: " />
 
 <e id="T_GKF_undefined_attribute_of_direction"
    EN="undefined attribute of &lt;direction&gt;: " 
-   ru="не определен атрибут &lt;direction&gt;: " />
+   ua="не вказаний атрибут &lt;direction&gt;: " />
 
 <e id="T_GKF_bad_direction"
    EN="bad direction: "
-   ru="неправильное направление: " />
+   ua="не вірний напрямок: " />
 
 <e id="T_GKF_bad_height_diff"
    EN="bad height difference: "
-   ru="неправильная разность высот: " />
+   ua="не вірна різниця висот: " />
 
 <e id="T_GKF_undefined_attribute_of_cov_mat"
    EN="undefined attribute of &lt;cov-mat&gt;: " 
-   ru="не определен атрибут &lt;cov-mat&gt;: " />
+   ua="не вказаний атрибут &lt;cov-mat&gt;: " />
 
 <e id="T_GKF_undefined_attribute_of_coordinates"
    EN="undefined attribute of &lt;coordinates&gt;: " 
-   ru="неопределен атрибут &lt;coordinates&gt;: " />
+   ua="не вказаний атрибут &lt;coordinates&gt;: " />
 
 <e id="T_GKF_undefined_attribute_of_height_differences"
    EN="undefined attribute of &lt;height-differences&gt;: " 
-   ru="неопределен атрибут &lt;height-differences&gt;: " />
+   ua="не вказаний атрибут &lt;height-differences&gt;: " />
 
 <e id="T_GKF_cov_mat_missing_dim"
    EN="missing dimension of covariance matrix"
-   ru="отсутствие размерности ковариационной матрицы" />
+   ua="відсутня розмірність коваріаційної матриці" />
 
 <e id="T_GKF_cov_mat_missing_band_width"
    EN="missing band-width of covariance matrix"
-   ru="отсутствие размаха ковариационной матрицы" />
+   ua="відсутня ширина полоси коваріаційної матриці" />
 
 <e id="T_GKF_covariance_matrix_is_not_positive_definite"
    EN="variance-covariance matrix is not positive definite"
-   ru="матрица вариаций-ковариаций не определена положительно" />
+   ua="варіаційно-коваріаційна матриця не задана позитивно" />
 
 <e id="T_GKF_cov_mat_bad_dim"
    EN="bad dimension of covariance matrix: "
-   ru="неправильная размерность ковариационной матрицы: " />
+   ua="погана розмірність коваріаційної матриці: " />
 
 <e id="T_GKF_cov_mat_bad_band_width"
    EN="missing band-width of covariance matrix: "
-   ru="отсутствие размаха ковариационной матрицы: " />
+   ua="відсутня ширина полоси коваріаційної матриці: " />
 
 <e id="T_GKF_cov_mat_bad_dim_too_many_elements"
    EN="bad dimension of covariance matrix - too many elements"
-   ru="неправильная размерность ковариационной матрицы - слишком много элементов" />
+   ua="погана размірність коваріаційної матриці - надто багато елементів" />
 
 <e id="T_GKF_cov_mat_bad_dim_not_enough_elements"
    EN="bad dimension of covariance matrix - not enough elements"
-   ru="неправильная размерность ковариационной матрицы - недостаточно элементов" />
+   ua="погана размірність коваріаційної матриці - недостатньо елементів" />
 
 <e id="T_GKF_cov_mat_bad_element"
    EN="bad covariance matrix element: "
-   ru="неправильный элемент матрицы : " />
+   ua="невірний елемент матриці : " />
 
 <e id="T_GKF_no_observations_after_cov_mat"
    EN="observations can not come after covariance matrix"
-   ru="наблюдения не могут идти после ковариационной матрицы" />
+   ua="спостереження не можуйть йти після коваріаційнної матриці" />
 
 <e id="T_GKF_coordinates_without_covariance_matrix"
    EN="coordinates without covariance matrix"
-   ru="координаты без ковариационной матрицы" />
+   ua="координати без коваріаційної матриці" />
 
 <e id="T_GKF_cov_dim_differs_from_number_of_coordinates"
    EN="covariance matrix dimension differs from the number of coordinates"
-   ru="размерность ковариационной матрицы не равна числу координат" />
+   ua="размірність коваріаційної матриці не рівна числу координат" />
 
 <e id="T_GKF_vectors_without_covariance_matrix"
    EN="vectors without covariance matrix"
-   ru="векторы без ковариационной матрицы" />
+   ua="вектори без коваріаційної матриці" />
 
 <e id="T_GKF_cov_dim_differs_from_number_of_vectors"
    EN="covariance matrix dimension differs from the number of vectors"
-   ru="размерность ковариационной матрицы не равна числу векторов" />
+   ua="розмірність коваріаційної матриці не рівна числу векторів" />
 
 <e id="T_GKF_bad_vector_data"
    EN="bad vector data"
-   ru="неправильный вектор данных" />
+   ua="поганий вектор даних" />
 
 </entries>   
 

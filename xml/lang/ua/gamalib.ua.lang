@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="cp-1251" standalone="yes" ?>
+
+<!-- $Id: gamalib.ua.lang,v 1.1 2005/12/14 22:57:07 cepek Exp $ -->
+<entries>
+
+<e id="T_IE_internal_error"
+   EN="internal error"
+   ua="внутрішня помилка" />
+
+<e id="T_GaMa_from_equals_to"
+   EN="station and target are identical"
+   ua="точка стояння і точка наведення одна і та сама" />
+
+</entries>   
+
+
+
+
+
+
