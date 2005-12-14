@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.30 2005/12/11 19:16:00 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.31 2005/12/14 23:13:46 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -81,7 +81,7 @@ int help()
   cerr << "Options:\n"
        << "\n";
   cerr << "--algorithm  svd | gso | cholesky\n" 
-       << "--language   en | ca | cz | du | fi | fr | hu | ru \n"
+       << "--language   en | ca | cz | du | fi | fr | hu | ru | ua \n"
        << "--encoding   utf-8 | iso-8859-2 | iso-8859-2-flat | cp-1250 "
        << "| cp-1251\n"
        << "--angles     400 | 360\n"  
@@ -175,6 +175,7 @@ int GaMa_Main(int argc, char **argv)
       else if (!strcmp("fr", argv_lang)) set_gama_language(fr);
       else if (!strcmp("hu", argv_lang)) set_gama_language(hu);
       else if (!strcmp("ru", argv_lang)) set_gama_language(ru);
+      else if (!strcmp("ua", argv_lang)) set_gama_language(ua);
       else return help();
     }
 

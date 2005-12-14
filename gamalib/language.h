@@ -1,9 +1,9 @@
 #ifndef GaMaLib___language__header_file_h
 #define GaMaLib___language__header_file_h
 
-namespace GaMaLib {      /* slovnikar 1.07 */
+namespace GaMaLib {      /* slovnikar 1.08 */
 
-enum gama_language { en, ca, cz, du, fi, fr, hu, ru };
+enum gama_language { en, ca, cz, du, fi, fr, hu, ru, ua };
 void set_gama_language(gama_language);
 
 extern const char* T_GKF_bad_angle;
@@ -17,6 +17,7 @@ extern const char* T_GKF_bad_distance;
 extern const char* T_GKF_bad_height;
 extern const char* T_GKF_bad_height_diff;
 extern const char* T_GKF_bad_instrument_reflector_height;
+extern const char* T_GKF_bad_instuament_reflector_height;
 extern const char* T_GKF_bad_network_configuration_unknown_parameter;
 extern const char* T_GKF_bad_orientation_angle;
 extern const char* T_GKF_bad_vector_data;
