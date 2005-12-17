@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.9 2005/12/12 08:09:32 cepek Exp $
+ *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.10 2005/12/17 22:48:43 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -203,7 +203,7 @@ void Model::write_xml_adjustment_results_points      (std::ostream& out)
 
 void Model::write_xml_adjustment_results_observations(std::ostream& out)
 {
-  out << "\n<adjusted observations>\n";
+  out << "\n<adjusted-observations>\n";
 
   WriteXML  write_xml(this, out);
   Index index = 1;
@@ -215,7 +215,7 @@ void Model::write_xml_adjustment_results_observations(std::ostream& out)
       index += (*i)->dimension();
     }
 
-  out << "\n</adjusted observations>\n";
+  out << "\n</adjusted-observations>\n";
 }
 
 
