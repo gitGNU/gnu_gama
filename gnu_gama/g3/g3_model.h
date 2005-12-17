@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.46 2005/12/12 08:09:32 cepek Exp $
+ *  $Id: g3_model.h,v 1.47 2005/12/17 22:15:41 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -37,6 +37,7 @@
 #include <gnu_gama/sparse/sbdiagonal.h>
 #include <gnu_gama/adj/adj.h>
 #include <gnu_gama/e3.h>
+#include <list>
 
 namespace GNU_gama {  namespace g3 {
 
@@ -129,6 +130,20 @@ namespace GNU_gama {  namespace g3 {
     GNU_gama::E_3 normal    (const Point* p) const;
     GNU_gama::E_3 vertical  (const Point* p) const;
     GNU_gama::E_3 instrument(const Point* p, double dh) const;
+
+    
+    struct Rejected 
+    {
+      enum rejection { rhs };
+
+      rejection     criterion;
+      Observation*  observation;
+      double        data[3];
+    };
+
+    typedef std::list<Rejected>  RejectedObs;
+    RejectedObs     rejected_obs;
+
 
   private:   /*-----------------------------------------------------------*/
       

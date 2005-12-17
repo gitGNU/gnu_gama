@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_init.cpp,v 1.1 2005/10/29 15:00:00 cepek Exp $
+ *  $Id: g3_model_init.cpp,v 1.2 2005/12/17 22:15:41 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -155,6 +155,8 @@ namespace
 
 void Model::update_init()
 {
+  rejected_obs.clear();
+
   Init init(this);
   init.approx_xyz_height();
 
