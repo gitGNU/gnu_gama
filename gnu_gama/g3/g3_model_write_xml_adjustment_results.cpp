@@ -20,11 +20,12 @@
 */
 
 /*
- *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.11 2005/12/18 12:24:46 cepek Exp $
+ *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.12 2005/12/18 17:04:38 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
 #include <gnu_gama/g3/g3_cluster.h>
+#include <gnu_gama/g3/g3_write_observation_xml.h>
 #include <gnu_gama/outstream.h>
 #include <gnu_gama/adj/adj.h>
 #include <iomanip>
@@ -114,6 +115,8 @@ void Model::write_xml_adjustment_results(std::ostream& out)
 
 void Model::write_xml_rejected_observations(std::ostream& out)
 {
+  WriteObservationXML visitor(out);
+
   if (rejected_obs.empty()) return;
 
   out << "\n<rejected-observations>\n";
@@ -132,7 +135,8 @@ void Model::write_xml_rejected_observations(std::ostream& out)
 
       out << "\n<" << tag << ">\n";
       
-      // robs.observation;
+      robs.observation->accept(&visitor);
+      out << "        ";
       for (Index i=0; i<robs.observation->dimension(); i++)
         out << "<flt>" << robs.data[i] << "</flt> ";     
 
