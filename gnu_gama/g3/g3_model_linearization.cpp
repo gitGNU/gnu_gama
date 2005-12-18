@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_linearization.cpp,v 1.3 2005/12/12 08:09:32 cepek Exp $
+ *  $Id: g3_model_linearization.cpp,v 1.4 2005/12/18 12:24:46 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -479,15 +479,30 @@ void Model::linearization(Vector* v)
 
    // right hand site
    {
-     double dx = to->X_dh(v->to_dh) - from->X_dh(v->from_dh);
-     double dy = to->Y_dh(v->to_dh) - from->Y_dh(v->from_dh);
-     double dz = to->Z_dh(v->to_dh) - from->Z_dh(v->from_dh);
+     double rx, dx = to->X_dh(v->to_dh) - from->X_dh(v->from_dh);
+     double ry, dy = to->Y_dh(v->to_dh) - from->Y_dh(v->from_dh);
+     double rz, dz = to->Z_dh(v->to_dh) - from->Z_dh(v->from_dh);
 
      const double s = Linear().scale();
  
-     rhs(++rhs_ind) = (v->dx() - dx)*s;
-     rhs(++rhs_ind) = (v->dy() - dy)*s;
-     rhs(++rhs_ind) = (v->dz() - dz)*s;
+     rhs(++rhs_ind) = rx = (v->dx() - dx)*s;
+     rhs(++rhs_ind) = ry = (v->dy() - dy)*s;
+     rhs(++rhs_ind) = rz = (v->dz() - dz)*s;
+
+     if (abs(rx) > 1e3 || abs(ry) > 1e3 || abs(rz) > 1e3)
+       {
+         Model::Rejected robs;
+
+         robs.criterion   = Model::Rejected::rhs;
+         robs.observation = v;
+         robs.data[0]     = rx;
+         robs.data[1]     = ry;
+         robs.data[2]     = rz;
+
+         rejected_obs.push_back(robs);
+         // reset_observations();
+         // v->set_active(false);
+       }
    }
 }
 

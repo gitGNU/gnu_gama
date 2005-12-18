@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.10 2005/12/17 22:48:43 cepek Exp $
+ *  $Id: g3_model_write_xml_adjustment_results.cpp,v 1.11 2005/12/18 12:24:46 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -37,7 +37,7 @@ using GNU_gama::Index;
 
 namespace 
 {
-  class WriteXML :  
+  class WriteAdjustedXML :  
     public GNU_gama::ObservationVisitor,
     public GNU_gama::Visitor<Angle>,
     public GNU_gama::Visitor<Azimuth>,
@@ -50,9 +50,10 @@ namespace
   {
   public:
 
-    WriteXML(GNU_gama::g3::Model* m, std::ostream& o
-             
-             ) : model(m), out(o) {}
+    WriteAdjustedXML(GNU_gama::g3::Model* m, std::ostream& o) 
+      : model(m), out(o) 
+    {
+    }
 
     void visit(Angle* p)
     {
@@ -103,6 +104,7 @@ void Model::write_xml_adjustment_results(std::ostream& out)
 {
   if (!check_adjustment()) update_adjustment();
 
+  write_xml_rejected_observations          (out);
   write_xml_adjustment_results_statistics  (out);
   write_xml_adjustment_results_points      (out);
   write_xml_adjustment_results_observations(out);
@@ -110,7 +112,39 @@ void Model::write_xml_adjustment_results(std::ostream& out)
 
 
 
-void Model::write_xml_adjustment_results_statistics  (std::ostream& out)
+void Model::write_xml_rejected_observations(std::ostream& out)
+{
+  if (rejected_obs.empty()) return;
+
+  out << "\n<rejected-observations>\n";
+
+  for (RejectedObs::iterator 
+         i=rejected_obs.begin(), e=rejected_obs.end(); i!=e; ++i)
+    {
+      Model::Rejected& robs = *i;
+
+      string tag;
+      switch (robs.criterion) 
+        {
+        case Model::Rejected::rhs: tag = "rhs";     break;
+        default:                   tag = "unknown"; break;
+        }
+
+      out << "\n<" << tag << ">\n";
+      
+      // robs.observation;
+      for (Index i=0; i<robs.observation->dimension(); i++)
+        out << "<flt>" << robs.data[i] << "</flt> ";     
+
+      out << "\n</"  << tag << ">\n";
+    }
+
+  out << "\n</rejected-observations>\n\n";
+}
+
+
+
+void Model::write_xml_adjustment_results_statistics(std::ostream& out)
 { 
   out << "\n<adjustment-statistics>\n\n";
 
@@ -196,7 +230,7 @@ void Model::write_xml_adjustment_results_points      (std::ostream& out)
       (*i)->write_xml(out);
     }
   
-  out << "\n</adjustment-results>\n";
+  out << "\n</adjustment-results>\n\n";
 }
 
 
@@ -205,7 +239,7 @@ void Model::write_xml_adjustment_results_observations(std::ostream& out)
 {
   out << "\n<adjusted-observations>\n";
 
-  WriteXML  write_xml(this, out);
+  WriteAdjustedXML  write_xml(this, out);
   Index index = 1;
   for (ObservationList::iterator 
          i=active_obs->begin(), e=active_obs->end(); i!=e; ++i)
