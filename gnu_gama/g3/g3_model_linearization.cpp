@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model_linearization.cpp,v 1.4 2005/12/18 12:24:46 cepek Exp $
+ *  $Id: g3_model_linearization.cpp,v 1.5 2005/12/18 18:14:25 cepek Exp $
  */
 
 #include <gnu_gama/g3/g3_model.h>
@@ -96,20 +96,28 @@ namespace
 
 void GNU_gama::g3::Model::update_linearization()
 {
-  if (!check_observations()) update_observations();
-
-  adj_input_data = new AdjInputData;
-
-  A = new SparseMatrix<>(dm_floats, dm_rows, dm_cols);
-  rhs.reset(dm_rows);
-  rhs_ind = 0;
-
-  Linearization linearization(this);
-  for (ObservationList::iterator 
-         i=active_obs->begin(), e=active_obs->end(); i!=e; ++i)
+  do  
     {
-      (*i)->accept(&linearization);
-    }
+      if (!check_observations()) update_observations();
+      
+      if (adj_input_data) delete adj_input_data;
+      if (A             ) delete A;
+      
+      adj_input_data = new AdjInputData;
+      A              = new SparseMatrix<>(dm_floats, dm_rows, dm_cols);
+      
+      rhs.reset(dm_rows);
+      rhs_ind = 0;
+      
+      Linearization linearization(this);
+      for (ObservationList::iterator 
+             i=active_obs->begin(), e=active_obs->end(); i!=e; ++i)
+        {
+          (*i)->accept(&linearization);
+        }
+      
+    } while (!check_observations());
+  
 
   adj_input_data->set_mat(A);
   adj_input_data->set_rhs(rhs);
@@ -500,8 +508,8 @@ void Model::linearization(Vector* v)
          robs.data[2]     = rz;
 
          rejected_obs.push_back(robs);
-         // reset_observations();
-         // v->set_active(false);
+         reset_parameters();
+         v->set_active(false);
        }
    }
 }
