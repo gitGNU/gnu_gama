@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="cp-1251" standalone="yes" ?>
 
-<!-- $Id: review.ua.lang,v 1.1 2005/12/14 22:57:07 cepek Exp $ -->
+<!-- $Id: review.ua.lang,v 1.2 2005/12/22 14:46:12 cepek Exp $ -->
 <entries>
 
 <e id="T_GaMa_inconsistent_coordinates_and_angles"
@@ -25,7 +25,7 @@
 
 <e id="T_GaMa_General_solution_parameters"
    EN="General parameters of the adjustment"
-   ua="Головні параметри урівнювання" />
+   ua="Головні параметри зрівнювання" />
 
 <e id="T_GaMa_gpar1_coordinates"
    EN="Coordinates"
@@ -33,7 +33,7 @@
 
 <e id="T_GaMa_gpar1_adjusted_coordinates"
    EN="Adjusted"
-   ua="Урівнених" />
+   ua="Зрівнених" />
 
 <e id="T_GaMa_gpar1_constrained_coordinates"
    EN="Constrained  * "
@@ -49,7 +49,7 @@
 
 <e id="T_GaMa_gpar1_computed_points"
    EN="Total of adjusted points"
-   ua="Всього урівнених точок  " />
+   ua="Всього зрівнених точок  " />
 
 <e id="T_GaMa_gpar2_constrained_points"
    EN="Constrained points"
@@ -141,7 +141,7 @@
 
 <e id="T_GaMa_Given_network_configuration_can_not_be_adjusted"
    EN="Given network configuration can not be adjusted"
-   ua="Геодезична мережа в даній конфігурації не може бути урівненою" />
+   ua="Геодезична мережа в даній конфігурації не може бути зрівненою" />
 
 <e id="T_GaMa_detected_singular_variables"
    EN="The following unknowns have been detected as linearly dependent"
@@ -249,7 +249,7 @@
 
 <e id="T_GaMa_adjunk_Review_of_unknowns_coordidantes"
    EN="Adjusted coordinates"
-   ua="Урівнені координати" />
+   ua="Зрівнені координати" />
 
 <e id="T_GaMa_adjunk_mean_position_error_maximal"
    EN="Maximal mean position error is "
@@ -265,7 +265,7 @@
 
 <e id="T_GaMa_adjunk_header1"
    EN="    approximate  correction  adjusted    std.dev conf.i.\n"
-   ua="     наближене    поправки   урівнене      СКО   дов.інт\n" />
+   ua="     наближене    поправки   зрівнене      СКО   дов.інт\n" />
 
 <e id="T_GaMa_adjunk_header2"
    EN="====== value ====== [m] ====== value ========== [mm] ===\n\n"
@@ -277,11 +277,11 @@
 
 <e id="T_GaMa_adjunk_Review_of_unknowns_bearings"
    EN="Adjusted orientation unknowns"
-   ua="Урівнене координування невідомих напрямків" />
+   ua="Зрівнене координування невідомих напрямків" />
 
 <e id="T_GaMa_adjunk_header3"
    EN="   approximate  correction  adjusted   std.dev conf.i.\n"
-   ua="    наближене    поправки   урівнене     СКО   дов.інт\n" />
+   ua="    наближене    поправки   зрівнене     СКО   дов.інт\n" />
 
 <e id="T_GaMa_adjunk_header4"
    EN="==== value [g] ==== [g] === value [g] ======= [cc] ===\n\n"
@@ -289,11 +289,11 @@
 
 <e id="T_GaMa_adjunk_Review_of_unknowns_heights"
    EN="Adjusted heights"
-   ua="Урівнені висоти " />
+   ua="Зрівнені висоти " />
 
 <e id="T_GaMa_adjunk_header5"
    EN="     approximate  correction  adjusted    std.dev conf.i.\n"
-   ua="      наближене    поправки   урівнене      СКО   дов.інт\n" />
+   ua="      наближене    поправки   зрівнене      СКО   дов.інт\n" />
 
 <e id="T_GaMa_adjunk_header6"
    EN="======= value ====== [m] ====== value ========== [mm] ===\n\n"
@@ -309,7 +309,7 @@
 
 <e id="T_GaMa_tstlin_Differences"
    EN="Diffs in adj. observations from residuals and from adjusted coordinates"
-   ua="Різниця між поправками урівнених спостережень і урівненими координатами" />
+   ua="Різниця між поправками зрівнених спостережень і зрівненими координатами" />
 
 <e id="T_GaMa_tstlin_obs_r_diff"
    EN="      observed     r        difference"
@@ -381,7 +381,7 @@
 
 <e id="T_GaMa_adjobs_Adjusted_observations"
    EN="Adjusted observations"
-   ua="Урівнені спостереження" />
+   ua="Зрівнені спостереження" />
 
 <e id="T_GaMa_adjobs_observed"
    EN="observed"
@@ -389,7 +389,7 @@
 
 <e id="T_GaMa_adjobs_adjusted"
    EN="adjusted"
-   ua="урівнене" />
+   ua="зрівнене" />
 
 <e id="T_GaMa_adjobs_header1"
    EN=" std.dev conf.i.\n"
@@ -409,7 +409,7 @@
 
 <e id="T_GaMa_resobs_header1"
    EN="        f[%]        v    |v'|     e-obs.  e-adj.\n"
-   ua="        f[%]        v    |v'|     e-спост e-урів\n" />
+   ua="        f[%]        v    |v'|     e-спост e-зрів\n" />
 
 <!-- removed in 1.7.09 :$ e id="T_GaMa_resobs_header2"
    EN="======== [mm|cc] =========== [mm|cc] ===\n\n"
@@ -466,7 +466,7 @@
 
 <e id="T_GaMa_approx_Review_of_approximate_coordinates"
    EN="Approximate coordinates"
-   ua="Урівнені координати    " />
+   ua="Зрівнені координати    " />
 
 <e id="T_GaMa_approx_observations"
    EN="observations: "

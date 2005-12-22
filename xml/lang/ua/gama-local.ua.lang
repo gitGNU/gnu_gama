@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="cp-1251" standalone="yes" ?>
 
-<!-- $Id: gama-local.ua.lang,v 1.1 2005/12/14 22:57:07 cepek Exp $ -->
+<!-- $Id: gama-local.ua.lang,v 1.2 2005/12/22 14:46:12 cepek Exp $ -->
 <entries>
 
 <e id="T_GaMa_Adjustment_of_geodetic_network"   
    EN="Adjustment of local geodetic network"
-   ua="Урівнювання локальної геодезичної мережі"  /> 
+   ua="Зрівнювання локальної геодезичної мережі"  /> 
 
 <e id="T_GaMa_version"
    EN="version: "
@@ -45,11 +45,11 @@
 
 <e id="T_GaMa_adjustment_iteration"
    EN=" - adjustment iteration"
-   ua=" - ітерація урівнювання" />
+   ua=" - ітерація зрівнювання" />
 
 <e id="T_GaMa_Approximate_coordinates_replaced"
    EN="Approximate coordinates of computed points replaced by adjusted"
-   ua="Наближені координати обчислених точок заміщені урівненеми" />
+   ua="Наближені координати обчислених точок заміщені зрівненеми" />
 
 <e id="T_GaMa_solution_ended_with_error"
    EN="GNU Gama - solution ended with error!"
