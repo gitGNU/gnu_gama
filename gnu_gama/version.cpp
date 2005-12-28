@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.91 2005/12/28 19:12:04 cepek Exp $
+ *  $Id: version.cpp,v 1.92 2005/12/28 20:59:09 cepek Exp $
  */
 
 
@@ -68,7 +68,7 @@ const char* GNU_gama_compiler =
 
      #####################################################################
      #                                                                   #
-     #  stable version 1.8                                               #
+     #  stable version 1.8  (branch gama-1-8-00 at cvs.sv.gnu.org)       #
      #                                                                   #
      #####################################################################
 
@@ -422,9 +422,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.91 2005/12/28 19:12:04 cepek Exp $
+        <  *  $Id: version.cpp,v 1.92 2005/12/28 20:59:09 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.91 2005/12/28 19:12:04 cepek Exp $
+        >  *  $Id: version.cpp,v 1.92 2005/12/28 20:59:09 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),
