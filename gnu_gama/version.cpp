@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.90 2005/12/28 17:27:05 cepek Exp $
+ *  $Id: version.cpp,v 1.91 2005/12/28 19:12:04 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.7.15-e";
+const char* GNU_gama_version  = "1.8.00";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -62,7 +62,19 @@ const char* GNU_gama_compiler =
 
 =============================================================================
 
-1.7.15 ... pre-release
+
+
+1.8.00 2005-12-28
+
+     #####################################################################
+     #                                                                   #
+     #  stable version 1.8                                               #
+     #                                                                   #
+     #####################################################################
+
+
+
+    ------------------------------------------------------------------------
 
     - Anton Horpynich <anton@vingeo.com> translated gama-local *.lang
       files to Ukraininan
@@ -410,9 +422,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.90 2005/12/28 17:27:05 cepek Exp $
+        <  *  $Id: version.cpp,v 1.91 2005/12/28 19:12:04 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.90 2005/12/28 17:27:05 cepek Exp $
+        >  *  $Id: version.cpp,v 1.91 2005/12/28 19:12:04 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),
