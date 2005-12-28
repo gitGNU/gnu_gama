@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.22 2005/12/11 18:53:51 cepek Exp $
+ *  $Id: network.cpp,v 1.23 2005/12/28 17:27:05 cepek Exp $
  */
 
 #include <fstream>
@@ -532,8 +532,10 @@ Double LocalNetwork::test_abs_term(Index indm)
 {
   const Observation* m = RSM[indm-1];
 
-  if (dynamic_cast<const Coordinates*>(m->ptr_cluster())) return 0;
-  if (dynamic_cast<const Vectors*>(m->ptr_cluster())) return 0;
+  // 2005-12-28 added test for coordinates and vectors
+  //
+  // if (dynamic_cast<const Coordinates*>(m->ptr_cluster())) return 0;
+  // if (dynamic_cast<const Vectors*>(m->ptr_cluster())) return 0;
 
   const LocalPoint& stan = PD[m->from()];
   const LocalPoint& cil  = PD[m->to()];   // ignoring second angle target here
@@ -594,6 +596,51 @@ Double LocalNetwork::test_abs_term(Index indm)
           return b(indm);
         else
           return 0;   
+      }
+    else if (typeid(*m) == typeid(Xdiff))
+      {
+        const Double dx = cil.x() - stan.x();
+        if (fabs(dx - m->value())*1000 > tol_abs_)
+          return b(indm);
+        else
+          return 0;           
+      }
+    else if (typeid(*m) == typeid(Ydiff))
+      {
+        const Double dy = cil.y() - stan.y();
+        if (fabs(dy - m->value())*1000 > tol_abs_)
+          return b(indm);
+        else
+          return 0;           
+      }
+    else if (typeid(*m) == typeid(Zdiff))
+      {
+        const Double dz = cil.z() - stan.z();
+        if (fabs(dz - m->value())*1000 > tol_abs_)
+          return b(indm);
+        else
+          return 0;           
+      }
+    else if (typeid(*m) == typeid(X))
+      {
+        if (fabs(stan.x() - m->value())*1000 > tol_abs_)
+          return b(indm);
+        else
+          return 0;           
+      }
+    else if (typeid(*m) == typeid(Y))
+      {
+        if (fabs(stan.y() - m->value())*1000 > tol_abs_)
+          return b(indm);
+        else
+          return 0;           
+      }
+    else if (typeid(*m) == typeid(Z))
+      {
+        if (fabs(stan.z() - m->value())*1000 > tol_abs_)
+          return b(indm);
+        else
+          return 0;           
       }
   } 
 

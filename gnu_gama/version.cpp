@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.89 2005/12/28 15:44:44 cepek Exp $
+ *  $Id: version.cpp,v 1.90 2005/12/28 17:27:05 cepek Exp $
  */
 
 
@@ -87,6 +87,9 @@ const char* GNU_gama_compiler =
       <        return b >= 0.0 ? Abs(a) : -Abs(a);
       ---
       >        return b >= Float() ? Abs(a) : -Abs(a);
+
+    - added missing test for coordinates and vectors for huge abs. terms
+      in LocalNetwork::test_abs_term(Index)
 
 
 
@@ -407,9 +410,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.89 2005/12/28 15:44:44 cepek Exp $
+        <  *  $Id: version.cpp,v 1.90 2005/12/28 17:27:05 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.89 2005/12/28 15:44:44 cepek Exp $
+        >  *  $Id: version.cpp,v 1.90 2005/12/28 17:27:05 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: g3_model.h,v 1.48 2005/12/18 12:24:46 cepek Exp $
+ *  $Id: g3_model.h,v 1.49 2005/12/28 17:27:05 cepek Exp $
  */
 
 #ifndef GNU_gama__g3_model_h_gnugamag3modelh___gnu_gama_g3model
@@ -116,7 +116,7 @@ namespace GNU_gama {  namespace g3 {
     double cov_xx(Index i, Index j) { return std_variance*adj->q_xx(i,j); }
     double cov_bb(Index i, Index j) { return std_variance*adj->q_bb(i,j); }
 
-    bool   graph_is_connected() const  { dm_graph_is_connected; }
+    bool   graph_is_connected() const  { return dm_graph_is_connected; }
 
     void write_xml_adjustment_input_data(std::ostream&);
     void write_xml_adjustment_results   (std::ostream&);

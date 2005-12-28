@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: outlying_abs_terms.h,v 1.8 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: outlying_abs_terms.h,v 1.9 2005/12/28 17:27:05 cepek Exp $
  */
 
 #ifndef GaMa_GaMaProg_Vybocujici_Absolutni_Cleny_h_
@@ -141,14 +141,58 @@ void OutlyingAbsoluteTerms(GaMaLib::LocalNetwork* IS, OutStream& out)
                 Double m = h->value();
                 out << m << " ";
               }
+            else if (Xdiff* dx = dynamic_cast<Xdiff*>(pm))
+              {
+                out << T_GaMa_xdiff;
+                out.precision(5);
+                out.width(12);
+                Double m = dx->value();
+                out << m << " ";
+              }
+            else if (Ydiff* dy = dynamic_cast<Ydiff*>(pm))
+              {
+                out << T_GaMa_ydiff;
+                out.precision(5);
+                out.width(12);
+                Double m = dy->value();
+                out << m << " ";
+              }
+            else if (Zdiff* dz = dynamic_cast<Zdiff*>(pm))
+              {
+                out << T_GaMa_zdiff;
+                out.precision(5);
+                out.width(12);
+                Double m = dz->value();
+                out << m << " ";
+              }
+            else if (X* x = dynamic_cast<X*>(pm))
+              {
+                out << T_GaMa_x;
+                out.precision(5);
+                out.width(12);
+                Double m = x->value();
+                out << m << " ";
+              }
+            else if (Y* y = dynamic_cast<Y*>(pm))
+              {
+                out << T_GaMa_y;
+                out.precision(5);
+                out.width(12);
+                Double m = y->value();
+                out << m << " ";
+              }
+            else if (Z* z = dynamic_cast<Z*>(pm))
+              {
+                out << T_GaMa_z;
+                out.precision(5);
+                out.width(12);
+                Double m = z->value();
+                out << m << " ";
+              }
             else
               {
-                // vectors and coordinates have absoluted term 
-                // always 0 in Network::test_abs_term()
-
                 throw GaMaLib::Exception(
-                   "GaMa internal error - unknown observation\n"
-                   "$Id: outlying_abs_terms.h,v 1.8 2005/05/07 18:06:20 cepek Exp $");
+                   "GaMa internal error - unknown observation\n");
               }
           }   // ************************************************
           
