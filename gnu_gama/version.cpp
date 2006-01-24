@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.92 2005/12/28 20:59:09 cepek Exp $
+ *  $Id: version.cpp,v 1.93 2006/01/24 19:25:03 cepek Exp $
  */
 
 
@@ -61,6 +61,17 @@ const char* GNU_gama_compiler =
  * in the same directory as GNU Gama
 
 =============================================================================
+
+
+1.9.00 2006-xx-xx
+
+     #####################################################################
+     #                                                                   #
+     #  unstable version 1.9 (main trunk at CVS savannah.gnu.org)        #
+     #                                                                   #
+     #####################################################################
+
+    - updated version of review.ru.lang by  Anton Horpynich
 
 
 
@@ -422,9 +433,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.92 2005/12/28 20:59:09 cepek Exp $
+        <  *  $Id: version.cpp,v 1.93 2006/01/24 19:25:03 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.92 2005/12/28 20:59:09 cepek Exp $
+        >  *  $Id: version.cpp,v 1.93 2006/01/24 19:25:03 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),
