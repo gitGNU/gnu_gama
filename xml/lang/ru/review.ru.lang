@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="cp-1251" standalone="yes" ?>
 
-<!-- $Id: review.ru.lang,v 1.12 2005/12/14 22:56:49 cepek Exp $ -->
+<!-- $Id: review.ru.lang,v 1.13 2006/01/24 19:27:29 cepek Exp $ -->
 <entries>
 
 <e id="T_GaMa_inconsistent_coordinates_and_angles"
@@ -334,7 +334,7 @@
 
 <e id="T_GaMa_s_distance"
    EN=" slope "
-   ru=" измеренное " />
+   ru=" накл. " />
 
 <e id="T_GaMa_z_angle"
    EN=" zenit "
