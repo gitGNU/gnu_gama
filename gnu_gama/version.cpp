@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.94 2006/01/24 19:42:44 cepek Exp $
+ *  $Id: version.cpp,v 1.95 2006/01/29 15:08:46 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.9.00a";
+const char* GNU_gama_version  = "1.9.00b";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -70,6 +70,9 @@ const char* GNU_gama_compiler =
      #  unstable version 1.9 (main trunk at CVS savannah.gnu.org)        #
      #                                                                   #
      #####################################################################
+
+    - fixed a bug in SparseMatrixGraph<Float>::connected(); the case
+      of a graph with no observations was not handled
 
     - updated version of review.ru.lang by  Anton Horpynich
 
@@ -433,9 +436,9 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.94 2006/01/24 19:42:44 cepek Exp $
+        <  *  $Id: version.cpp,v 1.95 2006/01/29 15:08:46 cepek Exp $
         ---
-        >  *  $Id: version.cpp,v 1.94 2006/01/24 19:42:44 cepek Exp $
+        >  *  $Id: version.cpp,v 1.95 2006/01/29 15:08:46 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),

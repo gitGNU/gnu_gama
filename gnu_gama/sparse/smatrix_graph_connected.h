@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: smatrix_graph_connected.h,v 1.1 2005/12/05 19:01:45 cepek Exp $
+ *  $Id: smatrix_graph_connected.h,v 1.2 2006/01/29 15:10:41 cepek Exp $
  */
 
 
@@ -31,6 +31,8 @@ bool GNU_gama::SparseMatrixGraph<Float>::connected() const
 {
   const Index cols = sparse->columns();
   const Index rows = sparse->rows();
+
+  if (cols == 0 || rows == 0) return true;
 
   Vec<int> col(cols);
   Vec<int> row(rows);
