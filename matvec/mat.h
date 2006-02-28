@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: mat.h,v 1.2 2005/05/07 18:06:21 cepek Exp $
+ *  $Id: mat.h,v 1.3 2006/02/28 14:11:37 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -242,8 +242,8 @@ void Mat<Float, Exc>::invert()
       if (step != p_row) indr.swap(step, p_row);
       if (step != p_col) indc.swap(step, p_col);
       
-      invpivot = 1.0 / pivot;
-      entry(indr[step], indc[step]) = 1.0;
+      invpivot = Float(1.0) / pivot;
+      entry(indr[step], indc[step]) = Float(1.0);
       i = indr[step];
       for (j=0; j<N; j++) entry(i,j) *= invpivot;
 
@@ -252,7 +252,7 @@ void Mat<Float, Exc>::invert()
           {
             i = indr[row];
             e = entry(i, indc[step]);
-            entry(i, indc[step]) = 0.0;
+            entry(i, indc[step]) = Float(0.0);
             for (j=0; j<N; j++) entry(i,j) -= e*entry(indr[step],j);
           }
     }

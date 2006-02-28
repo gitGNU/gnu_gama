@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: jacobian.h,v 1.2 2005/05/07 18:06:21 cepek Exp $
+ *  $Id: jacobian.h,v 1.3 2006/02/28 14:11:37 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -141,7 +141,7 @@ namespace GNU_gama {
     for (Index j=1; j<=idim; j++)
       {
         tx = x(j);
-        dh = tx + ( use_h ? h(j) : scale*(1.0 + Abs(x(j))) );
+        dh = tx + ( use_h ? h(j) : scale*(Float(1.0) + Abs(x(j))) );
         dh = dh - tx;
        
         c    = degree/2;
@@ -161,7 +161,7 @@ namespace GNU_gama {
             d += a;
           }
 
-        d   *= 1.0/dh;
+        d   *= Float(1.0)/dh;
         x(j) = tx;
         
         for (Index i=1; i<=odim; i++) matrix(i,j) = d(i);

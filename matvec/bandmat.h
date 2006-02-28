@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: bandmat.h,v 1.2 2005/05/07 18:06:21 cepek Exp $
+ *  $Id: bandmat.h,v 1.3 2006/02/28 14:11:37 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -95,15 +95,15 @@ private:
        if (absa > absb)
          {
            absq = absb/absa;
-           return absa*std::sqrt(1.0 + absq*absq);
+           return absa*std::sqrt(Float(1.0) + absq*absq);
          }
        else if (absb)
          {
            absq = absa/absb;
-           return absb*std::sqrt(1.0 + absq*absq);
+           return absb*std::sqrt(Float(1.0) + absq*absq);
          }
        
-       return 0.0;
+       return Float(0.0);
      }
 
 };      /* class BandMat */
@@ -549,11 +549,11 @@ void BandMat<Float, Exc>::eigenVal(Vec<Float, Exc>& eigvals)
       
       // form shift
 
-      g = (d[l+1] - p)/(2.0*e[l]);
-      r = pythag(g,1.0);
+      g = (d[l+1] - p)/(Float(2.0)*e[l]);
+      r = pythag(g,Float(1.0));
       g = d[m] - p + e[l]/(g+Sign(r,g));
-      s = c = 1.0;
-      p = 0.0;
+      s = c = Float(1.0);
+      p = Float(0.0);
       for (i=m-1; i>=l; i--) 
         {
           f = s*e[i];
@@ -561,26 +561,26 @@ void BandMat<Float, Exc>::eigenVal(Vec<Float, Exc>& eigvals)
           r = pythag(f,g);
           e[i+1] = r;
 
-          if (r == 0.0) 
+          if (r == Float(0.0)) 
             {
               // recover from underflow
 
               d[i+1] -= p;
-              e[m] = 0.0;
+              e[m] = Float(0.0);
               goto next_iteration;
             }
 
           s = f/r;
           c = g/r;
           g = d[i+1] - p;
-          r = (d[i] - g)*s + 2.0*c*b;
+          r = (d[i] - g)*s + Float(2.0)*c*b;
           p = s * r;
           d[i+1] = g + p;
           g = c*r - b;
         }
       d[l] -= p;
       e[l] = g;
-      e[m] = 0.0;
+      e[m] = Float(0.0);
       goto next_iteration;
     }
   

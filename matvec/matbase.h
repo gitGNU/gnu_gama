@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: matbase.h,v 1.2 2005/05/07 18:06:21 cepek Exp $
+ *  $Id: matbase.h,v 1.3 2006/02/28 14:11:37 cepek Exp $
  *  http://www.gnu.org/software/gama/
  */
 
@@ -77,7 +77,7 @@ public:
       for (Index i=1; i<=min_rc(); i++)
         this->operator()(i,i) = d;
     }
-  void set_identity() { set_diagonal(1.0); }
+  void set_identity() { set_diagonal(Float(1.0)); }
 
   virtual void transpose() 
     {
