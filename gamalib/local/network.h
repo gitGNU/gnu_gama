@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.h,v 1.17 2005/12/11 18:53:51 cepek Exp $
+ *  $Id: network.h,v 1.18 2006/03/02 13:44:32 cepek Exp $
  */
 
 // LocalNetwork - Network Informations class (Informace o siti)
@@ -55,6 +55,8 @@ namespace GaMaLib
       
       PointData        PD;      // point list
       ObservationData  OD;      // observation list
+
+      double        epoch;
 
 
       // ...  information on points removed from adjustment  .................

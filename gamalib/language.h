@@ -39,6 +39,7 @@ extern const char* T_GKF_e01a_illegal_tag;
 extern const char* T_GKF_e01b_after_tag;
 extern const char* T_GKF_error_on_reading_of_absolute_terms_tolerance;
 extern const char* T_GKF_error_on_reading_of_confidence_probability;
+extern const char* T_GKF_error_on_reading_of_epoch;
 extern const char* T_GKF_error_on_reading_of_standard_deviation;
 extern const char* T_GKF_illegal_standard_deviation;
 extern const char* T_GKF_illegal_text;

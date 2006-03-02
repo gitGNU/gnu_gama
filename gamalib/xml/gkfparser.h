@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.h,v 1.15 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: gkfparser.h,v 1.16 2006/03/02 13:44:33 cepek Exp $
  */
 
 #ifndef GaMaLib_GKF__XML__parser__h_
@@ -69,6 +69,8 @@ namespace GaMaLib {
       double m0_apr, konf_pr, tol_abs;  // implicitly 10, 0.95, 1000
       bool   typ_m0_apriorni;           // implicitly false
       bool   update_constr;             // implicitly false
+
+      double epoch;                     // implicitly 0; 
       
       double implicit_stdev_direction() const { return smer_str; }
       double implicit_stdev_angle()    const { return uhel_str; }

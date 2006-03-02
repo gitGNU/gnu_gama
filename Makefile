@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.22 2004/06/21 16:10:13 cepek Exp $
+# $Id: Makefile,v 1.23 2006/03/02 13:44:32 cepek Exp $
 #
 # this Makefile and all files in ./scripts were tested on Debian GNU/Linux 3.0
 #
@@ -59,8 +59,8 @@ clean:
 	rm -f `find gnu_gama gamalib gamaprog scripts -name *\.[a]`
 	rm -f `find gnu_gama gamalib -name leak.out`
 	rm -f `find gnu_gama gamalib -name demo*`
-	rm -f `find gamaprog/linux/gama-local/examples -name test*`
-	rm -f `find gamaprog/linux/gama-g3/examples -name test*`
+#	rm -f `find gamaprog/linux/gama-local/examples -name test*`
+#	rm -f `find gamaprog/linux/gama-g3/examples -name test*`
 #	rm -f `find . -name "*[\~\#]*"`
 
 clean-scripts:

@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: version.cpp,v 1.95 2006/01/29 15:08:46 cepek Exp $
+ *  $Id: version.cpp,v 1.97 2006/03/02 13:49:03 cepek Exp $
  */
 
 
@@ -28,7 +28,7 @@
 
 namespace GNU_gama {
 
-const char* GNU_gama_version  = "1.9.00b";
+const char* GNU_gama_version  = "1.9.00";
 
 const char* GNU_gama_compiler =
               #if   defined (__GNUC__)
@@ -71,10 +71,25 @@ const char* GNU_gama_compiler =
      #                                                                   #
      #####################################################################
 
+    - merged changes from branch gama-1-8 (cvs update -j gama-1-8)
+
     - fixed a bug in SparseMatrixGraph<Float>::connected(); the case
       of a graph with no observations was not handled
 
     - updated version of review.ru.lang by  Anton Horpynich
+
+
+
+1.8.01 2006-xx-xx
+
+    - added XML adjustment output for gama-local networks
+
+    - added new attribute 'epoch' in gama-local networks
+
+    - fixed a bug in SparseMatrixGraph<Float>::connected(); the case
+      of a graph with no observations was not handled
+
+    - updated xml/lang/ru/review.ru.lang
 
 
 
@@ -436,9 +451,6 @@ const char* GNU_gama_compiler =
 
     - a bug in the second GSO constructor
 
-        <  *  $Id: version.cpp,v 1.95 2006/01/29 15:08:46 cepek Exp $
-        ---
-        >  *  $Id: version.cpp,v 1.95 2006/01/29 15:08:46 cepek Exp $
         80,83c80
         <   GSO(Mat<Float, Exc>& a, Index m, Index n)
         <     : pA(0), M(0), N(0), sc(true), tol_(0),

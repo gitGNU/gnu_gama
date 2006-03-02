@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: smatrix_graph_connected.h,v 1.2 2006/01/29 15:10:41 cepek Exp $
+ *  $Id: smatrix_graph_connected.h,v 1.3 2006/03/02 13:41:21 cepek Exp $
  */
 
 

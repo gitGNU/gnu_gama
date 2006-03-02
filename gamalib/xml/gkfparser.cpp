@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gkfparser.cpp,v 1.20 2005/05/07 18:06:20 cepek Exp $
+ *  $Id: gkfparser.cpp,v 1.21 2006/03/02 13:44:33 cepek Exp $
  */ 
 
 
@@ -417,6 +417,8 @@ namespace GaMaLib {
     string  nam, val;
     state = state_network;
 
+    epoch = 0.0;
+
     while (*atts)
       {
         nam = string(*atts++);
@@ -445,6 +447,12 @@ namespace GaMaLib {
             else
               return error(T_GKF_undefined_value_of_attribute
                            + nam + " = " + val);            
+          }
+        else if (nam == "epoch")
+          {
+            if (!toDouble(val, epoch)) 
+              return error(T_GKF_error_on_reading_of_epoch
+                           + nam + " = " + val);
           }
         else
           {

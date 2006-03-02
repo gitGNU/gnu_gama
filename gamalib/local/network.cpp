@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: network.cpp,v 1.23 2005/12/28 17:27:05 cepek Exp $
+ *  $Id: network.cpp,v 1.24 2006/03/02 13:44:32 cepek Exp $
  */
 
 #include <fstream>
@@ -53,6 +53,7 @@ LocalNetwork::LocalNetwork()
     tst_rov_opr_(false), tst_vyrovnani_(false), min_n_(0), min_x_(0),
     gons_(true)
 {
+  epoch = 0.0;
   Asp = 0;
 }
 

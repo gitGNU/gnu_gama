@@ -13,6 +13,9 @@
 <e id="T_GKF_illegal_value_of_gama_xml_version"
    en="illegal value of attribue 'version' of tag &lt;gama-xml&gt;: " />
 
+<e id="T_GKF_error_on_reading_of_epoch"
+   en="error on reading attribute 'epoch' of tag &lt;gama-xml&gt;: " />
+
 <e id="T_GKF_undefined_attribute_of_gama_xml"
    en="undefined attribute of tag &lt;gama-xml&gt;: " />
 

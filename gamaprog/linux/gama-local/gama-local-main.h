@@ -20,7 +20,7 @@
 */
 
 /*
- *  $Id: gama-local-main.h,v 1.31 2005/12/14 23:13:46 cepek Exp $
+ *  $Id: gama-local-main.h,v 1.32 2006/03/02 13:44:33 cepek Exp $
  */
 
 #ifndef GAMA_MAIN__gama_main__gm_mn__g_m__g______________________________h___
@@ -31,6 +31,8 @@
 #include <cstring>
 #include <gnu_gama/version.h>
 #include <gnu_gama/intfloat.h>
+#include <gnu_gama/xml/localnetwork.h>
+
 #include <gamalib/language.h>
 #include <gamalib/local/gamadata.h>
 #include <gamalib/xml/gkfparser.h>
@@ -38,8 +40,6 @@
 #include <gamalib/local/network_gso.h>
 #include <gamalib/local/network_chol.h>
 #include <gamalib/local/acord.h>
-
-#include <gamalib/xml/adjusted/coordinates.h>
 
 /* functions for printing of formatted output text were moved to new
  * location. it is planned for future versions to produce adjustment
@@ -76,7 +76,7 @@ int help()
        << "http://www.gnu.org/software/gama/\n\n"
        << "Usage: " << /*argv[0]*/"gama-local" 
        << " [options]"
-       << " xml_input_file.gkf "
+       << "  input.xml "
        << " [ output. ]\n\n";
   cerr << "Options:\n"
        << "\n";
@@ -87,6 +87,7 @@ int help()
        << "--angles     400 | 360\n"  
        << "--latitude   <latitude>\n"
        << "--ellipsoid  <ellipsoid name>\n"
+       << "--xmlout     adjustment_results.xml\n"
        << "--version\n"
        << "--help\n";
   cerr << endl;
@@ -110,7 +111,7 @@ int GaMa_Main(int argc, char **argv)
   using namespace std;
   using namespace GaMaLib;
   
-  string description, xml_output, file_stx, file_txt, file_opr;
+  string description, /*xml_output,*/ file_stx, file_txt, file_opr;
   const char* c;
   const char* argv_1 = 0;
   const char* argv_2 = 0;
@@ -120,6 +121,7 @@ int GaMa_Main(int argc, char **argv)
   const char* argv_angles = 0;
   const char* argv_ellipsoid = 0;
   const char* argv_latitude = 0;
+  const char* argv_xmlout = 0;
 
   bool correction_to_ellipsoid = false;
   GNU_gama::Ellipsoid el;
@@ -157,6 +159,7 @@ int GaMa_Main(int argc, char **argv)
       else if (name == "angles"    ) argv_angles = c;
       else if (name == "ellipsoid" ) argv_ellipsoid = c;
       else if (name == "latitude"  ) argv_latitude = c;
+      else if (name == "xmlout"    ) argv_xmlout = c;
       else
           return help();
     }
@@ -341,6 +344,9 @@ int GaMa_Main(int argc, char **argv)
             IS->set_m_0_aposteriori();
           
           description = gkf.description;
+
+          // added in 1.8.01
+          IS->epoch = gkf.epoch;
         }
       catch (...) 
         {
@@ -348,7 +354,7 @@ int GaMa_Main(int argc, char **argv)
         }
     }
     
-    if (argv_2)         // to be used in email version 
+    if (argv_2)
       {
         string jmeno(argv_2);
         
@@ -358,7 +364,7 @@ int GaMa_Main(int argc, char **argv)
             file_stx = jmeno + "stx";
             file_opr = jmeno + "opr";
             
-            xml_output = jmeno + "xml";
+            // xml_output = jmeno + "xml";
           }
         else
           {
@@ -490,11 +496,20 @@ int GaMa_Main(int argc, char **argv)
             IS->project_equations(opr);
           }
         
-        if (xml_output != "")
+        // if (xml_output != "")
+        //   {
+        //     ofstream xml(xml_output.c_str());
+        //     
+        //     XML_adjusted_coordinates(IS, xml, true);
+        //   }
+
+        if (argv_xmlout)
           {
-            ofstream xml(xml_output.c_str());
-            
-            XML_adjusted_coordinates(IS, xml, true);
+            ofstream file(argv_xmlout);
+
+            GNU_gama::LocalNetworkXML xml(IS);
+            xml.description = description;
+            xml.write(file);
           }
                 
       }

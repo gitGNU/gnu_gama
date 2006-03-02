@@ -1,6 +1,6 @@
 # GNU Gama C++ library files 
 # -----------------------------------------------------------
-# $Id: gnu_gama_files,v 1.34 2005/12/18 17:04:38 cepek Exp $
+# $Id: gnu_gama_files,v 1.35 2006/03/02 13:44:33 cepek Exp $
 
 gnu_gama/adj/adj.cpp
 gnu_gama/e3.cpp
@@ -28,6 +28,7 @@ gnu_gama/xml/dataparser_g3.cpp
 gnu_gama/xml/encoding.cpp
 gnu_gama/xml/encoding_unknown_handler.cpp
 gnu_gama/xml/encoding_cp1251.cpp
+gnu_gama/xml/localnetwork.cpp
 
 gamalib/c/api/capi_exception.cpp
 gamalib/c/api/capi_gkfparser.cpp
