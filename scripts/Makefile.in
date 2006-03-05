@@ -10,12 +10,6 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-# gnu_gama_expat_files = ../../gnu_gama/xml/encoding.cpp
-
-# noinst_LIBRARIES = libtmp.a
-# libtmp_a_SOURCES = a.cpp
-# libtmp_a_LIBADD = ../../gnu_gama/xml/encoding.cpp
-
 
 SHELL = @SHELL@
 
@@ -79,11 +73,10 @@ RANLIB = @RANLIB@
 VERSION = @VERSION@
 
 AM_CXXFLAGS = -I..
-AM_CFLAGS = -I/home/cepek/GNU/gama
+#AM_CFLAGS = -I/home/cepek/GNU/gama
 
 noinst_PROGRAMS = slovnikar
-slovnikar_CPPFLAGS = -I"../.."
-slovnikar_SOURCES = slovnikar.cpp tmp.c
+slovnikar_SOURCES = slovnikar.cpp encoding.cpp
 mkinstalldirs = $(SHELL) $(top_srcdir)/config/mkinstalldirs
 CONFIG_CLEAN_FILES = 
 PROGRAMS =  $(noinst_PROGRAMS)
@@ -93,7 +86,7 @@ DEFS = @DEFS@ -I. -I$(srcdir)
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-slovnikar_OBJECTS =  slovnikar.o tmp.o
+slovnikar_OBJECTS =  slovnikar.o encoding.o
 slovnikar_LDADD = $(LDADD)
 slovnikar_DEPENDENCIES = 
 slovnikar_LDFLAGS = 
@@ -101,10 +94,6 @@ CXXFLAGS = @CXXFLAGS@
 CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(LDFLAGS) -o $@
-CFLAGS = @CFLAGS@
-COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-CCLD = $(CC)
-LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
 DIST_COMMON =  Makefile.am Makefile.in
 
 
@@ -112,7 +101,7 @@ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
 TAR = tar
 GZIP_ENV = --best
-DEP_FILES =  .deps/slovnikar.P .deps/tmp.P
+DEP_FILES =  .deps/encoding.P .deps/slovnikar.P
 SOURCES = $(slovnikar_SOURCES)
 OBJECTS = $(slovnikar_OBJECTS)
 
