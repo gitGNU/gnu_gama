@@ -150,8 +150,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-ACLOCAL_AMFLAGS = -I m4
-SUBDIRS = lib
+SUBDIRS = lib scripts
 EXTRA_DIST = scripts/autogen.sh
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
