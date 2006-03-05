@@ -5880,7 +5880,7 @@ fi
 done
 
 
-                                                  ac_config_files="$ac_config_files Makefile lib/Makefile gama-g3/Makefile gama-local/Makefile scripts/Makefile"
+                                                            ac_config_files="$ac_config_files Makefile lib/Makefile gama-g3/Makefile gama-local/Makefile doc/Makefile scripts/Makefile"
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -6441,6 +6441,7 @@ do
   "lib/Makefile" ) CONFIG_FILES="$CONFIG_FILES lib/Makefile" ;;
   "gama-g3/Makefile" ) CONFIG_FILES="$CONFIG_FILES gama-g3/Makefile" ;;
   "gama-local/Makefile" ) CONFIG_FILES="$CONFIG_FILES gama-local/Makefile" ;;
+  "doc/Makefile" ) CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
   "scripts/Makefile" ) CONFIG_FILES="$CONFIG_FILES scripts/Makefile" ;;
   "depfiles" ) CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
   "config.h" ) CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
