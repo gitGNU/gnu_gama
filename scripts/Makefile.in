@@ -54,7 +54,7 @@ am_slovnikar_OBJECTS = slovnikar.$(OBJEXT)
 slovnikar_OBJECTS = $(am_slovnikar_OBJECTS)
 slovnikar_DEPENDENCIES = $(top_srcdir)/lib/libgama.a
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
-depcomp = $(SHELL) $(top_srcdir)/aux/depcomp
+depcomp = $(SHELL) $(top_srcdir)/scripts/aux/depcomp
 am__depfiles_maybe = depfiles
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
@@ -146,6 +146,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
+EXTRA_DIST = autogen.sh
 slovnikar_SOURCES = slovnikar.cpp
 slovnikar_LDADD = $(top_srcdir)/lib/libgama.a
 ellipsoids_xml_SOURCES = ellipsoids_xml.cpp

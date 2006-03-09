@@ -77,7 +77,7 @@ am_libgama_a_OBJECTS = adj.$(OBJEXT) e3.$(OBJEXT) ellipsoid.$(OBJEXT) \
 	pointid.$(OBJEXT) skipcomm.$(OBJEXT) gkfparser.$(OBJEXT)
 libgama_a_OBJECTS = $(am_libgama_a_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
-depcomp = $(SHELL) $(top_srcdir)/aux/depcomp
+depcomp = $(SHELL) $(top_srcdir)/scripts/aux/depcomp
 am__depfiles_maybe = depfiles
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)

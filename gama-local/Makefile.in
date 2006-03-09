@@ -53,7 +53,7 @@ am_gama_local_OBJECTS = gama-local.$(OBJEXT)
 gama_local_OBJECTS = $(am_gama_local_OBJECTS)
 gama_local_DEPENDENCIES = $(top_srcdir)/lib/libgama.a
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
-depcomp = $(SHELL) $(top_srcdir)/aux/depcomp
+depcomp = $(SHELL) $(top_srcdir)/scripts/aux/depcomp
 am__depfiles_maybe = depfiles
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
