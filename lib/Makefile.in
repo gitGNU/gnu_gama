@@ -50,31 +50,34 @@ AR = ar
 ARFLAGS = cru
 libgama_a_AR = $(AR) $(ARFLAGS)
 libgama_a_LIBADD =
-am_libgama_a_OBJECTS = adj.$(OBJEXT) e3.$(OBJEXT) ellipsoid.$(OBJEXT) \
-	ellipsoids.$(OBJEXT) latlong.$(OBJEXT) g3_model.$(OBJEXT) \
-	g3_model_init.$(OBJEXT) g3_model_revision.$(OBJEXT) \
-	g3_model_linearization.$(OBJEXT) \
+am__objects_1 = e3.$(OBJEXT) ellipsoid.$(OBJEXT) ellipsoids.$(OBJEXT) \
+	gon2deg.$(OBJEXT) latlong.$(OBJEXT) outstream.$(OBJEXT) \
+	rand.$(OBJEXT) statan.$(OBJEXT) version.$(OBJEXT) \
+	adj.$(OBJEXT) g3_cluster.$(OBJEXT) g3_model.$(OBJEXT) \
+	g3_model_init.$(OBJEXT) g3_model_linearization.$(OBJEXT) \
+	g3_model_revision.$(OBJEXT) \
 	g3_model_write_xml_adjustment_results.$(OBJEXT) \
-	g3_point.$(OBJEXT) g3_cluster.$(OBJEXT) \
-	g3_write_observation_xml.$(OBJEXT) gon2deg.$(OBJEXT) \
-	outstream.$(OBJEXT) rand.$(OBJEXT) statan.$(OBJEXT) \
-	version.$(OBJEXT) baseparser.$(OBJEXT) dataobject.$(OBJEXT) \
-	dataparser.$(OBJEXT) dataparser_adj.$(OBJEXT) \
-	dataparser_g3.$(OBJEXT) encoding.$(OBJEXT) \
-	encoding_unknown_handler.$(OBJEXT) encoding_cp1251.$(OBJEXT) \
+	g3_point.$(OBJEXT) g3_write_observation_xml.$(OBJEXT) \
+	baseparser.$(OBJEXT) dataobject.$(OBJEXT) \
+	dataparser_adj.$(OBJEXT) dataparser.$(OBJEXT) \
+	dataparser_g3.$(OBJEXT) encoding_cp1251.$(OBJEXT) \
+	encoding.$(OBJEXT) encoding_unknown_handler.$(OBJEXT) \
 	localnetwork.$(OBJEXT) capi_exception.$(OBJEXT) \
 	capi_gkfparser.$(OBJEXT) capi_locnet.$(OBJEXT) \
-	capi_output_file.$(OBJEXT) language.$(OBJEXT) acord.$(OBJEXT) \
+	capi_output_file.$(OBJEXT) language.$(OBJEXT) \
 	approx_heights.$(OBJEXT) approx_vectors.$(OBJEXT) \
-	reduce_observations.$(OBJEXT) reduce_to_ellipsoid.$(OBJEXT) \
-	g2d_cogo.$(OBJEXT) g2d_coordinates.$(OBJEXT) \
-	g2d_helper.$(OBJEXT) g2d_point.$(OBJEXT) network.$(OBJEXT) \
+	acord.$(OBJEXT) reduce_observations.$(OBJEXT) \
+	reduce_to_ellipsoid.$(OBJEXT) g2d_cogo.$(OBJEXT) \
+	g2d_coordinates.$(OBJEXT) g2d_helper.$(OBJEXT) \
+	g2d_point.$(OBJEXT) network.$(OBJEXT) \
 	observation_local.$(OBJEXT) orientation.$(OBJEXT) \
 	format.$(OBJEXT) write.$(OBJEXT) underline.$(OBJEXT) \
 	observation.$(OBJEXT) angle.$(OBJEXT) direction.$(OBJEXT) \
 	distance.$(OBJEXT) hdiff.$(OBJEXT) sdistance.$(OBJEXT) \
 	xyz.$(OBJEXT) xyzdiff.$(OBJEXT) zangle.$(OBJEXT) \
 	pointid.$(OBJEXT) skipcomm.$(OBJEXT) gkfparser.$(OBJEXT)
+am__objects_2 =
+am_libgama_a_OBJECTS = $(am__objects_1) $(am__objects_2)
 libgama_a_OBJECTS = $(am_libgama_a_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/scripts/aux/depcomp
@@ -84,6 +87,10 @@ CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
+COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 SOURCES = $(libgama_a_SOURCES)
 DIST_SOURCES = $(libgama_a_SOURCES)
 ETAGS = etags
@@ -169,56 +176,163 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-noinst_LIBRARIES = libgama.a
-libgama_a_SOURCES = \
-   $(top_srcdir)/gnu_gama/adj/adj.cpp \
+libgama_src = \
    $(top_srcdir)/gnu_gama/e3.cpp \
+   $(top_srcdir)/gnu_gama/e3.h \
    $(top_srcdir)/gnu_gama/ellipsoid.cpp \
+   $(top_srcdir)/gnu_gama/ellipsoid.h \
    $(top_srcdir)/gnu_gama/ellipsoids.cpp \
-   $(top_srcdir)/gnu_gama/latlong.cpp \
-   $(top_srcdir)/gnu_gama/g3/g3_model.cpp \
-   $(top_srcdir)/gnu_gama/g3/g3_model_init.cpp \
-   $(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp \
-   $(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp \
-   $(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp \
-   $(top_srcdir)/gnu_gama/g3/g3_point.cpp \
-   $(top_srcdir)/gnu_gama/g3/g3_cluster.cpp \
-   $(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp \
+   $(top_srcdir)/gnu_gama/ellipsoids.h \
+   $(top_srcdir)/gnu_gama/exception.h \
    $(top_srcdir)/gnu_gama/gon2deg.cpp \
+   $(top_srcdir)/gnu_gama/gon2deg.h \
+   $(top_srcdir)/gnu_gama/intfloat.h \
+   $(top_srcdir)/gnu_gama/latlong.cpp \
+   $(top_srcdir)/gnu_gama/latlong.h \
+   $(top_srcdir)/gnu_gama/list.h \
+   $(top_srcdir)/gnu_gama/model.h \
+   $(top_srcdir)/gnu_gama/obsdata.h \
    $(top_srcdir)/gnu_gama/outstream.cpp \
+   $(top_srcdir)/gnu_gama/outstream.h \
+   $(top_srcdir)/gnu_gama/pointbase.h \
+   $(top_srcdir)/gnu_gama/radian.h \
    $(top_srcdir)/gnu_gama/rand.cpp \
+   $(top_srcdir)/gnu_gama/rand.h \
    $(top_srcdir)/gnu_gama/statan.cpp \
+   $(top_srcdir)/gnu_gama/statan.h \
    $(top_srcdir)/gnu_gama/version.cpp \
+   $(top_srcdir)/gnu_gama/version.h \
+   $(top_srcdir)/gnu_gama/xml_expat.h \
+   $(top_srcdir)/gnu_gama/adj/adj_base.h \
+   $(top_srcdir)/gnu_gama/adj/adj_chol.h \
+   $(top_srcdir)/gnu_gama/adj/adj_chol_implementation.h \
+   $(top_srcdir)/gnu_gama/adj/adj.cpp \
+   $(top_srcdir)/gnu_gama/adj/adj_gso.h \
+   $(top_srcdir)/gnu_gama/adj/adj.h \
+   $(top_srcdir)/gnu_gama/adj/adj_svd.h \
+   $(top_srcdir)/gnu_gama/g3/g3_cluster.cpp \
+   $(top_srcdir)/gnu_gama/g3/g3_cluster.h \
+   $(top_srcdir)/gnu_gama/g3/g3_model.cpp \
+   $(top_srcdir)/gnu_gama/g3/g3_model.h \
+   $(top_srcdir)/gnu_gama/g3/g3_model_init.cpp \
+   $(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp \
+   $(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp \
+   $(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp \
+   $(top_srcdir)/gnu_gama/g3/g3_observation.h \
+   $(top_srcdir)/gnu_gama/g3/g3_parameter.h \
+   $(top_srcdir)/gnu_gama/g3/g3_point.cpp \
+   $(top_srcdir)/gnu_gama/g3/g3_point.h \
+   $(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp \
+   $(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.h \
+   $(top_srcdir)/gnu_gama/sparse/intlist.h \
+   $(top_srcdir)/gnu_gama/sparse/sbdiagonal.h \
+   $(top_srcdir)/gnu_gama/sparse/smatrix_graph_connected.h \
+   $(top_srcdir)/gnu_gama/sparse/smatrix_graph.h \
+   $(top_srcdir)/gnu_gama/sparse/smatrix.h \
+   $(top_srcdir)/gnu_gama/sparse/svector.h \
    $(top_srcdir)/gnu_gama/xml/baseparser.cpp \
+   $(top_srcdir)/gnu_gama/xml/baseparser.h \
    $(top_srcdir)/gnu_gama/xml/dataobject.cpp \
-   $(top_srcdir)/gnu_gama/xml/dataparser.cpp \
+   $(top_srcdir)/gnu_gama/xml/dataobject.h \
    $(top_srcdir)/gnu_gama/xml/dataparser_adj.cpp \
+   $(top_srcdir)/gnu_gama/xml/dataparser.cpp \
    $(top_srcdir)/gnu_gama/xml/dataparser_g3.cpp \
-   $(top_srcdir)/gnu_gama/xml/encoding.cpp \
-   $(top_srcdir)/gnu_gama/xml/encoding_unknown_handler.cpp \
+   $(top_srcdir)/gnu_gama/xml/dataparser.h \
    $(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp \
+   $(top_srcdir)/gnu_gama/xml/encoding.cpp \
+   $(top_srcdir)/gnu_gama/xml/encoding.h \
+   $(top_srcdir)/gnu_gama/xml/encoding_unknown_handler.cpp \
    $(top_srcdir)/gnu_gama/xml/localnetwork.cpp \
+   $(top_srcdir)/gnu_gama/xml/localnetwork.h \
+   $(top_srcdir)/gamalib/angobs.h \
+   $(top_srcdir)/gamalib/bpoint.h \
    $(top_srcdir)/gamalib/c/api/capi_exception.cpp \
+   $(top_srcdir)/gamalib/c/api/capi_exception.h \
    $(top_srcdir)/gamalib/c/api/capi_gkfparser.cpp \
+   $(top_srcdir)/gamalib/c/api/capi_gkfparser.h \
    $(top_srcdir)/gamalib/c/api/capi_locnet.cpp \
+   $(top_srcdir)/gamalib/c/api/capi_locnet.h \
    $(top_srcdir)/gamalib/c/api/capi_output_file.cpp \
+   $(top_srcdir)/gamalib/c/api/capi_output_file.h \
+   $(top_srcdir)/gamalib/c/api/capi_private_exception.h \
+   $(top_srcdir)/gamalib/c_api.h \
+   $(top_srcdir)/gamalib/cluster.h \
+   $(top_srcdir)/gamalib/exception.h \
+   $(top_srcdir)/gamalib/float.h \
+   $(top_srcdir)/gamalib/itstream.h \
    $(top_srcdir)/gamalib/language.cpp \
-   $(top_srcdir)/gamalib/local/acord.cpp \
+   $(top_srcdir)/gamalib/language.h \
+   $(top_srcdir)/gamalib/linearization.h \
    $(top_srcdir)/gamalib/local/acord/approx_heights.cpp \
+   $(top_srcdir)/gamalib/local/acord/approx_heights.h \
    $(top_srcdir)/gamalib/local/acord/approx_vectors.cpp \
+   $(top_srcdir)/gamalib/local/acord/approx_vectors.h \
+   $(top_srcdir)/gamalib/local/acord.cpp \
+   $(top_srcdir)/gamalib/local/acord.h \
    $(top_srcdir)/gamalib/local/acord/reduce_observations.cpp \
+   $(top_srcdir)/gamalib/local/acord/reduce_observations.h \
    $(top_srcdir)/gamalib/local/acord/reduce_to_ellipsoid.cpp \
+   $(top_srcdir)/gamalib/local/acord/reduce_to_ellipsoid.h \
+   $(top_srcdir)/gamalib/local/gamadata.h \
+   $(top_srcdir)/gamalib/local/lcoords.h \
+   $(top_srcdir)/gamalib/local/linearization/angle.h \
+   $(top_srcdir)/gamalib/local/linearization/direction.h \
+   $(top_srcdir)/gamalib/local/linearization/distance.h \
+   $(top_srcdir)/gamalib/local/linearization.h \
+   $(top_srcdir)/gamalib/local/linearization/hdiff.h \
+   $(top_srcdir)/gamalib/local/linearization/sdistance.h \
+   $(top_srcdir)/gamalib/local/linearization/xyzdiff.h \
+   $(top_srcdir)/gamalib/local/linearization/xyz.h \
+   $(top_srcdir)/gamalib/local/linearization/zangle.h \
+   $(top_srcdir)/gamalib/local/lpoint.h \
    $(top_srcdir)/gamalib/local/median/g2d_cogo.cpp \
+   $(top_srcdir)/gamalib/local/median/g2d_cogo.h \
    $(top_srcdir)/gamalib/local/median/g2d_coordinates.cpp \
+   $(top_srcdir)/gamalib/local/median/g2d_coordinates.h \
+   $(top_srcdir)/gamalib/local/median/g2d_exception.h \
    $(top_srcdir)/gamalib/local/median/g2d_helper.cpp \
+   $(top_srcdir)/gamalib/local/median/g2d_helper.h \
    $(top_srcdir)/gamalib/local/median/g2d_point.cpp \
+   $(top_srcdir)/gamalib/local/median/g2d_point.h \
+   $(top_srcdir)/gamalib/local/network_chol.h \
    $(top_srcdir)/gamalib/local/network.cpp \
+   $(top_srcdir)/gamalib/local/network_gso.h \
+   $(top_srcdir)/gamalib/local/network.h \
+   $(top_srcdir)/gamalib/local/network_svd.h \
    $(top_srcdir)/gamalib/local/observation_local.cpp \
    $(top_srcdir)/gamalib/local/orientation.cpp \
+   $(top_srcdir)/gamalib/local/orientation.h \
+   $(top_srcdir)/gamalib/local/pobs/bearing.h \
    $(top_srcdir)/gamalib/local/pobs/format.cpp \
+   $(top_srcdir)/gamalib/local/pobs/format.h \
    $(top_srcdir)/gamalib/local/pobs/write.cpp \
+   $(top_srcdir)/gamalib/local/results/text/adjusted_observations.h \
+   $(top_srcdir)/gamalib/local/results/text/adjusted_unknowns.h \
+   $(top_srcdir)/gamalib/local/results/text/approximate_coordinates.h \
+   $(top_srcdir)/gamalib/local/results/text/error_ellipses.h \
+   $(top_srcdir)/gamalib/local/results/text/fixed_points.h \
+   $(top_srcdir)/gamalib/local/results/text/general_parameters.h \
+   $(top_srcdir)/gamalib/local/results/text/network_description.h \
+   $(top_srcdir)/gamalib/local/results/text/outlying_abs_terms.h \
+   $(top_srcdir)/gamalib/local/results/text/reduced_observations.h \
+   $(top_srcdir)/gamalib/local/results/text/reduced_observations_to_ellipsoid.h \
+   $(top_srcdir)/gamalib/local/results/text/residuals_observations.h \
+   $(top_srcdir)/gamalib/local/results/text/test_linearization.h \
    $(top_srcdir)/gamalib/local/results/text/underline.cpp \
+   $(top_srcdir)/gamalib/local/results/text/underline.h \
+   $(top_srcdir)/gamalib/local/revision/angle.h \
+   $(top_srcdir)/gamalib/local/revision/direction.h \
+   $(top_srcdir)/gamalib/local/revision/distance.h \
+   $(top_srcdir)/gamalib/local/revision.h \
+   $(top_srcdir)/gamalib/local/revision/hdiff.h \
+   $(top_srcdir)/gamalib/local/revision/sdistance.h \
+   $(top_srcdir)/gamalib/local/revision/xyzdiff.h \
+   $(top_srcdir)/gamalib/local/revision/xyz.h \
+   $(top_srcdir)/gamalib/local/revision/zangle.h \
+   $(top_srcdir)/gamalib/matvec.h \
+   $(top_srcdir)/gamalib/medianf.h \
    $(top_srcdir)/gamalib/observation.cpp \
+   $(top_srcdir)/gamalib/observation.h \
    $(top_srcdir)/gamalib/observation/write/angle.cpp \
    $(top_srcdir)/gamalib/observation/write/direction.cpp \
    $(top_srcdir)/gamalib/observation/write/distance.cpp \
@@ -228,9 +342,83 @@ libgama_a_SOURCES = \
    $(top_srcdir)/gamalib/observation/write/xyzdiff.cpp \
    $(top_srcdir)/gamalib/observation/write/zangle.cpp \
    $(top_srcdir)/gamalib/pointid.cpp \
+   $(top_srcdir)/gamalib/pointid.h \
+   $(top_srcdir)/gamalib/readsabw.h \
+   $(top_srcdir)/gamalib/revision.h \
    $(top_srcdir)/gamalib/skipcomm.cpp \
-   $(top_srcdir)/gamalib/xml/gkfparser.cpp
+   $(top_srcdir)/gamalib/skipcomm.h \
+   $(top_srcdir)/gamalib/xml/gkfparser.cpp \
+   $(top_srcdir)/gamalib/xml/gkfparser.h 
 
+matvec_src = \
+   $(top_srcdir)/matvec/array.h \
+   $(top_srcdir)/matvec/bandmat.h \
+   $(top_srcdir)/matvec/choldec.h \
+   $(top_srcdir)/matvec/covmat.h \
+   $(top_srcdir)/matvec/gso.h \
+   $(top_srcdir)/matvec/hilbert.h \
+   $(top_srcdir)/matvec/inderr.h \
+   $(top_srcdir)/matvec/jacobian.h \
+   $(top_srcdir)/matvec/matbase.h \
+   $(top_srcdir)/matvec/mat.h \
+   $(top_srcdir)/matvec/matvecbase.h \
+   $(top_srcdir)/matvec/matvec.h \
+   $(top_srcdir)/matvec/memrep.h \
+   $(top_srcdir)/matvec/pinv.h \
+   $(top_srcdir)/matvec/sortvec.h \
+   $(top_srcdir)/matvec/svd.h \
+   $(top_srcdir)/matvec/symmat.h \
+   $(top_srcdir)/matvec/transmat.h \
+   $(top_srcdir)/matvec/transvec.h \
+   $(top_srcdir)/matvec/vecbase.h \
+   $(top_srcdir)/matvec/vec.h
+
+matvec_extra = \
+   $(top_srcdir)/matvec/COPYING \
+   $(top_srcdir)/matvec/README \
+   $(top_srcdir)/matvec/imtql1.for.gz \
+   $(top_srcdir)/matvec/svd.for.gz
+
+expat_src = \
+   $(top_srcdir)/expat/xmltok/xmltok.c \
+   $(top_srcdir)/expat/xmltok/xmlrole.c \
+   $(top_srcdir)/expat/xmlwf/codepage.c \
+   $(top_srcdir)/expat/xmlparse/xmlparse.c \
+   $(top_srcdir)/expat/xmlparse/hashtable.c 
+
+expat_extra = \
+   $(top_srcdir)/expat/Makefile \
+   $(top_srcdir)/expat/xmlwf/filemap.h \
+   $(top_srcdir)/expat/xmlwf/xmlwf.c \
+   $(top_srcdir)/expat/xmlwf/xmltchar.h \
+   $(top_srcdir)/expat/xmlwf/codepage.h \
+   $(top_srcdir)/expat/xmlwf/win32filemap.c \
+   $(top_srcdir)/expat/xmlwf/unixfilemap.c \
+   $(top_srcdir)/expat/xmlwf/xmlfile.c \
+   $(top_srcdir)/expat/xmlwf/xmlfile.h \
+   $(top_srcdir)/expat/xmlwf/readfilemap.c \
+   $(top_srcdir)/expat/README \
+   $(top_srcdir)/expat/gennmtab/gennmtab.c \
+   $(top_srcdir)/expat/sample/elements.c \
+   $(top_srcdir)/expat/xmltok/latin1tab.h \
+   $(top_srcdir)/expat/xmltok/asciitab.h \
+   $(top_srcdir)/expat/xmltok/xmltok_ns.c \
+   $(top_srcdir)/expat/xmltok/iasciitab.h \
+   $(top_srcdir)/expat/xmltok/dllmain.c \
+   $(top_srcdir)/expat/xmltok/xmldef.h \
+   $(top_srcdir)/expat/xmltok/xmltok.h \
+   $(top_srcdir)/expat/xmltok/utf8tab.h \
+   $(top_srcdir)/expat/xmltok/xmltok_impl.c \
+   $(top_srcdir)/expat/xmltok/xmltok_impl.h \
+   $(top_srcdir)/expat/xmltok/xmlrole.h \
+   $(top_srcdir)/expat/xmltok/nametab.h \
+   $(top_srcdir)/expat/expat.html \
+   $(top_srcdir)/expat/xmlparse/hashtable.h \
+   $(top_srcdir)/expat/xmlparse/xmlparse.h 
+
+noinst_LIBRARIES = libgama.a
+libgama_a_SOURCES = $(libgama_src) $(matvec_src)
+EXTRA_DIST = $(expat_src) $(expat_extra) $(matvec_extra)
 all: all-am
 
 .SUFFIXES:
@@ -352,20 +540,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
-adj.o: $(top_srcdir)/gnu_gama/adj/adj.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT adj.o -MD -MP -MF "$(DEPDIR)/adj.Tpo" -c -o adj.o `test -f '$(top_srcdir)/gnu_gama/adj/adj.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/adj/adj.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/adj.Tpo" "$(DEPDIR)/adj.Po"; else rm -f "$(DEPDIR)/adj.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/adj/adj.cpp' object='adj.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o adj.o `test -f '$(top_srcdir)/gnu_gama/adj/adj.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/adj/adj.cpp
-
-adj.obj: $(top_srcdir)/gnu_gama/adj/adj.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT adj.obj -MD -MP -MF "$(DEPDIR)/adj.Tpo" -c -o adj.obj `if test -f '$(top_srcdir)/gnu_gama/adj/adj.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/adj/adj.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/adj/adj.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/adj.Tpo" "$(DEPDIR)/adj.Po"; else rm -f "$(DEPDIR)/adj.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/adj/adj.cpp' object='adj.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o adj.obj `if test -f '$(top_srcdir)/gnu_gama/adj/adj.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/adj/adj.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/adj/adj.cpp'; fi`
-
 e3.o: $(top_srcdir)/gnu_gama/e3.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT e3.o -MD -MP -MF "$(DEPDIR)/e3.Tpo" -c -o e3.o `test -f '$(top_srcdir)/gnu_gama/e3.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/e3.cpp; \
 @am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/e3.Tpo" "$(DEPDIR)/e3.Po"; else rm -f "$(DEPDIR)/e3.Tpo"; exit 1; fi
@@ -408,132 +582,6 @@ ellipsoids.obj: $(top_srcdir)/gnu_gama/ellipsoids.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ellipsoids.obj `if test -f '$(top_srcdir)/gnu_gama/ellipsoids.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/ellipsoids.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/ellipsoids.cpp'; fi`
 
-latlong.o: $(top_srcdir)/gnu_gama/latlong.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT latlong.o -MD -MP -MF "$(DEPDIR)/latlong.Tpo" -c -o latlong.o `test -f '$(top_srcdir)/gnu_gama/latlong.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/latlong.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/latlong.Tpo" "$(DEPDIR)/latlong.Po"; else rm -f "$(DEPDIR)/latlong.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/latlong.cpp' object='latlong.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o latlong.o `test -f '$(top_srcdir)/gnu_gama/latlong.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/latlong.cpp
-
-latlong.obj: $(top_srcdir)/gnu_gama/latlong.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT latlong.obj -MD -MP -MF "$(DEPDIR)/latlong.Tpo" -c -o latlong.obj `if test -f '$(top_srcdir)/gnu_gama/latlong.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/latlong.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/latlong.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/latlong.Tpo" "$(DEPDIR)/latlong.Po"; else rm -f "$(DEPDIR)/latlong.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/latlong.cpp' object='latlong.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o latlong.obj `if test -f '$(top_srcdir)/gnu_gama/latlong.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/latlong.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/latlong.cpp'; fi`
-
-g3_model.o: $(top_srcdir)/gnu_gama/g3/g3_model.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model.o -MD -MP -MF "$(DEPDIR)/g3_model.Tpo" -c -o g3_model.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model.Tpo" "$(DEPDIR)/g3_model.Po"; else rm -f "$(DEPDIR)/g3_model.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model.cpp' object='g3_model.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model.cpp
-
-g3_model.obj: $(top_srcdir)/gnu_gama/g3/g3_model.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model.obj -MD -MP -MF "$(DEPDIR)/g3_model.Tpo" -c -o g3_model.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model.Tpo" "$(DEPDIR)/g3_model.Po"; else rm -f "$(DEPDIR)/g3_model.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model.cpp' object='g3_model.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model.cpp'; fi`
-
-g3_model_init.o: $(top_srcdir)/gnu_gama/g3/g3_model_init.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_init.o -MD -MP -MF "$(DEPDIR)/g3_model_init.Tpo" -c -o g3_model_init.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_init.Tpo" "$(DEPDIR)/g3_model_init.Po"; else rm -f "$(DEPDIR)/g3_model_init.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp' object='g3_model_init.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_init.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp
-
-g3_model_init.obj: $(top_srcdir)/gnu_gama/g3/g3_model_init.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_init.obj -MD -MP -MF "$(DEPDIR)/g3_model_init.Tpo" -c -o g3_model_init.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_init.Tpo" "$(DEPDIR)/g3_model_init.Po"; else rm -f "$(DEPDIR)/g3_model_init.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp' object='g3_model_init.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_init.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp'; fi`
-
-g3_model_revision.o: $(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_revision.o -MD -MP -MF "$(DEPDIR)/g3_model_revision.Tpo" -c -o g3_model_revision.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_revision.Tpo" "$(DEPDIR)/g3_model_revision.Po"; else rm -f "$(DEPDIR)/g3_model_revision.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp' object='g3_model_revision.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_revision.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp
-
-g3_model_revision.obj: $(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_revision.obj -MD -MP -MF "$(DEPDIR)/g3_model_revision.Tpo" -c -o g3_model_revision.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_revision.Tpo" "$(DEPDIR)/g3_model_revision.Po"; else rm -f "$(DEPDIR)/g3_model_revision.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp' object='g3_model_revision.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_revision.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp'; fi`
-
-g3_model_linearization.o: $(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_linearization.o -MD -MP -MF "$(DEPDIR)/g3_model_linearization.Tpo" -c -o g3_model_linearization.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_linearization.Tpo" "$(DEPDIR)/g3_model_linearization.Po"; else rm -f "$(DEPDIR)/g3_model_linearization.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp' object='g3_model_linearization.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_linearization.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp
-
-g3_model_linearization.obj: $(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_linearization.obj -MD -MP -MF "$(DEPDIR)/g3_model_linearization.Tpo" -c -o g3_model_linearization.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_linearization.Tpo" "$(DEPDIR)/g3_model_linearization.Po"; else rm -f "$(DEPDIR)/g3_model_linearization.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp' object='g3_model_linearization.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_linearization.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp'; fi`
-
-g3_model_write_xml_adjustment_results.o: $(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_write_xml_adjustment_results.o -MD -MP -MF "$(DEPDIR)/g3_model_write_xml_adjustment_results.Tpo" -c -o g3_model_write_xml_adjustment_results.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_write_xml_adjustment_results.Tpo" "$(DEPDIR)/g3_model_write_xml_adjustment_results.Po"; else rm -f "$(DEPDIR)/g3_model_write_xml_adjustment_results.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp' object='g3_model_write_xml_adjustment_results.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_write_xml_adjustment_results.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp
-
-g3_model_write_xml_adjustment_results.obj: $(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_write_xml_adjustment_results.obj -MD -MP -MF "$(DEPDIR)/g3_model_write_xml_adjustment_results.Tpo" -c -o g3_model_write_xml_adjustment_results.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_write_xml_adjustment_results.Tpo" "$(DEPDIR)/g3_model_write_xml_adjustment_results.Po"; else rm -f "$(DEPDIR)/g3_model_write_xml_adjustment_results.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp' object='g3_model_write_xml_adjustment_results.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_write_xml_adjustment_results.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp'; fi`
-
-g3_point.o: $(top_srcdir)/gnu_gama/g3/g3_point.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_point.o -MD -MP -MF "$(DEPDIR)/g3_point.Tpo" -c -o g3_point.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_point.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_point.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_point.Tpo" "$(DEPDIR)/g3_point.Po"; else rm -f "$(DEPDIR)/g3_point.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_point.cpp' object='g3_point.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_point.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_point.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_point.cpp
-
-g3_point.obj: $(top_srcdir)/gnu_gama/g3/g3_point.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_point.obj -MD -MP -MF "$(DEPDIR)/g3_point.Tpo" -c -o g3_point.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_point.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_point.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_point.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_point.Tpo" "$(DEPDIR)/g3_point.Po"; else rm -f "$(DEPDIR)/g3_point.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_point.cpp' object='g3_point.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_point.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_point.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_point.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_point.cpp'; fi`
-
-g3_cluster.o: $(top_srcdir)/gnu_gama/g3/g3_cluster.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_cluster.o -MD -MP -MF "$(DEPDIR)/g3_cluster.Tpo" -c -o g3_cluster.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_cluster.Tpo" "$(DEPDIR)/g3_cluster.Po"; else rm -f "$(DEPDIR)/g3_cluster.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp' object='g3_cluster.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_cluster.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp
-
-g3_cluster.obj: $(top_srcdir)/gnu_gama/g3/g3_cluster.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_cluster.obj -MD -MP -MF "$(DEPDIR)/g3_cluster.Tpo" -c -o g3_cluster.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_cluster.Tpo" "$(DEPDIR)/g3_cluster.Po"; else rm -f "$(DEPDIR)/g3_cluster.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp' object='g3_cluster.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_cluster.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp'; fi`
-
-g3_write_observation_xml.o: $(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_write_observation_xml.o -MD -MP -MF "$(DEPDIR)/g3_write_observation_xml.Tpo" -c -o g3_write_observation_xml.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_write_observation_xml.Tpo" "$(DEPDIR)/g3_write_observation_xml.Po"; else rm -f "$(DEPDIR)/g3_write_observation_xml.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp' object='g3_write_observation_xml.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_write_observation_xml.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp
-
-g3_write_observation_xml.obj: $(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_write_observation_xml.obj -MD -MP -MF "$(DEPDIR)/g3_write_observation_xml.Tpo" -c -o g3_write_observation_xml.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_write_observation_xml.Tpo" "$(DEPDIR)/g3_write_observation_xml.Po"; else rm -f "$(DEPDIR)/g3_write_observation_xml.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp' object='g3_write_observation_xml.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_write_observation_xml.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp'; fi`
-
 gon2deg.o: $(top_srcdir)/gnu_gama/gon2deg.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT gon2deg.o -MD -MP -MF "$(DEPDIR)/gon2deg.Tpo" -c -o gon2deg.o `test -f '$(top_srcdir)/gnu_gama/gon2deg.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/gon2deg.cpp; \
 @am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/gon2deg.Tpo" "$(DEPDIR)/gon2deg.Po"; else rm -f "$(DEPDIR)/gon2deg.Tpo"; exit 1; fi
@@ -547,6 +595,20 @@ gon2deg.obj: $(top_srcdir)/gnu_gama/gon2deg.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/gon2deg.cpp' object='gon2deg.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o gon2deg.obj `if test -f '$(top_srcdir)/gnu_gama/gon2deg.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/gon2deg.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/gon2deg.cpp'; fi`
+
+latlong.o: $(top_srcdir)/gnu_gama/latlong.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT latlong.o -MD -MP -MF "$(DEPDIR)/latlong.Tpo" -c -o latlong.o `test -f '$(top_srcdir)/gnu_gama/latlong.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/latlong.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/latlong.Tpo" "$(DEPDIR)/latlong.Po"; else rm -f "$(DEPDIR)/latlong.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/latlong.cpp' object='latlong.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o latlong.o `test -f '$(top_srcdir)/gnu_gama/latlong.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/latlong.cpp
+
+latlong.obj: $(top_srcdir)/gnu_gama/latlong.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT latlong.obj -MD -MP -MF "$(DEPDIR)/latlong.Tpo" -c -o latlong.obj `if test -f '$(top_srcdir)/gnu_gama/latlong.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/latlong.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/latlong.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/latlong.Tpo" "$(DEPDIR)/latlong.Po"; else rm -f "$(DEPDIR)/latlong.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/latlong.cpp' object='latlong.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o latlong.obj `if test -f '$(top_srcdir)/gnu_gama/latlong.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/latlong.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/latlong.cpp'; fi`
 
 outstream.o: $(top_srcdir)/gnu_gama/outstream.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT outstream.o -MD -MP -MF "$(DEPDIR)/outstream.Tpo" -c -o outstream.o `test -f '$(top_srcdir)/gnu_gama/outstream.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/outstream.cpp; \
@@ -604,6 +666,132 @@ version.obj: $(top_srcdir)/gnu_gama/version.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o version.obj `if test -f '$(top_srcdir)/gnu_gama/version.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/version.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/version.cpp'; fi`
 
+adj.o: $(top_srcdir)/gnu_gama/adj/adj.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT adj.o -MD -MP -MF "$(DEPDIR)/adj.Tpo" -c -o adj.o `test -f '$(top_srcdir)/gnu_gama/adj/adj.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/adj/adj.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/adj.Tpo" "$(DEPDIR)/adj.Po"; else rm -f "$(DEPDIR)/adj.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/adj/adj.cpp' object='adj.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o adj.o `test -f '$(top_srcdir)/gnu_gama/adj/adj.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/adj/adj.cpp
+
+adj.obj: $(top_srcdir)/gnu_gama/adj/adj.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT adj.obj -MD -MP -MF "$(DEPDIR)/adj.Tpo" -c -o adj.obj `if test -f '$(top_srcdir)/gnu_gama/adj/adj.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/adj/adj.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/adj/adj.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/adj.Tpo" "$(DEPDIR)/adj.Po"; else rm -f "$(DEPDIR)/adj.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/adj/adj.cpp' object='adj.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o adj.obj `if test -f '$(top_srcdir)/gnu_gama/adj/adj.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/adj/adj.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/adj/adj.cpp'; fi`
+
+g3_cluster.o: $(top_srcdir)/gnu_gama/g3/g3_cluster.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_cluster.o -MD -MP -MF "$(DEPDIR)/g3_cluster.Tpo" -c -o g3_cluster.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_cluster.Tpo" "$(DEPDIR)/g3_cluster.Po"; else rm -f "$(DEPDIR)/g3_cluster.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp' object='g3_cluster.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_cluster.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp
+
+g3_cluster.obj: $(top_srcdir)/gnu_gama/g3/g3_cluster.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_cluster.obj -MD -MP -MF "$(DEPDIR)/g3_cluster.Tpo" -c -o g3_cluster.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_cluster.Tpo" "$(DEPDIR)/g3_cluster.Po"; else rm -f "$(DEPDIR)/g3_cluster.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp' object='g3_cluster.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_cluster.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_cluster.cpp'; fi`
+
+g3_model.o: $(top_srcdir)/gnu_gama/g3/g3_model.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model.o -MD -MP -MF "$(DEPDIR)/g3_model.Tpo" -c -o g3_model.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model.Tpo" "$(DEPDIR)/g3_model.Po"; else rm -f "$(DEPDIR)/g3_model.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model.cpp' object='g3_model.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model.cpp
+
+g3_model.obj: $(top_srcdir)/gnu_gama/g3/g3_model.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model.obj -MD -MP -MF "$(DEPDIR)/g3_model.Tpo" -c -o g3_model.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model.Tpo" "$(DEPDIR)/g3_model.Po"; else rm -f "$(DEPDIR)/g3_model.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model.cpp' object='g3_model.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model.cpp'; fi`
+
+g3_model_init.o: $(top_srcdir)/gnu_gama/g3/g3_model_init.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_init.o -MD -MP -MF "$(DEPDIR)/g3_model_init.Tpo" -c -o g3_model_init.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_init.Tpo" "$(DEPDIR)/g3_model_init.Po"; else rm -f "$(DEPDIR)/g3_model_init.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp' object='g3_model_init.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_init.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp
+
+g3_model_init.obj: $(top_srcdir)/gnu_gama/g3/g3_model_init.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_init.obj -MD -MP -MF "$(DEPDIR)/g3_model_init.Tpo" -c -o g3_model_init.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_init.Tpo" "$(DEPDIR)/g3_model_init.Po"; else rm -f "$(DEPDIR)/g3_model_init.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp' object='g3_model_init.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_init.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_init.cpp'; fi`
+
+g3_model_linearization.o: $(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_linearization.o -MD -MP -MF "$(DEPDIR)/g3_model_linearization.Tpo" -c -o g3_model_linearization.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_linearization.Tpo" "$(DEPDIR)/g3_model_linearization.Po"; else rm -f "$(DEPDIR)/g3_model_linearization.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp' object='g3_model_linearization.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_linearization.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp
+
+g3_model_linearization.obj: $(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_linearization.obj -MD -MP -MF "$(DEPDIR)/g3_model_linearization.Tpo" -c -o g3_model_linearization.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_linearization.Tpo" "$(DEPDIR)/g3_model_linearization.Po"; else rm -f "$(DEPDIR)/g3_model_linearization.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp' object='g3_model_linearization.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_linearization.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_linearization.cpp'; fi`
+
+g3_model_revision.o: $(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_revision.o -MD -MP -MF "$(DEPDIR)/g3_model_revision.Tpo" -c -o g3_model_revision.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_revision.Tpo" "$(DEPDIR)/g3_model_revision.Po"; else rm -f "$(DEPDIR)/g3_model_revision.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp' object='g3_model_revision.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_revision.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp
+
+g3_model_revision.obj: $(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_revision.obj -MD -MP -MF "$(DEPDIR)/g3_model_revision.Tpo" -c -o g3_model_revision.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_revision.Tpo" "$(DEPDIR)/g3_model_revision.Po"; else rm -f "$(DEPDIR)/g3_model_revision.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp' object='g3_model_revision.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_revision.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_revision.cpp'; fi`
+
+g3_model_write_xml_adjustment_results.o: $(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_write_xml_adjustment_results.o -MD -MP -MF "$(DEPDIR)/g3_model_write_xml_adjustment_results.Tpo" -c -o g3_model_write_xml_adjustment_results.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_write_xml_adjustment_results.Tpo" "$(DEPDIR)/g3_model_write_xml_adjustment_results.Po"; else rm -f "$(DEPDIR)/g3_model_write_xml_adjustment_results.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp' object='g3_model_write_xml_adjustment_results.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_write_xml_adjustment_results.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp
+
+g3_model_write_xml_adjustment_results.obj: $(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_model_write_xml_adjustment_results.obj -MD -MP -MF "$(DEPDIR)/g3_model_write_xml_adjustment_results.Tpo" -c -o g3_model_write_xml_adjustment_results.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_model_write_xml_adjustment_results.Tpo" "$(DEPDIR)/g3_model_write_xml_adjustment_results.Po"; else rm -f "$(DEPDIR)/g3_model_write_xml_adjustment_results.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp' object='g3_model_write_xml_adjustment_results.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_model_write_xml_adjustment_results.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_model_write_xml_adjustment_results.cpp'; fi`
+
+g3_point.o: $(top_srcdir)/gnu_gama/g3/g3_point.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_point.o -MD -MP -MF "$(DEPDIR)/g3_point.Tpo" -c -o g3_point.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_point.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_point.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_point.Tpo" "$(DEPDIR)/g3_point.Po"; else rm -f "$(DEPDIR)/g3_point.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_point.cpp' object='g3_point.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_point.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_point.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_point.cpp
+
+g3_point.obj: $(top_srcdir)/gnu_gama/g3/g3_point.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_point.obj -MD -MP -MF "$(DEPDIR)/g3_point.Tpo" -c -o g3_point.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_point.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_point.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_point.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_point.Tpo" "$(DEPDIR)/g3_point.Po"; else rm -f "$(DEPDIR)/g3_point.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_point.cpp' object='g3_point.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_point.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_point.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_point.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_point.cpp'; fi`
+
+g3_write_observation_xml.o: $(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_write_observation_xml.o -MD -MP -MF "$(DEPDIR)/g3_write_observation_xml.Tpo" -c -o g3_write_observation_xml.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_write_observation_xml.Tpo" "$(DEPDIR)/g3_write_observation_xml.Po"; else rm -f "$(DEPDIR)/g3_write_observation_xml.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp' object='g3_write_observation_xml.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_write_observation_xml.o `test -f '$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp
+
+g3_write_observation_xml.obj: $(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_write_observation_xml.obj -MD -MP -MF "$(DEPDIR)/g3_write_observation_xml.Tpo" -c -o g3_write_observation_xml.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_write_observation_xml.Tpo" "$(DEPDIR)/g3_write_observation_xml.Po"; else rm -f "$(DEPDIR)/g3_write_observation_xml.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp' object='g3_write_observation_xml.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_write_observation_xml.obj `if test -f '$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/g3/g3_write_observation_xml.cpp'; fi`
+
 baseparser.o: $(top_srcdir)/gnu_gama/xml/baseparser.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT baseparser.o -MD -MP -MF "$(DEPDIR)/baseparser.Tpo" -c -o baseparser.o `test -f '$(top_srcdir)/gnu_gama/xml/baseparser.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/xml/baseparser.cpp; \
 @am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/baseparser.Tpo" "$(DEPDIR)/baseparser.Po"; else rm -f "$(DEPDIR)/baseparser.Tpo"; exit 1; fi
@@ -632,20 +820,6 @@ dataobject.obj: $(top_srcdir)/gnu_gama/xml/dataobject.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o dataobject.obj `if test -f '$(top_srcdir)/gnu_gama/xml/dataobject.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/xml/dataobject.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/xml/dataobject.cpp'; fi`
 
-dataparser.o: $(top_srcdir)/gnu_gama/xml/dataparser.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT dataparser.o -MD -MP -MF "$(DEPDIR)/dataparser.Tpo" -c -o dataparser.o `test -f '$(top_srcdir)/gnu_gama/xml/dataparser.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/xml/dataparser.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/dataparser.Tpo" "$(DEPDIR)/dataparser.Po"; else rm -f "$(DEPDIR)/dataparser.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/xml/dataparser.cpp' object='dataparser.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o dataparser.o `test -f '$(top_srcdir)/gnu_gama/xml/dataparser.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/xml/dataparser.cpp
-
-dataparser.obj: $(top_srcdir)/gnu_gama/xml/dataparser.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT dataparser.obj -MD -MP -MF "$(DEPDIR)/dataparser.Tpo" -c -o dataparser.obj `if test -f '$(top_srcdir)/gnu_gama/xml/dataparser.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/xml/dataparser.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/xml/dataparser.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/dataparser.Tpo" "$(DEPDIR)/dataparser.Po"; else rm -f "$(DEPDIR)/dataparser.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/xml/dataparser.cpp' object='dataparser.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o dataparser.obj `if test -f '$(top_srcdir)/gnu_gama/xml/dataparser.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/xml/dataparser.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/xml/dataparser.cpp'; fi`
-
 dataparser_adj.o: $(top_srcdir)/gnu_gama/xml/dataparser_adj.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT dataparser_adj.o -MD -MP -MF "$(DEPDIR)/dataparser_adj.Tpo" -c -o dataparser_adj.o `test -f '$(top_srcdir)/gnu_gama/xml/dataparser_adj.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/xml/dataparser_adj.cpp; \
 @am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/dataparser_adj.Tpo" "$(DEPDIR)/dataparser_adj.Po"; else rm -f "$(DEPDIR)/dataparser_adj.Tpo"; exit 1; fi
@@ -660,6 +834,20 @@ dataparser_adj.obj: $(top_srcdir)/gnu_gama/xml/dataparser_adj.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o dataparser_adj.obj `if test -f '$(top_srcdir)/gnu_gama/xml/dataparser_adj.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/xml/dataparser_adj.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/xml/dataparser_adj.cpp'; fi`
 
+dataparser.o: $(top_srcdir)/gnu_gama/xml/dataparser.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT dataparser.o -MD -MP -MF "$(DEPDIR)/dataparser.Tpo" -c -o dataparser.o `test -f '$(top_srcdir)/gnu_gama/xml/dataparser.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/xml/dataparser.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/dataparser.Tpo" "$(DEPDIR)/dataparser.Po"; else rm -f "$(DEPDIR)/dataparser.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/xml/dataparser.cpp' object='dataparser.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o dataparser.o `test -f '$(top_srcdir)/gnu_gama/xml/dataparser.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/xml/dataparser.cpp
+
+dataparser.obj: $(top_srcdir)/gnu_gama/xml/dataparser.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT dataparser.obj -MD -MP -MF "$(DEPDIR)/dataparser.Tpo" -c -o dataparser.obj `if test -f '$(top_srcdir)/gnu_gama/xml/dataparser.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/xml/dataparser.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/xml/dataparser.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/dataparser.Tpo" "$(DEPDIR)/dataparser.Po"; else rm -f "$(DEPDIR)/dataparser.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/xml/dataparser.cpp' object='dataparser.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o dataparser.obj `if test -f '$(top_srcdir)/gnu_gama/xml/dataparser.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/xml/dataparser.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/xml/dataparser.cpp'; fi`
+
 dataparser_g3.o: $(top_srcdir)/gnu_gama/xml/dataparser_g3.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT dataparser_g3.o -MD -MP -MF "$(DEPDIR)/dataparser_g3.Tpo" -c -o dataparser_g3.o `test -f '$(top_srcdir)/gnu_gama/xml/dataparser_g3.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/xml/dataparser_g3.cpp; \
 @am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/dataparser_g3.Tpo" "$(DEPDIR)/dataparser_g3.Po"; else rm -f "$(DEPDIR)/dataparser_g3.Tpo"; exit 1; fi
@@ -673,6 +861,20 @@ dataparser_g3.obj: $(top_srcdir)/gnu_gama/xml/dataparser_g3.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/xml/dataparser_g3.cpp' object='dataparser_g3.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o dataparser_g3.obj `if test -f '$(top_srcdir)/gnu_gama/xml/dataparser_g3.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/xml/dataparser_g3.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/xml/dataparser_g3.cpp'; fi`
+
+encoding_cp1251.o: $(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT encoding_cp1251.o -MD -MP -MF "$(DEPDIR)/encoding_cp1251.Tpo" -c -o encoding_cp1251.o `test -f '$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/encoding_cp1251.Tpo" "$(DEPDIR)/encoding_cp1251.Po"; else rm -f "$(DEPDIR)/encoding_cp1251.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp' object='encoding_cp1251.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o encoding_cp1251.o `test -f '$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp
+
+encoding_cp1251.obj: $(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT encoding_cp1251.obj -MD -MP -MF "$(DEPDIR)/encoding_cp1251.Tpo" -c -o encoding_cp1251.obj `if test -f '$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/encoding_cp1251.Tpo" "$(DEPDIR)/encoding_cp1251.Po"; else rm -f "$(DEPDIR)/encoding_cp1251.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp' object='encoding_cp1251.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o encoding_cp1251.obj `if test -f '$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp'; fi`
 
 encoding.o: $(top_srcdir)/gnu_gama/xml/encoding.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT encoding.o -MD -MP -MF "$(DEPDIR)/encoding.Tpo" -c -o encoding.o `test -f '$(top_srcdir)/gnu_gama/xml/encoding.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/xml/encoding.cpp; \
@@ -701,20 +903,6 @@ encoding_unknown_handler.obj: $(top_srcdir)/gnu_gama/xml/encoding_unknown_handle
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/xml/encoding_unknown_handler.cpp' object='encoding_unknown_handler.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o encoding_unknown_handler.obj `if test -f '$(top_srcdir)/gnu_gama/xml/encoding_unknown_handler.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/xml/encoding_unknown_handler.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/xml/encoding_unknown_handler.cpp'; fi`
-
-encoding_cp1251.o: $(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT encoding_cp1251.o -MD -MP -MF "$(DEPDIR)/encoding_cp1251.Tpo" -c -o encoding_cp1251.o `test -f '$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/encoding_cp1251.Tpo" "$(DEPDIR)/encoding_cp1251.Po"; else rm -f "$(DEPDIR)/encoding_cp1251.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp' object='encoding_cp1251.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o encoding_cp1251.o `test -f '$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp
-
-encoding_cp1251.obj: $(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT encoding_cp1251.obj -MD -MP -MF "$(DEPDIR)/encoding_cp1251.Tpo" -c -o encoding_cp1251.obj `if test -f '$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/encoding_cp1251.Tpo" "$(DEPDIR)/encoding_cp1251.Po"; else rm -f "$(DEPDIR)/encoding_cp1251.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp' object='encoding_cp1251.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o encoding_cp1251.obj `if test -f '$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gnu_gama/xml/encoding_cp1251.cpp'; fi`
 
 localnetwork.o: $(top_srcdir)/gnu_gama/xml/localnetwork.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT localnetwork.o -MD -MP -MF "$(DEPDIR)/localnetwork.Tpo" -c -o localnetwork.o `test -f '$(top_srcdir)/gnu_gama/xml/localnetwork.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gnu_gama/xml/localnetwork.cpp; \
@@ -800,20 +988,6 @@ language.obj: $(top_srcdir)/gamalib/language.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o language.obj `if test -f '$(top_srcdir)/gamalib/language.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gamalib/language.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gamalib/language.cpp'; fi`
 
-acord.o: $(top_srcdir)/gamalib/local/acord.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT acord.o -MD -MP -MF "$(DEPDIR)/acord.Tpo" -c -o acord.o `test -f '$(top_srcdir)/gamalib/local/acord.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gamalib/local/acord.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/acord.Tpo" "$(DEPDIR)/acord.Po"; else rm -f "$(DEPDIR)/acord.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gamalib/local/acord.cpp' object='acord.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o acord.o `test -f '$(top_srcdir)/gamalib/local/acord.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gamalib/local/acord.cpp
-
-acord.obj: $(top_srcdir)/gamalib/local/acord.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT acord.obj -MD -MP -MF "$(DEPDIR)/acord.Tpo" -c -o acord.obj `if test -f '$(top_srcdir)/gamalib/local/acord.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gamalib/local/acord.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gamalib/local/acord.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/acord.Tpo" "$(DEPDIR)/acord.Po"; else rm -f "$(DEPDIR)/acord.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gamalib/local/acord.cpp' object='acord.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o acord.obj `if test -f '$(top_srcdir)/gamalib/local/acord.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gamalib/local/acord.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gamalib/local/acord.cpp'; fi`
-
 approx_heights.o: $(top_srcdir)/gamalib/local/acord/approx_heights.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT approx_heights.o -MD -MP -MF "$(DEPDIR)/approx_heights.Tpo" -c -o approx_heights.o `test -f '$(top_srcdir)/gamalib/local/acord/approx_heights.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gamalib/local/acord/approx_heights.cpp; \
 @am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/approx_heights.Tpo" "$(DEPDIR)/approx_heights.Po"; else rm -f "$(DEPDIR)/approx_heights.Tpo"; exit 1; fi
@@ -841,6 +1015,20 @@ approx_vectors.obj: $(top_srcdir)/gamalib/local/acord/approx_vectors.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gamalib/local/acord/approx_vectors.cpp' object='approx_vectors.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o approx_vectors.obj `if test -f '$(top_srcdir)/gamalib/local/acord/approx_vectors.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gamalib/local/acord/approx_vectors.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gamalib/local/acord/approx_vectors.cpp'; fi`
+
+acord.o: $(top_srcdir)/gamalib/local/acord.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT acord.o -MD -MP -MF "$(DEPDIR)/acord.Tpo" -c -o acord.o `test -f '$(top_srcdir)/gamalib/local/acord.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gamalib/local/acord.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/acord.Tpo" "$(DEPDIR)/acord.Po"; else rm -f "$(DEPDIR)/acord.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gamalib/local/acord.cpp' object='acord.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o acord.o `test -f '$(top_srcdir)/gamalib/local/acord.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gamalib/local/acord.cpp
+
+acord.obj: $(top_srcdir)/gamalib/local/acord.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT acord.obj -MD -MP -MF "$(DEPDIR)/acord.Tpo" -c -o acord.obj `if test -f '$(top_srcdir)/gamalib/local/acord.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gamalib/local/acord.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gamalib/local/acord.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/acord.Tpo" "$(DEPDIR)/acord.Po"; else rm -f "$(DEPDIR)/acord.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/gamalib/local/acord.cpp' object='acord.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o acord.obj `if test -f '$(top_srcdir)/gamalib/local/acord.cpp'; then $(CYGPATH_W) '$(top_srcdir)/gamalib/local/acord.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/gamalib/local/acord.cpp'; fi`
 
 reduce_observations.o: $(top_srcdir)/gamalib/local/acord/reduce_observations.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT reduce_observations.o -MD -MP -MF "$(DEPDIR)/reduce_observations.Tpo" -c -o reduce_observations.o `test -f '$(top_srcdir)/gamalib/local/acord/reduce_observations.cpp' || echo '$(srcdir)/'`$(top_srcdir)/gamalib/local/acord/reduce_observations.cpp; \
@@ -1228,6 +1416,7 @@ distclean-tags:
 	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
 
 distdir: $(DISTFILES)
+	$(mkdir_p) $(distdir)/$(top_srcdir)/expat $(distdir)/$(top_srcdir)/expat/gennmtab $(distdir)/$(top_srcdir)/expat/sample $(distdir)/$(top_srcdir)/expat/xmlparse $(distdir)/$(top_srcdir)/expat/xmltok $(distdir)/$(top_srcdir)/expat/xmlwf $(distdir)/$(top_srcdir)/matvec
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \

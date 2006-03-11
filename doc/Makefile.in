@@ -34,8 +34,9 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 subdir = doc
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/stamp-vti $(srcdir)/version.texi ChangeLog
+DIST_COMMON = $(gama_TEXINFOS) $(srcdir)/Makefile.am \
+	$(srcdir)/Makefile.in $(srcdir)/stamp-vti \
+	$(srcdir)/version.texi ChangeLog
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -141,6 +142,44 @@ sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 info_TEXINFOS = gama.texi
+gama_TEXINFOS = \
+   algorithms.texi        \
+   class-g3-model.texi    \
+   ellipsoids-1.texi      \
+   ellipsoids.texi        \
+   fdl.texi               \
+   gama-download.texi     \
+   gama-g3.texi           \
+   gama-install.texi      \
+   gama-local-adj.texi    \
+   gama-local-macros.texi \
+   gama-local.texi        \
+   gama-versions.texi     \
+   gama-xml-input.texi    \
+   obsdata.texi           \
+   version.texi	          \
+   xyz2blh.texi
+
+
+#gama_TEXINFOS = gpl.texi
+EXTRA_DIST = \
+   gama-local-adj-ellipse-g.eps \
+   gama-local-adj-ellipse-g.pdf	\
+   gama-local-adj-ellipse-g.png	\
+   gama-local-adj-ellipse-g.txt	\
+   gama-xml-input-example.eps	\
+   gama-xml-input-example.pdf	\
+   gama-xml-input-example.png	\
+   gama-xml-input-example.txt	\
+   obsdata-fig.eps		\
+   obsdata-fig.pdf		\
+   obsdata-fig.png		\
+   obsdata-fig.txt		\
+   xyz2blh-fig.eps		\
+   xyz2blh-fig.pdf		\
+   xyz2blh-fig.png		\
+   xyz2blh-fig.txt              
+
 all: all-am
 
 .SUFFIXES:
@@ -218,10 +257,10 @@ $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	    rm -rf $(@:.html=); else rm -Rf $(@:.html=.htp) $@; fi; \
 	  exit 1; \
 	fi
-$(srcdir)/gama.info: gama.texi $(srcdir)/version.texi
-gama.dvi: gama.texi $(srcdir)/version.texi
-gama.pdf: gama.texi $(srcdir)/version.texi
-gama.html: gama.texi $(srcdir)/version.texi
+$(srcdir)/gama.info: gama.texi $(srcdir)/version.texi $(gama_TEXINFOS)
+gama.dvi: gama.texi $(srcdir)/version.texi $(gama_TEXINFOS)
+gama.pdf: gama.texi $(srcdir)/version.texi $(gama_TEXINFOS)
+gama.html: gama.texi $(srcdir)/version.texi $(gama_TEXINFOS)
 $(srcdir)/version.texi:  $(srcdir)/stamp-vti
 $(srcdir)/stamp-vti: gama.texi $(top_srcdir)/configure
 	@(dir=.; test -f ./gama.texi || dir=$(srcdir); \
@@ -449,7 +488,6 @@ uninstall-am: uninstall-info-am
 	mostlyclean-aminfo mostlyclean-generic mostlyclean-vti pdf \
 	pdf-am ps ps-am uninstall uninstall-am uninstall-info-am
 
-#gama_TEXINFOS = gpl.texi
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
