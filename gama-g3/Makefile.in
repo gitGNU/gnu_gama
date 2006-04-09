@@ -49,9 +49,9 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_gama_g3_OBJECTS = gama-g3.$(OBJEXT)
+am_gama_g3_OBJECTS = gama_g3-gama-g3.$(OBJEXT)
 gama_g3_OBJECTS = $(am_gama_g3_OBJECTS)
-gama_g3_DEPENDENCIES = $(top_srcdir)/lib/libgama.a
+gama_g3_DEPENDENCIES = $(top_builddir)/lib/libgama.a
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/scripts/aux/depcomp
 am__depfiles_maybe = depfiles
@@ -146,7 +146,8 @@ sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 gama_g3_SOURCES = gama-g3.cpp
-gama_g3_LDADD = $(top_srcdir)/lib/libgama.a
+gama_g3_LDADD = $(top_builddir)/lib/libgama.a
+gama_g3_CPPFLAGS = -I $(top_srcdir)/lib
 all: all-am
 
 .SUFFIXES:
@@ -213,7 +214,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gama-g3.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gama_g3-gama-g3.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	if $(CXXCOMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \
@@ -228,6 +229,20 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+gama_g3-gama-g3.o: gama-g3.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gama_g3_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT gama_g3-gama-g3.o -MD -MP -MF "$(DEPDIR)/gama_g3-gama-g3.Tpo" -c -o gama_g3-gama-g3.o `test -f 'gama-g3.cpp' || echo '$(srcdir)/'`gama-g3.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/gama_g3-gama-g3.Tpo" "$(DEPDIR)/gama_g3-gama-g3.Po"; else rm -f "$(DEPDIR)/gama_g3-gama-g3.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gama-g3.cpp' object='gama_g3-gama-g3.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gama_g3_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o gama_g3-gama-g3.o `test -f 'gama-g3.cpp' || echo '$(srcdir)/'`gama-g3.cpp
+
+gama_g3-gama-g3.obj: gama-g3.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gama_g3_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT gama_g3-gama-g3.obj -MD -MP -MF "$(DEPDIR)/gama_g3-gama-g3.Tpo" -c -o gama_g3-gama-g3.obj `if test -f 'gama-g3.cpp'; then $(CYGPATH_W) 'gama-g3.cpp'; else $(CYGPATH_W) '$(srcdir)/gama-g3.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/gama_g3-gama-g3.Tpo" "$(DEPDIR)/gama_g3-gama-g3.Po"; else rm -f "$(DEPDIR)/gama_g3-gama-g3.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gama-g3.cpp' object='gama_g3-gama-g3.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gama_g3_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o gama_g3-gama-g3.obj `if test -f 'gama-g3.cpp'; then $(CYGPATH_W) 'gama-g3.cpp'; else $(CYGPATH_W) '$(srcdir)/gama-g3.cpp'; fi`
 uninstall-info-am:
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
