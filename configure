@@ -273,7 +273,7 @@ PACKAGE_VERSION='1.9.01c'
 PACKAGE_STRING='gama 1.9.01c'
 PACKAGE_BUGREPORT='bug-gama@gnu.org'
 
-ac_unique_file="gnu_gama/version.cpp"
+ac_unique_file="lib/gnu_gama/version.cpp"
 # Factoring default headers for most tests.
 ac_includes_default="\
 #include <stdio.h>
