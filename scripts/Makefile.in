@@ -47,12 +47,12 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
-am_ellipsoids_xml_OBJECTS = ellipsoids_xml.$(OBJEXT)
+am_ellipsoids_xml_OBJECTS = ellipsoids_xml-ellipsoids_xml.$(OBJEXT)
 ellipsoids_xml_OBJECTS = $(am_ellipsoids_xml_OBJECTS)
-ellipsoids_xml_DEPENDENCIES = $(top_srcdir)/lib/libgama.a
-am_slovnikar_OBJECTS = slovnikar.$(OBJEXT)
+ellipsoids_xml_DEPENDENCIES = $(top_builddir)/lib/libgama.a
+am_slovnikar_OBJECTS = slovnikar-slovnikar.$(OBJEXT)
 slovnikar_OBJECTS = $(am_slovnikar_OBJECTS)
-slovnikar_DEPENDENCIES = $(top_srcdir)/lib/libgama.a
+slovnikar_DEPENDENCIES = $(top_builddir)/lib/libgama.a
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/scripts/aux/depcomp
 am__depfiles_maybe = depfiles
@@ -148,9 +148,11 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 EXTRA_DIST = autogen.sh
 slovnikar_SOURCES = slovnikar.cpp
-slovnikar_LDADD = $(top_srcdir)/lib/libgama.a
+slovnikar_LDADD = $(top_builddir)/lib/libgama.a
+slovnikar_CPPFLAGS = -I $(top_srcdir)/lib
 ellipsoids_xml_SOURCES = ellipsoids_xml.cpp
-ellipsoids_xml_LDADD = $(top_srcdir)/lib/libgama.a
+ellipsoids_xml_LDADD = $(top_builddir)/lib/libgama.a
+ellipsoids_xml_CPPFLAGS = -I $(top_srcdir)/lib
 all: all-am
 
 .SUFFIXES:
@@ -200,8 +202,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ellipsoids_xml.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/slovnikar.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ellipsoids_xml-ellipsoids_xml.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/slovnikar-slovnikar.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	if $(CXXCOMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \
@@ -216,6 +218,34 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+ellipsoids_xml-ellipsoids_xml.o: ellipsoids_xml.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ellipsoids_xml_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ellipsoids_xml-ellipsoids_xml.o -MD -MP -MF "$(DEPDIR)/ellipsoids_xml-ellipsoids_xml.Tpo" -c -o ellipsoids_xml-ellipsoids_xml.o `test -f 'ellipsoids_xml.cpp' || echo '$(srcdir)/'`ellipsoids_xml.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/ellipsoids_xml-ellipsoids_xml.Tpo" "$(DEPDIR)/ellipsoids_xml-ellipsoids_xml.Po"; else rm -f "$(DEPDIR)/ellipsoids_xml-ellipsoids_xml.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='ellipsoids_xml.cpp' object='ellipsoids_xml-ellipsoids_xml.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ellipsoids_xml_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ellipsoids_xml-ellipsoids_xml.o `test -f 'ellipsoids_xml.cpp' || echo '$(srcdir)/'`ellipsoids_xml.cpp
+
+ellipsoids_xml-ellipsoids_xml.obj: ellipsoids_xml.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ellipsoids_xml_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ellipsoids_xml-ellipsoids_xml.obj -MD -MP -MF "$(DEPDIR)/ellipsoids_xml-ellipsoids_xml.Tpo" -c -o ellipsoids_xml-ellipsoids_xml.obj `if test -f 'ellipsoids_xml.cpp'; then $(CYGPATH_W) 'ellipsoids_xml.cpp'; else $(CYGPATH_W) '$(srcdir)/ellipsoids_xml.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/ellipsoids_xml-ellipsoids_xml.Tpo" "$(DEPDIR)/ellipsoids_xml-ellipsoids_xml.Po"; else rm -f "$(DEPDIR)/ellipsoids_xml-ellipsoids_xml.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='ellipsoids_xml.cpp' object='ellipsoids_xml-ellipsoids_xml.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ellipsoids_xml_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ellipsoids_xml-ellipsoids_xml.obj `if test -f 'ellipsoids_xml.cpp'; then $(CYGPATH_W) 'ellipsoids_xml.cpp'; else $(CYGPATH_W) '$(srcdir)/ellipsoids_xml.cpp'; fi`
+
+slovnikar-slovnikar.o: slovnikar.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(slovnikar_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT slovnikar-slovnikar.o -MD -MP -MF "$(DEPDIR)/slovnikar-slovnikar.Tpo" -c -o slovnikar-slovnikar.o `test -f 'slovnikar.cpp' || echo '$(srcdir)/'`slovnikar.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/slovnikar-slovnikar.Tpo" "$(DEPDIR)/slovnikar-slovnikar.Po"; else rm -f "$(DEPDIR)/slovnikar-slovnikar.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='slovnikar.cpp' object='slovnikar-slovnikar.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(slovnikar_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o slovnikar-slovnikar.o `test -f 'slovnikar.cpp' || echo '$(srcdir)/'`slovnikar.cpp
+
+slovnikar-slovnikar.obj: slovnikar.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(slovnikar_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT slovnikar-slovnikar.obj -MD -MP -MF "$(DEPDIR)/slovnikar-slovnikar.Tpo" -c -o slovnikar-slovnikar.obj `if test -f 'slovnikar.cpp'; then $(CYGPATH_W) 'slovnikar.cpp'; else $(CYGPATH_W) '$(srcdir)/slovnikar.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/slovnikar-slovnikar.Tpo" "$(DEPDIR)/slovnikar-slovnikar.Po"; else rm -f "$(DEPDIR)/slovnikar-slovnikar.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='slovnikar.cpp' object='slovnikar-slovnikar.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(slovnikar_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o slovnikar-slovnikar.obj `if test -f 'slovnikar.cpp'; then $(CYGPATH_W) 'slovnikar.cpp'; else $(CYGPATH_W) '$(srcdir)/slovnikar.cpp'; fi`
 uninstall-info-am:
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
