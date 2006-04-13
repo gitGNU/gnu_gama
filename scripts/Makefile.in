@@ -54,7 +54,7 @@ am_slovnikar_OBJECTS = slovnikar-slovnikar.$(OBJEXT)
 slovnikar_OBJECTS = $(am_slovnikar_OBJECTS)
 slovnikar_DEPENDENCIES = $(top_builddir)/lib/libgama.a
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
-depcomp = $(SHELL) $(top_srcdir)/scripts/aux/depcomp
+depcomp = $(SHELL) $(top_srcdir)/scripts/config.aux/depcomp
 am__depfiles_maybe = depfiles
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)

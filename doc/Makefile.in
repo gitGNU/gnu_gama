@@ -47,8 +47,8 @@ CONFIG_CLEAN_FILES =
 SOURCES =
 DIST_SOURCES =
 INFO_DEPS = $(srcdir)/gama.info
-TEXINFO_TEX = $(top_srcdir)/scripts/aux/texinfo.tex
-am__TEXINFO_TEX_DIR = $(top_srcdir)/scripts/aux
+TEXINFO_TEX = $(top_srcdir)/scripts/config.aux/texinfo.tex
+am__TEXINFO_TEX_DIR = $(top_srcdir)/scripts/config.aux
 DVIS = gama.dvi
 PDFS = gama.pdf
 PSS = gama.ps
@@ -264,7 +264,7 @@ gama.html: gama.texi $(srcdir)/version.texi $(gama_TEXINFOS)
 $(srcdir)/version.texi:  $(srcdir)/stamp-vti
 $(srcdir)/stamp-vti: gama.texi $(top_srcdir)/configure
 	@(dir=.; test -f ./gama.texi || dir=$(srcdir); \
-	set `$(SHELL) $(top_srcdir)/scripts/aux/mdate-sh $$dir/gama.texi`; \
+	set `$(SHELL) $(top_srcdir)/scripts/config.aux/mdate-sh $$dir/gama.texi`; \
 	echo "@set UPDATED $$1 $$2 $$3"; \
 	echo "@set UPDATED-MONTH $$2 $$3"; \
 	echo "@set EDITION $(VERSION)"; \

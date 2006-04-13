@@ -80,7 +80,7 @@ am__objects_2 =
 am_libgama_a_OBJECTS = $(am__objects_1) $(am__objects_2)
 libgama_a_OBJECTS = $(am_libgama_a_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
-depcomp = $(SHELL) $(top_srcdir)/scripts/aux/depcomp
+depcomp = $(SHELL) $(top_srcdir)/scripts/config.aux/depcomp
 am__depfiles_maybe = depfiles
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
