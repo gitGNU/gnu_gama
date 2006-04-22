@@ -62,14 +62,15 @@ am__objects_1 = e3.$(OBJEXT) ellipsoid.$(OBJEXT) ellipsoids.$(OBJEXT) \
 	dataparser_adj.$(OBJEXT) dataparser.$(OBJEXT) \
 	dataparser_g3.$(OBJEXT) encoding_cp1251.$(OBJEXT) \
 	encoding.$(OBJEXT) encoding_unknown_handler.$(OBJEXT) \
-	localnetwork.$(OBJEXT) capi_exception.$(OBJEXT) \
-	capi_gkfparser.$(OBJEXT) capi_locnet.$(OBJEXT) \
-	capi_output_file.$(OBJEXT) language.$(OBJEXT) \
-	approx_heights.$(OBJEXT) approx_vectors.$(OBJEXT) \
-	acord.$(OBJEXT) reduce_observations.$(OBJEXT) \
-	reduce_to_ellipsoid.$(OBJEXT) g2d_cogo.$(OBJEXT) \
-	g2d_coordinates.$(OBJEXT) g2d_helper.$(OBJEXT) \
-	g2d_point.$(OBJEXT) network.$(OBJEXT) \
+	localnetwork.$(OBJEXT) \
+	localnetwork_adjustment_results.$(OBJEXT) \
+	capi_exception.$(OBJEXT) capi_gkfparser.$(OBJEXT) \
+	capi_locnet.$(OBJEXT) capi_output_file.$(OBJEXT) \
+	language.$(OBJEXT) approx_heights.$(OBJEXT) \
+	approx_vectors.$(OBJEXT) acord.$(OBJEXT) \
+	reduce_observations.$(OBJEXT) reduce_to_ellipsoid.$(OBJEXT) \
+	g2d_cogo.$(OBJEXT) g2d_coordinates.$(OBJEXT) \
+	g2d_helper.$(OBJEXT) g2d_point.$(OBJEXT) network.$(OBJEXT) \
 	observation_local.$(OBJEXT) orientation.$(OBJEXT) \
 	format.$(OBJEXT) write.$(OBJEXT) underline.$(OBJEXT) \
 	observation.$(OBJEXT) angle.$(OBJEXT) direction.$(OBJEXT) \
@@ -244,6 +245,8 @@ libgama_src = \
    gnu_gama/xml/encoding_unknown_handler.cpp \
    gnu_gama/xml/localnetwork.cpp \
    gnu_gama/xml/localnetwork.h \
+   gnu_gama/xml/localnetwork_adjustment_results.cpp \
+   gnu_gama/xml/localnetwork_adjustment_results.h \
    gamalib/angobs.h \
    gamalib/bpoint.h \
    gamalib/c/api/capi_exception.cpp \
@@ -507,6 +510,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/language.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/latlong.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/localnetwork.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/localnetwork_adjustment_results.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/network.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/observation.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/observation_local.Po@am__quote@
@@ -917,6 +921,20 @@ localnetwork.obj: gnu_gama/xml/localnetwork.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/xml/localnetwork.cpp' object='localnetwork.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o localnetwork.obj `if test -f 'gnu_gama/xml/localnetwork.cpp'; then $(CYGPATH_W) 'gnu_gama/xml/localnetwork.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/xml/localnetwork.cpp'; fi`
+
+localnetwork_adjustment_results.o: gnu_gama/xml/localnetwork_adjustment_results.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT localnetwork_adjustment_results.o -MD -MP -MF "$(DEPDIR)/localnetwork_adjustment_results.Tpo" -c -o localnetwork_adjustment_results.o `test -f 'gnu_gama/xml/localnetwork_adjustment_results.cpp' || echo '$(srcdir)/'`gnu_gama/xml/localnetwork_adjustment_results.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/localnetwork_adjustment_results.Tpo" "$(DEPDIR)/localnetwork_adjustment_results.Po"; else rm -f "$(DEPDIR)/localnetwork_adjustment_results.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/xml/localnetwork_adjustment_results.cpp' object='localnetwork_adjustment_results.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o localnetwork_adjustment_results.o `test -f 'gnu_gama/xml/localnetwork_adjustment_results.cpp' || echo '$(srcdir)/'`gnu_gama/xml/localnetwork_adjustment_results.cpp
+
+localnetwork_adjustment_results.obj: gnu_gama/xml/localnetwork_adjustment_results.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT localnetwork_adjustment_results.obj -MD -MP -MF "$(DEPDIR)/localnetwork_adjustment_results.Tpo" -c -o localnetwork_adjustment_results.obj `if test -f 'gnu_gama/xml/localnetwork_adjustment_results.cpp'; then $(CYGPATH_W) 'gnu_gama/xml/localnetwork_adjustment_results.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/xml/localnetwork_adjustment_results.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/localnetwork_adjustment_results.Tpo" "$(DEPDIR)/localnetwork_adjustment_results.Po"; else rm -f "$(DEPDIR)/localnetwork_adjustment_results.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/xml/localnetwork_adjustment_results.cpp' object='localnetwork_adjustment_results.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o localnetwork_adjustment_results.obj `if test -f 'gnu_gama/xml/localnetwork_adjustment_results.cpp'; then $(CYGPATH_W) 'gnu_gama/xml/localnetwork_adjustment_results.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/xml/localnetwork_adjustment_results.cpp'; fi`
 
 capi_exception.o: gamalib/c/api/capi_exception.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT capi_exception.o -MD -MP -MF "$(DEPDIR)/capi_exception.Tpo" -c -o capi_exception.o `test -f 'gamalib/c/api/capi_exception.cpp' || echo '$(srcdir)/'`gamalib/c/api/capi_exception.cpp; \
