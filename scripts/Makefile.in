@@ -34,7 +34,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-noinst_PROGRAMS = slovnikar$(EXEEXT) ellipsoids_xml$(EXEEXT)
+noinst_PROGRAMS = slovnikar$(EXEEXT) ellipsoids_xml$(EXEEXT) \
+	gnu_gama_dep$(EXEEXT)
 subdir = scripts
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -48,6 +49,9 @@ PROGRAMS = $(noinst_PROGRAMS)
 am_ellipsoids_xml_OBJECTS = ellipsoids_xml-ellipsoids_xml.$(OBJEXT)
 ellipsoids_xml_OBJECTS = $(am_ellipsoids_xml_OBJECTS)
 ellipsoids_xml_DEPENDENCIES = $(top_builddir)/lib/libgama.a
+am_gnu_gama_dep_OBJECTS =
+gnu_gama_dep_OBJECTS = $(am_gnu_gama_dep_OBJECTS)
+gnu_gama_dep_LDADD = $(LDADD)
 am_slovnikar_OBJECTS = slovnikar-slovnikar.$(OBJEXT)
 slovnikar_OBJECTS = $(am_slovnikar_OBJECTS)
 slovnikar_DEPENDENCIES = $(top_builddir)/lib/libgama.a
@@ -59,8 +63,14 @@ CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-SOURCES = $(ellipsoids_xml_SOURCES) $(slovnikar_SOURCES)
-DIST_SOURCES = $(ellipsoids_xml_SOURCES) $(slovnikar_SOURCES)
+COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+SOURCES = $(ellipsoids_xml_SOURCES) $(gnu_gama_dep_SOURCES) \
+	$(slovnikar_SOURCES)
+DIST_SOURCES = $(ellipsoids_xml_SOURCES) $(gnu_gama_dep_SOURCES) \
+	$(slovnikar_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -150,13 +160,14 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-EXTRA_DIST = autogen.sh build-dictionaries build-ellipsoids
+EXTRA_DIST = autogen.sh build-dictionaries build-ellipsoids build-old-makefiles
 slovnikar_SOURCES = slovnikar.cpp
 slovnikar_LDADD = $(top_builddir)/lib/libgama.a
 slovnikar_CPPFLAGS = -I $(top_srcdir)/lib
 ellipsoids_xml_SOURCES = ellipsoids_xml.cpp
 ellipsoids_xml_LDADD = $(top_builddir)/lib/libgama.a
 ellipsoids_xml_CPPFLAGS = -I $(top_srcdir)/lib
+gnu_gama_dep_SOURCES = gnu_gama_dep
 all: all-am
 
 .SUFFIXES:
@@ -196,6 +207,9 @@ clean-noinstPROGRAMS:
 ellipsoids_xml$(EXEEXT): $(ellipsoids_xml_OBJECTS) $(ellipsoids_xml_DEPENDENCIES) 
 	@rm -f ellipsoids_xml$(EXEEXT)
 	$(CXXLINK) $(ellipsoids_xml_LDFLAGS) $(ellipsoids_xml_OBJECTS) $(ellipsoids_xml_LDADD) $(LIBS)
+gnu_gama_dep$(EXEEXT): $(gnu_gama_dep_OBJECTS) $(gnu_gama_dep_DEPENDENCIES) 
+	@rm -f gnu_gama_dep$(EXEEXT)
+	$(LINK) $(gnu_gama_dep_LDFLAGS) $(gnu_gama_dep_OBJECTS) $(gnu_gama_dep_LDADD) $(LIBS)
 slovnikar$(EXEEXT): $(slovnikar_OBJECTS) $(slovnikar_DEPENDENCIES) 
 	@rm -f slovnikar$(EXEEXT)
 	$(CXXLINK) $(slovnikar_LDFLAGS) $(slovnikar_OBJECTS) $(slovnikar_LDADD) $(LIBS)
