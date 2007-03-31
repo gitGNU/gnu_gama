@@ -51,16 +51,16 @@ libgama_a_LIBADD =
 am__objects_1 = e3.$(OBJEXT) ellipsoid.$(OBJEXT) ellipsoids.$(OBJEXT) \
 	gon2deg.$(OBJEXT) latlong.$(OBJEXT) outstream.$(OBJEXT) \
 	rand.$(OBJEXT) statan.$(OBJEXT) version.$(OBJEXT) \
-	adj.$(OBJEXT) g3_cluster.$(OBJEXT) g3_model.$(OBJEXT) \
-	g3_model_init.$(OBJEXT) g3_model_linearization.$(OBJEXT) \
-	g3_model_revision.$(OBJEXT) \
+	adj.$(OBJEXT) g3_adjres.$(OBJEXT) g3_cluster.$(OBJEXT) \
+	g3_model.$(OBJEXT) g3_model_init.$(OBJEXT) \
+	g3_model_linearization.$(OBJEXT) g3_model_revision.$(OBJEXT) \
 	g3_model_write_xml_adjustment_results.$(OBJEXT) \
 	g3_point.$(OBJEXT) g3_write_observation_xml.$(OBJEXT) \
 	baseparser.$(OBJEXT) dataobject.$(OBJEXT) \
 	dataparser_adj.$(OBJEXT) dataparser.$(OBJEXT) \
-	dataparser_g3.$(OBJEXT) encoding_cp1251.$(OBJEXT) \
-	encoding.$(OBJEXT) encoding_unknown_handler.$(OBJEXT) \
-	localnetwork.$(OBJEXT) \
+	dataparser_g3.$(OBJEXT) dataparser_g3adj.$(OBJEXT) \
+	encoding_cp1251.$(OBJEXT) encoding.$(OBJEXT) \
+	encoding_unknown_handler.$(OBJEXT) localnetwork.$(OBJEXT) \
 	localnetwork_adjustment_results.$(OBJEXT) \
 	capi_exception.$(OBJEXT) capi_gkfparser.$(OBJEXT) \
 	capi_locnet.$(OBJEXT) capi_output_file.$(OBJEXT) \
@@ -221,6 +221,8 @@ libgama_src = \
    gnu_gama/adj/adj_svd.h \
    gnu_gama/adj/envelope.h \
    gnu_gama/adj/homogenization.h \
+   gnu_gama/g3/g3_adjres.cpp \
+   gnu_gama/g3/g3_adjres.h \
    gnu_gama/g3/g3_cluster.cpp \
    gnu_gama/g3/g3_cluster.h \
    gnu_gama/g3/g3_model.cpp \
@@ -249,6 +251,7 @@ libgama_src = \
    gnu_gama/xml/dataparser_adj.cpp \
    gnu_gama/xml/dataparser.cpp \
    gnu_gama/xml/dataparser_g3.cpp \
+   gnu_gama/xml/dataparser_g3adj.cpp \
    gnu_gama/xml/dataparser.h \
    gnu_gama/xml/encoding_cp1251.cpp \
    gnu_gama/xml/encoding.cpp \
@@ -495,6 +498,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dataparser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dataparser_adj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dataparser_g3.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dataparser_g3adj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/direction.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/distance.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/e3.Po@am__quote@
@@ -508,6 +512,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/g2d_coordinates.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/g2d_helper.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/g2d_point.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/g3_adjres.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/g3_cluster.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/g3_model.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/g3_model_init.Po@am__quote@
@@ -696,6 +701,20 @@ adj.obj: gnu_gama/adj/adj.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o adj.obj `if test -f 'gnu_gama/adj/adj.cpp'; then $(CYGPATH_W) 'gnu_gama/adj/adj.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/adj/adj.cpp'; fi`
 
+g3_adjres.o: gnu_gama/g3/g3_adjres.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_adjres.o -MD -MP -MF "$(DEPDIR)/g3_adjres.Tpo" -c -o g3_adjres.o `test -f 'gnu_gama/g3/g3_adjres.cpp' || echo '$(srcdir)/'`gnu_gama/g3/g3_adjres.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_adjres.Tpo" "$(DEPDIR)/g3_adjres.Po"; else rm -f "$(DEPDIR)/g3_adjres.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/g3/g3_adjres.cpp' object='g3_adjres.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_adjres.o `test -f 'gnu_gama/g3/g3_adjres.cpp' || echo '$(srcdir)/'`gnu_gama/g3/g3_adjres.cpp
+
+g3_adjres.obj: gnu_gama/g3/g3_adjres.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_adjres.obj -MD -MP -MF "$(DEPDIR)/g3_adjres.Tpo" -c -o g3_adjres.obj `if test -f 'gnu_gama/g3/g3_adjres.cpp'; then $(CYGPATH_W) 'gnu_gama/g3/g3_adjres.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/g3/g3_adjres.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_adjres.Tpo" "$(DEPDIR)/g3_adjres.Po"; else rm -f "$(DEPDIR)/g3_adjres.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/g3/g3_adjres.cpp' object='g3_adjres.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g3_adjres.obj `if test -f 'gnu_gama/g3/g3_adjres.cpp'; then $(CYGPATH_W) 'gnu_gama/g3/g3_adjres.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/g3/g3_adjres.cpp'; fi`
+
 g3_cluster.o: gnu_gama/g3/g3_cluster.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g3_cluster.o -MD -MP -MF "$(DEPDIR)/g3_cluster.Tpo" -c -o g3_cluster.o `test -f 'gnu_gama/g3/g3_cluster.cpp' || echo '$(srcdir)/'`gnu_gama/g3/g3_cluster.cpp; \
 @am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/g3_cluster.Tpo" "$(DEPDIR)/g3_cluster.Po"; else rm -f "$(DEPDIR)/g3_cluster.Tpo"; exit 1; fi
@@ -877,6 +896,20 @@ dataparser_g3.obj: gnu_gama/xml/dataparser_g3.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/xml/dataparser_g3.cpp' object='dataparser_g3.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o dataparser_g3.obj `if test -f 'gnu_gama/xml/dataparser_g3.cpp'; then $(CYGPATH_W) 'gnu_gama/xml/dataparser_g3.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/xml/dataparser_g3.cpp'; fi`
+
+dataparser_g3adj.o: gnu_gama/xml/dataparser_g3adj.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT dataparser_g3adj.o -MD -MP -MF "$(DEPDIR)/dataparser_g3adj.Tpo" -c -o dataparser_g3adj.o `test -f 'gnu_gama/xml/dataparser_g3adj.cpp' || echo '$(srcdir)/'`gnu_gama/xml/dataparser_g3adj.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/dataparser_g3adj.Tpo" "$(DEPDIR)/dataparser_g3adj.Po"; else rm -f "$(DEPDIR)/dataparser_g3adj.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/xml/dataparser_g3adj.cpp' object='dataparser_g3adj.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o dataparser_g3adj.o `test -f 'gnu_gama/xml/dataparser_g3adj.cpp' || echo '$(srcdir)/'`gnu_gama/xml/dataparser_g3adj.cpp
+
+dataparser_g3adj.obj: gnu_gama/xml/dataparser_g3adj.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT dataparser_g3adj.obj -MD -MP -MF "$(DEPDIR)/dataparser_g3adj.Tpo" -c -o dataparser_g3adj.obj `if test -f 'gnu_gama/xml/dataparser_g3adj.cpp'; then $(CYGPATH_W) 'gnu_gama/xml/dataparser_g3adj.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/xml/dataparser_g3adj.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/dataparser_g3adj.Tpo" "$(DEPDIR)/dataparser_g3adj.Po"; else rm -f "$(DEPDIR)/dataparser_g3adj.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/xml/dataparser_g3adj.cpp' object='dataparser_g3adj.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o dataparser_g3adj.obj `if test -f 'gnu_gama/xml/dataparser_g3adj.cpp'; then $(CYGPATH_W) 'gnu_gama/xml/dataparser_g3adj.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/xml/dataparser_g3adj.cpp'; fi`
 
 encoding_cp1251.o: gnu_gama/xml/encoding_cp1251.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT encoding_cp1251.o -MD -MP -MF "$(DEPDIR)/encoding_cp1251.Tpo" -c -o encoding_cp1251.o `test -f 'gnu_gama/xml/encoding_cp1251.cpp' || echo '$(srcdir)/'`gnu_gama/xml/encoding_cp1251.cpp; \
