@@ -157,7 +157,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-EXTRA_DIST = ChangeLog.1
+EXTRA_DIST = ChangeLog.1 Doxyfile gama.dox
 SUBDIRS = lib gama-g3 gama-local doc scripts xml
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
