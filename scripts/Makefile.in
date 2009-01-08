@@ -156,7 +156,9 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-EXTRA_DIST = autogen.sh build-dictionaries build-ellipsoids build-old-makefiles
+EXTRA_DIST = autogen.sh build-dictionaries build-ellipsoids \
+             build-non-gnu-makefiles
+
 slovnikar_SOURCES = slovnikar.cpp
 slovnikar_LDADD = $(top_builddir)/lib/libgama.a
 slovnikar_CPPFLAGS = -I $(top_srcdir)/lib
