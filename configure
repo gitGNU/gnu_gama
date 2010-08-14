@@ -5464,7 +5464,7 @@ fi
 done
 
 
-ac_config_files="$ac_config_files Makefile lib/Makefile gama-g3/Makefile gama-local/Makefile scripts/Makefile doc/Makefile xml/Makefile"
+ac_config_files="$ac_config_files Makefile lib/Makefile bin/Makefile scripts/Makefile doc/Makefile xml/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -6184,8 +6184,7 @@ do
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "lib/Makefile") CONFIG_FILES="$CONFIG_FILES lib/Makefile" ;;
-    "gama-g3/Makefile") CONFIG_FILES="$CONFIG_FILES gama-g3/Makefile" ;;
-    "gama-local/Makefile") CONFIG_FILES="$CONFIG_FILES gama-local/Makefile" ;;
+    "bin/Makefile") CONFIG_FILES="$CONFIG_FILES bin/Makefile" ;;
     "scripts/Makefile") CONFIG_FILES="$CONFIG_FILES scripts/Makefile" ;;
     "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
     "xml/Makefile") CONFIG_FILES="$CONFIG_FILES xml/Makefile" ;;
