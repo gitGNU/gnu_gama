@@ -287,73 +287,73 @@ libgama_src = \
    gnu_gama/local/language.cpp \
    gnu_gama/local/language.h \
    gnu_gama/local/linearization.h \
-   gnu_gama/local/local/acord/approx_heights.cpp \
-   gnu_gama/local/local/acord/approx_heights.h \
-   gnu_gama/local/local/acord/approx_vectors.cpp \
-   gnu_gama/local/local/acord/approx_vectors.h \
-   gnu_gama/local/local/acord.cpp \
-   gnu_gama/local/local/acord.h \
-   gnu_gama/local/local/acord/reduce_observations.cpp \
-   gnu_gama/local/local/acord/reduce_observations.h \
-   gnu_gama/local/local/acord/reduce_to_ellipsoid.cpp \
-   gnu_gama/local/local/acord/reduce_to_ellipsoid.h \
-   gnu_gama/local/local/gamadata.h \
-   gnu_gama/local/local/lcoords.h \
-   gnu_gama/local/local/linearization/angle.h \
-   gnu_gama/local/local/linearization/direction.h \
-   gnu_gama/local/local/linearization/distance.h \
-   gnu_gama/local/local/linearization.h \
-   gnu_gama/local/local/linearization/hdiff.h \
-   gnu_gama/local/local/linearization/sdistance.h \
-   gnu_gama/local/local/linearization/xyzdiff.h \
-   gnu_gama/local/local/linearization/xyz.h \
-   gnu_gama/local/local/linearization/zangle.h \
-   gnu_gama/local/local/lpoint.h \
-   gnu_gama/local/local/median/g2d_cogo.cpp \
-   gnu_gama/local/local/median/g2d_cogo.h \
-   gnu_gama/local/local/median/g2d_coordinates.cpp \
-   gnu_gama/local/local/median/g2d_coordinates.h \
-   gnu_gama/local/local/median/g2d_exception.h \
-   gnu_gama/local/local/median/g2d_helper.cpp \
-   gnu_gama/local/local/median/g2d_helper.h \
-   gnu_gama/local/local/median/g2d_point.cpp \
-   gnu_gama/local/local/median/g2d_point.h \
-   gnu_gama/local/local/network_chol.h \
-   gnu_gama/local/local/network_env.h \
-   gnu_gama/local/local/network.cpp \
-   gnu_gama/local/local/network_gso.h \
-   gnu_gama/local/local/network.h \
-   gnu_gama/local/local/network_svd.h \
-   gnu_gama/local/local/observation_local.cpp \
-   gnu_gama/local/local/orientation.cpp \
-   gnu_gama/local/local/orientation.h \
-   gnu_gama/local/local/pobs/bearing.h \
-   gnu_gama/local/local/pobs/format.cpp \
-   gnu_gama/local/local/pobs/format.h \
-   gnu_gama/local/local/pobs/write.cpp \
-   gnu_gama/local/local/results/text/adjusted_observations.h \
-   gnu_gama/local/local/results/text/adjusted_unknowns.h \
-   gnu_gama/local/local/results/text/approximate_coordinates.h \
-   gnu_gama/local/local/results/text/error_ellipses.h \
-   gnu_gama/local/local/results/text/fixed_points.h \
-   gnu_gama/local/local/results/text/general_parameters.h \
-   gnu_gama/local/local/results/text/network_description.h \
-   gnu_gama/local/local/results/text/outlying_abs_terms.h \
-   gnu_gama/local/local/results/text/reduced_observations.h \
-   gnu_gama/local/local/results/text/reduced_observations_to_ellipsoid.h \
-   gnu_gama/local/local/results/text/residuals_observations.h \
-   gnu_gama/local/local/results/text/test_linearization.h \
-   gnu_gama/local/local/results/text/underline.cpp \
-   gnu_gama/local/local/results/text/underline.h \
-   gnu_gama/local/local/revision/angle.h \
-   gnu_gama/local/local/revision/direction.h \
-   gnu_gama/local/local/revision/distance.h \
-   gnu_gama/local/local/revision.h \
-   gnu_gama/local/local/revision/hdiff.h \
-   gnu_gama/local/local/revision/sdistance.h \
-   gnu_gama/local/local/revision/xyzdiff.h \
-   gnu_gama/local/local/revision/xyz.h \
-   gnu_gama/local/local/revision/zangle.h \
+   gnu_gama/local/acord/approx_heights.cpp \
+   gnu_gama/local/acord/approx_heights.h \
+   gnu_gama/local/acord/approx_vectors.cpp \
+   gnu_gama/local/acord/approx_vectors.h \
+   gnu_gama/local/acord.cpp \
+   gnu_gama/local/acord.h \
+   gnu_gama/local/acord/reduce_observations.cpp \
+   gnu_gama/local/acord/reduce_observations.h \
+   gnu_gama/local/acord/reduce_to_ellipsoid.cpp \
+   gnu_gama/local/acord/reduce_to_ellipsoid.h \
+   gnu_gama/local/gamadata.h \
+   gnu_gama/local/lcoords.h \
+   gnu_gama/local/linearization/angle.h \
+   gnu_gama/local/linearization/direction.h \
+   gnu_gama/local/linearization/distance.h \
+   gnu_gama/local/local_linearization.h \
+   gnu_gama/local/linearization/hdiff.h \
+   gnu_gama/local/linearization/sdistance.h \
+   gnu_gama/local/linearization/xyzdiff.h \
+   gnu_gama/local/linearization/xyz.h \
+   gnu_gama/local/linearization/zangle.h \
+   gnu_gama/local/lpoint.h \
+   gnu_gama/local/median/g2d_cogo.cpp \
+   gnu_gama/local/median/g2d_cogo.h \
+   gnu_gama/local/median/g2d_coordinates.cpp \
+   gnu_gama/local/median/g2d_coordinates.h \
+   gnu_gama/local/median/g2d_exception.h \
+   gnu_gama/local/median/g2d_helper.cpp \
+   gnu_gama/local/median/g2d_helper.h \
+   gnu_gama/local/median/g2d_point.cpp \
+   gnu_gama/local/median/g2d_point.h \
+   gnu_gama/local/network_chol.h \
+   gnu_gama/local/network_env.h \
+   gnu_gama/local/network.cpp \
+   gnu_gama/local/network_gso.h \
+   gnu_gama/local/network.h \
+   gnu_gama/local/network_svd.h \
+   gnu_gama/local/observation_local.cpp \
+   gnu_gama/local/orientation.cpp \
+   gnu_gama/local/orientation.h \
+   gnu_gama/local/pobs/bearing.h \
+   gnu_gama/local/pobs/format.cpp \
+   gnu_gama/local/pobs/format.h \
+   gnu_gama/local/pobs/write.cpp \
+   gnu_gama/local/results/text/adjusted_observations.h \
+   gnu_gama/local/results/text/adjusted_unknowns.h \
+   gnu_gama/local/results/text/approximate_coordinates.h \
+   gnu_gama/local/results/text/error_ellipses.h \
+   gnu_gama/local/results/text/fixed_points.h \
+   gnu_gama/local/results/text/general_parameters.h \
+   gnu_gama/local/results/text/network_description.h \
+   gnu_gama/local/results/text/outlying_abs_terms.h \
+   gnu_gama/local/results/text/reduced_observations.h \
+   gnu_gama/local/results/text/reduced_observations_to_ellipsoid.h \
+   gnu_gama/local/results/text/residuals_observations.h \
+   gnu_gama/local/results/text/test_linearization.h \
+   gnu_gama/local/results/text/underline.cpp \
+   gnu_gama/local/results/text/underline.h \
+   gnu_gama/local/revision/angle.h \
+   gnu_gama/local/revision/direction.h \
+   gnu_gama/local/revision/distance.h \
+   gnu_gama/local/local_revision.h \
+   gnu_gama/local/revision/hdiff.h \
+   gnu_gama/local/revision/sdistance.h \
+   gnu_gama/local/revision/xyzdiff.h \
+   gnu_gama/local/revision/xyz.h \
+   gnu_gama/local/revision/zangle.h \
    gnu_gama/local/matvec.h \
    gnu_gama/local/medianf.h \
    gnu_gama/local/observation.cpp \
@@ -1059,215 +1059,215 @@ language.obj: gnu_gama/local/language.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o language.obj `if test -f 'gnu_gama/local/language.cpp'; then $(CYGPATH_W) 'gnu_gama/local/language.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/language.cpp'; fi`
 
-approx_heights.o: gnu_gama/local/local/acord/approx_heights.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT approx_heights.o -MD -MP -MF $(DEPDIR)/approx_heights.Tpo -c -o approx_heights.o `test -f 'gnu_gama/local/local/acord/approx_heights.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/acord/approx_heights.cpp
+approx_heights.o: gnu_gama/local/acord/approx_heights.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT approx_heights.o -MD -MP -MF $(DEPDIR)/approx_heights.Tpo -c -o approx_heights.o `test -f 'gnu_gama/local/acord/approx_heights.cpp' || echo '$(srcdir)/'`gnu_gama/local/acord/approx_heights.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/approx_heights.Tpo $(DEPDIR)/approx_heights.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/acord/approx_heights.cpp' object='approx_heights.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/acord/approx_heights.cpp' object='approx_heights.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o approx_heights.o `test -f 'gnu_gama/local/local/acord/approx_heights.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/acord/approx_heights.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o approx_heights.o `test -f 'gnu_gama/local/acord/approx_heights.cpp' || echo '$(srcdir)/'`gnu_gama/local/acord/approx_heights.cpp
 
-approx_heights.obj: gnu_gama/local/local/acord/approx_heights.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT approx_heights.obj -MD -MP -MF $(DEPDIR)/approx_heights.Tpo -c -o approx_heights.obj `if test -f 'gnu_gama/local/local/acord/approx_heights.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/acord/approx_heights.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/acord/approx_heights.cpp'; fi`
+approx_heights.obj: gnu_gama/local/acord/approx_heights.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT approx_heights.obj -MD -MP -MF $(DEPDIR)/approx_heights.Tpo -c -o approx_heights.obj `if test -f 'gnu_gama/local/acord/approx_heights.cpp'; then $(CYGPATH_W) 'gnu_gama/local/acord/approx_heights.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/acord/approx_heights.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/approx_heights.Tpo $(DEPDIR)/approx_heights.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/acord/approx_heights.cpp' object='approx_heights.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/acord/approx_heights.cpp' object='approx_heights.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o approx_heights.obj `if test -f 'gnu_gama/local/local/acord/approx_heights.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/acord/approx_heights.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/acord/approx_heights.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o approx_heights.obj `if test -f 'gnu_gama/local/acord/approx_heights.cpp'; then $(CYGPATH_W) 'gnu_gama/local/acord/approx_heights.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/acord/approx_heights.cpp'; fi`
 
-approx_vectors.o: gnu_gama/local/local/acord/approx_vectors.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT approx_vectors.o -MD -MP -MF $(DEPDIR)/approx_vectors.Tpo -c -o approx_vectors.o `test -f 'gnu_gama/local/local/acord/approx_vectors.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/acord/approx_vectors.cpp
+approx_vectors.o: gnu_gama/local/acord/approx_vectors.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT approx_vectors.o -MD -MP -MF $(DEPDIR)/approx_vectors.Tpo -c -o approx_vectors.o `test -f 'gnu_gama/local/acord/approx_vectors.cpp' || echo '$(srcdir)/'`gnu_gama/local/acord/approx_vectors.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/approx_vectors.Tpo $(DEPDIR)/approx_vectors.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/acord/approx_vectors.cpp' object='approx_vectors.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/acord/approx_vectors.cpp' object='approx_vectors.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o approx_vectors.o `test -f 'gnu_gama/local/local/acord/approx_vectors.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/acord/approx_vectors.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o approx_vectors.o `test -f 'gnu_gama/local/acord/approx_vectors.cpp' || echo '$(srcdir)/'`gnu_gama/local/acord/approx_vectors.cpp
 
-approx_vectors.obj: gnu_gama/local/local/acord/approx_vectors.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT approx_vectors.obj -MD -MP -MF $(DEPDIR)/approx_vectors.Tpo -c -o approx_vectors.obj `if test -f 'gnu_gama/local/local/acord/approx_vectors.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/acord/approx_vectors.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/acord/approx_vectors.cpp'; fi`
+approx_vectors.obj: gnu_gama/local/acord/approx_vectors.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT approx_vectors.obj -MD -MP -MF $(DEPDIR)/approx_vectors.Tpo -c -o approx_vectors.obj `if test -f 'gnu_gama/local/acord/approx_vectors.cpp'; then $(CYGPATH_W) 'gnu_gama/local/acord/approx_vectors.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/acord/approx_vectors.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/approx_vectors.Tpo $(DEPDIR)/approx_vectors.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/acord/approx_vectors.cpp' object='approx_vectors.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/acord/approx_vectors.cpp' object='approx_vectors.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o approx_vectors.obj `if test -f 'gnu_gama/local/local/acord/approx_vectors.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/acord/approx_vectors.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/acord/approx_vectors.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o approx_vectors.obj `if test -f 'gnu_gama/local/acord/approx_vectors.cpp'; then $(CYGPATH_W) 'gnu_gama/local/acord/approx_vectors.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/acord/approx_vectors.cpp'; fi`
 
-acord.o: gnu_gama/local/local/acord.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT acord.o -MD -MP -MF $(DEPDIR)/acord.Tpo -c -o acord.o `test -f 'gnu_gama/local/local/acord.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/acord.cpp
+acord.o: gnu_gama/local/acord.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT acord.o -MD -MP -MF $(DEPDIR)/acord.Tpo -c -o acord.o `test -f 'gnu_gama/local/acord.cpp' || echo '$(srcdir)/'`gnu_gama/local/acord.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/acord.Tpo $(DEPDIR)/acord.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/acord.cpp' object='acord.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/acord.cpp' object='acord.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o acord.o `test -f 'gnu_gama/local/local/acord.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/acord.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o acord.o `test -f 'gnu_gama/local/acord.cpp' || echo '$(srcdir)/'`gnu_gama/local/acord.cpp
 
-acord.obj: gnu_gama/local/local/acord.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT acord.obj -MD -MP -MF $(DEPDIR)/acord.Tpo -c -o acord.obj `if test -f 'gnu_gama/local/local/acord.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/acord.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/acord.cpp'; fi`
+acord.obj: gnu_gama/local/acord.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT acord.obj -MD -MP -MF $(DEPDIR)/acord.Tpo -c -o acord.obj `if test -f 'gnu_gama/local/acord.cpp'; then $(CYGPATH_W) 'gnu_gama/local/acord.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/acord.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/acord.Tpo $(DEPDIR)/acord.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/acord.cpp' object='acord.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/acord.cpp' object='acord.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o acord.obj `if test -f 'gnu_gama/local/local/acord.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/acord.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/acord.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o acord.obj `if test -f 'gnu_gama/local/acord.cpp'; then $(CYGPATH_W) 'gnu_gama/local/acord.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/acord.cpp'; fi`
 
-reduce_observations.o: gnu_gama/local/local/acord/reduce_observations.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT reduce_observations.o -MD -MP -MF $(DEPDIR)/reduce_observations.Tpo -c -o reduce_observations.o `test -f 'gnu_gama/local/local/acord/reduce_observations.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/acord/reduce_observations.cpp
+reduce_observations.o: gnu_gama/local/acord/reduce_observations.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT reduce_observations.o -MD -MP -MF $(DEPDIR)/reduce_observations.Tpo -c -o reduce_observations.o `test -f 'gnu_gama/local/acord/reduce_observations.cpp' || echo '$(srcdir)/'`gnu_gama/local/acord/reduce_observations.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/reduce_observations.Tpo $(DEPDIR)/reduce_observations.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/acord/reduce_observations.cpp' object='reduce_observations.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/acord/reduce_observations.cpp' object='reduce_observations.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o reduce_observations.o `test -f 'gnu_gama/local/local/acord/reduce_observations.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/acord/reduce_observations.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o reduce_observations.o `test -f 'gnu_gama/local/acord/reduce_observations.cpp' || echo '$(srcdir)/'`gnu_gama/local/acord/reduce_observations.cpp
 
-reduce_observations.obj: gnu_gama/local/local/acord/reduce_observations.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT reduce_observations.obj -MD -MP -MF $(DEPDIR)/reduce_observations.Tpo -c -o reduce_observations.obj `if test -f 'gnu_gama/local/local/acord/reduce_observations.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/acord/reduce_observations.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/acord/reduce_observations.cpp'; fi`
+reduce_observations.obj: gnu_gama/local/acord/reduce_observations.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT reduce_observations.obj -MD -MP -MF $(DEPDIR)/reduce_observations.Tpo -c -o reduce_observations.obj `if test -f 'gnu_gama/local/acord/reduce_observations.cpp'; then $(CYGPATH_W) 'gnu_gama/local/acord/reduce_observations.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/acord/reduce_observations.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/reduce_observations.Tpo $(DEPDIR)/reduce_observations.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/acord/reduce_observations.cpp' object='reduce_observations.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/acord/reduce_observations.cpp' object='reduce_observations.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o reduce_observations.obj `if test -f 'gnu_gama/local/local/acord/reduce_observations.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/acord/reduce_observations.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/acord/reduce_observations.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o reduce_observations.obj `if test -f 'gnu_gama/local/acord/reduce_observations.cpp'; then $(CYGPATH_W) 'gnu_gama/local/acord/reduce_observations.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/acord/reduce_observations.cpp'; fi`
 
-reduce_to_ellipsoid.o: gnu_gama/local/local/acord/reduce_to_ellipsoid.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT reduce_to_ellipsoid.o -MD -MP -MF $(DEPDIR)/reduce_to_ellipsoid.Tpo -c -o reduce_to_ellipsoid.o `test -f 'gnu_gama/local/local/acord/reduce_to_ellipsoid.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/acord/reduce_to_ellipsoid.cpp
+reduce_to_ellipsoid.o: gnu_gama/local/acord/reduce_to_ellipsoid.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT reduce_to_ellipsoid.o -MD -MP -MF $(DEPDIR)/reduce_to_ellipsoid.Tpo -c -o reduce_to_ellipsoid.o `test -f 'gnu_gama/local/acord/reduce_to_ellipsoid.cpp' || echo '$(srcdir)/'`gnu_gama/local/acord/reduce_to_ellipsoid.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/reduce_to_ellipsoid.Tpo $(DEPDIR)/reduce_to_ellipsoid.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/acord/reduce_to_ellipsoid.cpp' object='reduce_to_ellipsoid.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/acord/reduce_to_ellipsoid.cpp' object='reduce_to_ellipsoid.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o reduce_to_ellipsoid.o `test -f 'gnu_gama/local/local/acord/reduce_to_ellipsoid.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/acord/reduce_to_ellipsoid.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o reduce_to_ellipsoid.o `test -f 'gnu_gama/local/acord/reduce_to_ellipsoid.cpp' || echo '$(srcdir)/'`gnu_gama/local/acord/reduce_to_ellipsoid.cpp
 
-reduce_to_ellipsoid.obj: gnu_gama/local/local/acord/reduce_to_ellipsoid.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT reduce_to_ellipsoid.obj -MD -MP -MF $(DEPDIR)/reduce_to_ellipsoid.Tpo -c -o reduce_to_ellipsoid.obj `if test -f 'gnu_gama/local/local/acord/reduce_to_ellipsoid.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/acord/reduce_to_ellipsoid.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/acord/reduce_to_ellipsoid.cpp'; fi`
+reduce_to_ellipsoid.obj: gnu_gama/local/acord/reduce_to_ellipsoid.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT reduce_to_ellipsoid.obj -MD -MP -MF $(DEPDIR)/reduce_to_ellipsoid.Tpo -c -o reduce_to_ellipsoid.obj `if test -f 'gnu_gama/local/acord/reduce_to_ellipsoid.cpp'; then $(CYGPATH_W) 'gnu_gama/local/acord/reduce_to_ellipsoid.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/acord/reduce_to_ellipsoid.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/reduce_to_ellipsoid.Tpo $(DEPDIR)/reduce_to_ellipsoid.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/acord/reduce_to_ellipsoid.cpp' object='reduce_to_ellipsoid.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/acord/reduce_to_ellipsoid.cpp' object='reduce_to_ellipsoid.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o reduce_to_ellipsoid.obj `if test -f 'gnu_gama/local/local/acord/reduce_to_ellipsoid.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/acord/reduce_to_ellipsoid.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/acord/reduce_to_ellipsoid.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o reduce_to_ellipsoid.obj `if test -f 'gnu_gama/local/acord/reduce_to_ellipsoid.cpp'; then $(CYGPATH_W) 'gnu_gama/local/acord/reduce_to_ellipsoid.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/acord/reduce_to_ellipsoid.cpp'; fi`
 
-g2d_cogo.o: gnu_gama/local/local/median/g2d_cogo.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_cogo.o -MD -MP -MF $(DEPDIR)/g2d_cogo.Tpo -c -o g2d_cogo.o `test -f 'gnu_gama/local/local/median/g2d_cogo.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/median/g2d_cogo.cpp
+g2d_cogo.o: gnu_gama/local/median/g2d_cogo.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_cogo.o -MD -MP -MF $(DEPDIR)/g2d_cogo.Tpo -c -o g2d_cogo.o `test -f 'gnu_gama/local/median/g2d_cogo.cpp' || echo '$(srcdir)/'`gnu_gama/local/median/g2d_cogo.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/g2d_cogo.Tpo $(DEPDIR)/g2d_cogo.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/median/g2d_cogo.cpp' object='g2d_cogo.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/median/g2d_cogo.cpp' object='g2d_cogo.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_cogo.o `test -f 'gnu_gama/local/local/median/g2d_cogo.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/median/g2d_cogo.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_cogo.o `test -f 'gnu_gama/local/median/g2d_cogo.cpp' || echo '$(srcdir)/'`gnu_gama/local/median/g2d_cogo.cpp
 
-g2d_cogo.obj: gnu_gama/local/local/median/g2d_cogo.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_cogo.obj -MD -MP -MF $(DEPDIR)/g2d_cogo.Tpo -c -o g2d_cogo.obj `if test -f 'gnu_gama/local/local/median/g2d_cogo.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/median/g2d_cogo.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/median/g2d_cogo.cpp'; fi`
+g2d_cogo.obj: gnu_gama/local/median/g2d_cogo.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_cogo.obj -MD -MP -MF $(DEPDIR)/g2d_cogo.Tpo -c -o g2d_cogo.obj `if test -f 'gnu_gama/local/median/g2d_cogo.cpp'; then $(CYGPATH_W) 'gnu_gama/local/median/g2d_cogo.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/median/g2d_cogo.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/g2d_cogo.Tpo $(DEPDIR)/g2d_cogo.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/median/g2d_cogo.cpp' object='g2d_cogo.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/median/g2d_cogo.cpp' object='g2d_cogo.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_cogo.obj `if test -f 'gnu_gama/local/local/median/g2d_cogo.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/median/g2d_cogo.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/median/g2d_cogo.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_cogo.obj `if test -f 'gnu_gama/local/median/g2d_cogo.cpp'; then $(CYGPATH_W) 'gnu_gama/local/median/g2d_cogo.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/median/g2d_cogo.cpp'; fi`
 
-g2d_coordinates.o: gnu_gama/local/local/median/g2d_coordinates.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_coordinates.o -MD -MP -MF $(DEPDIR)/g2d_coordinates.Tpo -c -o g2d_coordinates.o `test -f 'gnu_gama/local/local/median/g2d_coordinates.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/median/g2d_coordinates.cpp
+g2d_coordinates.o: gnu_gama/local/median/g2d_coordinates.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_coordinates.o -MD -MP -MF $(DEPDIR)/g2d_coordinates.Tpo -c -o g2d_coordinates.o `test -f 'gnu_gama/local/median/g2d_coordinates.cpp' || echo '$(srcdir)/'`gnu_gama/local/median/g2d_coordinates.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/g2d_coordinates.Tpo $(DEPDIR)/g2d_coordinates.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/median/g2d_coordinates.cpp' object='g2d_coordinates.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/median/g2d_coordinates.cpp' object='g2d_coordinates.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_coordinates.o `test -f 'gnu_gama/local/local/median/g2d_coordinates.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/median/g2d_coordinates.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_coordinates.o `test -f 'gnu_gama/local/median/g2d_coordinates.cpp' || echo '$(srcdir)/'`gnu_gama/local/median/g2d_coordinates.cpp
 
-g2d_coordinates.obj: gnu_gama/local/local/median/g2d_coordinates.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_coordinates.obj -MD -MP -MF $(DEPDIR)/g2d_coordinates.Tpo -c -o g2d_coordinates.obj `if test -f 'gnu_gama/local/local/median/g2d_coordinates.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/median/g2d_coordinates.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/median/g2d_coordinates.cpp'; fi`
+g2d_coordinates.obj: gnu_gama/local/median/g2d_coordinates.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_coordinates.obj -MD -MP -MF $(DEPDIR)/g2d_coordinates.Tpo -c -o g2d_coordinates.obj `if test -f 'gnu_gama/local/median/g2d_coordinates.cpp'; then $(CYGPATH_W) 'gnu_gama/local/median/g2d_coordinates.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/median/g2d_coordinates.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/g2d_coordinates.Tpo $(DEPDIR)/g2d_coordinates.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/median/g2d_coordinates.cpp' object='g2d_coordinates.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/median/g2d_coordinates.cpp' object='g2d_coordinates.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_coordinates.obj `if test -f 'gnu_gama/local/local/median/g2d_coordinates.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/median/g2d_coordinates.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/median/g2d_coordinates.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_coordinates.obj `if test -f 'gnu_gama/local/median/g2d_coordinates.cpp'; then $(CYGPATH_W) 'gnu_gama/local/median/g2d_coordinates.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/median/g2d_coordinates.cpp'; fi`
 
-g2d_helper.o: gnu_gama/local/local/median/g2d_helper.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_helper.o -MD -MP -MF $(DEPDIR)/g2d_helper.Tpo -c -o g2d_helper.o `test -f 'gnu_gama/local/local/median/g2d_helper.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/median/g2d_helper.cpp
+g2d_helper.o: gnu_gama/local/median/g2d_helper.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_helper.o -MD -MP -MF $(DEPDIR)/g2d_helper.Tpo -c -o g2d_helper.o `test -f 'gnu_gama/local/median/g2d_helper.cpp' || echo '$(srcdir)/'`gnu_gama/local/median/g2d_helper.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/g2d_helper.Tpo $(DEPDIR)/g2d_helper.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/median/g2d_helper.cpp' object='g2d_helper.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/median/g2d_helper.cpp' object='g2d_helper.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_helper.o `test -f 'gnu_gama/local/local/median/g2d_helper.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/median/g2d_helper.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_helper.o `test -f 'gnu_gama/local/median/g2d_helper.cpp' || echo '$(srcdir)/'`gnu_gama/local/median/g2d_helper.cpp
 
-g2d_helper.obj: gnu_gama/local/local/median/g2d_helper.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_helper.obj -MD -MP -MF $(DEPDIR)/g2d_helper.Tpo -c -o g2d_helper.obj `if test -f 'gnu_gama/local/local/median/g2d_helper.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/median/g2d_helper.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/median/g2d_helper.cpp'; fi`
+g2d_helper.obj: gnu_gama/local/median/g2d_helper.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_helper.obj -MD -MP -MF $(DEPDIR)/g2d_helper.Tpo -c -o g2d_helper.obj `if test -f 'gnu_gama/local/median/g2d_helper.cpp'; then $(CYGPATH_W) 'gnu_gama/local/median/g2d_helper.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/median/g2d_helper.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/g2d_helper.Tpo $(DEPDIR)/g2d_helper.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/median/g2d_helper.cpp' object='g2d_helper.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/median/g2d_helper.cpp' object='g2d_helper.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_helper.obj `if test -f 'gnu_gama/local/local/median/g2d_helper.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/median/g2d_helper.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/median/g2d_helper.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_helper.obj `if test -f 'gnu_gama/local/median/g2d_helper.cpp'; then $(CYGPATH_W) 'gnu_gama/local/median/g2d_helper.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/median/g2d_helper.cpp'; fi`
 
-g2d_point.o: gnu_gama/local/local/median/g2d_point.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_point.o -MD -MP -MF $(DEPDIR)/g2d_point.Tpo -c -o g2d_point.o `test -f 'gnu_gama/local/local/median/g2d_point.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/median/g2d_point.cpp
+g2d_point.o: gnu_gama/local/median/g2d_point.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_point.o -MD -MP -MF $(DEPDIR)/g2d_point.Tpo -c -o g2d_point.o `test -f 'gnu_gama/local/median/g2d_point.cpp' || echo '$(srcdir)/'`gnu_gama/local/median/g2d_point.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/g2d_point.Tpo $(DEPDIR)/g2d_point.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/median/g2d_point.cpp' object='g2d_point.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/median/g2d_point.cpp' object='g2d_point.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_point.o `test -f 'gnu_gama/local/local/median/g2d_point.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/median/g2d_point.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_point.o `test -f 'gnu_gama/local/median/g2d_point.cpp' || echo '$(srcdir)/'`gnu_gama/local/median/g2d_point.cpp
 
-g2d_point.obj: gnu_gama/local/local/median/g2d_point.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_point.obj -MD -MP -MF $(DEPDIR)/g2d_point.Tpo -c -o g2d_point.obj `if test -f 'gnu_gama/local/local/median/g2d_point.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/median/g2d_point.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/median/g2d_point.cpp'; fi`
+g2d_point.obj: gnu_gama/local/median/g2d_point.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT g2d_point.obj -MD -MP -MF $(DEPDIR)/g2d_point.Tpo -c -o g2d_point.obj `if test -f 'gnu_gama/local/median/g2d_point.cpp'; then $(CYGPATH_W) 'gnu_gama/local/median/g2d_point.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/median/g2d_point.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/g2d_point.Tpo $(DEPDIR)/g2d_point.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/median/g2d_point.cpp' object='g2d_point.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/median/g2d_point.cpp' object='g2d_point.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_point.obj `if test -f 'gnu_gama/local/local/median/g2d_point.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/median/g2d_point.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/median/g2d_point.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o g2d_point.obj `if test -f 'gnu_gama/local/median/g2d_point.cpp'; then $(CYGPATH_W) 'gnu_gama/local/median/g2d_point.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/median/g2d_point.cpp'; fi`
 
-network.o: gnu_gama/local/local/network.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT network.o -MD -MP -MF $(DEPDIR)/network.Tpo -c -o network.o `test -f 'gnu_gama/local/local/network.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/network.cpp
+network.o: gnu_gama/local/network.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT network.o -MD -MP -MF $(DEPDIR)/network.Tpo -c -o network.o `test -f 'gnu_gama/local/network.cpp' || echo '$(srcdir)/'`gnu_gama/local/network.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/network.Tpo $(DEPDIR)/network.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/network.cpp' object='network.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/network.cpp' object='network.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o network.o `test -f 'gnu_gama/local/local/network.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/network.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o network.o `test -f 'gnu_gama/local/network.cpp' || echo '$(srcdir)/'`gnu_gama/local/network.cpp
 
-network.obj: gnu_gama/local/local/network.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT network.obj -MD -MP -MF $(DEPDIR)/network.Tpo -c -o network.obj `if test -f 'gnu_gama/local/local/network.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/network.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/network.cpp'; fi`
+network.obj: gnu_gama/local/network.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT network.obj -MD -MP -MF $(DEPDIR)/network.Tpo -c -o network.obj `if test -f 'gnu_gama/local/network.cpp'; then $(CYGPATH_W) 'gnu_gama/local/network.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/network.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/network.Tpo $(DEPDIR)/network.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/network.cpp' object='network.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/network.cpp' object='network.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o network.obj `if test -f 'gnu_gama/local/local/network.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/network.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/network.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o network.obj `if test -f 'gnu_gama/local/network.cpp'; then $(CYGPATH_W) 'gnu_gama/local/network.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/network.cpp'; fi`
 
-observation_local.o: gnu_gama/local/local/observation_local.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT observation_local.o -MD -MP -MF $(DEPDIR)/observation_local.Tpo -c -o observation_local.o `test -f 'gnu_gama/local/local/observation_local.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/observation_local.cpp
+observation_local.o: gnu_gama/local/observation_local.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT observation_local.o -MD -MP -MF $(DEPDIR)/observation_local.Tpo -c -o observation_local.o `test -f 'gnu_gama/local/observation_local.cpp' || echo '$(srcdir)/'`gnu_gama/local/observation_local.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/observation_local.Tpo $(DEPDIR)/observation_local.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/observation_local.cpp' object='observation_local.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/observation_local.cpp' object='observation_local.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o observation_local.o `test -f 'gnu_gama/local/local/observation_local.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/observation_local.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o observation_local.o `test -f 'gnu_gama/local/observation_local.cpp' || echo '$(srcdir)/'`gnu_gama/local/observation_local.cpp
 
-observation_local.obj: gnu_gama/local/local/observation_local.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT observation_local.obj -MD -MP -MF $(DEPDIR)/observation_local.Tpo -c -o observation_local.obj `if test -f 'gnu_gama/local/local/observation_local.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/observation_local.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/observation_local.cpp'; fi`
+observation_local.obj: gnu_gama/local/observation_local.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT observation_local.obj -MD -MP -MF $(DEPDIR)/observation_local.Tpo -c -o observation_local.obj `if test -f 'gnu_gama/local/observation_local.cpp'; then $(CYGPATH_W) 'gnu_gama/local/observation_local.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/observation_local.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/observation_local.Tpo $(DEPDIR)/observation_local.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/observation_local.cpp' object='observation_local.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/observation_local.cpp' object='observation_local.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o observation_local.obj `if test -f 'gnu_gama/local/local/observation_local.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/observation_local.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/observation_local.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o observation_local.obj `if test -f 'gnu_gama/local/observation_local.cpp'; then $(CYGPATH_W) 'gnu_gama/local/observation_local.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/observation_local.cpp'; fi`
 
-orientation.o: gnu_gama/local/local/orientation.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT orientation.o -MD -MP -MF $(DEPDIR)/orientation.Tpo -c -o orientation.o `test -f 'gnu_gama/local/local/orientation.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/orientation.cpp
+orientation.o: gnu_gama/local/orientation.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT orientation.o -MD -MP -MF $(DEPDIR)/orientation.Tpo -c -o orientation.o `test -f 'gnu_gama/local/orientation.cpp' || echo '$(srcdir)/'`gnu_gama/local/orientation.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/orientation.Tpo $(DEPDIR)/orientation.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/orientation.cpp' object='orientation.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/orientation.cpp' object='orientation.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o orientation.o `test -f 'gnu_gama/local/local/orientation.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/orientation.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o orientation.o `test -f 'gnu_gama/local/orientation.cpp' || echo '$(srcdir)/'`gnu_gama/local/orientation.cpp
 
-orientation.obj: gnu_gama/local/local/orientation.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT orientation.obj -MD -MP -MF $(DEPDIR)/orientation.Tpo -c -o orientation.obj `if test -f 'gnu_gama/local/local/orientation.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/orientation.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/orientation.cpp'; fi`
+orientation.obj: gnu_gama/local/orientation.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT orientation.obj -MD -MP -MF $(DEPDIR)/orientation.Tpo -c -o orientation.obj `if test -f 'gnu_gama/local/orientation.cpp'; then $(CYGPATH_W) 'gnu_gama/local/orientation.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/orientation.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/orientation.Tpo $(DEPDIR)/orientation.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/orientation.cpp' object='orientation.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/orientation.cpp' object='orientation.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o orientation.obj `if test -f 'gnu_gama/local/local/orientation.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/orientation.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/orientation.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o orientation.obj `if test -f 'gnu_gama/local/orientation.cpp'; then $(CYGPATH_W) 'gnu_gama/local/orientation.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/orientation.cpp'; fi`
 
-format.o: gnu_gama/local/local/pobs/format.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT format.o -MD -MP -MF $(DEPDIR)/format.Tpo -c -o format.o `test -f 'gnu_gama/local/local/pobs/format.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/pobs/format.cpp
+format.o: gnu_gama/local/pobs/format.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT format.o -MD -MP -MF $(DEPDIR)/format.Tpo -c -o format.o `test -f 'gnu_gama/local/pobs/format.cpp' || echo '$(srcdir)/'`gnu_gama/local/pobs/format.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/format.Tpo $(DEPDIR)/format.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/pobs/format.cpp' object='format.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/pobs/format.cpp' object='format.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o format.o `test -f 'gnu_gama/local/local/pobs/format.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/pobs/format.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o format.o `test -f 'gnu_gama/local/pobs/format.cpp' || echo '$(srcdir)/'`gnu_gama/local/pobs/format.cpp
 
-format.obj: gnu_gama/local/local/pobs/format.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT format.obj -MD -MP -MF $(DEPDIR)/format.Tpo -c -o format.obj `if test -f 'gnu_gama/local/local/pobs/format.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/pobs/format.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/pobs/format.cpp'; fi`
+format.obj: gnu_gama/local/pobs/format.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT format.obj -MD -MP -MF $(DEPDIR)/format.Tpo -c -o format.obj `if test -f 'gnu_gama/local/pobs/format.cpp'; then $(CYGPATH_W) 'gnu_gama/local/pobs/format.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/pobs/format.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/format.Tpo $(DEPDIR)/format.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/pobs/format.cpp' object='format.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/pobs/format.cpp' object='format.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o format.obj `if test -f 'gnu_gama/local/local/pobs/format.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/pobs/format.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/pobs/format.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o format.obj `if test -f 'gnu_gama/local/pobs/format.cpp'; then $(CYGPATH_W) 'gnu_gama/local/pobs/format.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/pobs/format.cpp'; fi`
 
-write.o: gnu_gama/local/local/pobs/write.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT write.o -MD -MP -MF $(DEPDIR)/write.Tpo -c -o write.o `test -f 'gnu_gama/local/local/pobs/write.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/pobs/write.cpp
+write.o: gnu_gama/local/pobs/write.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT write.o -MD -MP -MF $(DEPDIR)/write.Tpo -c -o write.o `test -f 'gnu_gama/local/pobs/write.cpp' || echo '$(srcdir)/'`gnu_gama/local/pobs/write.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/write.Tpo $(DEPDIR)/write.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/pobs/write.cpp' object='write.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/pobs/write.cpp' object='write.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o write.o `test -f 'gnu_gama/local/local/pobs/write.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/pobs/write.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o write.o `test -f 'gnu_gama/local/pobs/write.cpp' || echo '$(srcdir)/'`gnu_gama/local/pobs/write.cpp
 
-write.obj: gnu_gama/local/local/pobs/write.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT write.obj -MD -MP -MF $(DEPDIR)/write.Tpo -c -o write.obj `if test -f 'gnu_gama/local/local/pobs/write.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/pobs/write.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/pobs/write.cpp'; fi`
+write.obj: gnu_gama/local/pobs/write.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT write.obj -MD -MP -MF $(DEPDIR)/write.Tpo -c -o write.obj `if test -f 'gnu_gama/local/pobs/write.cpp'; then $(CYGPATH_W) 'gnu_gama/local/pobs/write.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/pobs/write.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/write.Tpo $(DEPDIR)/write.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/pobs/write.cpp' object='write.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/pobs/write.cpp' object='write.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o write.obj `if test -f 'gnu_gama/local/local/pobs/write.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/pobs/write.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/pobs/write.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o write.obj `if test -f 'gnu_gama/local/pobs/write.cpp'; then $(CYGPATH_W) 'gnu_gama/local/pobs/write.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/pobs/write.cpp'; fi`
 
-underline.o: gnu_gama/local/local/results/text/underline.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT underline.o -MD -MP -MF $(DEPDIR)/underline.Tpo -c -o underline.o `test -f 'gnu_gama/local/local/results/text/underline.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/results/text/underline.cpp
+underline.o: gnu_gama/local/results/text/underline.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT underline.o -MD -MP -MF $(DEPDIR)/underline.Tpo -c -o underline.o `test -f 'gnu_gama/local/results/text/underline.cpp' || echo '$(srcdir)/'`gnu_gama/local/results/text/underline.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/underline.Tpo $(DEPDIR)/underline.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/results/text/underline.cpp' object='underline.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/results/text/underline.cpp' object='underline.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o underline.o `test -f 'gnu_gama/local/local/results/text/underline.cpp' || echo '$(srcdir)/'`gnu_gama/local/local/results/text/underline.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o underline.o `test -f 'gnu_gama/local/results/text/underline.cpp' || echo '$(srcdir)/'`gnu_gama/local/results/text/underline.cpp
 
-underline.obj: gnu_gama/local/local/results/text/underline.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT underline.obj -MD -MP -MF $(DEPDIR)/underline.Tpo -c -o underline.obj `if test -f 'gnu_gama/local/local/results/text/underline.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/results/text/underline.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/results/text/underline.cpp'; fi`
+underline.obj: gnu_gama/local/results/text/underline.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT underline.obj -MD -MP -MF $(DEPDIR)/underline.Tpo -c -o underline.obj `if test -f 'gnu_gama/local/results/text/underline.cpp'; then $(CYGPATH_W) 'gnu_gama/local/results/text/underline.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/results/text/underline.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/underline.Tpo $(DEPDIR)/underline.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/local/results/text/underline.cpp' object='underline.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gnu_gama/local/results/text/underline.cpp' object='underline.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o underline.obj `if test -f 'gnu_gama/local/local/results/text/underline.cpp'; then $(CYGPATH_W) 'gnu_gama/local/local/results/text/underline.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/local/results/text/underline.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o underline.obj `if test -f 'gnu_gama/local/results/text/underline.cpp'; then $(CYGPATH_W) 'gnu_gama/local/results/text/underline.cpp'; else $(CYGPATH_W) '$(srcdir)/gnu_gama/local/results/text/underline.cpp'; fi`
 
 observation.o: gnu_gama/local/observation.cpp
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT observation.o -MD -MP -MF $(DEPDIR)/observation.Tpo -c -o observation.o `test -f 'gnu_gama/local/observation.cpp' || echo '$(srcdir)/'`gnu_gama/local/observation.cpp
