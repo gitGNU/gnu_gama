@@ -1,23 +1,22 @@
-/*
-    GNU Gama -- adjustment of geodetic networks
-    Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
+/* GNU Gama -- adjustment of geodetic networks
+   Copyright (C) 1999, 2015  Ales Cepek <cepekgnu.org>
 
-    This file is part of the GNU Gama C++ library.
+   This file is part of the GNU Gama C++ library.
 
-    This library is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or
-    (at your option) any later version.
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation; either version 3 of the
+   License, or (at your option) any later version.
 
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this library; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+   You should have received a copy of the GNU General Public License
+   along with this library; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+   02110-1301 USA */
 
 #ifndef GaMa_GaMaProg_Pevne_Body_h_
 #define GaMa_GaMaProg_Pevne_Body_h_
@@ -35,16 +34,12 @@ void FixedPoints(GNU_gama::local::LocalNetwork* IS, OutStream& out)
   using namespace std;
   using namespace GNU_gama::local;
 
-  const int y_sign = GaMaConsistent(IS->PD) ? +1 : -1;
-
   int pocpevb=0, pocpevv=0;
-  {   // for ...
-    for (PointData::iterator i=IS->PD.begin(); i!=IS->PD.end(); ++i)
-      {
-        if ((*i).second.fixed_xy())  pocpevb++;
-        if ((*i).second.fixed_z()) pocpevv++;
-      }
-  }   // for ...
+  for (PointData::iterator i=IS->PD.begin(); i!=IS->PD.end(); ++i)
+    {
+      if ((*i).second.fixed_xy())  pocpevb++;
+      if ((*i).second.fixed_z()) pocpevv++;
+    }
   if (pocpevb == 0 && pocpevv == 0) return;
 
   out << T_GaMa_Review_of_fixed_points << "\n"
@@ -95,7 +90,7 @@ void FixedPoints(GNU_gama::local::LocalNetwork* IS, OutStream& out)
             out << (*i).second.x();
             out << "  ";
             out.width(13);
-            out << (*i).second.y()*y_sign;
+            out << (*i).second.y();
           }
         if ((*i).second.fixed_z())
           {

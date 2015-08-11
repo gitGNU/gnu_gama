@@ -37,12 +37,14 @@
 #include <gnu_gama/utf8.h>
 #include <algorithm>
 
+#if 1
 static float ResidualsObservations_N01(float x)   // local helper function
 {
    double D, f;
    GNU_gama::NormalDistribution(double(x), D, f);
    return D;
 }
+#endif
 
 
 /* *******************************************************************
@@ -253,6 +255,7 @@ void ResidualsObservations(GNU_gama::local::LocalNetwork* IS, OutStream& out)
         }
     }
 
+#if 1
   if (pocmer >= 30)
     {
       using namespace GNU_gama::local;
@@ -304,6 +307,7 @@ void ResidualsObservations(GNU_gama::local::LocalNetwork* IS, OutStream& out)
       out << "\n"
           << T_GaMa_resobs_condition_number << cond << "\n";
     }
+#endif
 
   out << "\n\n";
   out.flush();

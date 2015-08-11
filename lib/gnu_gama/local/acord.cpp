@@ -1,24 +1,22 @@
-/*
-    GNU Gama -- adjustment of geodetic networks
-    Copyright (C) 2001, 2012, 2013, 2014  Ales Cepek <cepek@gnu.org>
+/* GNU Gama -- adjustment of geodetic networks
+   Copyright (C) 2001, 2012, 2013, 2014, 2015  Ales Cepek <cepek@gnu.org>
 
-    This file is part of the GNU Gama C++ library.
+   This file is part of the GNU Gama C++ library.
 
-    This library is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or
-    (at your option) any later version.
+   This library is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 3 of the License, or
+   (at your option) any later version.
 
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this library; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-    MA  02110-1301  USA
-*/
+   You should have received a copy of the GNU General Public License
+   along with this library; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+   MA  02110-1301  USA */
 
 #include <gnu_gama/local/acord.h>
 #include <gnu_gama/local/orientation.h>
@@ -59,31 +57,21 @@ Acord::Acord(PointData& b, ObservationData& m)
          i=OD.begin(), e=OD.end(); i!=e; ++i, ++observations);
 
 
-  if (GaMaConsistent(PD)) return;
-
-  for (PointData::iterator ii=PD.begin(); ii!=PD.end(); ++ii)
+  if (!GaMaConsistent(PD))
     {
-      LocalPoint& p = (*ii).second;
-
-      if (p.test_xy()) p.set_xy(p.x(), -p.y());
-    }
-
-  for (ObservationData::ClusterList::iterator
-         ci=OD.clusters.begin(), ei=OD.clusters.end(); ci!=ei; ++ci)
-    {
-      ObservationData::ClusterType *cluster = *ci;
-      for (ObservationList::iterator
-             m = cluster->observation_list.begin(),
-             e = cluster->observation_list.end()  ; m!=e; ++m)
+      for (ObservationData::ClusterList::iterator
+             ci=OD.clusters.begin(), ei=OD.clusters.end(); ci!=ei; ++ci)
         {
-          Observation *obs = *m;
-          bool b = false;
-
-          if      (dynamic_cast<Y*>    (obs))  b = true;
-          else if (dynamic_cast<Ydiff*>(obs))  b = true;
-
-          if (b)  obs->set_value( -obs->value() );
-        }
+          ObservationData::ClusterType *cluster = *ci;
+          for (ObservationList::iterator
+                 m = cluster->observation_list.begin(),
+                 e = cluster->observation_list.end()  ; m!=e; ++m)
+            {
+              Observation *obs = *m;
+              if (obs->angular() && (dynamic_cast<Direction*>(obs) != nullptr))
+                obs->set_value( -obs->value() );
+            }
+    }
     }
 }
 
