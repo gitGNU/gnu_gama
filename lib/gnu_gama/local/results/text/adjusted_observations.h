@@ -93,7 +93,9 @@ public:
         out << T_GaMa_direction;
         out.precision(angularPrecision);
         out.width(maxval);
-        double m = R2G*(obs->value());
+        double m = R2G*(consistent? obs->value() : -obs->value());
+        while (m >= 400) m -= 400;
+        while (m <   0 ) m += 400;
         if (IS->gons())
             out << m << " ";
         else

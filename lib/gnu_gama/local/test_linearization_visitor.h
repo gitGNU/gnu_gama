@@ -1,7 +1,8 @@
 /* GNU Gama -- adjustment of geodetic networks
    Copyright (C) 1999, 2010  Ales Cepek <cepek@fsv.cvut.cz>
                  2011  Vaclav Petras <wenzeslaus@gmail.com>
-                 2012, 2013, 2014  Ales Cepek <cepek@gnu.org>
+                 2012, 2013, 2014, 2015  Ales Cepek <cepek@gnu.org>
+                 2012, 2013, 2014, 2015  Ales Cepek <cepek@gnu.org>
 
    This file is part of the GNU Gama C++ library.
 
@@ -32,13 +33,14 @@
 #include <gnu_gama/gon2deg.h>
 #include <gnu_gama/local/gamadata.h>
 #include <gnu_gama/local/network.h>
-#include <gnu_gama/local/pobs/bearing.h>
+#include <gnu_gama/local/bearing.h>
 #include <gnu_gama/local/results/text/underline.h>
 #include <gnu_gama/statan.h>
 #include <gnu_gama/utf8.h>
 #include <gnu_gama/visitor.h>
 #include <cmath>
 #include <algorithm>
+#include "network.h"
 
 
 namespace GNU_gama { namespace local {
@@ -50,6 +52,7 @@ private:
     GNU_gama::local::LocalNetwork* IS;
     const GNU_gama::local::Vec& v; ///< residuals
     const GNU_gama::local::Vec& x; ///< unknowns
+    const bool consistent;
     GNU_gama::Index i;
     double pol;
     double mer;
@@ -57,8 +60,8 @@ public:
     TestLinearizationVisitor(GNU_gama::local::LocalNetwork* localNetwork,
                              const GNU_gama::local::Vec& residuals,
                              const GNU_gama::local::Vec& unknowns)
-        : IS(localNetwork), v(residuals), x(unknowns)
-
+        : IS(localNetwork), v(residuals), x(unknowns),
+          consistent(IS->PD.consistent())
     {}
 
     /** \brief Sets index of observation which will be used in the
@@ -90,7 +93,12 @@ private:
         double cx;
         double cy;
         computeFromTo(pm, sx, sy, cx, cy);
-        GNU_gama::local::bearing_distance(sy, sx, cy, cx, ds, dd);
+        // GNU_gama::local::bearing_distance(sy, sx, cy, cx, ds, dd);
+        double dx = cx - sx;
+        double dy = cy - sy;
+        ds = bearing(dx, dy, IS->PD.consistent());
+        dd = std::sqrt(dx*dx + dy*dy);
+        // ...
     }
 
     void computeFromTo(const Observation* pm, double& sx, double& sy, double& cx, double& cy)
@@ -125,6 +133,7 @@ class TestLinearizationWriteVisitor : public AllObservationsVisitor
 private:
     OutStream& out;
     GNU_gama::local::LocalNetwork* IS;
+    const bool consistent;
     double dms;
     double mer;
 
@@ -134,7 +143,7 @@ private:
 public:
     TestLinearizationWriteVisitor(OutStream& outStream,
                                   GNU_gama::local::LocalNetwork* localNetwork)
-        : out(outStream), IS(localNetwork)
+        : out(outStream), IS(localNetwork), consistent(localNetwork->PD.consistent())
     {}
 
     ///* \brief Sets index of observation which will be used in the next visit. */
@@ -154,7 +163,9 @@ public:
       {
         dms = IS->degrees();
         out << T_GaMa_direction;
-        mer = (obs->value())*R2G;
+        mer = (consistent ? obs->value() : -obs->value())*R2G;
+        while (mer >= 400) mer -= 400;
+        while (mer < 0) mer += 400;
         out.precision(angularPrecision);
       }
     void visit(Angle* obs)

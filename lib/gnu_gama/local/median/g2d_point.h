@@ -1,7 +1,7 @@
 /*
     GNU Gama -- adjustment of geodetic networks
     Copyright (C) 1999  Jiri Vesely <vesely@gama.fsv.cvut.cz>
-                  2001  Ales Cepek  <cepek@fsv.cvut.cz>
+                  2001, 2015  Ales Cepek  <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library.
 
@@ -28,7 +28,7 @@
 #define gama_local_g2d_point_h__GNU_gama_local_Median_Pribl_b_H
 
 #include <gnu_gama/local/gamadata.h>
-#include <gnu_gama/local/pobs/bearing.h>
+#include <gnu_gama/local/bearing.h>
 #include <gnu_gama/local/median/g2d_exception.h>
 #include <gnu_gama/local/median/g2d_helper.h>
 
@@ -66,7 +66,7 @@ namespace GNU_gama { namespace local {
       Direction* makeBearing(const Angle* u, const PointID& cb)
         {
           PointID point = (u->to() == cb ? u->fs() : u->to());
-          Double sm = bearing(SB[u->from()],SB[point]);
+          Double sm = bearing(SB[u->from()],SB[point], SB.consistent());
           sm += (u->to() == cb ? -u->value() : u->value());
           sm += (sm < 0 ? 2*M_PI : 0);
           sm -= (sm >= 2*M_PI ? 2*M_PI : 0);

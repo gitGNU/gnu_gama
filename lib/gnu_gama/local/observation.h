@@ -515,6 +515,7 @@ namespace GNU_gama { namespace local {
 
     LocalNetwork* lnet;
     const double  scale;
+    const bool    consistent;
     void clear();
   };
 

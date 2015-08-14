@@ -1,6 +1,6 @@
 /*
     GNU Gama -- adjustment of geodetic networks
-    Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
+    Copyright (C) 1999, 2015  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library.
 
@@ -93,7 +93,7 @@ void Orientation::orientation(ObservationList::const_iterator& mer,
               double zn;
               try
                 {
-                  zn = bearing((*pa).second, (*pb).second);
+                  zn = bearing((*pa).second, (*pb).second, PL.consistent());
                 }
               catch (GNU_gama::local::Exception e)
                 {

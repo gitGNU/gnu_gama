@@ -2,7 +2,7 @@
     GNU Gama -- adjustment of geodetic networks
     Copyright (C) 2001  Ales Cepek <cepek@fsv.cvut.cz>,
                         Jan Pytel <jan.pytel@gmail.com>,
-                  2010, 2013  Ales Cepek <cepek@gnu.org>
+                  2010, 2013, 2015  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library.
 
@@ -23,7 +23,8 @@
 
 #include <gnu_gama/local/local_revision.h>
 #include <gnu_gama/local/local_linearization.h>
-#include <gnu_gama/local/pobs/bearing.h>
+#include <gnu_gama/local/bearing.h>
+#include "local_linearization.h"
 
 using namespace GNU_gama::local;
 using namespace std;
@@ -34,7 +35,7 @@ void LocalLinearization::direction(const Direction* obs) const
    LocalPoint& sbod = PD[obs->from()];
    LocalPoint& cbod = PD[obs->to()];
    Double s, d;
-   bearing_distance(sbod, cbod, s, d);
+   bearing_distance(sbod, cbod, PD.consistent(), s, d);
    // const Double p = m0 / obs->stdDev();
    const Double K = 10*R2G/d;
    const Double ps = K*sin(s);
@@ -43,14 +44,14 @@ void LocalLinearization::direction(const Direction* obs) const
    const StandPoint*  csp = static_cast<const StandPoint*>(obs->ptr_cluster());
    StandPoint* sp = const_cast<StandPoint*>(csp);
 
-   // Double w = p*p;                                       // weight
-   Double a = (obs->value() + sp->orientation() - s)*R2CC;  // rhs
+   // Double w = p*p;                                          // weight
+   double obsval = consistent ? obs->value() : -obs->value();
+   Double a = (obsval + sp->orientation() - s)*R2CC;
+   while (a >  200e4) a -= 400e4;
+   while (a < -200e4) a += 400e4;
+   rhs = a;                                                    // rhs in cc
 
-   while (a > 200e4)
-      a -= 400e4;
-   while (a < -200e4)
-      a += 400e4;
-   rhs = a;          // absolute termm is in cc
+   //std::cerr << "XXX " << std::fixed << a << " " << obsval << " " << sp->orientation() << " " << s << std::endl;
 
    size = 0;
    if (!sp->index_orientation()) sp->index_orientation(++maxn);
@@ -87,7 +88,7 @@ void LocalLinearization::distance(const Distance* obs) const
    LocalPoint& sbod = PD[obs->from()];
    LocalPoint& cbod = PD[obs->to()];
    Double s, d;
-   bearing_distance(PD[obs->from()], PD[obs->to()], s, d);
+   bearing_distance(PD[obs->from()], PD[obs->to()], PD.consistent(), s, d);
    // Double p = M_0 / stdDev();
    Double ps = sin(s);
    Double pc = cos(s);
@@ -429,8 +430,8 @@ void LocalLinearization::angle(const Angle* obs) const
    LocalPoint& cbod1 = PD[obs->bs()];
    LocalPoint& cbod2 = PD[obs->fs()];
    Double s1, d1, s2, d2;
-   bearing_distance(PD[obs->from()], PD[obs->bs()], s1, d1);
-   bearing_distance(PD[obs->from()], PD[obs->fs()], s2, d2);
+   bearing_distance(PD[obs->from()], PD[obs->bs()], PD.consistent(), s1, d1);
+   bearing_distance(PD[obs->from()], PD[obs->fs()], PD.consistent(), s2, d2);
    // Double p = m0 / obs->stdDev();
    const Double K1 = 10*R2G/d1;
    const Double K2 = 10*R2G/d2;
@@ -492,7 +493,7 @@ void LocalLinearization::azimuth(const Azimuth* obs) const
    LocalPoint& sbod = PD[obs->from()];
    LocalPoint& cbod = PD[obs->to()];
    Double s, d;
-   bearing_distance(sbod, cbod, s, d);
+   bearing_distance(sbod, cbod, PD.consistent(), s, d);
    const Double K = 10*R2G/d;
    const Double ps = K*sin(s);
    const Double pc = K*cos(s);

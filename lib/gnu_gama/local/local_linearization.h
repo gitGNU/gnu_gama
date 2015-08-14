@@ -2,7 +2,7 @@
     GNU Gama -- adjustment of geodetic networks
     Copyright (C) 2001, 2011  Ales Cepek <cepek@fsv.cvut.cz>
                   2011  Vaclav Petras <wenzeslaus@gmail.com>
-                  2013  Ales Cepek <cepek@gnu.org>
+                  2013, 2015  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library.
 
@@ -43,7 +43,7 @@ namespace GNU_gama { namespace local {
     public:
 
       LocalLinearization(PointData& pd, double m) 
-	: max_size(6), PD(pd), maxn(0) //, m0(m) ... unused
+	: max_size(6), PD(pd), consistent(pd.consistent()), maxn(0) //, m0(m) ... unused
       {}
 
       int  unknowns() const { return maxn; }
@@ -71,6 +71,7 @@ namespace GNU_gama { namespace local {
     private:
 
       PointData&           PD;
+      const bool           consistent;
       mutable int          maxn;
       // double               m0; ... unused
 

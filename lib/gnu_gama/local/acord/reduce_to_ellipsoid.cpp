@@ -1,6 +1,7 @@
 /*
     GNU Gama -- adjustment of geodetic networks
-    Copyright (C) 2004  Jan Pytel  <pytel@gama.fsv.cvut.cz>
+    Copyright (C) 2004  Jan Pytel  <pytel@gama.fsv.cvut.cz>,
+    2015 Aleš Čepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library.
 
@@ -20,7 +21,7 @@
 */
 
 #include <gnu_gama/local/acord/reduce_to_ellipsoid.h>
-#include <gnu_gama/local/pobs/bearing.h>
+#include <gnu_gama/local/bearing.h>
 #include <cmath>
 
 using namespace std;
@@ -132,8 +133,8 @@ bool ReduceToEllipsoid::reduce_z_angle_to_ellipsoid(Z_Angle* obs)
     if ( !p2.active_xy() || !p2.test_xy() || !p3.active_xy() || !p3.test_xy() )
         return false;
 
-    const double bearing21 = bearing(p2, EF.getCentralPoint());
-    const double bearing23 = bearing(p2, p3);
+    const double bearing21 = bearing(p2, EF.getCentralPoint(), PD.consistent());
+    const double bearing23 = bearing(p2, p3, PD.consistent());
 
     double correction = +EF.central_angle12(p2)*cos(bearing23 - bearing21);
                   //  = -EF.central_angle23(p2,p3)*cos(bearing23 - bearing21);
@@ -156,8 +157,8 @@ bool ReduceToEllipsoid::reduce_direction_to_ellipsoid(Direction* obs)
     if ( !p2.active_xy() || !p2.test_xy() || !p3.active_xy() || !p3.test_xy() )
         return false;
 
-    const double bearing21 = bearing(p2, EF.getCentralPoint());
-    const double bearing23 = bearing(p2, p3);
+    const double bearing21 = bearing(p2, EF.getCentralPoint(), PD.consistent());
+    const double bearing23 = bearing(p2, p3, PD.consistent());
 
     double zenithSum = 0;
     int zenithNum    = 0;

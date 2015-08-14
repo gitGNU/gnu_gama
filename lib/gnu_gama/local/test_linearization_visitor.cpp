@@ -23,7 +23,12 @@ void GNU_gama::local::TestLinearizationVisitor::visit(Angle* obs)
   double cy2 = cil2.y() + x(cil2.index_y())/1000;
   double cx2 = cil2.x() + x(cil2.index_x())/1000;
   double ds2, dd2;
-  GNU_gama::local::bearing_distance(sy, sx, cy2, cx2, ds2, dd2);
+  // GNU_gama::local::bearing_distance(sy, sx, cy2, cx2, ds2, dd2);
+  double dx = cx2 - sx;
+  double dy = cy2 - sy;
+  ds2 = GNU_gama::local::bearing(dx, dy, IS->PD.consistent());
+  dd2 = std::sqrt(dx*dx + dy*dy);
+  // ...
   mer = obs->value() + v(i)*CC2R - ds2 + ds;
   while (mer >  M_PI) mer -= 2*M_PI;
   while (mer < -M_PI) mer += 2*M_PI;
@@ -80,7 +85,8 @@ void GNU_gama::local::TestLinearizationVisitor::visit(Direction* obs)
   double ds, dd;
   computeBearingAndDistance(obs, ds, dd);
   double orp = obs->orientation();
-  mer = obs->value() + v(i)*CC2R + orp + x(obs->index_orientation())*CC2R;
+  double obsval = consistent ? obs->value() : -obs->value();
+  mer = obsval + v(i)*CC2R + orp + x(obs->index_orientation())*CC2R;
   mer -= ds;
   while (mer >  M_PI) mer -= 2*M_PI;
   while (mer < -M_PI) mer += 2*M_PI;

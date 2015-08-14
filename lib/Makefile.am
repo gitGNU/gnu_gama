@@ -94,6 +94,8 @@ libgama_src = \
    gnu_gama/xml/gkfparser.cpp \
    gnu_gama/xml/gkfparser.h \
    gnu_gama/local/angobs.h \
+   gnu_gama/local/bearing.h \
+   gnu_gama/local/bearing.cpp \
    gnu_gama/local/bpoint.h \
    gnu_gama/local/html.cpp \
    gnu_gama/local/html.h \
@@ -136,7 +138,6 @@ libgama_src = \
    gnu_gama/local/observation_local.cpp \
    gnu_gama/local/orientation.cpp \
    gnu_gama/local/orientation.h \
-   gnu_gama/local/pobs/bearing.h \
    gnu_gama/local/pobs/format.cpp \
    gnu_gama/local/pobs/format.h \
    gnu_gama/local/pobs/write.cpp \

@@ -1,7 +1,7 @@
 /*
     GNU Gama -- adjustment of geodetic networks
     Copyright (C) 1999  Jiri Vesely <vesely@gama.fsv.cvut.cz>
-                  2001, 2012, 2014  Ales Cepek  <cepek@gnu.org>
+                  2001, 2012, 2014, 2015  Ales Cepek  <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library.
 
@@ -38,7 +38,7 @@
 #include <gnu_gama/local/median/g2d_cogo.h>
 #include <gnu_gama/local/median/g2d_exception.h>
 #include <gnu_gama/local/median/g2d_helper.h>
-#include <gnu_gama/local/pobs/bearing.h>
+#include <gnu_gama/local/bearing.h>
 
 using namespace std;
 
@@ -307,7 +307,8 @@ namespace GNU_gama { namespace local {
         return;
       LocalPoint B1 = (*(SB->find(h2->bs()))).second;
       LocalPoint B2 = (*(SB->find(h2->fs()))).second;
-      Double uu = bearing(SD.solution_1(),B2) - bearing(SD.solution_1(),B1);
+      Double uu = bearing(SD.solution_1(),B2, SB->consistent())
+                - bearing(SD.solution_1(),B1, SB->consistent());
       uu += (uu < 0 ? 2*M_PI : 0);
       // uu should be equal to h2->value(), but ...  uu is either
       // value() or value()+-PI
@@ -318,7 +319,8 @@ namespace GNU_gama { namespace local {
         };
       if(SD.number_of_solutions() > 1)
         {
-          uu = bearing(SD.solution_2(),B2) - bearing(SD.solution_2(),B1);
+          uu = bearing(SD.solution_2(),B2, SB->consistent())
+             - bearing(SD.solution_2(),B1, SB->consistent());
           uu += (uu < 0 ? 2*M_PI : 0);
           if((uu < (h2->value()+0.1)) && (uu > (h2->value()-0.1)))
 	  { // added { to avoid dangling else 
@@ -388,7 +390,8 @@ namespace GNU_gama { namespace local {
         return;
       LocalPoint B1 = (*(SB->find(h2->bs()))).second;
       LocalPoint B2 = (*(SB->find(h2->fs()))).second;
-      Double uu = bearing(DD.solution_1(),B2) - bearing(DD.solution_1(),B1);
+      Double uu = bearing(DD.solution_1(),B2, SB->consistent())
+                - bearing(DD.solution_1(),B1, SB->consistent());
       uu += (uu < 0 ? 2*M_PI : 0);
       // uu should be equalto h2->value(), but ...  uu is either
       // value() or value()+-PI
@@ -399,7 +402,8 @@ namespace GNU_gama { namespace local {
         };
       if(DD.number_of_solutions() > 1)
         {
-          uu = bearing(DD.solution_2(),B2) - bearing(DD.solution_2(),B1);
+          uu = bearing(DD.solution_2(),B2, SB->consistent())
+             - bearing(DD.solution_2(),B1, SB->consistent());
           uu += (uu < 0 ? 2*M_PI : 0);
           if((uu < (h2->value()+0.1)) && (uu > (h2->value()-0.1)))
 	  { // added { to avoid dangling else 
@@ -474,8 +478,10 @@ namespace GNU_gama { namespace local {
       if(!(((B1.x()==DD.solution_1().x()) && (B1.y()==DD.solution_1().y())) ||
            ((B2.x()==DD.solution_1().x()) && (B2.y()==DD.solution_1().y()))))
         {
-          uu1 = bearing(DD.solution_1(),B2) - bearing(DD.solution_1(),B1);
-          uu2 = bearing(DD.solution_1(),B4) - bearing(DD.solution_1(),B3);
+          uu1 = bearing(DD.solution_1(),B2, SB->consistent())
+              - bearing(DD.solution_1(),B1, SB->consistent());
+          uu2 = bearing(DD.solution_1(),B4, SB->consistent())
+              - bearing(DD.solution_1(),B3, SB->consistent());
           uu1 += (uu1 < 0 ? 2*M_PI : 0);
           uu2 += (uu2 < 0 ? 2*M_PI : 0);
           // uu should be equal to h2->value(), but ...  uu is either
@@ -494,8 +500,10 @@ namespace GNU_gama { namespace local {
              ((B2.x()==DD.solution_2().x()) &&
               (B2.y()==DD.solution_2().y()))))
           {
-            uu1 = bearing(DD.solution_2(),B2) - bearing(DD.solution_2(),B1);
-            uu2 = bearing(DD.solution_2(),B4) - bearing(DD.solution_2(),B3);
+            uu1 = bearing(DD.solution_2(),B2, SB->consistent())
+                - bearing(DD.solution_2(),B1, SB->consistent());
+            uu2 = bearing(DD.solution_2(),B4, SB->consistent())
+                - bearing(DD.solution_2(),B3, SB->consistent());
             uu1 += (uu1 < 0 ? 2*M_PI : 0);
             uu2 += (uu2 < 0 ? 2*M_PI : 0);
             Vyhovuje1 = (uu1 < (h1->value()+0.1)) && (uu1 > (h1->value()-0.1));
@@ -549,7 +557,7 @@ namespace GNU_gama { namespace local {
       B1 = (*(SB->find(h1->bs()))).second;
       B2 = (*(SB->find(h1->fs()))).second;
       Double sm, d;
-      bearing_distance(B1,B2,sm,d);
+      bearing_distance(B1,B2,SB->consistent(),sm,d);
       if(d == 0)                     // identical points
         return;
       Double rr = d/sin(u)/2;

@@ -445,7 +445,7 @@ int main(int argc, char **argv)
 
     try
       {
-        if (!GaMaConsistent(IS->PD))
+        if (!IS->PD.consistent())
           {
             // cout << T_GaMa_inconsistent_coordinates_and_angles << "\n\n\n";
           }

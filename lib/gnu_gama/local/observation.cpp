@@ -23,6 +23,8 @@
 #include <gnu_gama/local/cluster.h>
 #include <gnu_gama/local/network.h>
 #include <gnu_gama/gon2deg.h>
+#include "observation.h"
+#include "network.h"
 
 namespace GNU_gama { namespace local
 {
@@ -87,7 +89,8 @@ int Direction::index_orientation() const
 // -------------------------------------------------------------------
 
 DisplayObservationVisitor::DisplayObservationVisitor(LocalNetwork* ln)
-  : lnet(ln), scale(ln->gons() ? 1.0 : 0.324)
+  : lnet(ln), scale(ln->gons() ? 1.0 : 0.324),
+    consistent(ln->PD.consistent())
 {
 }
 
@@ -107,7 +110,10 @@ void DisplayObservationVisitor::visit(Direction* obs)
   xml_name = "direction";
   str_from = obs->from().str();
   str_to   = obs->to().str();
-  double m = R2G*(obs->value());
+  double obsval = consistent ? obs->value() : -obs->value();
+  double m = R2G*obsval;
+  while (m >= 400) m -= 400;
+  while (m <   0 ) m += 400;
   if (lnet->gons())
     str_val =  std::to_string(m);
   else

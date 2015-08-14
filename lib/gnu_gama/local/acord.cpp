@@ -36,7 +36,6 @@ Acord::Acord(PointData& b, ObservationData& m)
     : PD(b), OD(m), RO(b,m)
 {
   missing_coordinates = false;
-  observations = 0;
   given_xy = given_z = given_xyz = 0;
   computed_xy = computed_z = computed_xyz = 0;
   total_xy = total_z = total_xyz = 0;
@@ -53,26 +52,9 @@ Acord::Acord(PointData& b, ObservationData& m)
       else if (hp)  given_z++,   set_z  .insert(c);
     }
 
+  observations = 0;
   for (ObservationData::const_iterator
          i=OD.begin(), e=OD.end(); i!=e; ++i, ++observations);
-
-
-  if (!GaMaConsistent(PD))
-    {
-      for (ObservationData::ClusterList::iterator
-             ci=OD.clusters.begin(), ei=OD.clusters.end(); ci!=ei; ++ci)
-        {
-          ObservationData::ClusterType *cluster = *ci;
-          for (ObservationList::iterator
-                 m = cluster->observation_list.begin(),
-                 e = cluster->observation_list.end()  ; m!=e; ++m)
-            {
-              Observation *obs = *m;
-              if (obs->angular() && (dynamic_cast<Direction*>(obs) != nullptr))
-                obs->set_value( -obs->value() );
-            }
-    }
-    }
 }
 
 void Acord::execute()

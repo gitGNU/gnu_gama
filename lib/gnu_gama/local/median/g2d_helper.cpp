@@ -1,7 +1,7 @@
 /*
     GNU Gama -- adjustment of geodetic networks
     Copyright (C) 1999  Jiri Vesely <vesely@gama.fsv.cvut.cz>
-                  2001  Ales Cepek  <cepek@fsv.cvut.cz>
+                  2001, 2015  Ales Cepek  <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library.
 
@@ -35,7 +35,7 @@
 
 
 #include <gnu_gama/local/median/g2d_helper.h>
-#include <gnu_gama/local/pobs/bearing.h>
+#include <gnu_gama/local/bearing.h>
 
 using namespace std;
 
@@ -85,8 +85,8 @@ void Select_solution_g2d::calculation()
               PB1 = (*(SB->find((*i)->from()))).second;
               tol1 = g2d_distance(B1,PB1);      // was  1/g2d_distance(...)
               tol2 = g2d_distance(B2,PB1);      // ...
-              delta1 = fabs((*i)->value() - bearing(PB1,B1));
-              delta2 = fabs((*i)->value() - bearing(PB1,B2));
+              delta1 = fabs((*i)->value() - bearing(PB1,B1, SB->consistent()));
+              delta2 = fabs((*i)->value() - bearing(PB1,B2, SB->consistent()));
             }
             break;
           case is_Angle :
@@ -94,8 +94,10 @@ void Select_solution_g2d::calculation()
               const Angle* u = dynamic_cast<const Angle*>(*i);
               PB1 = (*(SB->find(u->to()))).second;
               PB2 = (*(SB->find(u->fs()))).second;
-              Double uu1 = bearing(B1,PB2)-bearing(B1,PB1);
-              Double uu2 = bearing(B2,PB2)-bearing(B2,PB1);
+              Double uu1 = bearing(B1,PB2, SB->consistent())
+                          -bearing(B1,PB1, SB->consistent());
+              Double uu2 = bearing(B2,PB2, SB->consistent())
+                          -bearing(B2,PB1, SB->consistent());
               uu1 += (uu1 < 0 ? 2*M_PI : 0);
               uu2 += (uu2 < 0 ? 2*M_PI : 0);
               tol1 = (g2d_distance(B1,PB1)+g2d_distance(B1,PB2))/2;

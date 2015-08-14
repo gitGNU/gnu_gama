@@ -33,7 +33,7 @@
 
 #include <gnu_gama/gon2deg.h>
 #include <gnu_gama/local/observation.h>
-#include <gnu_gama/local/pobs/bearing.h>
+#include <gnu_gama/local/bearing.h>
 #include <gnu_gama/local/pobs/format.h>
 #include <iomanip>
 

@@ -2,7 +2,7 @@
     GNU Gama -- adjustment of geodetic networks
     Copyright (C) 1999  Ales Cepek <cepek@fsv.cvut.cz>
                   2011  Vaclav Petras <wenzeslaus@gmail.com>
-                  2013  Ales Cepek <cepek@gnu.org>
+                  2013, 2015  Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library.
 
@@ -38,6 +38,7 @@
 #include <gnu_gama/statan.h>
 #include <gnu_gama/gon2deg.h>
 #include <gnu_gama/utf8.h>
+#include "../../network.h"
 
 namespace GNU_gama { namespace local {
 
@@ -51,6 +52,7 @@ class OutlyingAbsoluteTermsVisitor : public AllObservationsVisitor
 private:
     OutStream& out;
     GNU_gama::local::LocalNetwork* IS;
+    const bool consistent;
     static const int width = 12;
     static const int distPrecision = 5;
     static const int angularPrecision = 6;
@@ -62,7 +64,7 @@ public:
      * \param outStream reference to output stream
      */
     OutlyingAbsoluteTermsVisitor(GNU_gama::local::LocalNetwork* localNetwork, OutStream& outStream)
-      : out(outStream), IS(localNetwork)
+      : out(outStream), IS(localNetwork), consistent(IS->PD.consistent())
     {}
 
     void  visit(Distance* obs)
@@ -79,7 +81,9 @@ public:
         out << T_GaMa_direction;
         out.precision(angularPrecision);
         out.width(width);
-        Double m = R2G*(obs->value());
+        Double m = R2G*(consistent ? obs->value() : -obs->value());
+        while (m >= 400) m -= 400;
+        while (m < 0) m += 400;
         if (IS->gons())
             out << m << " ";
         else
