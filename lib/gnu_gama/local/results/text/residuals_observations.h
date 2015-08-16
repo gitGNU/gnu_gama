@@ -208,7 +208,7 @@ void ResidualsObservations(GNU_gama::local::LocalNetwork* IS, OutStream& out)
 
           double sc = 1.0;
           if (dynamic_cast<Direction*>(pm))
-            sc = scale;
+            sc = IS->PD.consistent() ? scale : -scale;
           else if (dynamic_cast<Angle*>(pm))
             sc = scale;
           else if (dynamic_cast<Z_Angle*>(pm))
@@ -272,6 +272,10 @@ void ResidualsObservations(GNU_gama::local::LocalNetwork* IS, OutStream& out)
           for (int i=1; i<=pocmer; i++)
             {
               p = sqrt(IS->weight_obs(i))*v(i);
+
+              Observation* obs = IS->ptr_obs(i);
+              if (!IS->PD.consistent() && (dynamic_cast<Direction*>(obs) != nullptr)) p = -p;
+
               pv(i)  = p;
               pvvar += p*p;
               pvstr += p;

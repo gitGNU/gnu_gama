@@ -29,7 +29,9 @@ namespace GNU_gama { namespace local {
        if (dy == 0 && dx == 0)
           throw Exception(T_POBS_computation_of_bearing_for_identical_points);
 
-       double b = std::atan2(consistent ? dy : -dy, dx);
+       double b {};
+       if (consistent) b =  std::atan2( dy, dx);
+       else            b = -std::atan2(-dy, dx);
        return b >= 0 ? b : b + 2 * M_PI;
     }
 

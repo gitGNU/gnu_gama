@@ -31,7 +31,7 @@ double xyzMaxDiff(GNU_gama::local::LocalNetwork* lnet1,
   double maxdiff = 0;
 
   using namespace GNU_gama::local;
-  const int y_sign = GaMaConsistent(lnet1->PD) ? +1 : -1;
+  const int y_sign = lnet1->PD.consistent() ? +1 : -1;
   const Vec&    x1 = lnet1->solve();
   const Vec&    x2 = lnet2->solve();
 
@@ -152,7 +152,7 @@ GNU_gama::local::LocalNetwork* getNet(int alg, const char* file)
 
    try
       {
-        if (!GaMaConsistent(lnet->PD))
+        if (!lnet->PD.consistent())
           {
             // cout << T_GaMa_inconsistent_coordinates_and_angles << "\n\n\n";
           }

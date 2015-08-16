@@ -120,7 +120,7 @@ void Orientation::orientation(ObservationList::const_iterator& mer,
                 {
                   throw;
                 }
-              double sn = direction->value();
+              double sn = PL.consistent() ? direction->value() : -direction->value();
               double df = zn - sn;
               // if (df < 0) df += 2*M_PI;  ......  gnu_gama/local-1.1.13
               while (df > M_PI)
@@ -135,7 +135,7 @@ void Orientation::orientation(ObservationList::const_iterator& mer,
 
    Double l1 = 0;
    Float  d  = 0;          // mean deviation
-   int    n  = sz.size();
+   int    n  = int(sz.size());
 
    if (n)
    {
@@ -154,7 +154,7 @@ void Orientation::orientation(ObservationList::const_iterator& mer,
    }
 
    z = l1;
-   dir_count = n;
+   dir_count = int(n);
    return;
 }
 

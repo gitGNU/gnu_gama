@@ -93,7 +93,7 @@ public:
         out << T_GaMa_direction;
         out.precision(angularPrecision);
         out.width(maxval);
-        double m = R2G*(consistent? obs->value() : -obs->value());
+        double m = R2G*obs->value();
         while (m >= 400) m -= 400;
         while (m <   0 ) m += 400;
         if (IS->gons())
@@ -101,7 +101,7 @@ public:
         else
             out << GNU_gama::gon2deg(m, 0, 2) << " ";
         out.width(maxval);
-        m += v(i)/10000;
+        m += consistent ? v(i)/10000 : -v(i)/10000;
         if (m < 0) m += 400;
         if (m >= 400) m -= 400;
         if (IS->gons())

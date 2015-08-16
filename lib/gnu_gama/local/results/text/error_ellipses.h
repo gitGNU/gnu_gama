@@ -36,8 +36,6 @@ void ErrorEllipses(GNU_gama::local::LocalNetwork* IS, OutStream& out)
    using namespace GNU_gama::local;
    using GNU_gama::local::Double;
 
-  const int y_sign = GaMaConsistent(IS->PD) ? +1 : -1;
-
    const Vec& x = IS->solve();
    Double elp_k = 0;
    {
@@ -133,6 +131,7 @@ void ErrorEllipses(GNU_gama::local::LocalNetwork* IS, OutStream& out)
                //   {
                //     // 1.7.10 alfa = 2*M_PI - alfa;
                //   }
+               if (!IS->PD.consistent()) alfa = M_PI - alfa;
                out.width(7);
                if (a < 1000)
                  out.setf(ios_base::fixed, ios_base::floatfield);
@@ -170,7 +169,7 @@ void ErrorEllipses(GNU_gama::local::LocalNetwork* IS, OutStream& out)
 
                    Double g  = 0;
                    Double dx = x( p.index_x() );
-                   Double dy = y_sign*x( p.index_y() );
+                   Double dy = x( p.index_y() );
                    Double p1 = (dx*cos(alfa) + dy*sin(alfa));
                    Double p2 = (dy*cos(alfa) - dx*sin(alfa));
                    if (ak > 0 && bk > 0 && bk > ak*1e-4)

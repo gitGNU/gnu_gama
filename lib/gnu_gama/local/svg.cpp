@@ -36,7 +36,7 @@ using namespace GNU_gama::local;
 
 GamaLocalSVG::GamaLocalSVG(LocalNetwork* is)
   : IS(*is), PD(is->PD), OD(is->OD),
-    ysign(GaMaConsistent(PD) ? +1 : -1)
+    ysign(PD.consistent() ? +1 : -1)
 {
   restoreDefaults();
 }

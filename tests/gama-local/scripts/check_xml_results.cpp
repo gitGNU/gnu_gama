@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
     double maxdiffxyz = 0;
 
     const GNU_gama::local::Vec& x = lnet->solve();
-    const int y_sign = GaMaConsistent(lnet->PD) ? +1 : -1;
+    const int y_sign = lnet->PD.consistent() ? +1 : -1;
 
     for (size_t i=0; i<adjres->adjusted_points.size(); i++)
       {
