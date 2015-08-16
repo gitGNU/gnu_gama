@@ -80,13 +80,13 @@ private:
     const int angular;
     const GNU_gama::local::Vec& v;
     GNU_gama::Index i;
-    const int y_sign;
+    const bool consistent;
 public:
     WriteXMLVisitor(std::ostream& outStream, int linearOutputPrecision, int angularOutputPrecision,
-                    const GNU_gama::local::Vec& residuals, int ySign)
+                    const GNU_gama::local::Vec& residuals,  bool isConsistent)
         : out(outStream), ostr(&outStream),
           linear(linearOutputPrecision), angular(angularOutputPrecision),
-          v(residuals), y_sign(ySign)
+          v(residuals), consistent(isConsistent)
     {
     }
 
@@ -115,7 +115,7 @@ public:
       ostr->precision(angular);
       double m = R2G*(obs->value());
       *ostr << " <obs>" << m << "</obs>";
-      m += v(i)/10000;
+      m += consistent ? v(i)/10000 : -v(i)/10000;
       if (m < 0) m += 400;
       if (m >= 400) m -= 400;
       *ostr << " <adj>" <<  m << "</adj>";
@@ -186,9 +186,9 @@ public:
       out << "<" << (tag="coordinate-y") << ">";
       ostr->precision(linear);
       double m = obs->value();
-      *ostr << " <obs>" << y_sign*m << "</obs>";
+      *ostr << " <obs>" << m << "</obs>";
       m += v(i)/1000;
-      *ostr << " <adj>" << y_sign*m << "</adj>";
+      *ostr << " <adj>" << m << "</adj>";
 
       tag_id(obs);
     }
@@ -219,9 +219,9 @@ public:
       out << "<" << (tag="dy") << ">";
       ostr->precision(linear);
       double m = obs->value();
-      *ostr << " <obs>" << y_sign*m << "</obs>";
+      *ostr << " <obs>" << m << "</obs>";
       m += v(i)/1000;
-      *ostr << " <adj>" << y_sign*m << "</adj>";
+      *ostr << " <adj>" << m << "</adj>";
 
       tag_from_to(obs);
     }
@@ -549,8 +549,6 @@ void LocalNetworkXML::std_dev_summary(std::ostream& out) const
 
 void LocalNetworkXML::coordinates(std::ostream& out) const
 {
-  const int y_sign = netinfo->PD.consistent() ? +1 : -1;
-
   out << "\n<coordinates>\n";
 
   out.setf(ios_base::fixed, ios_base::floatfield);
@@ -576,7 +574,7 @@ void LocalNetworkXML::coordinates(std::ostream& out) const
       if (bxy)
         {
           const double x = p.x();
-          const double y = p.y()*y_sign;
+          const double y = p.y();
           tagsp(out, "x", x);
           tagsp(out, "y", y);
         }
@@ -613,7 +611,7 @@ void LocalNetworkXML::coordinates(std::ostream& out) const
               cy = "Y";
             }
           const double x = p.x();
-          const double y = p.y()*y_sign;
+          const double y = p.y();
           tagsp(out, cx, x);
           tagsp(out, cy, y);
         }
@@ -657,7 +655,7 @@ void LocalNetworkXML::coordinates(std::ostream& out) const
               cy = "Y";
             }
           const double x = (p.x()+X(p.index_x())/1000);
-          const double y = (p.y()+X(p.index_y())/1000)*y_sign;
+          const double y = (p.y()+X(p.index_y())/1000);
           tagsp(out, cx, x);
           tagsp(out, cy, y);
           ind[++dim] = p.index_x();
@@ -796,7 +794,6 @@ void LocalNetworkXML::observations(std::ostream& out) const
    using namespace std;
    // using namespace GNU_gama::local;
 
-   const int      y_sign = netinfo->PD.consistent() ? +1 : -1;
    const GNU_gama::local::Vec& v = netinfo->residuals();
    const int      pocmer = netinfo->sum_observations();
    const double   scale  = netinfo->gons() ? 1.0 : 0.324;
@@ -806,7 +803,7 @@ void LocalNetworkXML::observations(std::ostream& out) const
    const int angular =  make_check_precision(7);    // output precision
 
 
-   WriteXMLVisitor writeVisitor(out, linear, angular, v, y_sign);
+   WriteXMLVisitor writeVisitor(out, linear, angular, v, netinfo->PD.consistent());
 
    PointID predcs = "";   // provious standpoint ID
    for (int i=1; i<=pocmer; i++)
@@ -831,15 +828,16 @@ void LocalNetworkXML::observations(std::ostream& out) const
 
        double ml = netinfo->stdev_obs(i);
 
+       double sc=1.0;
        if (dynamic_cast<Direction*>(pm))
-         ml *= scale;
+         sc = netinfo->PD.consistent() ? scale : -scale;
        else if (dynamic_cast<Angle*>(pm))
-         ml *= scale;
+         sc = scale;
        else if (dynamic_cast<Z_Angle*>(pm))
-         ml *= scale;
+         sc = scale;
 
        out.precision(make_check_precision(3));
-       out << " <stdev>" << ml << "</stdev>\n";
+       out << " <stdev>" << ml*scale << "</stdev>\n";
        out.precision(3);
 
        // weight coefficient of the residual
@@ -849,7 +847,6 @@ void LocalNetworkXML::observations(std::ostream& out) const
        double f = netinfo->obs_control(i);
        out << " <f>" << f << "</f>";
 
-       double sc=scale;
        if (f >= 0.1)
          {
            using namespace std;

@@ -1,5 +1,5 @@
 /* GNU Gama -- testing adjustment results from different algorithms
-   Copyright (C) 2012, 2014  Ales Cepek <cepek@gnu.org>
+   Copyright (C) 2012, 2014, 2015  Ales Cepek <cepek@gnu.org>
 
    This file is part of the GNU Gama C++ library.
 
@@ -61,7 +61,6 @@ int main(int argc, char* argv[])
     double maxdiffxyz = 0;
 
     const GNU_gama::local::Vec& x = lnet->solve();
-    const int y_sign = lnet->PD.consistent() ? +1 : -1;
 
     for (size_t i=0; i<adjres->adjusted_points.size(); i++)
       {
@@ -72,7 +71,7 @@ int main(int argc, char* argv[])
         if (A.indx && A.indy && P.index_x() && P.index_y())
           {
             double adj_x = P.x()+x(P.index_x())/1000;
-            double adj_y = y_sign*(P.y()+x(P.index_y())/1000);
+            double adj_y = P.y()+x(P.index_y())/1000;
 
             double dx = adj_x - A.x;
             if (std::abs(dx) > std::abs(maxdiffxyz)) maxdiffxyz = dx;
@@ -173,7 +172,10 @@ int main(int argc, char* argv[])
             double dy = F.y() - T.y();
             double D  = std::sqrt(dx*dx + dy*dy);
 
-            double p = obs->value()*R2G + r(i+1)/10000;
+            double t = 1.0;
+            if (!lnet->PD.consistent() && A.xml_tag == "direction") t = -1.0;
+            double p = obs->value()*R2G + t*r(i+1)/10000;
+
             while (p >= 400) p -= 400;
             while (p  <  0 ) p += 400;
             double q = A.adj;

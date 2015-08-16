@@ -1,0 +1,90 @@
+<?xml version="1.0" ?>
+
+<!-- this file was created by gamawed 0.02 -->
+
+<gama-local xmlns="http://www.gnu.org/software/gama/gama-local">
+<network axes-xy="en" angles="left-handed">
+
+<description>
+Example of inconsistent coordinates and angles by Reza Ghoddousi-Fard
+</description>
+
+<parameters
+   sigma-apr = "10.0"
+   conf-pr   = "0.95"
+   tol-abs   = "1000.0"
+   sigma-act = "aposteriori"
+/>
+
+<points-observations>
+
+<point id="s1" x = "1245.6615" y = "564.1391" adj = "XY" />
+<point id="s2" x = "965.2758"  y = "147.2527" adj = "XY" />
+<point id="s3" x = "845.1657"  y = "827.7976" adj = "XY" />
+<point id="s4" x = "668.5546"  y = "263.0875" adj = "XY" />
+<point id="s5" x = "279.5796"  y = "682.8368" adj = "XY" />
+<point id="s6" x = "307.6384"  y = "269.7137" adj = "XY" />
+
+<obs from = "s1">
+<direction to = "s2" val ="0.000000" stdev = "0.70" />
+<direction to = "s4" val ="31.697272" stdev = "0.70" />
+<direction to = "s6" val ="42.944778" stdev = "0.70" />
+<direction to = "s5" val ="70.089781" stdev = "0.70" />
+<direction to = "s3" val ="99.371895" stdev = "0.70" />
+<distance from = "s1" to = "s3" val ="479.4903" stdev = "0.20" />
+<distance from = "s1" to = "s5" val ="973.3437" stdev = "0.20" />
+<distance from = "s1" to = "s6" val ="983.1419" stdev = "0.20" />
+<distance from = "s1" to = "s2" val ="502.4023" stdev = "0.20" />
+<distance from = "s1" to = "s4" val ="650.9058" stdev = "0.20" />
+</obs>
+
+<obs from = "s2">
+<direction to = "s4" val ="0.000000" stdev = "0.70" />
+<direction to = "s5" val ="18.518960" stdev = "0.70" />
+<direction to = "s3" val ="65.183762" stdev = "0.70" />
+<direction to = "s1" val ="113.998034" stdev = "0.70" />
+<distance from = "s2" to = "s3" val ="691.0610" stdev = "0.20" />
+<distance from = "s2" to = "s5" val ="870.0721" stdev = "0.20" />
+<distance from = "s2" to = "s4" val ="318.5303" stdev = "0.20" />
+</obs>
+
+<obs from = "s3">
+<direction to = "s1" val ="0.000000" stdev = "0.70" />
+<direction to = "s2" val ="51.813951" stdev = "0.70" />
+<direction to = "s4" val ="82.231880" stdev = "0.70" />
+<direction to = "s6" val ="111.740852" stdev = "0.70" />
+<direction to = "s5" val ="146.962472" stdev = "0.70" />
+<distance from = "s3" to = "s4" val ="591.6779" stdev = "0.20" />
+<distance from = "s3" to = "s6" val ="774.8489" stdev = "0.20" />
+<distance from = "s3" to = "s5" val ="583.8668" stdev = "0.20" />
+</obs>
+
+<obs from = "s4">
+<direction to = "s5" val ="0.000000" stdev = "0.70" />
+<direction to = "s3" val ="66.875719" stdev = "0.70" />
+<direction to = "s1" val ="116.969225" stdev = "0.70" />
+<direction to = "s2" val ="171.273861" stdev = "0.70" />
+<distance from = "s4" to = "s5" val ="572.2641" stdev = "0.20" />
+<distance from = "s4" to = "s6" val ="360.9761" stdev = "0.20" />
+</obs>
+
+<obs from = "s5">
+<direction to = "s3" val ="0.000000" stdev = "0.70" />
+<direction to = "s1" val ="23.755682" stdev = "0.70" />
+<direction to = "s2" val ="58.187080" stdev = "0.70" />
+<direction to = "s4" val ="68.394012" stdev = "0.70" />
+<direction to = "s6" val ="111.655849" stdev = "0.70" />
+<distance from = "s5" to = "s6" val ="414.0729" stdev = "0.20" />
+</obs>
+
+<obs from = "s6">
+<direction to = "s5" val ="0.000000" stdev = "0.70" />
+<direction to = "s3" val ="53.123142" stdev = "0.70" />
+<direction to = "s1" val ="84.955241" stdev = "0.70" />
+<direction to = "s4" val ="105.485275" stdev = "0.70" />
+</obs>
+
+</points-observations>
+
+</network>
+</gama-local>
