@@ -303,7 +303,9 @@ private:
   void angular()
   {
     double val = R2G*obs->value();
-    double adj = val + lnet->residuals()(index)/10000;
+    double s = 1.0;
+    if (!lnet->PD.consistent() && (dynamic_cast<Direction*>(obs) != nullptr )) s = -1.0;
+    double adj = val + lnet->residuals()(index)/10000*s;
     if (adj < 0) adj += 400;
     if (adj >= 400) adj -= 400;
     if (lnet->gons())
@@ -1055,8 +1057,6 @@ void GamaLocalHTML::htmlUnknowns()
     using namespace std;
     using namespace GNU_gama::local;
 
-    const int y_sign = lnet->PD.consistent() ? +1 : -1;
-
     const Vec& x = lnet->solve();
     double kki = lnet->conf_int_coef();
     const int pocnez = lnet->sum_unknowns();
@@ -1136,9 +1136,9 @@ void GamaLocalHTML::htmlUnknowns()
                   out << tdRight("Y") << tdRight("*");
                 else
                   out << tdRight("y") << tdRight("");
-                double adj_y = y_sign*(b.y()+x(b.index_y())/1000);
-                out << tdRight(y_sign*b.y_0(), 'F', 5, 2,2);
-                out << tdRight(adj_y - y_sign*b.y_0(), 'F',5, 2,2);
+                double adj_y = b.y()+x(b.index_y())/1000;
+                out << tdRight(b.y_0(), 'F', 5, 2,2);
+                out << tdRight(adj_y - b.y_0(), 'F',5, 2,2);
                 out << tdRight(adj_y, 'F', 5, 2,2);
                 out << tdRight(my, 'F', 1, 2,2);
                 out << tdRight(my*kki, 'F', 1, 2,2+4);
@@ -1225,7 +1225,7 @@ void GamaLocalHTML::htmlUnknowns()
             {
               const PointID cb = lnet->unknown_pointid(i);
               StandPoint* k = lnet->unknown_standpoint(i);
-              double z = y_sign*( k->orientation() )*R2G;
+              double z = ( k->orientation() )*R2G;
               if (z <  0 ) z += 400;
               if (z > 400) z -= 400;
 
@@ -1237,7 +1237,7 @@ void GamaLocalHTML::htmlUnknowns()
               else
                 out << tdRight(GNU_gama::gon2deg(z, 0, 2),4,2);
 
-              double cor = y_sign*x(i)/10000;
+              double cor = x(i)/10000;
               if (lnet->gons())
                 out << tdRight(cor, 'F', 6, 2,2);
               else
@@ -1407,6 +1407,7 @@ void GamaLocalHTML::htmlUnknowns()
 
                 double a, b, alfa;
                 lnet->std_error_ellipse(point_id, a, b, alfa);
+                if (!lnet->PD.consistent()) alfa = M_PI - alfa;
                 out << tdRight(a, (a<1000 ? 'F' : 'E'), 1, Nell, Nell);
                 out << tdRight(b, (b<1000 ? 'F' : 'E'), 1, Nell, Nell);
                 double ea = alfa*R2G;

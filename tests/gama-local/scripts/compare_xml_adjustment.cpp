@@ -1,5 +1,5 @@
 /* GNU Gama -- testing adjustment results from different algorithms
-   Copyright (C) 2012, 2014  Ales Cepek <cepek@gnu.org>
+   Copyright (C) 2012, 2014, 2015  Ales Cepek <cepek@gnu.org>
 
    This file is part of the GNU Gama C++ library.
 
@@ -421,16 +421,18 @@ int compare_xml_adjustment(GNU_gama::LocalNetworkAdjustmentResults* html,
           if (std::abs(d) > std::abs(dcov)) dcov = d;
         }
 
-    std::cout << "         cov. matrix band   "
-              << std::scientific << std::setprecision(3) << std::setw(11)
-              << 100*dcov/dmax << " [%] ";
-    if (std::abs(dcov)/dmax < covmat_tol)
-      std::cout << "passed\n";
-    else
-      {
+    if (dmax > 1) {   // test ignored for standard deviation bellow 1 mm
+      std::cout << "         cov. matrix band   "
+                << std::scientific << std::setprecision(3) << std::setw(11)
+                << 100*dcov/dmax << " [%] ";
+
+      if (std::abs(dcov) / dmax < covmat_tol)
+        std::cout << "passed\n";
+      else {
         std::cout << "failed\n";
         rcoord = 1;
       }
+    }
    } // covariance band
 
 
