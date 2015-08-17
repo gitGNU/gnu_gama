@@ -34,6 +34,7 @@
 #include <set>
 
 #include <gnu_gama/local/network.h>
+#include <gnu_gama/local/display_observation_visitor.h>
 #include <gnu_gama/local/local_linearization.h>
 #include <gnu_gama/local/itstream.h>
 #include <gnu_gama/local/skipcomm.h>

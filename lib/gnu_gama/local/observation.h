@@ -477,49 +477,6 @@ namespace GNU_gama { namespace local {
   {
   };
 
-
-  /** \brief Helper class for printing observational data.
-   */
-
-  class LocalNetwork;
-
-  class DisplayObservationVisitor final : public AllObservationsVisitor
-  {
-  public:
-
-    DisplayObservationVisitor(LocalNetwork* ln);
-
-    std::string xml_name;
-    std::string str_val;
-    std::string str_stdev;
-    std::string str_from;
-    std::string str_to;
-    std::string str_bs;
-    std::string str_fs;
-
-    void visit(Distance* obs);
-    void visit(Direction* obs);
-    void visit(Angle* obs);
-    void visit(H_Diff* obs);
-    void visit(S_Distance* obs);
-    void visit(Z_Angle* obs);
-    void visit(X* obs);
-    void visit(Y* obs);
-    void visit(Z* obs);
-    void visit(Xdiff* obs);
-    void visit(Ydiff* obs);
-    void visit(Zdiff* obs);
-    void visit(Azimuth* obs);
-
-  private:
-
-    LocalNetwork* lnet;
-    const double  scale;
-    const bool    consistent;
-    void clear();
-  };
-
-
 }}   // namespace GNU_gama::local
 
 #endif

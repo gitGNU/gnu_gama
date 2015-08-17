@@ -117,6 +117,8 @@ libgama_src = \
    gnu_gama/local/acord/reduce_observations.h \
    gnu_gama/local/acord/reduce_to_ellipsoid.cpp \
    gnu_gama/local/acord/reduce_to_ellipsoid.h \
+   gnu_gama/local/display_observation_visitor.cpp \
+   gnu_gama/local/display_observation_visitor.h \
    gnu_gama/local/gamadata.cpp \
    gnu_gama/local/gamadata.h \
    gnu_gama/local/lcoords.h \
