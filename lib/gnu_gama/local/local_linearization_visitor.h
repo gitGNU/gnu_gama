@@ -37,12 +37,12 @@
 namespace GNU_gama { namespace local {
 
   /** Local linearization class implemented as a visitor. */
-  class LocalLinearization : public AllObservationsVisitor
+  class LocalLinearizationVisitor : public AllObservationsVisitor
     {
 
     public:
 
-      LocalLinearization(PointData& pd, double m) 
+      LocalLinearizationVisitor(PointData& pd, double m) 
 	: max_size(6), PD(pd), consistent(pd.consistent()), maxn(0) //, m0(m) ... unused
       {}
 

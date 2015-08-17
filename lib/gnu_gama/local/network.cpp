@@ -35,7 +35,7 @@
 
 #include <gnu_gama/local/network.h>
 #include <gnu_gama/local/display_observation_visitor.h>
-#include <gnu_gama/local/local_linearization.h>
+#include <gnu_gama/local/local_linearization_visitor.h>
 #include <gnu_gama/local/itstream.h>
 #include <gnu_gama/local/skipcomm.h>
 #include <gnu_gama/statan.h>
@@ -523,7 +523,7 @@ void LocalNetwork::project_equations()
       standpoint->index_orientation(0);
 
   {
-    LocalLinearization  loclin(PD, m_0_apr_);
+    LocalLinearizationVisitor  loclin(PD, m_0_apr_);
 
     const size_t  V = pocmer_;               // vectors
     const size_t  M = V * loclin.max_size;   // reserved memory

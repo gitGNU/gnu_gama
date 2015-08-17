@@ -122,7 +122,8 @@ libgama_src = \
    gnu_gama/local/gamadata.cpp \
    gnu_gama/local/gamadata.h \
    gnu_gama/local/lcoords.h \
-   gnu_gama/local/local_linearization.h \
+   gnu_gama/local/local_linearization_visitor.cpp \
+   gnu_gama/local/local_linearization_visitor.h \
    gnu_gama/local/localnetwork2sql.cpp \
    gnu_gama/local/localnetwork2sql.h \
    gnu_gama/local/lpoint.h \
