@@ -23,8 +23,6 @@
 #include <gnu_gama/local/cluster.h>
 #include <gnu_gama/local/network.h>
 #include <gnu_gama/gon2deg.h>
-#include "observation.h"
-#include "network.h"
 
 namespace GNU_gama { namespace local
 {

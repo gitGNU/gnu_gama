@@ -26,7 +26,7 @@
 
 #include <string>
 
-#include "gnu_gama/exception.h"
+#include <gnu_gama/exception.h>
 
 /**
   \file sqlitereader.h

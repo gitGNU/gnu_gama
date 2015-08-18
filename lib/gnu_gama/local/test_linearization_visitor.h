@@ -40,7 +40,6 @@
 #include <gnu_gama/visitor.h>
 #include <cmath>
 #include <algorithm>
-#include "network.h"
 
 
 namespace GNU_gama { namespace local {
@@ -86,41 +85,8 @@ public:
     void visit(Azimuth*);
 
 private:
-    void computeBearingAndDistance(const Observation* pm, double& ds, double& dd)
-    {
-        double sx;
-        double sy;
-        double cx;
-        double cy;
-        computeFromTo(pm, sx, sy, cx, cy);
-        // GNU_gama::local::bearing_distance(sy, sx, cy, cx, ds, dd);
-        double dx = cx - sx;
-        double dy = cy - sy;
-        ds = bearing(dx, dy, IS->PD.consistent());
-        dd = std::sqrt(dx*dx + dy*dy);
-        // ...
-    }
-
-    void computeFromTo(const Observation* pm, double& sx, double& sy, double& cx, double& cy)
-    {
-        const LocalPoint& stan = IS->PD[pm->from()];
-        const LocalPoint& cil  = IS->PD[pm->to() ];
-        sy = stan.y();
-        sx = stan.x();
-        if (stan.free_xy())
-          {
-            sy += x(stan.index_y())/1000;
-            sx += x(stan.index_x())/1000;
-          }
-        cy = cil .y();
-        cx = cil .x();
-        if (cil.free_xy())
-          {
-            cy += x(cil .index_y())/1000;
-            cx += x(cil .index_x())/1000;
-          }
-    }
-
+    void computeBearingAndDistance(const Observation* pm, double& ds, double& dd);
+    void computeFromTo(const Observation* pm, double& sx, double& sy, double& cx, double& cy);
 };
 
 /** \brief Writes observation name and gets values of observation value.

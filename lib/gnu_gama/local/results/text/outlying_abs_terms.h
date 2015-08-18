@@ -38,7 +38,6 @@
 #include <gnu_gama/statan.h>
 #include <gnu_gama/gon2deg.h>
 #include <gnu_gama/utf8.h>
-#include "../../network.h"
 
 namespace GNU_gama { namespace local {
 

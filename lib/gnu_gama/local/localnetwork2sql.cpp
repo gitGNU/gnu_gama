@@ -21,7 +21,7 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  $
 */
 
-#include "localnetwork2sql.h"
+#include <gnu_gama/local/localnetwork2sql.h>
 #include <gnu_gama/xml/gkfparser.h>
 #include <gnu_gama/local/gamadata.h>
 #include <gnu_gama/version.h>

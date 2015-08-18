@@ -23,7 +23,7 @@
 
 #include <gnu_gama/local/local_revision_visitor.h>
 #include <gnu_gama/local/bearing.h>
-#include "local_linearization_visitor.h"
+#include <gnu_gama/local/local_linearization_visitor.h>
 
 using namespace GNU_gama::local;
 using namespace std;
