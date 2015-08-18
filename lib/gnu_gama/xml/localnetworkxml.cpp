@@ -64,7 +64,6 @@ namespace
 {
   // maximal possible precision needed by 'make check' test rule
   int make_check_precision(int) { return 16; }
-}
 
 /** \brief Writes observations XML representation to stream.
  *
@@ -262,6 +261,8 @@ public:
     }
 
 };
+
+}   // unnamed namespace
 
 
 void LocalNetworkXML::write(std::ostream& out) const

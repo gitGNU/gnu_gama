@@ -53,7 +53,7 @@ typedef GNU_gama::Cluster<Observation>                  Clust_r;  // 1.10
 namespace
 {
   const char* UNKNOWN_ALGORITHM="### network.cpp : unknown algorithm ###";
-}
+
 
 /** \brief %Visitor for absolute term testing.
  *
@@ -204,7 +204,7 @@ private:
     }
 };
 
-
+}   // unnamed namespace
 
 //##########################################################################
 
