@@ -21,8 +21,7 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <gnu_gama/local/local_revision.h>
-#include <gnu_gama/local/local_linearization_visitor.h>
+#include <gnu_gama/local/local_revision_visitor.h>
 #include <gnu_gama/local/bearing.h>
 #include "local_linearization_visitor.h"
 

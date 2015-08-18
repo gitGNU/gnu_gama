@@ -32,7 +32,7 @@
 #include <gnu_gama/adj/adj_basefull.h>
 #include <gnu_gama/adj/adj_basesparse.h>
 #include <gnu_gama/local/cluster.h>
-#include <gnu_gama/local/local_revision.h>
+#include <gnu_gama/local/local_revision_visitor.h>
 #include <gnu_gama/sparse/smatrix.h>
 #include <gnu_gama/adj/adj.h>
 

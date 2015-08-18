@@ -138,7 +138,6 @@ libgama_src = \
    gnu_gama/local/median/g2d_point.h \
    gnu_gama/local/network.cpp \
    gnu_gama/local/network.h \
-   gnu_gama/local/observation_local.cpp \
    gnu_gama/local/orientation.cpp \
    gnu_gama/local/orientation.h \
    gnu_gama/local/pobs/format.cpp \
@@ -159,7 +158,8 @@ libgama_src = \
    gnu_gama/local/results/text/underline.h \
    gnu_gama/local/test_linearization_visitor.cpp \
    gnu_gama/local/test_linearization_visitor.h \
-   gnu_gama/local/local_revision.h \
+   gnu_gama/local/local_revision_visitor.cpp \
+   gnu_gama/local/local_revision_visitor.h \
    gnu_gama/local/matvec.h \
    gnu_gama/local/medianf.h \
    gnu_gama/local/observation.cpp \
