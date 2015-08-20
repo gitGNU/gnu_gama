@@ -38,7 +38,7 @@
 #include <algorithm>
 
 #if 1
-static float ResidualsObservations_N01(float x)   // local helper function
+static float residualsObservations_N01(float x)   // local helper function
 {
    double D, f;
    GNU_gama::NormalDistribution(double(x), D, f);
@@ -97,7 +97,7 @@ public:
 };
 
 template <typename OutStream>
-void ResidualsObservations(GNU_gama::local::LocalNetwork* IS, OutStream& out)
+void residualsObservations(GNU_gama::local::LocalNetwork* IS, OutStream& out)
 {
   if(IS->degrees_of_freedom() <= 1) return;
 
@@ -293,7 +293,7 @@ void ResidualsObservations(GNU_gama::local::LocalNetwork* IS, OutStream& out)
 
         float  ks, prob;
         GNU_gama::KStest(pv.begin(),
-                         pocmer, ResidualsObservations_N01, ks, prob);
+                         pocmer, residualsObservations_N01, ks, prob);
 
 
         out.setf(ios_base::fixed, ios_base::floatfield);

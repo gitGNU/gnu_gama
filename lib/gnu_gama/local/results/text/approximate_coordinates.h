@@ -30,7 +30,7 @@
 namespace GNU_gama { namespace local {
 
 template <typename OutStream>
-void ApproximateCoordinates(GNU_gama::local::Acord* acord, OutStream& out)
+void approximateCoordinates(GNU_gama::local::Acord* acord, OutStream& out)
 {
    using namespace std;
    using namespace GNU_gama::local;

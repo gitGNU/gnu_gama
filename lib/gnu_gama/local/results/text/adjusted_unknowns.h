@@ -29,7 +29,7 @@
 namespace GNU_gama { namespace local {
 
 template <typename OutStream>
-void AdjustedUnknowns(GNU_gama::local::LocalNetwork* IS, OutStream& out)
+void adjustedUnknowns(GNU_gama::local::LocalNetwork* IS, OutStream& out)
 {
   using namespace std;
   using namespace GNU_gama::local;

@@ -30,7 +30,7 @@
 namespace GNU_gama { namespace local {
 
 template <typename OutStream>
-void ErrorEllipses(GNU_gama::local::LocalNetwork* IS, OutStream& out)
+void errorEllipses(GNU_gama::local::LocalNetwork* IS, OutStream& out)
 {
    using namespace std;
    using namespace GNU_gama::local;

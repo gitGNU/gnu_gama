@@ -44,7 +44,7 @@ namespace GNU_gama { namespace local {
  * \todo Consider using visitor pattern for writing S_Distance, Z_Angle and H_Diff.
  */
 template <typename OutStream>
-void ReducedObservationsToEllipsoidText(GNU_gama::local::LocalNetwork* IS,
+void reducedObservationsToEllipsoidText(GNU_gama::local::LocalNetwork* IS,
                            const ReduceToEllipsoid::ObsMap& reduced, OutStream& out)
 {
    using namespace std;

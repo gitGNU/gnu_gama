@@ -451,7 +451,7 @@ int main(int argc, char **argv)
           }
         Acord acord(IS->PD, IS->OD);
         acord.execute();
-        ReducedObservationsText(IS,&(acord.RO), cout);
+        reducedObservationsText(IS,&(acord.RO), cout);
 
         if (IS->correction_to_ellipsoid())
           {
@@ -461,10 +461,10 @@ int main(int argc, char **argv)
             GNU_gama::set(&el, elnum);
             ReduceToEllipsoid reduce_to_el(IS->PD, IS->OD, el, IS->latitude());
             reduce_to_el.execute();
-            ReducedObservationsToEllipsoidText(IS, reduce_to_el.getMap(), cout);
+            reducedObservationsToEllipsoidText(IS, reduce_to_el.getMap(), cout);
           }
 
-        ApproximateCoordinates(&acord, cout);
+        approximateCoordinates(&acord, cout);
 
       }
     catch(GNU_gama::local::Exception e)
@@ -512,9 +512,9 @@ int main(int argc, char **argv)
         bool network_can_be_adjusted;
         {
           std::ostringstream tmp_out;
-          if (!(network_can_be_adjusted = GeneralParameters(IS, tmp_out)))
+          if (!(network_can_be_adjusted = generalParameters(IS, tmp_out)))
             {
-              NetworkDescription(IS->description, cout);
+              networkDescription(IS->description, cout);
               cout << tmp_out.str();
             }
         }
@@ -540,13 +540,13 @@ int main(int argc, char **argv)
 
             if (!TestLinearization(IS, cout)) cout << "\n";
 
-            NetworkDescription   (IS->description, cout);
-            GeneralParameters    (IS, cout);
-            FixedPoints          (IS, cout);
-            AdjustedUnknowns     (IS, cout);
-            ErrorEllipses        (IS, cout);
+            networkDescription   (IS->description, cout);
+            generalParameters    (IS, cout);
+            fixedPoints          (IS, cout);
+            adjustedUnknowns     (IS, cout);
+            errorEllipses        (IS, cout);
             AdjustedObservations (IS, cout);
-            ResidualsObservations(IS, cout);
+            residualsObservations(IS, cout);
           }
 
         if (argv_svgout)

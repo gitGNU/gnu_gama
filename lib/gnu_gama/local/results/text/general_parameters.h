@@ -48,7 +48,7 @@ namespace GNU_gama { namespace local {
  * \todo Replace \c dynamic_cast by visitor and consider why other observation types are ignored.
  */
 template <typename OutStream>
-bool GeneralParameters(GNU_gama::local::LocalNetwork* IS, OutStream& out)
+bool generalParameters(GNU_gama::local::LocalNetwork* IS, OutStream& out)
 {
   using namespace std;
   using namespace GNU_gama::local;

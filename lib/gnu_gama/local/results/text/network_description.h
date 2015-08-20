@@ -29,7 +29,7 @@
 namespace GNU_gama { namespace local {
 
 template <typename OutStream>
-void NetworkDescription(const std::string& description, OutStream& out)
+void networkDescription(const std::string& description, OutStream& out)
 {
    using namespace std;
    using namespace GNU_gama::local;

@@ -45,7 +45,7 @@ namespace GNU_gama { namespace local {
  * \todo Use visitor pattern for writing S_Distance, Z_Angle and H_Diff.
  */
 template <typename OutStream>
-void ReducedObservationsText(GNU_gama::local::LocalNetwork* IS,
+void reducedObservationsText(GNU_gama::local::LocalNetwork* IS,
                              GNU_gama::local::ReducedObservations* reduced,
                              OutStream& out)
 {
