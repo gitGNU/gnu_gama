@@ -1,7 +1,7 @@
 /*
     GNU Gama C++ library
     Copyright (C) 2002 Jan Pytel  <pytel@fsv.cvut.cz>
-                  2010 Ales Cepek <cepek@gnu.org>
+                  2010, 2015 Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library
 
@@ -25,6 +25,8 @@
 
 using namespace std;
 using namespace GNU_gama::local;
+
+namespace {
 
 const Double EarthRadius = 6378000;  // [m]
 
@@ -65,6 +67,8 @@ private:
     unsigned int number_of_values;
 };
 
+}   // unnamed namespace
+
 
 ReducedObservations::ReducedObservations(PointData& b, ObservationData& m):
     PD(b), OD(m)
@@ -81,7 +85,7 @@ ReducedObservations::ReducedObservations(PointData& b, ObservationData& m):
 
       if (dynamic_cast<S_Distance*>(obs) ||
           dynamic_cast<Z_Angle*   >(obs) ||
-          dynamic_cast<Ydiff*     >(obs)  ) list_reduced_obs.push_back(obs);
+          dynamic_cast<Zdiff*     >(obs)  ) list_reduced_obs.push_back(obs);
     }
 }
 
@@ -93,10 +97,10 @@ void ReducedObservations::reduce(ReducedObs& r_obs)
       reduce_sdistance(&r_obs);
     else if (dynamic_cast<Z_Angle*>(obs))
       reduce_zangle(&r_obs);
-    else if (dynamic_cast<Ydiff*>(obs))
-      reduce_ydiff(&r_obs);
+    else if (dynamic_cast<Zdiff*>(obs))
+      reduce_zdiff(&r_obs);
     else
-      ; // !? Must I throw exception here ?
+      ;
 }
 
 
@@ -338,9 +342,9 @@ void ReducedObservations::reduce_zangle(ReducedObs* r_obs)
 }
 
 
-void ReducedObservations::reduce_ydiff(ReducedObs* r_obs)
+void ReducedObservations::reduce_zdiff(ReducedObs* r_obs)
 {
-    Ydiff* obs = dynamic_cast<Ydiff*>(r_obs->ptr_obs);
+    Zdiff* obs = dynamic_cast<Zdiff*>(r_obs->ptr_obs);
 
     if ( !obs )
 	return;

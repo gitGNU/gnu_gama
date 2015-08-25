@@ -1,6 +1,7 @@
 /*
     GNU Gama -- adjustment of geodetic networks
     Copyright (C) 2002,2003  Jan Pytel  <pytel@gama.fsv.cvut.cz>
+    2015 Ales Cepek <cepek@gnu.org>
 
     This file is part of the GNU Gama C++ library.
 
@@ -29,7 +30,7 @@
 
 namespace GNU_gama { namespace local {
 
-  struct TypeOfZAngles;
+  // struct TypeOfZAngles;
 
   class ReducedObservations
     {
@@ -127,7 +128,7 @@ namespace GNU_gama { namespace local {
 
 	void reduce_sdistance( ReducedObs* );
 	void reduce_zangle   ( ReducedObs* );
-	void reduce_ydiff    ( ReducedObs* );
+	void reduce_zdiff    ( ReducedObs* );
 
 	size_t number_of_reduced_observations_with_attribute(size_t attrib) const
 	{
