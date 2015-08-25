@@ -76,7 +76,7 @@ lib/gnu_gama/local/language.html
 #
 # CLion
 .idea
-CMakeLists.txt
+CMakeLists.txt*
 #
 # NetBeans
 nbproject
