@@ -52,6 +52,9 @@ namespace GNU_gama {
       void        push_back(T* t) { vec.push_back(t);   }
       void        pop_back()      { vec.pop_back();     }
       void        clear()         { vec.clear();        }
+      const T*    back() const    { return static_cast<const T*>(vec.back()); }
+      T*          back()          { return static_cast<T*>(vec.back()); }
+
 
 
       class const_iterator

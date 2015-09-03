@@ -48,7 +48,11 @@ void LocalLinearizationVisitor::direction(const Direction* obs) const
    while (a < -200e4) a += 400e4;
    rhs = a;                                                    // rhs in cc
 
-   //std::cerr << "XXX " << std::fixed << a << " " << obsval << " " << sp->orientation() << " " << s << std::endl;
+   std::cerr << "DIRECTION from " << obs->from() << " to " << obs->to() << "\trhs "
+             << std::fixed << rhs << "\t obsval orpos s "
+             << obsval/M_PI*200 << " "
+             << sp->orientation()/M_PI*200 << " "
+             << s/M_PI*200 << std::endl;
 
    size = 0;
    if (!sp->index_orientation()) sp->index_orientation(++maxn);

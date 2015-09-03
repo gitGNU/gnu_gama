@@ -41,7 +41,7 @@ copy_horizontal(const ObservationData& from, ObservationList& to)
         Observation* obs = const_cast<Observation*>(*i);
 
         if      (dynamic_cast<Direction*>(obs))  to.push_back(obs);
-        else if (dynamic_cast<Angle*    >(obs))  to.push_back(obs);
+        // else if (dynamic_cast<Angle*    >(obs))  to.push_back(obs);
         else if (dynamic_cast<Distance *>(obs))  to.push_back(obs);
     }
 }

@@ -27,7 +27,7 @@
 #include <gnu_gama/local/acord/reduce_to_ellipsoid.h>
 #include <fstream>
 #include <algorithm>
-#include <list>
+#include <map>
 #include <set>
 
 namespace GNU_gama { namespace local {
@@ -52,6 +52,9 @@ namespace GNU_gama { namespace local {
 
     private:
       std::set<PointID> set_xyz, set_xy, set_z;
+      int sp_count;
+      std::multimap<PointID, Angle*> angles;
+      void angles2directions();
     };
 
 }}   // namespace GNU_gama::local
