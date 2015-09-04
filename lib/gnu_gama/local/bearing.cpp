@@ -24,30 +24,27 @@
 namespace GNU_gama { namespace local {
 
     double
-    bearing(double dx, double dy, bool consistent)
+    bearing(double dx, double dy)
     {
-       if (dy == 0 && dx == 0)
+       if (dx*dx + dy*dy < 1e-6)   // 1mm tolerance
           throw Exception(T_POBS_computation_of_bearing_for_identical_points);
 
-       double b {};
-       if (consistent) b =  std::atan2( dy, dx);
-       else            b = -std::atan2(-dy, dx);
+       double b = std::atan2(dy, dx);
        return b >= 0 ? b : b + 2 * M_PI;
     }
 
     double
-    bearing(const LocalPoint& from, const LocalPoint& to, bool consistent)
+    bearing(const LocalPoint &from, const LocalPoint &to)
     {
-       return bearing(to.x()- from.x(), to.y()- from.y(), consistent);
+       return bearing(to.x() - from.x(), to.y() - from.y());
     }
 
     void
-    bearing_distance(const LocalPoint& from, const LocalPoint& to,
-                     bool consistent, double& br, double& d)
+    bearing_distance(const LocalPoint &from, const LocalPoint &to, double &br, double &d)
     {
         double dx = to.x() - from.x();
         double dy = to.y() - from.y();
-        br = bearing(dx, dy, consistent);
+        br = bearing(dx, dy);
         d  = std::sqrt(dx*dx + dy*dy);
     }
 

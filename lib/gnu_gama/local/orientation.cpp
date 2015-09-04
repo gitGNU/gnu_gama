@@ -93,7 +93,7 @@ void Orientation::orientation(ObservationList::const_iterator& mer,
               double zn;
               try
                 {
-                  zn = bearing((*pa).second, (*pb).second, PL.consistent());
+                  zn = bearing((*pa).second, (*pb).second);
                 }
               catch (GNU_gama::local::Exception e)
                 {

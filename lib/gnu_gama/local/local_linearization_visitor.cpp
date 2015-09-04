@@ -32,7 +32,7 @@ void LocalLinearizationVisitor::direction(const Direction* obs) const
    LocalPoint& sbod = PD[obs->from()];
    LocalPoint& cbod = PD[obs->to()];
    Double s, d;
-   bearing_distance(sbod, cbod, PD.consistent(), s, d);
+   bearing_distance(sbod, cbod, s, d);
    // const Double p = m0 / obs->stdDev();
    const Double K = 10*R2G/d;
    const Double ps = K*sin(s);
@@ -42,17 +42,11 @@ void LocalLinearizationVisitor::direction(const Direction* obs) const
    StandPoint* sp = const_cast<StandPoint*>(csp);
 
    // Double w = p*p;                                          // weight
-   double obsval = consistent ? obs->value() : -obs->value();
+   double obsval = consistent ? obs->value() : 2*M_PI-obs->value();
    Double a = (obsval + sp->orientation() - s)*R2CC;
    while (a >  200e4) a -= 400e4;
    while (a < -200e4) a += 400e4;
    rhs = a;                                                    // rhs in cc
-
-   std::cerr << "DIRECTION from " << obs->from() << " to " << obs->to() << "\trhs "
-             << std::fixed << rhs << "\t obsval orpos s "
-             << obsval/M_PI*200 << " "
-             << sp->orientation()/M_PI*200 << " "
-             << s/M_PI*200 << std::endl;
 
    size = 0;
    if (!sp->index_orientation()) sp->index_orientation(++maxn);
@@ -89,7 +83,7 @@ void LocalLinearizationVisitor::distance(const Distance* obs) const
    LocalPoint& sbod = PD[obs->from()];
    LocalPoint& cbod = PD[obs->to()];
    Double s, d;
-   bearing_distance(PD[obs->from()], PD[obs->to()], PD.consistent(), s, d);
+   bearing_distance(PD[obs->from()], PD[obs->to()], s, d);
    // Double p = M_0 / stdDev();
    Double ps = sin(s);
    Double pc = cos(s);
@@ -431,8 +425,8 @@ void LocalLinearizationVisitor::angle(const Angle* obs) const
    LocalPoint& cbod1 = PD[obs->bs()];
    LocalPoint& cbod2 = PD[obs->fs()];
    Double s1, d1, s2, d2;
-   bearing_distance(PD[obs->from()], PD[obs->bs()], PD.consistent(), s1, d1);
-   bearing_distance(PD[obs->from()], PD[obs->fs()], PD.consistent(), s2, d2);
+   bearing_distance(PD[obs->from()], PD[obs->bs()], s1, d1);
+   bearing_distance(PD[obs->from()], PD[obs->fs()], s2, d2);
    // Double p = m0 / obs->stdDev();
    const Double K1 = 10*R2G/d1;
    const Double K2 = 10*R2G/d2;
@@ -494,7 +488,7 @@ void LocalLinearizationVisitor::azimuth(const Azimuth* obs) const
    LocalPoint& sbod = PD[obs->from()];
    LocalPoint& cbod = PD[obs->to()];
    Double s, d;
-   bearing_distance(sbod, cbod, PD.consistent(), s, d);
+   bearing_distance(sbod, cbod, s, d);
    const Double K = 10*R2G/d;
    const Double ps = K*sin(s);
    const Double pc = K*cos(s);

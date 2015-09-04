@@ -66,7 +66,7 @@ namespace GNU_gama { namespace local {
       Direction* makeBearing(const Angle* u, const PointID& cb)
         {
           PointID point = (u->to() == cb ? u->fs() : u->to());
-          Double sm = bearing(SB[u->from()],SB[point], SB.consistent());
+          Double sm = bearing(SB[u->from()], SB[point]);
           sm += (u->to() == cb ? -u->value() : u->value());
           sm += (sm < 0 ? 2*M_PI : 0);
           sm -= (sm >= 2*M_PI ? 2*M_PI : 0);

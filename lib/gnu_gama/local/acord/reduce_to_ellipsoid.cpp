@@ -133,8 +133,8 @@ bool ReduceToEllipsoid::reduce_z_angle_to_ellipsoid(Z_Angle* obs)
     if ( !p2.active_xy() || !p2.test_xy() || !p3.active_xy() || !p3.test_xy() )
         return false;
 
-    const double bearing21 = bearing(p2, EF.getCentralPoint(), PD.consistent());
-    const double bearing23 = bearing(p2, p3, PD.consistent());
+    const double bearing21 = bearing(p2, EF.getCentralPoint());
+    const double bearing23 = bearing(p2, p3);
 
     double correction = +EF.central_angle12(p2)*cos(bearing23 - bearing21);
                   //  = -EF.central_angle23(p2,p3)*cos(bearing23 - bearing21);
@@ -157,8 +157,8 @@ bool ReduceToEllipsoid::reduce_direction_to_ellipsoid(Direction* obs)
     if ( !p2.active_xy() || !p2.test_xy() || !p3.active_xy() || !p3.test_xy() )
         return false;
 
-    const double bearing21 = bearing(p2, EF.getCentralPoint(), PD.consistent());
-    const double bearing23 = bearing(p2, p3, PD.consistent());
+    const double bearing21 = bearing(p2, EF.getCentralPoint());
+    const double bearing23 = bearing(p2, p3);
 
     double zenithSum = 0;
     int zenithNum    = 0;

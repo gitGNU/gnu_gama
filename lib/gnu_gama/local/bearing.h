@@ -26,11 +26,11 @@
 
 namespace GNU_gama { namespace local {
 
-double bearing(double dx, double dy, bool consistent);
-double bearing(const LocalPoint& from, const LocalPoint& to, bool consistent);
+double bearing(double dx, double dy);
+double bearing(const LocalPoint &from, const LocalPoint &to);
 
-void bearing_distance(const LocalPoint& from, const LocalPoint& to,bool consistent,
-                      double& br, double& d);
+void bearing_distance(const LocalPoint &from, const LocalPoint &to,
+                      double &br, double &d);
 
 }}
 
