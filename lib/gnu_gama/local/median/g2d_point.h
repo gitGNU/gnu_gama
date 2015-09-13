@@ -145,7 +145,7 @@ namespace GNU_gama { namespace local {
         {
           return state_;
         }
-      LocalPoint Solution()
+      LocalPoint solution()
         {
           if(state_ == calculation_not_done)
             throw g2d_exc("ApproxPoint: computation not done");

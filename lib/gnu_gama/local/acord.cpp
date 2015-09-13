@@ -61,7 +61,7 @@ void Acord::execute()
 {
   try
     {
-      int all;
+      int all {0};
 
       // ReducedObservations RO(PD, OD);
       RO.execute();
@@ -157,12 +157,12 @@ void Acord::execute()
           // insert standpoint into `observation data'
           OD.clusters.push_back(standpoint);
 
-          angles2directions();
+          // angles2directions();
 
-          std::cerr << "\n before \n" << PD << OD;
+          // std::cerr << __FILE__ << " " << __LINE__ << "\nBEFORE \n" << PD << OD;
           ApproximateCoordinates ps(PD, OD);
           ps.calculation();
-          std::cerr << "\n after \n" << PD;
+          // std::cerr << __FILE__ << " " << __LINE__ << "\n AFTER \n" << PD;
           // intersections with very small angles only in the second loop
           if (loop == 2 && ps.small_angle_detected())
             {
@@ -251,13 +251,15 @@ void Acord::execute()
     }
 }
 
+#if 0
 void Acord::angles2directions()
 {
   for (;;) {
     auto a = begin(angles);
     if (a == angles.end()) return;
 
-    std::cerr << "\nAngle from " << a->first << " "
+    std::cerr << __FILE__ << " " << __LINE__
+              << "\nAngle from " << a->first << " "
               << a->second->bs() << " " << a->second->fs() << " value "
               << a->second->value()/M_PI*200 << std::endl;
     PointID from = a->second->from();
@@ -273,16 +275,11 @@ void Acord::angles2directions()
       repeat = false;
       auto range = angles.equal_range(from);
       for (auto it = range.first; it != range.second; it++) {
-        std::cerr << "           " << it->first << " "
-        << it->second->bs() << " " << it->second->fs() << " value "
-        << it->second->value() / M_PI * 200 << std::endl;
-
         int test = 0;
         auto itbs = targets.find(it->second->bs());
         auto itfs = targets.find(it->second->fs());
         if (itbs != targets.end()) test += 1;
         if (itfs != targets.end()) test += 2;
-        std::cerr << "XXX test = " << test << "\n";
         if (test == 0 || test == 3) continue;
 
         if (test == 1) targets[it->second->fs()] = itbs->second + it->second->value();
@@ -297,7 +294,6 @@ void Acord::angles2directions()
     StandPoint* standpoint = new StandPoint(&OD);
     for (auto x : targets)
     {
-      std::cerr << x.first << " " << x.second/M_PI*200 << std::endl;
       Direction* d = new Direction(from, x.first, x.second);
       standpoint->observation_list.push_back(d);
     }
@@ -306,3 +302,4 @@ void Acord::angles2directions()
     sp_count++;
   }
 }
+#endif

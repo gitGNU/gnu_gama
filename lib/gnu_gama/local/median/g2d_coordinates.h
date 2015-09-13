@@ -60,7 +60,7 @@ namespace GNU_gama { namespace local {
       // number of points with known coordinates
       int known_coordinates_;
 
-      bool absent(PointID cb)
+      bool not_in_selected(PointID cb)
         {
           return
             (std::find(selected.begin(),selected.end(),cb) == selected.end());

@@ -1,7 +1,7 @@
 /*
     GNU Gama -- adjustment of geodetic networks
     Copyright (C) 1999  Jiri Vesely <vesely@gama.fsv.cvut.cz>
-                  2001, 2013, 2014  Ales Cepek  <cepek@fsv.cvut.cz>
+                  2001, 2013, 2014, 2015  Ales Cepek  <cepek@fsv.cvut.cz>
 
     This file is part of the GNU Gama C++ library.
 
@@ -41,7 +41,7 @@ copy_horizontal(const ObservationData& from, ObservationList& to)
         Observation* obs = const_cast<Observation*>(*i);
 
         if      (dynamic_cast<Direction*>(obs))  to.push_back(obs);
-        // else if (dynamic_cast<Angle*    >(obs))  to.push_back(obs);
+        else if (dynamic_cast<Angle*    >(obs))  to.push_back(obs);
         else if (dynamic_cast<Distance *>(obs))  to.push_back(obs);
     }
 }
@@ -72,7 +72,7 @@ bool ApproximateCoordinates::solvable_data(PointData& b)
   if (i == b.end()) return false;
   do
     {
-      tmp = (*i).second.test_xy() && absent((*i).first);
+      tmp = (*i).second.test_xy() && not_in_selected((*i).first);
       if(first)
         second = tmp;
       else
@@ -140,22 +140,22 @@ void ApproximateCoordinates::find_missing_coordinates()
   // from observation list points we fetch points that are not in SB
   for(ObservationList::iterator i = SM.begin(); i != SM.end(); i++)
     {
-      if((SB.find((*i)->from()) == SB.end()) && absent((*i)->from()))
+      if((SB.find((*i)->from()) == SB.end()) && not_in_selected((*i)->from()))
         selected.push_back((*i)->from());
-      if((SB.find((*i)->to()) == SB.end()) && absent((*i)->to()))
+      if((SB.find((*i)->to()) == SB.end()) && not_in_selected((*i)->to()))
         selected.push_back((*i)->to());
       // is second target available?
       Angle*u = dynamic_cast<Angle*>(*i);
-      if(u && (SB.find(u->fs()) == SB.end()) && absent(u->fs()))
+      if(u && (SB.find(u->fs()) == SB.end()) && not_in_selected(u->fs()))
         selected.push_back(u->fs());
     }
 
   // from point list we fetch the points with test_xy() == false
   for(PointData::iterator i = SB.begin(); i != SB.end(); i++)
-    if((!(*i).second.test_xy()) && absent((*i).first))
+    if((!(*i).second.test_xy()) && not_in_selected((*i).first))
       selected.push_back((*i).first);
 
-  // final sort and removal of duplicities in the list of seleted points
+  // final sort and removal of duplicities in the list of selected points
   selected.sort();
   selected.unique();
 
@@ -201,7 +201,7 @@ bool ApproximateCoordinates::solve_intersection(PointData& points,
             {
               finished = false;
               success = true;
-              bb = PB.Solution();
+              bb = PB.solution();
               j = points.find(*i);
               if(j != points.end())
                 (*j).second.set_xy(bb.x(), bb.y());
@@ -285,14 +285,14 @@ bool ApproximateCoordinates::solve_insertion()
    * };
    */
 
-  int number_of_given = 0;
+  int number_of_given_points = 0;
   for(PointIDList::iterator i = obs_points.begin(); i != obs_points.end(); i++)
-    if(absent(*i))
-      number_of_given++;
+    if(not_in_selected(*i))
+      number_of_given_points++;
 
   // not enough given points needed for transformation from local
   // coordinate system (cs)
-  if(number_of_given < 2)
+  if(number_of_given_points < 2)
     return false;
 
   PointData local_s;
@@ -308,8 +308,8 @@ bool ApproximateCoordinates::solve_insertion()
    */
 
   // local coordinate system (cs) must be defined now
-  const Double pom_Y = 1000;
-  const Double pom_X = 5000;
+  const Double pom_Y = 0;
+  const Double pom_X = 0;
   const Double const_distance = 1000;
   PointID local_cs_1, local_cs_2;
   if(first_distance != SM.end())
@@ -329,9 +329,39 @@ bool ApproximateCoordinates::solve_insertion()
   obs_points.remove(local_cs_1);
   obs_points.remove(local_cs_2);
 
+  // void all orientation shifts in local observation data
+  if (0) // #####
+  for (auto cluster : OD_local.clusters)
+  {
+    if (StandPoint* sp = dynamic_cast<StandPoint*>(cluster))
+    {
+      sp->delete_orientation();
+
+      // if      (sp->station == local_cs_1) sp->set_orientation(0);
+      // else if (sp->station == local_cs_2) sp->set_orientation(M_PI);
+
+      for (Observation* obs : sp->observation_list)
+      {
+        if (Direction* d = dynamic_cast<Direction*>(obs))
+        {
+          if (d->from() == local_cs_1) {
+            sp->set_orientation(0);
+            break;
+          }
+          else if (d->from() == local_cs_2) {
+            sp->set_orientation(M_PI);
+            break;
+          }
+        }
+      }
+    }
+  }
+
   // calculation of coordinates in local coordinate system
   ApproximateCoordinates local_solution(local_s, OD_local, depth + 1);
+  std::cerr << __FILE__ << " " << __LINE__ << "\n" << local_s << OD_local;
   local_solution.calculation();
+  std::cerr << __FILE__ << " " << __LINE__ << "\n" << local_s;
   if(local_solution.solved().empty())
     return false;
 
@@ -356,6 +386,7 @@ bool ApproximateCoordinates::solve_insertion()
   if(transf.state() < unique_solution)
     return false;
   PointData vysledek = transf.transf_points();
+  //std::cerr << __FILE__ << " " << __LINE__ << "\n" << vysledek;
   if(vysledek.empty())
     return false;
 

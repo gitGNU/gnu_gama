@@ -54,7 +54,7 @@ namespace GNU_gama { namespace local {
       std::set<PointID> set_xyz, set_xy, set_z;
       int sp_count;
       std::multimap<PointID, Angle*> angles;
-      void angles2directions();
+      // void angles2directions();
     };
 
 }}   // namespace GNU_gama::local
