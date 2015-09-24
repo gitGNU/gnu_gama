@@ -43,9 +43,13 @@ void LocalLinearizationVisitor::direction(const Direction* obs) const
 
    // Double w = p*p;                                          // weight
    double obsval = consistent ? obs->value() : 2*M_PI-obs->value();
+   /*
    Double a = (obsval + sp->orientation() - s)*R2CC;
    while (a >  200e4) a -= 400e4;
    while (a < -200e4) a += 400e4;
+   */
+   double a = (obsval + sp->orientation() - s);
+   a = std::asin(std::sin(a))*R2CC;
    rhs = a;                                                    // rhs in cc
 
    size = 0;
