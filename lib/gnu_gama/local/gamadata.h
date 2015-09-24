@@ -46,7 +46,7 @@ namespace GNU_gama { namespace local {
     public:
       double xNorthAngle() const;
       bool   consistent()  const {
-	return left_handed_coordinates() == left_handed_angles();
+	    return left_handed_coordinates() == left_handed_angles();
       }
     };
 

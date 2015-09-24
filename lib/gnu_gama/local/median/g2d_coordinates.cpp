@@ -185,35 +185,32 @@ bool ApproximateCoordinates::solve_intersection(PointData& points,
   if(what.empty()) return false;
 
   ApproxPoint PB(&points,&SM);
-  bool finished = false;
   bool success = false;
-  LocalPoint bb;
-  PointIDList::iterator i;
-  PointData::iterator j;
-  while (!finished)
-    {
-      finished = true;
-      i = what.begin();
-      while(i != what.end())
-        {
-          PB.calculation(*i);
-          if(PB.state() == unique_solution)
-            {
-              finished = false;
-              success = true;
-              bb = PB.solution();
-              j = points.find(*i);
-              if(j != points.end())
-                (*j).second.set_xy(bb.x(), bb.y());
-              else
-                points[*i] = LocalPoint::XY(bb.x(), bb.y());
-              solved_pd[*i] = bb;
-              i = what.erase(i);
-            }
-          else
-            i++;
+
+  bool finished {};
+  do {
+    finished = true;
+    PointIDList::iterator pidit = what.begin();
+    while (pidit != what.end()) {
+      PB.calculation(*pidit);
+      if (PB.state() == unique_solution) {
+        finished = false;
+        success = true;
+        LocalPoint bb = PB.solution();
+        PointData::iterator j = points.find(*pidit);
+        if (j != points.end()) {
+          (*j).second.set_xy(bb.x(), bb.y());
+        } else {
+          points[*pidit] = LocalPoint::XY(bb.x(), bb.y());
         }
+        solved_pd[*pidit] = bb;
+        pidit = what.erase(pidit);
+      }
+      else {
+        pidit++;
+      }
     }
+  } while (!finished);
 
   return success;
 
@@ -296,11 +293,9 @@ bool ApproximateCoordinates::solve_insertion()
     return false;
 
   PointData local_s;
-  // removed in 1.7.14   for(PointIDList::iterator i = obs_points.begin();
-  // removed in 1.7.14       i != obs_points.end(); i++)
-  // removed in 1.7.14     local_s[*i] = LocalPoint();
-
   ObservationData OD_local = OD;                // ... deep copy
+  //local_s.local_coordinate_system = LocalCoordinateSystem(SB.local_coordinate_system);
+  local_s.local_coordinate_system = SB.local_coordinate_system;
   /* ObservationList& SM_local(OD_local.OL);   // gnu_gama/local-1.1.13 (AC)
    *   for(ObservationList::iterator i = SM.begin(); i != SM.end(); i++)
    *     if(Local_observation(i, obs_points))
@@ -329,9 +324,8 @@ bool ApproximateCoordinates::solve_insertion()
   obs_points.remove(local_cs_1);
   obs_points.remove(local_cs_2);
 
-  // void all orientation shifts in local observation data
-  if (0) // #####
-  for (auto cluster : OD_local.clusters)
+#if THIS_BLOCK_IS_IGNORED
+  // void all orientation shifts in local observation data  for (auto cluster : OD_local.clusters)
   {
     if (StandPoint* sp = dynamic_cast<StandPoint*>(cluster))
     {
@@ -356,12 +350,11 @@ bool ApproximateCoordinates::solve_insertion()
       }
     }
   }
+#endif
 
   // calculation of coordinates in local coordinate system
   ApproximateCoordinates local_solution(local_s, OD_local, depth + 1);
-  std::cerr << __FILE__ << " " << __LINE__ << "\n" << local_s << OD_local;
   local_solution.calculation();
-  std::cerr << __FILE__ << " " << __LINE__ << "\n" << local_s;
   if(local_solution.solved().empty())
     return false;
 
@@ -430,14 +423,16 @@ void ApproximateCoordinates::computational_loop()
       selected.erase(pozice);
     }
 
-  bool finished = false;
-  while(!finished)
-    {
+  bool finished {};
+  do {
+      // solve_intersection returns true if at least one point was solved
       finished = !solve_intersection(SB, selected);
+
       // compute insertion
-      if(!selected.empty())
-        finished = finished && (!solve_insertion());
-    }
+      if(!selected.empty()) {
+        finished = finished && !solve_insertion();
+      }
+  } while(!finished && !selected.empty());
 
   // return unsolvable points back
   selected.insert(selected.end(), unsolvable.begin(), unsolvable.end());
