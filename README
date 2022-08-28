@@ -1,3 +1,10 @@
+This repository https://github.com/gitGNU/gnu_gama/ is obsolete and not maintained
+and should be removed.
+
+Please visit official page of GNU Gama project https://www.gnu.org/software/gama/
+
+*********
+
 GNU package Gama is a C++ free software for geodesy released under GNU
 General Public Licence. Project Gama was started in 1998, in 2001 was
 dubbed a GNU packaqe and today contains the following main components:
